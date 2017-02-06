@@ -14,15 +14,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Comment
+ * This class is binder map for Comment
  *
  * @see Comment
  */
 @BindMap(Comment.class)
 public class CommentBindMap extends AbstractMapper<Comment> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Comment object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -60,9 +57,6 @@ public class CommentBindMap extends AbstractMapper<Comment> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Comment object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -99,7 +93,7 @@ public class CommentBindMap extends AbstractMapper<Comment> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Comment object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -146,7 +140,7 @@ public class CommentBindMap extends AbstractMapper<Comment> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Comment parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -199,7 +193,7 @@ public class CommentBindMap extends AbstractMapper<Comment> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Comment parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -252,7 +246,7 @@ public class CommentBindMap extends AbstractMapper<Comment> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Comment parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

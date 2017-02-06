@@ -14,15 +14,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Post
+ * This class is binder map for Post
  *
  * @see Post
  */
 @BindMap(Post.class)
 public class PostBindMap extends AbstractMapper<Post> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Post object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -54,9 +51,6 @@ public class PostBindMap extends AbstractMapper<Post> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Post object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -87,7 +81,7 @@ public class PostBindMap extends AbstractMapper<Post> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Post object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -127,7 +121,7 @@ public class PostBindMap extends AbstractMapper<Post> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Post parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -174,7 +168,7 @@ public class PostBindMap extends AbstractMapper<Post> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Post parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -221,7 +215,7 @@ public class PostBindMap extends AbstractMapper<Post> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Post parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

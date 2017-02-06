@@ -22,7 +22,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * This class is the shared preference binder defined for Bean74
+ * This class is binder map for Bean74
  *
  * @see Bean74
  */
@@ -32,9 +32,6 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
    * Bean74BindMap */
   private Bean74BindMap bean74BindMap = this;
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Bean74 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -146,9 +143,6 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Bean74 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -265,7 +259,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Bean74 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -376,7 +370,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Bean74 parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -496,7 +490,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Bean74 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -690,7 +684,7 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Bean74 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

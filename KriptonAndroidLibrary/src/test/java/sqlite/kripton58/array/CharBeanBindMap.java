@@ -18,15 +18,12 @@ import java.lang.Override;
 import java.util.ArrayList;
 
 /**
- * This class is the shared preference binder defined for CharBean
+ * This class is binder map for CharBean
  *
  * @see CharBean
  */
 @BindMap(CharBean.class)
 public class CharBeanBindMap extends AbstractMapper<CharBean> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(CharBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -76,9 +73,6 @@ public class CharBeanBindMap extends AbstractMapper<CharBean> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(CharBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -136,7 +130,7 @@ public class CharBeanBindMap extends AbstractMapper<CharBean> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(CharBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -197,7 +191,7 @@ public class CharBeanBindMap extends AbstractMapper<CharBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public CharBean parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -260,7 +254,7 @@ public class CharBeanBindMap extends AbstractMapper<CharBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public CharBean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -333,7 +327,7 @@ public class CharBeanBindMap extends AbstractMapper<CharBean> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public CharBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

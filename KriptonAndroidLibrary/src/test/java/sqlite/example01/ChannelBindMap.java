@@ -14,15 +14,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Channel
+ * This class is binder map for Channel
  *
  * @see Channel
  */
 @BindMap(Channel.class)
 public class ChannelBindMap extends AbstractMapper<Channel> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Channel object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -60,9 +57,6 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Channel object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -99,7 +93,7 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Channel object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -146,7 +140,7 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Channel parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -199,7 +193,7 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Channel parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -252,7 +246,7 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Channel parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

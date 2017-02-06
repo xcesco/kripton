@@ -14,15 +14,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for UserAccessToken
+ * This class is binder map for UserAccessToken
  *
  * @see UserAccessToken
  */
 @BindMap(UserAccessToken.class)
 public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(UserAccessToken object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -44,9 +41,6 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(UserAccessToken object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -68,7 +62,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(UserAccessToken object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -96,7 +90,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public UserAccessToken parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -133,7 +127,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public UserAccessToken parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -170,7 +164,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public UserAccessToken parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

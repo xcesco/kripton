@@ -20,7 +20,7 @@ import sqlite.kripton58.BeanInner;
 import sqlite.kripton58.BeanInnerBindMap;
 
 /**
- * This class is the shared preference binder defined for BeanBean
+ * This class is binder map for BeanBean
  *
  * @see BeanBean
  */
@@ -30,9 +30,6 @@ public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
    * BeanInnerBindMap */
   private BeanInnerBindMap beanInnerBindMap = AbstractContext.mapperFor(BeanInner.class);
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(BeanBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -86,9 +83,6 @@ public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(BeanBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -154,7 +148,7 @@ public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(BeanBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -219,7 +213,7 @@ public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public BeanBean parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -282,7 +276,7 @@ public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public BeanBean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -355,7 +349,7 @@ public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public BeanBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

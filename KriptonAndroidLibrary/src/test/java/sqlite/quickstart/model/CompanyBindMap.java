@@ -13,15 +13,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Company
+ * This class is binder map for Company
  *
  * @see Company
  */
 @BindMap(Company.class)
 public class CompanyBindMap extends AbstractMapper<Company> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Company object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -51,9 +48,6 @@ public class CompanyBindMap extends AbstractMapper<Company> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Company object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -84,7 +78,7 @@ public class CompanyBindMap extends AbstractMapper<Company> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Company object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -121,7 +115,7 @@ public class CompanyBindMap extends AbstractMapper<Company> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Company parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -166,7 +160,7 @@ public class CompanyBindMap extends AbstractMapper<Company> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Company parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -211,7 +205,7 @@ public class CompanyBindMap extends AbstractMapper<Company> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Company parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

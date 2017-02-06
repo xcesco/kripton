@@ -18,15 +18,12 @@ import java.lang.Override;
 import java.util.ArrayList;
 
 /**
- * This class is the shared preference binder defined for LongBean
+ * This class is binder map for LongBean
  *
  * @see LongBean
  */
 @BindMap(LongBean.class)
 public class LongBeanBindMap extends AbstractMapper<LongBean> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(LongBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -76,9 +73,6 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(LongBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -136,7 +130,7 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(LongBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -197,7 +191,7 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public LongBean parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -260,7 +254,7 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public LongBean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -333,7 +327,7 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public LongBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

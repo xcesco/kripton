@@ -18,15 +18,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * This class is the shared preference binder defined for IntegerBean
+ * This class is binder map for IntegerBean
  *
  * @see IntegerBean
  */
 @BindMap(IntegerBean.class)
 public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(IntegerBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -80,9 +77,6 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(IntegerBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -144,7 +138,7 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(IntegerBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -209,7 +203,7 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public IntegerBean parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -272,7 +266,7 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public IntegerBean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -345,7 +339,7 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public IntegerBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

@@ -22,7 +22,8 @@ import com.squareup.javapoet.TypeName;
 
 /**
  * 
- * Class implementing this interface can be used to generate code to read and write the property for a binded shared preferences
+ * Class implementing this interface can be used to generate code to read and
+ * write the property
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
@@ -30,23 +31,22 @@ import com.squareup.javapoet.TypeName;
 public interface BindTransform {
 
 	void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property);
-	
+
 	void generateParseOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property);
 
 	void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property);
-	
+
 	void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property);
-	
+
 	void generateSerializeOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property);
-	
+
 	void generateSerializeOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property);
-	
+
 	/**
 	 * If true, means bind transformer support type adapter
+	 * 
 	 * @return
 	 */
 	boolean isTypeAdapterSupported();
-	
-	
 
 }

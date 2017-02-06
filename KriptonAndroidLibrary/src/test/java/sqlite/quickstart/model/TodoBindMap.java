@@ -14,15 +14,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Todo
+ * This class is binder map for Todo
  *
  * @see Todo
  */
 @BindMap(Todo.class)
 public class TodoBindMap extends AbstractMapper<Todo> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Todo object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -52,9 +49,6 @@ public class TodoBindMap extends AbstractMapper<Todo> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Todo object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -82,7 +76,7 @@ public class TodoBindMap extends AbstractMapper<Todo> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Todo object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -120,7 +114,7 @@ public class TodoBindMap extends AbstractMapper<Todo> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Todo parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -165,7 +159,7 @@ public class TodoBindMap extends AbstractMapper<Todo> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Todo parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -210,7 +204,7 @@ public class TodoBindMap extends AbstractMapper<Todo> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Todo parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

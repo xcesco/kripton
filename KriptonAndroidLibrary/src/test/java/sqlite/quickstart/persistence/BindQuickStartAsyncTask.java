@@ -57,7 +57,7 @@ public abstract class BindQuickStartAsyncTask<I, U, R> {
    * With this constructor it is possible to specify which type of database use in async task
    * </p>
    *
-   * @param mode allows to specify if open a data source connection and specify its type
+   * @param mode allows to specify if and how open a data source connection
    */
   public BindQuickStartAsyncTask(BindAsyncTaskType mode) {
     this.mode = mode;}

@@ -13,15 +13,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Geo
+ * This class is binder map for Geo
  *
  * @see Geo
  */
 @BindMap(Geo.class)
 public class GeoBindMap extends AbstractMapper<Geo> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Geo object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -45,9 +42,6 @@ public class GeoBindMap extends AbstractMapper<Geo> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Geo object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -72,7 +66,7 @@ public class GeoBindMap extends AbstractMapper<Geo> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Geo object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -102,7 +96,7 @@ public class GeoBindMap extends AbstractMapper<Geo> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Geo parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -141,7 +135,7 @@ public class GeoBindMap extends AbstractMapper<Geo> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Geo parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -180,7 +174,7 @@ public class GeoBindMap extends AbstractMapper<Geo> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Geo parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

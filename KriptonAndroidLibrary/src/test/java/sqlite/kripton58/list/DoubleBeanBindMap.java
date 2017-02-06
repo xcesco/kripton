@@ -18,15 +18,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * This class is the shared preference binder defined for DoubleBean
+ * This class is binder map for DoubleBean
  *
  * @see DoubleBean
  */
 @BindMap(DoubleBean.class)
 public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(DoubleBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -80,9 +77,6 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(DoubleBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -144,7 +138,7 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(DoubleBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -209,7 +203,7 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public DoubleBean parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -272,7 +266,7 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public DoubleBean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -345,7 +339,7 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public DoubleBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

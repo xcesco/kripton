@@ -16,15 +16,12 @@ import java.lang.Override;
 import sqlite.kripton51.internal.MessageType;
 
 /**
- * This class is the shared preference binder defined for MessageEntity
+ * This class is binder map for MessageEntity
  *
  * @see MessageEntity
  */
 @BindMap(MessageEntity.class)
 public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(MessageEntity object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -84,9 +81,6 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(MessageEntity object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -144,7 +138,7 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(MessageEntity object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -217,7 +211,7 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public MessageEntity parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -294,7 +288,7 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public MessageEntity parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -371,7 +365,7 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public MessageEntity parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

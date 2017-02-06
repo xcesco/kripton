@@ -14,7 +14,7 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Address
+ * This class is binder map for Address
  *
  * @see Address
  */
@@ -24,9 +24,6 @@ public class AddressBindMap extends AbstractMapper<Address> {
    * GeoBindMap */
   private GeoBindMap geoBindMap = AbstractContext.mapperFor(Geo.class);
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Address object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -69,9 +66,6 @@ public class AddressBindMap extends AbstractMapper<Address> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Address object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -117,7 +111,7 @@ public class AddressBindMap extends AbstractMapper<Address> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Address object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -168,7 +162,7 @@ public class AddressBindMap extends AbstractMapper<Address> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Address parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -225,7 +219,7 @@ public class AddressBindMap extends AbstractMapper<Address> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Address parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -282,7 +276,7 @@ public class AddressBindMap extends AbstractMapper<Address> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Address parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

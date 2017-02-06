@@ -18,7 +18,7 @@ import java.lang.Override;
 import java.util.ArrayList;
 
 /**
- * This class is the shared preference binder defined for Bean01
+ * This class is binder map for Bean01
  *
  * @see Bean01
  */
@@ -28,9 +28,6 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
    * Bean02BindMap */
   private Bean02BindMap bean02BindMap = AbstractContext.mapperFor(Bean02.class);
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Bean01 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -98,9 +95,6 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Bean01 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -178,7 +172,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Bean01 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -260,7 +254,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Bean01 parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -337,7 +331,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Bean01 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -424,7 +418,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Bean01 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

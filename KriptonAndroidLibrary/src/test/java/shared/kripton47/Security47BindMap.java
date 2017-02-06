@@ -14,7 +14,7 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Security47
+ * This class is binder map for Security47
  *
  * @see Security47
  */
@@ -28,9 +28,6 @@ public class Security47BindMap extends AbstractMapper<Security47> {
    * UserIdentityBindMap */
   private UserIdentityBindMap userIdentityBindMap = AbstractContext.mapperFor(UserIdentity.class);
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Security47 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -68,9 +65,6 @@ public class Security47BindMap extends AbstractMapper<Security47> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Security47 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -113,7 +107,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Security47 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -157,7 +151,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Security47 parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -208,7 +202,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Security47 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -259,7 +253,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Security47 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

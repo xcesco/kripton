@@ -14,15 +14,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Restaurant
+ * This class is binder map for Restaurant
  *
  * @see Restaurant
  */
 @BindMap(Restaurant.class)
 public class RestaurantBindMap extends AbstractMapper<Restaurant> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Restaurant object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -62,9 +59,6 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Restaurant object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -102,7 +96,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Restaurant object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -141,7 +135,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Restaurant parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -196,7 +190,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Restaurant parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -251,7 +245,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Restaurant parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

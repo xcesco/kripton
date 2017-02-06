@@ -13,15 +13,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Name
+ * This class is binder map for Name
  *
  * @see Name
  */
 @BindMap(Name.class)
 public class NameBindMap extends AbstractMapper<Name> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Name object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -45,9 +42,6 @@ public class NameBindMap extends AbstractMapper<Name> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Name object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -72,7 +66,7 @@ public class NameBindMap extends AbstractMapper<Name> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Name object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -102,7 +96,7 @@ public class NameBindMap extends AbstractMapper<Name> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Name parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -141,7 +135,7 @@ public class NameBindMap extends AbstractMapper<Name> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Name parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -180,7 +174,7 @@ public class NameBindMap extends AbstractMapper<Name> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Name parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

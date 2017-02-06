@@ -14,15 +14,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for PKBean
+ * This class is binder map for PKBean
  *
  * @see PKBean
  */
 @BindMap(PKBean.class)
 public class PKBeanBindMap extends AbstractMapper<PKBean> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(PKBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -44,9 +41,6 @@ public class PKBeanBindMap extends AbstractMapper<PKBean> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(PKBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -68,7 +62,7 @@ public class PKBeanBindMap extends AbstractMapper<PKBean> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(PKBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -96,7 +90,7 @@ public class PKBeanBindMap extends AbstractMapper<PKBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public PKBean parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -133,7 +127,7 @@ public class PKBeanBindMap extends AbstractMapper<PKBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public PKBean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -170,7 +164,7 @@ public class PKBeanBindMap extends AbstractMapper<PKBean> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public PKBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

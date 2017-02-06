@@ -13,15 +13,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for Image
+ * This class is binder map for Image
  *
  * @see Image
  */
 @BindMap(Image.class)
 public class ImageBindMap extends AbstractMapper<Image> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Image object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -57,9 +54,6 @@ public class ImageBindMap extends AbstractMapper<Image> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Image object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -96,7 +90,7 @@ public class ImageBindMap extends AbstractMapper<Image> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Image object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -140,7 +134,7 @@ public class ImageBindMap extends AbstractMapper<Image> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Image parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -191,7 +185,7 @@ public class ImageBindMap extends AbstractMapper<Image> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Image parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -242,7 +236,7 @@ public class ImageBindMap extends AbstractMapper<Image> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Image parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

@@ -13,15 +13,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for DeviceAccessToken
+ * This class is binder map for DeviceAccessToken
  *
  * @see DeviceAccessToken
  */
 @BindMap(DeviceAccessToken.class)
 public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(DeviceAccessToken object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -41,9 +38,6 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(DeviceAccessToken object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -62,7 +56,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(DeviceAccessToken object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -88,7 +82,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public DeviceAccessToken parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -123,7 +117,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public DeviceAccessToken parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -158,7 +152,7 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public DeviceAccessToken parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

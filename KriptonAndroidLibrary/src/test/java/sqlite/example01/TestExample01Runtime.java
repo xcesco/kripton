@@ -22,7 +22,10 @@ import java.io.IOException;
 import org.junit.Test;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
 
+import android.database.sqlite.SQLiteDatabase;
 import base.BaseAndroidTest;
 import sqlite.example01.BindDummy01DataSource.Transaction;
 
@@ -36,8 +39,26 @@ public class TestExample01Runtime extends BaseAndroidTest {
 	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
 		BindDummy01DataSource dataSource = BindDummy01DataSource.instance();
 
-		DaoChannelImpl dao=dataSource.getDaoChannel();
-		
+		dataSource.setOptions(DataSourceOptions.build().databaseLifecycleHandler(new DatabaseLifecycleHandler() {
+
+			@Override
+			public void onUpdate(SQLiteDatabase db, int oldVersion, int newVersion, boolean upgrade) {
+				Logger.info("onUpdate");
+			}
+
+			@Override
+			public void onCreate(SQLiteDatabase database) {
+				Logger.info("onCreate");
+
+			}
+
+			@Override
+			public void onConfigure(SQLiteDatabase database) {
+				Logger.info("onConfigure");
+
+			}
+		}));
+
 		dataSource.execute(new Transaction() {
 
 			@Override
@@ -69,7 +90,6 @@ public class TestExample01Runtime extends BaseAndroidTest {
 
 			@Override
 			public void onError(Throwable e) {
-				// TODO Auto-generated method stub
 
 			}
 		});

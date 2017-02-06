@@ -342,19 +342,6 @@ public class TypeUtility {
 			methodBuilder.addCode(")");
 			break;
 		}
-
-		// if (isString(typeName)) {
-		// return;
-		// } else if (isArray(typeName) || isList(typeName)) {
-		// // TODO support StandardCharsets.UTF8
-		// // see
-		// http://stackoverflow.com/questions/5729806/encode-string-to-utf-8
-		// methodBuilder.addCode(",$T.UTF_8)", StandardCharsets.class);
-		// } else if (isTypeIncludedIn(typeName, BigDecimal.class)) {
-		// methodBuilder.addCode("");
-		// } else {
-		// methodBuilder.addCode(")");
-		// }
 	}
 
 	public static boolean isArray(TypeName typeName) {

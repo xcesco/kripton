@@ -29,7 +29,7 @@ import java.math.BigInteger;
 import java.util.HashSet;
 
 /**
- * This class is the shared preference binder defined for Bean72
+ * This class is binder map for Bean72
  *
  * @see Bean72
  */
@@ -39,9 +39,6 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
    * Bean72BindMap */
   private Bean72BindMap bean72BindMap = this;
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(Bean72 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -257,9 +254,6 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(Bean72 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -538,7 +532,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Bean72 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -778,7 +772,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Bean72 parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -1012,7 +1006,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public Bean72 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -1308,7 +1302,7 @@ public class Bean72BindMap extends AbstractMapper<Bean72> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public Bean72 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

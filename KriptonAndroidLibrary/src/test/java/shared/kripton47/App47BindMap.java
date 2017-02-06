@@ -14,7 +14,7 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for App47
+ * This class is binder map for App47
  *
  * @see App47
  */
@@ -24,9 +24,6 @@ public class App47BindMap extends AbstractMapper<App47> {
    * UserAccessTokenBindMap */
   private UserAccessTokenBindMap userAccessTokenBindMap = AbstractContext.mapperFor(UserAccessToken.class);
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(App47 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -51,9 +48,6 @@ public class App47BindMap extends AbstractMapper<App47> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(App47 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -81,7 +75,7 @@ public class App47BindMap extends AbstractMapper<App47> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(App47 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -111,7 +105,7 @@ public class App47BindMap extends AbstractMapper<App47> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public App47 parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -150,7 +144,7 @@ public class App47BindMap extends AbstractMapper<App47> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public App47 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -189,7 +183,7 @@ public class App47BindMap extends AbstractMapper<App47> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public App47 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

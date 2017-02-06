@@ -18,15 +18,12 @@ import java.lang.Short;
 import java.util.ArrayList;
 
 /**
- * This class is the shared preference binder defined for ShortBean
+ * This class is binder map for ShortBean
  *
  * @see ShortBean
  */
 @BindMap(ShortBean.class)
 public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(ShortBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -76,9 +73,6 @@ public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(ShortBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -136,7 +130,7 @@ public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(ShortBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -197,7 +191,7 @@ public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public ShortBean parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -260,7 +254,7 @@ public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public ShortBean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -333,7 +327,7 @@ public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public ShortBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

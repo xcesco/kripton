@@ -14,15 +14,12 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is the shared preference binder defined for FirstAid
+ * This class is binder map for FirstAid
  *
  * @see FirstAid
  */
 @BindMap(FirstAid.class)
 public class FirstAidBindMap extends AbstractMapper<FirstAid> {
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJackson(FirstAid object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -148,9 +145,6 @@ public class FirstAidBindMap extends AbstractMapper<FirstAid> {
     return fieldCount;
   }
 
-  /**
-   * reset shared preferences
-   */
   @Override
   public int serializeOnJacksonAsString(FirstAid object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -266,7 +260,7 @@ public class FirstAidBindMap extends AbstractMapper<FirstAid> {
   }
 
   /**
-   * reset shared preferences
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(FirstAid object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -418,7 +412,7 @@ public class FirstAidBindMap extends AbstractMapper<FirstAid> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public FirstAid parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -559,7 +553,7 @@ public class FirstAidBindMap extends AbstractMapper<FirstAid> {
   }
 
   /**
-   * create new object instance
+   * parse with jackson
    */
   @Override
   public FirstAid parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -700,7 +694,7 @@ public class FirstAidBindMap extends AbstractMapper<FirstAid> {
   }
 
   /**
-   * create new object instance
+   * parse xml
    */
   @Override
   public FirstAid parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.robolectric.util.Logger;
 
 import base.BaseAndroidTest;
 import sqlite.kripton58.list.BindLongDataSource.Transaction;
@@ -58,8 +59,7 @@ public class Test58Runtime extends BaseAndroidTest {
 
 			@Override
 			public void onError(Throwable e) {
-				// TODO Auto-generated method stub
-
+				Logger.error(e.getMessage());
 			}
 		});
 	}
