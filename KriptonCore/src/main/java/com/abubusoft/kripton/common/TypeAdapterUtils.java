@@ -15,22 +15,30 @@
  *******************************************************************************/
 package com.abubusoft.kripton.common;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 import com.abubusoft.kripton.BindTypeAdapter;
 
 public abstract class TypeAdapterUtils {
 
+	static ReentrantLock lock = new ReentrantLock();
+
 	@SuppressWarnings("rawtypes")
-	private static ConcurrentHashMap<Class<? extends BindTypeAdapter>, BindTypeAdapter> cache = new ConcurrentHashMap<>();
+	private static HashMap<Class<? extends BindTypeAdapter>, BindTypeAdapter> cache = new HashMap<>();
 
 	@SuppressWarnings("unchecked")
 	public static <D, J> J toJava(Class<? extends BindTypeAdapter<J, D>> clazz, D value) throws Exception {
 		BindTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			adapter = (BindTypeAdapter<J, D>) clazz.newInstance();
-			cache.put(clazz, adapter);
+			try {
+				lock.lock();
+				adapter = clazz.newInstance();
+				cache.put(clazz, adapter);
+			} finally {
+				lock.unlock();
+			}
 		}
 
 		return adapter.toJava(value);
@@ -41,8 +49,13 @@ public abstract class TypeAdapterUtils {
 		BindTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			adapter = (BindTypeAdapter<J, D>) clazz.newInstance();
-			cache.put(clazz, adapter);
+			try {
+				lock.lock();
+				adapter = clazz.newInstance();
+				cache.put(clazz, adapter);
+			} finally {
+				lock.unlock();
+			}
 		}
 
 		return adapter.toData(javaValue);

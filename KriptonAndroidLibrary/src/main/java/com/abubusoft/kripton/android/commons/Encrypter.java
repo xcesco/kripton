@@ -30,49 +30,48 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.commons.AesCbcWithIntegrity.CipherTextIvMac;
 import com.abubusoft.kripton.common.Base64Utils;
 
-
 public class Encrypter {
 
 	// Set up secret key spec for 128-bit AES encryption and decryption
-	protected SecretKeySpec sks = null;
-	
+	protected SecretKeySpec sks = null; // new SecretKeySpec();
+
 	protected AesCbcWithIntegrity.SecretKeys key;
 
 	public Encrypter(String password) throws GeneralSecurityException {
-		//String salt = saltString(generateSalt());
+		// String salt = saltString(generateSalt());
 		String salt = saltString("WTRnVzFXam9QT2NXYkR3dHd2cmtKZz09OnJ2VHkvMUE0SjhhNUNQdVVQeWJLM1NQOVRpOTYySFk3WnR".getBytes());
-        //If you generated the key from a password, you can store the salt and not the key.
-        //Log.i(TAG, "Salt: " + salt);
-        key = generateKeyFromPassword(password, salt);			
-	}
-	
-	public String encode(String input) throws UnsupportedEncodingException, GeneralSecurityException
-	{
-		CipherTextIvMac output = encrypt(input, key);
-		return Base64Utils.encode(output.toString().getBytes());		
+		// If you generated the key from a password, you can store the salt and
+		// not the key.
+		// Log.i(TAG, "Salt: " + salt);
+		key = generateKeyFromPassword(password, salt);
 	}
 
-	public String encode(byte[] inputBytes)
-	{
+	public String encode(String input) throws UnsupportedEncodingException, GeneralSecurityException {
+		CipherTextIvMac output = encrypt(input, key);
+		return Base64Utils.encode(output.toString().getBytes());
+	}
+
+	public String encode(byte[] inputBytes) {
 		// Encode the original data with AES
-        byte[] encodedBytes = null;
-        try {
-            Cipher c = Cipher.getInstance("AES");
-            c.init(Cipher.ENCRYPT_MODE, sks);
-            encodedBytes = c.doFinal(inputBytes);
-        } catch (Exception e) {
-        	e.printStackTrace();
-            Logger.error("AES encryption error "+e.getMessage());
-        }
-        return Base64Utils.encode(encodedBytes);
+		byte[] encodedBytes = null;
+		try {
+			Cipher c = Cipher.getInstance("AES");
+			c.init(Cipher.ENCRYPT_MODE, sks);
+			encodedBytes = c.doFinal(inputBytes);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Logger.error("AES encryption error " + e.getMessage());
+		}
+		return Base64Utils.encode(encodedBytes);
 	}
 
 	public String decode(String input) throws UnsupportedEncodingException, GeneralSecurityException {
-		
-		//Use the constructor to re-create the CipherTextIvMac class from the string:
-		CipherTextIvMac cipherTextIvMac = new CipherTextIvMac (new String(Base64Utils.decode(input)));
+
+		// Use the constructor to re-create the CipherTextIvMac class from the
+		// string:
+		CipherTextIvMac cipherTextIvMac = new CipherTextIvMac(new String(Base64Utils.decode(input)));
 		String plainText = decryptString(cipherTextIvMac, key);
-		  
+
 		return plainText;
 	}
 }

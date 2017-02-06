@@ -49,9 +49,9 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	public enum CollectionType {
 		ARRAY, LIST, SET;
 	}
-	
-	public boolean isTypeAdapterSupported()
-	{
+
+	@Override
+	public boolean isTypeAdapterSupported() {
 		return false;
 	}
 
@@ -280,10 +280,11 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		this.generateSerializeOnJacksonInternal(context, methodBuilder, serializerName, beanClass, beanName, property, true);
 	}
 
-	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property,
+			boolean onString) {
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-			if (property!=null && property.isProperty())
+			if (property.isProperty())
 			{
 				methodBuilder.addStatement("fieldCount++");
 			}

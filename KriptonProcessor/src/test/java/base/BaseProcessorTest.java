@@ -141,6 +141,9 @@ public class BaseProcessorTest {
 		PathSourceType pathSourceType = basePath;
 		Path path = Paths.get(pathSourceType.getPath(), javaFileObject.getName().replace("SOURCE_OUTPUT", ""));
 
+		if (path == null)
+			throw new IOException("can not work with " + javaFileObject.getName());
+
 		Files.createDirectories(path.getParent());
 		byte[] bytes = ByteStreams.toByteArray(javaFileObject.openInputStream());
 
