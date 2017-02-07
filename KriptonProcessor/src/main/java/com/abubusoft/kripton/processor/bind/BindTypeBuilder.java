@@ -23,8 +23,14 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import javax.annotation.processing.Filer;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.TypeParameterElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.util.AbstractElementVisitor7;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.AbstractMapper;
@@ -58,6 +64,57 @@ import com.squareup.javapoet.TypeSpec;
 public abstract class BindTypeBuilder {
 
 	// protected static
+	public static class VisitResult {
+		
+		public VisitResult(Elements elementUtils)
+		{
+			this.elementUtils=elementUtils;
+		}
+		
+		public Elements elementUtils;
+
+	}
+
+	protected static AbstractElementVisitor7<Void, VisitResult> visitor = new AbstractElementVisitor7<Void, VisitResult>() {
+
+		@Override
+		public Void visitPackage(PackageElement e, VisitResult p) {
+			System.out.println("visitPackage "+e.asType());
+			return null;
+		}
+
+		@Override
+		public Void visitType(TypeElement e, VisitResult p) {
+			System.out.println("visitType "+e.asType());
+			
+			if (e.getSuperclass() instanceof DeclaredType) {
+		          DeclaredType superclassDeclaredType = (DeclaredType) e.getSuperclass();
+		          
+		          System.out.println("visitType parent "+superclassDeclaredType.getTypeArguments().size());		          		          
+			}
+						
+			return null;
+		}
+
+		@Override
+		public Void visitVariable(VariableElement e, VisitResult p) {
+			System.out.println("visitVariable "+e.asType());
+			return null;
+		}
+
+		@Override
+		public Void visitExecutable(ExecutableElement e, VisitResult p) {
+			System.out.println("visitExecutable "+e.asType());
+			return null;
+		}
+
+		@Override
+		public Void visitTypeParameter(TypeParameterElement e, VisitResult p) {
+			System.out.println("visitTypeParameter "+e.asType());
+			return null;
+		}
+
+	};
 
 	protected static final String PREFIX = "";
 
@@ -109,11 +166,16 @@ public abstract class BindTypeBuilder {
 				return lhs.getName().compareTo(rhs.getName());
 			}
 		});
+
+		TypeUtility.getParametrizedType(item.getElement());
 		
-		//TODO parent generic
-		for (BindProperty prop: item.getCollection())
+		//VisitResult result=new VisitResult(elementUtils);
+		//visitor.visit(item.getElement(), result);		
+		TypeUtility.getParametrizedType(item.getElement());
+		
+		for (BindProperty property : item.getCollection())
 		{
-			//TypeName inner = TypeUtility.parameterParentType(entity.getElement());
+			TypeUtility.getParametrizedType(property.getElement());
 		}
 
 		// generate serializeOnJackson

@@ -15,17 +15,20 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.core.reflect;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.TypeParameterElement;
+import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Types;
 
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BindTypeProcessor;
+import com.abubusoft.kripton.processor.bind.BindTypeBuilder.VisitResult;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
@@ -433,42 +436,118 @@ public class TypeUtility {
 		return isEnum(typeName.toString());
 	}
 
+	private static final String JAVA_LANG_ENUM = "java.lang.Enum<?>";
+
 	public static boolean isEnum(String className) {
 		try {
-			TypeElement el = BindTypeProcessor.elementUtils.getTypeElement(className);
-			TypeMirror a = el.getSuperclass();
-			if (a.toString().startsWith("java.lang.Enum")) {
-				return true;
-			} else {
-				return false;
+			// is it an enum?
+			TypeElement element = BindTypeProcessor.elementUtils.getTypeElement(className);
+			if (element instanceof TypeElement) {
+				TypeElement typeElement = (TypeElement) element;
+				TypeMirror superclass = typeElement.getSuperclass();
+				if (superclass instanceof DeclaredType) {
+					DeclaredType superclassDeclaredType = (DeclaredType) superclass;
+
+					if (JAVA_LANG_ENUM.equals(getCanonicalTypeName(superclassDeclaredType))) {
+						return true;
+					}
+				}
 			}
+			return false;
 		} catch (Throwable e) {
 			return false;
 		}
 	}
 
 	/**
-	 * Retrieve parent parameter type, if it exists.
+	 * <p>
+	 * Retrieve parametrized type of element (from its parent).
+	 * </p>
 	 * 
-	 * @param entity
-	 * @return
+	 * @param element
+	 * @return list of typemirror or null
 	 */
+	public static List<? extends TypeMirror> getParametrizedType(Element element) {
+		TypeMirror elementTypeMirror = element.asType();
+
+		System.out.println("DeclaredType " + (element.asType() instanceof DeclaredType));
+		System.out.println("ParameterizedType " + (element.asType() instanceof ParameterizedType));
+		if (elementTypeMirror instanceof DeclaredType) {
+			DeclaredType declaredType = (DeclaredType) element.asType();
+
+			System.out.println(declaredType.asElement().toString());
+			System.out.println("naz0" + declaredType.getTypeArguments());
+
+			/*if (declaredType. .getSuperclass() instanceof DeclaredType) {
+				DeclaredType superclassDeclaredType = declaredType.getSuperclass();
+
+				System.out.println("naz parent" + typeElement.getTypeParameters());
+				System.out.println("naz parent" + typeElement.getTypeParameters());
+				return superclassDeclaredType.getTypeArguments();
+			}*/
+			return null;
+		}
+
+		return null;
+	}
+
+	protected static DeclaredType parse(TypeMirror clazz) {
+		TypeElement element = BindTypeProcessor.elementUtils.getTypeElement(clazz.toString());
+
+		if (element.getTypeParameters() instanceof DeclaredType) {
+			DeclaredType declaredType = (DeclaredType) element;
+
+			List<? extends TypeMirror> list = declaredType.getTypeArguments();
+			System.out.print(list.size());
+		}
+		return null;
+
+	}
+
 	public static TypeName parameterParentType(Element entity) {
 		TypeElement parentType;
 		if (entity instanceof TypeElement) {
 			parentType = (TypeElement) entity;
 
-			LiteralType parentLiteralType = LiteralType.of(parentType.getSuperclass().toString());
+			// parse(parentType.getSuperclass());
 
-			if (parentLiteralType.getComposedValue()!=null)
-			{
+			LiteralType parentLiteralType = LiteralType.of(parentType.getSuperclass().toString());
+			if (parentLiteralType.getComposedValue() != null) {
 				return typeName(parentLiteralType.getComposedValue());
 			}
 			return null;
-			
+
 		}
 
 		return null;
+	}
+
+	/**
+	 * Returns a string with type parameters replaced with wildcards. This is
+	 * slightly different from
+	 * {@link Types#erasure(javax.lang.model.type.TypeMirror)}, which removes
+	 * all type parameter data.
+	 *
+	 * For instance, if there is a field with type List&lt;String&gt;, this
+	 * returns a string List&lt;?&gt;.
+	 */
+	private static String getCanonicalTypeName(DeclaredType declaredType) {
+		List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+		if (!typeArguments.isEmpty()) {
+			StringBuilder typeString = new StringBuilder(declaredType.asElement().toString());
+			typeString.append('<');
+			for (int i = 0; i < typeArguments.size(); i++) {
+				if (i > 0) {
+					typeString.append(',');
+				}
+				typeString.append('?');
+			}
+			typeString.append('>');
+
+			return typeString.toString();
+		} else {
+			return declaredType.toString();
+		}
 	}
 
 }

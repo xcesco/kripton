@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.processor.bind.model;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;

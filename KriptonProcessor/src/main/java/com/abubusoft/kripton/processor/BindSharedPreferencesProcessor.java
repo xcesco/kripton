@@ -156,7 +156,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<PrefProperty>() {
 
 			@Override
-			public PrefProperty createProperty(Element element) {
+			public PrefProperty createProperty(TypeElement element) {
 				return new PrefProperty(currentEntity, element);
 			}
 		}, propertyAnnotationFilter, new PropertyCreatedListener<PrefProperty>() {

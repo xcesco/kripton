@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.processor.sqlite.model;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 
