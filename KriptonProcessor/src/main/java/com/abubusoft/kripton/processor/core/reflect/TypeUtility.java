@@ -458,6 +458,23 @@ public class TypeUtility {
 			return false;
 		}
 	}
+	
+	/**
+	 * <p>
+	 * Retrieve parametrized type of element (from its parent).
+	 * </p>
+	 * 
+	 * @param element
+	 * @return list of typemirror or null
+	 */
+	public static List<? extends TypeMirror> getParametrizedType(TypeElement element) {
+		if (element.getSuperclass() instanceof DeclaredType)
+		{
+			return ((DeclaredType)element.getSuperclass()).getTypeArguments();
+		}		
+
+		return null;
+	}
 
 	/**
 	 * <p>
