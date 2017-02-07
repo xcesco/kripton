@@ -48,6 +48,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -108,6 +109,12 @@ public abstract class BindTypeBuilder {
 				return lhs.getName().compareTo(rhs.getName());
 			}
 		});
+		
+		//TODO parent generic
+		for (BindProperty prop: item.getCollection())
+		{
+			//TypeName inner = TypeUtility.parameterParentType(entity.getElement());
+		}
 
 		// generate serializeOnJackson
 		generateSerializeOnJackson(context, item);

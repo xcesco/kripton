@@ -18,6 +18,8 @@ package bind;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import bind.bindenum.TestEnumSuite;
+import bind.generichierarchy.TestGenericHierarchySuite;
 import bind.kripton42faster.Test42CompileSuite;
 import bind.kripton70.Test70CompileSuite;
 import bind.kripton71List.Test71CompileSuite;
@@ -48,7 +50,9 @@ import bind.kripton87TypeAdapter.Test87CompileSuite;
 		Test78CompileSuite.class,
 		Test80CompileSuite.class,
 		Test81CompileSuite.class,
-		Test87CompileSuite.class
+		Test87CompileSuite.class,
+		TestEnumSuite.class,
+		TestGenericHierarchySuite.class
 		 })
 //@formatter:on
 public class BindCompileTestSuite {

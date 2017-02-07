@@ -14,7 +14,7 @@ import bind.AbstractBindTypeProcessorTest;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class TestBeanEnum extends AbstractBindTypeProcessorTest {
+public class TestEnum extends AbstractBindTypeProcessorTest {
 
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {

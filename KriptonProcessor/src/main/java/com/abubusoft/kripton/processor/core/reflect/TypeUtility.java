@@ -17,9 +17,11 @@ package com.abubusoft.kripton.processor.core.reflect;
 
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.common.Pair;
@@ -443,6 +445,30 @@ public class TypeUtility {
 		} catch (Throwable e) {
 			return false;
 		}
+	}
+
+	/**
+	 * Retrieve parent parameter type, if it exists.
+	 * 
+	 * @param entity
+	 * @return
+	 */
+	public static TypeName parameterParentType(Element entity) {
+		TypeElement parentType;
+		if (entity instanceof TypeElement) {
+			parentType = (TypeElement) entity;
+
+			LiteralType parentLiteralType = LiteralType.of(parentType.getSuperclass().toString());
+
+			if (parentLiteralType.getComposedValue()!=null)
+			{
+				return typeName(parentLiteralType.getComposedValue());
+			}
+			return null;
+			
+		}
+
+		return null;
 	}
 
 }
