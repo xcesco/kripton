@@ -85,7 +85,7 @@ public class BindTypeProcessor extends BaseProcessor {
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
 				AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
 
-				BindEntityBuilder.build(model, elementUtils, item);
+				BindEntityBuilder.build(model, elementUtils, (TypeElement) item);
 
 				itemCounter++;
 			}

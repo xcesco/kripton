@@ -53,11 +53,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public LongBean selectOne() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LongBean resultBean=null;
@@ -103,11 +103,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public LongBean selectOne(List<Long> value) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LongBean resultBean=null;
@@ -154,11 +154,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public void selectOne(List<Long> value, OnReadBeanListener<LongBean> listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       LongBean resultBean=new LongBean();
       if (cursor.moveToFirst()) {
@@ -211,11 +211,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public void selectOne(List<Long> value, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {
@@ -252,11 +252,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public List<LongBean> selectList(List<Long> value) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM long_bean WHERE CAST(value AS TEXT)=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<LongBean> resultList=new LinkedList<LongBean>();

@@ -53,11 +53,11 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
   @Override
   public List<Person> selectOne(String nameValue) {
     // build where condition
-    String[] args={(nameValue==null?"":nameValue)};
+    String[] _args={(nameValue==null?"":nameValue)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\'", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\'", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -270,11 +270,11 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
   @Override
   public List<Person> selecAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();

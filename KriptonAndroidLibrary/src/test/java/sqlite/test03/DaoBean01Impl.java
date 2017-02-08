@@ -42,11 +42,11 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   @Override
   public List<Bean01> listAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean01> resultList=new LinkedList<Bean01>();

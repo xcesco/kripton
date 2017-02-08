@@ -17,9 +17,10 @@ package com.abubusoft.kripton.processor.core.reflect;
 
 import javax.lang.model.element.Element;
 
+import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 
-public interface PropertyFactory<T extends ModelProperty> {
+public interface PropertyFactory<E extends ModelClass<?>, T extends ModelProperty> {
 
-	T createProperty(Element element);
+	T createProperty(E entity, Element propertyElement);
 }

@@ -16,7 +16,6 @@
 package com.abubusoft.kripton.processor.bind.model;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
@@ -217,25 +216,6 @@ public class BindProperty extends ModelProperty {
 
 	public boolean hasTypeAdapter() {
 		return typeAdapter.adapterClazz != null;
-	}
-
-	public void replaceGeneric(TypeMirror resolvedType) {
-		System.out.println(this.getElement().asType());
-		
-		String rawType=this.propertyType.getRawType();
-//		if (!propertyType.isPrimitive() && !getPropertyType().getComposedValue().contains("."))
-//		{
-//			TypeUtility.c (typeName, typeNamePrefix) (TypeUtility.typ., typeNamePrefix)
-//			this.propertyType=new ModelType(element.asType());
-//		}
-		
-			
-			
-			
-//			propertyType.rawType=resolvedType.toString();
-//		if (this.propertyType.getComposedValue().
-		
-		
 	}
 
 }

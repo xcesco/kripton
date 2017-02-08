@@ -61,11 +61,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public BeanBean selectOne() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       BeanBean resultBean=null;
@@ -114,11 +114,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public BeanBean selectOne(BeanInner[] value, BeanInner[] value2) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       BeanBean resultBean=null;
@@ -168,11 +168,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectOne(BeanInner[] value, BeanInner[] value2, OnReadBeanListener<BeanBean> listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       BeanBean resultBean=new BeanBean();
       if (cursor.moveToFirst()) {
@@ -228,11 +228,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectOne(BeanInner[] value, BeanInner[] value2, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {
@@ -272,11 +272,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public List<BeanBean> selectList(BeanInner[] value, BeanInner[] value2) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM bean_bean WHERE value='%s' and value2='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM bean_bean WHERE value=? and value2=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<BeanBean> resultList=new LinkedList<BeanBean>();

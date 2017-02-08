@@ -53,11 +53,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public DoubleBean selectOne() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       DoubleBean resultBean=null;
@@ -103,11 +103,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public DoubleBean selectOne(List<Double> value) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       DoubleBean resultBean=null;
@@ -154,11 +154,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public void selectOne(List<Double> value, OnReadBeanListener<DoubleBean> listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       DoubleBean resultBean=new DoubleBean();
       if (cursor.moveToFirst()) {
@@ -211,11 +211,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public void selectOne(List<Double> value, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {
@@ -252,11 +252,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public List<DoubleBean> selectList(List<Double> value) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<DoubleBean> resultList=new LinkedList<DoubleBean>();

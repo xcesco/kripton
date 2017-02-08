@@ -39,8 +39,10 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	}
 
 	@Override
-	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {		
-		String bindName=context.getBindMapperName(context, property);		
+	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		TypeName typeName = resolveTypeName(property.getParent(), property.getPropertyType().getName());
+		
+		String bindName=context.getBindMapperName(context, typeName);		
 		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.parseOnXml(xmlParser, eventType)"), bindName);
 	}
 	
@@ -50,7 +52,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		String bindName=context.getBindMapperName(context, property);
+		TypeName typeName = resolveTypeName(property.getParent(), property.getPropertyType().getName());
+		
+		String bindName=context.getBindMapperName(context, typeName);
 		
 		// @formatter:off
 		if (property.isNullable() && !property.isInCollection()) {
@@ -68,7 +72,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	}
 
 	void generateSerializeInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
-		String bindName=context.getBindMapperName(context, property);
+		TypeName typeName = resolveTypeName(property.getParent(), property.getPropertyType().getName());
+		
+		String bindName=context.getBindMapperName(context, typeName);
 		
 		// @formatter:off
 		if (property.isNullable()) {
@@ -111,7 +117,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJackson(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		String bindName=context.getBindMapperName(context, property);
+		TypeName typeName = resolveTypeName(property.getParent(), property.getPropertyType().getName());
+		
+		String bindName=context.getBindMapperName(context, typeName);
 		
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT)", parserName, JsonToken.class);
@@ -125,7 +133,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		String bindName=context.getBindMapperName(context, property);
+		TypeName typeName = resolveTypeName(property.getParent(), property.getPropertyType().getName());
+		
+		String bindName=context.getBindMapperName(context, typeName);
 		
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT || $L.currentToken()==$T.VALUE_STRING)", parserName, JsonToken.class, parserName, JsonToken.class);

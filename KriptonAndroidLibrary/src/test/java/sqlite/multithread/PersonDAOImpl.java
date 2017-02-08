@@ -151,11 +151,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public Person selectThread1() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Person resultBean=null;
@@ -200,11 +200,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public Person selectThread2() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Person resultBean=null;

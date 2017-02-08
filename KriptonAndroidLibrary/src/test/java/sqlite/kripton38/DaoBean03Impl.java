@@ -43,11 +43,11 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
   @Override
   public Bean03 selectOne(long id) {
     // build where condition
-    String[] args={String.valueOf(id)};
+    String[] _args={String.valueOf(id)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean03 WHERE id='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, text FROM bean03 WHERE id=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean03 WHERE id='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, text FROM bean03 WHERE id=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean03 resultBean=null;

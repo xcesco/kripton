@@ -47,11 +47,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectIncludeOne(Person bean) {
     // build where condition
-    String[] args={(bean.name==null?"":bean.name)};
+    String[] _args={(bean.name==null?"":bean.name)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name FROM person WHERE name='%s' ORDER BY name",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name FROM person WHERE name=? ORDER BY name", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name FROM person WHERE name='%s' ORDER BY name",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name FROM person WHERE name=? ORDER BY name", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -94,11 +94,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectExcludeOne() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT surname, birth_city, birth_day FROM person ORDER BY name", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT surname, birth_city, birth_day FROM person ORDER BY name",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT surname, birth_city, birth_day FROM person ORDER BY name", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();

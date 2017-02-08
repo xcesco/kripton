@@ -48,11 +48,11 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   @Override
   public Bean93 selectByBean(String name) {
     // build where condition
-    String[] args={(name==null?"":name)};
+    String[] _args={(name==null?"":name)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean93 WHERE name like '%s' || \'%%'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93 WHERE name like ? || \'%\'", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean93 WHERE name like '%s' || \'%%'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93 WHERE name like ? || \'%\'", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean93 resultBean=null;
@@ -91,11 +91,11 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   @Override
   public List<Bean93> selectAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean93",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean93",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean93> resultList=new LinkedList<Bean93>();

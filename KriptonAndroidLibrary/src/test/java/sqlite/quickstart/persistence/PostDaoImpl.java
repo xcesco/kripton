@@ -96,11 +96,11 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
   @Override
   public List<Post> selectByUserId(long userId) {
     // build where condition
-    String[] args={String.valueOf(userId)};
+    String[] _args={String.valueOf(userId)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT user_id, id, title, body FROM post WHERE user_id = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT user_id, id, title, body FROM post WHERE user_id = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT user_id, id, title, body FROM post WHERE user_id = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT user_id, id, title, body FROM post WHERE user_id = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Post> resultList=new LinkedList<Post>();
@@ -155,11 +155,11 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
   @Override
   public Post selectOneByUserId(long userId) {
     // build where condition
-    String[] args={String.valueOf(userId)};
+    String[] _args={String.valueOf(userId)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT user_id, id, title, body FROM post WHERE id = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT user_id, id, title, body FROM post WHERE id = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT user_id, id, title, body FROM post WHERE id = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT user_id, id, title, body FROM post WHERE id = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Post resultBean=null;

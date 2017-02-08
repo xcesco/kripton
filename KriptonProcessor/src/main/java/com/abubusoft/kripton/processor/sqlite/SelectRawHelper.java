@@ -20,7 +20,6 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.GenerationType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;

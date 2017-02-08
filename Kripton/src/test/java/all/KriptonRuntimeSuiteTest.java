@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import bind.bindenum.TestRuntimeEnumSuite;
+import bind.generichierarchy.TestRuntimeHierarchySuite;
 import bind.kripton42faster.TestRuntime42Suite;
 import bind.kripton70.TestRuntime70Suite;
 import bind.kripton71List.TestRuntime71Suite;
@@ -46,7 +47,8 @@ import bind.kripton87TypeAdapter.TestRuntime87Suite;
 		TestRuntime80Suite.class,
 		TestRuntime81Suite.class,
 		TestRuntime87Suite.class,
-		TestRuntimeEnumSuite.class
+		TestRuntimeEnumSuite.class,
+		TestRuntimeHierarchySuite.class
 		 })
 //@formatter:on
 public class KriptonRuntimeSuiteTest {

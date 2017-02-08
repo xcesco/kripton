@@ -88,7 +88,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).build();
 
-	private final Map<String, Element> globalDaoElements = new HashMap<String, Element>();
+	private final Map<String, TypeElement> globalDaoElements = new HashMap<String, TypeElement>();
 
 	/*
 	 * (non-Javadoc)
@@ -143,7 +143,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindTable.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
-				globalBeanElements.put(item.toString(), item);
+				globalBeanElements.put(item.toString(), (TypeElement) item);
 			}
 
 			// Put all @BindDao elements in daoElements
@@ -152,7 +152,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					String msg = String.format("%s %s can not be annotated with @%s annotation, because it is not an interface", item.getKind(), item, BindDao.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
-				globalDaoElements.put(item.toString(), item);
+				globalDaoElements.put(item.toString(), (TypeElement) item);
 			}
 
 			// Get all database schema definitions
@@ -236,7 +236,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 		ModelProperty property;
 		String beanName = AnnotationUtility.extractAsClassName(elementUtils, daoElement, BindDao.class, AnnotationAttributeType.VALUE);
-		Element beanElement = globalBeanElements.get(beanName);
+		TypeElement beanElement = globalBeanElements.get(beanName);
 		if (beanElement == null) {
 			String msg = String.format("In dao definition %s is referred a bean definition %s without @BindType annotation", daoElement.toString(), beanName);
 			throw (new InvalidNameException(msg));
@@ -256,16 +256,15 @@ public class BindDataSourceProcessor extends BaseProcessor {
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 		{
-			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLProperty>() {
-
+			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLEntity, SQLProperty>() {
 				@Override
-				public SQLProperty createProperty(Element element) {
-					return new SQLProperty(currentEntity, element);
+				public SQLProperty createProperty(SQLEntity entity, Element propertyElement) {
+					return new SQLProperty(entity, propertyElement);
 				}
-			}, propertyAnnotationFilter, new PropertyCreatedListener<SQLProperty>() {
+			}, propertyAnnotationFilter, new PropertyCreatedListener<SQLEntity, SQLProperty>() {
 
 				@Override
-				public boolean onProperty(SQLProperty property) {
+				public boolean onProperty(SQLEntity entity, SQLProperty property) {
 					if (property.hasAnnotation(BindDisabled.class)) {
 						if (bindAllFields) {
 							return false;
@@ -322,6 +321,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					return true;
 
 				}
+
 			});
 		}
 
@@ -373,7 +373,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	 * @param globalDaoElements
 	 * @param daoItem
 	 */
-	protected void createDao(final Map<String, Element> globalBeanElements, final Map<String, Element> globalDaoElements, String daoItem) {
+	protected void createDao(final Map<String, TypeElement> globalBeanElements, final Map<String, TypeElement> globalDaoElements, String daoItem) {
 		Element daoElement = globalDaoElements.get(daoItem);
 
 		if (daoElement.getKind() != ElementKind.INTERFACE) {

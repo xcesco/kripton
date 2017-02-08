@@ -56,11 +56,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   @Override
   public List<MessageEntity> selectByChannel(long channelId) {
     // build where condition
-    String[] args={String.valueOf(channelId)};
+    String[] _args={String.valueOf(channelId)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<MessageEntity> resultList=new LinkedList<MessageEntity>();
@@ -284,11 +284,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   @Override
   public MessageEntity selectByUid(String uid) {
     // build where condition
-    String[] args={(uid==null?"":uid)};
+    String[] _args={(uid==null?"":uid)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       MessageEntity resultBean=null;

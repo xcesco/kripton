@@ -17,5 +17,5 @@ package com.abubusoft.kripton.processor.core;
 
 
 public interface ModelElement {
-	void accept(ModelElementVisitor visitor) throws Exception;
+	void accept(@SuppressWarnings("rawtypes") ModelElementVisitor visitor) throws Exception;
 }

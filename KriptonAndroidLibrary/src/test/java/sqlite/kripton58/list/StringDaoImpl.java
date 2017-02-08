@@ -53,11 +53,11 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public StringBean selectOne() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM string_bean",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM string_bean",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       StringBean resultBean=null;
@@ -103,11 +103,11 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public StringBean selectOne(List<String> value) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       StringBean resultBean=null;
@@ -154,11 +154,11 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public void selectOne(List<String> value, OnReadBeanListener<StringBean> listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       StringBean resultBean=new StringBean();
       if (cursor.moveToFirst()) {
@@ -211,11 +211,11 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public void selectOne(List<String> value, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {
@@ -252,11 +252,11 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public List<StringBean> selectList(List<String> value) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM string_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM string_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<StringBean> resultList=new LinkedList<StringBean>();

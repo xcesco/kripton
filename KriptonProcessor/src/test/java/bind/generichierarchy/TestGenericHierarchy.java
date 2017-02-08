@@ -18,6 +18,6 @@ public class TestGenericHierarchy extends AbstractBindTypeProcessorTest {
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Channel.class, ChannelListResponse.class, RestListEntity.class, RestResponse.class, ServiceStatusType.class, UIDObject.class);
 	}
-
+	
 
 }

@@ -19,13 +19,14 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 
 @BindType
-public class ModelClass<E extends ModelProperty> extends ModelBucket<E, Element> implements ModelElement, ModelWithAnnotation {
+public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElement> implements ModelElement, ModelWithAnnotation {
 
 	protected List<ModelAnnotation> annotations;
 
@@ -33,10 +34,22 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, Element>
 		this(element.getQualifiedName().toString(), element);
 	}
 
-	public ModelClass(String name, Element beanElement) {
+	public ModelClass(String name, TypeElement beanElement) {
 		super(name, beanElement);
 
 		this.annotations = new ArrayList<ModelAnnotation>();
+		typeArgs = TypeUtility.getTypeArguments(beanElement);
+		AssertKripton.assertTrue(typeArgs.size()<2, "%s has a Kripton unsupported hierarchy  ",beanElement.asType());
+	}
+	
+	List<? extends TypeMirror> typeArgs;
+
+	public List<? extends TypeMirror> getTypeArgs() {
+		return typeArgs;
+	}
+	
+	public boolean hasTypeArgs() {
+		return typeArgs!=null && typeArgs.size()>0;
 	}
 
 	public String getSimpleName() {

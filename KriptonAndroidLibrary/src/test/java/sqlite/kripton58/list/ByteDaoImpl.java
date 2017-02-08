@@ -53,11 +53,11 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public ByteBean selectOne() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM byte_bean",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM byte_bean",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       ByteBean resultBean=null;
@@ -103,11 +103,11 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public ByteBean selectOne(List<Short> value) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       ByteBean resultBean=null;
@@ -154,11 +154,11 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public void selectOne(List<Byte> value, OnReadBeanListener<ByteBean> listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer2(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer2(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       ByteBean resultBean=new ByteBean();
       if (cursor.moveToFirst()) {
@@ -211,11 +211,11 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public void selectOne(List<Short> value, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {
@@ -252,11 +252,11 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public List<ByteBean> selectList(List<Short> value) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM byte_bean WHERE value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM byte_bean WHERE value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<ByteBean> resultList=new LinkedList<ByteBean>();

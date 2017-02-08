@@ -48,6 +48,7 @@ public class ModelEntity<E extends Element> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		@SuppressWarnings("rawtypes")
 		ModelEntity other = (ModelEntity) obj;
 		if (element == null) {
 			if (other.element != null)

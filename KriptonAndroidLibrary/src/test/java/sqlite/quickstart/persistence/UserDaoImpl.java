@@ -126,11 +126,11 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
   @Override
   public List<User> selectAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<User> resultList=new LinkedList<User>();
@@ -197,11 +197,11 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
   @Override
   public User selectById(long id) {
     // build where condition
-    String[] args={String.valueOf(id)};
+    String[] _args={String.valueOf(id)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       User resultBean=null;

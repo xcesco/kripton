@@ -92,11 +92,11 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
   @Override
   public List<Todo> selectByUserId(long userId) {
     // build where condition
-    String[] args={String.valueOf(userId)};
+    String[] _args={String.valueOf(userId)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE user_id = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE user_id = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE user_id = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE user_id = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Todo> resultList=new LinkedList<Todo>();
@@ -151,11 +151,11 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
   @Override
   public Todo selectOneByUserId(long userId) {
     // build where condition
-    String[] args={String.valueOf(userId)};
+    String[] _args={String.valueOf(userId)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE id = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE id = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, user_id, title, completed FROM todo WHERE id = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, user_id, title, completed FROM todo WHERE id = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Todo resultBean=null;

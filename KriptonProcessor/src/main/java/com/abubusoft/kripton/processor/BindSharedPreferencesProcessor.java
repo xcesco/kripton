@@ -107,7 +107,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 
-				createSharedPreferences(item);
+				createSharedPreferences((TypeElement) item);
 
 				itemCounter++;
 			}
@@ -133,7 +133,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 		return true;
 	}
 
-	private String createSharedPreferences(final Element sharedPreference) {
+	private String createSharedPreferences(final TypeElement sharedPreference) {
 		Element beanElement = sharedPreference;
 		String result = beanElement.getSimpleName().toString();
 
@@ -153,16 +153,16 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 		// throw (new IncompatibleAttributesInAnnotationException(msg));
 		// }
 
-		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<PrefProperty>() {
+		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<PrefEntity, PrefProperty>() {
 
 			@Override
-			public PrefProperty createProperty(Element element) {
-				return new PrefProperty(currentEntity, element);
+			public PrefProperty createProperty(PrefEntity entity, Element propertyElement) {
+				return new PrefProperty(currentEntity, propertyElement);
 			}
-		}, propertyAnnotationFilter, new PropertyCreatedListener<PrefProperty>() {
+		}, propertyAnnotationFilter, new PropertyCreatedListener<PrefEntity, PrefProperty>() {
 
 			@Override
-			public boolean onProperty(PrefProperty property) {
+			public boolean onProperty(PrefEntity entity, PrefProperty property) {
 				// if @BindDisabled is present, exit immediately
 				if (property.hasAnnotation(BindDisabled.class)) {
 					if (bindAllFields) {
@@ -217,6 +217,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 				return true;
 			}
+
 		});
 
 		model.entityAdd(currentEntity);

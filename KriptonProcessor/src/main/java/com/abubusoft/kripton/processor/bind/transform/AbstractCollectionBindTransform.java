@@ -28,11 +28,13 @@ import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
 import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonToken;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -107,6 +109,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	}
 
 	public void generateParseOnJacksonInternal(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+		elementTypeName=resolveTypeName(property.getParent(), elementTypeName);
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);
 			if (collectionType==CollectionType.ARRAY)
@@ -122,7 +125,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			{
 				methodBuilder.addStatement("String tempValue=null");
 			}
-
+			
 			BindTransform transform=BindTransformer.lookup(elementTypeName);
 			BindProperty elementProperty=BindProperty.builder(elementTypeName, property).inCollection(true).nullable(false).build();
 
@@ -193,8 +196,13 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		//@formatter:on
 	}
 
+	protected TypeName convert(@SuppressWarnings("rawtypes") ModelEntity modelEntity, ClassName elementTypeName) {
+		return elementTypeName;
+	}
+
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		elementTypeName=resolveTypeName(property.getParent(), elementTypeName);
 		//@formatter:off
 		methodBuilder.beginControlFlow("");
 		
@@ -282,6 +290,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property,
 			boolean onString) {
+		elementTypeName=resolveTypeName(property.getParent(), elementTypeName);
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 			if (property.isProperty())
@@ -369,6 +378,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		elementTypeName=resolveTypeName(property.getParent(), elementTypeName);
 		//@formatter:off
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 			

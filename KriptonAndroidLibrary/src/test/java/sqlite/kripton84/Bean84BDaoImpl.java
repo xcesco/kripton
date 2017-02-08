@@ -59,11 +59,11 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   @Override
   public Bean84B selectById(long param1) {
     // build where condition
-    String[] args={String.valueOf(param1)};
+    String[] _args={String.valueOf(param1)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE id = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE id = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE id = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE id = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean84B resultBean=null;
@@ -106,11 +106,11 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   @Override
   public Bean84B selectByBean(Bean84B2 param1) {
     // build where condition
-    String[] args={(param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8))};
+    String[] _args={(param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean84B resultBean=null;

@@ -59,11 +59,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   @Override
   public List<Bean84A> selectAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean84A> resultList=new LinkedList<Bean84A>();
@@ -130,11 +130,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   @Override
   public List<Bean84A> selectById(long uid) {
     // build where condition
-    String[] args={String.valueOf(uid)};
+    String[] _args={String.valueOf(uid)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean84A> resultList=new LinkedList<Bean84A>();
@@ -210,11 +210,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   @Override
   public List<Bean84A> selectWhere(List<String> param1, Map<Integer, String> param2, Character[] param3, char[] param4) {
     // build where condition
-    String[] args={(param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)), (param2==null?"":new String(serializer2(param2),StandardCharsets.UTF_8)), (param3==null?"":new String(serializer3(param3),StandardCharsets.UTF_8)), (param4==null?"":new String(serializer4(param4),StandardCharsets.UTF_8))};
+    String[] _args={(param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)), (param2==null?"":new String(serializer2(param2),StandardCharsets.UTF_8)), (param3==null?"":new String(serializer3(param3),StandardCharsets.UTF_8)), (param4==null?"":new String(serializer4(param4),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string='%s' and column_map_integer_string='%s' and column_array_char='%s'  and column_array_char_type='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string=? and column_map_integer_string=? and column_array_char=?  and column_array_char_type=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string='%s' and column_map_integer_string='%s' and column_array_char='%s'  and column_array_char_type='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string=? and column_map_integer_string=? and column_array_char=?  and column_array_char_type=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean84A> resultList=new LinkedList<Bean84A>();

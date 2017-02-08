@@ -38,11 +38,11 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
   @Override
   public List<Bean8> selectAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, ignore2 FROM bean8",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, ignore2 FROM bean8", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, ignore2 FROM bean8",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, ignore2 FROM bean8", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean8> resultList=new LinkedList<Bean8>();

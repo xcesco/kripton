@@ -28,6 +28,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
@@ -51,7 +52,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
 			AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
 
-			globalBeanElements.put(item.toString(), item);
+			globalBeanElements.put(item.toString(), (TypeElement) item);
 		}
 
 	}
@@ -59,7 +60,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	/**
 	 * define which annotation the annotation processor is interested in
 	 */
-	protected final Map<String, Element> globalBeanElements = new HashMap<String, Element>();
+	protected final Map<String, TypeElement> globalBeanElements = new HashMap<String, TypeElement>();
 
 	protected HashSet<String> excludedMethods;
 

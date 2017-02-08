@@ -91,22 +91,6 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	 * 
 	 * @param name
 	 *            parameter name to find
-	 * @return true if parameter is found
-	 */
-//	public boolean containsParameter(String name) {
-//		for (Pair<String, TypeMirror> item : parameters) {
-//			if (item.value0.equals(name)) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-
-	/**
-	 * Check if method contains a parameter with value as name
-	 * 
-	 * @param name
-	 *            parameter name to find
 	 * @return TypeMirror associated
 	 */
 	public TypeMirror findParameterType(String name) {

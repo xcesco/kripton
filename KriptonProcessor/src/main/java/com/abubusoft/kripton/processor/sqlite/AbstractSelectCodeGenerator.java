@@ -194,7 +194,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			// build where condition (common for every type of select)
 			StringBuilder logArgsBuffer = new StringBuilder();
 			methodBuilder.addCode("// build where condition\n");
-			methodBuilder.addCode("String[] args={");
+			methodBuilder.addCode("String[] _args={");
 			{
 				String separator = "";
 
@@ -245,13 +245,13 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			methodBuilder.addCode("//$T, $T will be used in case of dynamic parts of SQL\n", StringUtils.class, SqlUtils.class);
 
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addStatement("$T.info($T.formatSQL($L,(Object[])args))", Logger.class, SqlUtils.class, formatSqlForLog(method, sqlForLog));
+				methodBuilder.addStatement("$T.info($T.formatSQL($L,(Object[])_args))", Logger.class, SqlUtils.class, formatSqlForLog(method, sqlForLog));
 			}
 
 			if (generationType.generateCloseableCursor) {
-				methodBuilder.beginControlFlow("try ($T cursor = database().rawQuery($L, args))", Cursor.class, formatSql(method, sql));
+				methodBuilder.beginControlFlow("try ($T cursor = database().rawQuery($L, _args))", Cursor.class, formatSql(method, sql));
 			} else {
-				methodBuilder.addStatement("$T cursor = database().rawQuery($L, args)", Cursor.class, formatSql(method, sql));
+				methodBuilder.addStatement("$T cursor = database().rawQuery($L, _args)", Cursor.class, formatSql(method, sql));
 			}
 
 			if (daoDefinition.isLogEnabled()) {

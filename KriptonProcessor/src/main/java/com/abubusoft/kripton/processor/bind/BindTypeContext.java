@@ -21,7 +21,6 @@ import java.util.Set;
 import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.AbstractContext;
-import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
@@ -42,9 +41,9 @@ public class BindTypeContext {
 		this.modifiers=modifiers;
 	}
 
-	public String getBindMapperName(BindTypeContext context, BindProperty property) {
+	public String getBindMapperName(BindTypeContext context, TypeName typeName) {
 		Converter<String, String> format = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
-		TypeName bindMapperName=TypeUtility.mergeTypeName(property.getPropertyType().getName(),BindTypeBuilder.SUFFIX);
+		TypeName bindMapperName=TypeUtility.mergeTypeName(typeName,BindTypeBuilder.SUFFIX);
 		String simpleName=format.convert(TypeUtility.simpleName(bindMapperName));
 	
 		if (!alreadyGeneratedMethods.contains(simpleName))
@@ -59,21 +58,9 @@ public class BindTypeContext {
 			} else {				
 				context.builder.addField(FieldSpec.builder(bindMapperName, simpleName, modifiers)					
 						.addJavadoc("$T", bindMapperName)
-						.initializer("$T.mapperFor($T.class)", AbstractContext.class, property.getPropertyType().getName())
+						.initializer("$T.mapperFor($T.class)", AbstractContext.class, typeName)
 						.build());	
-			}
-			
-			
-			
-			/*MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(simpleName)					
-					.addModifiers(modifiers)
-					.returns(bindMapperName);
-			methodBuilder.beginControlFlow("if ($L==null)", simpleName);
-				methodBuilder.addStatement("$L=$T.mapperFor($T.class)", simpleName, AbstractContext.class, property.getPropertyType().getName());
-			methodBuilder.endControlFlow();
-			
-			methodBuilder.addStatement("return $L", simpleName);
-			context.builder.addMethod(methodBuilder.build());*/
+			}		
 		}
 		
 		return simpleName;

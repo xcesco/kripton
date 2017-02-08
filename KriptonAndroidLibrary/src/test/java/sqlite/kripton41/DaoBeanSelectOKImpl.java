@@ -45,11 +45,11 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
   @Override
   public Boolean selectDistance(long id, double value) {
     // build where condition
-    String[] args={String.valueOf(id), String.valueOf(value)};
+    String[] _args={String.valueOf(id), String.valueOf(value)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT count(*)>1 FROM bean01 WHERE id='%s' and value='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT count(*)>1 FROM bean01 WHERE id=? and value=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT count(*)>1 FROM bean01 WHERE id='%s' and value='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT count(*)>1 FROM bean01 WHERE id=? and value=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Boolean result=null;
 

@@ -41,11 +41,11 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
   @Override
   public List<Bean64A> selectAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean64A> resultList=new LinkedList<Bean64A>();
@@ -100,11 +100,11 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
   @Override
   public List<Bean64A> selectList(long id) {
     // build where condition
-    String[] args={String.valueOf(id)};
+    String[] _args={String.valueOf(id)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a WHERE id='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a WHERE id=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a WHERE id='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a WHERE id=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean64A> resultList=new LinkedList<Bean64A>();

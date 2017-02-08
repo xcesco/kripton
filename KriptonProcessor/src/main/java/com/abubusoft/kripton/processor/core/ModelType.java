@@ -39,6 +39,11 @@ public class ModelType extends LiteralType {
 		this.name=TypeName.get(type);
 	}
 	
+	public ModelType(String containerClassName, String argClassName) {
+		super(LiteralType.of(containerClassName, argClassName).getValue());		
+		this.name=TypeUtility.typeName(LiteralType.of(containerClassName, argClassName).getValue());
+	}
+	
 	public ModelType(TypeName typeName) {
 		super(typeName.toString());		
 		this.name=typeName;
@@ -51,6 +56,7 @@ public class ModelType extends LiteralType {
 	}
 
 	public void replaceGeneric(TypeMirror resolvedType) {
+		//LiteralType.of(rawType, parametrizedType)
 		if (!this.rawType.contains("."))
 		{
 			//assert: rawType is generic

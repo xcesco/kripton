@@ -104,11 +104,11 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
   @Override
   public List<Comment> selectByPostId(long postId) {
     // build where condition
-    String[] args={String.valueOf(postId)};
+    String[] _args={String.valueOf(postId)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE post_id = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE post_id = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE post_id = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE post_id = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Comment> resultList=new LinkedList<Comment>();
@@ -166,11 +166,11 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
   @Override
   public Comment selectOneByPostId(long postId) {
     // build where condition
-    String[] args={String.valueOf(postId)};
+    String[] _args={String.valueOf(postId)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE id = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE id = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT post_id, id, name, email, body FROM comment WHERE id = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT post_id, id, name, email, body FROM comment WHERE id = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Comment resultBean=null;

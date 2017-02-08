@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.core.reflect;
 
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -29,7 +28,6 @@ import javax.lang.model.util.Types;
 
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BindTypeProcessor;
-import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
@@ -53,16 +51,6 @@ public class TypeUtility {
 		}
 
 		return false;
-	}
-	
-	/**
-	 * 
-	 * @param type
-	 * @return
-	 */
-	public boolean isGenericPlaceHolder(TypeMirror type)
-	{
-		return !type.toString().contains(".");
 	}
 
 	public static boolean isTypeEquals(TypeName value, TypeName value2) {
@@ -296,14 +284,7 @@ public class TypeUtility {
 	 * @return
 	 * 
 	 */
-	public static void beginStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
-		TypeName typeName;
-		if (typeMirror instanceof ModelType) {
-			typeName = ((ModelType) typeMirror).getName();
-		} else {
-			typeName = typeName(typeMirror);
-		}
-
+	public static void beginStringConversion(Builder methodBuilder, TypeMirror typeMirror) {	
 		SQLTransform transform = SQLTransformer.lookup(typeMirror);
 
 		switch (transform.getColumnType()) {
@@ -338,13 +319,6 @@ public class TypeUtility {
 	 * 
 	 */
 	public static void endStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
-		TypeName typeName;
-		if (typeMirror instanceof ModelType) {
-			typeName = ((ModelType) typeMirror).getName();
-		} else {
-			typeName = typeName(typeMirror);
-		}
-
 		SQLTransform transform = SQLTransformer.lookup(typeMirror);
 
 		switch (transform.getColumnType()) {
@@ -469,7 +443,7 @@ public class TypeUtility {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * <p>
 	 * Retrieve parametrized type of element (from its parent).
@@ -479,75 +453,11 @@ public class TypeUtility {
 	 * @return list of typemirror or empty list
 	 */
 	public static List<? extends TypeMirror> getTypeArguments(TypeElement element) {
-		if (element.getSuperclass() instanceof DeclaredType)
-		{
-			return ((DeclaredType)element.getSuperclass()).getTypeArguments();
-		}		
+		if (element.getSuperclass() instanceof DeclaredType) {
+			return ((DeclaredType) element.getSuperclass()).getTypeArguments();
+		}
 
 		return new ArrayList<>();
-	}
-
-	/**
-	 * <p>
-	 * Retrieve parametrized type of element (from its parent).
-	 * </p>
-	 * 
-	 * @param element
-	 * @return list of typemirror or null
-	 */
-	public static List<? extends TypeMirror> getParametrizedType(Element element) {
-		TypeMirror elementTypeMirror = element.asType();
-
-		System.out.println("DeclaredType " + (element.asType() instanceof DeclaredType));
-		System.out.println("ParameterizedType " + (element.asType() instanceof ParameterizedType));
-		if (elementTypeMirror instanceof DeclaredType) {
-			DeclaredType declaredType = (DeclaredType) element.asType();
-
-			System.out.println(declaredType.asElement().toString());
-			System.out.println("naz0" + declaredType.getTypeArguments());
-
-			/*if (declaredType. .getSuperclass() instanceof DeclaredType) {
-				DeclaredType superclassDeclaredType = declaredType.getSuperclass();
-
-				System.out.println("naz parent" + typeElement.getTypeParameters());
-				System.out.println("naz parent" + typeElement.getTypeParameters());
-				return superclassDeclaredType.getTypeArguments();
-			}*/
-			return null;
-		}
-
-		return null;
-	}
-
-	protected static DeclaredType parse(TypeMirror clazz) {
-		TypeElement element = BindTypeProcessor.elementUtils.getTypeElement(clazz.toString());
-
-		if (element.getTypeParameters() instanceof DeclaredType) {
-			DeclaredType declaredType = (DeclaredType) element;
-
-			List<? extends TypeMirror> list = declaredType.getTypeArguments();
-			System.out.print(list.size());
-		}
-		return null;
-
-	}
-
-	public static TypeName parameterParentType(Element entity) {
-		TypeElement parentType;
-		if (entity instanceof TypeElement) {
-			parentType = (TypeElement) entity;
-
-			// parse(parentType.getSuperclass());
-
-			LiteralType parentLiteralType = LiteralType.of(parentType.getSuperclass().toString());
-			if (parentLiteralType.getComposedValue() != null) {
-				return typeName(parentLiteralType.getComposedValue());
-			}
-			return null;
-
-		}
-
-		return null;
 	}
 
 	/**
@@ -576,11 +486,6 @@ public class TypeUtility {
 		} else {
 			return declaredType.toString();
 		}
-	}
-
-	public static void replaceGeneric(BindProperty property, TypeMirror resolvedType) {
-		property.getPropertyType().replaceGeneric(resolvedType);
-		
 	}
 
 }

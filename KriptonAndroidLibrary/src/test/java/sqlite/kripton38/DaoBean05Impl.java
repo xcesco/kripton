@@ -63,11 +63,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public Bean05 selectOne(Long id) {
     // build where condition
-    String[] args={(id==null?"":String.valueOf(id))};
+    String[] _args={(id==null?"":String.valueOf(id))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean05 resultBean=null;
@@ -123,11 +123,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public Bean05 selectOne(Bean05 bean) {
     // build where condition
-    String[] args={String.valueOf(bean.getPk()), (bean.getText()==null?"":bean.getText())};
+    String[] _args={String.valueOf(bean.getPk()), (bean.getText()==null?"":bean.getText())};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s' and prova='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=? and prova=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s' and prova='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=? and prova=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean05 resultBean=null;
@@ -182,11 +182,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public List<Bean05> selectAll(long id) {
     // build where condition
-    String[] args={String.valueOf(id)};
+    String[] _args={String.valueOf(id)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean05> resultList=new LinkedList<Bean05>();
@@ -242,11 +242,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public List<Long> selectPK(String text) {
     // build where condition
-    String[] args={(text==null?"":text)};
+    String[] _args={(text==null?"":text)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT pk FROM ws_bean WHERE text = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT pk FROM ws_bean WHERE text = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT pk FROM ws_bean WHERE text = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT pk FROM ws_bean WHERE text = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Long> resultList=new LinkedList<Long>();
@@ -289,11 +289,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public Long selectCount(String text) {
     // build where condition
-    String[] args={(text==null?"":text)};
+    String[] _args={(text==null?"":text)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT count(*) FROM ws_bean WHERE text = '%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT count(*) FROM ws_bean WHERE text = ?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT count(*) FROM ws_bean WHERE text = '%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT count(*) FROM ws_bean WHERE text = ?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Long result=null;
 
@@ -334,11 +334,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectCursorListener(Long id, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(id==null?"":String.valueOf(id))};
+    String[] _args={(id==null?"":String.valueOf(id))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {
@@ -379,11 +379,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener) {
     // build where condition
-    String[] args={(id==null?"":String.valueOf(id))};
+    String[] _args={(id==null?"":String.valueOf(id))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Bean05 resultBean=new Bean05();
       if (cursor.moveToFirst()) {
@@ -448,11 +448,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectOne(Long id, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(id==null?"":String.valueOf(id))};
+    String[] _args={(id==null?"":String.valueOf(id))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {
@@ -493,11 +493,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectOne(long id, OnReadBeanListener<Bean05> listener) {
     // build where condition
-    String[] args={String.valueOf(id)};
+    String[] _args={String.valueOf(id)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Bean05 resultBean=new Bean05();
       if (cursor.moveToFirst()) {
@@ -885,11 +885,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public byte[] getOne(long id) {
     // build where condition
-    String[] args={String.valueOf(id)};
+    String[] _args={String.valueOf(id)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT content FROM ws_bean WHERE pk='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT content FROM ws_bean WHERE pk=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT content FROM ws_bean WHERE pk='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT content FROM ws_bean WHERE pk=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       byte[] result=null;
 

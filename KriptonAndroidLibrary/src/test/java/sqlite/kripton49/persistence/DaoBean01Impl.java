@@ -47,11 +47,11 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   @Override
   public Bean01Entity selectOne(Long id) {
     // build where condition
-    String[] args={(id==null?"":String.valueOf(id))};
+    String[] _args={(id==null?"":String.valueOf(id))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean01Entity resultBean=null;
@@ -94,11 +94,11 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   @Override
   public List<Bean01Entity> selectById(Long id) {
     // build where condition
-    String[] args={(id==null?"":String.valueOf(id))};
+    String[] _args={(id==null?"":String.valueOf(id))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, text FROM bean01 WHERE id='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, text FROM bean01 WHERE id=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean01Entity> resultList=new LinkedList<Bean01Entity>();

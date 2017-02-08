@@ -45,11 +45,11 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
   @Override
   public Bean96 selectByBean(String name) {
     // build where condition
-    String[] args={(name==null?"":name)};
+    String[] _args={(name==null?"":name)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean96 WHERE name like '%s' || \'%%'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean96 WHERE name like ? || \'%\'", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean96 WHERE name like '%s' || \'%%'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean96 WHERE name like ? || \'%\'", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean96 resultBean=null;

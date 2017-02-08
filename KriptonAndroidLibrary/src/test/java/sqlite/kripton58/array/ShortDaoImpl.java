@@ -54,11 +54,11 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public ShortBean selectOne() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM short_bean",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM short_bean",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       ShortBean resultBean=null;
@@ -107,11 +107,11 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public ShortBean selectOne(short[] value, Short[] value2) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=? and value2=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s' and value2='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=? and value2=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       ShortBean resultBean=null;
@@ -161,11 +161,11 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public void selectOne(short[] value, Short[] value2, OnReadBeanListener<ShortBean> listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=? and value2=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s' and value2='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=? and value2=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       ShortBean resultBean=new ShortBean();
       if (cursor.moveToFirst()) {
@@ -221,11 +221,11 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public void selectOne(short[] value, Short[] value2, OnReadCursorListener listener) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=? and value2=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s' and value2='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=? and value2=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {
@@ -265,11 +265,11 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public List<ShortBean> selectList(short[] value, Short[] value2) {
     // build where condition
-    String[] args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
+    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)), (value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s' and value2='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=? and value2=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM short_bean WHERE value='%s' and value2='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM short_bean WHERE value=? and value2=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<ShortBean> resultList=new LinkedList<ShortBean>();

@@ -17,13 +17,11 @@ package com.abubusoft.kripton.processor.core.reflect;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.CaseFormat;
@@ -32,7 +30,6 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
 import com.squareup.javapoet.TypeName;
@@ -47,15 +44,16 @@ public abstract class PropertyUtility {
 	private static final String IS_PREFIX = "is";
 	private static final String GET_PREFIX = "get";
 
-	public interface PropertyCreatedListener<E extends ModelProperty> {
+	public interface PropertyCreatedListener<T extends ModelClass<? extends E>, E extends ModelProperty> {
 		/**
 		 * If true, the property will be included in the class. If return false,
 		 * the property will be ignored
 		 * 
+		 * @param entity
 		 * @param property
 		 * @return true to include property, false otherwise
 		 */
-		boolean onProperty(E property);
+		boolean onProperty(T entity, E property);
 	};
 
 	/**
@@ -69,8 +67,8 @@ public abstract class PropertyUtility {
 	 *            if null, no filter is applied to annotations
 	 * @param listener
 	 */
-	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils, T entity, PropertyFactory<P> factoryProperty,
-			AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener<P> listener) {
+	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils, T entity, PropertyFactory<T, P> factoryProperty,
+			AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener<T, P> listener) {
 		List<? extends Element> list = elementUtils.getAllMembers(entity.getElement());
 
 		if (propertyAnnotationFilter != null) {
@@ -80,7 +78,7 @@ public abstract class PropertyUtility {
 		P field;
 		for (Element item : list) {
 			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {
-				field = factoryProperty.createProperty(item);
+				field = factoryProperty.createProperty(entity, item);
 				AnnotationUtility.buildAnnotations(elementUtils, field, propertyAnnotationFilter);
 
 				entity.add(field);
@@ -132,7 +130,7 @@ public abstract class PropertyUtility {
 			List<P> listPropertiesToFilter = new ArrayList<P>(entity.getCollection());
 
 			for (P item : listPropertiesToFilter) {
-				if (!listener.onProperty(item)) {
+				if (!listener.onProperty(entity, item)) {
 					entity.getCollection().remove(item);
 				}
 			}

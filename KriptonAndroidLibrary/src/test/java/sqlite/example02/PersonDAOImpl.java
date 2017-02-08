@@ -307,11 +307,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectThreeIncludeERR(Person bean) {
     // build where condition
-    String[] args={String.valueOf(bean.id), (bean.name==null?"":bean.name)};
+    String[] _args={String.valueOf(bean.id), (bean.name==null?"":bean.name)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT name FROM person WHERE id='%s' and name='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT name FROM person WHERE id=? and name=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT name FROM person WHERE id='%s' and name='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT name FROM person WHERE id=? and name=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -659,11 +659,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -721,11 +721,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public Set<Person> selectAll(String name) {
     // build where condition
-    String[] args={(name==null?"":name)};
+    String[] _args={(name==null?"":name)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       HashSet<Person> resultList=new HashSet<Person>();
@@ -777,11 +777,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void selectBeanListener(OnReadBeanListener<Person> beanListener) {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Person resultBean=new Person();
       if (cursor.moveToFirst()) {
@@ -835,11 +835,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void selectCursorListener(OnReadCursorListener cursorListener) {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {

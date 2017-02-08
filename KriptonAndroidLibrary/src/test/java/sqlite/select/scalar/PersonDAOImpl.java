@@ -37,11 +37,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public String selectAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT name FROM person ORDER BY name",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT name FROM person ORDER BY name", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT name FROM person ORDER BY name",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT name FROM person ORDER BY name", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       String result=null;
 
@@ -69,11 +69,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public Date selectAll2() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT birth_day FROM person ORDER BY name",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT birth_day FROM person ORDER BY name", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT birth_day FROM person ORDER BY name",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT birth_day FROM person ORDER BY name", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Date result=null;
 

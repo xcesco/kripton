@@ -67,6 +67,9 @@ public class MapBindTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
+		keyTypeName=resolveTypeName(property.getParent(), keyTypeName);
+		valueTypeName=resolveTypeName(property.getParent(), valueTypeName);
+		
 		//@formatter:off
 		methodBuilder.beginControlFlow("");
 		
@@ -155,6 +158,9 @@ public class MapBindTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
+		keyTypeName=resolveTypeName(property.getParent(), keyTypeName);
+		valueTypeName=resolveTypeName(property.getParent(), valueTypeName);
+		
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 				
@@ -215,6 +221,9 @@ public class MapBindTransformation extends AbstractBindTransform {
 	}
 
 	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+		keyTypeName=resolveTypeName(property.getParent(), keyTypeName);
+		valueTypeName=resolveTypeName(property.getParent(), valueTypeName);
+		
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		
@@ -300,6 +309,9 @@ public class MapBindTransformation extends AbstractBindTransform {
 	}
 
 	public void generateParseOnJacksonInternal(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
+		keyTypeName=resolveTypeName(property.getParent(), keyTypeName);
+		valueTypeName=resolveTypeName(property.getParent(), valueTypeName);
+		
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);		
 		methodBuilder.addStatement("$T<$T, $T> collection=new $T<>()", defineMapClass(mapTypeName), keyTypeName, valueTypeName, defineMapClass(mapTypeName));

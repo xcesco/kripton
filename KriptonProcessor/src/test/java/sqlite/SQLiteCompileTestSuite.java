@@ -18,6 +18,7 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import bind.generichierarchy.TestGenericHierarchySuite;
 import sqlite.dynamic.TestDynamicSuite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
@@ -88,7 +89,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			IndexTestSuite.class,
 			TestSelectSuite.class,
 			IncludeFieldsTestSuite.class,
-			TestCompileMultithreadSuite.class
+			TestCompileMultithreadSuite.class,
+			TestGenericHierarchySuite.class
 			})
 //@formatter:on
 public class SQLiteCompileTestSuite {

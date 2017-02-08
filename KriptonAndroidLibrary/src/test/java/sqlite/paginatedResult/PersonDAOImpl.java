@@ -70,11 +70,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   private List<Person> selectPagedStatic1(PaginatedResult2 paginatedResult) {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name LIMIT 20"+SqlUtils.printIf(paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()),(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name LIMIT 20"+SqlUtils.printIf(paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()), args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name LIMIT 20"+SqlUtils.printIf(paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()),(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name LIMIT 20"+SqlUtils.printIf(paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()), _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       List<Person> resultList=new ArrayList<Person>();
@@ -162,11 +162,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   private List<Person> selectPagedStatic2(int pageSize, PaginatedResult3 paginatedResult) {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize)+SqlUtils.printIf(pageSize>0 && paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()),(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize)+SqlUtils.printIf(pageSize>0 && paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()), args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize)+SqlUtils.printIf(pageSize>0 && paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()),(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize)+SqlUtils.printIf(pageSize>0 && paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow()), _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       List<Person> resultList=new ArrayList<Person>();
@@ -275,11 +275,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -346,11 +346,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectOne(String nameValue, String where, String orderBy) {
     // build where condition
-    String[] args={(nameValue==null?"":nameValue)};
+    String[] _args={(nameValue==null?"":nameValue)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%' "+SqlUtils.appendForLog(where)+" ORDER BY "+SqlUtils.appendForLog(orderBy),(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\' "+SqlUtils.appendForSQL(where)+" ORDER BY "+SqlUtils.appendForSQL(orderBy), args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%' "+SqlUtils.appendForLog(where)+" ORDER BY "+SqlUtils.appendForLog(orderBy),(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\' "+SqlUtils.appendForSQL(where)+" ORDER BY "+SqlUtils.appendForSQL(orderBy), _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -409,11 +409,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void selectBeanListener(OnReadBeanListener<Person> beanListener, String orderBy) {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.appendForLog(orderBy),(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.appendForSQL(orderBy), args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.appendForLog(orderBy),(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.appendForSQL(orderBy), _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Person resultBean=new Person();
       if (cursor.moveToFirst()) {

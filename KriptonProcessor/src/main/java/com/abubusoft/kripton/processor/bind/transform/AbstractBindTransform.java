@@ -18,6 +18,11 @@
  */
 package com.abubusoft.kripton.processor.bind.transform;
 
+import com.abubusoft.kripton.processor.core.ModelClass;
+import com.abubusoft.kripton.processor.core.ModelEntity;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeVariableName;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -31,6 +36,22 @@ public abstract class AbstractBindTransform implements BindTransform {
 	protected static final String PRE_TYPE_ADAPTER_TO_DATA="$T.toData($T.class, ";
 	
 	protected static final String POST_TYPE_ADAPTER=")";
+	
+	/**
+	 * Resolve a type name: if it's a className, it's leave untouched. If it is a TypeVariableName, it will resolved with entity args. 
+	 * @param modelEntity
+	 * @param elementTypeName
+	 * @return
+	 */
+	protected TypeName resolveTypeName(@SuppressWarnings("rawtypes") ModelEntity modelEntity, TypeName elementTypeName) {
+		if (elementTypeName instanceof TypeVariableName) {
+			ModelClass<?> model = (ModelClass<?>) modelEntity;
+			if (model.hasTypeArgs()) {
+				return TypeUtility.typeName(model.getTypeArgs().get(0));
+			}
+		}
+		return elementTypeName;
+	}
 	
 	
 

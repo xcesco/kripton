@@ -26,7 +26,6 @@ import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.squareup.javapoet.TypeName;
 
 @BindType
 public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {	
@@ -196,18 +195,8 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	public boolean isPublicField() {
 		return publicField;
 	}
-
 	
-//	public boolean isReadable()
-//	{
-//		return publicField || fieldWithGetter || fieldWithIs;
-//	}
-//	
-//	public boolean isWritable()
-//	{
-//		return publicField || fieldWithSetter;
-//	}
-	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void accept(@SuppressWarnings("rawtypes") ModelElementVisitor visitor) throws Exception {
 		visitor.visit(this);		

@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.generichierarchy.BaseDAO;
 
 @RunWith(JUnit4.class)
 public class TestCompileMultithread extends AbstractBindSQLiteProcessorTest {
@@ -31,7 +32,7 @@ public class TestCompileMultithread extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
+		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class, BaseDAO.class);
 	}
 
 }

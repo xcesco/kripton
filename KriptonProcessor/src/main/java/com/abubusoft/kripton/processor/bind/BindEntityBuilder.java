@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.processor.bind;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.annotation.Bind;
@@ -66,10 +67,10 @@ public abstract class BindEntityBuilder {
 
 	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).build();
 
-	public static BindEntity build(final BindModel model, final Elements elementUtils, Element element) {
+	public static BindEntity build(final BindModel model, final Elements elementUtils, TypeElement element) {
 		final InnerCounter counterPropertyInValue = new InnerCounter();
 		final Converter<String, String> typeNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
-		final Element beanElement = element;
+		final TypeElement beanElement = element;
 
 		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), beanElement);
 		
@@ -85,16 +86,18 @@ public abstract class BindEntityBuilder {
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 
-		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<BindProperty>() {
+		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<BindEntity, BindProperty>() {
 
 			@Override
-			public BindProperty createProperty(Element element) {
-				return new BindProperty(currentEntity, element);
+			public BindProperty createProperty(BindEntity entity, Element propertyElement) {
+				return new BindProperty(currentEntity, propertyElement);
 			}
-		}, propertyAnnotationFilter, new PropertyCreatedListener<BindProperty>() {
+
+		
+		}, propertyAnnotationFilter, new PropertyCreatedListener<BindEntity, BindProperty>() {
 
 			@Override
-			public boolean onProperty(BindProperty property) {
+			public boolean onProperty(BindEntity entity, BindProperty property) {
 				// if we are build Map, the model are not null
 				boolean contextExternal = (model == null);
 
@@ -267,6 +270,7 @@ public abstract class BindEntityBuilder {
 				return true;
 
 			}
+
 		});
 
 		// if we don't have model, we dont save bean definition

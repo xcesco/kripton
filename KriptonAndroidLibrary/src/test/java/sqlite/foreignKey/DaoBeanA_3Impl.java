@@ -39,11 +39,11 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
   @Override
   public List<BeanA_3> selectAll() {
     // build where condition
-    String[] args={};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value_string2 FROM bean_a_3",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_3", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value_string2 FROM bean_a_3",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_3", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<BeanA_3> resultList=new LinkedList<BeanA_3>();
@@ -92,11 +92,11 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
   @Override
   public List<BeanA_3> selectById(long id) {
     // build where condition
-    String[] args={String.valueOf(id)};
+    String[] _args={String.valueOf(id)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value_string2 FROM bean_a_3 WHERE id='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_3 WHERE id=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, value_string2 FROM bean_a_3 WHERE id='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, value_string2 FROM bean_a_3 WHERE id=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<BeanA_3> resultList=new LinkedList<BeanA_3>();
@@ -144,11 +144,11 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
   @Override
   public List<BeanA_3> selectByString(String value) {
     // build where condition
-    String[] args={(value==null?"":value)};
+    String[] _args={(value==null?"":value)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id FROM bean_a_3 WHERE value_string2='%s'",(Object[])args));
-    try (Cursor cursor = database().rawQuery("SELECT id FROM bean_a_3 WHERE value_string2=?", args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id FROM bean_a_3 WHERE value_string2='%s'",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id FROM bean_a_3 WHERE value_string2=?", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<BeanA_3> resultList=new LinkedList<BeanA_3>();
