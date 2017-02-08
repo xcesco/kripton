@@ -15,19 +15,35 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.model;
 
-import javax.lang.model.element.TypeElement;
+import java.util.List;
 
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
+
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelClass;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 
 public class BindEntity extends ModelClass<BindProperty> {
 
-	public BindEntity(String name, TypeElement beanElement) {
+	public BindEntity(String name, Element beanElement) {
 		super(name, beanElement);
 
 		xmlInfo = new XmlInfo();
+		
+		typeArgs = TypeUtility.getTypeArguments((TypeElement) beanElement);
+		AssertKripton.assertTrue(typeArgs.size()<2, "%s has a Kripton unsupported hierarchy  ",beanElement.asType());
+		
 	}
 	
 	public XmlInfo xmlInfo;
+	
+	List<? extends TypeMirror> typeArgs;
+
+	public List<? extends TypeMirror> getTypeArgs() {
+		return typeArgs;
+	}
 
 	public class XmlInfo {
 		public String label;

@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.core.reflect;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.element.Element;
@@ -28,7 +29,7 @@ import javax.lang.model.util.Types;
 
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BindTypeProcessor;
-import com.abubusoft.kripton.processor.bind.BindTypeBuilder.VisitResult;
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
@@ -52,6 +53,16 @@ public class TypeUtility {
 		}
 
 		return false;
+	}
+	
+	/**
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public boolean isGenericPlaceHolder(TypeMirror type)
+	{
+		return !type.toString().contains(".");
 	}
 
 	public static boolean isTypeEquals(TypeName value, TypeName value2) {
@@ -465,15 +476,15 @@ public class TypeUtility {
 	 * </p>
 	 * 
 	 * @param element
-	 * @return list of typemirror or null
+	 * @return list of typemirror or empty list
 	 */
-	public static List<? extends TypeMirror> getParametrizedType(TypeElement element) {
+	public static List<? extends TypeMirror> getTypeArguments(TypeElement element) {
 		if (element.getSuperclass() instanceof DeclaredType)
 		{
 			return ((DeclaredType)element.getSuperclass()).getTypeArguments();
 		}		
 
-		return null;
+		return new ArrayList<>();
 	}
 
 	/**
@@ -565,6 +576,11 @@ public class TypeUtility {
 		} else {
 			return declaredType.toString();
 		}
+	}
+
+	public static void replaceGeneric(BindProperty property, TypeMirror resolvedType) {
+		property.getPropertyType().replaceGeneric(resolvedType);
+		
 	}
 
 }

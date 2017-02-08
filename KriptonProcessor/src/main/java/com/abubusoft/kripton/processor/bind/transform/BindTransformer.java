@@ -33,6 +33,7 @@ import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -69,6 +70,7 @@ public abstract class BindTransformer {
 	 * @return transform
 	 */
 	public static BindTransform lookup(BindProperty property) {
+		ModelEntity entity = property.getParent();
 		TypeMirror typeMirror = property.getElement().asType();
 		TypeName typeName = typeName(typeMirror);
 		if (property.hasTypeAdapter()) {

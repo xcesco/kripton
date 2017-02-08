@@ -16,7 +16,6 @@
 package com.abubusoft.kripton.processor.bind;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.annotation.Bind;
@@ -72,8 +71,8 @@ public abstract class BindEntityBuilder {
 		final Converter<String, String> typeNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		final Element beanElement = element;
 
-		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement);
-
+		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), beanElement);
+		
 		// tag name
 		String tagName = AnnotationUtility.extractAsString(elementUtils, beanElement, BindType.class, AnnotationAttributeType.VALUE);
 		if (StringUtils.hasText(tagName)) {
@@ -91,7 +90,6 @@ public abstract class BindEntityBuilder {
 			@Override
 			public BindProperty createProperty(Element element) {
 				return new BindProperty(currentEntity, element);
-
 			}
 		}, propertyAnnotationFilter, new PropertyCreatedListener<BindProperty>() {
 

@@ -21,6 +21,7 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.ExecutableElement;
@@ -30,6 +31,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.AbstractElementVisitor7;
 import javax.lang.model.util.Elements;
 
@@ -54,7 +56,6 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -70,6 +71,10 @@ public abstract class BindTypeBuilder {
 		{
 			this.elementUtils=elementUtils;
 		}
+		
+		public TypeMirror rawType;
+		
+		public List<? extends TypeMirror> argumentTypes;
 		
 		public Elements elementUtils;
 
@@ -99,6 +104,9 @@ public abstract class BindTypeBuilder {
 		@Override
 		public Void visitVariable(VariableElement e, VisitResult p) {
 			System.out.println("visitVariable "+e.asType());
+			
+			
+			
 			return null;
 		}
 
@@ -111,6 +119,8 @@ public abstract class BindTypeBuilder {
 		@Override
 		public Void visitTypeParameter(TypeParameterElement e, VisitResult p) {
 			System.out.println("visitTypeParameter "+e.asType());
+			
+			
 			return null;
 		}
 
@@ -166,17 +176,6 @@ public abstract class BindTypeBuilder {
 				return lhs.getName().compareTo(rhs.getName());
 			}
 		});
-
-		TypeUtility.getParametrizedType(item.getElement());
-		
-		//VisitResult result=new VisitResult(elementUtils);
-		//visitor.visit(item.getElement(), result);		
-		TypeUtility.getParametrizedType(item.getElement());
-		
-		for (BindProperty property : item.getCollection())
-		{
-			TypeUtility.getParametrizedType(property.getElement());
-		}
 
 		// generate serializeOnJackson
 		generateSerializeOnJackson(context, item);

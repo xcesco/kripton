@@ -26,6 +26,7 @@ import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.TypeName;
 
 @BindType
 public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {	
@@ -95,7 +96,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		this.parent=new WeakReference<ModelEntity>(entity);
 		
 		if (element!=null) {
-			this.propertyType=new ModelType(element.asType());
+			propertyType=new ModelType(element.asType());
 			publicField=element.getModifiers().contains(Modifier.PUBLIC);			
 		}
 		this.annotations = new ArrayList<ModelAnnotation>();

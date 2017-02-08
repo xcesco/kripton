@@ -19,12 +19,13 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElement> implements ModelElement, ModelWithAnnotation {
+public class ModelClass<E extends ModelProperty> extends ModelBucket<E, Element> implements ModelElement, ModelWithAnnotation {
 
 	protected List<ModelAnnotation> annotations;
 
@@ -32,8 +33,8 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 		this(element.getQualifiedName().toString(), element);
 	}
 
-	public ModelClass(String name, TypeElement element) {
-		super(name, element);
+	public ModelClass(String name, Element beanElement) {
+		super(name, beanElement);
 
 		this.annotations = new ArrayList<ModelAnnotation>();
 	}

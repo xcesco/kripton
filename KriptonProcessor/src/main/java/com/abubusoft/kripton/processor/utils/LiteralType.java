@@ -66,7 +66,7 @@ public class LiteralType {
 
 	private static final Pattern CLASS_PATTERN = Pattern.compile("([\\w\\.]+)\\<(.*)\\>|([\\w\\.]+)\\[\\]|([\\w\\.]+)");
 
-	protected String rawType;
+	public String rawType;
 
 	protected Class<?> resolvedRawType;
 
