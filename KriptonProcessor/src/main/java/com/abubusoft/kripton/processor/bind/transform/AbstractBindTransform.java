@@ -21,6 +21,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeVariableName;
 
@@ -51,7 +52,13 @@ public abstract class AbstractBindTransform implements BindTransform {
 			if (model.hasTypeArgs()) {
 				return TypeUtility.typeName(model.getTypeArgs().get(0));
 			}
-		} else if (elementTypeName instanceof ClassName && )
+		} else if (elementTypeName instanceof ClassName && !elementTypeName.toString().contains(".") && !elementTypeName.isPrimitive() && !elementTypeName.isBoxedPrimitive())
+		{
+			ModelClass<?> model = (ModelClass<?>) modelEntity;
+			if (model.hasTypeArgs()) {
+				return TypeUtility.typeName(model.getTypeArgs().get(0));
+			}
+		}
 		return elementTypeName;
 	}
 
