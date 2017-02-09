@@ -74,7 +74,7 @@ public class LiteralType {
 
 	private String composedType;
 
-	public String getComposedValue() {
+	public String getComposedType() {
 		return composedType;
 	}
 

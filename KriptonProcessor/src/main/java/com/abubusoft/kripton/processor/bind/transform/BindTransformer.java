@@ -33,10 +33,13 @@ import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.ModelClass;
+import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeVariableName;
 
 /**
  * Transformer for java primitive types and frequently used java types
@@ -74,6 +77,7 @@ public abstract class BindTransformer {
 		if (property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);
 		}
+		
 		return lookup(typeName);
 	}
 
@@ -97,6 +101,7 @@ public abstract class BindTransformer {
 
 	/**
 	 * Get transformer for type
+	 * @param modelEntity 
 	 * 
 	 * @param typeName
 	 * @return transform
@@ -299,5 +304,7 @@ public abstract class BindTransformer {
 		}
 		return null;
 	}
+	
+	
 
 }

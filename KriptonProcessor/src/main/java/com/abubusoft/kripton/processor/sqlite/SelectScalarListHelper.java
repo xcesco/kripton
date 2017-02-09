@@ -75,7 +75,7 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 		if (!literalReturn.isCollection())
 			t = SQLTransformer.lookup(returnType);
 		else {
-			t = SQLTransformer.lookup(typeName(literalReturn.getComposedValue()));
+			t = SQLTransformer.lookup(typeName(literalReturn.getComposedType()));
 		}
 
 		//@formatter:off
