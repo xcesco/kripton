@@ -38,14 +38,14 @@ public class MapBindTransformation extends AbstractBindTransform {
 
 	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
-	private ParameterizedTypeName mapTypeName;
-	private TypeName keyTypeName;
-	private TypeName valueTypeName;
+	//private ParameterizedTypeName mapTypeName;
+	//private TypeName keyTypeName;
+	//private TypeName valueTypeName;
 
 	public MapBindTransformation(ParameterizedTypeName clazz) {
-		this.mapTypeName = clazz;
-		this.keyTypeName = mapTypeName.typeArguments.get(0);
-		this.valueTypeName = mapTypeName.typeArguments.get(1);
+		//this.mapTypeName = clazz;
+		//this.keyTypeName = mapTypeName.typeArguments.get(0);
+		//this.valueTypeName = mapTypeName.typeArguments.get(1);
 	}
 	
 	public boolean isTypeAdapterSupported() {
@@ -67,8 +67,10 @@ public class MapBindTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		keyTypeName=resolveTypeName(property.getParent(), keyTypeName);
-		valueTypeName=resolveTypeName(property.getParent(), valueTypeName);
+		// define key and value type
+		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getName();
+		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
+		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
 		
 		//@formatter:off
 		methodBuilder.beginControlFlow("");
@@ -158,8 +160,10 @@ public class MapBindTransformation extends AbstractBindTransform {
 
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		keyTypeName=resolveTypeName(property.getParent(), keyTypeName);
-		valueTypeName=resolveTypeName(property.getParent(), valueTypeName);
+		// define key and value type
+		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getName();
+		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
+		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
 		
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
@@ -221,8 +225,10 @@ public class MapBindTransformation extends AbstractBindTransform {
 	}
 
 	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
-		keyTypeName=resolveTypeName(property.getParent(), keyTypeName);
-		valueTypeName=resolveTypeName(property.getParent(), valueTypeName);
+		// define key and value type
+		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getName();
+		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
+		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
 		
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
@@ -309,8 +315,10 @@ public class MapBindTransformation extends AbstractBindTransform {
 	}
 
 	public void generateParseOnJacksonInternal(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
-		keyTypeName=resolveTypeName(property.getParent(), keyTypeName);
-		valueTypeName=resolveTypeName(property.getParent(), valueTypeName);
+		// define key and value type
+		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getName();
+		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
+		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
 		
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);		

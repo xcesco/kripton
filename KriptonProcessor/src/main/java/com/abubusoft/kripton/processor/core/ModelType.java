@@ -55,14 +55,4 @@ public class ModelType extends LiteralType {
 		return TypeUtility.isSameType(this.name, value);
 	}
 
-	public void replaceGeneric(TypeMirror resolvedType) {
-		//LiteralType.of(rawType, parametrizedType)
-		if (!this.rawType.contains("."))
-		{
-			//assert: rawType is generic
-			//rawType=resolvedType
-		}
-		
-	}
-
 }
