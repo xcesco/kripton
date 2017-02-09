@@ -39,7 +39,8 @@ public abstract class AbstractJacksonContext extends AbstractContext {
 			throw new KriptonRuntimeException(e);
 		}
 	}
-
+	
+	
 	@Override
 	public JacksonWrapperParser createParser(InputStream in) {
 		try {
@@ -114,5 +115,7 @@ public abstract class AbstractJacksonContext extends AbstractContext {
 			throw new KriptonRuntimeException(e);
 		}
 	}
+	
+
 
 }

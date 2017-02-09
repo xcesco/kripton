@@ -154,7 +154,7 @@ public class AbstractBaseTest {
 
 		System.out.println("[[" + value1 + "]]");
 
-		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(new ArrayList<E>(), clazz, value1);
+		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(value1, new ArrayList<E>(), clazz);
 
 		String value2 = KriptonBinder.bind(type).serializeCollection(list2, clazz);
 
@@ -177,7 +177,7 @@ public class AbstractBaseTest {
 
 		System.out.println("[[" + value1 + "]]");
 
-		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(new ArrayList<E>(), clazz, bar.getByteBufferCopy());
+		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(bar.getByteBufferCopy(), new ArrayList<E>(), clazz);
 
 		KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
 		KriptonBinder.bind(type).serializeCollection(list2, clazz, bar2);

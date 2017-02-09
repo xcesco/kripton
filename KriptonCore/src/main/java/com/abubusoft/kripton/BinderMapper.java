@@ -9,6 +9,13 @@ import com.abubusoft.kripton.xml.XMLSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 
+/**
+ * This annotation is used to define interface of generated bind map classes by Kripton.
+ *  
+ * @author Francesco Benincasa (abubusoft@gmail.com)
+ *
+ * @param <E>
+ */
 public interface BinderMapper<E> {
 	
 	E parse(BinderContext context, ParserWrapper parser) throws Exception;

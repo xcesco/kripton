@@ -1,6 +1,7 @@
 package com.abubusoft.kripton;
 
-import com.abubusoft.kripton.BinderType;
+import java.util.Map;
+
 import com.fasterxml.jackson.core.JsonFactory;
 
 /**

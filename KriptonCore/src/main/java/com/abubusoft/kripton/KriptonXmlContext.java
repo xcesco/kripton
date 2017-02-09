@@ -75,10 +75,8 @@ public class KriptonXmlContext extends AbstractContext {
 	}
 	
 	public XmlWrapperSerializer createSerializer(File file, JsonEncoding encoding) {
-		//XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) new WstxOutputFactory();
         try {
         	
-			//XMLStreamWriter2 xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(new FileOutputStream(file), encoding.toString());
         	XMLSerializer xmlStreamWriter=new XMLSerializer(new FileWriter(file));
 			return new XmlWrapperSerializer(xmlStreamWriter);
 		} catch (Exception e) {
@@ -92,9 +90,7 @@ public class KriptonXmlContext extends AbstractContext {
 	}
 
 	public XmlWrapperSerializer createSerializer(OutputStream out, JsonEncoding encoding) {
-		//XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) new WstxOutputFactory();
         try {
-			//XMLStreamWriter2 xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(out, encoding.toString());
         	XMLSerializer xmlStreamWriter=new XMLSerializer(new OutputStreamWriter(out, encoding.getJavaName()));
 			return new XmlWrapperSerializer(xmlStreamWriter);
 		} catch (Exception e) {
@@ -103,11 +99,9 @@ public class KriptonXmlContext extends AbstractContext {
 		}
 	}
 
-	public XmlWrapperSerializer createSerializer(Writer writer) {
-		//XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) new WstxOutputFactory();
+	public XmlWrapperSerializer createSerializer(Writer output) {
         try {
-			//XMLStreamWriter2 xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(writer, JsonEncoding.UTF8.toString());
-        	XMLSerializer xmlStreamWriter=new XMLSerializer(writer);
+        	XMLSerializer xmlStreamWriter=new XMLSerializer(output);
 			return new XmlWrapperSerializer(xmlStreamWriter);
 		} catch (Exception e) {
 			e.printStackTrace();

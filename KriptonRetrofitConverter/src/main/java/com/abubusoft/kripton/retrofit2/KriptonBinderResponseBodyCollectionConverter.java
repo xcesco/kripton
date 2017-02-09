@@ -44,7 +44,7 @@ final class KriptonBinderResponseBodyCollectionConverter<T> implements Converter
 	@Override
 	public T convert(ResponseBody value) throws IOException {
 		try {
-			return (T) binderContext.parseCollection((Collection) clazz.newInstance(), beanClazz, value.byteStream());
+			return (T) binderContext.parseCollection(value.byteStream(), (Collection) clazz.newInstance(), beanClazz);
 			//return (T) reader.readCollection((Collection) clazz.newInstance(), beanClazz, value.byteStream());
 		} catch (Exception e) {
 			e.printStackTrace();

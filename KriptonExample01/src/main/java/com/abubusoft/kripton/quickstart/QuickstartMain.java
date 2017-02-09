@@ -25,7 +25,7 @@ public class QuickstartMain {
 		URL base = Main.class.getClassLoader().getResource("quickstart/todos.json");
 		String inputTodo = IOUtils.toString(base, Charset.forName("UTF-8"));
 		
-		List<Todo> result = KriptonBinder.jsonBind().parseList(Todo.class, inputTodo);
+		List<Todo> result = KriptonBinder.jsonBind().parseList(inputTodo, Todo.class);
 		System.out.println(result);
 
 	}

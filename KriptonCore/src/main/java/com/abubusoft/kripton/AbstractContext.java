@@ -1,33 +1,37 @@
 package com.abubusoft.kripton;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.NoSuchMapperException;
+import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.ParserWrapper;
 import com.abubusoft.kripton.persistence.SerializerWrapper;
 import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.io.SegmentedStringWriter;
 import com.fasterxml.jackson.core.util.BufferRecycler;
 
 public abstract class AbstractContext implements BinderContext {
-	
+
 	@SuppressWarnings("rawtypes")
 	static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
-	
-	static final ThreadLocal<BufferRecycler> buffer=new ThreadLocal<BufferRecycler>() {
-		
+
+	static final ThreadLocal<BufferRecycler> buffer = new ThreadLocal<BufferRecycler>() {
+
 	};
 
 	@SuppressWarnings("unchecked")
@@ -46,9 +50,7 @@ public abstract class AbstractContext implements BinderContext {
 				OBJECT_MAPPERS.put(cls, mapper);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				throw new KriptonRuntimeException(
-						String.format("Class '%s' does not exist. Does '%s' have @BindType annotation?", mapperClassName,
-								beanClassName));
+				throw new KriptonRuntimeException(String.format("Class '%s' does not exist. Does '%s' have @BindType annotation?", mapperClassName, beanClassName));
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
@@ -57,7 +59,7 @@ public abstract class AbstractContext implements BinderContext {
 		}
 		return mapper;
 	}
-	
+
 	/**
 	 * Returns a JsonMapper for a given class that has been annotated
 	 * with @JsonObject.
@@ -90,8 +92,7 @@ public abstract class AbstractContext implements BinderContext {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			E result = mapperFor(objectClazz).parse(this, parserWrapper);
 			return result;
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
@@ -102,8 +103,7 @@ public abstract class AbstractContext implements BinderContext {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			E result = mapperFor(objectClazz).parse(this, parserWrapper);
 			return result;
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
@@ -114,8 +114,7 @@ public abstract class AbstractContext implements BinderContext {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			E result = mapperFor(objectClazz).parse(this, parserWrapper);
 			return result;
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
@@ -126,8 +125,7 @@ public abstract class AbstractContext implements BinderContext {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			E result = mapperFor(objectClazz).parse(this, parserWrapper);
 			return result;
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
@@ -138,123 +136,177 @@ public abstract class AbstractContext implements BinderContext {
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			E result = mapperFor(objectClazz).parse(this, parserWrapper);
 			return result;
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
 	@Override
-	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, byte[] source) {
+	public <L extends Collection<E>, E> L parseCollection(byte[] source, L collection, Class<E> type) {
 		if (collection == null || type == null)
 			return null;
 
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
 			return result;
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
 	@Override
-	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, InputStream source) {
+	public <L extends Collection<E>, E> L parseCollection(InputStream source, L collection, Class<E> objectClazz) {
+		if (collection == null || objectClazz == null)
+			return null;
+
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			L result = mapperFor(objectClazz).parseCollection(this, parserWrapper, collection);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
+	}
+
+	@Override
+	public <L extends Collection<E>, E> L parseCollection(Reader source, L collection, Class<E> objectClazz) {
+		if (collection == null || objectClazz == null)
+			return null;
+
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			L result = mapperFor(objectClazz).parseCollection(this, parserWrapper, collection);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
+	}
+
+	@Override
+	public <L extends Collection<E>, E> L parseCollection(String source, L collection, Class<E> type) {
 		if (collection == null || type == null)
 			return null;
 
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
 			return result;
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
 	@Override
-	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, Reader source) {
-		if (collection == null || type == null)
+	public <E> List<E> parseList(byte[] source, Class<E> objectClazz) {
+		return parseCollection(source, new ArrayList<E>(), objectClazz);
+	}
+
+	@Override
+	public <E> List<E> parseList(InputStream source, Class<E> objectClazz) {
+		return parseCollection(source, new ArrayList<E>(), objectClazz);
+	}
+
+	@Override
+	public <E> List<E> parseList(Reader source, Class<E> objectClazz) {
+		return parseCollection(source, new ArrayList<E>(), objectClazz);
+	}
+
+	@Override
+	public <E> List<E> parseList(String source, Class<E> objectClazz) {
+		return parseCollection(source, new ArrayList<E>(), objectClazz);
+	}
+
+	@Override
+	public Map<String, String> parseMap(String source) {
+		return parseMap(source, new HashMap<String, String>());
+	}
+
+	private Map<String, String> parseMap(String source, Map<String, String> map) {
+		if (map == null)
 			return null;
 
 		try (ParserWrapper parserWrapper = createParser(source)) {
-			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
+			Map<String, String> result = parseMap(this, parserWrapper, map);
 			return result;
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	@Override
-	public <L extends Collection<E>, E> L parseCollection(L collection, Class<E> type, String source) {
-		if (collection == null || type == null)
-			return null;
+	private Map<String, String> parseMap(AbstractContext context, ParserWrapper parserWrapper, Map<String, String> map) {
+		switch (context.getSupportedFormat()) {
+		case XML: {
+			throw (new KriptonRuntimeException(context.getSupportedFormat() + " context does not support parse direct map parsing"));
+		}
+		default: {
+			JacksonWrapperParser wrapperParser = (JacksonWrapperParser) parserWrapper;
+			JsonParser parser = wrapperParser.jacksonParser;
 
-		try (ParserWrapper parserWrapper = createParser(source)) {
-			L result = mapperFor(type).parseCollection(this, parserWrapper, collection);
-			return result;
-		} catch(Exception e)
-		{
-			e.printStackTrace();
-			throw new KriptonRuntimeException(e);
+			try {
+				map.clear();
+
+				if (parser.nextToken() != JsonToken.START_OBJECT) {
+					throw (new KriptonRuntimeException("Invalid input format"));
+				}
+				String key;
+				String value;
+				
+				while (parser.nextToken() != JsonToken.END_OBJECT) {
+					key = parser.getCurrentName();
+					JsonToken token = parser.nextToken();
+					switch(token)
+					{
+					case START_ARRAY:
+					case VALUE_EMBEDDED_OBJECT:
+						value=null;//parser.getEmbeddedObject().toString();
+						parser.skipChildren();
+						break;
+					default:
+						value=parser.getValueAsString();
+					}
+					//value = parser.getText();
+					
+					map.put(key, value);
+				}
+				return map;
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw (new KriptonRuntimeException(e));
+			}
+		}
 		}
 	}
 
-	@Override
-	public <E> List<E> parseList(Class<E> type, byte[] source) {
-		return parseCollection(new ArrayList<E>(), type, source);
-	}
-
-	@Override
-	public <E> List<E> parseList(Class<E> type, InputStream source) {
-		return parseCollection(new ArrayList<E>(), type, source);
-	}
-
-	@Override
-	public <E> List<E> parseList(Class<E> type, Reader source) {
-		return parseCollection(new ArrayList<E>(), type, source);
-	}
-
-	@Override
-	public <E> List<E> parseList(Class<E> type, String source) {
-		return parseCollection(new ArrayList<E>(), type, source);
-	}
-	
-	
 	@SuppressWarnings("unchecked")
 	@Override
-	public <E> String serialize(E object) {		
+	public <E> String serialize(E object) {
 		if (object == null)
 			return null;
 
-		SegmentedStringWriter source=new SegmentedStringWriter(buffer.get());
+		SegmentedStringWriter source = new SegmentedStringWriter(buffer.get());
 		try (SerializerWrapper serializer = createSerializer(source)) {
-			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);				
-		} catch(Exception e)
-		{
+			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
-		
+
 		return source.getAndClear();
 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <E> void serialize(E object, File source) {
+	public <E> void serialize(E object, File output) {
 		if (object == null)
 			return;
 
-		try (SerializerWrapper serializer = createSerializer(source)) {
+		try (SerializerWrapper serializer = createSerializer(output)) {
 			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
@@ -268,8 +320,21 @@ public abstract class AbstractContext implements BinderContext {
 
 		try (SerializerWrapper serializer = createSerializer(source)) {
 			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <E> void serialize(E object, Writer output) {
+		if (object == null)
+			return;
+
+		try (SerializerWrapper serializer = createSerializer(output)) {
+			mapperFor((Class<E>) object.getClass()).serialize(this, serializer, object);
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
@@ -280,11 +345,10 @@ public abstract class AbstractContext implements BinderContext {
 		if (collection == null)
 			return null;
 
-		SegmentedStringWriter source=new SegmentedStringWriter(buffer.get());
+		SegmentedStringWriter source = new SegmentedStringWriter(buffer.get());
 		try (SerializerWrapper serializer = createSerializer(source)) {
-			mapperFor((Class<E>) objectClazz).serializeCollection(this, serializer, collection);			
-		} catch(Exception e)
-		{
+			mapperFor((Class<E>) objectClazz).serializeCollection(this, serializer, collection);
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
@@ -292,33 +356,31 @@ public abstract class AbstractContext implements BinderContext {
 	}
 
 	@Override
-	public <E> void serializeCollection(Collection<E> collection, Class<E> objectClazz, File source) {
+	public <E> void serializeCollection(Collection<E> collection, Class<E> objectClazz, File output) {
 		if (collection == null)
 			return;
 
-		try (SerializerWrapper serializer = createSerializer(source)) {
+		try (SerializerWrapper serializer = createSerializer(output)) {
 			mapperFor(objectClazz).serializeCollection(this, serializer, collection);
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
 	@Override
-	public <E> void serializeCollection(Collection<E> collection, Class<E> objectClazz, OutputStream source) {
+	public <E> void serializeCollection(Collection<E> collection, Class<E> objectClazz, OutputStream output) {
 		if (collection == null)
 			return;
 
-		try (SerializerWrapper serializer = createSerializer(source)) {
+		try (SerializerWrapper serializer = createSerializer(output)) {
 			mapperFor(objectClazz).serializeCollection(this, serializer, collection);
-		} catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
-	
+
 	public abstract ParserWrapper createParser(byte[] data);
 
 	public abstract ParserWrapper createParser(File file);
