@@ -50,7 +50,7 @@ import bind.kripton87TypeAdapter.TestRuntime87Suite;
 		TestRuntime87Suite.class,
 		TestRuntimeEnumSuite.class,
 		TestRuntimeHierarchySuite.class,
-		TestRuntimeDirectMapSuite.class
+		TestRuntimeDirectMapSuite.class		
 		 })
 //@formatter:on
 public class KriptonRuntimeSuiteTest {

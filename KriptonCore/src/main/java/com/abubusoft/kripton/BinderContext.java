@@ -204,7 +204,7 @@ public interface BinderContext {
 	 *            input
 	 * @return map of key/value.</code>
 	 */
-	Map<String, String> parseMap(String source);
+	Map<String, Object> parseMap(String source);
 
 	/**
 	 * <p>

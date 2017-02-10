@@ -1,7 +1,6 @@
 package com.abubusoft.kripton;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
@@ -9,19 +8,17 @@ import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.exception.NoSuchMapperException;
-import com.abubusoft.kripton.persistence.JacksonWrapperParser;
+import com.abubusoft.kripton.map.BindMapHelper;
 import com.abubusoft.kripton.persistence.ParserWrapper;
 import com.abubusoft.kripton.persistence.SerializerWrapper;
 import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.io.SegmentedStringWriter;
 import com.fasterxml.jackson.core.util.BufferRecycler;
 
@@ -219,64 +216,20 @@ public abstract class AbstractContext implements BinderContext {
 	}
 
 	@Override
-	public Map<String, String> parseMap(String source) {
-		return parseMap(source, new HashMap<String, String>());
+	public Map<String, Object> parseMap(String source) {
+		return parseMap(source, new LinkedHashMap<String, Object>());
 	}
 
-	private Map<String, String> parseMap(String source, Map<String, String> map) {
+	private Map<String, Object> parseMap(String source, Map<String, Object> map) {
 		if (map == null)
 			return null;
 
 		try (ParserWrapper parserWrapper = createParser(source)) {
-			Map<String, String> result = parseMap(this, parserWrapper, map);
+			Map<String, Object> result = BindMapHelper.parseMap(this, parserWrapper, map);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
-		}
-	}
-
-	private Map<String, String> parseMap(AbstractContext context, ParserWrapper parserWrapper, Map<String, String> map) {
-		switch (context.getSupportedFormat()) {
-		case XML: {
-			throw (new KriptonRuntimeException(context.getSupportedFormat() + " context does not support parse direct map parsing"));
-		}
-		default: {
-			JacksonWrapperParser wrapperParser = (JacksonWrapperParser) parserWrapper;
-			JsonParser parser = wrapperParser.jacksonParser;
-
-			try {
-				map.clear();
-
-				if (parser.nextToken() != JsonToken.START_OBJECT) {
-					throw (new KriptonRuntimeException("Invalid input format"));
-				}
-				String key;
-				String value;
-				
-				while (parser.nextToken() != JsonToken.END_OBJECT) {
-					key = parser.getCurrentName();
-					JsonToken token = parser.nextToken();
-					switch(token)
-					{
-					case START_ARRAY:
-					case VALUE_EMBEDDED_OBJECT:
-						value=null;//parser.getEmbeddedObject().toString();
-						parser.skipChildren();
-						break;
-					default:
-						value=parser.getValueAsString();
-					}
-					//value = parser.getText();
-					
-					map.put(key, value);
-				}
-				return map;
-			} catch (IOException e) {
-				e.printStackTrace();
-				throw (new KriptonRuntimeException(e));
-			}
-		}
 		}
 	}
 
