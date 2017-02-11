@@ -21,8 +21,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 
+ * <p>
  * Annotation for bind associated field to xml/json/properties/cbor/yaml format.
+ * </p>
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  * 

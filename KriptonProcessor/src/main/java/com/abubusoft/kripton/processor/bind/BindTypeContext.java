@@ -20,7 +20,7 @@ import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 
-import com.abubusoft.kripton.AbstractContext;
+import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;

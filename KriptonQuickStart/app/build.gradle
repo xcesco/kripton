@@ -32,7 +32,7 @@ android {
     }
 }
 
-def kriptonVersion ="1.5.0"
+def kriptonVersion ="1.6.0-SNAPSHOT"
 def retrofitLoggingInterceptor="3.4.1"
 def glideVersion= "3.7.0"
 

@@ -2,7 +2,7 @@ package sqlite.kripton58.array2;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import com.abubusoft.kripton.AbstractContext;
+
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -13,6 +13,7 @@ import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;

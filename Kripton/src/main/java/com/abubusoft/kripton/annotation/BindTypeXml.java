@@ -21,8 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation, if presents on a POJO, 
- * indicates a root XML/JSON element
+ * <p>Allows to specify a XML namespace for annotated bean</p>
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *

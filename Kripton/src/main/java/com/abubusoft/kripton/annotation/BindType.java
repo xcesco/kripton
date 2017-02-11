@@ -21,8 +21,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation, if presents on a POJO, 
- * indicates a root XML/JSON element
+ * <p>
+ * This annotation is used to mark Java bean which need to be persisted. 
+ * </p>
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
@@ -30,21 +31,20 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindType {
-	
+
 	/**
-	 * Name of the element. For XML it's the tag name. For JSON it has no use. For Property format it's the name of property 
+	 * Name of the element. For XML it's the tag name. For JSON it has no use.
+	 * For Property format it's the name of property
 	 * 
 	 * @return name
 	 */
-    public String value() default "";
+	public String value() default "";
 
-	
 	/**
 	 * All fields are binded, for each kind of binding.
 	 * 
-	 * @return
-	 * 		true if all fields must be binded
+	 * @return true if all fields must be binded
 	 */
 	boolean allFields() default true;
-   
+
 }

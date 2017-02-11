@@ -23,9 +23,11 @@ import java.lang.annotation.Target;
 import com.abubusoft.kripton.annotation.BindType;
 
 /**
+ * <p>
  * This annotation mark an interface for DAO (Data Access Object) associated to a specific bean associated with {@link #value()} attribute. 
  * For each defined methods in the associated interface will be generated an method which use SQL statement. The kind of SQL used in methods will
  * depends from annotation used to mark method.
+ * </p>
  * 
  * <p>
  * Supported query is:

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.quickstart.network.NetworkClient;
 import com.abubusoft.kripton.quickstart.service.QuickStartService;
 import com.abubusoft.kripton.retrofit2.KriptonBinderConverterFactory;
@@ -34,21 +35,5 @@ public class QuickStartApplication extends Application {
         service = retrofit.create(QuickStartService.class);
 
         KriptonLibrary.init(this);
-        BindQuickStartDataSource.instance().setOnDatabaseUpdateListener(new AbstractDataSource.OnDatabaseListener() {
-            @Override
-            public void onUpdate(SQLiteDatabase db, int oldVersion, int newVersion, boolean upgrade) {
-                // additional code after database upgrade/downgrade
-            }
-
-            @Override
-            public void onCreate(SQLiteDatabase database) {
-                // after creation of database
-            }
-
-            @Override
-            public void onConfigure(SQLiteDatabase database) {
-                // after configuration of database
-            }
-        });
     }
 }

@@ -21,11 +21,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.sqlite.FieldType;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 
 /**
- * Allow to define specifi behaviour of a field treated like a SQLite table column.
+ * <p>
+ * Allow to define specific behaviour of a field treated like a SQLite table column.
+ * </p>
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  * 
