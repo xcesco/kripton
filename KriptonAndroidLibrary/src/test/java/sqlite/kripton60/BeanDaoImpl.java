@@ -2,7 +2,6 @@ package sqlite.kripton60;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;

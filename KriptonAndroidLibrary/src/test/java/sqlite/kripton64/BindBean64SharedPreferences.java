@@ -2,7 +2,6 @@ package sqlite.kripton64;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;

@@ -2,7 +2,6 @@ package bind.generichierarchy.case1.transfer;
 
 import bind.generichierarchy.case1.model.Message;
 import bind.generichierarchy.case1.model.MessageBindMap;
-
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.StringUtils;

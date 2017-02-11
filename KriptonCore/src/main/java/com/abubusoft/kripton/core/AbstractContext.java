@@ -27,12 +27,12 @@ import com.fasterxml.jackson.core.util.BufferRecycler;
 
 public abstract class AbstractContext implements BinderContext {
 
-	@SuppressWarnings("rawtypes")
-	static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
-
 	static final ThreadLocal<BufferRecycler> buffer = new ThreadLocal<BufferRecycler>() {
 
 	};
+
+	@SuppressWarnings("rawtypes")
+	static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
 
 	@SuppressWarnings("unchecked")
 	public static <E, M extends BinderMapper<E>> M getMapper(Class<E> cls) {
@@ -86,6 +86,26 @@ public abstract class AbstractContext implements BinderContext {
 			return mapper;
 		}
 	}
+
+	public abstract ParserWrapper createParser(byte[] data);
+
+	public abstract ParserWrapper createParser(File file);
+
+	public abstract ParserWrapper createParser(InputStream in);
+
+	public abstract ParserWrapper createParser(Reader reader);
+
+	public abstract ParserWrapper createParser(String content);
+
+	public abstract SerializerWrapper createSerializer(File file);
+
+	public abstract SerializerWrapper createSerializer(File file, JsonEncoding encoding);
+
+	public abstract SerializerWrapper createSerializer(OutputStream out);
+
+	public abstract SerializerWrapper createSerializer(OutputStream out, JsonEncoding encoding);
+
+	public abstract SerializerWrapper createSerializer(Writer writer);
 
 	@Override
 	public <E> E parse(byte[] source, Class<E> objectClazz) {
@@ -219,13 +239,34 @@ public abstract class AbstractContext implements BinderContext {
 	}
 
 	@Override
-	public Map<String, Object> parseMap(String source) {
-		return parseMap(source, new LinkedHashMap<String, Object>());
+	public Map<String, Object> parseMap(InputStream source) {
+		Map<String, Object> map=new LinkedHashMap<>();
+
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			Map<String, Object> result = BindMapHelper.parseMap(this, parserWrapper, map);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
 	}
 
-	private Map<String, Object> parseMap(String source, Map<String, Object> map) {
-		if (map == null)
-			return null;
+	@Override
+	public Map<String, Object> parseMap(Reader source) {
+		Map<String, Object> map=new LinkedHashMap<>();
+
+		try (ParserWrapper parserWrapper = createParser(source)) {
+			Map<String, Object> result = BindMapHelper.parseMap(this, parserWrapper, map);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new KriptonRuntimeException(e);
+		}
+	}
+
+	@Override
+	public Map<String, Object> parseMap(String source) {
+		Map<String, Object> map=new LinkedHashMap<>();
 
 		try (ParserWrapper parserWrapper = createParser(source)) {
 			Map<String, Object> result = BindMapHelper.parseMap(this, parserWrapper, map);
@@ -336,25 +377,5 @@ public abstract class AbstractContext implements BinderContext {
 			throw new KriptonRuntimeException(e);
 		}
 	}
-
-	public abstract ParserWrapper createParser(byte[] data);
-
-	public abstract ParserWrapper createParser(File file);
-
-	public abstract ParserWrapper createParser(InputStream in);
-
-	public abstract ParserWrapper createParser(Reader reader);
-
-	public abstract ParserWrapper createParser(String content);
-
-	public abstract SerializerWrapper createSerializer(File file);
-
-	public abstract SerializerWrapper createSerializer(File file, JsonEncoding encoding);
-
-	public abstract SerializerWrapper createSerializer(OutputStream out);
-
-	public abstract SerializerWrapper createSerializer(OutputStream out, JsonEncoding encoding);
-
-	public abstract SerializerWrapper createSerializer(Writer writer);
 
 }

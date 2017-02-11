@@ -205,6 +205,28 @@ public interface BinderContext {
 	 * @return map of key/value.</code>
 	 */
 	Map<String, Object> parseMap(String source);
+	
+	/**
+	 * <p>
+	 * Parse an inputstream to create and populate a map of key/value. The key is the name of field, value is its content.
+	 * </p>
+	 * 
+	 * @param source
+	 *            input
+	 * @return map of key/value.</code>
+	 */
+	Map<String, Object> parseMap(InputStream source);
+	
+	/**
+	 * <p>
+	 * Use a reader to create and populate a map of key/value. The key is the name of field, value is its content.
+	 * </p>
+	 * 
+	 * @param source
+	 *            input
+	 * @return map of key/value.</code>
+	 */
+	Map<String, Object> parseMap(Reader source);
 
 	/**
 	 * <p>
@@ -288,22 +310,50 @@ public interface BinderContext {
 	
 	/**
 	 * <p>
-	 * Serialize on an writer the object passed as parameter. The used data format
+	 * Serialize a collection on a string. The used data format
 	 * is the one supported by the binding context
 	 * </p>
 	 * 
-	 * @param object
-	 * 		object to serialize
+	 * @param list
+	 * 		list to serialize
 	 * @param objectClazz
+	 * 		type of object to persist
 	 * 		
 	 * @return
 	 * 		output
 	 */
 	<E> String serializeCollection(Collection<E> list, Class<E> objectClazz);
 
-	
+	/**
+	 * <p>
+	 * Serialize a collection on an output stream. The used data format
+	 * is the one supported by the binding context
+	 * </p>
+	 * 
+	 * @param list
+	 * 		list to serialize
+	 * @param objectClazz
+	 * 		type of object to persist
+	 * @param output
+	 * 		output
+	 * 		
+	 */
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream output);
 
+	/**
+	 * <p>
+	 * Serialize a collection on an file. The used data format
+	 * is the one supported by the binding context
+	 * </p>
+	 * 
+	 * @param list
+	 * 		list to serialize
+	 * @param objectClazz
+	 * 		type of object to persist
+	 * @param output
+	 * 		output
+	 * 		
+	 */
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, File output);
 
 }
