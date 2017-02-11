@@ -20,8 +20,8 @@ android {
         applicationId 'com.abubusoft.kripton.benchmark'
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 150
-        versionName "1.5.0"
+        versionCode 160
+        versionName "1.6.0"
     }
     buildTypes {
         release {
@@ -37,17 +37,14 @@ android {
     }
 }
 
-def kriptonVersion = "1.5.0"
+def kriptonVersion = "1.6.0"
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    // LoganSquare annotation processor
     apt "com.abubusoft:kripton-processor:${kriptonVersion}"
-    // LoganSquare runtime library
-    // Jackson libraries for comparison
+    apt 'com.bluelinelabs:logansquare-compiler:1.3.5'
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.abubusoft:kripton-android-library:${kriptonVersion}"
-    // GSON library for comparison
-    // Moshi library for camparison
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.bluelinelabs:logansquare:1.3.5'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
@@ -55,5 +52,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.squareup.moshi:moshi:1.0.0'
     compile 'com.android.support:design:25.1.0'
-    apt 'com.bluelinelabs:logansquare-compiler:1.3.5'
+
 }

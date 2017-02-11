@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.quickstart.model.Album;
 import com.abubusoft.kripton.quickstart.persistence.AlbumDaoImpl;
@@ -24,7 +25,7 @@ public class AlbumActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AlbumAdapter mAdapter;
 
-    BindQuickStartAsyncTask.Simple<List<Album>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Album>>() {
+    BindQuickStartAsyncTask.Simple<List<Album>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Album>>(BindAsyncTaskType.READ_WRITE) {
 
         List<Album> list;
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.quickstart.R;
 import com.abubusoft.kripton.quickstart.model.Post;
@@ -24,7 +25,7 @@ public class PostActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PostAdapter mAdapter;
 
-    BindQuickStartAsyncTask.Simple<List<Post>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Post>>() {
+    BindQuickStartAsyncTask.Simple<List<Post>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Post>>(BindAsyncTaskType.READ_WRITE) {
 
         List<Post> postList;
 

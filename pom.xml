@@ -9,7 +9,7 @@
 
   <groupId>com.abubusoft</groupId>
   <artifactId>kripton-parent</artifactId>
-  <version>1.6.0-SNAPSHOT</version>
+  <version>1.6.0</version>
   <packaging>pom</packaging>
   <name>Kripton (Parent)</name>
   <description>Kripton persistence library - parent pom</description>
@@ -28,7 +28,7 @@
   </modules>
 
 <!-- common part - BEGIN -->
-	<!-- Property version 1.6.0-SNAPSHOT -->
+	<!-- Property version 1.6.0 -->
 	<properties>
 		<skipTests>true</skipTests>
 	
@@ -37,21 +37,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.7</java.version>
-
-		<!-- dependencies version -->
-		<jackson.version>2.8.5</jackson.version>
-		<woodstox.version>5.0.3</woodstox.version>
-		<retrofit.version>2.1.0</retrofit.version>
-
-		<!-- test version -->
-		<junit.version>4.12</junit.version>
-		<unitils.version>3.4.2</unitils.version>
-
-		<jsr305.version>3.0.1</jsr305.version>
-		<guava.version>19.0</guava.version>
-		<javapoet.version>1.7.0</javapoet.version>
-		<robolectric.version>3.1.4</robolectric.version>
-		<roboletricAndroidAll.version>6.0.0_r1-robolectric-0</roboletricAndroidAll.version>
 
 		<!-- plugins version -->
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>

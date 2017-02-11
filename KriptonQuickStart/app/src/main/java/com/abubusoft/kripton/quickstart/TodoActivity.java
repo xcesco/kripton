@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.quickstart.model.Todo;
 import com.abubusoft.quickstart.R;
@@ -23,7 +24,7 @@ public class TodoActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TodoAdapter mAdapter;
 
-    BindQuickStartAsyncTask.Simple<List<Todo>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Todo>>() {
+    BindQuickStartAsyncTask.Simple<List<Todo>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Todo>>(BindAsyncTaskType.READ_WRITE) {
 
         List<Todo> list;
 

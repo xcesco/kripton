@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.quickstart.model.Comment;
 import com.abubusoft.quickstart.R;
@@ -24,7 +25,7 @@ public class CommentActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CommentAdapter mAdapter;
 
-    BindQuickStartAsyncTask.Simple<List<Comment>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Comment>>() {
+    BindQuickStartAsyncTask.Simple<List<Comment>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Comment>>(BindAsyncTaskType.READ_WRITE) {
 
         List<Comment> list;
 

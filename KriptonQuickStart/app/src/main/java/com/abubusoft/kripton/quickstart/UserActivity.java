@@ -11,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.quickstart.R;
 import com.abubusoft.kripton.quickstart.model.User;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartAsyncTask;
@@ -34,7 +35,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
 
-    BindQuickStartAsyncTask.Simple<List<User>> asyncTask = new BindQuickStartAsyncTask.Simple<List<User>>() {
+    BindQuickStartAsyncTask.Simple<List<User>> asyncTask = new BindQuickStartAsyncTask.Simple<List<User>>(BindAsyncTaskType.READ_WRITE) {
 
         List<User> userList;
 

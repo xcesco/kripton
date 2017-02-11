@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.quickstart.model.Photo;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartAsyncTask;
@@ -25,7 +26,7 @@ public class PhotoActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PhotoAdapter mAdapter;
 
-    BindQuickStartAsyncTask.Simple<List<Photo>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Photo>>() {
+    BindQuickStartAsyncTask.Simple<List<Photo>> asyncTask = new BindQuickStartAsyncTask.Simple<List<Photo>>(BindAsyncTaskType.READ_WRITE) {
 
         List<Photo> list;
 
