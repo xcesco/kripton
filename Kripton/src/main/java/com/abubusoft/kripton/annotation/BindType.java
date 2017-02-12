@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * This annotation is used to mark Java bean which need to be persisted. 
+ * This annotation is used to mark Java bean which need to be persisted.
  * </p>
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -46,5 +46,40 @@ public @interface BindType {
 	 * @return true if all fields must be binded
 	 */
 	boolean allFields() default true;
+
+	/**
+	 * <p>
+	 * When a class has a parent hierarchy with generics, This attribute allows
+	 * to specify used type variable.
+	 * </p>
+	 * <p>
+	 * For example, suppose you have the following situation:
+	 * </p>
+	 * 
+	 * <pre>
+	 *  {@literal @}BindType
+	 *  public class TiledMapAnimation extends Parallel2Animation<TranslationFrame, TextureKeyFrame>
+	 *  {
+	 *  }
+	 *  
+	 *  public abstract class Parallel2Animation<K0 extends KeyFrame, K1 extends KeyFrame> extends Animation<K0> { ... }
+	 * </pre>
+	 * 
+	 * <p>
+	 * To bind <code>TiledMapAnimation</code> you have simply to use
+	 * {@literal @}BindType in this way:
+	 * 
+	 * <pre>
+	 * {@literal @}BindType(typeVariables={"K0", "K1"})
+	 * public class TiledMapAnimation extends Parallel2Animation<TranslationFrame, TextureKeyFrame> { ... }
+	 * 
+	 * public abstract class Parallel2Animation<K0 extends KeyFrame, K1 extends KeyFrame> extends Animation<K0> { ... }
+	 * </pre>
+	 * 
+	 * 
+	 * @return
+	 * 		type variables
+	 */
+	String[] typeVariables() default "";
 
 }

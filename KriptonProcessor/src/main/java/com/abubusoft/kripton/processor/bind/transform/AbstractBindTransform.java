@@ -47,17 +47,9 @@ public abstract class AbstractBindTransform implements BindTransform {
 	 * @return
 	 */
 	public static TypeName resolveTypeName(@SuppressWarnings("rawtypes") ModelEntity modelEntity, TypeName elementTypeName) {
-		if (elementTypeName instanceof TypeVariableName) {
+		if ((elementTypeName instanceof TypeVariableName) || (elementTypeName instanceof ClassName && !elementTypeName.toString().contains(".") && !elementTypeName.isPrimitive() && !elementTypeName.isBoxedPrimitive())) {
 			ModelClass<?> model = (ModelClass<?>) modelEntity;
-			if (model.hasTypeArgs()) {
-				return TypeUtility.typeName(model.getTypeArgs().get(0));
-			}
-		} else if (elementTypeName instanceof ClassName && !elementTypeName.toString().contains(".") && !elementTypeName.isPrimitive() && !elementTypeName.isBoxedPrimitive())
-		{
-			ModelClass<?> model = (ModelClass<?>) modelEntity;
-			if (model.hasTypeArgs()) {
-				return TypeUtility.typeName(model.getTypeArgs().get(0));
-			}
+			return model.resolveTypeVariable(elementTypeName);
 		}
 		return elementTypeName;
 	}

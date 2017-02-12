@@ -4,13 +4,13 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-dataformat-properties</artifactId>
-	<version>1.6.0</version>
+	<version>1.6.1-SNAPSHOT</version>
 	<name>Kripton Properties data format</name>
     <description>This is jar need to support Properties format.</description>
 	<packaging>jar</packaging>
 
  	<!-- common part - BEGIN -->
-	<!-- Property version 1.6.0 -->
+	<!-- Property version 1.6.1-SNAPSHOT -->
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>

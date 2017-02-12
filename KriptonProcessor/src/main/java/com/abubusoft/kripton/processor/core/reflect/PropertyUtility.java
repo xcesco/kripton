@@ -157,8 +157,8 @@ public abstract class PropertyUtility {
 			return "get" + converterField2Method.convert(property.getName()) + "()";
 		} else if (property.isFieldWithIs()) {
 			return "is" + converterField2Method.convert(property.getName()) + "()";
-		} else {
-			throw new PropertyVisibilityException("Property " + property.getName() + " of class " + beanClass + " can not be read");
+		} else {			
+			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be read", property.getName(), property.getParent().getElement().asType()));
 		}
 	}
 
@@ -171,8 +171,8 @@ public abstract class PropertyUtility {
 			return property.getName();
 		} else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName());
-		} else {
-			throw new PropertyVisibilityException("property \"" + property.getName() + "\" of class \"" + beanClass + "\" can not be modify");
+		} else {			
+			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify", property.getName(), property.getParent().getElement().asType()));
 		}
 	}
 

@@ -1,0 +1,66 @@
+{
+	"frame": [
+		{
+			"duration": 400,
+			"name": "keyframe0",
+			"translation": {
+				"z": 0,
+				"y": 0,
+				"x": 0
+			}
+		},
+		{
+			"duration": 0,
+			"name": "keyframe1",
+			"translation": {
+				"z": 32,
+				"y": 0,
+				"x": 0
+			}
+		}
+	],
+	"rate": 1,
+	"loop": false,
+	"frame1": [
+		{
+			"duration": 100,
+			"name": "player1__0003s_0002_move_down_1",
+			"textureRegion": {
+				"highX": 0.7461,
+				"highY": 0.9961,
+				"lowX": 0.5039,
+				"lowY": 0.7539
+			}
+		},
+		{
+			"duration": 100,
+			"name": "player1__0003s_0000_move_down_3",
+			"textureRegion": {
+				"highX": 0.2461,
+				"highY": 0.9961,
+				"lowX": 0.0039,
+				"lowY": 0.7539
+			}
+		},
+		{
+			"duration": 100,
+			"name": "player1__0003s_0001_move_down_2",
+			"textureRegion": {
+				"highX": 0.4961,
+				"highY": 0.9961,
+				"lowX": 0.2539,
+				"lowY": 0.7539
+			}
+		},
+		{
+			"duration": 100,
+			"name": "player1__0003s_0003_move_down_0",
+			"textureRegion": {
+				"highX": 0.9961,
+				"highY": 0.9961,
+				"lowX": 0.7539,
+				"lowY": 0.7539
+			}
+		}
+	]
+}

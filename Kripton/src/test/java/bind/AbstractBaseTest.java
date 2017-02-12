@@ -211,6 +211,11 @@ public class AbstractBaseTest {
 		KriptonBinder.registryBinder(new KriptonPropertiesContext());
 		KriptonBinder.registryBinder(new KriptonCborContext());
 	}
+	
+	public void log(String format, Object ... args)
+	{
+		System.out.println(String.format(format, args));
+	}
 
 	String toString(byte[] input) {
 		StringBuilder buffer = new StringBuilder();
