@@ -69,7 +69,7 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 
 				AssertKripton.assertTrue(typeVariables.length == typeArgs.size(), "%s has incorrect definition of type variables on annotation @BintType(typeVariables)", beanElement.asType());
 			} else {
-				AssertKripton.assertTrue(typeVariableMap == null && typeArgs.size() < 2, "%s has a Kripton unsupported hierarchy, try specifing @BintType(typeVariables)", beanElement.asType());
+				AssertKripton.assertTrue(typeVariableMap == null && typeArgs.size() < 2, "%s use more than one type variables in its class hierarchy. Try to use @BintType(typeVariables)", beanElement.asType());
 			}
 		}
 
@@ -135,7 +135,7 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 		if (typeVariableMap!=null)
 		{
 			TypeMirror type=typeVariableMap.get(inputTypeName.toString());
-			AssertKripton.assertTrue(type!=null, "In class hierarchy of '%s' it is a unresolved type variable named '%s'", this.getName(), inputTypeName.toString());			
+			AssertKripton.assertTrue(type!=null, "In class hierarchy of '%s' there is a unresolved type variable named '%s'. Define it within @BindType(typeVariables)", this.getName(), inputTypeName.toString());			
 			return TypeUtility.typeName(type);
 			
 		}
