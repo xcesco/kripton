@@ -8,7 +8,7 @@ Kripton is a java library, for Android and Java platform, that provides a simple
 
 * SQLite database (Android platform)
 * Shared preference (Android platform)
-* REST service, throws [Retrofit library](http://square.github.io/retrofit/) integration
+* REST service, via [Retrofit library](http://square.github.io/retrofit/) integration
 * JSON format
 * XML format
 * CBOR format
