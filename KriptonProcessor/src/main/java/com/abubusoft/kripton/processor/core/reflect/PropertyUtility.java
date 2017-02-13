@@ -158,7 +158,7 @@ public abstract class PropertyUtility {
 		} else if (property.isFieldWithIs()) {
 			return "is" + converterField2Method.convert(property.getName()) + "()";
 		} else {			
-			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be read", property.getName(), property.getParent().getElement().asType()));
+			throw new PropertyVisibilityException(String.format("In class '%s' property '%s' can not be read", property.getParent().getElement().asType(), property.getName()));
 		}
 	}
 

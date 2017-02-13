@@ -61,14 +61,14 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 		}
 		List<String> typeParameters = AnnotationUtility.extractAsClassNameArray(BindTypeProcessor.elementUtils, beanElement, BindType.class, AnnotationAttributeType.TYPE_PARAMETERS);
 
-		AssertKripton.assertTrue(typeVariables.size() >= typeParameters.size(), "%s has incorrect definition of type variables/parameters on annotation @BintType(typeVariables, typeParameters)",
+		AssertKripton.assertTrue(typeVariables.size() >= typeParameters.size(), "Class '%s' has incorrect definition of type variables/parameters on annotation @BintType(typeVariables, typeParameters)",
 				beanElement.asType());
 
 		if (typeVariables.size() > 0) {
 			String[] temp;
 
-			AssertKripton.assertTrue((typeParameters.size()==0) || (typeVariables.size() == typeParameters.size()), "%s has an incorrect definition of type variables/parameters on annotation @BintType(typeVariables, typeParameters)",
-					beanElement.asType());
+			AssertKripton.assertTrue((typeParameters.size() == 0) || (typeVariables.size() == typeParameters.size()),
+					"Class '%s' has an incorrect definition of type variables/parameters on annotation @BintType(typeVariables, typeParameters)", beanElement.asType());
 
 			if (StringUtils.hasText(typeVariables.get(0))) {
 				typeVariableMap = new HashMap<>();
@@ -88,7 +88,7 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 				}
 
 			} else {
-				AssertKripton.assertTrue(typeVariableMap == null && typeArgs.size() < 2, "%s use more than one type variables in its class hierarchy. Try to use @BintType(typeVariables)",
+				AssertKripton.assertTrue(typeVariableMap == null && typeArgs.size() < 2, "Class '%s' use more than one type variables in its class hierarchy. Try to use @BintType(typeVariables)",
 						beanElement.asType());
 			}
 		}
@@ -141,29 +141,28 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 	}
 
 	public TypeName resolveTypeVariable(TypeName inputTypeName) {
-		if (inputTypeName.toString().contains(".") || inputTypeName.isPrimitive() || inputTypeName.isBoxedPrimitive()) {			
+		if (inputTypeName.toString().contains(".") || inputTypeName.isPrimitive() || inputTypeName.isBoxedPrimitive()) {
 			return inputTypeName;
-		}		
-		
+		}
+
 		if (!hasTypeArgs())
 			return inputTypeName;
 
 		if (typeVariableMap != null && typeVariableMap.containsKey(inputTypeName.toString())) {
 			TypeName type = typeVariableMap.get(inputTypeName.toString());
 			return type;
-		} else if (typeVariableMap==null)
-		{
+		} else if (typeVariableMap == null) {
 			TypeName resolved = TypeUtility.typeName(typeArgs.get(0));
 			// if we found a type variable not yet bound, we bound it.
-			typeVariableMap=new HashMap<>();
+			typeVariableMap = new HashMap<>();
 			typeVariableMap.put(inputTypeName.toString(), resolved);
-			
+
 			return resolved;
-		}		
-		
-		AssertKripton.assertTrue(false, "In class hierarchy of '%s' there is a unresolved type variable named '%s'. Define it within @BindType(typeVariables)", this.getName(),
-		inputTypeName.toString());
-		
+		}
+
+		AssertKripton.assertTrue(false, "In class hierarchy of '%s' there is a unresolved type variable named '%s'. Define it with @BindType(typeVariables)", this.getElement().getQualifiedName(),
+				inputTypeName.toString());
+
 		return inputTypeName;
 	}
 
