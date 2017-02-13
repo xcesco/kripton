@@ -77,9 +77,48 @@ public @interface BindType {
 	 * </pre>
 	 * 
 	 * 
-	 * @return
-	 * 		type variables
+	 * @return type variables
 	 */
-	String[] typeVariables() default "";
+	String[] typeVariables() default {};
+
+	/**
+	 * <p>
+	 * When a class has a parent hierarchy with generics, This attribute allows
+	 * to specify used type parameters. It's usefull when
+	 * </p>
+	 * <p>
+	 * For example, suppose you have the following situation:
+	 * </p>
+	 * 
+	 * <pre>
+	 * public class Class1<A, B, C> {
+	 * 
+	 * 	public A valueA;
+	 * 
+	 * 	public B valueB;
+	 * 
+	 * 	public C valueC;
+	 * }
+	 * 
+	 * public class Class2<A, B> extends Class1<A, B, String> {
+	 * }
+	 * 
+	 * {@literal @}BindType(typeVariables = { "A", "B", "C" }, typeParameters = { Integer.class, Date.class, String.class })
+	 * public class Class3 extends Class2<Integer, Date> {
+	 * 
+	 * }
+	 * </pre>
+	 * 
+	 * <p>
+	 * Class <code>Class2</code> hide the third parameter <code>C</code>, so in
+	 * class
+	 * <code>Class3</cod> is not possible define entire collection of type variables. <code>typeParameters</code>
+	 * allows to specify directly type parameters used in class hierarchy.
+	 * </p>
+	 * 
+	 * 
+	 * @return type variables
+	 */
+	Class<?>[] typeParameters() default {};
 
 }

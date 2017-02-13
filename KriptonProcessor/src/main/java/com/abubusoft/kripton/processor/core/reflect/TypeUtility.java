@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.core.reflect;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -174,6 +176,16 @@ public abstract class TypeUtility {
 		if (typeMirror instanceof ModelType) {
 			return ((ModelType) typeMirror).getName();
 		}
+		
+		LiteralType literalType=LiteralType.of(typeMirror.toString());
+		
+		if (literalType.isArray())
+		{
+			return ArrayTypeName.of(typeName(literalType.getRawType()));
+		} else if (literalType.isCollection())
+		{
+			return ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()), typeName(literalType.getComposedType()));
+		} 
 
 		return TypeName.get(typeMirror);
 	}

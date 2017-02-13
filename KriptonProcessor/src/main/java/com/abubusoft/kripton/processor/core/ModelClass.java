@@ -26,20 +26,27 @@ import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.BindTypeProcessor;
+import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeVariableName;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 @BindType
 public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElement> implements ModelElement, ModelWithAnnotation {
 
 	protected List<ModelAnnotation> annotations;
 
-	Map<String, TypeMirror> typeVariableMap;
+	Map<String, TypeName> typeVariableMap;
 
 	public ModelClass(TypeElement element) {
 		this(element.getQualifiedName().toString(), element);
 	}
 
+	@SuppressWarnings("unchecked")
 	public ModelClass(String name, TypeElement beanElement) {
 		super(name, beanElement);
 
@@ -47,33 +54,44 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 
 		typeArgs = TypeUtility.getTypeArguments(beanElement);
 
-		BindType bindTypeAnnotation = beanElement.getAnnotation(BindType.class);
-		if (bindTypeAnnotation != null) {
-			String[] typeVariables = bindTypeAnnotation.typeVariables();
+		BindType annotationBeanType = beanElement.getAnnotation(BindType.class);
+		List<String> typeVariables = new ArrayList<String>();
+		if (annotationBeanType != null) {
+			typeVariables = Arrays.asList(annotationBeanType.typeVariables());
+		}
+		List<String> typeParameters = AnnotationUtility.extractAsClassNameArray(BindTypeProcessor.elementUtils, beanElement, BindType.class, AnnotationAttributeType.TYPE_PARAMETERS);
+
+		AssertKripton.assertTrue(typeVariables.size() >= typeParameters.size(), "%s has incorrect definition of type variables/parameters on annotation @BintType(typeVariables, typeParameters)",
+				beanElement.asType());
+
+		if (typeVariables.size() > 0) {
 			String[] temp;
 
-			if (typeVariables != null && StringUtils.hasText(typeVariables[0])) {
+			AssertKripton.assertTrue((typeParameters.size()==0) || (typeVariables.size() == typeParameters.size()), "%s has an incorrect definition of type variables/parameters on annotation @BintType(typeVariables, typeParameters)",
+					beanElement.asType());
+
+			if (StringUtils.hasText(typeVariables.get(0))) {
 				typeVariableMap = new HashMap<>();
 				int i = 0;
 				for (String key : typeVariables) {
-					if (StringUtils.hasText(key))
-					{
-						temp=key.split(",");
-						for (String alias: temp)
-						{
-							typeVariableMap.put(alias.trim(), typeArgs.get(i));
+					if (StringUtils.hasText(key)) {
+						temp = key.split(",");
+						for (String alias : temp) {
+							if (typeParameters.size() > 0) {
+								typeVariableMap.put(alias.trim(), TypeUtility.typeName(typeParameters.get(i)));
+							} else {
+								typeVariableMap.put(alias.trim(), TypeUtility.typeName(typeArgs.get(i)));
+							}
 						}
 					}
 					i++;
 				}
 
-				AssertKripton.assertTrue(typeVariables.length == typeArgs.size(), "%s has incorrect definition of type variables on annotation @BintType(typeVariables)", beanElement.asType());
 			} else {
-				AssertKripton.assertTrue(typeVariableMap == null && typeArgs.size() < 2, "%s use more than one type variables in its class hierarchy. Try to use @BintType(typeVariables)", beanElement.asType());
+				AssertKripton.assertTrue(typeVariableMap == null && typeArgs.size() < 2, "%s use more than one type variables in its class hierarchy. Try to use @BintType(typeVariables)",
+						beanElement.asType());
 			}
 		}
-
-		
 
 	}
 
@@ -109,13 +127,6 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 		return null;
 	}
 
-	/**
-	 * @return the annotations
-	 */
-	// public List<ModelAnnotation> getAnnotations() {
-	// return annotations;
-	// }
-
 	public void addAnnotation(ModelAnnotation annotation) {
 		annotations.add(annotation);
 	}
@@ -130,17 +141,30 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 	}
 
 	public TypeName resolveTypeVariable(TypeName inputTypeName) {
-		if (!hasTypeArgs()) return inputTypeName;
+		if (inputTypeName.toString().contains(".") || inputTypeName.isPrimitive() || inputTypeName.isBoxedPrimitive()) {			
+			return inputTypeName;
+		}		
 		
-		if (typeVariableMap!=null)
+		if (!hasTypeArgs())
+			return inputTypeName;
+
+		if (typeVariableMap != null && typeVariableMap.containsKey(inputTypeName.toString())) {
+			TypeName type = typeVariableMap.get(inputTypeName.toString());
+			return type;
+		} else if (typeVariableMap==null)
 		{
-			TypeMirror type=typeVariableMap.get(inputTypeName.toString());
-			AssertKripton.assertTrue(type!=null, "In class hierarchy of '%s' there is a unresolved type variable named '%s'. Define it within @BindType(typeVariables)", this.getName(), inputTypeName.toString());			
-			return TypeUtility.typeName(type);
+			TypeName resolved = TypeUtility.typeName(typeArgs.get(0));
+			// if we found a type variable not yet bound, we bound it.
+			typeVariableMap=new HashMap<>();
+			typeVariableMap.put(inputTypeName.toString(), resolved);
 			
-		}
+			return resolved;
+		}		
 		
-		return TypeUtility.typeName(typeArgs.get(0));
+		AssertKripton.assertTrue(false, "In class hierarchy of '%s' there is a unresolved type variable named '%s'. Define it within @BindType(typeVariables)", this.getName(),
+		inputTypeName.toString());
+		
+		return inputTypeName;
 	}
 
 }

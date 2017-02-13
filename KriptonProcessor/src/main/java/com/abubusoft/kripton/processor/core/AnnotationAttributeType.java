@@ -73,7 +73,7 @@ public enum AnnotationAttributeType {
 		
 	XML_ELEMENT_TAG("elementTag"),
 	XML_TYPE("xmlType"), 
-	TYPE_VARIABLES("typeVariables")
+	TYPE_VARIABLES("typeVariables"), TYPE_PARAMETERS("typeParameters")
 	;
 	
 	

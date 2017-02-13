@@ -36,6 +36,7 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -73,7 +74,26 @@ public abstract class BindTransformer {
 	 */
 	public static BindTransform lookup(BindProperty property) {
 		TypeMirror typeMirror = property.getElement().asType();
-		TypeName typeName = typeName(typeMirror);
+		TypeName typeName;
+		if (property.getParent() instanceof ModelClass)
+		{
+			ModelClass<?> modelClass = ((ModelClass<?>)property.getParent());
+			LiteralType literalType=LiteralType.of(typeMirror.toString());
+			
+			if (literalType.isArray())
+			{
+				typeName=ArrayTypeName.of(modelClass.resolveTypeVariable(typeName(literalType.getRawType())));
+			} else if (literalType.isCollection())
+			{
+				typeName=ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()), modelClass.resolveTypeVariable(typeName(literalType.getComposedType())));
+			} else {
+				typeName = modelClass.resolveTypeVariable(typeName(typeMirror));
+			}
+			
+		} else {
+			typeName = typeName(typeMirror);
+		}
+		
 		if (property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);
 		}

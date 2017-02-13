@@ -20,7 +20,6 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelEntity;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeVariableName;
