@@ -3,8 +3,6 @@
  */
 package bind.kripton109.animations;
 
-import java.io.File;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -24,9 +22,6 @@ public class Parallel2Test extends AbstractBaseTest {
 
 	@Test
 	public void testSimple() {
-		val0 = 0;
-		val1 = 0;
-
 		MockAnimation anim0 = new MockAnimation();
 		anim0.setInterval(MockKeyFrame.build("a0", 100, 30), MockKeyFrame.build("a0", 200, 30));
 
@@ -60,7 +55,7 @@ public class Parallel2Test extends AbstractBaseTest {
 
 			@Override
 			public void onFrameBegin(MockKeyFrame currentFrame) {
-				
+
 				log("Entro %s con val = %s + %s", currentFrame.name, val1, currentFrame.val);
 				val1 += currentFrame.val;
 			}
@@ -85,9 +80,6 @@ public class Parallel2Test extends AbstractBaseTest {
 
 	@Test
 	public void testSimple2() {
-		val0 = 0;
-		val1 = 0;
-
 		MockAnimation anim0 = new MockAnimation();
 		anim0.setInterval(MockKeyFrame.build("a0", 0, 10), MockKeyFrame.build("a0", 200, 0));
 
@@ -139,7 +131,8 @@ public class Parallel2Test extends AbstractBaseTest {
 
 		while (!handler.isFinished()) {
 			handler.update(10);
-			// print("value %s %s\n", ((MockKeyValue)values.values[0]).val, ((MockKeyValue)values.values[1]).val);
+			// print("value %s %s\n", ((MockKeyValue)values.values[0]).val,
+			// ((MockKeyValue)values.values[1]).val);
 			log("global 0:(%s, transition %s) 1: (%s, transition %s)\n", val0, handler.value().val, val1, handler.value1().val);
 		}
 
@@ -147,9 +140,6 @@ public class Parallel2Test extends AbstractBaseTest {
 
 	@Test
 	public void testPersists() {
-		File file = (new File("parallel.json")).getAbsoluteFile();
-		log("Scrivo su %s", file.getAbsolutePath());
-
 		MockAnimation anim0 = new MockAnimation();
 		MockAnimation anim1 = new MockAnimation();
 
@@ -162,19 +152,15 @@ public class Parallel2Test extends AbstractBaseTest {
 		parallel.setAnimation(anim0);
 		parallel.setAnimation1(anim1);
 
-		String outputString =KriptonBinder.jsonBind().serialize(parallel);
-		
+		String outputString = KriptonBinder.jsonBind().serialize(parallel);
+
 		// leggiamo
 		MockParallel2 test = KriptonBinder.jsonBind().parse(outputString, MockParallel2.class);
 
 		print(test);
-		String inputString =KriptonBinder.jsonBind().serialize(parallel);
-		
+		String inputString = KriptonBinder.jsonBind().serialize(parallel);
 
-		Assert.assertEquals("", inputString, outputString);
-
-		log("test %s", test.name);
-
+		Assert.assertEquals("error", inputString, outputString);
 	}
 
 	public void print(MockParallel2 anim) {

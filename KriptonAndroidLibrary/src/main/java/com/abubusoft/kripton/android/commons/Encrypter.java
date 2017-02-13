@@ -33,7 +33,7 @@ import com.abubusoft.kripton.common.Base64Utils;
 public class Encrypter {
 
 	// Set up secret key spec for 128-bit AES encryption and decryption
-	protected SecretKeySpec sks = null; // new SecretKeySpec();
+	protected SecretKeySpec sks = null;// new SecretKeySpec(
 
 	protected AesCbcWithIntegrity.SecretKeys key;
 

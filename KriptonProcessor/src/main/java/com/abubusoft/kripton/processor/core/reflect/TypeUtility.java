@@ -21,16 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.ErrorType;
-import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.type.TypeVariable;
-import javax.lang.model.util.SimpleTypeVisitor6;
 import javax.lang.model.util.Types;
 
 import com.abubusoft.kripton.common.Pair;
@@ -39,7 +32,6 @@ import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -50,7 +42,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-public class TypeUtility {
+public abstract class TypeUtility {
 	public static boolean isTypeIncludedIn(TypeName value, Type... types) {
 		for (Type item : types) {
 			if (value.equals(typeName(item))) {
@@ -292,7 +284,7 @@ public class TypeUtility {
 	 * @return
 	 * 
 	 */
-	public static void beginStringConversion(Builder methodBuilder, TypeMirror typeMirror) {	
+	public static void beginStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
 		SQLTransform transform = SQLTransformer.lookup(typeMirror);
 
 		switch (transform.getColumnType()) {
@@ -436,7 +428,7 @@ public class TypeUtility {
 			// is it an enum?
 			TypeElement element = BindTypeProcessor.elementUtils.getTypeElement(className);
 			if (element instanceof TypeElement) {
-				TypeElement typeElement = (TypeElement) element;
+				TypeElement typeElement = element;
 				TypeMirror superclass = typeElement.getSuperclass();
 				if (superclass instanceof DeclaredType) {
 					DeclaredType superclassDeclaredType = (DeclaredType) superclass;

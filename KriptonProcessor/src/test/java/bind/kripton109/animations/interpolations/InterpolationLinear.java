@@ -1,13 +1,5 @@
 package bind.kripton109.animations.interpolations;
 
-/**
- * <p>
- * Interpolazione lineare.
- * </p>
- * 
- * @author Francesco Benincasa
- * 
- */
 public class InterpolationLinear implements Interpolation {
 	private static InterpolationLinear instance;
 

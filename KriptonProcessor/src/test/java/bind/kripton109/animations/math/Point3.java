@@ -1,100 +1,70 @@
-/**
- * 
- */
 package bind.kripton109.animations.math;
-
-import java.io.Serializable;
 
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
-/**
- * Punto in uno spazio cartesiano tridimensionale, con la caratteristica di essere persistente mediante Kripton.
- * 
- * @author Francesco Benincasa
- *
- */
 @BindType
 public class Point3 {
 
 	private static final long serialVersionUID = 4754358686291704165L;
 
+	public Point3() {
 
-	public Point3()
-	{
-		
 	}
-	
-	public Point3(float x, float y, float z)
-	{
-		this.x=x;
-		this.y=y;
-		this.z=z;
-		
+
+	public Point3(float x, float y, float z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+
 	}
-	
+
 	@Bind
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
+	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public float x;
-	
-	@Bind
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
-	public float y;
-	
-	@Bind
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
-	public float z;
-		
-	
-	public void add(float x1, float y1, float z1)
-	{
-		x+=x1;
-		y+=y1;
-		z+=z1;
-	}
-	
-	public void add(Point3 value)
-	{
-		x+=value.x;
-		y+=value.y;
-		z+=value.z;
-	}
-		
-	/**
-	 * Definisce le coordinate di un punto
-	 * @param newX
-	 * @param newY
-	 * @param newZ
-	 */
-	public void setCoords(float newX, float newY, float newZ)
-	{
-		x=newX;
-		y=newY;
-		z=newZ;
-	}
-	
 
-	/* (non-Javadoc)
-	 * @see org.abubu.elio.util.Copy#copyInto(java.lang.Object)
-	 */
-	public void copyInto(Point3 dest)
-	{
-		dest.x=x;
-		dest.y=y;
-		dest.z=z;
+	@Bind
+	@BindXml(xmlType = XmlType.ATTRIBUTE)
+	public float y;
+
+	@Bind
+	@BindXml(xmlType = XmlType.ATTRIBUTE)
+	public float z;
+
+	public void add(float x1, float y1, float z1) {
+		x += x1;
+		y += y1;
+		z += z1;
 	}
-	
-	public Point3 copy()
-	{
-		return new Point3(x,y,z);
+
+	public void add(Point3 value) {
+		x += value.x;
+		y += value.y;
+		z += value.z;
+	}
+
+	public void setCoords(float newX, float newY, float newZ) {
+		x = newX;
+		y = newY;
+		z = newZ;
+	}
+
+	public void copyInto(Point3 dest) {
+		dest.x = x;
+		dest.y = y;
+		dest.z = z;
+	}
+
+	public Point3 copy() {
+		return new Point3(x, y, z);
 	}
 
 	public static Point3 set(float x, float y, float z) {
 		return new Point3(x, y, z);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
