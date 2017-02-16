@@ -345,23 +345,6 @@ public abstract class AnnotationUtility {
 			annotationNames = annotations;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			StringBuilder builder = new StringBuilder();
-			builder.append("AnnotationFilter [");
-			if (annotationNames != null) {
-				builder.append("annotationNames=");
-				builder.append(annotationNames);
-			}
-			builder.append("]");
-			return builder.toString();
-		}
-
 		Set<String> annotationNames;
 
 		public boolean isAccepted(String annotationName) {
