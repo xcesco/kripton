@@ -333,7 +333,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 			primaryKey.setPrimaryKey(true);
 
 		if (currentEntity.getCollection().size() == 0) {
-			String msg = String.format("Bean class %s, used in %s database definition, has no property!", currentEntity.getName(), dataSource.getSimpleName().toString());
+			String msg = String.format("Class '%s', used in %s database definition, has no property!", currentEntity.getName(), dataSource.getSimpleName().toString());
 			throw (new PropertyNotFoundException(msg));
 		}
 

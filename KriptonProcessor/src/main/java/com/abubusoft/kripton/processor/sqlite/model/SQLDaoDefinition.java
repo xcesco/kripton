@@ -23,6 +23,7 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelBucket;
+import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
 import com.squareup.javapoet.TypeName;
 
 public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {
@@ -32,6 +33,8 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	public static final String PARAM_SERIALIZER_PREFIX = "serializer";
 
 	private WeakReference<SQLiteDatabaseSchema> parent;
+	
+	private TypeVariableResolver typeVariableResolver;
 
 	/**
 	 * @return the parent
@@ -75,6 +78,12 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 		} else {
 			entitySimplyClassName = entityClassName;
 		}
+		
+		typeVariableResolver=TypeVariableResolver.build(element);
+	}
+	
+	public TypeName resolveTypeVariable(TypeName inputTypeName) {
+		return typeVariableResolver.resolve(inputTypeName);
 	}
 
 	@Override

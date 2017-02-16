@@ -101,7 +101,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				String resolvedParamName = method.findParameterAliasByName(item.value0);
 				SQLProperty property = entity.get(resolvedParamName);
 				if (property == null)
-					throw (new PropertyNotFoundException(method, resolvedParamName));
+					throw (new PropertyNotFoundException(method, resolvedParamName, item.value1));
 
 				// check same type
 				TypeUtility.checkTypeCompatibility(method, item, property);

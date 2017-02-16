@@ -23,9 +23,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.ErrorType;
+import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.NoType;
+import javax.lang.model.type.NullType;
+import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVariable;
+import javax.lang.model.type.TypeVisitor;
+import javax.lang.model.type.UnionType;
+import javax.lang.model.type.WildcardType;
 import javax.lang.model.util.Types;
 
 import com.abubusoft.kripton.common.Pair;
@@ -176,16 +187,14 @@ public abstract class TypeUtility {
 		if (typeMirror instanceof ModelType) {
 			return ((ModelType) typeMirror).getName();
 		}
-		
-		LiteralType literalType=LiteralType.of(typeMirror.toString());
-		
-		if (literalType.isArray())
-		{
+
+		LiteralType literalType = LiteralType.of(typeMirror.toString());
+
+		if (literalType.isArray()) {
 			return ArrayTypeName.of(typeName(literalType.getRawType()));
-		} else if (literalType.isCollection())
-		{
+		} else if (literalType.isCollection()) {
 			return ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()), typeName(literalType.getComposedType()));
-		} 
+		}
 
 		return TypeName.get(typeMirror);
 	}
@@ -464,9 +473,100 @@ public abstract class TypeUtility {
 	 * @param element
 	 * @return list of typemirror or empty list
 	 */
-	public static List<? extends TypeMirror> getTypeArguments(TypeElement element) {
-		if (element.getSuperclass() instanceof DeclaredType) {
-			return ((DeclaredType) element.getSuperclass()).getTypeArguments();
+	@SuppressWarnings("unchecked")
+	public static List<TypeMirror> getTypeArguments(TypeElement element) {
+		if (element.getKind() == ElementKind.CLASS) {
+			if (element.getSuperclass() instanceof DeclaredType) {
+				return (List<TypeMirror>) ((DeclaredType) element.getSuperclass()).getTypeArguments();
+			}
+		} else if (element.getKind() == ElementKind.INTERFACE) {
+			final List<TypeMirror> result=new ArrayList<>();
+			List<? extends TypeMirror> interfaces = element.getInterfaces();
+			
+			for (TypeMirror item: interfaces)
+			{
+				item.accept(new TypeVisitor<Void, Void>() {
+
+					@Override
+					public Void visit(TypeMirror t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visit(TypeMirror t) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visitPrimitive(PrimitiveType t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visitNull(NullType t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visitArray(ArrayType t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visitDeclared(DeclaredType t, Void p) {
+						result.add((TypeMirror) t.getTypeArguments());
+						return null;
+					}
+
+					@Override
+					public Void visitError(ErrorType t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visitTypeVariable(TypeVariable t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visitWildcard(WildcardType t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visitExecutable(ExecutableType t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visitNoType(NoType t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visitUnknown(TypeMirror t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public Void visitUnion(UnionType t, Void p) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+				}, null);
+				
+			}			
 		}
 
 		return new ArrayList<>();

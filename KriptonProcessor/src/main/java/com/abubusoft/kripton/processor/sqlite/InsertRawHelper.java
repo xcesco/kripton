@@ -58,7 +58,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			String propertyName = method.findParameterAliasByName(item.value0);
 			ModelProperty property = entity.get(propertyName);
 			if (property == null)
-				throw (new PropertyNotFoundException(method, propertyName));
+				throw (new PropertyNotFoundException(method, propertyName, item.value1));
 
 			// check same type
 			TypeUtility.checkTypeCompatibility(method, item, property);

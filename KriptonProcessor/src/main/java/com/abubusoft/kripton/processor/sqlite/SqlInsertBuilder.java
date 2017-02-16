@@ -97,7 +97,7 @@ public abstract class SqlInsertBuilder {
 		// check type of arguments
 		int count = 0;
 		for (Pair<String, TypeMirror> param : method.getParameters()) {
-			if (TypeUtility.isEquals(typeName(param.value1), typeName(entity.getElement()))) {
+			if (TypeUtility.isEquals(entity.resolveTypeVariable(typeName(param.value1)), typeName(entity.getElement()))) {
 				count++;
 			}
 		}

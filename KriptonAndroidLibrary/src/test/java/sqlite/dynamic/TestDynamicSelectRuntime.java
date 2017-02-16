@@ -37,7 +37,7 @@ public class TestDynamicSelectRuntime extends BaseAndroidTest {
 		try (BindPersonDataSource dataSource = BindPersonDataSource.open()) {
 
 			for (int i = 0; i < 10; i++) {
-				dataSource.getPersonDAO().insertOne("name" + i, "surname" + i, "city" + i, new Date());
+				dataSource.getPersonDAO().insertOne("name" + i, "surname" + i, "city" + i, new Date());				
 			}
 
 			{
