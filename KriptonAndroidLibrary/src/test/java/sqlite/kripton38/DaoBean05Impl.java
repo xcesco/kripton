@@ -257,7 +257,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
         do
          {
           if (!cursor.isNull(0)) {
-            resultList.add(cursor.getLong(0));
+            resultList.add(parser1(cursor.getBlob(0)));
           } else {
             resultList.add(null);
           }
@@ -566,7 +566,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
 
     if (content!=null) {
-      contentValues.put("content", serializer1(content));
+      contentValues.put("content", serializer2(content));
     } else {
       contentValues.putNull("content");
     }
@@ -741,7 +741,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     ContentValues contentValues=contentValues();
     contentValues.clear();
     if (content!=null) {
-      contentValues.put("content", serializer1(content));
+      contentValues.put("content", serializer2(content));
     } else {
       contentValues.putNull("content");
     }
@@ -896,7 +896,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       if (cursor.moveToFirst()) {
 
         if (cursor.isNull(0)) { return null; }
-        result=parser1(cursor.getBlob(0));
+        result=parser2(cursor.getBlob(0));
       }
       return result;
     }
@@ -905,7 +905,54 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * write
    */
-  private byte[] serializer1(byte[] value) {
+  private byte[] serializer1(Long value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        jacksonSerializer.writeNumberField("element", value);
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private Long parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Long result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getLongValue();
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer2(byte[] value) {
     if (value==null) {
       return null;
     }
@@ -928,7 +975,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * parse
    */
-  private byte[] parser1(byte[] input) {
+  private byte[] parser2(byte[] input) {
     if (input==null) {
       return null;
     }

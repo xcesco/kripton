@@ -31,7 +31,7 @@ public class TestCompileGenericHierarchy extends AbstractBindSQLiteProcessorTest
 	 */
 	@Test
 	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
+		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class, BaseDAO.class);
 	}
 
 }

@@ -117,15 +117,15 @@ public abstract class JavadocUtility {
 
 		// method params
 		ParameterSpec parameterSpec;
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
+		for (Pair<String, TypeName> item : method.getParameters()) {
+			parameterSpec = ParameterSpec.builder(item.value1, item.value0).build();
 
 			methodBuilder.addJavadoc("@param $L\n", parameterSpec.name);
-			if (beanTypeName.equals(TypeName.get(item.value1))) {
+			if (beanTypeName.equals(item.value1)) {
 				methodBuilder.addJavadoc("\tis used as $L\n", "${" + method.findParameterAliasByName(item.value0) + "}");
-			} else if (TypeUtility.isTypeEquals(TypeName.get(item.value1), ParameterizedTypeName.get(TypeUtility.className(OnReadBeanListener.class), beanTypeName))) {
+			} else if (TypeUtility.isTypeEquals(item.value1, ParameterizedTypeName.get(TypeUtility.className(OnReadBeanListener.class), beanTypeName))) {
 				methodBuilder.addJavadoc("\tis the $T listener\n", beanTypeName);
-			} else if (TypeUtility.isTypeEquals(TypeName.get(item.value1), TypeUtility.className(OnReadCursorListener.class))) {
+			} else if (TypeUtility.isTypeEquals(item.value1, TypeUtility.className(OnReadCursorListener.class))) {
 				methodBuilder.addJavadoc("\tis the cursor listener\n", beanTypeName);
 			} else if (item.value0.equals(method.dynamicWhereParameterName)) {
 				methodBuilder.addJavadoc("\tis used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);

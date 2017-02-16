@@ -25,6 +25,8 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
 
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.TypeName;
 
 public class ModelMethod extends ModelEntity<ExecutableElement> implements ModelWithAnnotation {
 
@@ -40,19 +42,21 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 
 	public ModelMethod(ExecutableElement element) {
 		super(element.getSimpleName().toString(), element);
-		this.parameters = new ArrayList<Pair<String, TypeMirror>>();
+		this.parameters = new ArrayList<Pair<String, TypeName>>();
 		this.annotations = new ArrayList<ModelAnnotation>();
 
 		for (VariableElement p : element.getParameters()) {
-			parameters.add(new Pair<String, TypeMirror>(p.getSimpleName().toString(), p.asType()));
+			parameters.add(new Pair<String, TypeName>(p.getSimpleName().toString(), TypeUtility.typeName(p.asType())));
 		}
 		
-		if (element.getReturnType() instanceof TypeVariable) {			
-			//TODO for the moment, if method return type is typeVariable, we set it to null 
-			returnClass = null;
-		} else {
-			returnClass = element.getReturnType();
-		}
+		returnClass = TypeUtility.typeName(element.getReturnType());
+		
+//		if (element.getReturnType() instanceof TypeVariable) {			
+//			//TODO for the moment, if method return type is typeVariable, we set it to null 
+//			returnClass = null;
+//		} else {
+//			
+//		}
 	}
 
 	protected List<ModelAnnotation> annotations;
@@ -60,27 +64,27 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	/**
 	 * @return the parameters
 	 */
-	public List<Pair<String, TypeMirror>> getParameters() {
+	public List<Pair<String, TypeName>> getParameters() {
 		return parameters;
 	}
 
 	/**
 	 * @return the returnClass
 	 */
-	public TypeMirror getReturnClass() {
+	public TypeName getReturnClass() {
 		return returnClass;
 	}
 
 	/**
 	 * @param returnClass the returnClass to set
 	 */
-	public void setReturnClass(TypeMirror returnClass) {
+	public void setReturnClass(TypeName returnClass) {
 		this.returnClass = returnClass;
 	}
 
-	protected List<Pair<String, TypeMirror>> parameters;
+	protected List<Pair<String, TypeName>> parameters;
 
-	protected TypeMirror returnClass;
+	protected TypeName returnClass;
 
 	public void addAnnotation(ModelAnnotation annotation) {
 		annotations.add(annotation);
@@ -93,8 +97,8 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	 *            parameter name to find
 	 * @return TypeMirror associated
 	 */
-	public TypeMirror findParameterType(String name) {
-		for (Pair<String, TypeMirror> item : parameters) {
+	public TypeName findParameterType(String name) {
+		for (Pair<String, TypeName> item : parameters) {
 			if (item.value0.equals(name)) {
 				return item.value1;
 			}

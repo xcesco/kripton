@@ -21,7 +21,6 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.List;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
@@ -208,7 +207,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
 
 		// in this case, only one parameter can exists for method
-		Pair<String, TypeMirror> beanParameter = method.getParameters().get(0);
+		Pair<String, TypeName> beanParameter = method.getParameters().get(0);
 
 		String sqlResult;
 
@@ -292,7 +291,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		// method parameters
 		// update bean have only one parameter: the bean to update
-		for (Pair<String, TypeMirror> param : method.getParameters()) {
+		for (Pair<String, TypeName> param : method.getParameters()) {
 			methodBuilder.addJavadoc("@param $L", param.value0);
 
 			if (method.isThisDynamicWhereConditionsName(param.value0)) {

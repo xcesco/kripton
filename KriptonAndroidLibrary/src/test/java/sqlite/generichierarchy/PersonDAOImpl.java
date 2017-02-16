@@ -1,5 +1,6 @@
 package sqlite.generichierarchy;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
@@ -37,17 +38,17 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>arg0</strong></dd>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * @param arg0
+   * @param id
    * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
-  public Person selectById(long arg0) {
+  public Person selectById(long id) {
     // build where condition
-    String[] _args={String.valueOf(arg0)};
+    String[] _args={String.valueOf(id)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE id='%s'",(Object[])_args));
@@ -75,5 +76,60 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       }
       return resultBean;
     }
+  }
+
+  /**
+   * <p>SQL insert:</p>
+   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${bean.name}, ${bean.surname}, ${bean.birthCity}, ${bean.birthDay})</pre>
+   *
+   * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
+   *
+   * <p><strong>Inserted columns:</strong></p>
+   * <dl>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
+   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
+   * </dl>
+   *
+   * @param bean
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   *
+   */
+  @Override
+  public void insertThread1(Person bean) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    if (bean.name!=null) {
+      contentValues.put("name", bean.name);
+    } else {
+      contentValues.putNull("name");
+    }
+
+    if (bean.surname!=null) {
+      contentValues.put("surname", bean.surname);
+    } else {
+      contentValues.putNull("surname");
+    }
+
+    if (bean.birthCity!=null) {
+      contentValues.put("birth_city", bean.birthCity);
+    } else {
+      contentValues.putNull("birth_city");
+    }
+
+    if (bean.birthDay!=null) {
+      contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+    } else {
+      contentValues.putNull("birth_day");
+    }
+
+    //StringUtils and SqlUtils will be used to format SQL
+    // log
+    Logger.info(SqlUtils.formatSQL("INSERT INTO person (name, surname, birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
+    long result = database().insert("person", null, contentValues);
+    bean.id=result;
   }
 }

@@ -32,8 +32,9 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
-import com.abubusoft.kripton.processor.utils.LiteralType;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -54,7 +55,9 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 		SQLDaoDefinition daoDefinition=method.getParent();
 		SQLEntity entity=daoDefinition.getEntity();		
 		
-		LiteralType listenerType = LiteralType.of(OnReadBeanListener.class, entity.getElement());
+		//LiteralType listenerType = LiteralType.of(OnReadBeanListener.class, entity.getElement());
+		ParameterizedTypeName listenerType=ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class), TypeName.get(entity.getElement().asType()));
+
 		List<SQLProperty> fields = fieldList.value1;
 		TypeName entityClass = typeName(entity.getElement());
 

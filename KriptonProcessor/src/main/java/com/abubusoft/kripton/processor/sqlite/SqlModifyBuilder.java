@@ -18,7 +18,6 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import javax.lang.model.element.Modifier;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
@@ -98,13 +97,13 @@ public abstract class SqlModifyBuilder {
 
 		// check type of arguments
 		int count = 0;
-		for (Pair<String, TypeMirror> param : method.getParameters()) {
+		for (Pair<String, TypeName> param : method.getParameters()) {
 			if (method.hasDynamicWhereConditions() && param.value0.equals(method.dynamicWhereParameterName)) {
 				// if current parameter is dynamic where, skip it
 				continue;
 			}
 
-			if (TypeUtility.isEquals(typeName(param.value1), typeName(entity.getElement()))) {
+			if (TypeUtility.isEquals(param.value1, typeName(entity.getElement()))) {
 				count++;
 			}
 		}
@@ -129,7 +128,7 @@ public abstract class SqlModifyBuilder {
 
 			// check if there is only one parameter
 			AssertKripton.failWithInvalidMethodSignException(
-					method.getParameters().size() > 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName()), method);
+					method.getParameters().size() > 1 && TypeUtility.isSameType(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()), method);
 
 		} else if (count == 1) {
 			updateResultType = updateMode ? ModifyType.UPDATE_BEAN : ModifyType.DELETE_BEAN;
@@ -144,7 +143,7 @@ public abstract class SqlModifyBuilder {
 		}
 
 		// if true, field must be associate to ben attributes
-		TypeName returnType = typeName(method.getReturnClass());
+		TypeName returnType = method.getReturnClass();
 
 		if (updateResultType == null) {
 			throw (new InvalidMethodSignException(method));
@@ -153,8 +152,8 @@ public abstract class SqlModifyBuilder {
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 		ParameterSpec parameterSpec;
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
+		for (Pair<String, TypeName> item : method.getParameters()) {
+			parameterSpec = ParameterSpec.builder(item.value1, item.value0).build();
 			methodBuilder.addParameter(parameterSpec);
 		}
 		methodBuilder.returns(returnType);

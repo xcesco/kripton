@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.annotation.BindTypeVariables;
 import com.abubusoft.kripton.common.StringUtils;
@@ -28,7 +27,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
  */
 public class TypeVariableResolver {
 
-	List<? extends TypeMirror> declaredTypeArgumentList;
+	List<TypeName> declaredTypeArgumentList;
 	
 	Map<String, TypeName> typeVariableMap;
 	
@@ -37,7 +36,7 @@ public class TypeVariableResolver {
 	boolean active;
 	
 	
-	public TypeVariableResolver(TypeElement element, List<? extends TypeMirror> typeArgs, Map<String, TypeName> typeVariableMap) {
+	public TypeVariableResolver(TypeElement element, List<TypeName> typeArgs, Map<String, TypeName> typeVariableMap) {
 		this.element=element;
 		this.declaredTypeArgumentList=typeArgs;
 		this.typeVariableMap=typeVariableMap;
@@ -51,7 +50,7 @@ public class TypeVariableResolver {
 	@SuppressWarnings({ "unchecked"})
 	public static TypeVariableResolver build(TypeElement element)
 	{
-		List<? extends TypeMirror> typeArgs = TypeUtility.getTypeArguments(element);
+		List<TypeName> typeArgs = TypeUtility.getTypeArguments(element);
 		Map<String, TypeName> typeVariableMap=new HashMap<>();
 		
 		BindTypeVariables annotationBeanType = element.getAnnotation(BindTypeVariables.class);
@@ -80,7 +79,7 @@ public class TypeVariableResolver {
 							if (typeParameters.size() > 0) {
 								typeVariableMap.put(alias.trim(), TypeUtility.typeName(typeParameters.get(i)));
 							} else {
-								typeVariableMap.put(alias.trim(), TypeUtility.typeName(typeArgs.get(i)));
+								typeVariableMap.put(alias.trim(), typeArgs.get(i));
 							}
 						}
 					}
@@ -101,23 +100,25 @@ public class TypeVariableResolver {
 		if (!hasTypeVariables())
 			return inputTypeName;
 		
+		if (TypeName.VOID.equals(inputTypeName)) return inputTypeName;
+		
 		if (inputTypeName.toString().contains(".") || inputTypeName.isPrimitive() || inputTypeName.isBoxedPrimitive()) {
 			return inputTypeName;
 		}
 
-		if (typeVariableMap != null && typeVariableMap.containsKey(inputTypeName.toString())) {
+		if (typeVariableMap.containsKey(inputTypeName.toString())) {
 			TypeName type = typeVariableMap.get(inputTypeName.toString());
 			return type;
-		} else if (typeVariableMap == null) {
-			TypeName resolved = TypeUtility.typeName(declaredTypeArgumentList.get(0));
-			// if we found a type variable not yet bound, we bound it.
-			typeVariableMap = new HashMap<>();
-			typeVariableMap.put(inputTypeName.toString(), resolved);
+		} else if (declaredTypeArgumentList.size()==1){
+			TypeName resolved = declaredTypeArgumentList.get(0);
+			// if we found an unique type variable, we use it.
+			//typeVariableMap = new HashMap<>();
+			//typeVariableMap.put(inputTypeName.toString(), resolved);
 
 			return resolved;
 		}
 
-		AssertKripton.assertTrue(false, "In type hierarchy of %s '%s' there is a unresolved type variable named '%s'. Define it with @BindType(typeVariables)", element.getKind()==ElementKind.CLASS ? "class" :"interface", element.getQualifiedName(),
+		AssertKripton.assertTrue(false, "In type hierarchy of %s '%s' there is a unresolved type variable named '%s'. Define it with @BindTypeVariables", element.getKind()==ElementKind.CLASS ? "class" :"interface", element.getQualifiedName(),
 				inputTypeName.toString());
 
 		return inputTypeName;

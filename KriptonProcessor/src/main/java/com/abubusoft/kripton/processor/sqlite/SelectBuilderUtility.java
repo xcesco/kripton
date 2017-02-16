@@ -15,8 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +45,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
-import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -97,30 +94,14 @@ public abstract class SelectBuilderUtility {
 		}
 	}
 
-	public static boolean hasParameterOfType(ModelMethod method, String kindOfParameter) {
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			if (typeName(item.value1).toString().equals(kindOfParameter)) {
-				return true;
-			}
-		}
-
-		return false;
+	public static boolean hasParameterOfType(ModelMethod method, TypeName parameter) {
+		return countParameterOfType(method, parameter)>0;
 	}
 
-	public static boolean hasParameterOfType(ModelMethod method, LiteralType parameter) {
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			if (typeName(item.value1).toString().equals(parameter.getValue())) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public static int countParameterOfType(ModelMethod method, LiteralType parameter) {
+	public static int countParameterOfType(ModelMethod method, TypeName parameter) {
 		int counter = 0;
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			if (typeName(item.value1).toString().equals(parameter.getValue())) {
+		for (Pair<String, TypeName> item : method.getParameters()) {
+			if (item.value1.equals(parameter)) {
 				counter++;
 			}
 		}
@@ -128,9 +109,9 @@ public abstract class SelectBuilderUtility {
 		return counter;
 	}
 
-	public static String getNameParameterOfType(ModelMethod method, LiteralType parameter) {
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			if (typeName(item.value1).toString().equals(parameter.getValue())) {
+	public static String getNameParameterOfType(ModelMethod method, TypeName parameter) {
+		for (Pair<String, TypeName> item : method.getParameters()) {
+			if (item.value1.equals(parameter)) {
 				return item.value0;
 			}
 		}
@@ -151,11 +132,13 @@ public abstract class SelectBuilderUtility {
 		SqlSelectBuilder.SelectType selectResultType = null;
 
 		// if true, field must be associate to ben attributes
-		TypeMirror returnType = method.getReturnClass();
-		TypeName returnTypeName = typeName(returnType);
+		TypeName returnTypeName = method.getReturnClass();
 
-		LiteralType readBeanListener = LiteralType.of(OnReadBeanListener.class.getCanonicalName(), entity.getName());
-		LiteralType readCursorListener = LiteralType.of(OnReadCursorListener.class);
+		ParameterizedTypeName readBeanListener=ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class), ClassName.get(entity.getElement()));
+		ClassName readCursorListener=ClassName.get(OnReadCursorListener.class);
+		//LiteralType readBeanListener = LiteralType.of(OnReadBeanListener.class.getCanonicalName(), entity.getName());
+		//LiteralType readCursorListener = LiteralType.of(OnReadCursorListener.class);
+		
 
 		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 		int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
@@ -221,7 +204,7 @@ public abstract class SelectBuilderUtility {
 		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method,"'%s' as return type is not supported", returnTypeName);
 
 		// generate select method
-		selectResultType.generate(elementUtils, builder, method, returnType);
+		selectResultType.generate(elementUtils, builder, method, returnTypeName);
 	}
 
 

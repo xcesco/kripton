@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -60,8 +59,7 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {		
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
-		TypeMirror returnType = method.getReturnClass();
-		TypeName returnTypeName = typeName(returnType);
+		TypeName returnTypeName = method.getReturnClass();
 
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnTypeName;
 		// String fieldStatement = fieldList.value0;

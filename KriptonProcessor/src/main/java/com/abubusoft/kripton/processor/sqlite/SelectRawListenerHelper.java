@@ -23,7 +23,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.utils.LiteralType;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
@@ -41,7 +41,8 @@ public class SelectRawListenerHelper extends AbstractSelectCodeGenerator {
 	 */
 	@Override
 	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
-		LiteralType listenerType=LiteralType.of(OnReadCursorListener.class);
+		//LiteralType listenerType=LiteralType.of(OnReadCursorListener.class);
+		ClassName listenerType=ClassName.get(OnReadCursorListener.class);
 		
 		int counter = SelectBuilderUtility.countParameterOfType(method, listenerType);
 		if (counter == 0) {

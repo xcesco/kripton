@@ -41,8 +41,6 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-import android.content.res.TypedArray;
-
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
@@ -386,7 +384,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			ArrayTypeName arrayTypeName=(ArrayTypeName) property.getPropertyType().getName();
 			elementTypeName=resolveTypeName(property.getParent(), arrayTypeName.componentType);
 		} else {
-			elementTypeName=resolveTypeName(property.getParent(), TypeUtility.typeName(property.getPropertyType().getComposedType()));
+			elementTypeName=resolveTypeName(property.getParent(), TypeUtility.typeName(property.getPropertyType().getTypeParameter()));
 		}
 		
 		return elementTypeName;

@@ -18,9 +18,6 @@
  */
 package com.abubusoft.kripton.processor.sqlite;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -49,17 +46,16 @@ public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 	 */
 	@Override
 	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
-		TypeMirror returnType = method.getReturnClass();
-		TypeName returnTypeName = typeName(returnType);
+		TypeName returnTypeName = method.getReturnClass();
 
 		//ASSERT: returnType is a supported type
 		
 		// no column or too many columns
 		AssertKripton.assertTrueOrInvalidMethodSignException(fieldList.value1.size() == 1, method, "only one field can be defined as result for this method");				
 
-		SQLTransform t = SQLTransformer.lookup(returnType);
+		SQLTransform t = SQLTransformer.lookup(returnTypeName);
 
-		methodBuilder.addCode("$T result=", returnType);
+		methodBuilder.addCode("$T result=", returnTypeName);
 		t.generateDefaultValue(methodBuilder);
 		methodBuilder.addCode(";\n");
 
@@ -80,7 +76,7 @@ public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 			methodBuilder.addCode("; }\n", t);
 		}
 		methodBuilder.addCode("result=");
-		t.generateReadParam(methodBuilder, method.getParent(), typeName(returnType), "cursor", "0");
+		t.generateReadParam(methodBuilder, method.getParent(), returnTypeName, "cursor", "0");
 		methodBuilder.addCode(";\n");
 
 		// end cursor

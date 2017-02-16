@@ -15,10 +15,10 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 /**
@@ -30,7 +30,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
 public abstract class SqlSelectBuilder {
 
 	public interface SelectCodeGenerator {
-		void generate(Elements elementUtils, Builder builder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType);
+		void generate(Elements elementUtils, Builder builder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 
 		void setSelectResultTye(SelectType selectResultType);
 	}
@@ -61,7 +61,7 @@ public abstract class SqlSelectBuilder {
 			}
 		}
 
-		public void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method, TypeMirror returnType) {
+		public void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method, TypeName returnType) {
 			codeGenerator.generate(elementUtils, builder, this.isMapFields(), method, returnType);
 		}
 

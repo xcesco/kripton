@@ -36,15 +36,28 @@ import javax.lang.model.type.TypeVisitor;
  */
 public class LiteralType {
 	
+//	public enum ParsedType
+//	{
+//		PRIMITIVE_TYPE,
+//		NULL_TYPE,
+//		ARRAY_TYPE,
+//		DECLARED_TYPE,
+//		SIMPLE_TYPE
+//	}
+	
 	final static Map<String, LiteralType> cached=new HashMap<String, LiteralType>();
 
-	private static final int GROUP_COMPLEX_INDEX = 1;
+	private static final int GROUP_TYPE_GENERIC_INDEX = 1;
 	
-	private static final int GROUP_COMPOSED_INDEX = 2;
+	private static final int GROUP_TYPE_PARAMETER_INDEX = 2;
 
 	private static final int GROUP_ARRAY_INDEX = 3;
 
 	private static final int GROUP_SIMPLE_INDEX = 4;
+	
+//	private ParsedType parsedType;
+//	
+//	public  ParsedType parsedType() {return parsedType; }
 
 	private String value;
 	
@@ -72,15 +85,31 @@ public class LiteralType {
 
 	private boolean array;
 
-	private String composedType;
+	private String typeParameter;
 
-	public String getComposedType() {
-		return composedType;
+	public String getTypeParameter() {
+		return typeParameter;
+	}
+	
+	public boolean isParametrizedType()
+	{
+		return typeParameter!=null;
 	}
 
-	protected LiteralType(String value) {
-		this.value=value;
-		parse(value);
+	LiteralType()
+	{
+		
+	}
+
+	protected LiteralType(String input) {
+		parse(this, input);
+	}
+	
+	public static LiteralType parse(String input) {
+		LiteralType result=new LiteralType();
+		parse(result, input);
+		
+		return result;
 	}
 
 	/**
@@ -88,51 +117,60 @@ public class LiteralType {
 	 * 
 	 * @param value
 	 */
-	protected void parse(String value) {
-		Matcher matcher = CLASS_PATTERN.matcher(value);
+	static LiteralType parse(LiteralType result, String input) {
+		result.value=input;
+		Matcher matcher = CLASS_PATTERN.matcher(input);
 
 		while (matcher.find()) {
-			if (matcher.group(GROUP_SIMPLE_INDEX) != null || matcher.group(GROUP_ARRAY_INDEX) != null || matcher.group(GROUP_COMPLEX_INDEX) != null) {
-				value = matcher.group(GROUP_SIMPLE_INDEX);
-				if (value == null && matcher.group(GROUP_ARRAY_INDEX) != null) {
-					value = matcher.group(GROUP_ARRAY_INDEX);
-					array = true;
+			if (matcher.group(GROUP_SIMPLE_INDEX) != null || matcher.group(GROUP_ARRAY_INDEX) != null || matcher.group(GROUP_TYPE_GENERIC_INDEX) != null) {
+				result.value = matcher.group(GROUP_SIMPLE_INDEX);
+				if (result.value == null && matcher.group(GROUP_ARRAY_INDEX) != null) {
+					result.value = matcher.group(GROUP_ARRAY_INDEX);
+					result.array = true;
 				}
-				if (value == null && matcher.group(GROUP_COMPLEX_INDEX) != null) {
-					value = matcher.group(GROUP_COMPLEX_INDEX);
-					composedType=matcher.group(GROUP_COMPOSED_INDEX);;
+				if (result.value == null && matcher.group(GROUP_TYPE_GENERIC_INDEX) != null) {
+					result.value = matcher.group(GROUP_TYPE_GENERIC_INDEX);
+					result.typeParameter=matcher.group(GROUP_TYPE_PARAMETER_INDEX);
 				}
 
-				if (value!=null && value.indexOf(".") >= 0) {
+				if (result.value!=null && result.value.indexOf(".") >= 0) {
 					// assert: JDK lang
-					rawType = value;
+					result.rawType = result.value;
 
-					if (rawType.startsWith("java")) {
+					if (result.rawType.startsWith("java")) {
 						// assert: raw type is type defined in jdk
 						try {
-							resolvedRawType = Class.forName(rawType);
+							result.resolvedRawType = Class.forName(result.rawType);
 						} catch (ClassNotFoundException e) {
 							e.printStackTrace();
 						}
 					}
 				} else {
 					// assert: primitive
-					rawType = value;
-					primitive = true;
+					result.rawType = result.value;
+					result.primitive = true;
 
 					// Class<?> primitive[]={Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class};
 					Class<?> resolved[] = { Byte.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
 
 					for (Class<?> i : resolved) {
-						if (rawType.equals(i.getSimpleName())) {
-							resolvedRawType = i;
+						if (result.rawType.equals(i.getSimpleName())) {
+							result.resolvedRawType = i;
+							//result.parsedType=ParsedType.PRIMITIVE_TYPE;
 							break;
 						}
+					}
+					
+					if (result.rawType.equals(Void.TYPE.getSimpleName()))
+					{
+						result.resolvedRawType=Void.TYPE;
+						//result.parsedType=ParsedType.NULL_TYPE;
 					}
 				}
 
 			}
 		}
+		return result;
 	}
 
 	public boolean isArray() {
@@ -150,7 +188,7 @@ public class LiteralType {
 			return cached.get(clazzString);
 		} else {
 			
-			newValue=new LiteralType(clazzString);
+			newValue=LiteralType.parse(clazzString);
 			cached.put(clazzString, newValue);
 			
 			return newValue;
@@ -166,7 +204,7 @@ public class LiteralType {
 			return cached.get(clazzName);
 		} else {
 			
-			newValue=new LiteralType(clazzName);
+			newValue=LiteralType.parse(clazzName);
 			cached.put(clazzName, newValue);
 			
 			return newValue;
@@ -226,5 +264,7 @@ public class LiteralType {
 	public <R, P> R accept(TypeVisitor<R, P> v, P p) {
 		return null;
 	}
+	
+	
 
 }

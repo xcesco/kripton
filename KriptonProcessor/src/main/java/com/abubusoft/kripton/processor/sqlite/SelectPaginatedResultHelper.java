@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.element.Modifier;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
@@ -56,7 +55,7 @@ import com.squareup.javapoet.TypeSpec;
 public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCodeGenerator {
 
 	@Override
-	public void generate(Elements elementUtils, TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
+	public void generate(Elements elementUtils, TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		String pagedResultName = buildSpecializedPagedResultClass(builder, method);
 
@@ -68,7 +67,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 
 			String separator = "";
 			methodBuilder.addCode("$L paginatedResult=new $L(", pagedResultName, pagedResultName);
-			for (Pair<String, TypeMirror> item : method.getParameters()) {
+			for (Pair<String, TypeName> item : method.getParameters()) {
 				// field
 				methodBuilder.addCode(separator + "$L", item.value0);
 				separator = ", ";
@@ -179,17 +178,17 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		// we have alway a first parameter
 		String separator = "";
 		ParameterSpec parameterSpec;
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
+		for (Pair<String, TypeName> item : method.getParameters()) {
 			if (method.hasDynamicPageSizeConditions() && method.dynamicPageSizeName.equals(item.value0)) {
 				setupBuilder.addStatement("this.pageSize=$L", item.value0);
 			} else {
 				// field
-				typeBuilder.addField(TypeName.get(item.value1), item.value0);
+				typeBuilder.addField(item.value1, item.value0);
 				setupBuilder.addStatement("this.$L=$L", item.value0, item.value0);
 			}
 
 			// construtor
-			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
+			parameterSpec = ParameterSpec.builder(item.value1, item.value0).build();
 			setupBuilder.addParameter(parameterSpec);
 
 			// execute

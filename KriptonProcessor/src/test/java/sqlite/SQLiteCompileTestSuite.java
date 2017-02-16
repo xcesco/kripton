@@ -23,6 +23,7 @@ import sqlite.dynamic.TestDynamicSuite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
 import sqlite.foreignKey.TestForeignKeySuite;
+import sqlite.generichierarchy.TestCompileGenericHierarchySuite;
 import sqlite.includeFields.IncludeFieldsTestSuite;
 import sqlite.indexes.IndexTestSuite;
 import sqlite.kripton33.Test33Suite;
@@ -90,7 +91,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestSelectSuite.class,
 			IncludeFieldsTestSuite.class,
 			TestCompileMultithreadSuite.class,
-			TestGenericHierarchySuite.class
+			TestCompileGenericHierarchySuite.class
 			})
 //@formatter:on
 public class SQLiteCompileTestSuite {

@@ -16,12 +16,10 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.isNullable;
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
@@ -64,17 +62,17 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			whereCondition = method.getAnnotation(BindSqlDelete.class).getAttribute(AnnotationAttributeType.WHERE);
 		}
 
-		Pair<String, List<Pair<String, TypeMirror>>> where = SqlUtility.extractParametersFromString(whereCondition, method, daoDefinition.getColumnNameConverter(), entity);
+		Pair<String, List<Pair<String, TypeName>>> where = SqlUtility.extractParametersFromString(whereCondition, method, daoDefinition.getColumnNameConverter(), entity);
 
 		// defines which parameter is used like update field and which is used
 		// in where condition.
-		List<Pair<String, TypeMirror>> methodParams = method.getParameters();
-		List<Pair<String, TypeMirror>> updateableParams = new ArrayList<Pair<String, TypeMirror>>();
-		List<Pair<String, TypeMirror>> whereParams = new ArrayList<Pair<String, TypeMirror>>();
+		List<Pair<String, TypeName>> methodParams = method.getParameters();
+		List<Pair<String, TypeName>> updateableParams = new ArrayList<Pair<String, TypeName>>();
+		List<Pair<String, TypeName>> whereParams = new ArrayList<Pair<String, TypeName>>();
 
 		String name;
 
-		for (Pair<String, TypeMirror> param : methodParams) {
+		for (Pair<String, TypeName> param : methodParams) {
 			name = method.findParameterAliasByName(param.value0);
 
 			if (method.isThisDynamicWhereConditionsName(name)) {
@@ -97,7 +95,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
 			methodBuilder.addCode("contentValues.clear();\n");
 
-			for (Pair<String, TypeMirror> item : updateableParams) {
+			for (Pair<String, TypeName> item : updateableParams) {
 				String resolvedParamName = method.findParameterAliasByName(item.value0);
 				SQLProperty property = entity.get(resolvedParamName);
 				if (property == null)
@@ -129,7 +127,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			if (updateableParams.size() > 0) {
 				String separator = "";
 				StringBuilder buffer = new StringBuilder();
-				for (Pair<String, TypeMirror> item : updateableParams) {
+				for (Pair<String, TypeName> item : updateableParams) {
 					String resolvedParamName = method.findParameterAliasByName(item.value0);
 					buffer.append(separator + resolvedParamName);
 					separator = ", ";
@@ -218,14 +216,14 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 * @return sql generated
 	 */
 	public String generateJavaDoc(SQLDaoDefinition daoDefinition, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition,
-			Pair<String, List<Pair<String, TypeMirror>>> where, List<Pair<String, TypeMirror>> methodParams, List<Pair<String, TypeMirror>> updateableParams) {
+			Pair<String, List<Pair<String, TypeName>>> where, List<Pair<String, TypeName>> methodParams, List<Pair<String, TypeName>> updateableParams) {
 		String sqlResult;
 		StringBuilder buffer = new StringBuilder();
 		StringBuilder bufferQuestion = new StringBuilder();
 		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
 
 		String separator = "";
-		for (Pair<String, TypeMirror> param : updateableParams) {
+		for (Pair<String, TypeName> param : updateableParams) {
 			String resolvedName = method.findParameterAliasByName(param.value0);
 			buffer.append(separator + resolvedName + "=${" + resolvedName + "}");
 			bufferQuestion.append(separator + resolvedName + "='\"+StringUtils.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(resolvedName) + "\"))+\"'");
@@ -254,7 +252,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			// list of updated fields
 			methodBuilder.addJavadoc("<h2>Updated columns:</strong></h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
-			for (Pair<String, TypeMirror> property : updateableParams) {
+			for (Pair<String, TypeName> property : updateableParams) {
 				String resolvedName = method.findParameterAliasByName(property.value0);
 				methodBuilder.addJavadoc("\t<dt>$L</dt>", nc.convert(resolvedName));
 				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + resolvedName + "}", property.value0);
@@ -280,7 +278,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		// list of where parameter
 		methodBuilder.addJavadoc("<h2>Where parameters:</h2>\n");
 		methodBuilder.addJavadoc("<dl>\n");
-		for (Pair<String, TypeMirror> property : where.value1) {
+		for (Pair<String, TypeName> property : where.value1) {
 			String rawName = method.findParameterNameByAlias(property.value0);
 			methodBuilder.addJavadoc("\t<dt>$L</dt>", "${" + property.value0 + "}");
 			methodBuilder.addJavadoc("<dd>is mapped to method's parameter <strong>$L</strong></dd>\n", rawName);
@@ -301,7 +299,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		// method parameters
 		if (methodParams.size() > 0) {
-			for (Pair<String, TypeMirror> param : methodParams) {
+			for (Pair<String, TypeName> param : methodParams) {
 				String resolvedName = method.findParameterAliasByName(param.value0);
 				methodBuilder.addJavadoc("@param $L", param.value0);
 				if (method.isThisDynamicWhereConditionsName(param.value0)) {
@@ -322,16 +320,16 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 * @param method
 	 * @param where
 	 */
-	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeMirror>>> where) {
+	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeName>>> where) {
 		boolean nullable;
 
 		methodBuilder.addCode("String[] whereConditionsArray={");
 		String separator = "";
-		for (Pair<String, TypeMirror> item : where.value1) {
+		for (Pair<String, TypeName> item : where.value1) {
 			String resolvedParamName = method.findParameterNameByAlias(item.value0);
 			methodBuilder.addCode(separator);
 
-			nullable = isNullable(typeName(item.value1));
+			nullable = isNullable(item.value1);
 
 			if (nullable) {
 				// transform null in ""
@@ -341,7 +339,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			// check for string conversion
 			TypeUtility.beginStringConversion(methodBuilder, item.value1);
 
-			SQLTransformer.java2ContentValues(methodBuilder, method.getParent(), TypeUtility.typeName(item.value1), resolvedParamName);
+			SQLTransformer.java2ContentValues(methodBuilder, method.getParent(), item.value1, resolvedParamName);
 			// check for string conversion
 			TypeUtility.endStringConversion(methodBuilder, item.value1);
 

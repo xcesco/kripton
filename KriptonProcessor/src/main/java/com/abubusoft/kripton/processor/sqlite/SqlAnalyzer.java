@@ -22,7 +22,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.CaseFormat;
@@ -34,6 +33,7 @@ import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundEx
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.TypeName;
 
 /**
  * Analyze an SQL statement, extract parameter and replace with ?
@@ -51,12 +51,12 @@ public class SqlAnalyzer {
 
 	private List<String> paramNames;
 	
-	private List<TypeMirror> paramTypeNames;
+	private List<TypeName> paramTypeNames;
 	
 	/**
 	 * @return the paramTypes
 	 */
-	public List<TypeMirror> getParamTypeNames() {
+	public List<TypeName> getParamTypeNames() {
 		return paramTypeNames;
 	}
 
@@ -109,7 +109,7 @@ public class SqlAnalyzer {
 		paramNames = new ArrayList<String>();
 		paramGetters = new ArrayList<String>();
 		usedBeanPropertyNames=new ArrayList<String>();
-		paramTypeNames=new ArrayList<TypeMirror>();
+		paramTypeNames=new ArrayList<TypeName>();
 
 		// replace placeholder ${ } with ?
 		{
@@ -141,7 +141,7 @@ public class SqlAnalyzer {
 			sqlStatement = buffer.toString();
 		}
 		
-		TypeMirror rawNameType;
+		TypeName rawNameType;
 		// analyze parametersName
 		String[] splittedName;
 		String effectiveName;
@@ -168,13 +168,13 @@ public class SqlAnalyzer {
 					throw new MethodParameterNotFoundException(method, splittedName[0]);
 				}
 				 
-				if (TypeUtility.isEquals(TypeUtility.typeName(method.findParameterTypeByAliasOrName(splittedName[0])), entity) && entity.contains(splittedName[1]))
+				if (TypeUtility.isEquals(method.findParameterTypeByAliasOrName(splittedName[0]), entity) && entity.contains(splittedName[1]))
 				{				
 					// there are nested property invocation
 					paramGetters.add(method.findParameterNameByAlias(splittedName[0])+"."+getter(entity.findByName(splittedName[1])));
 					usedBeanPropertyNames.add(splittedName[1]);
 					//paramTypeNames.add(entity.findByName(splittedName[1]).getPropertyType());
-					paramTypeNames.add(entity.findByName(splittedName[1]).getElement().asType());
+					paramTypeNames.add(TypeUtility.typeName(entity.findByName(splittedName[1]).getElement().asType()));
 					
 					usedMethodParameters.add(method.findParameterNameByAlias(splittedName[0]));
 				} else {

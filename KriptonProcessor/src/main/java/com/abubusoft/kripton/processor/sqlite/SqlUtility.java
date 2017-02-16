@@ -30,6 +30,7 @@ import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundExcepti
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.TypeName;
 
 public class SqlUtility {
 	private static final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w\\.]*)\\s*\\}");
@@ -46,10 +47,10 @@ public class SqlUtility {
 	 * @param entity
 	 * @return Pair<String, List<String>>
 	 */
-	public static Pair<String, List<Pair<String, TypeMirror>>> extractParametersFromString(String value, SQLiteModelMethod method, Converter<String, String> columnNameConverter, SQLEntity entity) {
+	public static Pair<String, List<Pair<String, TypeName>>> extractParametersFromString(String value, SQLiteModelMethod method, Converter<String, String> columnNameConverter, SQLEntity entity) {
 		String whereStatement = value;
-		Pair<String, List< Pair<String, TypeMirror>>> result = new Pair<String, List< Pair<String, TypeMirror>>>();
-		result.value1 = new ArrayList< Pair<String, TypeMirror>>();
+		Pair<String, List< Pair<String, TypeName>>> result = new Pair<String, List< Pair<String, TypeName>>>();
+		result.value1 = new ArrayList< Pair<String, TypeName>>();
 
 		// replace placeholder ${ } with ?
 		{
@@ -57,7 +58,7 @@ public class SqlUtility {
 
 			String paramName;
 			StringBuffer buffer = new StringBuffer();
-			TypeMirror paramType;
+			TypeName paramType;
 			while (matcher.find()) {
 				matcher.appendReplacement(buffer, "?");
 				paramName=matcher.group(1);				
@@ -67,7 +68,7 @@ public class SqlUtility {
 				{
 					throw(new MethodParameterNotFoundException(method, paramName));
 				}
-				result.value1.add(new Pair<String, TypeMirror>(paramName, paramType));
+				result.value1.add(new Pair<String, TypeName>(paramName, paramType));
 			}
 			matcher.appendTail(buffer);
 

@@ -15,8 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.core.reflect;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -25,18 +23,9 @@ import java.util.List;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.ErrorType;
-import javax.lang.model.type.ExecutableType;
-import javax.lang.model.type.NoType;
-import javax.lang.model.type.NullType;
-import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.type.TypeVariable;
-import javax.lang.model.type.TypeVisitor;
-import javax.lang.model.type.UnionType;
-import javax.lang.model.type.WildcardType;
+import javax.lang.model.util.SimpleTypeVisitor7;
 import javax.lang.model.util.Types;
 
 import com.abubusoft.kripton.common.Pair;
@@ -183,17 +172,17 @@ public abstract class TypeUtility {
 	 * @param typeMirror
 	 * @return typeName
 	 */
-	public static TypeName typeName(TypeMirror typeMirror) {
-		if (typeMirror instanceof ModelType) {
-			return ((ModelType) typeMirror).getName();
-		}
-
+	public static TypeName typeName(TypeMirror typeMirror) {		
 		LiteralType literalType = LiteralType.of(typeMirror.toString());
 
 		if (literalType.isArray()) {
 			return ArrayTypeName.of(typeName(literalType.getRawType()));
 		} else if (literalType.isCollection()) {
-			return ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()), typeName(literalType.getComposedType()));
+			return ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()), typeName(literalType.getTypeParameter()));
+		}
+		
+		if (typeMirror instanceof ModelType) {
+			return ((ModelType) typeMirror).getName();
 		}
 
 		return TypeName.get(typeMirror);
@@ -233,9 +222,12 @@ public abstract class TypeUtility {
 		if (typeName.endsWith("[]")) {
 			return ArrayTypeName.of(typeName(typeName.substring(0, typeName.length() - 2)));
 		}
-
-		return className(typeName);
+		
+		return ClassName.bestGuess(typeName);
 	}
+	
+
+
 
 	/**
 	 * Convert a TypeMirror in a typeName
@@ -260,13 +252,13 @@ public abstract class TypeUtility {
 	 * @param property
 	 * @return true is method param is nullable
 	 */
-	public static boolean isNullable(SQLiteModelMethod method, Pair<String, TypeMirror> methodParam, ModelProperty property) {
-		if (!isNullable(property) && isNullable(typeName(methodParam.value1))) {
+	public static boolean isNullable(SQLiteModelMethod method, Pair<String, TypeName> methodParam, ModelProperty property) {
+		if (!isNullable(property) && isNullable(methodParam.value1)) {
 			// ASSERT: property is not nullable but method yes, so we throw an
 			// exception
 			throw (new InvalidMethodSignException(method, String.format("property '%s' is NOT nullable but method parameter '%s' is nullable  ", property.getName(), methodParam.value0)));
 		}
-		return isNullable(typeName(methodParam.value1));
+		return isNullable(methodParam.value1);
 	}
 
 	/**
@@ -276,8 +268,8 @@ public abstract class TypeUtility {
 	 * @param item
 	 * @param property
 	 */
-	public static void checkTypeCompatibility(SQLiteModelMethod method, Pair<String, TypeMirror> item, ModelProperty property) {
-		if (!TypeUtility.isEquals(typeName(item.value1), property.getPropertyType().getName())) {
+	public static void checkTypeCompatibility(SQLiteModelMethod method, Pair<String, TypeName> item, ModelProperty property) {
+		if (!TypeUtility.isEquals(item.value1, property.getPropertyType().getName())) {
 			// ASSERT: property is not nullable but method yes, so we throw an
 			// exception
 			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s'. They have to be same type  ", property.getName(),
@@ -292,7 +284,7 @@ public abstract class TypeUtility {
 	 * 
 	 */
 	public static void beginStringConversion(Builder methodBuilder, ModelProperty property) {
-		TypeMirror modelType = property.getElement().asType();
+		TypeName modelType = typeName(property.getElement().asType());
 
 		beginStringConversion(methodBuilder, modelType);
 	}
@@ -305,7 +297,7 @@ public abstract class TypeUtility {
 	 * @return
 	 * 
 	 */
-	public static void beginStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
+	public static void beginStringConversion(Builder methodBuilder, TypeName typeMirror) {
 		SQLTransform transform = SQLTransformer.lookup(typeMirror);
 
 		switch (transform.getColumnType()) {
@@ -328,7 +320,7 @@ public abstract class TypeUtility {
 	 * 
 	 */
 	public static void endStringConversion(Builder methodBuilder, ModelProperty property) {
-		TypeMirror modelType = property.getElement().asType();
+		TypeName modelType = typeName(property.getElement().asType());
 
 		endStringConversion(methodBuilder, modelType);
 	}
@@ -339,7 +331,7 @@ public abstract class TypeUtility {
 	 * 
 	 * 
 	 */
-	public static void endStringConversion(Builder methodBuilder, TypeMirror typeMirror) {
+	public static void endStringConversion(Builder methodBuilder, TypeName typeMirror) {
 		SQLTransform transform = SQLTransformer.lookup(typeMirror);
 
 		switch (transform.getColumnType()) {
@@ -465,6 +457,16 @@ public abstract class TypeUtility {
 		}
 	}
 
+	private static List<TypeName> convert(List<? extends TypeMirror> input) {
+		List<TypeName> result = new ArrayList<TypeName>();
+
+		for (TypeMirror item : input) {
+			result.add(TypeUtility.typeName(item));
+		}
+
+		return result;
+	}
+
 	/**
 	 * <p>
 	 * Retrieve parametrized type of element (from its parent).
@@ -473,103 +475,32 @@ public abstract class TypeUtility {
 	 * @param element
 	 * @return list of typemirror or empty list
 	 */
-	@SuppressWarnings("unchecked")
-	public static List<TypeMirror> getTypeArguments(TypeElement element) {
+	public static List<TypeName> getTypeArguments(TypeElement element) {
+		final List<TypeName> result = new ArrayList<>();
+
 		if (element.getKind() == ElementKind.CLASS) {
 			if (element.getSuperclass() instanceof DeclaredType) {
-				return (List<TypeMirror>) ((DeclaredType) element.getSuperclass()).getTypeArguments();
+				result.addAll(convert(((DeclaredType) element.getSuperclass()).getTypeArguments()));
 			}
 		} else if (element.getKind() == ElementKind.INTERFACE) {
-			final List<TypeMirror> result=new ArrayList<>();
+
 			List<? extends TypeMirror> interfaces = element.getInterfaces();
-			
-			for (TypeMirror item: interfaces)
-			{
-				item.accept(new TypeVisitor<Void, Void>() {
 
-					@Override
-					public Void visit(TypeMirror t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					public Void visit(TypeMirror t) {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					public Void visitPrimitive(PrimitiveType t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					public Void visitNull(NullType t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					public Void visitArray(ArrayType t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
+			for (TypeMirror item : interfaces) {
+				item.accept( new SimpleTypeVisitor7<Void, Void>() {
 
 					@Override
 					public Void visitDeclared(DeclaredType t, Void p) {
-						result.add((TypeMirror) t.getTypeArguments());
+						result.addAll(convert(t.getTypeArguments()));
 						return null;
 					}
-
-					@Override
-					public Void visitError(ErrorType t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					public Void visitTypeVariable(TypeVariable t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					public Void visitWildcard(WildcardType t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					public Void visitExecutable(ExecutableType t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					public Void visitNoType(NoType t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					public Void visitUnknown(TypeMirror t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					public Void visitUnion(UnionType t, Void p) {
-						// TODO Auto-generated method stub
-						return null;
-					}
+					
 				}, null);
-				
-			}			
+
+			}
 		}
 
-		return new ArrayList<>();
+		return result;
 	}
 
 	/**

@@ -22,6 +22,7 @@ import java.util.Map;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelBucket;
 import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
 import com.squareup.javapoet.TypeName;
@@ -41,6 +42,19 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	 */
 	public SQLiteDatabaseSchema getParent() {
 		return parent.get();
+	}
+
+	@Override
+	public void add(SQLiteModelMethod value) {
+		// before proceed, we need to resolve typeVariables
+		for (Pair<String, TypeName> item: value.getParameters())
+		{
+			item.value1=typeVariableResolver.resolve(item.value1);
+		}
+
+		value.setReturnClass(typeVariableResolver.resolve(value.getReturnClass()));
+		
+		super.add(value);
 	}
 
 	private String entityClassName;

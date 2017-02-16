@@ -1,14 +1,11 @@
 package com.abubusoft.kripton.processor.sqlite;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
@@ -21,7 +18,6 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
@@ -31,9 +27,10 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
-import com.abubusoft.kripton.processor.utils.LiteralType;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
@@ -79,7 +76,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	SelectType selectType;
 
 	@Override
-	public void generate(Elements elementUtils, TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeMirror returnType) {
+	public void generate(Elements elementUtils, TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectType.isMapFields(), null);
 		// generate method code
@@ -101,8 +98,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		SQLEntity entity = daoDefinition.getEntity();
 
 		// if true, field must be associate to ben attributes
-		TypeMirror returnType = method.getReturnClass();
-		TypeName returnTypeName = typeName(returnType);
+		//TypeName returnType = method.getReturnClass();
+		TypeName returnTypeName = method.getReturnClass();
 
 		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 		int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
@@ -116,7 +113,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		// parameters
 		List<String> paramNames = new ArrayList<String>();
 		List<String> paramGetters = new ArrayList<String>();
-		List<TypeMirror> paramTypeNames = new ArrayList<TypeMirror>();
+		List<TypeName> paramTypeNames = new ArrayList<TypeName>();
 
 		// used method parameters
 		Set<String> usedMethodParameters = new HashSet<String>();
@@ -198,7 +195,6 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			{
 				String separator = "";
 
-				TypeMirror paramTypeName;
 				TypeName paramName;
 
 				boolean nullable;
@@ -207,13 +203,13 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					methodBuilder.addCode(separator);
 					logArgsBuffer.append(separator + "%s");
 
-					paramTypeName = paramTypeNames.get(i);
-
-					if (paramTypeName instanceof ModelType) {
-						paramName = ((ModelType) paramTypeName).getName();
-					} else {
-						paramName = typeName(paramTypeName);
-					}
+					paramName = paramTypeNames.get(i);
+//
+//					if (paramTypeName instanceof ModelType) {
+//						paramName = ((ModelType) paramTypeName).getName();
+//					} else {
+//						paramName = typeName(paramTypeName);
+//					}
 
 					// code for query arguments
 					nullable = TypeUtility.isNullable(paramName);
@@ -222,12 +218,12 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					}
 
 					// check for string conversion
-					TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
+					TypeUtility.beginStringConversion(methodBuilder, paramName);
 
-					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(paramTypeName), item);
+					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition,paramName, item);
 
 					// check for string conversion
-					TypeUtility.endStringConversion(methodBuilder, paramTypeName);
+					TypeUtility.endStringConversion(methodBuilder, paramName);
 
 					if (nullable) {
 						methodBuilder.addCode(")");
@@ -260,12 +256,14 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 			switch (selectType) {
 			case LISTENER_CURSOR: {
-				LiteralType readCursorListenerToExclude = LiteralType.of(OnReadCursorListener.class);
+				ClassName readCursorListenerToExclude=ClassName.get(OnReadCursorListener.class);
+				//LiteralType readCursorListenerToExclude = LiteralType.of(OnReadCursorListener.class);
 				checkUnusedParameters(method, usedMethodParameters, readCursorListenerToExclude);
 			}
 				break;
 			case LISTENER_BEAN: {
-				LiteralType readBeanListenerToExclude = LiteralType.of(OnReadBeanListener.class.getCanonicalName(), entity.getName());
+				//LiteralType readBeanListenerToExclude = LiteralType.of(OnReadBeanListener.class.getCanonicalName(), entity.getName());
+				ParameterizedTypeName readBeanListenerToExclude=ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class), TypeName.get(entity.getElement().asType()));
 				checkUnusedParameters(method, usedMethodParameters, readBeanListenerToExclude);
 			}
 				break;
@@ -280,8 +278,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	protected void generateMethodSignature(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, TypeName returnTypeName, ParameterSpec... additionalParameterSpec) {
 		// add parameter for method
 		ParameterSpec parameterSpec;
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
+		for (Pair<String, TypeName> item : method.getParameters()) {
+			parameterSpec = ParameterSpec.builder(item.value1, item.value0).build();
 			methodBuilder.addParameter(parameterSpec);
 		}
 
@@ -348,15 +346,15 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	 * @param method
 	 * @param usedMethodParameters
 	 */
-	public static void checkUnusedParameters(SQLiteModelMethod method, Set<String> usedMethodParameters, LiteralType excludedClasses) {
+	public static void checkUnusedParameters(SQLiteModelMethod method, Set<String> usedMethodParameters, TypeName excludedClasses) {
 		int paramsCount = method.getParameters().size();
 		int usedCount = usedMethodParameters.size();
 
 		if (paramsCount > usedCount) {
 			StringBuilder sb = new StringBuilder();
 			String separator = "";
-			for (Pair<String, TypeMirror> item : method.getParameters()) {
-				if (excludedClasses != null && typeName(item.value1).toString().equals(excludedClasses.getValue())) {
+			for (Pair<String, TypeName> item : method.getParameters()) {
+				if (excludedClasses != null && item.value1.equals(excludedClasses)) {
 					usedCount++;
 				} else {
 					if (!usedMethodParameters.contains(item.value0)) {

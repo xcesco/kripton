@@ -403,10 +403,11 @@ public class BindDataSourceProcessor extends BaseProcessor {
 				final SQLiteModelMethod currentMethod = new SQLiteModelMethod(currentDaoDefinition, element);
 				// TODO fix it: if return type is null, the method is inherited
 				// and probably it has bean type
-				if (currentMethod.getReturnClass() == null) {
-					Element beanElement = globalBeanElements.get(currentDaoDefinition.getEntityClassName());
-					currentMethod.setReturnClass(beanElement.asType());
-				}
+				
+//				if (currentMethod.getReturnClass() == null) {
+//					Element beanElement = globalBeanElements.get(currentDaoDefinition.getEntityClassName());
+//					currentMethod.setReturnClass(beanElement.asType());
+//				}
 
 				AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
 
@@ -420,16 +421,18 @@ public class BindDataSourceProcessor extends BaseProcessor {
 								|| annotationClassName.equals(BindSqlSelect.class.getCanonicalName()))
 						// @formatter:on
 						{
+							ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
+							currentMethod.addAnnotation(annotation);
 						} else {
+							// we don't insert annotation
 							return;
 						}
 
-						ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
-						currentMethod.addAnnotation(annotation);
+						
 					}
 				});
 
-				// add method
+				// add method				
 				currentDaoDefinition.add(currentMethod);
 
 			}

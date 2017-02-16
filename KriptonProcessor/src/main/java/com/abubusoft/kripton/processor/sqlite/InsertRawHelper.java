@@ -15,11 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
-
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
@@ -39,6 +35,9 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
 public class InsertRawHelper implements InsertCodeGenerator {
 
 	@Override
@@ -54,7 +53,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 		methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
 		methodBuilder.addCode("contentValues.clear();\n\n");
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
+		for (Pair<String, TypeName> item : method.getParameters()) {
 			String propertyName = method.findParameterAliasByName(item.value0);
 			ModelProperty property = entity.get(propertyName);
 			if (property == null)
@@ -72,7 +71,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
 			// it does not need to be converted in string
 
-			SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(item.value1), item.value0);
+			SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, item.value1, item.value0);
 			// SQLTransformer.java2ContentValues(methodBuilder, item.value1,
 			// item.value0);
 			methodBuilder.addCode(");\n");
@@ -139,7 +138,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 			{
 				String separator = "";
-				for (Pair<String, TypeMirror> item : method.getParameters()) {
+				for (Pair<String, TypeName> item : method.getParameters()) {
 					String resolvedParamName = method.findParameterAliasByName(item.value0);
 					bufferName.append(separator + nc.convert(resolvedParamName));
 					bufferValue.append(separator + "${" + resolvedParamName + "}");
@@ -160,7 +159,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			// list of inserted fields
 			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");
 			methodBuilder.addJavadoc("<dl>\n");
-			for (Pair<String, TypeMirror> property : method.getParameters()) {
+			for (Pair<String, TypeName> property : method.getParameters()) {
 				String resolvedName = method.findParameterAliasByName(property.value0);
 				methodBuilder.addJavadoc("\t<dt>$L</dt>", nc.convert(resolvedName));
 				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + resolvedName + "}", property.value0);
@@ -168,7 +167,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addJavadoc("</dl>\n\n");
 
 			{
-				for (Pair<String, TypeMirror> param : method.getParameters()) {
+				for (Pair<String, TypeName> param : method.getParameters()) {
 					methodBuilder.addJavadoc("@param $L\n", param.value0);
 					methodBuilder.addJavadoc("\tis binded to column <strong>$L</strong>\n", nc.convert(method.findParameterAliasByName(param.value0)));
 				}

@@ -18,7 +18,6 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import javax.lang.model.element.Modifier;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -96,8 +95,8 @@ public abstract class SqlInsertBuilder {
 
 		// check type of arguments
 		int count = 0;
-		for (Pair<String, TypeMirror> param : method.getParameters()) {
-			if (TypeUtility.isEquals(entity.resolveTypeVariable(typeName(param.value1)), typeName(entity.getElement()))) {
+		for (Pair<String, TypeName> param : method.getParameters()) {
+			if (TypeUtility.isEquals(param.value1, typeName(entity.getElement()))) {
 				count++;
 			}
 		}
@@ -118,7 +117,7 @@ public abstract class SqlInsertBuilder {
 
 			// check if there is only one parameter
 			AssertKripton.failWithInvalidMethodSignException(
-					method.getParameters().size() != 1 && TypeUtility.isSameType(TypeUtility.typeName(method.getParameters().get(0).value1), daoDefinition.getEntityClassName()), method);
+					method.getParameters().size() != 1 && TypeUtility.isSameType(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()), method);
 
 			// check no
 			AssertKripton.failWithInvalidMethodSignException(annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY), method, "attribute '%s' can not be used here",
@@ -133,7 +132,7 @@ public abstract class SqlInsertBuilder {
 		}
 
 		// if true, field must be associate to ben attributes
-		TypeName returnType = typeName(method.getReturnClass());
+		TypeName returnType = method.getReturnClass();
 
 		AssertKripton.failWithInvalidMethodSignException(insertResultType == null, method);
 
@@ -141,8 +140,8 @@ public abstract class SqlInsertBuilder {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
 		ParameterSpec parameterSpec;
-		for (Pair<String, TypeMirror> item : method.getParameters()) {
-			parameterSpec = ParameterSpec.builder(TypeName.get(item.value1), item.value0).build();
+		for (Pair<String, TypeName> item : method.getParameters()) {
+			parameterSpec = ParameterSpec.builder(item.value1, item.value0).build();
 			methodBuilder.addParameter(parameterSpec);
 		}
 		methodBuilder.returns(returnType);

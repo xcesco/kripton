@@ -37,6 +37,7 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.TypeName;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
 
@@ -247,7 +248,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 *            parameter name to find
 	 * @return TypeMirror associated
 	 */
-	public TypeMirror findParameterTypeByAliasOrName(String name) {
+	public TypeName findParameterTypeByAliasOrName(String name) {
 		if (parameterAlias2NameField.containsKey(name)) {
 			return findParameterType(parameterAlias2NameField.get(name));
 		}

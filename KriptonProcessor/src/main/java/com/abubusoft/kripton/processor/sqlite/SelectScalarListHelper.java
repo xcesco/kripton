@@ -18,16 +18,12 @@
  */
 package com.abubusoft.kripton.processor.sqlite;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
-import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -49,15 +45,12 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 	 */
 	@Override
 	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
-		TypeMirror returnType = method.getReturnClass();
-		TypeName returnTypeName = typeName(returnType);
-
 		//ASSERT: returnType is a supported type
 		
 		// no column or too many columns
 		AssertKripton.assertTrueOrInvalidMethodSignException(fieldList.value1.size() == 1, method, "only one field can be defined as result for this method");				
 
-		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnTypeName;
+		ParameterizedTypeName returnListName = (ParameterizedTypeName) method.getReturnClass();;
 
 		TypeName collectionClass;
 		ClassName listClazzName = returnListName.rawType;
@@ -69,14 +62,16 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, elementName, collectionClass, elementName);
 		methodBuilder.addCode("\n");
 
-		LiteralType literalReturn = LiteralType.of(returnType.toString());
+		//LiteralType literalReturn = LiteralType.of(returnTypeName.toString());
 
+		
 		SQLTransform t;
-		if (!literalReturn.isCollection())
-			t = SQLTransformer.lookup(returnType);
-		else {
-			t = SQLTransformer.lookup(typeName(literalReturn.getComposedType()));
-		}
+//		if (!literalReturn.isCollection())
+//			t = SQLTransformer.lookup(returnType);
+//		else {
+//			t = SQLTransformer.lookup(typeName(literalReturn.getComposedType()));
+//		}
+		t = SQLTransformer.lookup(returnListName);
 
 		//@formatter:off
 		methodBuilder.addCode("\n");
@@ -85,7 +80,7 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 				methodBuilder.beginControlFlow("do\n");
 					methodBuilder.beginControlFlow("if (!cursor.isNull(0))");
 						methodBuilder.addCode("resultList.add(");
-						t.generateReadParam(methodBuilder, method.getParent(), typeName(returnType), "cursor", "0");
+						t.generateReadParam(methodBuilder, method.getParent(), elementName, "cursor", "0");
 						methodBuilder.addCode(");\n");
 					methodBuilder.nextControlFlow("else");
 						methodBuilder.addCode("resultList.add(null);\n");		

@@ -15,9 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.exceptions;
 
-import javax.lang.model.type.TypeMirror;
-
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.TypeName;
 
 public class PropertyNotFoundException extends KriptonProcessorException {
 
@@ -27,9 +26,9 @@ public class PropertyNotFoundException extends KriptonProcessorException {
 		super(msg);
 	}
 
-	public PropertyNotFoundException(SQLiteModelMethod method, String fieldName, TypeMirror typeMirror) {
+	public PropertyNotFoundException(SQLiteModelMethod method, String fieldName, TypeName typeName) {
 		super(String.format("In class '%s' method '%s' uses field '%s' (of type '%s') that does not exists in bean '%s'", method.getParent().getName(), method.getName(), fieldName,
-				typeMirror, method.getParent().getEntitySimplyClassName()));
+				typeName, method.getParent().getEntitySimplyClassName()));
 	}
 
 }

@@ -19,7 +19,6 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.List;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
@@ -160,7 +159,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addJavadoc("</dl>\n\n");
 
 			// update bean have only one parameter: the bean to update
-			for (Pair<String, TypeMirror> param : method.getParameters()) {
+			for (Pair<String, TypeName> param : method.getParameters()) {
 				methodBuilder.addJavadoc("@param $L", param.value0);
 				methodBuilder.addJavadoc("\n\tis mapped to parameter <strong>$L</strong>\n", method.findParameterAliasByName(param.value0));
 			}

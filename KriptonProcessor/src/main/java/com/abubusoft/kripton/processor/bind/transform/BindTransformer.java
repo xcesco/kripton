@@ -34,13 +34,11 @@ import javax.lang.model.type.TypeMirror;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelClass;
-import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeVariableName;
 
 /**
  * Transformer for java primitive types and frequently used java types
@@ -85,7 +83,7 @@ public abstract class BindTransformer {
 				typeName=ArrayTypeName.of(modelClass.resolveTypeVariable(typeName(literalType.getRawType())));
 			} else if (literalType.isCollection())
 			{
-				typeName=ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()), modelClass.resolveTypeVariable(typeName(literalType.getComposedType())));
+				typeName=ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()), modelClass.resolveTypeVariable(typeName(literalType.getTypeParameter())));
 			} else {
 				typeName = modelClass.resolveTypeVariable(typeName(typeMirror));
 			}
