@@ -18,8 +18,6 @@ package com.abubusoft.kripton.processor.sqlite.core;
 import java.util.Date;
 import java.util.List;
 
-import javax.lang.model.type.TypeMirror;
-
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
