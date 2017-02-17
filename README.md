@@ -31,7 +31,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
   <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
   </dependency>
   ...
 </dependencies>
@@ -50,7 +50,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 		  <path>
 		    <groupId>com.abubusoft</groupId>
 		    <artifactId>kripton-processor</artifactId>
-		    <version>1.5.0</version>
+		    <version>1.6.0</version>
 		</path>
 	    </annotationProcessorPaths>
 	  </configuration>
