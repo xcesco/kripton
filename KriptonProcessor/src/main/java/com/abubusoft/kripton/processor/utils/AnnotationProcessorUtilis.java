@@ -23,7 +23,7 @@ import javax.tools.Diagnostic;
 
 import com.abubusoft.kripton.processor.BaseProcessor;
 
-public class AnnotationProcessorUtilis {
+public abstract class AnnotationProcessorUtilis {
 
 	/**
 	 * KRIPTON_DEBUG info about generated classes

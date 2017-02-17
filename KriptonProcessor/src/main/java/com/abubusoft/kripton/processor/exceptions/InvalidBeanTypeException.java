@@ -26,7 +26,7 @@ public class InvalidBeanTypeException extends KriptonProcessorException {
 
 	public InvalidBeanTypeException(SQLDaoDefinition daoDefinition)
 	{
-		super(String.format("In class %s is used @%s annotation for unmanaged bean type %s. Please check if it has @BindType annotation.", daoDefinition.getName(), BindDao.class.getSimpleName(), daoDefinition.getEntityClassName()));
+		super(String.format("In class '%s' is used @%s annotation for unmanaged bean type '%s'. Please check if it has @%s annotation.", daoDefinition.getName(), BindDao.class.getSimpleName(), daoDefinition.getEntityClassName(), BindType.class.getSimpleName()));
 	}
 	
 	public InvalidBeanTypeException(SQLProperty caller, String referred)

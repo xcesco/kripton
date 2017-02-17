@@ -77,7 +77,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 		
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, schemaName);
-		builder=buildDaoFactoryInterface(null, elementUtils, filer, schema);
+		builder=buildDaoFactoryInterfaceInternal(elementUtils, filer, schema);
 		TypeSpec typeSpec = builder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 		
@@ -96,7 +96,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 	 * 
 	 * @throws Exception
 	 */
-	public TypeSpec.Builder buildDaoFactoryInterface(TypeSpec.Builder parentBuilder, Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+	public TypeSpec.Builder buildDaoFactoryInterfaceInternal(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		String schemaName =  schema.getName();
 		schemaName=PREFIX+schemaName;		
 		
@@ -131,10 +131,6 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 				builder.addMethod(methodBuilder.build());
 			}
 		}		
-
-		if (parentBuilder!=null) {
-			parentBuilder.addType(builder.build());
-		}
 		
 		return builder;
 	}
