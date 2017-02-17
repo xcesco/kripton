@@ -35,7 +35,6 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
@@ -366,36 +365,6 @@ public abstract class TypeUtility {
 
 		return false;
 	}
-
-//	public static boolean isList(TypeName typeName) {
-//		if (typeName instanceof ParameterizedTypeName) {
-//			LiteralType lt = LiteralType.of(typeName.toString());
-//
-//			return lt.isList();
-//		}
-//
-//		return false;
-//	}
-
-//	public static boolean isSet(TypeName typeName) {
-//		if (typeName instanceof ParameterizedTypeName) {
-//			LiteralType lt = LiteralType.of(typeName.toString());
-//
-//			return lt.isSet();
-//		}
-//
-//		return false;
-//	}
-
-//	public static boolean isMap(TypeName typeName) {
-//		if (typeName instanceof ParameterizedTypeName) {
-//			LiteralType lt = LiteralType.of(typeName.toString());
-//
-//			return lt.isMap();
-//		}
-//
-//		return false;
-//	}
 
 	public static TypeName typeName(TypeElement element, String suffix) {
 		String fullName = element.getQualifiedName().toString() + suffix;
