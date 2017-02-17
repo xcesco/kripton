@@ -200,9 +200,9 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
       jacksonSerializer.writeStringField("valueUrl", UrlUtils.write(object.valueUrl));
     }
 
-    // field id (mapped with "name")
+    // field id (mapped with "typeName")
     fieldCount++;
-    jacksonSerializer.writeNumberField("name", object.getId());
+    jacksonSerializer.writeNumberField("typeName", object.getId());
 
     jacksonSerializer.writeEndObject();
     return fieldCount;
@@ -359,8 +359,8 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
       jacksonSerializer.writeStringField("valueUrl", UrlUtils.write(object.valueUrl));
     }
 
-    // field id (mapped with "name")
-    jacksonSerializer.writeStringField("name", PrimitiveUtils.writeLong(object.getId()));
+    // field id (mapped with "typeName")
+    jacksonSerializer.writeStringField("typeName", PrimitiveUtils.writeLong(object.getId()));
 
     jacksonSerializer.writeEndObject();
     return fieldCount;
@@ -557,8 +557,8 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
       xmlSerializer.writeEndElement();
     }
 
-    // field id (mapped with "name")
-    xmlSerializer.writeStartElement("name");
+    // field id (mapped with "typeName")
+    xmlSerializer.writeStartElement("typeName");
     xmlSerializer.writeLong(object.getId());
     xmlSerializer.writeEndElement();
 
@@ -745,8 +745,8 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
               instance.valueUrl=UrlUtils.read(jacksonParser.getText());
             }
           break;
-          case "name":
-            // field id (mapped with "name")
+          case "typeName":
+            // field id (mapped with "typeName")
             instance.setId(jacksonParser.getLongValue());
           break;
           case "valueContentBoolType":
@@ -935,8 +935,8 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
               instance.valueUrl=UrlUtils.read(jacksonParser.getText());
             }
           break;
-          case "name":
-            // field id (mapped with "name")
+          case "typeName":
+            // field id (mapped with "typeName")
             instance.setId(PrimitiveUtils.readLong(jacksonParser.getText(), 0L));
           break;
           case "valueContentBoolType":
@@ -1094,8 +1094,8 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
                   // property valueUrl (mapped on "valueUrl")
                   instance.valueUrl=UrlUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
-                case "name":
-                  // property id (mapped on "name")
+                case "typeName":
+                  // property id (mapped on "typeName")
                   instance.setId(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
                 break;
                 default:

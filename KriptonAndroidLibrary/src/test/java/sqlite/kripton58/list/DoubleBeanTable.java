@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class DoubleBeanTable {
   /**
-   * Costant represents name of table double_bean
+   * Costant represents typeName of table double_bean
    */
   public static final String TABLE_NAME = "double_bean";
 
@@ -48,21 +48,21 @@ public class DoubleBeanTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS double_bean;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
    *
    *  @see DoubleBean#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
+   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column typeName.
    *
    *  @see DoubleBean#value
    */
   public static final String COLUMN_VALUE = "value";
 
   /**
-   * Entity's property <code>value2</code> is associated to table column <code>value2</code>. This costant represents column name.
+   * Entity's property <code>value2</code> is associated to table column <code>value2</code>. This costant represents column typeName.
    *
    *  @see DoubleBean#value2
    */

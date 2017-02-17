@@ -16,6 +16,6 @@ public interface Err14DAO {
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity);
 
-	@BindSqlSelect(where="name like ${nameTemp} || '%' ")
+	@BindSqlSelect(where="typeName like ${nameTemp} || '%' ")
 	List<Person> selectOne(@BindSqlOrderBy int name, @BindSqlParam("nameTemp") String nameValue);
 }

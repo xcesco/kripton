@@ -56,6 +56,6 @@ public class UserIdentity {
 	}
 
 	public String toString() {
-		return "UserIdentity [name=" + this.name + ", email=" + this.email + ", username=" + this.username + "]";
+		return "UserIdentity [typeName=" + this.name + ", email=" + this.email + ", username=" + this.username + "]";
 	}
 }

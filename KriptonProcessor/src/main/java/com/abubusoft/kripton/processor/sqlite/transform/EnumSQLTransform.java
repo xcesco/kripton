@@ -49,7 +49,7 @@ public class EnumSQLTransform extends AbstractSQLTransform {
 	
 	@Override
 	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
-		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.valueOf($L.getString($L))"), property.getPropertyType().getName(),cursorName, indexName);
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.valueOf($L.getString($L))"), property.getPropertyType().getTypeName(),cursorName, indexName);
 	}
 	
 	@Override

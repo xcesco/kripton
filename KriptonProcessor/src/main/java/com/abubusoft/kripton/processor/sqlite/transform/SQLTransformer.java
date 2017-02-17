@@ -121,12 +121,8 @@ public abstract class SQLTransformer {
 	 */
 	public static SQLTransform lookup(TypeMirror typeMirror) {
 		TypeName typeName;
-
-		if (typeMirror instanceof ModelType) {
-			typeName = ((ModelType) typeMirror).getName();
-		} else {
-			typeName = typeName(typeMirror);
-		}
+		
+		typeName = typeName(typeMirror);
 
 		return lookup(typeName);
 	}
@@ -161,7 +157,7 @@ public abstract class SQLTransformer {
 			ArrayTypeName typeNameArray = (ArrayTypeName) typeName;
 			TypeName componentTypeName = typeNameArray.componentType;
 
-			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
+			if (TypeUtility.isEquals(componentTypeName, Byte.TYPE.toString())) {
 				return new ByteArraySQLTransform();
 			} else {
 				return new ArraySQLTransform();

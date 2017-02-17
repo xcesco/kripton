@@ -19,6 +19,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
+
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 @RunWith(JUnit4.class)
@@ -30,6 +32,7 @@ public class Example02_1Test extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void test01() throws Throwable {
+		this.expectedException(PropertyInAnnotationNotFoundException.class);
 		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
 		buildSharedPreferencesProcessorTest(SecuritySharedPreferences.class, Person.class);
 	}

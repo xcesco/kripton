@@ -141,7 +141,7 @@ public abstract class AnnotationUtility {
 	 * @param item
 	 * @param annotationClass
 	 * @param attributeName
-	 * @return attribute value extracted as array of class name
+	 * @return attribute value extracted as array of class typeName
 	 */
 	public static List<String> extractAsClassNameArray(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
 		final Result<List<String>> result = new Result<List<String>>();
@@ -165,7 +165,7 @@ public abstract class AnnotationUtility {
 	 * @param item
 	 * @param annotationClass
 	 * @param attributeName
-	 * @return attribute value extracted as class name
+	 * @return attribute value extracted as class typeName
 	 */
 	public static String extractAsClassName(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
 		final Result<String> result = new Result<String>();
@@ -188,7 +188,7 @@ public abstract class AnnotationUtility {
 	 * @param item
 	 * @param annotationClass
 	 * @param attributeName
-	 * @return attribute value extracted as class name
+	 * @return attribute value extracted as class typeName
 	 */
 	public static String extractAsString(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
 		final Result<String> result = new Result<String>();
@@ -218,7 +218,7 @@ public abstract class AnnotationUtility {
 	 * @param annotationClass
 	 *            annotation to analyze
 	 * @param attributeName
-	 *            attribute name to analyze
+	 *            attribute typeName to analyze
 	 * @return attribute value as list of string
 	 */
 	public static String extractAsEnumerationValue(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute) {
@@ -278,7 +278,7 @@ public abstract class AnnotationUtility {
 	 * @param annotationClass
 	 *            annotation to analyze
 	 * @param attributeName
-	 *            attribute name to analyze
+	 *            attribute typeName to analyze
 	 * @return attribute value as list of string
 	 */
 	public static List<String> extractAsStringArray(Elements elementUtils, ModelMethod method, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
@@ -303,7 +303,7 @@ public abstract class AnnotationUtility {
 	 * @param annotationClass
 	 *            annotation to analyze
 	 * @param attributeName
-	 *            attribute name to analyze
+	 *            attribute typeName to analyze
 	 * @return attribute value as list of string
 	 */
 	public static String extractAsEnumerationValue(Elements elementUtils, ModelProperty property, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
@@ -413,7 +413,7 @@ public abstract class AnnotationUtility {
 	 * @param annotation
 	 *            annotation to analyze
 	 * @param attributeName
-	 *            attribute name to analyze
+	 *            attribute typeName to analyze
 	 */
 	public static <E extends ModelEntity<?>> boolean extractAsBoolean(Elements elementUtils, E item, ModelAnnotation annotation, AnnotationAttributeType attribute) {
 		final Result<Boolean> result = new Result<Boolean>();

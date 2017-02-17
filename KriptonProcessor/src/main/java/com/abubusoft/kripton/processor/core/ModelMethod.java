@@ -48,13 +48,6 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		}
 		
 		returnClass = TypeUtility.typeName(element.getReturnType());
-		
-//		if (element.getReturnType() instanceof TypeVariable) {			
-//			//TODO for the moment, if method return type is typeVariable, we set it to null 
-//			returnClass = null;
-//		} else {
-//			
-//		}
 	}
 
 	protected List<ModelAnnotation> annotations;
@@ -89,10 +82,10 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	}
 
 	/**
-	 * Check if method contains a parameter with value as name
+	 * Check if method contains a parameter with value as typeName
 	 * 
-	 * @param name
-	 *            parameter name to find
+	 * @param typeName
+	 *            parameter typeName to find
 	 * @return TypeMirror associated
 	 */
 	public TypeName findParameterType(String name) {
@@ -105,15 +98,15 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	}
 
 	/**
-	 * Check if method contains a parameter with value as name
+	 * Check if method contains a parameter with value as typeName
 	 * 
-	 * @param name
-	 *            parameter name to find
-	 * @return true if there is parameter with specified name
+	 * @param typeName
+	 *            parameter typeName to find
+	 * @return true if there is parameter with specified typeName
 	 */
-//	public boolean hasParameter(String name) {
+//	public boolean hasParameter(String typeName) {
 //		for (Pair<String, TypeMirror> item : parameters) {
-//			if (item.value0.equals(name)) {
+//			if (item.value0.equals(typeName)) {
 //				return true;
 //			}
 //		}

@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.core;
 import javax.lang.model.element.ExecutableElement;
 
 /**
- * Attribute name used in annotations. Introduced to avoid to type name attribute as string
+ * Attribute typeName used in annotations. Introduced to avoid to type typeName attribute as string
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *

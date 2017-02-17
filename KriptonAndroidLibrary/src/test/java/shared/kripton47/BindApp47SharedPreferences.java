@@ -25,7 +25,7 @@ import java.lang.String;
  */
 public class BindApp47SharedPreferences extends AbstractSharedPreference {
   /**
-   * shared preferences name for App47
+   * shared preferences typeName for App47
    */
   public static final String SHARED_PREFERENCE_NAME = "app47";
 
@@ -47,7 +47,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    * constructor
    */
   private BindApp47SharedPreferences() {
-    // using name attribute of annotation @BindSharedPreferences as name
+    // using typeName attribute of annotation @BindSharedPreferences as typeName
     prefs=KriptonLibrary.context().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     defaultBean=new App47();
   }

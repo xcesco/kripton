@@ -54,7 +54,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
 public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 	/**
-	 * Suffix to add to DAO interface to define DAO implementation name.
+	 * Suffix to add to DAO interface to define DAO implementation typeName.
 	 */
 	public static final String SUFFIX = "Impl";
 
@@ -105,7 +105,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			builder.addMethod(methodBuilder.build());
 		}
 
-		// define column name set
+		// define column typeName set
 		for (SQLiteModelMethod item : value.getCollection()) {
 			item.accept(this);
 		}
@@ -126,7 +126,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 	/**
 	 * @param value
-	 * @return name of dao
+	 * @return typeName of dao
 	 */
 	public static String daoName(SQLDaoDefinition value) {
 		String classTableName = value.getName();

@@ -34,7 +34,6 @@ import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
 import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonToken;
-import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -59,15 +58,15 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	}
 
 	protected CollectionType collectionType;
-	private ParameterizedTypeName collectionTypeName;
-	//private TypeName elementTypeName;
+	// private ParameterizedTypeName collectionTypeName;
+	// private TypeName elementTypeName;
 
 	public AbstractCollectionBindTransform(ParameterizedTypeName clazz, CollectionType collectionType) {
 		this.collectionType = collectionType;
 
-		this.collectionTypeName = clazz;
+		// this.collectionTypeName = clazz;
 		// for now, it supports only parameterized type with 1 argument
-		//this.elementTypeName = clazz.typeArguments.get(0);
+		// this.elementTypeName = clazz.typeArguments.get(0);
 	}
 
 	/**
@@ -79,16 +78,16 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	public AbstractCollectionBindTransform(TypeName clazz, CollectionType collectionType) {
 		this.collectionType = collectionType;
 
-		this.collectionTypeName = null;
+		// this.collectionTypeName = null;
 		// for now, it supports only parameterized type with 1 argument
-		//this.elementTypeName = clazz;
+		// this.elementTypeName = clazz;
 	}
 
 	protected Class<?> collectionClazz = List.class;
 	protected Class<?> defaultClazz = ArrayList.class;
 
 	protected Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName) {
-		if (collectionTypeName.toString().startsWith(collectionClazz.getCanonicalName())) {
+		if (collectionTypeName.rawType.toString().startsWith(collectionClazz.getCanonicalName())) {
 			return defaultClazz;
 		}
 		try {
@@ -110,13 +109,15 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	}
 
 	public void generateParseOnJacksonInternal(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
-		TypeName elementTypeName = extractTypeName(property);
+		TypeName elementTypeName = extractTypeParameterName(property);
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);
 			if (collectionType==CollectionType.ARRAY)
 			{
 				methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName.box(), ArrayList.class);
 			} else {
+				// it's for sure a parametrized type
+				ParameterizedTypeName collectionTypeName=(ParameterizedTypeName)property.getPropertyType().getTypeName();
 				methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName.box(), defineCollectionClass(collectionTypeName));
 			}
 			
@@ -174,6 +175,8 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			{
 				methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName.box(), ArrayList.class);
 			} else {
+				// it's for sure a parametrized type
+				ParameterizedTypeName collectionTypeName=(ParameterizedTypeName)property.getPropertyType().getTypeName();
 				methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName.box(), defineCollectionClass(collectionTypeName));
 			}
 			// set collection
@@ -203,7 +206,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		TypeName elementTypeName = extractTypeName(property);
+		TypeName elementTypeName = extractTypeParameterName(property);
 		//@formatter:off
 		methodBuilder.beginControlFlow("");
 		
@@ -214,6 +217,8 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			break;
 		case LIST:
 		case SET:
+			// it's for sure a parametrized type
+			ParameterizedTypeName collectionTypeName=(ParameterizedTypeName)property.getPropertyType().getTypeName();
 			methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName), elementTypeName.box(), defineCollectionClass(collectionTypeName));
 			break;
 		}		
@@ -288,10 +293,10 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	public void generateSerializeOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		this.generateSerializeOnJacksonInternal(context, methodBuilder, serializerName, beanClass, beanName, property, true);
 	}
-	
+
 	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property,
 			boolean onString) {
-		TypeName elementTypeName = extractTypeName(property);
+		TypeName elementTypeName = extractTypeParameterName(property);
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 			if (property.isProperty())
@@ -335,7 +340,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			
 			// we have to write here this if because the internal if on serialization does not support else statement.
 			// We are in a collection, so we need to write null value too. In all other case, null value will be skipped.		
-			if (elementProperty.getPropertyType().isArray() || !elementProperty.getPropertyType().isPrimitive()) {
+			if (elementProperty.getPropertyType().isArray() || !TypeUtility.isTypePrimitive(elementTypeName)) {
 				
 				// CASE 1 ASSERT: we are with item of kink array OR we are not manage a simple primitive
 				methodBuilder.beginControlFlow("if (item==null)");
@@ -354,7 +359,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 					} else {
 						transform.generateSerializeOnJackson(context, methodBuilder, serializerName, null, "item", elementProperty);	
 					}
-			if (elementProperty.getPropertyType().isArray() || !elementProperty.getPropertyType().isPrimitive()) {
+			if (elementProperty.getPropertyType().isArray() || !TypeUtility.isTypePrimitive(elementTypeName)) {
 				// CASE 1 ASSERT: we are with item of kink array OR we are not manage a simple primitive
 				methodBuilder.endControlFlow();
 			}
@@ -377,22 +382,17 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		//@formatter:on
 	}
 
-	private TypeName extractTypeName(BindProperty property) {
-		TypeName elementTypeName=null;
-		if (property.getPropertyType().isArray())
-		{
-			ArrayTypeName arrayTypeName=(ArrayTypeName) property.getPropertyType().getName();
-			elementTypeName=resolveTypeName(property.getParent(), arrayTypeName.componentType);
-		} else {
-			elementTypeName=resolveTypeName(property.getParent(), TypeUtility.typeName(property.getPropertyType().getTypeParameter()));
-		}
+	private TypeName extractTypeParameterName(BindProperty property) {
+		//TODO QUA
+		//TypeName elementTypeName = resolveTypeName(property.getParent(), property.getPropertyType().getTypeParameter());		
+		//return elementTypeName;
 		
-		return elementTypeName;
+		return property.getPropertyType().getTypeParameter();
 	}
 
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		TypeName elementTypeName = extractTypeName(property);
+		TypeName elementTypeName = extractTypeParameterName(property);
 		//@formatter:off
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 			
@@ -436,7 +436,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			}
 			
 			
-			if (!property.getPropertyType().isPrimitive())
+			if (!TypeUtility.isTypePrimitive(elementTypeName))
 			{
 				methodBuilder.beginControlFlow("if (item==null)");
 					methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.xmlInfo.labelItem);

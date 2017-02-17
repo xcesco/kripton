@@ -31,6 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
@@ -91,8 +92,7 @@ public abstract class PrefsTransformer {
 		}
 
 		transform = getTransform(typeName);
-		if (transform == null)
-			throw new UnsupportedFieldTypeException(typeName);
+		AssertKripton.assertNotNull(transform, new UnsupportedFieldTypeException(typeName));		
 		cache.put(typeName, transform);
 
 		return transform;
@@ -107,7 +107,7 @@ public abstract class PrefsTransformer {
 			ArrayTypeName typeNameArray = (ArrayTypeName) typeName;
 			TypeName componentTypeName = typeNameArray.componentType;
 
-			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
+			if (TypeUtility.isEquals(componentTypeName, Byte.TYPE.toString())) {
 				return new ByteArrayPrefsTransform();
 			} else {
 				return new ArrayPrefsTransform();

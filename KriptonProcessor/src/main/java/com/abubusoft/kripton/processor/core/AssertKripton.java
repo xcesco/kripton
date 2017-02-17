@@ -9,6 +9,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
+import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
@@ -85,6 +86,14 @@ public abstract class AssertKripton {
 			String msg = String.format("%s %s, only class can be annotated with @%s annotation", element.getKind(), element, annotationClazz.getSimpleName());
 			throw (new InvalidKindForAnnotationException(msg));
 		}
+	}
+
+	public static void assertNotNull(Object value, KriptonProcessorException exception) {
+		if (value==null)
+		{
+			throw(exception);
+		}
+		
 	}
 
 }

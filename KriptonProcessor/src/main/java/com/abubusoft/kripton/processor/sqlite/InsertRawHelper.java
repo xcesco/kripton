@@ -65,7 +65,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			nullable = TypeUtility.isNullable(method, item, property);
 
 			if (nullable) {
-				// it use raw method param's name
+				// it use raw method param's typeName
 				methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 			}
 			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
@@ -143,7 +143,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 					bufferName.append(separator + nc.convert(resolvedParamName));
 					bufferValue.append(separator + "${" + resolvedParamName + "}");
 
-					// here it needed raw parameter name
+					// here it needed raw parameter typeName
 					bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + nc.convert(resolvedParamName) + "\"))+\"'");
 					separator = ", ";
 				}

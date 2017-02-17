@@ -13,7 +13,7 @@ public class MockKeyFrame extends KeyFrame {
 	/**
 	 * Costruisce frame
 	 * 
-	 * @param name
+	 * @param typeName
 	 * @param value
 	 * @param duration
 	 * @return

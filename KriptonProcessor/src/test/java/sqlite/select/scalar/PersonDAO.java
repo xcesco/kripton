@@ -10,9 +10,9 @@ import sqlite.select.Person;
 @BindDao(Person.class)
 public interface PersonDAO {
 
-	@BindSqlSelect(value="name", orderBy="name")
+	@BindSqlSelect(value="typeName", orderBy="typeName")
 	String selectAll();	
 	
-	@BindSqlSelect(value="birthDay", orderBy="name")
+	@BindSqlSelect(value="birthDay", orderBy="typeName")
 	Date selectAll2();	
 }

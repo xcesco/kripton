@@ -108,7 +108,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 				}
 
-				// here it needed raw parameter name
+				// here it needed raw parameter typeName
 				methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
 
 				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(property.getElement()), item.value0);

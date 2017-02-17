@@ -125,12 +125,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
-		try {
-			count++;
-			if (count > 1) {
-				return true;
-			}
-
+		try {			
 			globalDaoElements.clear();
 
 			model.schemaClear();
@@ -314,7 +309,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 						columnName = property.getName();
 					}
 
-					// convert column name from field name to table: fieldName
+					// convert column typeName from field typeName to table: fieldName
 					// to field_name
 					property.columnName = currentSchema.columnNameConverter.convert(columnName);
 
@@ -401,13 +396,6 @@ public class BindDataSourceProcessor extends BaseProcessor {
 					return;
 
 				final SQLiteModelMethod currentMethod = new SQLiteModelMethod(currentDaoDefinition, element);
-				// TODO fix it: if return type is null, the method is inherited
-				// and probably it has bean type
-				
-//				if (currentMethod.getReturnClass() == null) {
-//					Element beanElement = globalBeanElements.get(currentDaoDefinition.getEntityClassName());
-//					currentMethod.setReturnClass(beanElement.asType());
-//				}
 
 				AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
 
@@ -456,7 +444,7 @@ public class BindDataSourceProcessor extends BaseProcessor {
 		}
 
 		if (!databaseSchema.getSimpleName().toString().endsWith(BindDataSourceBuilder.SUFFIX)) {
-			String msg = String.format("Interface %s marked with @%s annotation must have a name with suffix \"" + BindDataSourceBuilder.SUFFIX + "\" to be used with @BindDataSource",
+			String msg = String.format("Interface %s marked with @%s annotation must have a typeName with suffix \"" + BindDataSourceBuilder.SUFFIX + "\" to be used with @BindDataSource",
 					databaseSchema.getSimpleName().toString(), BindDataSource.class.getSimpleName());
 			throw (new InvalidNameException(msg));
 		}

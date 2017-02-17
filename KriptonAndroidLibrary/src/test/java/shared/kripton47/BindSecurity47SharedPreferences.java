@@ -46,7 +46,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    * constructor
    */
   private BindSecurity47SharedPreferences() {
-    // no name specified, using default shared preferences
+    // no typeName specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
     defaultBean=new Security47();
   }

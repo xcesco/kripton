@@ -87,7 +87,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -106,8 +106,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name", _args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -142,7 +142,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || \'%\' and birthDay < ${date} #{where} ORDER BY #{orderBy}</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE typeName like ${nameTemp} || \'%\' and birthDay < ${date} #{where} ORDER BY #{orderBy}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -180,8 +180,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] _args={(nameValue==null?"":nameValue), (date==null?"":DateUtils.write(date))};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%' and birth_day < '%s' "+SqlUtils.appendForLog(where)+" ORDER BY "+SqlUtils.appendForLog(orderBy),(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%\' and birth_day < ? "+SqlUtils.appendForSQL(where)+" ORDER BY "+SqlUtils.appendForSQL(orderBy), _args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE typeName like '%s' || \'%%' and birth_day < '%s' "+SqlUtils.appendForLog(where)+" ORDER BY "+SqlUtils.appendForLog(orderBy),(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE typeName like ? || \'%\' and birth_day < ? "+SqlUtils.appendForSQL(where)+" ORDER BY "+SqlUtils.appendForSQL(orderBy), _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -216,7 +216,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name#{orderBy}</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName#{orderBy}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -243,8 +243,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.appendForLog(orderBy),(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name"+SqlUtils.appendForSQL(orderBy), _args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName"+SqlUtils.appendForLog(orderBy),(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName"+SqlUtils.appendForSQL(orderBy), _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Person resultBean=new Person();
       if (cursor.moveToFirst()) {

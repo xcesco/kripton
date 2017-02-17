@@ -11,7 +11,7 @@ import java.lang.String;
  */
 public class PersonTable {
   /**
-   * Costant represents name of table person
+   * Costant represents typeName of table person
    */
   public static final String TABLE_NAME = "person";
 
@@ -34,35 +34,35 @@ public class PersonTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS person;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
    *
    *  @see Person#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
    *
    *  @see Person#name
    */
   public static final String COLUMN_NAME = "name";
 
   /**
-   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column name.
+   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column typeName.
    *
    *  @see Person#surname
    */
   public static final String COLUMN_SURNAME = "surname";
 
   /**
-   * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column name.
+   * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column typeName.
    *
    *  @see Person#birthCity
    */
   public static final String COLUMN_BIRTH_CITY = "birth_city";
 
   /**
-   * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column name.
+   * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column typeName.
    *
    *  @see Person#birthDay
    */

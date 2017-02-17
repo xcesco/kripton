@@ -82,5 +82,15 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 	public TypeName resolveTypeVariable(TypeName typeName) {
 		return typeVariableResolver.resolve(typeName);
 	}
+	
+	@Override
+	public void add(E value) {		 
+		TypeName typeName=value.getPropertyType().getTypeName();
+		TypeName resolvedTypeName=typeVariableResolver.resolve(typeName);
+		
+		value.getPropertyType().setTypeName(resolvedTypeName);
+		
+		super.add(value);
+	}
 
 }

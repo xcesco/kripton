@@ -117,7 +117,7 @@ public abstract class SqlInsertBuilder {
 
 			// check if there is only one parameter
 			AssertKripton.failWithInvalidMethodSignException(
-					method.getParameters().size() != 1 && TypeUtility.isSameType(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()), method);
+					method.getParameters().size() != 1 && TypeUtility.isEquals(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()), method);
 
 			// check no
 			AssertKripton.failWithInvalidMethodSignException(annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY), method, "attribute '%s' can not be used here",

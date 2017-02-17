@@ -16,17 +16,12 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
@@ -54,19 +49,6 @@ import android.database.Cursor;
 
 public abstract class SelectBuilderUtility {
 
-	private static final Pattern pattern = Pattern.compile("\\((.*)\\)(.*)");
-
-	public static Pair<String, String> extractResultAndArguments(String value) {
-		Matcher matcher = pattern.matcher(value);
-
-		Pair<String, String> result = new Pair<String, String>();
-		if (matcher.matches()) {
-			result.value0 = matcher.group(1);
-			result.value1 = matcher.group(2);
-		}
-		return result;
-	}
-
 	/**
 	 * Iterate over methods.
 	 * 
@@ -75,16 +57,6 @@ public abstract class SelectBuilderUtility {
 	 * @param listener
 	 */
 	public static void forEachMethods(Elements elementUtils, TypeElement typeElement, MethodFoundListener listener) {
-
-		Map<String, TypeMirror> resolvedParameter = new HashMap<String, TypeMirror>();
-		List<? extends TypeMirror> listInterface = typeElement.getInterfaces();
-		for (TypeMirror item : listInterface) {
-			// if (item instanceof Type$ClassType)
-			{
-				resolvedParameter.put("E", item);
-			}
-		}
-
 		List<? extends Element> list = elementUtils.getAllMembers(typeElement);
 
 		for (Element item : list) {
@@ -173,12 +145,12 @@ public abstract class SelectBuilderUtility {
 							"use of PaginatedResult require 'pageSize' attribute or a @%s annotated parameter", returnTypeName, BindSqlPageSize.class.getSimpleName());
 
 					// paged result
-					AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isSameType(elementName, entity.getName().toString()), method, "return type %s is not supported", returnTypeName);
+					AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isEquals(elementName, entity.getName().toString()), method, "return type %s is not supported", returnTypeName);
 					selectResultType = SqlSelectBuilder.SelectType.PAGED_RESULT;
-					// set name of paginatedResult
+					// set typeName of paginatedResult
 					method.paginatedResultName="paginatedResult";
 				} else if (Collection.class.isAssignableFrom(wrapperClazz)) {
-					if (TypeUtility.isSameType(elementName, entity.getName().toString())) {
+					if (TypeUtility.isEquals(elementName, entity.getName().toString())) {
 						// entity list
 						selectResultType = SqlSelectBuilder.SelectType.LIST_BEAN;
 					} else if (SQLTransformer.isSupportedJDKType(elementName) || TypeUtility.isByteArray(elementName)) {

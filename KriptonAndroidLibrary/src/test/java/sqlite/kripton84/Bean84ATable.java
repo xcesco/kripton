@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public class Bean84ATable {
   /**
-   * Costant represents name of table bean84_a
+   * Costant represents typeName of table bean84_a
    */
   public static final String TABLE_NAME = "bean84_a";
 
@@ -52,56 +52,56 @@ public class Bean84ATable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean84_a;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
    *
    *  @see Bean84A#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>columnListString</code> is associated to table column <code>column_list_string</code>. This costant represents column name.
+   * Entity's property <code>columnListString</code> is associated to table column <code>column_list_string</code>. This costant represents column typeName.
    *
    *  @see Bean84A#columnListString
    */
   public static final String COLUMN_COLUMN_LIST_STRING = "column_list_string";
 
   /**
-   * Entity's property <code>columnMapIntegerString</code> is associated to table column <code>column_map_integer_string</code>. This costant represents column name.
+   * Entity's property <code>columnMapIntegerString</code> is associated to table column <code>column_map_integer_string</code>. This costant represents column typeName.
    *
    *  @see Bean84A#columnMapIntegerString
    */
   public static final String COLUMN_COLUMN_MAP_INTEGER_STRING = "column_map_integer_string";
 
   /**
-   * Entity's property <code>columnArrayChar</code> is associated to table column <code>column_array_char</code>. This costant represents column name.
+   * Entity's property <code>columnArrayChar</code> is associated to table column <code>column_array_char</code>. This costant represents column typeName.
    *
    *  @see Bean84A#columnArrayChar
    */
   public static final String COLUMN_COLUMN_ARRAY_CHAR = "column_array_char";
 
   /**
-   * Entity's property <code>columnArrayCharType</code> is associated to table column <code>column_array_char_type</code>. This costant represents column name.
+   * Entity's property <code>columnArrayCharType</code> is associated to table column <code>column_array_char_type</code>. This costant represents column typeName.
    *
    *  @see Bean84A#columnArrayCharType
    */
   public static final String COLUMN_COLUMN_ARRAY_CHAR_TYPE = "column_array_char_type";
 
   /**
-   * Entity's property <code>columnBean</code> is associated to table column <code>column_bean</code>. This costant represents column name.
+   * Entity's property <code>columnBean</code> is associated to table column <code>column_bean</code>. This costant represents column typeName.
    *
    *  @see Bean84A#columnBean
    */
   public static final String COLUMN_COLUMN_BEAN = "column_bean";
 
   /**
-   * Entity's property <code>columnArrayByteType</code> is associated to table column <code>column_array_byte_type</code>. This costant represents column name.
+   * Entity's property <code>columnArrayByteType</code> is associated to table column <code>column_array_byte_type</code>. This costant represents column typeName.
    *
    *  @see Bean84A#columnArrayByteType
    */
   public static final String COLUMN_COLUMN_ARRAY_BYTE_TYPE = "column_array_byte_type";
 
   /**
-   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column name.
+   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column typeName.
    *
    *  @see Bean84A#valueString
    */

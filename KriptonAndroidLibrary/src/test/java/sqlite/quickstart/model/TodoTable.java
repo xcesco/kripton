@@ -11,7 +11,7 @@ import java.lang.String;
  */
 public class TodoTable {
   /**
-   * Costant represents name of table todo
+   * Costant represents typeName of table todo
    */
   public static final String TABLE_NAME = "todo";
 
@@ -34,28 +34,28 @@ public class TodoTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS todo;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
    *
    *  @see Todo#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column name.
+   * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column typeName.
    *
    *  @see Todo#userId
    */
   public static final String COLUMN_USER_ID = "user_id";
 
   /**
-   * Entity's property <code>title</code> is associated to table column <code>title</code>. This costant represents column name.
+   * Entity's property <code>title</code> is associated to table column <code>title</code>. This costant represents column typeName.
    *
    *  @see Todo#title
    */
   public static final String COLUMN_TITLE = "title";
 
   /**
-   * Entity's property <code>completed</code> is associated to table column <code>completed</code>. This costant represents column name.
+   * Entity's property <code>completed</code> is associated to table column <code>completed</code>. This costant represents column typeName.
    *
    *  @see Todo#completed
    */

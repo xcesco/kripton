@@ -69,7 +69,7 @@ public class Channel extends UIDObject {
 
 	@Override
 	public String toString() {
-		return "Channel [imageType=" + imageType + ", imageSize=" + imageSize + ", name=" + name + ", uid=" + uid + "]";
+		return "Channel [imageType=" + imageType + ", imageSize=" + imageSize + ", typeName=" + name + ", uid=" + uid + "]";
 	}
 
 	public void setName(String name) {

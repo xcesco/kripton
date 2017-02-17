@@ -18,7 +18,7 @@ import com.abubusoft.kripton.xml.XmlType;
 @BindType("root")
 public class Bean70All {
 	
-	@Bind("name")
+	@Bind("typeName")
 	@BindXml(xmlType=XmlType.TAG)
 	protected long id;
 	

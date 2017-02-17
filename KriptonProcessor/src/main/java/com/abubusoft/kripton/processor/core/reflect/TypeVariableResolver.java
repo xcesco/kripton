@@ -1,5 +1,8 @@
 package com.abubusoft.kripton.processor.core.reflect;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +16,9 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.squareup.javapoet.ArrayTypeName;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
@@ -96,32 +102,63 @@ public class TypeVariableResolver {
 		return new TypeVariableResolver(element, typeArgs, typeVariableMap);
 	}
 	
-	public TypeName resolve(TypeName inputTypeName) {
+	public TypeName resolve(TypeName inputType) {
 		if (!hasTypeVariables())
-			return inputTypeName;
+			return inputType;
 		
-		if (TypeName.VOID.equals(inputTypeName)) return inputTypeName;
-		
-		if (inputTypeName.toString().contains(".") || inputTypeName.isPrimitive() || inputTypeName.isBoxedPrimitive()) {
-			return inputTypeName;
+		if (inputType.isPrimitive() || inputType.isBoxedPrimitive() || inputType.equals(TypeName.get(String.class))) {
+			return inputType;
 		}
+		
+		if (TypeName.VOID.equals(inputType)) return inputType;
+		
+		TypeName resolved=null;
+		if (inputType instanceof ParameterizedTypeName)
+		{
+			ParameterizedTypeName inputParametrizedTypeName=(ParameterizedTypeName)inputType;
+			
+			TypeName[] typeArguments=new TypeName[inputParametrizedTypeName.typeArguments.size()];
+			int i=0;
+			for (TypeName item: inputParametrizedTypeName.typeArguments)
+			{
+				typeArguments[i]=resolve(item);
+				i++;
+			}
+			
+			resolved=ParameterizedTypeName.get((ClassName)resolve(inputParametrizedTypeName.rawType), typeArguments);
+			
+			return resolved;
+		} else if (inputType instanceof ArrayTypeName)
+		{
+			ArrayTypeName inputTypeName=(ArrayTypeName)inputType;
+			
+			resolved=ArrayTypeName.of(resolve(inputTypeName.componentType));
+			
+			return resolved;
+		} else {
+			// it's not a type variable
+			if (inputType.toString().contains(".")) {
+				return inputType;
+			}
+			// ASSERT: simple typeName 
+			if (typeVariableMap.containsKey(inputType.toString())) {
+				TypeName type = typeVariableMap.get(inputType.toString());
+				return type;
+			} else if (declaredTypeArgumentList.size()==1){
+				resolved = declaredTypeArgumentList.get(0);
+				// if we found an unique type variable, we use it.
+				//typeVariableMap = new HashMap<>();
+				//typeVariableMap.put(inputTypeName.toString(), resolved);
 
-		if (typeVariableMap.containsKey(inputTypeName.toString())) {
-			TypeName type = typeVariableMap.get(inputTypeName.toString());
-			return type;
-		} else if (declaredTypeArgumentList.size()==1){
-			TypeName resolved = declaredTypeArgumentList.get(0);
-			// if we found an unique type variable, we use it.
-			//typeVariableMap = new HashMap<>();
-			//typeVariableMap.put(inputTypeName.toString(), resolved);
-
+				return resolved;
+			}
+			
+			AssertKripton.assertTrue(false, "In type hierarchy of %s '%s' there is a unresolved type variable named '%s'. Define it with @BindTypeVariables", element.getKind()==ElementKind.CLASS ? "class" :"interface", element.getQualifiedName(),
+					inputType.toString());
+			
 			return resolved;
 		}
-
-		AssertKripton.assertTrue(false, "In type hierarchy of %s '%s' there is a unresolved type variable named '%s'. Define it with @BindTypeVariables", element.getKind()==ElementKind.CLASS ? "class" :"interface", element.getQualifiedName(),
-				inputTypeName.toString());
-
-		return inputTypeName;
+		
 	}
 	
 }

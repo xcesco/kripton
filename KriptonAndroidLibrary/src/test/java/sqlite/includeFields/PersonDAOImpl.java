@@ -27,7 +27,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name FROM person WHERE name=${bean.name} ORDER BY name</pre>
+   * <pre>SELECT id, name FROM person WHERE typeName=${bean.name} ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -50,8 +50,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] _args={(bean.name==null?"":bean.name)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name FROM person WHERE name='%s' ORDER BY name",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name FROM person WHERE name=? ORDER BY name", _args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, name FROM person WHERE typeName='%s' ORDER BY name",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, name FROM person WHERE typeName=? ORDER BY name", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();

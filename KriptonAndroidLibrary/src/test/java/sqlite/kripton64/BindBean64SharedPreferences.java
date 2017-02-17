@@ -75,7 +75,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * constructor
    */
   private BindBean64SharedPreferences() {
-    // no name specified, using default shared preferences
+    // no typeName specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
     defaultBean=new Bean64();
   }

@@ -128,7 +128,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			// table_name
 			FieldSpec fieldSpec = FieldSpec.builder(String.class, "TABLE_NAME", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
 					.initializer("\"$L\"", entity.getTableName())
-					.addJavadoc("Costant represents name of table $L\n",entity.getTableName())
+					.addJavadoc("Costant represents typeName of table $L\n",entity.getTableName())
 					.build();
 			builder.addField(fieldSpec);
 			//@formatter:on
@@ -148,7 +148,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			StringBuilder bufferTable = new StringBuilder();
 			StringBuilder bufferForeignKey = new StringBuilder();
 			bufferTable.append("CREATE TABLE " + entity.getTableName());
-			// define column name set
+			// define column typeName set
 
 			String separator = "";
 			// primary key can be column id or that marked as PRIMARY_KEY
@@ -196,7 +196,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 						// foreign key can ben used only with column type
 						// long/Long
-						if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getName(), Long.class, Long.TYPE)) {
+						if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getTypeName(), Long.class, Long.TYPE)) {
 							throw new InvalidForeignKeyTypeException(item);
 						}
 
@@ -253,7 +253,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			builder.addField(fieldSpec);
 		}
 
-		// define column name set
+		// define column typeName set
 		for (ModelProperty item : entity.getCollection()) {
 			item.accept(this);
 		}
@@ -310,8 +310,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	static Pattern wordPattern = Pattern.compile("(\\w+)");
 
 	/**
-	 * Look in the string and try to convert first (and unique) field name in
-	 * its associated column name
+	 * Look in the string and try to convert first (and unique) field typeName in
+	 * its associated column typeName
 	 * 
 	 * @param entity
 	 */
@@ -331,7 +331,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			}
 		}
 
-		AssertKripton.fail(found == 0, "class '%s' in @BindTable(indexes) use invalid field name '%s'", entity.getSimpleName(), sql);
+		AssertKripton.fail(found == 0, "class '%s' in @BindTable(indexes) use invalid field typeName '%s'", entity.getSimpleName(), sql);
 		AssertKripton.fail(found > 1, "class '%s' in @BindTable(indexes) use multiple fields '%s'", entity.getSimpleName(), sql);
 
 		m.appendTail(sb);
@@ -343,7 +343,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		//@formatter:off
 		FieldSpec fieldSpec = FieldSpec.builder(String.class, "COLUMN_" + columnNameToUpperCaseConverter.convert(kriptonProperty.getName()), Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
 				.initializer("$S", columnNameToLowerCaseConverter.convert(kriptonProperty.columnName))
-				.addJavadoc("Entity's property <code>$L</code> is associated to table column <code>$L</code>. This costant represents column name.\n",
+				.addJavadoc("Entity's property <code>$L</code> is associated to table column <code>$L</code>. This costant represents column typeName.\n",
 						kriptonProperty.getName(),
 						kriptonProperty.columnName)
 				.addJavadoc("\n @see $T#$L\n", TypeUtility.className(kriptonProperty.getParent().getName()), kriptonProperty.getName())

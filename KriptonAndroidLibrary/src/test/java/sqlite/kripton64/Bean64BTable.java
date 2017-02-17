@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public class Bean64BTable {
   /**
-   * Costant represents name of table bean64_b
+   * Costant represents typeName of table bean64_b
    */
   public static final String TABLE_NAME = "bean64_b";
 
@@ -49,28 +49,28 @@ public class Bean64BTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean64_b;";
 
   /**
-   * Entity's property <code>valueMapStringBean</code> is associated to table column <code>value_map_string_bean</code>. This costant represents column name.
+   * Entity's property <code>valueMapStringBean</code> is associated to table column <code>value_map_string_bean</code>. This costant represents column typeName.
    *
    *  @see Bean64B#valueMapStringBean
    */
   public static final String COLUMN_VALUE_MAP_STRING_BEAN = "value_map_string_bean";
 
   /**
-   * Entity's property <code>valueSetString</code> is associated to table column <code>value_set_string</code>. This costant represents column name.
+   * Entity's property <code>valueSetString</code> is associated to table column <code>value_set_string</code>. This costant represents column typeName.
    *
    *  @see Bean64B#valueSetString
    */
   public static final String COLUMN_VALUE_SET_STRING = "value_set_string";
 
   /**
-   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column name.
+   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column typeName.
    *
    *  @see Bean64B#valueString
    */
   public static final String COLUMN_VALUE_STRING = "value_string";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
    *
    *  @see Bean64B#id
    */

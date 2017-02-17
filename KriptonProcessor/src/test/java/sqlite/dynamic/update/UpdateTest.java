@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.dynamic.Person;
@@ -54,7 +55,7 @@ public class UpdateTest extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testErr2() throws Throwable {
-		this.expectedException(InvalidMethodSignException.class);
+		this.expectedException(PropertyInAnnotationNotFoundException.class);
 		buildDataSourceProcessorTest(Err2UpdateDataSource.class, Err2UpdateDAO.class, Person.class);
 	}
 	

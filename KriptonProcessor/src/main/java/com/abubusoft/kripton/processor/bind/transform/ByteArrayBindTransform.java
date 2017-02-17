@@ -139,7 +139,7 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 		}
 
 		if (property.hasTypeAdapter()) {
-			// in a collection we need to insert only value, not field name
+			// in a collection we need to insert only value, not field typeName
 			if (property.isInCollection()) {
 				methodBuilder.addStatement("$L.writeBinary(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")", serializerName, TypeAdapterUtils.class,
 						TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
@@ -148,7 +148,7 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 						TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 			}
 		} else {
-			// in a collection we need to insert only value, not field name
+			// in a collection we need to insert only value, not field typeName
 			if (property.isInCollection()) {
 				methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
 			} else {

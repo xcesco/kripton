@@ -71,10 +71,15 @@ public abstract class BindTransformer {
 	 * @return transform
 	 */
 	public static BindTransform lookup(BindProperty property) {
+		//TODO QUA
+		TypeName typeName=property.getPropertyType().getTypeName();
+		/*
 		TypeMirror typeMirror = property.getElement().asType();
 		TypeName typeName;
 		if (property.getParent() instanceof ModelClass)
 		{
+			//TODO to remove
+			// we have to resolve
 			ModelClass<?> modelClass = ((ModelClass<?>)property.getParent());
 			LiteralType literalType=LiteralType.of(typeMirror.toString());
 			
@@ -91,6 +96,9 @@ public abstract class BindTransformer {
 		} else {
 			typeName = typeName(typeMirror);
 		}
+		
+		
+		}*/
 		
 		if (property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);
@@ -147,20 +155,19 @@ public abstract class BindTransformer {
 
 		if (typeName instanceof ArrayTypeName) {
 			ArrayTypeName typeNameArray = (ArrayTypeName) typeName;
-			TypeName componentTypeName = typeNameArray.componentType;
 
-			if (TypeUtility.isSameType(componentTypeName, Byte.TYPE.toString())) {
+			if (TypeUtility.isEquals(typeNameArray.componentType, Byte.TYPE.toString())) {
 				return new ByteArrayBindTransform();
 			} else {
-				return new ArrayBindTransform(componentTypeName, componentTypeName.isPrimitive());
+				return new ArrayBindTransform(typeNameArray.componentType, typeNameArray.componentType.isPrimitive());
 			}
 		} else if (typeName instanceof ParameterizedTypeName) {
-			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
-			if (TypeUtility.isList(parameterizedTypeName)) {
+			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;			
+			if (TypeUtility.isList(parameterizedTypeName.rawType)) {
 				return new ListBindTransformation(parameterizedTypeName);
-			} else if (TypeUtility.isSet(parameterizedTypeName)) {
+			} else if (TypeUtility.isSet(parameterizedTypeName.rawType)) {
 				return new SetBindTransformation(parameterizedTypeName);
-			} else if (TypeUtility.isMap(parameterizedTypeName)) {
+			} else if (TypeUtility.isMap(parameterizedTypeName.rawType)) {
 				return new MapBindTransformation(parameterizedTypeName);
 			}
 		}

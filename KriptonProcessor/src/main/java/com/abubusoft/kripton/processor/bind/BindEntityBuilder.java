@@ -74,7 +74,7 @@ public abstract class BindEntityBuilder {
 
 		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), beanElement);
 		
-		// tag name
+		// tag typeName
 		String tagName = AnnotationUtility.extractAsString(elementUtils, beanElement, BindType.class, AnnotationAttributeType.VALUE);
 		if (StringUtils.hasText(tagName)) {
 			currentEntity.xmlInfo.label = tagName;
@@ -108,7 +108,7 @@ public abstract class BindEntityBuilder {
 					if (bindAllFields) {
 						return false;
 					} else {
-						throw new InvalidDefinition("@BindDisabled can not be used with @BindType(allField=false)");
+						throw new InvalidDefinition(String.format("@%s can not be used with @%s(allField=false)", BindDisabled.class.getSimpleName(), BindType.class.getSimpleName()));
 					}
 				}
 
@@ -150,7 +150,7 @@ public abstract class BindEntityBuilder {
 
 					if (property.getPropertyType().isPrimitive()) {
 						String msg = String.format("In class '%s', property '%s' is primitive of type '%s' and it can not be annotated with @BindAdapter", beanElement.asType().toString(),
-								property.getName(), property.getPropertyType().getName());
+								property.getName(), property.getPropertyType().getTypeName());
 						throw (new IncompatibleAnnotationException(msg));
 					}
 				}
@@ -183,7 +183,7 @@ public abstract class BindEntityBuilder {
 					if (StringUtils.hasText(mapEntryType))
 						property.xmlInfo.mapEntryType = MapEntryType.valueOf(mapEntryType);
 
-					// define element tag name
+					// define element tag typeName
 					String tempElementName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.XML_ELEMENT_TAG);
 					if (StringUtils.hasText(tempElementName)) {
 						property.xmlInfo.labelItem = tempElementName;
@@ -197,7 +197,7 @@ public abstract class BindEntityBuilder {
 				}
 
 				if (property.xmlInfo.xmlType == XmlType.ATTRIBUTE) {
-					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getName());
+					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getTypeName());
 
 					// check if property is a array
 					if (property.isBindedArray() && !(transform instanceof ByteArrayBindTransform)) {
@@ -226,7 +226,7 @@ public abstract class BindEntityBuilder {
 				if (property.xmlInfo.xmlType == XmlType.VALUE || property.xmlInfo.xmlType == XmlType.VALUE_CDATA) {
 					counterPropertyInValue.inc();
 
-					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getName());
+					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getTypeName());
 
 					// check if property is a array
 					if (property.isBindedArray() && !(transform instanceof ByteArrayBindTransform)) {
@@ -260,7 +260,7 @@ public abstract class BindEntityBuilder {
 
 				property.bindedObject = BindTransformer.isBindedObject(property);
 
-				// if it's an object, we need to avoid to print field name (like
+				// if it's an object, we need to avoid to print field typeName (like
 				// object transform usually do).
 				// set inCollection to true, permits this.
 				if (property.bindedObject && contextExternal) {

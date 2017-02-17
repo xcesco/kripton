@@ -40,22 +40,28 @@ public class ObjectBindTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		TypeName typeName = resolveTypeName(property.getParent(), property.getPropertyType().getName());
-		
-		String bindName=context.getBindMapperName(context, typeName);		
+		// TODO QUA
+		// TypeName typeName = resolveTypeName(property.getParent(),
+		// property.getPropertyType().getTypeName());
+		TypeName typeName = property.getPropertyType().getTypeName();
+
+		String bindName = context.getBindMapperName(context, typeName);
 		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.parseOnXml(xmlParser, eventType)"), bindName);
 	}
-	
+
 	public boolean isTypeAdapterSupported() {
 		return false;
 	}
 
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		TypeName typeName = resolveTypeName(property.getParent(), property.getPropertyType().getName());
-		
-		String bindName=context.getBindMapperName(context, typeName);
-		
+		// TODO QUA
+		// TypeName typeName = resolveTypeName(property.getParent(),
+		// property.getPropertyType().getTypeName());
+		TypeName typeName = property.getPropertyType().getTypeName();
+
+		String bindName = context.getBindMapperName(context, typeName);
+
 		// @formatter:off
 		if (property.isNullable() && !property.isInCollection()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
@@ -72,10 +78,13 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	}
 
 	void generateSerializeInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
-		TypeName typeName = resolveTypeName(property.getParent(), property.getPropertyType().getName());
-		
-		String bindName=context.getBindMapperName(context, typeName);
-		
+		// TODO QUA
+		// TypeName typeName = resolveTypeName(property.getParent(),
+		// property.getPropertyType().getTypeName());
+		TypeName typeName = property.getPropertyType().getTypeName();
+
+		String bindName = context.getBindMapperName(context, typeName);
+
 		// @formatter:off
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
@@ -117,10 +126,13 @@ public class ObjectBindTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJackson(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		TypeName typeName = resolveTypeName(property.getParent(), property.getPropertyType().getName());
-		
-		String bindName=context.getBindMapperName(context, typeName);
-		
+		// TODO QUA
+		// TypeName typeName = resolveTypeName(property.getParent(),
+		// property.getPropertyType().getTypeName());
+		TypeName typeName = property.getPropertyType().getTypeName();
+
+		String bindName = context.getBindMapperName(context, typeName);
+
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT)", parserName, JsonToken.class);
 		}
@@ -133,10 +145,13 @@ public class ObjectBindTransform extends AbstractBindTransform {
 
 	@Override
 	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		TypeName typeName = resolveTypeName(property.getParent(), property.getPropertyType().getName());
-		
-		String bindName=context.getBindMapperName(context, typeName);
-		
+		// TODO QUA
+		// TypeName typeName = resolveTypeName(property.getParent(),
+		// property.getPropertyType().getTypeName());
+		TypeName typeName = property.getPropertyType().getTypeName();
+
+		String bindName = context.getBindMapperName(context, typeName);
+
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT || $L.currentToken()==$T.VALUE_STRING)", parserName, JsonToken.class, parserName, JsonToken.class);
 		}

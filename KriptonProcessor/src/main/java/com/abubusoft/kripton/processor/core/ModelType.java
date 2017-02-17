@@ -18,39 +18,85 @@ package com.abubusoft.kripton.processor.core;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.utils.LiteralType;
+import com.squareup.javapoet.ArrayTypeName;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-public class ModelType extends LiteralType {
-	
-	TypeName name;
-	
+public class ModelType {
+
+	protected TypeName typeName;
+
+	public void setTypeName(TypeName typeName) {
+		this.typeName = typeName;
+	}
+
 	/**
 	 * @return the value
 	 */
-	public TypeName getName() {
-		return name;
+	public TypeName getTypeName() {
+		return typeName;
 	}
 
 	public ModelType(TypeMirror type) {
-		super(type.toString());		
-		this.name=TypeName.get(type);
-	}
-	
-	public ModelType(String containerClassName, String argClassName) {
-		super(LiteralType.of(containerClassName, argClassName).getValue());		
-		this.name=TypeUtility.typeName(LiteralType.of(containerClassName, argClassName).getValue());
-	}
-	
-	public ModelType(TypeName typeName) {
-		super(typeName.toString());		
-		this.name=typeName;
+		// super(type.toString());
+		this.typeName = TypeUtility.typeName(type);
 	}
 
-	
-	public boolean isEquals(String value)
-	{
-		return TypeUtility.isSameType(this.name, value);
+	public ModelType(String containerClassName, String argClassName) {
+		this.typeName = ParameterizedTypeName.get(TypeUtility.className(containerClassName), TypeUtility.typeName(argClassName));
+		// super(LiteralType.of(containerClassName, argClassName).getValue());
+		// this.name= TypeUtility.typeName(LiteralType.of(containerClassName,
+		// argClassName).getValue());
+	}
+
+	public ModelType(TypeName typeName) {
+		// super(typeName.toString());
+		this.typeName = typeName;
+	}
+
+	public boolean isEquals(String value) {
+		return TypeUtility.isEquals(this.typeName, value);
+	}
+
+	public boolean isArray() {
+		return TypeUtility.isArray(typeName);
+	}
+
+	public boolean isPrimitive() {
+		return TypeUtility.isTypePrimitive(typeName);
+	}
+
+	/**
+	 * <p>
+	 * if element is a ParameterizedTypeName or array, return the first type
+	 * parameter or the component typeName. Otherwise null.
+	 * </p>
+	 * 
+	 * @return if element is a ParameterizedTypeName or array, return the first
+	 *         type parameter or the component typeName. Otherwise null.
+	 */
+	public TypeName getTypeParameter() {
+		if (typeName instanceof ParameterizedTypeName) {
+			ParameterizedTypeName temp = (ParameterizedTypeName) typeName;
+			return temp.typeArguments.get(0);
+		} else if (typeName instanceof ArrayTypeName) {
+			ArrayTypeName temp = (ArrayTypeName) typeName;
+			return temp.componentType;
+		}
+
+		return null;
+	}
+
+	public boolean isList() {
+		return TypeUtility.isList(typeName);
+	}
+
+	public boolean isCollection() {
+		return TypeUtility.isCollection(typeName);
+	}
+
+	public boolean isMap() {
+		return TypeUtility.isMap(typeName);
 	}
 
 }

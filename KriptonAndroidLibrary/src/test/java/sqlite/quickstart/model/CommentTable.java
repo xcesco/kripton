@@ -11,7 +11,7 @@ import java.lang.String;
  */
 public class CommentTable {
   /**
-   * Costant represents name of table comment
+   * Costant represents typeName of table comment
    */
   public static final String TABLE_NAME = "comment";
 
@@ -34,35 +34,35 @@ public class CommentTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS comment;";
 
   /**
-   * Entity's property <code>postId</code> is associated to table column <code>post_id</code>. This costant represents column name.
+   * Entity's property <code>postId</code> is associated to table column <code>post_id</code>. This costant represents column typeName.
    *
    *  @see Comment#postId
    */
   public static final String COLUMN_POST_ID = "post_id";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
    *
    *  @see Comment#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
    *
    *  @see Comment#name
    */
   public static final String COLUMN_NAME = "name";
 
   /**
-   * Entity's property <code>email</code> is associated to table column <code>email</code>. This costant represents column name.
+   * Entity's property <code>email</code> is associated to table column <code>email</code>. This costant represents column typeName.
    *
    *  @see Comment#email
    */
   public static final String COLUMN_EMAIL = "email";
 
   /**
-   * Entity's property <code>body</code> is associated to table column <code>body</code>. This costant represents column name.
+   * Entity's property <code>body</code> is associated to table column <code>body</code>. This costant represents column typeName.
    *
    *  @see Comment#body
    */

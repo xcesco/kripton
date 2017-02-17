@@ -89,12 +89,7 @@ public class BindSharedPreferencesProcessor extends BaseProcessor {
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-		try {
-			count++;
-			if (count > 1) {
-				return true;
-			}
-
+		try {			
 			model = new PrefModel();
 			int itemCounter = 0;
 

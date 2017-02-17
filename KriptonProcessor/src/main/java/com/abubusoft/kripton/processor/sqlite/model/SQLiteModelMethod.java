@@ -46,7 +46,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	/**
 	 * <p>
-	 * It is the name of parameter used to dynamic order by condition (defined at
+	 * It is the typeName of parameter used to dynamic order by condition (defined at
 	 * runtime).
 	 * </p>
 	 */
@@ -54,7 +54,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	/**
 	 * <p>
-	 * It is the name of parameter used to dynamic where condition (defined at
+	 * It is the typeName of parameter used to dynamic where condition (defined at
 	 * runtime).
 	 * </p>
 	 */
@@ -62,14 +62,14 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	
 	/**
 	 * <p>
-	 * It is the name of parameter used to dynamic page size (defined at
+	 * It is the typeName of parameter used to dynamic page size (defined at
 	 * runtime).
 	 * </p>
 	 */
 	public String dynamicPageSizeName;
 	
 	/**
-	 * name of the paginated result parameter name.
+	 * typeName of the paginated result parameter typeName.
 	 */
 	public String paginatedResultName;
 
@@ -203,9 +203,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	/**
 	 * Retrieve for a method's parameter its alias, used to work with queries.
-	 * If no alias is present, name will be used.
+	 * If no alias is present, typeName will be used.
 	 * 
-	 * @param name
+	 * @param typeName
 	 * @return
 	 */
 	public String findParameterAliasByName(String name) {
@@ -217,10 +217,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
-	 * Check if method contains a parameter with value as name
+	 * Check if method contains a parameter with value as typeName
 	 * 
 	 * @param nameOrAlias
-	 *            parameter name to find
+	 *            parameter typeName to find
 	 * @return TypeMirror associated
 	 */
 	public String findParameterNameByAlias(String nameOrAlias) {
@@ -241,10 +241,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
-	 * Check if method contains a parameter with value as name
+	 * Check if method contains a parameter with value as typeName
 	 * 
-	 * @param name
-	 *            parameter name to find
+	 * @param typeName
+	 *            parameter typeName to find
 	 * @return TypeMirror associated
 	 */
 	public TypeName findParameterTypeByAliasOrName(String name) {

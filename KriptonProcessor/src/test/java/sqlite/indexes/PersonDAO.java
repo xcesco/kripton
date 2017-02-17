@@ -17,15 +17,15 @@ public interface PersonDAO {
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 
-	@BindSqlSelect(orderBy="name")
+	@BindSqlSelect(orderBy="typeName")
 	List<Person> selectAll();
 	
-	@BindSqlSelect(where="name like ${nameTemp} || '%' and birthDay < ${date}")
+	@BindSqlSelect(where="typeName like ${nameTemp} || '%' and birthDay < ${date}")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlWhere String where, @BindSqlOrderBy String orderBy, Date date );
 	
-	@BindSqlSelect(orderBy="name")
+	@BindSqlSelect(orderBy="typeName")
 	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlOrderBy String orderBy);
 	
-//	@BindSqlSelect(orderBy="name")
+//	@BindSqlSelect(orderBy="typeName")
 //	void selectCursorListener(OnReadCursorListener cursorListener);
 }

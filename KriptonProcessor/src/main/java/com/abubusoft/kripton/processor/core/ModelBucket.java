@@ -23,10 +23,10 @@ import javax.lang.model.element.Element;
 public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends ModelEntity<E> {
 
 	/**
-	 * find property by its name
+	 * find property by its typeName
 	 * 
 	 * @param key
-	 *            simple name of property
+	 *            simple typeName of property
 	 * @return property or null
 	 */
 	public T findByName(String key) {

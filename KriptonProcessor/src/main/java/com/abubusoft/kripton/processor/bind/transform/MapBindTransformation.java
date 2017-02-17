@@ -53,7 +53,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 	}
 
 	private Class<?> defineMapClass(ParameterizedTypeName mapTypeName) {
-		if (mapTypeName.toString().startsWith(Map.class.getCanonicalName())) {
+		if (mapTypeName.rawType.toString().startsWith(Map.class.getCanonicalName())) {
 			// it's a list
 			return HashMap.class;
 		}
@@ -68,9 +68,12 @@ public class MapBindTransformation extends AbstractBindTransform {
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		// define key and value type
-		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getName();
-		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
-		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
+		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getTypeName();
+		//TODO QUA
+//		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
+//		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
+		TypeName keyTypeName = mapTypeName.typeArguments.get(0);
+		TypeName valueTypeName = mapTypeName.typeArguments.get(1);
 		
 		//@formatter:off
 		methodBuilder.beginControlFlow("");
@@ -82,8 +85,8 @@ public class MapBindTransformation extends AbstractBindTransform {
 		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
 		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).build();
 		
-		methodBuilder.addStatement("$T key", elementKeyProperty.getPropertyType().getName());
-		methodBuilder.addStatement("$T value", elementValueProperty.getPropertyType().getName());
+		methodBuilder.addStatement("$T key", elementKeyProperty.getPropertyType().getTypeName());
+		methodBuilder.addStatement("$T value", elementValueProperty.getPropertyType().getTypeName());
 				
 		if (property.xmlInfo.mapEntryType==MapEntryType.ATTRIBUTE)
 		{
@@ -161,9 +164,12 @@ public class MapBindTransformation extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		// define key and value type
-		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getName();
-		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
-		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
+		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getTypeName();
+		//TODO QUA
+//		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
+//		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
+		TypeName keyTypeName = mapTypeName.typeArguments.get(0);
+		TypeName valueTypeName = mapTypeName.typeArguments.get(1);
 		
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
@@ -226,9 +232,12 @@ public class MapBindTransformation extends AbstractBindTransform {
 
 	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		// define key and value type
-		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getName();
-		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
-		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
+		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getTypeName();
+		//TODO QUA
+//		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
+//		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
+		TypeName keyTypeName = mapTypeName.typeArguments.get(0);
+		TypeName valueTypeName = mapTypeName.typeArguments.get(1);
 		
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
@@ -316,9 +325,12 @@ public class MapBindTransformation extends AbstractBindTransform {
 
 	public void generateParseOnJacksonInternal(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		// define key and value type
-		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getName();
-		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
-		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
+		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getTypeName();
+		//TODO QUA
+//		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
+//		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
+		TypeName keyTypeName = mapTypeName.typeArguments.get(0);
+		TypeName valueTypeName = mapTypeName.typeArguments.get(1);
 		
 		//@formatter:off
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);		
@@ -329,8 +341,8 @@ public class MapBindTransformation extends AbstractBindTransform {
 		BindTransform transformValue=BindTransformer.lookup(valueTypeName);
 		BindProperty elementValueProperty=BindProperty.builder(valueTypeName, property).inCollection(false).xmlType(property.xmlInfo.mapEntryType.toXmlType()).elementName(property.mapValueName).nullable(true).build();
 		
-		methodBuilder.addStatement("$T key=$L", elementKeyProperty.getPropertyType().getName(), DEFAULT_VALUE);
-		methodBuilder.addStatement("$T value=$L", elementValueProperty.getPropertyType().getName(), DEFAULT_VALUE);
+		methodBuilder.addStatement("$T key=$L", elementKeyProperty.getPropertyType().getTypeName(), DEFAULT_VALUE);
+		methodBuilder.addStatement("$T value=$L", elementValueProperty.getPropertyType().getTypeName(), DEFAULT_VALUE);
 		if (onString) {
 			methodBuilder.addStatement("$T current", JsonToken.class);
 			methodBuilder.addStatement("String tempValue=null");

@@ -26,7 +26,7 @@ public class ModelAnnotation {
 	protected String name;
 
 	/**
-	 * @return the name
+	 * @return the typeName
 	 */
 	public String getName() {
 		return name;

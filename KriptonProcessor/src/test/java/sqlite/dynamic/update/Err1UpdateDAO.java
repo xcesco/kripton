@@ -9,14 +9,14 @@ import sqlite.dynamic.Person;
 public interface Err1UpdateDAO {
 	/*
 	@BindSqlInsert
-	void insertOne(String name, String surname, String birthCity, Date birthDay);
+	void insertOne(String typeName, String surname, String birthCity, Date birthDay);
 
-	@BindSqlSelect(where="name like ${nameTemp} || '%' ")
+	@BindSqlSelect(where="typeName like ${nameTemp} || '%' ")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue);
 	*/
 	@BindSqlUpdate
 	void update();
 	
-//	@BindSqlSelect(orderBy="name")
+//	@BindSqlSelect(orderBy="typeName")
 //	void selectCursorListener(OnReadCursorListener cursorListener);
 }

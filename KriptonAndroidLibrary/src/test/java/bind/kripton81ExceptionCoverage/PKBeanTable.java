@@ -11,7 +11,7 @@ import java.lang.String;
  */
 public class PKBeanTable {
   /**
-   * Costant represents name of table p_k_bean
+   * Costant represents typeName of table p_k_bean
    */
   public static final String TABLE_NAME = "p_k_bean";
 
@@ -34,14 +34,14 @@ public class PKBeanTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS p_k_bean;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
    *
    *  @see PKBean#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>description</code> is associated to table column <code>description</code>. This costant represents column name.
+   * Entity's property <code>description</code> is associated to table column <code>description</code>. This costant represents column typeName.
    *
    *  @see PKBean#description
    */

@@ -18,7 +18,10 @@ package com.abubusoft.kripton.processor.core.reflect;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -67,8 +70,8 @@ public abstract class TypeUtility {
 		return isTypeIncludedIn(value, Byte.class, Character.class, Boolean.class, Short.class, Integer.class, Long.class, Float.class, Double.class);
 	}
 
-	public static boolean isSameType(TypeName value, String className) {
-		return value.toString().equals(className);
+	public static boolean isEquals(TypeName value, String className) {
+		return isEquals(value, typeName(className));		
 	}
 
 	/**
@@ -96,7 +99,7 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Check if class that is rapresented by value has same name of entity
+	 * Check if class that is rapresented by value has same typeName of entity
 	 * parameter.
 	 * 
 	 * @param value
@@ -104,11 +107,11 @@ public abstract class TypeUtility {
 	 * @return true if value is equals to className.
 	 */
 	public static boolean isEquals(TypeName value, ModelClass<?> entity) {
-		return isSameType(value, entity.getName());
+		return isEquals(value, entity.getName());
 	}
 
 	/**
-	 * Check if class that is rapresented by value has same name of entity
+	 * Check if class that is rapresented by value has same typeName of entity
 	 * parameter.
 	 * 
 	 * @param value
@@ -120,22 +123,22 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Generate class name
+	 * Generate class typeName
 	 * 
 	 * @param packageName
 	 * @param className
 	 * @param prefix
-	 * @return class name generated
+	 * @return class typeName generated
 	 */
 	public static ClassName classNameWithPrefix(String packageName, String className, String prefix) {
 		return ClassName.get(packageName, className + prefix);
 	}
 
 	/**
-	 * Generate class name
+	 * Generate class typeName
 	 * 
 	 * @param className
-	 * @return class name generated
+	 * @return class typeName generated
 	 */
 	public static ClassName className(String className) {
 		int index = className.lastIndexOf(".");
@@ -181,8 +184,12 @@ public abstract class TypeUtility {
 			return ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()), typeName(literalType.getTypeParameter()));
 		}
 		
-		if (typeMirror instanceof ModelType) {
-			return ((ModelType) typeMirror).getName();
+		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT, TypeName.VOID};
+
+		for (TypeName item : values) {
+			if (typeMirror.toString().equals(item.toString())) {
+				return item;
+			}
 		}
 
 		return TypeName.get(typeMirror);
@@ -205,13 +212,13 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Convert a TypeMirror in a typeName
+	 * Convert a TypeMirror in a typeName, or classname or whatever
 	 * 
 	 * @param typeName
 	 * @return typeName
 	 */
 	public static TypeName typeName(String typeName) {
-		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT };
+		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT, TypeName.VOID};
 
 		for (TypeName item : values) {
 			if (item.toString().equals(typeName)) {
@@ -219,8 +226,13 @@ public abstract class TypeUtility {
 			}
 		}
 
-		if (typeName.endsWith("[]")) {
-			return ArrayTypeName.of(typeName(typeName.substring(0, typeName.length() - 2)));
+		LiteralType literalName=LiteralType.of(typeName);
+		if (literalName.isParametrizedType())
+		{
+			return ParameterizedTypeName.get(className(literalName.getRawType()), typeName(literalName.getTypeParameter()));
+		} if (literalName.isArray())
+		{
+			return ArrayTypeName.of(typeName(literalName.getRawType()));
 		}
 		
 		return ClassName.bestGuess(typeName);
@@ -240,7 +252,7 @@ public abstract class TypeUtility {
 	}
 
 	public static boolean isNullable(ModelProperty property) {
-		return isNullable(property.getPropertyType().getName());
+		return isNullable(property.getPropertyType().getTypeName());
 	}
 
 	/**
@@ -269,11 +281,11 @@ public abstract class TypeUtility {
 	 * @param property
 	 */
 	public static void checkTypeCompatibility(SQLiteModelMethod method, Pair<String, TypeName> item, ModelProperty property) {
-		if (!TypeUtility.isEquals(item.value1, property.getPropertyType().getName())) {
+		if (!TypeUtility.isEquals(item.value1, property.getPropertyType().getTypeName())) {
 			// ASSERT: property is not nullable but method yes, so we throw an
 			// exception
 			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s'. They have to be same type  ", property.getName(),
-					property.getPropertyType().getName(), item.value0, item.value1.toString())));
+					property.getPropertyType().getTypeName(), item.value0, item.value1.toString())));
 		}
 	}
 
@@ -355,35 +367,35 @@ public abstract class TypeUtility {
 		return false;
 	}
 
-	public static boolean isList(TypeName typeName) {
-		if (typeName instanceof ParameterizedTypeName) {
-			LiteralType lt = LiteralType.of(typeName.toString());
+//	public static boolean isList(TypeName typeName) {
+//		if (typeName instanceof ParameterizedTypeName) {
+//			LiteralType lt = LiteralType.of(typeName.toString());
+//
+//			return lt.isList();
+//		}
+//
+//		return false;
+//	}
 
-			return lt.isList();
-		}
+//	public static boolean isSet(TypeName typeName) {
+//		if (typeName instanceof ParameterizedTypeName) {
+//			LiteralType lt = LiteralType.of(typeName.toString());
+//
+//			return lt.isSet();
+//		}
+//
+//		return false;
+//	}
 
-		return false;
-	}
-
-	public static boolean isSet(TypeName typeName) {
-		if (typeName instanceof ParameterizedTypeName) {
-			LiteralType lt = LiteralType.of(typeName.toString());
-
-			return lt.isSet();
-		}
-
-		return false;
-	}
-
-	public static boolean isMap(TypeName typeName) {
-		if (typeName instanceof ParameterizedTypeName) {
-			LiteralType lt = LiteralType.of(typeName.toString());
-
-			return lt.isMap();
-		}
-
-		return false;
-	}
+//	public static boolean isMap(TypeName typeName) {
+//		if (typeName instanceof ParameterizedTypeName) {
+//			LiteralType lt = LiteralType.of(typeName.toString());
+//
+//			return lt.isMap();
+//		}
+//
+//		return false;
+//	}
 
 	public static TypeName typeName(TypeElement element, String suffix) {
 		String fullName = element.getQualifiedName().toString() + suffix;
@@ -405,7 +417,7 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Return simple name of class
+	 * Return simple typeName of class
 	 * 
 	 * @param clazz
 	 * @return
@@ -530,5 +542,41 @@ public abstract class TypeUtility {
 			return declaredType.toString();
 		}
 	}
+
+	public static boolean isCollection(TypeName typeName) {
+		return isAssignable(typeName, Collection.class);
+	}
+	
+	public static boolean isList(TypeName typeName) {		
+		return isAssignable(typeName, List.class);
+	}
+	
+	public static boolean isSet(TypeName typeName) {		
+		return isAssignable(typeName, Set.class);
+	}
+
+	
+	public static boolean isMap(TypeName typeName) {
+		return isAssignable(typeName, Map.class);
+	}
+	
+	public static boolean isAssignable(TypeName typeName, Class<?> assignableClazz) {
+		try {			
+			if (typeName instanceof ParameterizedTypeName)
+			{
+				typeName=((ParameterizedTypeName)typeName).rawType;
+			} else if (typeName instanceof ArrayTypeName)
+			{
+				typeName=((ArrayTypeName)typeName).componentType;
+			}
+			
+			Class<?> resolvedType = Class.forName(typeName.toString());
+			return assignableClazz.isAssignableFrom(resolvedType);
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+	}
+	
+	
 
 }

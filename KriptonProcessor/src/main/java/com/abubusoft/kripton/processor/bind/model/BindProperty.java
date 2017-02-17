@@ -122,12 +122,12 @@ public class BindProperty extends ModelProperty {
 		public MapEntryType mapEntryType = MapEntryType.TAG;
 
 		/**
-		 * tag name used for item or collection (if element is a collection)
+		 * tag typeName used for item or collection (if element is a collection)
 		 */
 		// public String itemTag;
 
 		/**
-		 * tag name for collection's item
+		 * tag typeName for collection's item
 		 */
 		public String labelItem;
 

@@ -26,7 +26,7 @@ import sqlite.kripton58.BeanInnerBindMap;
  */
 public class BeanBeanTable {
   /**
-   * Costant represents name of table bean_bean
+   * Costant represents typeName of table bean_bean
    */
   public static final String TABLE_NAME = "bean_bean";
 
@@ -49,21 +49,21 @@ public class BeanBeanTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean_bean;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
    *
    *  @see BeanBean#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
+   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column typeName.
    *
    *  @see BeanBean#value
    */
   public static final String COLUMN_VALUE = "value";
 
   /**
-   * Entity's property <code>value2</code> is associated to table column <code>value2</code>. This costant represents column name.
+   * Entity's property <code>value2</code> is associated to table column <code>value2</code>. This costant represents column typeName.
    *
    *  @see BeanBean#value2
    */

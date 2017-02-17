@@ -25,7 +25,7 @@ import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 @BindDao(Bean93.class)
 public interface Bean93Dao {
 	
-	@BindSqlSelect(where="name like ${name} || '%'")
+	@BindSqlSelect(where="typeName like ${name} || '%'")
 	Bean93 selectByBean(String name);
 	
 	@BindSqlSelect

@@ -16,7 +16,7 @@ import sqlite.dynamic.Person;
 
 @BindDao(Person.class)
 public interface PersonUpdateDAO {
-	@BindSqlSelect(where="name like ${nameTemp} || '%' ")
+	@BindSqlSelect(where="typeName like ${nameTemp} || '%' ")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue);
 	
 	@BindSqlDelete(where="id = ${nameValue}")

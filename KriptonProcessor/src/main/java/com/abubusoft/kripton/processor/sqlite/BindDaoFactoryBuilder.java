@@ -66,7 +66,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 	 * @param schema
 	 * 
 	 * @return
-	 * 		schema name
+	 * 		schema typeName
 	 * 
 	 * @throws Exception
 	 */
@@ -92,7 +92,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 	 * @param schema
 	 * 
 	 * @return
-	 * 		schema name
+	 * 		schema typeName
 	 * 
 	 * @throws Exception
 	 */

@@ -36,15 +36,6 @@ import javax.lang.model.type.TypeVisitor;
  */
 public class LiteralType {
 	
-//	public enum ParsedType
-//	{
-//		PRIMITIVE_TYPE,
-//		NULL_TYPE,
-//		ARRAY_TYPE,
-//		DECLARED_TYPE,
-//		SIMPLE_TYPE
-//	}
-	
 	final static Map<String, LiteralType> cached=new HashMap<String, LiteralType>();
 
 	private static final int GROUP_TYPE_GENERIC_INDEX = 1;
@@ -55,10 +46,6 @@ public class LiteralType {
 
 	private static final int GROUP_SIMPLE_INDEX = 4;
 	
-//	private ParsedType parsedType;
-//	
-//	public  ParsedType parsedType() {return parsedType; }
-
 	private String value;
 	
 	/**
@@ -142,7 +129,6 @@ public class LiteralType {
 						try {
 							result.resolvedRawType = Class.forName(result.rawType);
 						} catch (ClassNotFoundException e) {
-							e.printStackTrace();
 						}
 					}
 				} else {
@@ -150,13 +136,11 @@ public class LiteralType {
 					result.rawType = result.value;
 					result.primitive = true;
 
-					// Class<?> primitive[]={Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class};
 					Class<?> resolved[] = { Byte.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
 
 					for (Class<?> i : resolved) {
 						if (result.rawType.equals(i.getSimpleName())) {
 							result.resolvedRawType = i;
-							//result.parsedType=ParsedType.PRIMITIVE_TYPE;
 							break;
 						}
 					}
@@ -164,7 +148,6 @@ public class LiteralType {
 					if (result.rawType.equals(Void.TYPE.getSimpleName()))
 					{
 						result.resolvedRawType=Void.TYPE;
-						//result.parsedType=ParsedType.NULL_TYPE;
 					}
 				}
 
@@ -175,10 +158,6 @@ public class LiteralType {
 
 	public boolean isArray() {
 		return array;
-	}
-	
-	public static LiteralType of(Class<?> clazz) {
-		return of(clazz.getCanonicalName());				
 	}
 
 	public static LiteralType of(String clazzString) {
@@ -193,7 +172,6 @@ public class LiteralType {
 			
 			return newValue;
 		}
-				
 	}
 	
 	public static LiteralType of(String rawType, String parametrizedType) {
@@ -218,30 +196,6 @@ public class LiteralType {
 	
 	public boolean isCollection() {
 		if (isResolved() && Collection.class.isAssignableFrom(resolvedRawType)) {
-			return true;
-		}
-
-		return false;
-	}
-
-	public boolean isList() {		
-		if (isResolved() && List.class.isAssignableFrom(resolvedRawType)) {
-			return true;
-		}
-
-		return false;
-	}
-	
-	public boolean isSet() {		
-		if (isResolved() && Set.class.isAssignableFrom(resolvedRawType)) {
-			return true;
-		}
-
-		return false;
-	}
-
-	public boolean isMap() {
-		if (isResolved() && Map.class.isAssignableFrom(resolvedRawType)) {
 			return true;
 		}
 

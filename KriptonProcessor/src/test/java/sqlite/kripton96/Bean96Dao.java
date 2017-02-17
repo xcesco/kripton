@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 @BindDao(Bean96.class)
 public interface Bean96Dao {
 	
-	@BindSqlSelect(where="name like ${name} || '%'")
+	@BindSqlSelect(where="typeName like ${name} || '%'")
 	Bean96 selectByBean(String name);
 
 	@BindSqlInsert

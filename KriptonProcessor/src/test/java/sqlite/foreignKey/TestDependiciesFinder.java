@@ -16,7 +16,7 @@ public class TestDependiciesFinder {
 
 		@Override
 		public String toString() {
-			return "Dummy[name=" + name + "]";
+			return "Dummy[typeName=" + name + "]";
 		}
 
 		public final String name;

@@ -11,7 +11,7 @@ import java.lang.String;
  */
 public class Bean01EntityTable {
   /**
-   * Costant represents name of table bean01
+   * Costant represents typeName of table bean01
    */
   public static final String TABLE_NAME = "bean01";
 
@@ -34,14 +34,14 @@ public class Bean01EntityTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean01;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
    *
    *  @see Bean01Entity#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
+   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column typeName.
    *
    *  @see Bean01Entity#text
    */

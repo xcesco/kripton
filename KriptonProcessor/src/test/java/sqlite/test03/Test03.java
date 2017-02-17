@@ -21,8 +21,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.processor.utils.LiteralType;
-
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 /**
@@ -50,17 +48,5 @@ public class Test03 extends AbstractBindSQLiteProcessorTest {
 		buildDataSourceProcessorTest(Dummy02DataSource.class, DaoBean02.class, Bean01.class, Bean02.class);
 	}
 
-	@Test
-	public void test02() {
-		String values[] = { "long", "long[]", "java.util.List<com.abubusoft.kripton.processor.test03.Bean02>", "java.lang.String",
-				"java.util.Map<java.lang.String, com.abubusoft.kripton.processor.test03.Bean02>" };
-
-		for (String item : values) {
-			LiteralType type = LiteralType.of(item);
-
-			log("Type: %s, Array: %s, Collection: %s, Primitive: %s, Resolved: %s, List: %s, Map: %s ", type.getRawType(), type.isArray(), type.isCollection(), type.isPrimitive(), type.isResolved(),
-					type.isList(), type.isMap());
-		}
-	}
 
 }

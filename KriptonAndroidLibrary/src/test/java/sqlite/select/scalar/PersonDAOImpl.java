@@ -25,11 +25,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT name FROM person ORDER BY name</pre>
+   * <pre>SELECT type_name FROM person ORDER BY typeName</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>no bean's property is associated</dd>
+   * 	<dt>type_name</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -40,8 +40,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT name FROM person ORDER BY name",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT name FROM person ORDER BY name", _args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT type_name FROM person ORDER BY typeName",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT type_name FROM person ORDER BY typeName", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       String result=null;
 
@@ -57,7 +57,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT birth_day FROM person ORDER BY name</pre>
+   * <pre>SELECT birth_day FROM person ORDER BY typeName</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -72,8 +72,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT birth_day FROM person ORDER BY name",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT birth_day FROM person ORDER BY name", _args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT birth_day FROM person ORDER BY typeName",(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT birth_day FROM person ORDER BY typeName", _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Date result=null;
 

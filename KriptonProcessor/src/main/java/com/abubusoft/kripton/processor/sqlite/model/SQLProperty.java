@@ -26,7 +26,7 @@ public class SQLProperty extends ManagedModelProperty {
 	}
 	
 	/**
-	 * name of the column
+	 * typeName of the column
 	 */
 	public String columnName;
 

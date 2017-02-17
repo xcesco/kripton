@@ -167,7 +167,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			// there's an type adapter
 			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
 
-			// in a collection we need to insert only value, not field name
+			// in a collection we need to insert only value, not field typeName
 			if (property.isInCollection()) {
 				methodBuilder.addStatement("$L.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, JSON_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 			} else {
@@ -176,7 +176,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		} else {
 			// there's no type adapter
 			
-			// in a collection we need to insert only value, not field name
+			// in a collection we need to insert only value, not field typeName
 			if (property.isInCollection()) {
 				methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
 			} else {
@@ -201,7 +201,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
 
 			if (property.isInCollection()) {
-				// in a collection we need to insert only value, not field name
+				// in a collection we need to insert only value, not field typeName
 				methodBuilder.addStatement("$L.writeString($T.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+"))", serializerName,PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE,  TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 			} else {
 				// we need to write only value
@@ -212,7 +212,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			// there's no type adapter
 			
 			if (property.isInCollection()) {
-				// in a collection we need to insert only value, not field name
+				// in a collection we need to insert only value, not field typeName
 				methodBuilder.addStatement("$L.writeString($T.write$L($L))", serializerName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
 			} else {
 				// we need to write only value

@@ -21,7 +21,9 @@ import java.util.logging.Logger;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.CaseFormat;
@@ -97,6 +99,11 @@ public abstract class PropertyUtility {
 		for (Element item : list) {
 			methodName = item.getSimpleName().toString();
 			if (item.getKind() == ElementKind.METHOD && item.getModifiers().contains(Modifier.PUBLIC)) {
+				ExecutableElement  method=(ExecutableElement)item;
+				
+				// this method can not be usefull
+				if (method.getParameters().size()>1) continue;
+				
 				status = -1;
 				if (methodName.startsWith(GET_PREFIX)) {
 					status = 0;
@@ -112,13 +119,18 @@ public abstract class PropertyUtility {
 				propertyName = converter.convert(propertyName);
 				if (entity.contains(propertyName)) {
 					currentKriptonField = entity.get(propertyName);
-					Pair<String, String> result = SelectBuilderUtility.extractResultAndArguments(item.asType().toString());
+					
+					TypeMirror paramTypeMirror=method.getParameters().size()==1 ? method.getParameters().get(0).asType(): null;
+					TypeMirror returnTypeMirror=method.getReturnType();
 
-					if (currentKriptonField.isType(result.value1) && status == 0) {
+					// GET
+					if (status == 0 && currentKriptonField.isType(entity.resolveTypeVariable(TypeUtility.typeName(returnTypeMirror)))) {
 						currentKriptonField.setFieldWithGetter(true);
-					} else if (currentKriptonField.isType(result.value1) && status == 1) {
+					// IS
+					} else if (status == 1 && currentKriptonField.isType(entity.resolveTypeVariable(TypeUtility.typeName(returnTypeMirror)))) {
 						currentKriptonField.setFieldWithIs(true);
-					} else if (currentKriptonField.isType(result.value0) && status == 2) {
+					// SET
+					} else if (status == 2 && currentKriptonField.isType(entity.resolveTypeVariable(TypeUtility.typeName(paramTypeMirror)))) {
 						currentKriptonField.setFieldWithSetter(true);
 					}
 

@@ -25,14 +25,14 @@ public class EntityBean {
 	protected String name;
 
 	/**
-	 * @return the name
+	 * @return the typeName
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param typeName the typeName to set
 	 */
 	public void setName(String name) {
 		this.name = name;

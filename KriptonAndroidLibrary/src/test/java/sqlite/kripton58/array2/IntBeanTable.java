@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class IntBeanTable {
   /**
-   * Costant represents name of table int_bean
+   * Costant represents typeName of table int_bean
    */
   public static final String TABLE_NAME = "int_bean";
 
@@ -47,21 +47,21 @@ public class IntBeanTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS int_bean;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
    *
    *  @see IntBean#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
+   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column typeName.
    *
    *  @see IntBean#value
    */
   public static final String COLUMN_VALUE = "value";
 
   /**
-   * Entity's property <code>value2</code> is associated to table column <code>value2</code>. This costant represents column name.
+   * Entity's property <code>value2</code> is associated to table column <code>value2</code>. This costant represents column typeName.
    *
    *  @see IntBean#value2
    */

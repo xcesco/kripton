@@ -128,7 +128,7 @@ public abstract class SqlModifyBuilder {
 
 			// check if there is only one parameter
 			AssertKripton.failWithInvalidMethodSignException(
-					method.getParameters().size() > 1 && TypeUtility.isSameType(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()), method);
+					method.getParameters().size() > 1 && TypeUtility.isEquals(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()), method);
 
 		} else if (count == 1) {
 			updateResultType = updateMode ? ModifyType.UPDATE_BEAN : ModifyType.DELETE_BEAN;

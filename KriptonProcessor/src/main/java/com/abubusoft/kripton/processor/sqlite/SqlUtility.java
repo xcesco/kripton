@@ -38,7 +38,7 @@ public class SqlUtility {
 	private static final Pattern WORD = Pattern.compile("([_a-zA-Z]\\w*)");
 
 	/**
-	 * Extract from value string every placeholder ${}, replace it with ? and then convert every field name with column name. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
+	 * Extract from value string every placeholder ${}, replace it with ? and then convert every field typeName with column typeName. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
 	 * ?. This second parameter is the list of parameters and replaced with ?.
 	 * 
 	 * @param value
@@ -97,7 +97,7 @@ public class SqlUtility {
 	}
 	
 	/**
-	 * Extract from value string every placeholder ${}, replace it with ? and then convert every field name with column name. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
+	 * Extract from value string every placeholder ${}, replace it with ? and then convert every field typeName with column typeName. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
 	 * ?. This second parameter is the list of parameters and replaced with ?.
 	 * 
 	 * @param value
@@ -125,29 +125,29 @@ public class SqlUtility {
 	}
 
 	/**
-	 * Convert java property name in sql column name.
+	 * Convert java property typeName in sql column typeName.
 	 */
 	static Converter<String, String> field2ColumnConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	/**
-	 * Convert java property name in sql column name.
+	 * Convert java property typeName in sql column typeName.
 	 */
 	static Converter<String, String> field2ColumnNameFromTableConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);
 
 	/**
-	 * Obtain column name for property
+	 * Obtain column typeName for property
 	 * 
 	 * @param property
-	 * @return column name
+	 * @return column typeName
 	 */
 	public static String getColumnName(ModelProperty property) {
 		return getColumnName(property.getName());
 	}
 
 	/**
-	 * Obtain column name for property
+	 * Obtain column typeName for property
 	 * 
-	 * @return column name
+	 * @return column typeName
 	 */
 	public static String getColumnName(String propertyName) {
 		return field2ColumnConverter.convert(propertyName);

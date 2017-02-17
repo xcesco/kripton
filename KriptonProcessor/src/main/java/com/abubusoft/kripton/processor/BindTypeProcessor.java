@@ -81,19 +81,19 @@ public class BindTypeProcessor extends BaseProcessor {
 
 			parseBindType(roundEnv, elementUtils);
 
-			// Put all @BindType elements in beanElements
+			// Build model
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
 				AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
 
 				BindEntityBuilder.build(model, elementUtils, (TypeElement) item);
-
 				itemCounter++;
 			}
 
 			if (itemCounter == 0) {
 				info("No class with @BindType annotation was found");
 			}
-
+			
+			// Generate classes for model
 			for (BindEntity item : model.getEntities()) {
 				BindTypeBuilder.generate(elementUtils, filer, item);
 			}

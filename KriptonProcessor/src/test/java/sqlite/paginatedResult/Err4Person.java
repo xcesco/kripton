@@ -26,7 +26,7 @@ public class Err4Person {
 		builder.append(id);
 		builder.append(", ");
 		if (name != null) {
-			builder.append("name=");
+			builder.append("typeName=");
 			builder.append(name);
 			builder.append(", ");
 		}

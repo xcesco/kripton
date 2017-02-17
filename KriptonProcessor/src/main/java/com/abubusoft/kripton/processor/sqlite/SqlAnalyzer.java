@@ -61,7 +61,7 @@ public class SqlAnalyzer {
 	}
 
 	/**
-	 * bean properties name used into statement.
+	 * bean properties typeName used into statement.
 	 */
 	private List<String> usedBeanPropertyNames;
 
@@ -96,7 +96,7 @@ public class SqlAnalyzer {
 	}
 
 	/**
-	 * Extract from value string every placeholder ${}, replace it with ? and then convert every field name with column name. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
+	 * Extract from value string every placeholder ${}, replace it with ? and then convert every field typeName with column typeName. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
 	 * ?. This second parameter is the list of parameters and replaced with ?.
 	 * 
 	 */
@@ -125,7 +125,7 @@ public class SqlAnalyzer {
 			sqlStatement = buffer.toString();
 		}
 
-		// replace property name to column name
+		// replace property typeName to column typeName
 		{
 			Matcher matcher = WORD.matcher(sqlStatement);
 

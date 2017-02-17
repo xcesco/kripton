@@ -16,28 +16,28 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 @BindDao(Person.class)
 public interface PersonDAO {
 	
-	@BindSqlUpdate(where="name=${name}")
+	@BindSqlUpdate(where="typeName=${name}")
 	void updateOne(String name, String surname, String birthCity, Date birthDay);
 
 	@BindSqlUpdate
 	long updateTwo(String name, String surname, String birthCity, @BindSqlParam("birthDay") Date date);
 
-	@BindSqlUpdate(excludedFields={"surname"},where="id=${bean.id} and name=${bean.name}")
+	@BindSqlUpdate(excludedFields={"surname"},where="id=${bean.id} and typeName=${bean.name}")
 	void updateThreeExclude(Person bean);
 	
-	@BindSqlUpdate(where="id=${bean.id} and name=${bean.name}")
+	@BindSqlUpdate(where="id=${bean.id} and typeName=${bean.name}")
 	void updateThreeInclude(Person bean);
 	
-	@BindSqlUpdate(value={"surname"},where="id=${bean.id} and name=${bean.name}")
+	@BindSqlUpdate(value={"surname"},where="id=${bean.id} and typeName=${bean.name}")
 	void updateThreeIncludeOK(Person bean);
 	
-	@BindSqlSelect(value={"name"},where="id=${bean.id} and name=${bean.name}")
+	@BindSqlSelect(value={"typeName"},where="id=${bean.id} and typeName=${bean.name}")
 	List<Person> selectThreeIncludeERR(Person bean);
 	
-	@BindSqlUpdate(value={"name"},where="id=${bean.id} and name=${bean.name}")
+	@BindSqlUpdate(value={"typeName"},where="id=${bean.id} and typeName=${bean.name}")
 	void updateThreeIncludeERR(Person bean);
 	
-	@BindSqlUpdate(where="surname=${surname} and name=${nameValue}")
+	@BindSqlUpdate(where="surname=${surname} and typeName=${nameValue}")
 	void updateThreeIncludeERR(String name, String surname, String nameValue);
 	
 	
@@ -47,28 +47,28 @@ public interface PersonDAO {
 	@BindSqlInsert
 	long insertTwo(String name, String surname, String birthCity, @BindSqlParam("birthDay") Date date);
 
-	@BindSqlInsert(excludedFields = { "name", "surname" })
+	@BindSqlInsert(excludedFields = { "typeName", "surname" })
 	void insertThree(Person bean);
 
-	@BindSqlDelete(where = "name=${name} and surname=${surname}")
+	@BindSqlDelete(where = "typeName=${typeName} and surname=${surname}")
 	void deleteOne(String name, @BindSqlParam("surname") String temp);
 
-	@BindSqlDelete(where = "name=${name} and surname=${surname}")
+	@BindSqlDelete(where = "typeName=${typeName} and surname=${surname}")
 	long deleteTwo(String name, @BindSqlParam("surname") String temp);
 
 	@BindSqlDelete(where = " id = ${bean.id} ")
 	void deleteThree(Person bean);
 	
-	@BindSqlSelect(orderBy="name")
+	@BindSqlSelect(orderBy="typeName")
 	List<Person> selectAll();
 	
-	@BindSqlSelect(where="name like ${name} || '%%' ", orderBy="name")
+	@BindSqlSelect(where="typeName like ${typeName} || '%%' ", orderBy="typeName")
 	Set<Person> selectAll(String name);
 	
-	@BindSqlSelect(orderBy="name")
+	@BindSqlSelect(orderBy="typeName")
 	void selectBeanListener(OnReadBeanListener<Person> beanListener);
 	
-	@BindSqlSelect(orderBy="name")
+	@BindSqlSelect(orderBy="typeName")
 	void selectCursorListener(OnReadCursorListener cursorListener);
 	
 }

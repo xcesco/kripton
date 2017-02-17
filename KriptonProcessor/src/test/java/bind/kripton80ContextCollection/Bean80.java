@@ -21,7 +21,7 @@ import bind.kripton80ContextCollection.BeanEnum;
 @BindType("root")
 public class Bean80 {
 	
-	@Bind("name")
+	@Bind("typeName")
 	@BindXml(xmlType=XmlType.TAG)
 	protected long id;
 	

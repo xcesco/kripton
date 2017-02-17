@@ -204,12 +204,6 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					logArgsBuffer.append(separator + "%s");
 
 					paramName = paramTypeNames.get(i);
-//
-//					if (paramTypeName instanceof ModelType) {
-//						paramName = ((ModelType) paramTypeName).getName();
-//					} else {
-//						paramName = typeName(paramTypeName);
-//					}
 
 					// code for query arguments
 					nullable = TypeUtility.isNullable(paramName);

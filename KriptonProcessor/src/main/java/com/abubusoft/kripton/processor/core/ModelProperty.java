@@ -26,6 +26,7 @@ import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.TypeName;
 
 @BindType
 public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {	
@@ -129,6 +130,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	public ModelType getPropertyType() {
 		return propertyType;
 	}
+	
 
 	protected boolean publicField;
 	
@@ -202,12 +204,12 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		visitor.visit(this);		
 	}
 
-	public boolean isType(String value) {
-		return this.getPropertyType().isEquals(value);
+	public boolean isType(TypeName value) {
+		return TypeUtility.isEquals(getPropertyType().getTypeName(), value);		
 	}
 
 	public boolean isType(Type ... types) {
-		return TypeUtility.isTypeIncludedIn(propertyType.name, types);		
+		return TypeUtility.isTypeIncludedIn(propertyType.typeName, types);		
 	}
 		
 		

@@ -59,7 +59,7 @@ import android.preference.PreferenceManager;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class BindSharedPreferencesBuilder {
+public abstract class BindSharedPreferencesBuilder {
 
 	protected static final String PREFIX = "Bind";
 
@@ -72,7 +72,7 @@ public class BindSharedPreferencesBuilder {
 	/**
 	 * Generate shared preference manager
 	 * 
-	 * @return name of generated class
+	 * @return typeName of generated class
 	 * 
 	 * @throws IOException
 	 */
@@ -113,7 +113,7 @@ public class BindSharedPreferencesBuilder {
 
 		if (StringUtils.hasText(sharedPreferenceName)) {
 			builder.addField(FieldSpec.builder(String.class, "SHARED_PREFERENCE_NAME", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).initializer("$S", converter.convert(entity.getSimpleName().toString()))
-					.addJavadoc("shared preferences name for $T\n", entity.getElement()).build());
+					.addJavadoc("shared preferences typeName for $T\n", entity.getElement()).build());
 		}
 
 		builder.addField(FieldSpec.builder(className(beanClassName), "defaultBean", Modifier.PRIVATE, Modifier.FINAL).addJavadoc("working instance of bean\n").build());
@@ -200,10 +200,10 @@ public class BindSharedPreferencesBuilder {
 	private static void generateConstructor(String sharedPreferenceName, String beanClassName) {
 		MethodSpec.Builder method = MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).addJavadoc("constructor\n");
 		if (StringUtils.hasText(sharedPreferenceName)) {
-			method.addCode("// using name attribute of annotation @BindSharedPreferences as name\n");
+			method.addCode("// using typeName attribute of annotation @BindSharedPreferences as typeName\n");
 			method.addStatement("prefs=$T.context().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
 		} else {
-			method.addCode("// no name specified, using default shared preferences\n");
+			method.addCode("// no typeName specified, using default shared preferences\n");
 			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.context())", PreferenceManager.class, KriptonLibrary.class);
 		}
 
@@ -265,7 +265,7 @@ public class BindSharedPreferencesBuilder {
 
 		for (PrefProperty item : entity.getCollection()) {
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(item.getName()).addModifiers(Modifier.PUBLIC).addJavadoc("read property $L\n\n", item.getName()).addJavadoc("@return property $L value\n", item.getName())
-					.returns(item.getPropertyType().getName());
+					.returns(item.getPropertyType().getTypeName());
 
 			transform = PrefsTransformer.lookup(item);
 			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "defaultBean", item, false);

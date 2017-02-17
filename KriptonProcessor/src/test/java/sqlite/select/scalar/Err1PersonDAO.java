@@ -10,6 +10,6 @@ import sqlite.select.Person;
 @BindDao(Person.class)
 public interface Err1PersonDAO {
 
-	@BindSqlSelect(value={"name", "birthDay"}, orderBy="name")
+	@BindSqlSelect(value={"typeName", "birthDay"}, orderBy="typeName")
 	Date selectAll2();	
 }

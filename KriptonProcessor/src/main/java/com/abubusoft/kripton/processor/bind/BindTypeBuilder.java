@@ -131,7 +131,7 @@ public abstract class BindTypeBuilder {
 	protected static final String SUFFIX = KriptonBinder.MAPPER_CLASS_SUFFIX;
 
 	/**
-	 * @return name of generated class
+	 * @return typeName of generated class
 	 * 
 	 * @throws IOException
 	 */
@@ -164,7 +164,7 @@ public abstract class BindTypeBuilder {
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc("@see $T\n", item.getElement());
 
-		// order item by order, property name
+		// order item by order, property typeName
 		Collections.sort(item.getCollection(), new Comparator<BindProperty>() {
 
 			@Override
@@ -346,7 +346,7 @@ public abstract class BindTypeBuilder {
 
 				bindTransform = BindTransformer.lookup(property);
 				methodBuilder.addCode("// field $L (mapped by $S)\n", property.getName(), property.label);
-				bindTransform.generateParseOnXml(context, methodBuilder, "xmlParser", property.getPropertyType().getName(), "instance", property);
+				bindTransform.generateParseOnXml(context, methodBuilder, "xmlParser", property.getPropertyType().getTypeName(), "instance", property);
 
 				methodBuilder.addStatement("$<break");
 			}
@@ -403,7 +403,7 @@ public abstract class BindTypeBuilder {
 
 					// methodBuilder.beginControlFlow("if
 					// (!xmlParser.isEmptyElement())");
-					bindTransform.generateParseOnXml(context, methodBuilder, "xmlParser", property.getPropertyType().getName(), "instance", property);
+					bindTransform.generateParseOnXml(context, methodBuilder, "xmlParser", property.getPropertyType().getTypeName(), "instance", property);
 					// methodBuilder.endControlFlow();
 
 					methodBuilder.addStatement("$<break");
@@ -439,7 +439,7 @@ public abstract class BindTypeBuilder {
 			methodBuilder.beginControlFlow("if (elementName!=null && $L.hasText())", parserName);
 			methodBuilder.addCode("// property $L\n", property.getName());
 			bindTransform = BindTransformer.lookup(property);
-			bindTransform.generateParseOnXml(context, methodBuilder, parserName, property.getPropertyType().getName(), "instance", property);
+			bindTransform.generateParseOnXml(context, methodBuilder, parserName, property.getPropertyType().getTypeName(), "instance", property);
 			methodBuilder.endControlFlow();
 		}
 
@@ -489,7 +489,7 @@ public abstract class BindTypeBuilder {
 
 				methodBuilder.addCode("case $S:\n$>", item.label);
 				methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
-				bindTransform.generateParseOnJackson(context, methodBuilder, "jacksonParser", item.getPropertyType().getName(), "instance", item);
+				bindTransform.generateParseOnJackson(context, methodBuilder, "jacksonParser", item.getPropertyType().getTypeName(), "instance", item);
 				methodBuilder.addCode("$<break;\n");
 			}
 
@@ -554,7 +554,7 @@ public abstract class BindTypeBuilder {
 
 				methodBuilder.addCode("case $S:\n$>", item.label);
 				methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
-				bindTransform.generateParseOnJacksonAsString(context, methodBuilder, "jacksonParser", item.getPropertyType().getName(), "instance", item);
+				bindTransform.generateParseOnJacksonAsString(context, methodBuilder, "jacksonParser", item.getPropertyType().getTypeName(), "instance", item);
 				methodBuilder.addCode("$<break;\n");
 			}
 
@@ -608,7 +608,7 @@ public abstract class BindTypeBuilder {
 			bindTransform = BindTransformer.lookup(item);
 
 			methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
-			bindTransform.generateSerializeOnJackson(context, methodBuilder, "jacksonSerializer", item.getPropertyType().getName(), "object", item);
+			bindTransform.generateSerializeOnJackson(context, methodBuilder, "jacksonSerializer", item.getPropertyType().getTypeName(), "object", item);
 			methodBuilder.addCode("\n");
 		}
 
@@ -651,7 +651,7 @@ public abstract class BindTypeBuilder {
 			bindTransform = BindTransformer.lookup(item);
 
 			methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
-			bindTransform.generateSerializeOnJacksonAsString(context, methodBuilder, "jacksonSerializer", item.getPropertyType().getName(), "object", item);
+			bindTransform.generateSerializeOnJacksonAsString(context, methodBuilder, "jacksonSerializer", item.getPropertyType().getTypeName(), "object", item);
 			methodBuilder.addCode("\n");
 		}
 
@@ -696,7 +696,7 @@ public abstract class BindTypeBuilder {
 			if (item.hasTypeAdapter()) {
 				methodBuilder.addCode("// field trasformation $L $L \n", item.typeAdapter.dataType, item.typeAdapter.adapterClazz);
 			}
-			bindTransform.generateSerializeOnXml(context, methodBuilder, "xmlSerializer", item.getPropertyType().getName(), "object", item);
+			bindTransform.generateSerializeOnXml(context, methodBuilder, "xmlSerializer", item.getPropertyType().getTypeName(), "object", item);
 			methodBuilder.addCode("\n");
 		}
 

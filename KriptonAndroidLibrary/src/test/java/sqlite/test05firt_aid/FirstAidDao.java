@@ -28,7 +28,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 @BindDao(value = FirstAid.class)
 public interface FirstAidDao {
 
-    @BindSqlSelect(orderBy = "name")
+    @BindSqlSelect(orderBy = "typeName")
     List<FirstAid> selectAll();
 
     @BindSqlDelete(where="1=1")

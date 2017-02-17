@@ -149,7 +149,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 				.build());
 		//@formatter:on
 
-		// define column name set
+		// define column typeName set
 		counter=0;
 		for (ModelProperty item : entity.getCollection()) {
 			item.accept(this);
