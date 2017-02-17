@@ -18,8 +18,13 @@
  */
 package com.abubusoft.kripton.processor;
 
+import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -45,9 +50,9 @@ public class BindTypeProcessor extends BaseProcessor {
 
 	private BindModel model;
 
-	private BindSharedPreferencesProcessor sharedPreferencesProcessor = new BindSharedPreferencesProcessor();
+	private BindSharedPreferencesSubProcessor sharedPreferencesProcessor = new BindSharedPreferencesSubProcessor();
 
-	private BindDataSourceProcessor dataSourceProcessor = new BindDataSourceProcessor();
+	private BindDataSourceSubProcessor dataSourceProcessor = new BindDataSourceSubProcessor();
 
 	@Override
 	public Set<String> getSupportedAnnotationTypes() {
@@ -69,7 +74,7 @@ public class BindTypeProcessor extends BaseProcessor {
 	}
 
 	@Override
-	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
 			count++;
 			if (count > 1) {
@@ -77,28 +82,35 @@ public class BindTypeProcessor extends BaseProcessor {
 			}
 
 			model = new BindModel();
-			int itemCounter = 0;
+			final AtomicInteger itemCounter = new AtomicInteger();
+			itemCounter.set(0);
 
 			parseBindType(roundEnv, elementUtils);
 
 			// Build model
-			for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
-				AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
+			for (Element element : roundEnv.getElementsAnnotatedWith(BindType.class)) {
+				final Element item = element;
 
+				AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
 				BindEntityBuilder.build(model, elementUtils, (TypeElement) item);
-				itemCounter++;
+				itemCounter.addAndGet(1);
 			}
 
-			if (itemCounter == 0) {
+			if (itemCounter.get() == 0) {
 				info("No class with @BindType annotation was found");
 			}
-			
+
 			// Generate classes for model
-			for (BindEntity item : model.getEntities()) {
+			for (BindEntity entity : model.getEntities()) {
+				final BindEntity item = entity;
+
 				BindTypeBuilder.generate(elementUtils, filer, item);
+
 			}
 
-			// after working with @BindType, we work with other annotations
+			// Wait until all threads are finish
+			// executor.awaitTermination(5, TimeUnit.MILLISECONDS);
+
 			sharedPreferencesProcessor.process(annotations, roundEnv);
 			dataSourceProcessor.process(annotations, roundEnv);
 

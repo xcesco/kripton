@@ -69,9 +69,6 @@ public class MapBindTransformation extends AbstractBindTransform {
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		// define key and value type
 		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getTypeName();
-		//TODO QUA
-//		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
-//		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
 		TypeName keyTypeName = mapTypeName.typeArguments.get(0);
 		TypeName valueTypeName = mapTypeName.typeArguments.get(1);
 		
@@ -165,9 +162,6 @@ public class MapBindTransformation extends AbstractBindTransform {
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		// define key and value type
 		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getTypeName();
-		//TODO QUA
-//		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
-//		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
 		TypeName keyTypeName = mapTypeName.typeArguments.get(0);
 		TypeName valueTypeName = mapTypeName.typeArguments.get(1);
 		
@@ -233,9 +227,6 @@ public class MapBindTransformation extends AbstractBindTransform {
 	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		// define key and value type
 		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getTypeName();
-		//TODO QUA
-//		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
-//		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
 		TypeName keyTypeName = mapTypeName.typeArguments.get(0);
 		TypeName valueTypeName = mapTypeName.typeArguments.get(1);
 		
@@ -326,9 +317,6 @@ public class MapBindTransformation extends AbstractBindTransform {
 	public void generateParseOnJacksonInternal(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		// define key and value type
 		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getTypeName();
-		//TODO QUA
-//		TypeName keyTypeName = resolveTypeName(property.getParent(), mapTypeName.typeArguments.get(0));
-//		TypeName valueTypeName = resolveTypeName(property.getParent(),mapTypeName.typeArguments.get(1));
 		TypeName keyTypeName = mapTypeName.typeArguments.get(0);
 		TypeName valueTypeName = mapTypeName.typeArguments.get(1);
 		

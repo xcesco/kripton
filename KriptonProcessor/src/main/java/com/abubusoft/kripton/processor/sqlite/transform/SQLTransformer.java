@@ -33,7 +33,6 @@ import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.ArrayTypeName;
@@ -97,20 +96,6 @@ public abstract class SQLTransformer {
 		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, paramType);
 
 		transform.generateWriteParam(methodBuilder, sqlDaoDefinition, paramName, paramType);
-	}
-
-	/**
-	 * Register custom transformable for a Java primitive type or a frequently
-	 * used Java type.
-	 * 
-	 * @param type
-	 *            a Java primitive type or a frequently used Java type.
-	 * @param transform
-	 *            a class implementing @see
-	 *            org.abubu.elio.binder.transform.Transformable interface.
-	 */
-	public static void register(TypeName type, SQLTransform transform) {
-		cache.put(type, transform);
 	}
 
 	/**

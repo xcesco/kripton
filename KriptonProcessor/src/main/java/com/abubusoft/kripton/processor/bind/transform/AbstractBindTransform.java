@@ -31,13 +31,4 @@ public abstract class AbstractBindTransform implements BindTransform {
 
 	protected static final String POST_TYPE_ADAPTER = ")";
 
-	//TODO QUA
-//	public static TypeName resolveTypeName(@SuppressWarnings("rawtypes") ModelEntity modelEntity, TypeName elementTypeName) {
-//		if ((elementTypeName instanceof TypeVariableName) || (elementTypeName instanceof ClassName && !elementTypeName.toString().contains(".") && !elementTypeName.isPrimitive() && !elementTypeName.isBoxedPrimitive())) {
-//			ModelClass<?> model = (ModelClass<?>) modelEntity;
-//			return model.resolveTypeVariable(elementTypeName);
-//		}
-//		return elementTypeName;
-//	}
-
 }

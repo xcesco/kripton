@@ -383,10 +383,6 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	}
 
 	private TypeName extractTypeParameterName(BindProperty property) {
-		//TODO QUA
-		//TypeName elementTypeName = resolveTypeName(property.getParent(), property.getPropertyType().getTypeParameter());		
-		//return elementTypeName;
-		
 		return property.getPropertyType().getTypeParameter();
 	}
 

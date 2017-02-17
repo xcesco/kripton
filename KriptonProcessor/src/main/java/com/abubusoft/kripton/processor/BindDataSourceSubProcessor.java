@@ -78,7 +78,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
-public class BindDataSourceProcessor extends BaseProcessor {
+public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	private SQLiteDatabaseSchema currentSchema;
 

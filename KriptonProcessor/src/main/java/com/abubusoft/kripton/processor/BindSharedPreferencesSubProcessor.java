@@ -57,7 +57,7 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class BindSharedPreferencesProcessor extends BaseProcessor {
+public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 
 	private PrefModel model;
 

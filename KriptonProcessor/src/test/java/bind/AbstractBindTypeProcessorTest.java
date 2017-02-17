@@ -24,6 +24,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 
 public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 
+	
 	@Before
 	public void setup() {
 		KriptonBinder.registryBinder(new KriptonYamlContext());
