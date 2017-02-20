@@ -60,6 +60,7 @@ public class AlbumActivity extends AppCompatActivity {
             mAdapter.notifyDataSetChanged();
         }
     };
+
     private DividerItemDecoration mDividerItemDecoration;
     private long userId;
 
