@@ -27,7 +27,7 @@
 		<!-- dependencies version -->
 		<jackson.version>2.8.6</jackson.version>
 		<retrofit.version>2.1.0</retrofit.version>
-		
+
 		<kripton.debug>false</kripton.debug>
 
 		<junit.version>4.12</junit.version>
@@ -36,6 +36,7 @@
 		<jsr305.version>3.0.1</jsr305.version>
 		<guava.version>19.0</guava.version>
 		<javapoet.version>1.7.0</javapoet.version>
+		<antlr4.version>4.6</antlr4.version>
 		<robolectric.version>3.1.4</robolectric.version>
 		<roboletricAndroidAll.version>6.0.0_r1-robolectric-0</roboletricAndroidAll.version>
 
@@ -90,6 +91,12 @@
 			<artifactId>kripton-android-library</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4-runtime</artifactId>
+        <version>${antlr4.version}</version>
+    </dependency>
 
 		<dependency>
 			<groupId>com.abubusoft</groupId>
@@ -110,7 +117,7 @@
 			<artifactId>kripton-dataformat-yaml</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>		
 
 		<dependency>
 			<groupId>com.sun</groupId>
@@ -341,6 +348,25 @@
 		<plugins>
 
 			<plugin>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr4-maven-plugin</artifactId>
+				<version>${antlr4.version}</version>
+				<configuration>
+					<arguments>
+						<argument>-visitor</argument>
+					</arguments>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>antlr4</goal>							
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>2.7</version>
@@ -378,7 +404,7 @@
 					<includes>
 						<include>all/*TestSuite.java</include>
 					</includes>
-					
+
 				</configuration>
 			</plugin>
 		</plugins>
