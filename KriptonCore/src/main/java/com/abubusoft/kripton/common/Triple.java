@@ -21,27 +21,20 @@ package com.abubusoft.kripton.common;
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
+ * @param <V0>
  * @param <V1>
  * @param <V2>
- * @param <V3>
  */
-public class Triple<V1, V2, V3> {
+public class Triple<V0, V1, V2> extends Pair<V0, V1> {
 
-	public Triple()
-	{
-		
+	public Triple() {
+
 	}
-	
-	public Triple(V1 v1, V2 v2, V3 v3)
-	{
-		this.v1=v1;
-		this.v2=v2;
-		this.v3=v3;
+
+	public Triple(V0 v1, V1 v2, V2 v3) {
+		super(v1, v2);
+		this.value3 = v3;
 	}
-	
-	public V1 v1;
-	
-	public V2 v2;
-	
-	public V3 v3;
+
+	public V2 value3;
 }

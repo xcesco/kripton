@@ -19,13 +19,13 @@ package com.abubusoft.kripton.common;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class Pair<A, B> {
+public class Pair<V0, V1> {
 	public Pair()
 	{
 		
 	}
 	
-	public Pair(A value0, B value1)
+	public Pair(V0 value0, V1 value1)
 	{
 		this.value0=value0;
 		this.value1=value1;
@@ -69,7 +69,7 @@ public class Pair<A, B> {
 		return true;
 	}
 
-	public A value0;
+	public V0 value0;
 	
-	public B value1;
+	public V1 value1;
 }
