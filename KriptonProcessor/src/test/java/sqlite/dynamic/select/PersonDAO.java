@@ -15,19 +15,19 @@ import sqlite.dynamic.Person;
 
 @BindDao(Person.class)
 public interface PersonDAO {
-	
+
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 
-	@BindSqlSelect(orderBy="typeName")
+	@BindSqlSelect(orderBy = "name")
 	List<Person> selectAll();
-	
-	@BindSqlSelect(where="typeName like ${nameTemp} || '%'")
+
+	@BindSqlSelect(where = "name like ${nameTemp} || '%'")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlWhere String where, @BindSqlOrderBy String orderBy);
-	
-	@BindSqlSelect(orderBy="typeName")
+
+	@BindSqlSelect(orderBy = "name")
 	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlOrderBy String orderBy);
-	
-//	@BindSqlSelect(orderBy="typeName")
-//	void selectCursorListener(OnReadCursorListener cursorListener);
+
+	// @BindSqlSelect(orderBy="typeName")
+	// void selectCursorListener(OnReadCursorListener cursorListener);
 }
