@@ -195,7 +195,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
     //StringUtils and SqlUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("UPDATE bean84_b SET column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"' WHERE 1=1", (Object[]) whereConditionsArray));
-    int result = database().update("bean84_b", contentValues, "UPDATE bean84_b SET column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"' WHERE 1=1", whereConditionsArray);
+    int result = database().update("bean84_b", contentValues, "1=1", whereConditionsArray);
     return result!=0;
   }
 

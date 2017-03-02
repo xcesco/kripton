@@ -22,6 +22,7 @@ import bind.bindenum.TestEnumSuite;
 import bind.directmap.TestDirectMapSuite;
 import bind.generichierarchy.TestGenericHierarchySuite;
 import bind.kripton109.Test109CompileSuite;
+import bind.kripton110.TestCompile110;
 import bind.kripton42faster.Test42CompileSuite;
 import bind.kripton70.Test70CompileSuite;
 import bind.kripton71List.Test71CompileSuite;
@@ -56,7 +57,8 @@ import bind.kripton87TypeAdapter.Test87CompileSuite;
 		TestEnumSuite.class,
 		TestGenericHierarchySuite.class,
 		TestDirectMapSuite.class,
-		Test109CompileSuite.class
+		Test109CompileSuite.class,
+		TestCompile110.class
 		 })
 //@formatter:on
 public class BindCompileTestSuite {

@@ -248,7 +248,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
 
     //StringUtils and SqlUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id = '%s' "+SqlUtils.appendForLog(where), (Object[]) whereConditionsArray));
-    int result = database().update("person", contentValues, "UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"', surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE id = '%s' "+SqlUtils.appendForSQL(where), whereConditionsArray);
+    int result = database().update("person", contentValues, "id = ?", whereConditionsArray);
   }
 
   /**

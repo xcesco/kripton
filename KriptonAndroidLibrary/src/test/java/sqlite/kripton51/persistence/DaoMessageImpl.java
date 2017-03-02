@@ -175,7 +175,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     //StringUtils and SqlUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("UPDATE message SET channel_id='"+StringUtils.checkSize(contentValues.get("channel_id"))+"', owner_type='"+StringUtils.checkSize(contentValues.get("owner_type"))+"', face_uid='"+StringUtils.checkSize(contentValues.get("face_uid"))+"', text='"+StringUtils.checkSize(contentValues.get("text"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', channel_uid='"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', type='"+StringUtils.checkSize(contentValues.get("type"))+"' WHERE id = '%s'", (Object[]) whereConditionsArray));
-    int result = database().update("message", contentValues, "UPDATE message SET channel_id='"+StringUtils.checkSize(contentValues.get("channel_id"))+"', owner_type='"+StringUtils.checkSize(contentValues.get("owner_type"))+"', face_uid='"+StringUtils.checkSize(contentValues.get("face_uid"))+"', text='"+StringUtils.checkSize(contentValues.get("text"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', channel_uid='"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', type='"+StringUtils.checkSize(contentValues.get("type"))+"' WHERE id = '%s'", whereConditionsArray);
+    int result = database().update("message", contentValues, "id = ?", whereConditionsArray);
     return result!=0;
   }
 

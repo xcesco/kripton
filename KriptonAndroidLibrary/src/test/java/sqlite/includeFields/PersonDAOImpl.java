@@ -235,7 +235,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     //StringUtils and SqlUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE 1=1", (Object[]) whereConditionsArray));
-    int result = database().update("person", contentValues, "UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE 1=1", whereConditionsArray);
+    int result = database().update("person", contentValues, "1=1", whereConditionsArray);
   }
 
   /**
@@ -279,7 +279,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     //StringUtils and SqlUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE 1=1", (Object[]) whereConditionsArray));
-    int result = database().update("person", contentValues, "UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE 1=1", whereConditionsArray);
+    int result = database().update("person", contentValues, "1=1", whereConditionsArray);
   }
 
   /**

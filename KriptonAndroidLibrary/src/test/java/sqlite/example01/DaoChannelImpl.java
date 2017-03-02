@@ -555,7 +555,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils and SqlUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
-    int result = database().update("channel", contentValues, "UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", whereConditionsArray);
+    int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 
@@ -610,7 +610,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils and SqlUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
-    int result = database().update("channel", contentValues, "UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", whereConditionsArray);
+    int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 
@@ -665,7 +665,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     //StringUtils and SqlUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
-    int result = database().update("channel", contentValues, "UPDATE channel SET uid='"+StringUtils.checkSize(contentValues.get("uid"))+"', owner_uid='"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', update_time='"+StringUtils.checkSize(contentValues.get("update_time"))+"', name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id='%s'", whereConditionsArray);
+    int result = database().update("channel", contentValues, "id=?", whereConditionsArray);
     return result!=0;
   }
 

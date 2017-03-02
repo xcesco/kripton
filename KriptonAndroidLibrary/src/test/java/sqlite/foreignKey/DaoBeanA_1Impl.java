@@ -254,7 +254,7 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
 
     //StringUtils and SqlUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("UPDATE bean_a_1 SET bean_a2_id='"+StringUtils.checkSize(contentValues.get("bean_a2_id"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE valueString='%s'", (Object[]) whereConditionsArray));
-    int result = database().update("bean_a_1", contentValues, "UPDATE bean_a_1 SET bean_a2_id='"+StringUtils.checkSize(contentValues.get("bean_a2_id"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE valueString='%s'", whereConditionsArray);
+    int result = database().update("bean_a_1", contentValues, "value_string=?", whereConditionsArray);
     return result;
   }
 }
