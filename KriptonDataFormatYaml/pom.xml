@@ -3,14 +3,14 @@
   
   <groupId>com.abubusoft</groupId>
   <artifactId>kripton-dataformat-yaml</artifactId>
-  <version>1.6.1</version>
+  <version>1.6.2-SNAPSHOT</version>
   <name>Kripton YAML data format</name>
   <description>This is jar need to support YAML format.</description>
   <packaging>jar</packaging>
 
 
 	<!-- common part - BEGIN -->
-	<!-- Property version 1.6.1 -->
+	<!-- Property version 1.6.2-SNAPSHOT -->
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
