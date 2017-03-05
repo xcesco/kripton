@@ -5,8 +5,6 @@ import java.util.List;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
-import bind.kripton1110.model.stage1.User;
-
 @BindType
 public class Response {
 

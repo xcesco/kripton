@@ -1,7 +1,5 @@
 package bind.kripton110.model.stage1;
 
-import bind.kripton1110.model.stage1.User;
-import bind.kripton1110.model.stage1.UserBindMap;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;

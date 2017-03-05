@@ -1,7 +1,5 @@
 package bind.kripton110.model.stage2;
 
-import bind.kripton1110.model.stage2.Native;
-import bind.kripton1110.model.stage2.NativeBindMap;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.core.AbstractContext;

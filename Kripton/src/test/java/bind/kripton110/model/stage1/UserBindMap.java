@@ -1,11 +1,5 @@
 package bind.kripton110.model.stage1;
 
-import bind.kripton1110.model.stage1.Friend;
-import bind.kripton1110.model.stage1.FriendBindMap;
-import bind.kripton1110.model.stage1.Image;
-import bind.kripton1110.model.stage1.ImageBindMap;
-import bind.kripton1110.model.stage1.Name;
-import bind.kripton1110.model.stage1.NameBindMap;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
