@@ -294,7 +294,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     //StringUtils and SqlUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("UPDATE bean63 SET value='"+StringUtils.checkSize(contentValues.get("value"))+"', value_map_string_byte='"+StringUtils.checkSize(contentValues.get("value_map_string_byte"))+"', value_map_enum_byte='"+StringUtils.checkSize(contentValues.get("value_map_enum_byte"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
-    int result = database().update("bean63", contentValues, "UPDATE bean63 SET value='"+StringUtils.checkSize(contentValues.get("value"))+"', value_map_string_byte='"+StringUtils.checkSize(contentValues.get("value_map_string_byte"))+"', value_map_enum_byte='"+StringUtils.checkSize(contentValues.get("value_map_enum_byte"))+"' WHERE id='%s'", whereConditionsArray);
+    int result = database().update("bean63", contentValues, "id=?", whereConditionsArray);
     return result;
   }
 

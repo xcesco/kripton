@@ -4,7 +4,7 @@
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-example-01</artifactId>
 
-	<!-- Property version 1.6.1-SNAPSHOT -->
+	<!-- Property version 1.6.2-SNAPSHOT -->
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
@@ -16,7 +16,7 @@
 
 		<!-- dependencies version -->
 		<retrofit.version>2.1.0</retrofit.version>
-		<kripton.version>1.6.1-SNAPSHOT</kripton.version>
+		<kripton.version>1.6.2-SNAPSHOT</kripton.version>
 	</properties>
 
 	<dependencies>
@@ -86,5 +86,5 @@
 
 	</build>
 
-	<version>1.6.1-SNAPSHOT</version>
+	<version>1.6.2-SNAPSHOT</version>
 </project>

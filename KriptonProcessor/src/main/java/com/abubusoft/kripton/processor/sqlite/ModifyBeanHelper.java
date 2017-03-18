@@ -102,12 +102,12 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[]) whereConditionsArray));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
 			}
 			methodBuilder.addCode("int result = database().update($S, contentValues, $L, whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),
-					AbstractSelectCodeGenerator.formatSql(method, sqlModify));
+					AbstractSelectCodeGenerator.formatSql(method, analyzer.getSQLStatement()));
 		} else {
 			if (daoDefinition.isLogEnabled()) {
 				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[]) whereConditionsArray));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
 			}
-			methodBuilder.addCode("int result = database().delete($S, \"$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), analyzer.getSQLStatement());
+			methodBuilder.addCode("int result = database().delete($S, $L, whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),AbstractSelectCodeGenerator.formatSql(method, analyzer.getSQLStatement()));
 		}
 
 		// define return value

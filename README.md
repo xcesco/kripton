@@ -2,6 +2,7 @@
 [![download](https://api.bintray.com/packages/xcesco/kripton/kripton-android-library/images/download.svg)](https://bintray.com/xcesco/kripton/kripton-android-library/_latestVersion)
 [![maven central](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton)
 [![test coverage](https://img.shields.io/codecov/c/github/xcesco/kripton/master.svg?style=flat-square)](https://codecov.io/gh/xcesco/kripton?branch=master)
+[![Project Stats](https://www.openhub.net/p/kripton-persistence-library/widgets/project_thin_badge.gif)](https://www.openhub.net/p/kripton-persistence-library)
 
 # Kripton 
 Kripton is a java library, for Android and Java platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface. Supported persistence format are:
@@ -31,7 +32,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
   <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
   </dependency>
   ...
 </dependencies>
@@ -50,7 +51,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 		  <path>
 		    <groupId>com.abubusoft</groupId>
 		    <artifactId>kripton-processor</artifactId>
-		    <version>1.6.0</version>
+		    <version>1.6.1</version>
 		</path>
 	    </annotationProcessorPaths>
 	  </configuration>
@@ -64,10 +65,10 @@ or via gradle
 
 ```
 // annotation processor
-apt "com.abubusoft:kripton-processor:1.5.0"
+apt "com.abubusoft:kripton-processor:1.6.1"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-compile "com.abubusoft:kripton-android-library:1.5.0"
+compile "com.abubusoft:kripton-android-library:1.6.1"
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).

@@ -19,6 +19,6 @@ public abstract class Version {
 
 	public static String getVersion()
 	{
-		return "1.6.1-SNAPSHOT";
+		return "1.6.2-SNAPSHOT";
 	}
 }

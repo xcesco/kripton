@@ -14,9 +14,9 @@
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-processor</artifactId>
 	<packaging>jar</packaging>
-	<version>1.6.1-SNAPSHOT</version>
+	<version>1.6.2-SNAPSHOT</version>
 
-	<!-- Property version 1.6.1-SNAPSHOT -->
+	<!-- Property version 1.6.2-SNAPSHOT -->
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
@@ -35,8 +35,7 @@
 
 		<jsr305.version>3.0.1</jsr305.version>
 		<guava.version>19.0</guava.version>
-		<javapoet.version>1.7.0</javapoet.version>
-		<antlr4.version>4.6</antlr4.version>
+		<javapoet.version>1.7.0</javapoet.version>		
 		<robolectric.version>3.1.4</robolectric.version>
 		<roboletricAndroidAll.version>6.0.0_r1-robolectric-0</roboletricAndroidAll.version>
 
@@ -92,12 +91,6 @@
 			<version>${project.version}</version>
 		</dependency>
 		
-		<dependency>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-runtime</artifactId>
-        <version>${antlr4.version}</version>
-    </dependency>
-
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-dataformat-cbor</artifactId>
@@ -346,25 +339,6 @@
 	<build>
 
 		<plugins>
-
-			<plugin>
-				<groupId>org.antlr</groupId>
-				<artifactId>antlr4-maven-plugin</artifactId>
-				<version>${antlr4.version}</version>
-				<configuration>
-					<arguments>
-						<argument>-visitor</argument>
-					</arguments>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>antlr4</goal>							
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
