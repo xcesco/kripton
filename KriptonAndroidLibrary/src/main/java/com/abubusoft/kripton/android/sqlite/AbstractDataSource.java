@@ -159,6 +159,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 			@Override
 			public void onConfigure(SQLiteDatabase database) {
+				AbstractDataSource.this.database = database;
 				AbstractDataSource.this.onConfigure(database);
 			}
 
