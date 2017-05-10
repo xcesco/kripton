@@ -28,15 +28,15 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelBucket;
 
 public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElement> {
-	
+
 	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
-	
+
 	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
-	protected Map<String, SQLEntity> entities=new HashMap<String, SQLEntity>();
+	protected Map<String, SQLEntity> entities = new HashMap<String, SQLEntity>();
 
 	public String fileName;
-	
+
 	public String generatedClassName;
 
 	/**
@@ -47,22 +47,33 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	}
 
 	public int version;
-	
+
 	public boolean generateLog;
 
 	public boolean generateAsyncTask;
 
 	public boolean generateCursor;
-	
-	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean log, boolean asyncTask, boolean generateCursor) {	
+
+	/**
+	 * if <code>true</code>, content provider is generated.
+	 */
+	public boolean generateContentProvider;
+
+	/**
+	 * <p>Authority for content provider</p>
+	 */
+	public String authority;
+
+	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean log, boolean asyncTask, boolean generateCursor) {
 		super(item.getSimpleName().toString(), item);
-		
-		this.fileName=schemaFileName;
-		this.version=schemaVersion;
-		this.generateLog=log;
-		this.generateAsyncTask=asyncTask;
-		this.generateCursor=generateCursor;
-		this.generatedClassName="Bind"+getName();
+
+		this.fileName = schemaFileName;
+		this.version = schemaVersion;
+		this.generateLog = log;
+		this.generateAsyncTask = asyncTask;
+		this.generateCursor = generateCursor;
+		this.generatedClassName = "Bind" + getName();
+		this.generateContentProvider=false;		
 	}
 
 	public void clear() {
@@ -76,11 +87,11 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	public Collection<SQLEntity> getEntities() {
 		return entities.values();
 	}
-	
+
 	public List<SQLEntity> getEntitiesAsList() {
 		return new ArrayList<>(entities.values());
 	}
-	
+
 	public SQLEntity getEntity(String entityClassName) {
 		return entities.get(entityClassName);
 	}
