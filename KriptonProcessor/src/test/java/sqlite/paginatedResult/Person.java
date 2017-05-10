@@ -24,26 +24,14 @@ public class Person {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Person [id=");
 		builder.append(id);
-		builder.append(", ");
-		if (name != null) {
-			builder.append("typeName=");
-			builder.append(name);
-			builder.append(", ");
-		}
-		if (surname != null) {
-			builder.append("surname=");
-			builder.append(surname);
-			builder.append(", ");
-		}
-		if (birthCity != null) {
-			builder.append("birthCity=");
-			builder.append(birthCity);
-			builder.append(", ");
-		}
-		if (birthDay != null) {
-			builder.append("birthDay=");
-			builder.append(birthDay);
-		}
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", surname=");
+		builder.append(surname);
+		builder.append(", birthCity=");
+		builder.append(birthCity);
+		builder.append(", birthDay=");
+		builder.append(birthDay);
 		builder.append("]");
 		return builder.toString();
 	}

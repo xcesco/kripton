@@ -18,22 +18,22 @@ import sqlite.paginatedResult.Person;
 @BindDao(Person.class)
 public interface PersonDAO {
 	
-	@BindSqlSelect(orderBy="typeName", pageSize=20)
+	@BindSqlSelect(orderBy="name", pageSize=20)
 	PaginatedResult<Person> selectPagedStatic1();
 	
-	@BindSqlSelect(orderBy="typeName")
+	@BindSqlSelect(orderBy="name")
 	PaginatedResult<Person> selectPagedStatic2(@BindSqlPageSize int pageSize);
 	
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 
-	@BindSqlSelect(orderBy="typeName")
+	@BindSqlSelect(orderBy="name")
 	List<Person> selectAll();
 	
-	@BindSqlSelect(where="typeName like ${nameTemp} || '%'")
+	@BindSqlSelect(where="name like ${nameTemp} || '%'")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlWhere String where, @BindSqlOrderBy String orderBy);
 	
-	@BindSqlSelect(orderBy="typeName")
+	@BindSqlSelect(orderBy="name")
 	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlOrderBy String orderBy);
 	
 }
