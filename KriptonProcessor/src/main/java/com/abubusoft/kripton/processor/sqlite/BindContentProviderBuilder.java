@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.Filer;
@@ -82,8 +83,6 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 	public static final String SUFFIX = "ContentProvider";
 
-	private static final String RESULT_TYPE = null;
-
 	public BindContentProviderBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
@@ -104,8 +103,12 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		visitorDao.buildContentProvider(elementUtils, filer, schema);
 	}
 
-	public void analizeContentProvider(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema)
-			throws Exception {
+	public void analizeContentProvider(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+		String dataSourceName = schema.getName();
+		String contentProviderName = PREFIX + dataSourceName.replace(BindDataSourceBuilder.SUFFIX, "") + SUFFIX;
+
+		schema.contentProvider.setName(contentProviderName);
+
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			if (!dao.contentProviderEnabled)
 				continue;
@@ -117,11 +120,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 					if (method.hasAnnotation(BindSqlInsert.class)) {
 						schema.contentProvider.addOperation(daoPath, method, SupportedOperation.INSERT);
 					} else if (method.hasAnnotation(BindSqlUpdate.class)) {
-						schema.contentProvider.addOperation(daoPath, SupportedOperation.UPDATE);
+						schema.contentProvider.addOperation(daoPath, method, SupportedOperation.UPDATE);
 					} else if (method.hasAnnotation(BindSqlDelete.class)) {
-						schema.contentProvider.addOperation(daoPath, SupportedOperation.DELETE);
+						schema.contentProvider.addOperation(daoPath, method, SupportedOperation.DELETE);
 					} else if (method.hasAnnotation(BindSqlSelect.class)) {
-						schema.contentProvider.addOperation(daoPath, SupportedOperation.SELECT);
+						schema.contentProvider.addOperation(daoPath, method, SupportedOperation.SELECT);
 					}
 
 				}
@@ -132,20 +135,16 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	public void buildContentProvider(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		String dataSourceName = schema.getName();
 		String dataSourceNameClazz = BindDataSourceBuilder.PREFIX + dataSourceName;
-		String contentProviderName = PREFIX + dataSourceName.replace(BindDataSourceBuilder.SUFFIX, "") + SUFFIX;
-
-		ClassName contentProviderClazz = className(contentProviderName);
 
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, dataSourceName);
-		builder = TypeSpec.classBuilder(contentProviderName).addModifiers(Modifier.PUBLIC)
-				.superclass(ContentProvider.class);
+		builder = TypeSpec.classBuilder(schema.contentProvider.getName()).addModifiers(Modifier.PUBLIC).superclass(ContentProvider.class);
 
 		generateOnCreate(dataSourceNameClazz);
 
-		generateInsert();
+		generateInsert(schema);
 
 		generateQuery();
 
@@ -160,27 +159,21 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		// define static fields
 
 		// instance
-		builder.addField(
-				FieldSpec.builder(className(dataSourceNameClazz), "dataSource", Modifier.PRIVATE, Modifier.STATIC)
-						.addJavadoc("<p>datasource singleton</p>\n").build());
-		builder.addField(FieldSpec.builder(String.class, "AUTHORITY", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-				.addJavadoc("<p>Content provider authority</p>\n").initializer("$S", schema.authority).build());
+		builder.addField(FieldSpec.builder(className(dataSourceNameClazz), "dataSource", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
 
-		builder.addField(
-				FieldSpec.builder(UriMatcher.class, "sURIMatcher", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-						.addJavadoc("<p>URI matcher</p>\n")
-						.initializer("new $T($T.NO_MATCH)", UriMatcher.class, UriMatcher.class).build());
+		builder.addField(FieldSpec.builder(String.class, "AUTHORITY", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>Content provider authority</p>\n")
+				.initializer("$S", schema.authority).build());
 
-		int i = 1;
+		builder.addField(FieldSpec.builder(UriMatcher.class, "sURIMatcher", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>URI matcher</p>\n")
+				.initializer("new $T($T.NO_MATCH)", UriMatcher.class, UriMatcher.class).build());
+
+		int i = 0;
 
 		Builder staticBuilder = CodeBlock.builder();
-		for (Triple<String, SQLiteModelMethod, Set<SupportedOperation>> item : schema.contentProvider.uris) {
-			builder.addField(FieldSpec
-					.builder(Integer.TYPE, schema.contentProvider.getConstant(item.value0), Modifier.PRIVATE,
-							Modifier.STATIC, Modifier.FINAL)
-					.addJavadoc("<p>URI matcher for $L</p>\n", item.value0).initializer("$L", i).build());
-			staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $S, $L)", item.value0,
-					schema.contentProvider.getConstant(item.value0));
+		for (Triple<String, SQLDaoDefinition, Map<SupportedOperation, SQLiteModelMethod>> item : schema.contentProvider.uris) {
+			builder.addField(FieldSpec.builder(Integer.TYPE, schema.contentProvider.getConstant(item.value0), Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+					.addJavadoc("<p>URI matcher for $S, supplied by $S</p>\n", item.value0, item.value1.getName()).initializer("$L", i).build());
+			staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $S, $L)", item.value0, schema.contentProvider.getConstant(item.value0));
 			i++;
 		}
 		builder.addStaticBlock(staticBuilder.build());
@@ -250,25 +243,45 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
-	private void generateInsert() {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("insert").addModifiers(Modifier.PUBLIC)
-				.addAnnotation(Override.class).returns(Uri.class);
+	private void generateInsert(SQLiteDatabaseSchema schema) {
+		// we have to select only INSERT operations
+		SupportedOperation operation = SupportedOperation.INSERT;
+
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("insert").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Uri.class);
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(ContentValues.class, "values");
 
-		methodBuilder.addCode("return null;\n");
+		methodBuilder.addStatement("int uriType=sURIMatcher.match(uri)");
+		methodBuilder.beginControlFlow("switch(uriType)");
+
+		for (Triple<String, SQLDaoDefinition, Map<SupportedOperation, SQLiteModelMethod>> item : schema.contentProvider.uris) {
+			SQLiteModelMethod method = item.value2.get(operation);
+			if (method == null)
+				continue;
+
+			methodBuilder.addCode("case $L:\n" + "$>", schema.contentProvider.getConstant(item.value0));
+			//methodBuilder.addStatement("return \"$L//$L$L\"", type(method), "vnd.", schema.authority + "." + method.getParent().contentProviderTypeName);
+			methodBuilder.addStatement("return $T.parse(\"\" + \"/\" + \"id\")", Uri.class);
+			 
+			methodBuilder.addCode("$<");
+			// methodBuilder.addStatement("return $T.CURSOR_DIR_BASE_TYPE",
+			// ContentResolver.class);
+			// methodBuilder.addStatement("$<break");
+		}
+
+		methodBuilder.addCode("default:\n$>");
+		methodBuilder.addStatement("return null");
+		methodBuilder.addCode("$<");
+		methodBuilder.endControlFlow();
 
 		builder.addMethod(methodBuilder.build());
-
 	}
 
 	private void generateDelete() {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("delete").addModifiers(Modifier.PUBLIC)
-				.addAnnotation(Override.class).returns(Integer.TYPE);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("delete").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Integer.TYPE);
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(String.class, "selection");
-		methodBuilder
-				.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
+		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 
 		methodBuilder.addCode("return 0;\n");
 
@@ -276,13 +289,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	private void generateUpdate() {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("update").addModifiers(Modifier.PUBLIC)
-				.addAnnotation(Override.class).returns(Integer.TYPE);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("update").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Integer.TYPE);
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(ContentValues.class, "values");
 		methodBuilder.addParameter(String.class, "selection");
-		methodBuilder
-				.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
+		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 
 		methodBuilder.addCode("return 0;\n");
 
@@ -291,17 +302,22 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	private void generateGetType(SQLiteDatabaseSchema schema) {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("getType").addModifiers(Modifier.PUBLIC)
-				.addAnnotation(Override.class).returns(String.class);
+		// we have to select only query operations
+		SupportedOperation operation = SupportedOperation.SELECT;
+
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("getType").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(String.class);
 		methodBuilder.addParameter(Uri.class, "uri");
 
 		methodBuilder.addStatement("int uriType=sURIMatcher.match(uri)");
 		methodBuilder.beginControlFlow("switch(uriType)");
 
-		for (Triple<String, SQLiteModelMethod, Set<SupportedOperation>> item : schema.contentProvider.uris) {
+		for (Triple<String, SQLDaoDefinition, Map<SupportedOperation, SQLiteModelMethod>> item : schema.contentProvider.uris) {
+			SQLiteModelMethod method = item.value2.get(operation);
+			if (method == null)
+				continue;
+
 			methodBuilder.addCode("case $L:\n" + "$>", schema.contentProvider.getConstant(item.value0));
-			methodBuilder.addStatement("return \"$L//$L$L\"", type(item.value1), "vnd.",
-					schema.authority + "." + item.value1.getParent().contentProviderTypeName);
+			methodBuilder.addStatement("return $T.$L+\"/$L$L\"", ContentResolver.class, type(method), "vnd.", schema.authority + "." + method.getParent().contentProviderTypeName);
 			methodBuilder.addCode("$<");
 			// methodBuilder.addStatement("return $T.CURSOR_DIR_BASE_TYPE",
 			// ContentResolver.class);
@@ -336,23 +352,22 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			switch (resultType) {
 			case DEFAULT:
 				if (method.hasAnnotation(BindSqlSelect.class)) {
-					return ContentResolver.CURSOR_DIR_BASE_TYPE;
+					return "CURSOR_DIR_BASE_TYPE";
 				} else
-					return ContentResolver.CURSOR_ITEM_BASE_TYPE;
+					return "CURSOR_ITEM_BASE_TYPE";
 			case MANY:
-				return ContentResolver.CURSOR_DIR_BASE_TYPE;
+				return "CURSOR_DIR_BASE_TYPE";
 			case ONE:
-				return ContentResolver.CURSOR_ITEM_BASE_TYPE;
+				return "CURSOR_ITEM_BASE_TYPE";
 			}
 
 		}
 
-		return ContentResolver.CURSOR_ITEM_BASE_TYPE;
+		return "CURSOR_ITEM_BASE_TYPE";
 	}
 
 	private void generateOnCreate(String dataSourceNameClazz) {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addModifiers(Modifier.PUBLIC)
-				.addAnnotation(Override.class).returns(Boolean.TYPE);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Boolean.TYPE);
 
 		methodBuilder.addJavadoc("<p>Create datasource and open database in read mode.</p>\n");
 		methodBuilder.addJavadoc("\n");
@@ -367,8 +382,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	private void generateOnShutdown(String dataSourceNameClazz) {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("shutdown").addModifiers(Modifier.PUBLIC)
-				.addAnnotation(Override.class).returns(Void.TYPE);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("shutdown").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Void.TYPE);
 
 		methodBuilder.addJavadoc("<p>Close database.</p>\n");
 		methodBuilder.addJavadoc("\n");
@@ -381,14 +395,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	private void generateQuery() {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("query").addModifiers(Modifier.PUBLIC)
-				.addAnnotation(Override.class).returns(Cursor.class);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("query").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Cursor.class);
 		methodBuilder.addParameter(Uri.class, "uri");
-		methodBuilder
-				.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "projection").build());
+		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "projection").build());
 		methodBuilder.addParameter(String.class, "selection");
-		methodBuilder
-				.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
+		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 		methodBuilder.addParameter(String.class, "sortOrder");
 
 		methodBuilder.addCode("return null;\n");
@@ -401,8 +412,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	 */
 	private void generateOpen(String schemaName) {
 		// instance
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("open")
-				.addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("open").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
 
 		methodBuilder.addJavadoc("Retrieve data source instance and open it.\n");
 		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
@@ -418,8 +428,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	 */
 	private void generateOpenReadOnly(String schemaName) {
 		// instance
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("openReadOnly")
-				.addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("openReadOnly").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
 
 		methodBuilder.addJavadoc("Retrieve data source instance and open it in read only mode.\n");
 		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
@@ -436,15 +445,13 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	 */
 	private boolean generateOnCreate(SQLiteDatabaseSchema schema, List<SQLEntity> orderedEntities) {
 		boolean useForeignKey = false;
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class)
-				.addModifiers(Modifier.PUBLIC);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 		methodBuilder.addParameter(SQLiteDatabase.class, "database");
 		methodBuilder.addJavadoc("onCreate\n");
 		methodBuilder.addCode("// generate tables\n");
 		for (SQLEntity item : orderedEntities) {
 			if (schema.isLogEnabled()) {
-				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class,
-						BindTableGenerator.tableClassName(item));
+				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
 			}
 			methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
 
@@ -467,8 +474,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	 * @param orderedEntities
 	 */
 	private void generateOnUpgrade(SQLiteDatabaseSchema schema, List<SQLEntity> orderedEntities) {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class)
-				.addModifiers(Modifier.PUBLIC);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 		methodBuilder.addParameter(SQLiteDatabase.class, "database");
 		methodBuilder.addParameter(Integer.TYPE, "oldVersion");
 		methodBuilder.addParameter(Integer.TYPE, "newVersion");
@@ -483,8 +489,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addCode("// drop tables\n");
 		for (SQLEntity item : orderedEntities) {
 			if (schema.isLogEnabled()) {
-				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.DROP_TABLE_SQL);\n", Logger.class,
-						BindTableGenerator.tableClassName(item));
+				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.DROP_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
 			}
 			methodBuilder.addCode("database.execSQL($T.DROP_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
 		}
@@ -497,8 +502,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		for (SQLEntity item : orderedEntities) {
 			if (schema.isLogEnabled()) {
-				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class,
-						BindTableGenerator.tableClassName(item));
+				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
 			}
 			methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
 		}
@@ -514,8 +518,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	private void generateOnConfigure(boolean useForeignKey) {
 		// onConfigure
 
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onConfigure").addAnnotation(Override.class)
-				.addModifiers(Modifier.PUBLIC);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onConfigure").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 		methodBuilder.addParameter(SQLiteDatabase.class, "database");
 		methodBuilder.addJavadoc("onConfigure\n");
 		methodBuilder.addCode("// configure database\n");
@@ -591,8 +594,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		// @formatter:on
 
-		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC)
-				.addParameter(className(transationExecutorName), "transaction");
+		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName), "transaction");
 
 		executeMethod.addCode("$T connection=openWritableDatabase();\n", SQLiteDatabase.class);
 
@@ -619,9 +621,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		executeMethod.endControlFlow();
 
 		// generate javadoc
-		executeMethod.addJavadoc(
-				"<p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The"
-						+ "drawback is only one transaction at time can be executed. The database will be open in write mode.</p>\n");
+		executeMethod.addJavadoc("<p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The"
+				+ "drawback is only one transaction at time can be executed. The database will be open in write mode.</p>\n");
 		executeMethod.addJavadoc("\n");
 		executeMethod.addJavadoc("@param transaction\n\ttransaction to execute\n");
 

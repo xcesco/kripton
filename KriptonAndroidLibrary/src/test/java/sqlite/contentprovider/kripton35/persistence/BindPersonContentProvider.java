@@ -1,6 +1,7 @@
 package sqlite.contentprovider.kripton35.persistence;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -25,12 +26,18 @@ public class BindPersonContentProvider extends ContentProvider {
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
   /**
-   * <p>URI matcher for persons</p>
+   * <p>URI matcher for "persons", supplied by "PersonDAO"</p>
    */
-  private static final int URI_PERSONS = 1;
+  private static final int URI_PERSON_0 = 0;
+
+  /**
+   * <p>URI matcher for "persons/#", supplied by "PersonDAO"</p>
+   */
+  private static final int URI_PERSON_1 = 1;
 
   static {
-    sURIMatcher.addURI(AUTHORITY, "persons", URI_PERSONS);
+    sURIMatcher.addURI(AUTHORITY, "persons", URI_PERSON_0);
+    sURIMatcher.addURI(AUTHORITY, "persons/#", URI_PERSON_1);
   }
 
   /**
@@ -47,7 +54,13 @@ public class BindPersonContentProvider extends ContentProvider {
 
   @Override
   public Uri insert(Uri uri, ContentValues values) {
-    return null;
+    int uriType=sURIMatcher.match(uri);
+    switch(uriType) {
+      case URI_PERSON_0:
+        return Uri.parse("content://" + AUTHORITY +"/persons/" + "id");
+      default:
+        return null;
+    }
   }
 
   @Override
@@ -59,8 +72,10 @@ public class BindPersonContentProvider extends ContentProvider {
   public String getType(Uri uri) {
     int uriType=sURIMatcher.match(uri);
     switch(uriType) {
-      case URI_PERSONS:
-        return "vnd.android.cursor.item//vnd.sqlite.contentprovider.kripton35.rutto";
+      case URI_PERSON_0:
+        return ContentResolver.CURSOR_DIR_BASE_TYPE+"/vnd.sqlite.contentprovider.kripton35.person";
+      case URI_PERSON_1:
+        return ContentResolver.CURSOR_ITEM_BASE_TYPE+"/vnd.sqlite.contentprovider.kripton35.person";
       default:
         return null;
     }

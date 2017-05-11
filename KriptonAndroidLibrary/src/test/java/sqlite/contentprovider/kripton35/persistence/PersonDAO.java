@@ -15,9 +15,14 @@
  *******************************************************************************/
 package sqlite.contentprovider.kripton35.persistence;
 
+import java.util.List;
+
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.annotation.BindContentProviderEntry.ResultType;
 import com.abubusoft.kripton.annotation.BindContentProviderPath;
 
 import sqlite.contentprovider.kripton35.entities.Person;
@@ -27,11 +32,26 @@ import sqlite.contentprovider.kripton35.entities.Person;
  */
 
 @BindDao(Person.class)
-@BindContentProviderPath(path="persons",typeName="rutto")
+@BindContentProviderPath(path="persons",typeName="person")
 public interface PersonDAO {
 	
 	@BindSqlInsert
 	@BindContentProviderEntry
 	boolean insert(Person bean);
+	
+	@BindSqlUpdate
+	@BindContentProviderEntry
+	boolean update(Person bean);
+	
+	@BindSqlSelect
+	@BindContentProviderEntry
+	List<Person> selectAll();
+	
+	@BindSqlSelect(where="id=${id}")
+	@BindContentProviderEntry(path="/#", resultType=ResultType.ONE)
+	Person selectOne(long id);
+	
+	
+	
 		
 }

@@ -76,7 +76,8 @@ public enum AnnotationAttributeType {
 	TYPE_VARIABLES("typeVariables"),
 	TYPE_PARAMETERS("typeParameters"),
 	
-	RESULT_TYPE("resultType")
+	RESULT_TYPE("resultType"), 
+	PATH("path")
 	;
 	
 	
