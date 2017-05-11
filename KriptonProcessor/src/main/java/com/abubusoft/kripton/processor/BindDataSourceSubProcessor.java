@@ -38,6 +38,9 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.annotation.BindContentProvider;
+import com.abubusoft.kripton.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
@@ -66,6 +69,7 @@ import com.abubusoft.kripton.processor.exceptions.SQLPrimaryKeyNotFoundException
 import com.abubusoft.kripton.processor.exceptions.SQLPrimaryKeyNotValidTypeException;
 import com.abubusoft.kripton.processor.exceptions.TooManySQLPrimaryKeyFoundException;
 import com.abubusoft.kripton.processor.sqlite.BindAsyncTaskBuilder;
+import com.abubusoft.kripton.processor.sqlite.BindContentProviderBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindCursorBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
@@ -77,6 +81,8 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.google.common.base.CaseFormat;
+import com.google.common.base.Converter;
 
 public class BindDataSourceSubProcessor extends BaseProcessor {
 
@@ -359,6 +365,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		if (currentSchema.generateAsyncTask)
 			BindAsyncTaskBuilder.generate(elementUtils, filer, currentSchema);
 		BindDataSourceBuilder.generate(elementUtils, filer, currentSchema);
+		if (currentSchema.generateContentProvider) {
+			BindContentProviderBuilder.generate(elementUtils, filer, currentSchema);
+		}
 	}
 
 	/**
@@ -375,9 +384,25 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", daoElement.getSimpleName().toString(), BindDao.class.getSimpleName());
 			throw (new InvalidKindForAnnotationException(msg));
 		}
-
+		
 		String entityClassName = AnnotationUtility.extractAsClassName(elementUtils, daoElement, BindDao.class, AnnotationAttributeType.VALUE);
 		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, (TypeElement) daoElement, entityClassName);
+		
+		// content provider management
+		BindContentProviderPath daoContentProviderPath = daoElement.getAnnotation(BindContentProviderPath.class);
+		if (daoContentProviderPath!=null)
+		{	
+			currentDaoDefinition.contentProviderEnabled=true;
+			currentDaoDefinition.contentProviderPath=daoContentProviderPath.path();
+			currentDaoDefinition.contentProviderTypeName=daoContentProviderPath.typeName();
+			
+			if (StringUtils.isEmpty(currentDaoDefinition.contentProviderTypeName))
+			{
+				Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
+				currentDaoDefinition.contentProviderTypeName=convert.convert(currentDaoDefinition.getSimpleEntityClassName());
+			}
+		}
+				
 
 		// dao is associated to an entity is not contained in analyzed class
 		// set.
@@ -406,7 +431,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						(annotationClassName.equals(BindSqlInsert.class.getCanonicalName())
 								|| annotationClassName.equals(BindSqlUpdate.class.getCanonicalName())
 								|| annotationClassName.equals(BindSqlDelete.class.getCanonicalName())
-								|| annotationClassName.equals(BindSqlSelect.class.getCanonicalName()))
+								|| annotationClassName.equals(BindSqlSelect.class.getCanonicalName())
+								|| annotationClassName.equals(BindContentProviderEntry.class.getCanonicalName()))
 						// @formatter:on
 						{
 							ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
@@ -457,9 +483,18 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		boolean generateLog = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.LOG);
 		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.ASYNCTASK);
 		boolean generateCursor = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.CURSOR);
-
+				
 		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateLog, generateAsyncTask, generateCursor);
 		model.schemaAdd(currentSchema);
+		
+		// manage for content provider generation
+		BindContentProvider contentProviderAnnotation = databaseSchema.getAnnotation(BindContentProvider.class);
+		if (contentProviderAnnotation!=null) {
+			currentSchema.authority=contentProviderAnnotation.authority();
+			currentSchema.generateContentProvider=true;
+		} else {
+			currentSchema.generateContentProvider=false;
+		}
 
 		return currentSchema.getName();
 	}

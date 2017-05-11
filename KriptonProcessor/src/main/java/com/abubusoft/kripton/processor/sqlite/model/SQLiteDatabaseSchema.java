@@ -38,6 +38,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	public String fileName;
 
 	public String generatedClassName;
+	
+	public SQLiteModelContentProvider contentProvider=new SQLiteModelContentProvider();
 
 	/**
 	 * @return the generatedClassName

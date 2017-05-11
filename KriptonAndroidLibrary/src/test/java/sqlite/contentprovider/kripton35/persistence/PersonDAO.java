@@ -17,6 +17,8 @@ package sqlite.contentprovider.kripton35.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.annotation.BindContentProviderPath;
 
 import sqlite.contentprovider.kripton35.entities.Person;
 
@@ -25,9 +27,11 @@ import sqlite.contentprovider.kripton35.entities.Person;
  */
 
 @BindDao(Person.class)
+@BindContentProviderPath(path="persons",typeName="rutto")
 public interface PersonDAO {
 	
 	@BindSqlInsert
+	@BindContentProviderEntry
 	boolean insert(Person bean);
 		
 }

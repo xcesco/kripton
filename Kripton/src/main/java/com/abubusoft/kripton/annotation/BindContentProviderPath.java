@@ -41,5 +41,15 @@ public @interface BindContentProviderPath {
 	 * @return content provider authority
 	 */
 	public String path();
+	
+
+	/**
+	 * Name of type that content provider returns. If not specified, class name
+	 * will be used.
+	 * 
+	 * @return
+	 * 		type name
+	 */
+	public String typeName() default "";
 
 }

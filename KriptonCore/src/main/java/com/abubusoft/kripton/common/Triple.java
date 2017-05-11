@@ -31,10 +31,10 @@ public class Triple<V0, V1, V2> extends Pair<V0, V1> {
 
 	}
 
-	public Triple(V0 v1, V1 v2, V2 v3) {
-		super(v1, v2);
-		this.value3 = v3;
+	public Triple(V0 v0, V1 v1, V2 v2) {
+		super(v0, v1);
+		this.value2 = v2;
 	}
 
-	public V2 value3;
+	public V2 value2;
 }

@@ -22,8 +22,18 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * Used to manage an URI managed by a content provider path for annotated data source. This annotation can be used only on methods of DAO definition.
+ * Used to manage an URI managed by a content provider path for annotated data
+ * source. This annotation can be used only on methods of DAO definition.
  * </p>
+ * <p>
+ * To use this annotation on DAO method, there are some constraints to respect.
+ * </p>
+ * 
+ * <h3>Insert constraints</h3>
+ * <ul>
+ * <li>return type must be the primary key value (an <code>integer</code> or a
+ * <code>long</code> or bean value)</li>
+ * </ul>
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  * 
@@ -41,5 +51,20 @@ public @interface BindContentProviderEntry {
 	 * @return content provider authority
 	 */
 	public String path() default "";
+	
+	/**
+	 * Define numerosity of result of operation exposed by content provider
+	 * @return
+	 */
+	public ResultType resultType() default ResultType.DEFAULT;
+	
+	public enum ResultType {
+		/**
+		 * default means: select return many rows, other operation only one.
+		 */
+		DEFAULT,
+		ONE,
+		MANY
+	}
 
 }
