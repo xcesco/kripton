@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Kripton/kripton.iml" filepath="$PROJECT_DIR$/Kripton/kripton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KriptonAndroidLibrary/kripton-android-library.iml" filepath="$PROJECT_DIR$/KriptonAndroidLibrary/kripton-android-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KriptonCore/kripton-core.iml" filepath="$PROJECT_DIR$/KriptonCore/kripton-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KriptonDataFormatCbor/kripton-dataformat-cbor.iml" filepath="$PROJECT_DIR$/KriptonDataFormatCbor/kripton-dataformat-cbor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KriptonDataFormatProperties/kripton-dataformat-properties.iml" filepath="$PROJECT_DIR$/KriptonDataFormatProperties/kripton-dataformat-properties.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KriptonDataFormatYaml/kripton-dataformat-yaml.iml" filepath="$PROJECT_DIR$/KriptonDataFormatYaml/kripton-dataformat-yaml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kripton-parent.iml" filepath="$PROJECT_DIR$/kripton-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KriptonProcessor/kripton-processor.iml" filepath="$PROJECT_DIR$/KriptonProcessor/kripton-processor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KriptonRetrofitConverter/kripton-retrofit-converter.iml" filepath="$PROJECT_DIR$/KriptonRetrofitConverter/kripton-retrofit-converter.iml" />
+    </modules>
+  </component>
+</project>

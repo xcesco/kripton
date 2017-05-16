@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="kripton" />
+        <module name="kripton-android-library" />
+        <module name="kripton-core" />
+        <module name="kripton-dataformat-cbor" />
+        <module name="kripton-dataformat-properties" />
+        <module name="kripton-dataformat-yaml" />
+        <module name="kripton-retrofit-converter" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="kripton" target="1.7" />
+      <module name="kripton-android-library" target="1.7" />
+      <module name="kripton-core" target="1.7" />
+      <module name="kripton-dataformat-cbor" target="1.7" />
+      <module name="kripton-dataformat-properties" target="1.7" />
+      <module name="kripton-dataformat-yaml" target="1.7" />
+      <module name="kripton-parent" target="1.7" />
+      <module name="kripton-processor" target="1.7" />
+      <module name="kripton-retrofit-converter" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
