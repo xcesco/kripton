@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Kripton" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/KriptonAndroidLibrary" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/KriptonCore" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/KriptonDataFormatCbor" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/KriptonDataFormatProperties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/KriptonDataFormatYaml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/KriptonProcessor" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/KriptonRetrofitConverter" charset="UTF-8" />
+  </component>
+</project>
