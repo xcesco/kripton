@@ -23,11 +23,16 @@ import java.lang.annotation.Target;
 /**
  * Define a dynamic where condition. It is append to <code>where</code> statement defined with attribute <code>where</code> in <code>BindSqlSelect</code> annotation.
  * 
+ * <ul>
+ *    <li>on SELECT, DELETE, UPDATE query type</li>
+ *    <li>only one annotation for method</li>
+ * </ul>
+ * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface BindSqlWhere {
+public @interface BindSqlDynamicWhere {
 
 }

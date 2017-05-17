@@ -21,50 +21,24 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>
- * Used to manage an URI managed by a content provider path for annotated data
- * source. This annotation can be used only on methods of DAO definition.
- * </p>
- * <p>
- * To use this annotation on DAO method, there are some constraints to respect.
- * </p>
+ * Define dynamic where condition's arguments. These arguments are append to existing ones. 
  * 
- * <h3>Insert constraints</h3>
+ * This annotation can be used: 
+ * 
  * <ul>
- * <li>return type must be the primary key value (an <code>integer</code> or a
- * <code>long</code> or bean value)</li>
+ *    <li>on SELECT, DELETE, UPDATE query type</li>
+ *    <li>if {@link BindSqlDynamicWhere} marked argument is defined is the same method</li>
+ *    <li>on type <code>String[]</code> parameter</li>
+ *    <li>only one annotation for method</li>
  * </ul>
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  * 
- * @see <a href=
- *      "https://developer.android.com/guide/topics/providers/content-provider-basics.html">content-provider-basics</a>
+ * @see BindSqlDynamicWhere
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface BindContentProviderEntry {
-
-	/**
-	 * Define the segment path associated to DAO.
-	 * 
-	 * @return content provider authority
-	 */
-	public String path() default "";
-	
-	/**
-	 * Define numerosity of result of operation exposed by content provider
-	 * @return
-	 */
-	public ResultType resultType() default ResultType.DEFAULT;
-	
-	public enum ResultType {
-		/**
-		 * default means: select return many rows, other operation only one.
-		 */
-		DEFAULT,
-		ONE,
-		MANY
-	}
+@Target(ElementType.PARAMETER)
+public @interface BindSqlDynamicWhereArgs {
 
 }

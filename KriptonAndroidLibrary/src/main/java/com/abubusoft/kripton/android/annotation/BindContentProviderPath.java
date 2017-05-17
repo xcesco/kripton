@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.annotation;
+package com.abubusoft.kripton.android.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

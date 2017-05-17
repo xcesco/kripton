@@ -98,7 +98,7 @@ public abstract class SqlModifyBuilder {
 		// check type of arguments
 		int count = 0;
 		for (Pair<String, TypeName> param : method.getParameters()) {
-			if (method.hasDynamicWhereConditions() && param.value0.equals(method.dynamicWhereParameterName)) {
+			if (method.info.hasDynamicWhereConditions() && param.value0.equals(method.info.dynamicWhereParameterName)) {
 				// if current parameter is dynamic where, skip it
 				continue;
 			}
@@ -136,7 +136,7 @@ public abstract class SqlModifyBuilder {
 			// with dynamic where conditions, we have to add 1 to parameter
 			// check size (one parameter is a bean and one is the where
 			// conditions)
-			AssertKripton.assertTrueOrInvalidMethodSignException(method.getParameters().size() == 1 + (method.hasDynamicWhereConditions() ? 1 : 0), method, " expected only one parameter of %s type",
+			AssertKripton.assertTrueOrInvalidMethodSignException(method.getParameters().size() == 1 + (method.info.hasDynamicWhereConditions() ? 1 : 0), method, " expected only one parameter of %s type",
 					daoDefinition.getEntityClassName());
 		} else {
 			throw (new InvalidMethodSignException(method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));

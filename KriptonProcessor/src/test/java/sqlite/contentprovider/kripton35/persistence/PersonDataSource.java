@@ -15,8 +15,10 @@
  *******************************************************************************/
 package sqlite.contentprovider.kripton35.persistence;
 
+import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.annotation.BindContentProvider;
+
+import sqlite.dynamic.update.PersonDAO;
 
 /**
  * Created by xcesco on 27/09/2016.

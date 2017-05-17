@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.contentprovider.kripton35.persistence;
+package sqlite.dynamic.update;
 
 import java.util.List;
 
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.annotation.BindContentProviderEntry;
-import com.abubusoft.kripton.annotation.BindContentProviderEntry.ResultType;
-import com.abubusoft.kripton.annotation.BindContentProviderPath;
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.ResultType;
 
 import sqlite.contentprovider.kripton35.entities.Person;
 

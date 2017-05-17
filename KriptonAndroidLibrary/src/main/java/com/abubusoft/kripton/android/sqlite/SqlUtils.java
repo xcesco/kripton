@@ -5,6 +5,34 @@ package com.abubusoft.kripton.android.sqlite;
  *
  */
 public abstract class SqlUtils {
+	
+	/**
+	 * Prepare a where statement for LOG. If needed, it prepend the WHERE word.
+	 * 
+	 * @param needWhere
+	 * 		true if WHERE is needed before where conditions.
+	 * @param value
+	 * 		where conditions
+	 * @return
+	 * 		WHERE statement
+	 */
+	public static String appendWhereForLog(boolean needWhere, String value) {
+		return appendForLog((needWhere ? "WHERE ":"")+value);
+	}
+	
+	/**
+	 * Prepare a where statement for SQL. If needed, it prepend the WHERE word.
+	 * 
+	 * @param needWhere
+	 * 		true if WHERE is needed before where conditions.
+	 * @param value
+	 * 		where conditions
+	 * @return
+	 * 		WHERE statement
+	 */
+	public static String appendWhereForSQL(boolean needWhere, String value) {
+		return appendForSQL((needWhere ? "WHERE ":"")+value);
+	}
 
 	/**
 	 * Prepare a string to be used as part of SQL statement in LOGCAT.

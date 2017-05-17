@@ -13,32 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.android.annotation;
+package sqlite.dynamic.kripton121;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-/**
- * <p>
- * Used to generate a content provider for annotated data source.
- * </p>
- * 
- * @see <a href="https://developer.android.com/guide/topics/providers/content-provider-basics.html">content-provider-basics</a>
- * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
- *
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface BindContentProvider {
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.dynamic.Person;
+
+@RunWith(JUnit4.class)
+public class Kripton121Test extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * Define the AUTHORITY for content provider.
-	 * 
-	 * @return content provider authority
+	 * Happy ending scenario. 
 	 */
-	public String authority();
-
+	@Test
+	public void testMainScenario() throws Throwable {
+		buildDataSourceProcessorTest(Person1DataSource.class, Person1DAO.class, Person.class);
+	}
+	
+	/**
+	 * Use <code>BindSqlWhere</code> in insert method
+	 * @throws Throwable
+	 */
+//	@Test
+//	public void testErr1() throws Throwable {
+//		this.expectedException(InvalidMethodSignException.class);
+//		buildDataSourceProcessorTest(Err1DataSource.class, Err1DAO.class, Person.class);
+//	}
+	
+	
 }

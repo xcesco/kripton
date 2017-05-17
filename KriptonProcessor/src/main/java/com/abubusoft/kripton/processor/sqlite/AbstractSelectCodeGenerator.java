@@ -127,6 +127,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
+		// set if method has static WHERE conditions
+		method.info.setStaticWhereClause(StringUtils.hasText(whereSQL));
 
 		String havingSQL = annotation.getAttribute(AnnotationAttributeType.HAVING);
 		analyzer.execute(elementUtils, method, havingSQL);
@@ -151,12 +153,13 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
+		method.info.setStaticOrderByClause(StringUtils.hasText(orderBySQL));
 
 		// add as used parameter dynamic components too
-		if (method.hasDynamicWhereConditions()) {
-			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicWhereParameterName), method,
+		if (method.info.hasDynamicWhereConditions()) {
+			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.info.dynamicWhereParameterName), method,
 					" parameter %s is used like SQL parameter and dynamic WHERE condition.", method.dynamicOrderByParameterName);
-			usedMethodParameters.add(method.dynamicWhereParameterName);
+			usedMethodParameters.add(method.info.dynamicWhereParameterName);
 		}
 
 		if (method.hasDynamicOrderByConditions()) {
@@ -304,8 +307,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	}
 
 	public static String formatSqlInternal(SQLiteModelMethod method, String sql, String appendMethod) {
-		if (method.hasDynamicWhereConditions()) {
-			sql = sql.replace("#{" + method.dynamicWhereParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.dynamicWhereParameterName + ")+\"");
+		if (method.info.hasDynamicWhereConditions()) {						
+			sql = sql.replace("#{" + method.info.dynamicWhereParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.info.dynamicWhereParameterName + ")+\"");
 		}
 
 		if (method.hasDynamicOrderByConditions()) {

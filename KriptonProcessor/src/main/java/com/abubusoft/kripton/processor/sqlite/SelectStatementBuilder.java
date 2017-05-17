@@ -92,12 +92,12 @@ public class SelectStatementBuilder {
 		buffer.append(fields);
 		buffer.append(" FROM " + table);
 
-		if (StringUtils.hasText(where) || method.hasDynamicWhereConditions()) {
+		if (method.info.hasStaticWhereClause() || method.info.hasDynamicWhereConditions()) {
 			buffer.append(" WHERE");
 			if (StringUtils.hasText(where))
 				buffer.append(" " + where.trim());
-			if (method.hasDynamicWhereConditions()) {
-				buffer.append(" #{"+method.dynamicWhereParameterName+"}");
+			if (method.info.hasDynamicWhereConditions()) {
+				buffer.append(" #{"+method.info.dynamicWhereParameterName+"}");
 			}
 		}
 

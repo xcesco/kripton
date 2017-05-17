@@ -31,7 +31,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindSqlWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelMethod;
@@ -54,14 +54,6 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	/**
 	 * <p>
-	 * It is the typeName of parameter used to dynamic where condition (defined at
-	 * runtime).
-	 * </p>
-	 */
-	public String dynamicWhereParameterName;
-	
-	/**
-	 * <p>
 	 * It is the typeName of parameter used to dynamic page size (defined at
 	 * runtime).
 	 * </p>
@@ -79,11 +71,14 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	private WeakReference<SQLDaoDefinition> parent;
 
+	public MethodInfo info;
+
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element) {
 		super(element);
 		this.parent = new WeakReference<SQLDaoDefinition>(parent);
 		this.parameterAlias2NameField = new HashMap<>();
 		this.parameterNameField2Alias = new HashMap<>();
+		this.info=new MethodInfo();
 
 		// analyze method looking for BindSqlParam
 		for (VariableElement p : element.getParameters()) {
@@ -96,11 +91,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		}
 		
 		// looks for dynamic where conditions
-		findStringDynamicStatement(parent, BindSqlWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
+		findStringDynamicStatement(parent, BindSqlDynamicWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
 
 			@Override
 			public void onFoundParameter(String parameterName) {
-				dynamicWhereParameterName = parameterName;
+				info.dynamicWhereParameterName = parameterName;
 			}
 
 		});
@@ -265,17 +260,13 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public boolean hasDynamicOrderByConditions() {
 		return StringUtils.hasText(dynamicOrderByParameterName);
 	}
-
-	public boolean hasDynamicWhereConditions() {
-		return StringUtils.hasText(dynamicWhereParameterName);
-	}
 	
 	public boolean hasDynamicPageSizeConditions() {
 		return StringUtils.hasText(dynamicPageSizeName);
 	}
 	
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
-		return StringUtils.hasText(dynamicWhereParameterName) && parameterName.equals(dynamicWhereParameterName);
+		return StringUtils.hasText(info.dynamicWhereParameterName) && parameterName.equals(info.dynamicWhereParameterName);
 	}
 	
 	public boolean isThisDynamicPageSizeName(String parameterName) {

@@ -27,7 +27,6 @@ import com.squareup.javapoet.MethodSpec.Builder;
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
- *
  * @since 17/mag/2016
  */
 public class SelectRawHelper extends AbstractSelectCodeGenerator {
