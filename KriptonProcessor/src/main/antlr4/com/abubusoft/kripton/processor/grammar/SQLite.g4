@@ -311,7 +311,8 @@ conflict_clause
 */
 expr
  : literal_value
- | BIND_PARAMETER
+ | bind_parameter
+ | bind_dynamic_sql
  | ( ( database_name '.' )? table_name '.' )? column_name
  | unary_operator expr
  | expr '||' expr
@@ -339,6 +340,19 @@ expr
  | K_CASE expr? ( K_WHEN expr K_THEN expr )+ ( K_ELSE expr )? K_END
  | raise_function
  ;
+ 
+bind_parameter
+ : BIND_PARAMETER
+ | '$' SPACES* '{' SPACES* bind_parameter_name SPACES* '}'
+ ;
+
+bind_parameter_name
+ : IDENTIFIER
+ ; 
+
+bind_dynamic_sql
+ : '#' SPACES* '{' SPACES* bind_parameter_name SPACES* '}'
+ ; 
 
 foreign_key_clause
  : K_REFERENCES foreign_table ( '(' column_name ( ',' column_name )* ')' )?
