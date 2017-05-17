@@ -44,22 +44,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		void onFoundParameter(String parameterName);
 	}
 
-	/**
-	 * <p>
-	 * It is the typeName of parameter used to dynamic order by condition (defined at
-	 * runtime).
-	 * </p>
-	 */
-	public String dynamicOrderByParameterName;
 
-	/**
-	 * <p>
-	 * It is the typeName of parameter used to dynamic page size (defined at
-	 * runtime).
-	 * </p>
-	 */
-	public String dynamicPageSizeName;
-	
 	/**
 	 * typeName of the paginated result parameter typeName.
 	 */
@@ -105,7 +90,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			@Override
 			public void onFoundParameter(String parameterName) {
-				dynamicOrderByParameterName = parameterName;
+				info.dynamicOrderByParameterName = parameterName;
 			}
 
 		});
@@ -115,7 +100,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			@Override
 			public void onFoundParameter(String parameterName) {
-				dynamicPageSizeName = parameterName;
+				info.dynamicPageSizeName = parameterName;
 			}
 
 		});
@@ -256,21 +241,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public SQLDaoDefinition getParent() {
 		return parent.get();
 	}
-
-	public boolean hasDynamicOrderByConditions() {
-		return StringUtils.hasText(dynamicOrderByParameterName);
-	}
-	
-	public boolean hasDynamicPageSizeConditions() {
-		return StringUtils.hasText(dynamicPageSizeName);
-	}
 	
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
 		return StringUtils.hasText(info.dynamicWhereParameterName) && parameterName.equals(info.dynamicWhereParameterName);
-	}
-	
-	public boolean isThisDynamicPageSizeName(String parameterName) {
-		return StringUtils.hasText(dynamicPageSizeName) && parameterName.equals(dynamicPageSizeName);
 	}
 
 	public boolean hasPaginatedResultParameter() {

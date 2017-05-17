@@ -179,7 +179,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		String separator = "";
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeName> item : method.getParameters()) {
-			if (method.hasDynamicPageSizeConditions() && method.dynamicPageSizeName.equals(item.value0)) {
+			if (method.info.hasDynamicPageSizeConditions() && method.info.dynamicPageSizeName.equals(item.value0)) {
 				setupBuilder.addStatement("this.pageSize=$L", item.value0);
 			} else {
 				// field
@@ -196,7 +196,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			separator = ", ";
 		}
 
-		if (!method.hasDynamicPageSizeConditions()) {
+		if (!method.info.hasDynamicPageSizeConditions()) {
 			ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 			int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
 			setupBuilder.addStatement("this.pageSize=$L", pageSize);

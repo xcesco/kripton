@@ -76,14 +76,14 @@ public class SelectStatementBuilder {
 	}
 
 	public String build(SQLiteModelMethod method) {
-		return buildInternal(method, "appendForSQL");
+		return buildInternal(method);
 	}
 
 	public String buildForLog(SQLiteModelMethod method) {
-		return buildInternal(method, "appendForLog");
+		return buildInternal(method);
 	}
 
-	private String buildInternal(SQLiteModelMethod method, String nvlFunction) {
+	private String buildInternal(SQLiteModelMethod method) {
 		StringBuilder buffer = new StringBuilder();
 
 		buffer.append("SELECT ");
@@ -107,22 +107,22 @@ public class SelectStatementBuilder {
 		if (StringUtils.hasText(groupBy))
 			buffer.append(" GROUP BY " + groupBy.trim());
 		
-		if (StringUtils.hasText(orderBy) || method.hasDynamicOrderByConditions()) {
+		if (StringUtils.hasText(orderBy) || method.info.hasDynamicOrderByConditions()) {
 			buffer.append(" ORDER BY ");
 			if (StringUtils.hasText(orderBy))
 				buffer.append(orderBy.trim());
-			if (method.hasDynamicOrderByConditions()) {
-				buffer.append("#{"+method.dynamicOrderByParameterName+"}");
+			if (method.info.hasDynamicOrderByConditions()) {
+				buffer.append("#{"+method.info.dynamicOrderByParameterName+"}");
 			}
 		}
 		
-		if (pageSize>0 || method.hasDynamicPageSizeConditions())
+		if (pageSize>0 || method.info.hasDynamicPageSizeConditions())
 		{			
 			if (pageSize>0)
 			{
 				buffer.append(" LIMIT "+pageSize);
 			} else {
-				buffer.append("#{"+method.dynamicPageSizeName+"}");
+				buffer.append("#{"+method.info.dynamicPageSizeName+"}");
 			}
 			
 			// we can include OFFSET management only if we have LIMIT

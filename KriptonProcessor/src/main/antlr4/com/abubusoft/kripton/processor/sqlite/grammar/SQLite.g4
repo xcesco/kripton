@@ -347,7 +347,7 @@ bind_parameter
  ;
 
 bind_parameter_name
- : IDENTIFIER
+ : (IDENTIFIER '.')?IDENTIFIER
  ; 
 
 bind_dynamic_sql

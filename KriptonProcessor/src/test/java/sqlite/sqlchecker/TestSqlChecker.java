@@ -25,15 +25,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.processor.grammar.SQLiteBaseListener;
-import com.abubusoft.kripton.processor.grammar.SQLiteLexer;
-import com.abubusoft.kripton.processor.grammar.SQLiteListener;
-import com.abubusoft.kripton.processor.grammar.SQLiteParser;
-import com.abubusoft.kripton.processor.grammar.SQLiteParser.Bind_parameterContext;
-import com.abubusoft.kripton.processor.grammar.SQLiteParser.Bind_parameter_nameContext;
-import com.abubusoft.kripton.processor.grammar.SQLiteParser.Update_stmtContext;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteAnalyzer;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteAnalyzer.SQLType;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteLexer;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteListener;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_dynamic_sqlContext;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameterContext;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameter_nameContext;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.ErrorContext;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Error_messageContext;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.ParseContext;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Raise_functionContext;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Update_stmtContext;
 
 import base.BaseProcessorTest;
 
@@ -48,31 +53,23 @@ public class TestSqlChecker extends BaseProcessorTest {
 	 */
 	@Test
 	public void testOK() throws Throwable {		
-		String sql="select id as _id, pippo pluto, gu from table where id = ${id} and #{succhia}";
-		
-		
-		SQLiteAnalyzer.getInstance().analyze(SQLType.SELECT, sql, new SQLiteBaseListener() {
-			
+		String sql="SELECT id, action, number, countryCode, contactName, contactId FROM phone_number WHERE number = ${bean.number} and number = ${bean.number} and #{dynamicWhere} #{dynamicWhere}";
+				
+		SQLiteAnalyzer.getInstance().analyze(sql, new SQLiteBaseListener() {
+									
 			@Override
-			public void enterBind_parameter(Bind_parameterContext ctx) {			
-				super.enterBind_parameter(ctx);
-				
-				for (ParseTree item : ctx.children) {
-					TestSqlChecker.this.log("trovato parametro name %s", item.getText());	
-				}
-				
+			public void enterBind_parameter(Bind_parameterContext ctx) {								
+				TestSqlChecker.this.log("xx parameter name %s", ctx.bind_parameter_name().getText());								
 			}
 			
 			@Override
-			public void enterBind_parameter_name(Bind_parameter_nameContext ctx) {			
-				super.enterBind_parameter_name(ctx);
-				
-				TestSqlChecker.this.log("trovato parametro name %s", ctx.children.get(0).toString());
+			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
+				TestSqlChecker.this.log("xx dynamic %s", ctx.bind_parameter_name().getText());
 			}
-						
+					
 		});
 		
-		log(SQLiteAnalyzer.getInstance().replaceBindParameters(SQLType.SELECT, sql));
+		log(SQLiteAnalyzer.getInstance().replaceBindParameters(sql));
 		
 		
 		log("aa");
