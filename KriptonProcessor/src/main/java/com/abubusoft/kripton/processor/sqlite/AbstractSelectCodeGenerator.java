@@ -23,7 +23,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectType;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteAnalyzer;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteChecker;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameterContext;
@@ -199,7 +199,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				.orderBy(orderByStatement).limit(pageSize).buildForLog(method);
 		
 		method.info.jql=sqlWithParameters;
-		SQLiteAnalyzer.getInstance().analyze(sqlWithParameters, new SQLiteBaseListener() {
+		SQLiteChecker.getInstance().analyze(sqlWithParameters, new SQLiteBaseListener() {
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {				
 				Logger.info("dynamic "+ctx.bind_parameter_name().getText());

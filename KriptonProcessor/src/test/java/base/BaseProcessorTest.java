@@ -17,6 +17,8 @@ package base;
 
 import static com.abubusoft.testing.compile.JavaSourcesSubjectFactory.javaSources;
 import static com.google.common.truth.Truth.assertAbout;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,7 +31,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -42,6 +46,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
+import org.unitils.reflectionassert.ReflectionAssert;
+import org.unitils.reflectionassert.ReflectionComparatorMode;
 
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.BindTypeProcessor;
@@ -60,6 +66,23 @@ public class BaseProcessorTest {
 
 	public void log(String message, Object... objects) {
 		System.out.println(String.format(message, objects));
+	}
+	
+	/**
+	 * Test each elements of two collections. It does not matter the collections' kind. Elements are compared by reflection.
+	 * 
+	 * @param collection1
+	 * @param collection2
+	 */
+	public void checkCollectionExactly(Collection<?> collection1, Collection<?> collection2) {
+		assertEquals("collections does not have same size", collection1.size(),collection2.size());
+		
+		Iterator<?> i1 = collection1.iterator();
+		Iterator<?> i2 = collection2.iterator();
+		
+		while (i1.hasNext()) {
+			ReflectionAssert.assertReflectionEquals(i1.next(), i2.next(), ReflectionComparatorMode.LENIENT_ORDER);			
+		}
 	}
 
 	@Before
