@@ -25,7 +25,6 @@ import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectType;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteAnalyzer.SQLType;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;

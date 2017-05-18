@@ -19,15 +19,15 @@ package com.abubusoft.kripton.common;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class Pair<V0, V1> {
+public class Pair<V0, V1> extends One<V0> {
 	public Pair()
 	{
-		
+		super();
 	}
 	
 	public Pair(V0 value0, V1 value1)
 	{
-		this.value0=value0;
+		super(value0);		
 		this.value1=value1;
 	}
 	
@@ -37,8 +37,7 @@ public class Pair<V0, V1> {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((value0 == null) ? 0 : value0.hashCode());
+		int result = super.hashCode();
 		result = prime * result + ((value1 == null) ? 0 : value1.hashCode());
 		return result;
 	}
@@ -50,17 +49,11 @@ public class Pair<V0, V1> {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		@SuppressWarnings("rawtypes")
 		Pair other = (Pair) obj;
-		if (value0 == null) {
-			if (other.value0 != null)
-				return false;
-		} else if (!value0.equals(other.value0))
-			return false;
 		if (value1 == null) {
 			if (other.value1 != null)
 				return false;
@@ -68,8 +61,5 @@ public class Pair<V0, V1> {
 			return false;
 		return true;
 	}
-
-	public V0 value0;
-	
 	public V1 value1;
 }

@@ -26,6 +26,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteLexer;
@@ -53,7 +54,8 @@ public class TestSqlChecker extends BaseProcessorTest {
 	 */
 	@Test
 	public void testOK() throws Throwable {		
-		String sql="SELECT id, action, number, countryCode, contactName, contactId FROM phone_number WHERE number = ${bean.number} and number = ${bean.number} and #{dynamicWhere} #{dynamicWhere}";
+		String sql="SELECT id, action, number, countryCode, contactName, contactId FROM phone_number WHERE number = ${bean.number} and number = ${bean.number} and #{dynamicWhere} and #{dynamicWhere}";
+		
 				
 		SQLiteAnalyzer.getInstance().analyze(sql, new SQLiteBaseListener() {
 									
@@ -73,6 +75,13 @@ public class TestSqlChecker extends BaseProcessorTest {
 		
 		
 		log("aa");
+	}
+	
+	@Test
+	public void testProjectColumn()
+	{
+		String sql="select count(*) as pippo ,fieldName1, composed.fieldName2 from table where id = ${bean.id}";
+		SQLiteAnalyzer.getInstance().analyzeProjectedField(sql);
 	}
 	
 	/**
