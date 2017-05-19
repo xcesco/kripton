@@ -4,11 +4,10 @@
 package com.abubusoft.kripton.processor.sqlite.grammar;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -23,24 +22,20 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.sqlite.grammar.Parameter.ParameterType;
-import com.abubusoft.kripton.processor.sqlite.grammar.Projection.ProjectionBuilder;
-import com.abubusoft.kripton.processor.sqlite.grammar.Projection.ProjectionType;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLPlaceHolder.JQLPlaceHolderType;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection.ProjectionBuilder;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection.ProjectionType;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameterContext;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameter_nameContext;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Result_columnContext;
 
-import sqlite.sqlchecker.Parameter;
+public class JQLChecker {
 
-public class SQLiteChecker {
+	protected static JQLChecker instance;
 
-	protected static SQLiteChecker instance;
-
-	public static final SQLiteChecker getInstance() {
+	public static final JQLChecker getInstance() {
 		if (instance == null) {
-			instance = new SQLiteChecker();
+			instance = new JQLChecker();
 		}
 
 		return instance;
@@ -48,7 +43,7 @@ public class SQLiteChecker {
 
 	ParseTreeWalker walker = new ParseTreeWalker();
 
-	private SQLiteChecker() {
+	private JQLChecker() {
 
 	}
 
@@ -83,8 +78,8 @@ public class SQLiteChecker {
 	 * @param sql
 	 * @return
 	 */
-	public Set<Projection> extractProjectedFields(String sql) {
-		final Set<Projection> result = new LinkedHashSet<Projection>();
+	public Set<JQLProjection> extractProjections(String sql) {
+		final Set<JQLProjection> result = new LinkedHashSet<JQLProjection>();
 
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
@@ -120,19 +115,28 @@ public class SQLiteChecker {
 		return result;
 	}
 
-	public String replaceBindParameters(String sql, List<Parameter> parameter, final BindParameterReplacerListener listener) {
+	/**
+	 * Replace place holder with element passed by listener
+	 * 
+	 * @param sql
+	 * @param listener
+	 * @return
+	 * 		string obtained by replacements
+	 */
+	public String replacePlaceHolders(String sql, final JSQLPlaceHolderReplacerListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 				
 		SQLiteBaseListener rewriterListener = new SQLiteBaseListener() {
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				listener.onBindParameter(parameter);
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, ":dynamic"));
+				String value=listener.onDynamicSQL(ctx.bind_parameter_name().getText());
+				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, ":bind"));
+				String value=listener.onParameter(ctx.bind_parameter_name().getText());
+				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 		};
 		
@@ -153,9 +157,17 @@ public class SQLiteChecker {
 
 	}
 	
-	public interface BindParameterReplacerListener {
+	public interface JSQLPlaceHolderReplacerListener {
 		
-		String onBindParameter(Parameter parameter);
+		/**
+		 * Event fired when we found a parameter: either it is a parameter, either it is dynamic sql
+		 * 
+		 * @param string
+		 * @return
+		 */
+		String onParameter(String placeHolder);
+
+		String onDynamicSQL(String placeHolder);
 		
 	}
 
@@ -172,14 +184,26 @@ public class SQLiteChecker {
 	}
 
 	/**
-	 * Extract all bind parameters and dynamic part used in query. It return a list, so duplicate are permitted.
+	 * Extract all bind parameters and dynamic part used in query.
 	 * 
 	 * @param sql
 	 * @return
 	 */
-	public List<Parameter> extractBindParameters(String sql) {
-		final List<Parameter> result = new ArrayList<Parameter>();
-
+	public List<JQLPlaceHolder> extractPlaceHoldersAsList(String sql) {
+		return extractPlaceHolders(sql, new ArrayList<JQLPlaceHolder>());
+	}
+	
+	/**
+	 * Extract all bind parameters and dynamic part used in query.
+	 * 
+	 * @param sql
+	 * @return
+	 */
+	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(String sql) {
+		return extractPlaceHolders(sql, new LinkedHashSet<JQLPlaceHolder>());
+	}
+	
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(String sql, final L result) {		
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
 
@@ -187,23 +211,13 @@ public class SQLiteChecker {
 			
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				if (ctx.bind_parameter_name().getChildCount()==1) {
-					result.add(new Parameter(ParameterType.PARAMETER_SIMPLE, ctx.bind_parameter_name().getText()));
-				} else {
-					result.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, ctx.bind_parameter_name().getText()));
-				}
+				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, ctx.bind_parameter_name().getText()));				
 			}
 			
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				if (ctx.bind_parameter_name().getChildCount()==1) {
-					result.add(new Parameter(ParameterType.DYNAMIC_SQL_SIMPLE, ctx.bind_parameter_name().getText()));
-				} else {
-					result.add(new Parameter(ParameterType.DYNAMIC_SQL_INNER_FIELD, ctx.bind_parameter_name().getText()));
-				}
-			}
-			
-			
+				result.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, ctx.bind_parameter_name().getText()));				
+			}						
 					
 		});
 		return result;

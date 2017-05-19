@@ -5,17 +5,24 @@ package com.abubusoft.kripton.processor.sqlite.grammar;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class Parameter {
+public class JQLPlaceHolder {
 	
-	public ParameterType type;
+	public JQLPlaceHolderType type;
 	
 	public String value;
 	
-	public Parameter(ParameterType type, String value) {
+	/**
+	 * if <code>true</code>, means parameter used an attribute of parameter. If <code>false</code>, parameter is used directly
+	 *  
+	 */
+	public boolean composed;
+	
+	public JQLPlaceHolder(JQLPlaceHolderType type, String value) {
 		this.value=value;
+		this.composed=value.indexOf(".")>=0;
 		this.type=type;
 	}
-
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -33,10 +40,9 @@ public class Parameter {
 		return builder.toString();
 	}
 
-	public enum ParameterType {
-		PARAMETER_SIMPLE, PARAMETER_INNER_FIELD,
-		DYNAMIC_SQL_SIMPLE, DYNAMIC_SQL_INNER_FIELD
-		 
+	public enum JQLPlaceHolderType {
+		PARAMETER,		
+		DYNAMIC_SQL				 
 	}
 
 }

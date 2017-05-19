@@ -86,9 +86,7 @@ public class Main {
 			}
 
 		}
-		
-		File file=new File("card.json");
-		System.out.println(file.getAbsolutePath());
-		KriptonBinder.jsonBind().serialize(scheda, new FileOutputStream(file));
 	}
 }
+
+

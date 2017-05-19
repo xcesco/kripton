@@ -58,6 +58,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	public MethodInfo info;
 
+	/**
+	 * Create method rapresentation of DAO bean. Moreover, it define 
+	 * @param parent
+	 * @param element
+	 */
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element) {
 		super(element);
 		this.parent = new WeakReference<SQLDaoDefinition>(parent);
@@ -236,6 +241,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
+	 * <p></p>
+	 * 
 	 * @return the parent
 	 */
 	public SQLDaoDefinition getParent() {

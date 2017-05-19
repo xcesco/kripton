@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.processor.sqlite.grammar;
 
-public class Projection  {
+public class JQLProjection  {
 
 	public enum ProjectionType {
 		COMPLEX,
@@ -49,15 +49,15 @@ public class Projection  {
 			return this;			
 		}
 		
-		public Projection build()
+		public JQLProjection build()
 		{
-			return new Projection(type, table, column, alias, expression);
+			return new JQLProjection(type, table, column, alias, expression);
 		}
 
 		
 	}
 	
-	public Projection(ProjectionType type,  String table, String column, String alias, String expression) {
+	public JQLProjection(ProjectionType type,  String table, String column, String alias, String expression) {
 		this.type=type;
 		this.table=table;
 		this.column=column;
@@ -123,7 +123,7 @@ public class Projection  {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Projection other = (Projection) obj;
+		JQLProjection other = (JQLProjection) obj;
 		if (alias == null) {
 			if (other.alias != null)
 				return false;

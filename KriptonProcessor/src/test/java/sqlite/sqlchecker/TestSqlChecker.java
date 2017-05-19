@@ -15,48 +15,27 @@
  *******************************************************************************/
 package sqlite.sqlchecker;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.unitils.reflectionassert.ReflectionAssert;
-import org.unitils.reflectionassert.ReflectionComparatorMode;
 
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteChecker;
-import com.abubusoft.kripton.processor.sqlite.grammar.Parameter;
-import com.abubusoft.kripton.processor.sqlite.grammar.Parameter.ParameterType;
-import com.abubusoft.kripton.processor.sqlite.grammar.Projection;
-import com.abubusoft.kripton.processor.sqlite.grammar.Projection.ProjectionType;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLPlaceHolderReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLPlaceHolder;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLPlaceHolder.JQLPlaceHolderType;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection.ProjectionType;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteLexer;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteListener;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameterContext;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameter_nameContext;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.ErrorContext;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Error_messageContext;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.ParseContext;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Raise_functionContext;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Update_stmtContext;
-import com.google.common.collect.Sets;
 
 import base.BaseProcessorTest;
 
@@ -74,7 +53,8 @@ public class TestSqlChecker extends BaseProcessorTest {
 	public void testOK() throws Throwable {
 		String sql = "SELECT id, action, number, countryCode, contactName, contactId FROM phone_number WHERE number = ${bean.number} and number = ${bean.number} and #{dynamicWhere} and #{dynamicWhere}";
 
-		SQLiteChecker.getInstance().analyze(sql, new SQLiteBaseListener() {
+		JQLChecker jsqChecker = JQLChecker.getInstance();
+		jsqChecker.analyze(sql, new SQLiteBaseListener() {
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
@@ -88,7 +68,19 @@ public class TestSqlChecker extends BaseProcessorTest {
 
 		});
 
-		log(SQLiteChecker.getInstance().replaceBindParameters(sql));
+		jsqChecker.extractPlaceHoldersAsList(sql);
+		log("replaced " + jsqChecker.replacePlaceHolders(sql, new JSQLPlaceHolderReplacerListener() {
+
+			@Override
+			public String onParameter(String value) {
+				return "?";
+			}
+
+			@Override
+			public String onDynamicSQL(String text) {
+				return String.format("\"+%s+\"", text);
+			}
+		}));
 
 		log("aa");
 	}
@@ -96,27 +88,27 @@ public class TestSqlChecker extends BaseProcessorTest {
 	@Test
 	public void testProjectColumn() {
 		String sql = "select count(*) as pippo ,fieldName1, composed.fieldName2 from table where id = ${bean.id}";
-		SQLiteChecker.getInstance().extractProjectedFields(sql);
+		JQLChecker.getInstance().extractProjections(sql);
 	}
 
 	@Test
 	public void testDelet1() {
 		String sql = "DELETE channel WHERE ownerUid=${field1} and ownerUid=${bean.field2} and ownerUid=${bean.field3} and ownerUid=${field5}";
 
-		SQLiteChecker checker = SQLiteChecker.getInstance();
+		JQLChecker checker = JQLChecker.getInstance();
 
 		// verify sql
 		checker.verify(sql);
-	
+
 		// check bind parameters
 		{
-			List<Parameter> aspected = new ArrayList<>();
-			aspected.add(new Parameter(ParameterType.PARAMETER_SIMPLE, "field1"));
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field2"));
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field3"));
-			aspected.add(new Parameter(ParameterType.PARAMETER_SIMPLE, "field5"));						
-			List<Parameter> actual = checker.extractBindParameters(sql);
-			
+			List<JQLPlaceHolder> aspected = new ArrayList<>();
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field1"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field2"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field3"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field5"));
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(sql);
+
 			checkCollectionExactly(actual, aspected);
 		}
 
@@ -129,90 +121,122 @@ public class TestSqlChecker extends BaseProcessorTest {
 	public void testSelect01() {
 		// String sql="SELECT count(*) FROM channel WHERE
 		// updateTime=${bean.updateTime}";
-		String sql = "SELECT count(*) as alias1, field2, field3 as alias3, table1.field3 as alias3, table2.field4 as alias4 FROM channel WHERE updateTime=${ bean.field1 } and field=${ field2  } and #{dynamicWhere1}";
+		String jsql = "SELECT count(*) as alias1, field2, field3 as alias3, table1.field3 as alias3, table2.field4 as alias4 FROM channel WHERE updateTime=${ bean.field1 } and field=${ field2  } and #{dynamicWhere1}";
 
-		String logSql = "SELECT count(*) FROM channel WHERE updateTime='?'";
-		String usedSql = "SELECT count(*) FROM channel WHERE updateTime=${bean.updateTime}";
+		String logSql = "SELECT count(*) as alias1, field2, field3 as alias3, table1.field3 as alias3, table2.field4 as alias4 FROM channel WHERE updateTime=? and field=? and \"+dynamicWhere1+\"";
+		// String usedSql = "SELECT count(*) FROM channel WHERE
+		// updateTime=${bean.updateTime}";
 
-		SQLiteChecker checker = SQLiteChecker.getInstance();
+		JQLChecker checker = JQLChecker.getInstance();
 
 		// verify sql
-		checker.verify(sql);
+		checker.verify(jsql);
 
 		// check projections
-		Set<Projection> projections = checker.extractProjectedFields(sql);
+		Set<JQLProjection> projections = checker.extractProjections(jsql);
 		{
-			LinkedHashSet<Projection> aspected = new LinkedHashSet<>();
-			aspected.add(Projection.ProjectionBuilder.create().type(ProjectionType.COMPLEX).expression("count(*)").alias("alias1").build());
-			aspected.add(Projection.ProjectionBuilder.create().type(ProjectionType.COLUMN).column("field2").build());
-			aspected.add(Projection.ProjectionBuilder.create().type(ProjectionType.COLUMN).column("field3").alias("alias3").build());
-			aspected.add(Projection.ProjectionBuilder.create().type(ProjectionType.COLUMN).table("table1").column("field3").alias("alias3").build());
-			aspected.add(Projection.ProjectionBuilder.create().type(ProjectionType.COLUMN).table("table2").column("field4").alias("alias4").build());
+			LinkedHashSet<JQLProjection> aspected = new LinkedHashSet<>();
+			aspected.add(JQLProjection.ProjectionBuilder.create().type(ProjectionType.COMPLEX).expression("count(*)")
+					.alias("alias1").build());
+			aspected.add(JQLProjection.ProjectionBuilder.create().type(ProjectionType.COLUMN).column("field2").build());
+			aspected.add(JQLProjection.ProjectionBuilder.create().type(ProjectionType.COLUMN).column("field3")
+					.alias("alias3").build());
+			aspected.add(JQLProjection.ProjectionBuilder.create().type(ProjectionType.COLUMN).table("table1")
+					.column("field3").alias("alias3").build());
+			aspected.add(JQLProjection.ProjectionBuilder.create().type(ProjectionType.COLUMN).table("table2")
+					.column("field4").alias("alias4").build());
 			checkCollectionExactly(projections, aspected);
 		}
 
 		// check bind parameters
 		{
-			List<Parameter> aspected = new ArrayList<>();
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field1"));
-			aspected.add(new Parameter(ParameterType.PARAMETER_SIMPLE, "field2"));
-			aspected.add(new Parameter(ParameterType.DYNAMIC_SQL_SIMPLE, "dynamicWhere1"));
-			List<Parameter> actual = checker.extractBindParameters(sql);
-			
+			List<JQLPlaceHolder> aspected = new ArrayList<>();
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field1"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field2"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, "dynamicWhere1"));
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jsql);
+
 			checkCollectionExactly(actual, aspected);
 		}
 
+		// prepare for log
+		String sqlLogResult = checker.replacePlaceHolders(jsql, new JSQLPlaceHolderReplacerListener() {
+
+			@Override
+			public String onParameter(String placeHolder) {
+				return "?";
+			}
+
+			@Override
+			public String onDynamicSQL(String placeHolder) {
+				return String.format("\"+%s+\"", placeHolder);
+			}
+		});
+		assertEquals("sql for log generation failed", logSql, sqlLogResult);
 	}
-	
-	
+
 	@Test
 	public void testInsert01() {
 		String sql = "INSERT INTO channel (uid, owner_uid, update_time, name, field) VALUES (${bean.field1}, ${bean.field2}, ${bean.field3}, ${bean.field4}, ${field5})";
 
-		SQLiteChecker checker = SQLiteChecker.getInstance();
+		JQLChecker checker = JQLChecker.getInstance();
 
 		// verify sql
 		checker.verify(sql);
-	
+
 		// check bind parameters
 		{
-			List<Parameter> aspected = new ArrayList<>();
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field1"));
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field2"));
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field3"));
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field4"));			
-			aspected.add(new Parameter(ParameterType.PARAMETER_SIMPLE, "field5"));
-			List<Parameter> actual = checker.extractBindParameters(sql);
-			
+			List<JQLPlaceHolder> aspected = new ArrayList<>();
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field1"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field2"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field3"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field4"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, "field5"));
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(sql);
+
 			checkCollectionExactly(actual, aspected);
 		}
 
 	}
-	
+
 	@Test
 	public void testUpdate01() {
-		String sql = "UPDATE channel SET uid=${ bean.field1}, owner_uid=${bean.field2}, update_time=${bean.field3}, name=${field4} WHERE id=${bean.field1}";
+		String jsql = "UPDATE channel SET uid=${ bean.field1}, owner_uid=${bean.field2}, update_time=${bean.field3}, name=${field4} WHERE id=${bean.field1}";
+		String sqlForLog = "UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
 
-		SQLiteChecker checker = SQLiteChecker.getInstance();
+		JQLChecker checker = JQLChecker.getInstance();
 
 		// verify sql
-		checker.verify(sql);
-	
+		checker.verify(jsql);
+
 		// check bind parameters
 		{
-			List<Parameter> aspected = new ArrayList<>();
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field1"));
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field2"));
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field3"));
-			aspected.add(new Parameter(ParameterType.PARAMETER_SIMPLE, "field4"));			
-			aspected.add(new Parameter(ParameterType.PARAMETER_INNER_FIELD, "bean.field1"));
-			List<Parameter> actual = checker.extractBindParameters(sql);
-			
+			List<JQLPlaceHolder> aspected = new ArrayList<>();
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field1"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field2"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field3"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field4"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field1"));
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jsql);
+
 			checkCollectionExactly(actual, aspected);
 		}
 
+		// prepare for log
+		String sqlLogResult = checker.replacePlaceHolders(jsql, new JSQLPlaceHolderReplacerListener() {
+
+			@Override
+			public String onParameter(String placeHolder) {
+				return "?";
+			}
+
+			@Override
+			public String onDynamicSQL(String placeHolder) {
+				return String.format("\"+%s+\"", placeHolder);
+			}
+		});
+		assertEquals("sql for log generation failed", sqlForLog, sqlLogResult);
+
 	}
-	
-	
 
 }
