@@ -34,5 +34,20 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface BindSqlWhere {
+	
+	/**
+	 * Conjunction to prepend to dynamic where statement
+	 */
+	public enum PrependType {
+		AND,
+		OR
+	}
+	
+	/**
+	 * Conjunction to prepend to dynamic where. Default value is AND
+	 * 
+	 * @return
+	 */
+	PrependType prepend() default PrependType.AND;
 
 }
