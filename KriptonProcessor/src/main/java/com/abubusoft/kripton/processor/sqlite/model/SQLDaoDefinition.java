@@ -133,17 +133,17 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	public Map<TypeName, String> managedParams=new HashMap<TypeName, String>();
 
 	/**
-	 * <p>path used to rapresents this DAO in the content provider</p>
-	 */
-	public String contentProviderPath;
-	
-	/**
-	 * <p>If <code>true</code> indicates dao is inserted into content provider. </p>
+	 * <p>if <code>true</code> indicates that content provider generation is enabled
 	 */
 	public boolean contentProviderEnabled;
 
 	/**
-	 * <p>name used to describe entity returned by dao in content provider</p>
+	 * Base path associated to content provider
+	 */
+	public String contentProviderPath;
+
+	/**
+	 * type name exposed by content provider
 	 */
 	public String contentProviderTypeName;
 

@@ -144,18 +144,14 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 	@Override
 	public void visit(SQLiteModelMethod value) throws Exception {
-		if (value.getAnnotation(BindSqlSelect.class) != null) {
-			//TODO fix check SQL build
-			SelectBuilderUtility.generateSelect(elementUtils, builder, value);
-		} else if (value.getAnnotation(BindSqlInsert.class) != null) {
-			//TODO fix check SQL build
+		if (value.getAnnotation(BindSqlInsert.class) != null) {
 			SqlInsertBuilder.generate(elementUtils, builder, value);
 		} else if (value.getAnnotation(BindSqlUpdate.class) != null) {
-			//TODO fix check SQL build
 			SqlModifyBuilder.generate(elementUtils, builder, value, true);
 		} else if (value.getAnnotation(BindSqlDelete.class) != null) {
-			//TODO fix check SQL build
 			SqlModifyBuilder.generate(elementUtils, builder, value, false);
+		} else if (value.getAnnotation(BindSqlSelect.class) != null) {
+			SelectBuilderUtility.generateSelect(elementUtils, builder, value);
 		} else {
 			// method without supported annotation
 			AssertKripton.failWithMethodWithoutSupportedAnnotationException(value);

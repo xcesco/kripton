@@ -72,12 +72,10 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		}
 
 		if (StringUtils.hasText(whereCondition)) {
-			whereCondition = whereCondition.trim();			
+			whereCondition = whereCondition.trim();
 		}
-		
 
 		analyzer.execute(elementUtils, method, whereCondition);
-		method.info.setStaticWhereClause(StringUtils.hasText(whereCondition));
 
 		List<SQLProperty> listUsedProperty;
 		if (updateMode) {
@@ -236,9 +234,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<h2>SQL update:</h2>\n");
 			methodBuilder.addJavadoc("<pre>");
 			methodBuilder.addJavadoc("UPDATE $L SET $L WHERE $L", daoDefinition.getEntity().getTableName(), buffer.toString(), whereCondition);
-			if (method.info.hasDynamicWhereConditions()) {
-				sqlResult += " #{" + method.info.dynamicWhereParameterName + "}";
-				methodBuilder.addJavadoc(" #{$L}", method.info.dynamicWhereParameterName);
+			if (method.hasDynamicWhereConditions()) {
+				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
+				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
 			}
 			methodBuilder.addJavadoc("</pre>");
 			methodBuilder.addJavadoc("\n\n");
@@ -259,9 +257,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<h2>SQL delete:</h2>\n");
 			methodBuilder.addJavadoc("<pre>");
 			methodBuilder.addJavadoc("DELETE $L WHERE $L", daoDefinition.getEntity().getTableName(), whereCondition);
-			if (method.info.hasDynamicWhereConditions()) {
-				sqlResult += " #{" + method.info.dynamicWhereParameterName + "}";
-				methodBuilder.addJavadoc(" #{$L}", method.info.dynamicWhereParameterName);
+			if (method.hasDynamicWhereConditions()) {
+				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
+				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
 			}
 			methodBuilder.addJavadoc("</pre>");
 			methodBuilder.addJavadoc("\n\n");
@@ -280,11 +278,12 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		}
 
 		// dynamic conditions
-		if (method.info.hasDynamicWhereConditions()) {
+		if (method.hasDynamicWhereConditions()) {
 			methodBuilder.addJavadoc("<h2>Dynamic parts:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
-
-			methodBuilder.addJavadoc("\t<dt>#{$L}</dt><dd>is part of where conditions resolved at runtime.</dd>\n", method.info.dynamicWhereParameterName);
+			if (method.hasDynamicWhereConditions()) {
+				methodBuilder.addJavadoc("\t<dt>#{$L}</dt><dd>is part of where conditions resolved at runtime.</dd>\n", method.dynamicWhereParameterName);
+			}
 
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");

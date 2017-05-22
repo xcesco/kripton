@@ -116,7 +116,7 @@ public abstract class SelectBuilderUtility {
 		int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
 		
 		AssertKripton.failWithInvalidMethodSignException(pageSize<0, method, "in @%s(pageSize) must be set with positive number",BindSqlSelect.class.getSimpleName());
-		AssertKripton.failWithInvalidMethodSignException(pageSize>0 && method.info.hasDynamicPageSizeConditions(), method, "can not define @%s(pageSize) and mark a method parameter with @%s ",BindSqlSelect.class.getSimpleName(), BindSqlPageSize.class.getSimpleName());		
+		AssertKripton.failWithInvalidMethodSignException(pageSize>0 && method.hasDynamicPageSizeConditions(), method, "can not define @%s(pageSize) and mark a method parameter with @%s ",BindSqlSelect.class.getSimpleName(), BindSqlPageSize.class.getSimpleName());		
 
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
@@ -141,7 +141,7 @@ public abstract class SelectBuilderUtility {
 				if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
 					// method must have pageSize, statically or dynamically
 					// defined
-					AssertKripton.assertTrueOrInvalidMethodSignException(method.info.hasDynamicPageSizeConditions() || pageSize > 0, method,
+					AssertKripton.assertTrueOrInvalidMethodSignException(method.hasDynamicPageSizeConditions() || pageSize > 0, method,
 							"use of PaginatedResult require 'pageSize' attribute or a @%s annotated parameter", returnTypeName, BindSqlPageSize.class.getSimpleName());
 
 					// paged result

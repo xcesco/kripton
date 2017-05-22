@@ -63,7 +63,6 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		}
 
 		Pair<String, List<Pair<String, TypeName>>> where = SqlUtility.extractParametersFromString(whereCondition, method, daoDefinition.getColumnNameConverter(), entity);
-		method.info.setStaticWhereClause(StringUtils.hasText(whereCondition));
 
 		// defines which parameter is used like update field and which is used
 		// in where condition.
@@ -196,9 +195,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 	private static String appendSQL(SQLiteModelMethod method) {
 		String result = "";
-		if (method.info.hasDynamicWhereConditions()) {
+		if (method.hasDynamicWhereConditions()) {
 			// add a space
-			result = " \"+SqlUtils.appendForSQL(" + method.info.dynamicWhereParameterName + ")+\"";
+			result = " \"+SqlUtils.appendForSQL(" + method.dynamicWhereParameterName + ")+\"";
 		}
 
 		return result;
@@ -243,9 +242,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<h2>SQL update:</h2>\n");
 			methodBuilder.addJavadoc("<pre>");
 			methodBuilder.addJavadoc("UPDATE $L SET $L WHERE $L", daoDefinition.getEntity().getTableName(), buffer.toString(), whereCondition);
-			if (method.info.hasDynamicWhereConditions()) {
-				sqlResult += " #{" + method.info.dynamicWhereParameterName + "}";
-				methodBuilder.addJavadoc(" #{$L}", method.info.dynamicWhereParameterName);
+			if (method.hasDynamicWhereConditions()) {
+				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
+				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
 			}
 			methodBuilder.addJavadoc("</pre>");
 			methodBuilder.addJavadoc("\n\n");
@@ -268,9 +267,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<h2>SQL delete:</h2>\n");
 			methodBuilder.addJavadoc("<pre>");
 			methodBuilder.addJavadoc("DELETE $L WHERE $L</pre>", daoDefinition.getEntity().getTableName(), whereCondition);
-			if (method.info.hasDynamicWhereConditions()) {
-				sqlResult += " #{" + method.info.dynamicWhereParameterName + "}";
-				methodBuilder.addJavadoc(" #{$L}", method.info.dynamicWhereParameterName);
+			if (method.hasDynamicWhereConditions()) {
+				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
+				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
 			}
 			methodBuilder.addJavadoc("</pre>");
 			methodBuilder.addJavadoc("\n\n");
@@ -288,12 +287,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		methodBuilder.addJavadoc("\n\n");
 
 		// dynamic conditions
-		if (method.info.hasDynamicWhereConditions()) {
+		if (method.hasDynamicWhereConditions()) {
 			methodBuilder.addJavadoc("<h2>Dynamic parts:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
-			
-			methodBuilder.addJavadoc("\t<dt>#{$L}</dt><dd>is part of where conditions resolved at runtime.</dd>\n", method.info.dynamicWhereParameterName);
-			
+			if (method.hasDynamicWhereConditions()) {
+				methodBuilder.addJavadoc("\t<dt>#{$L}</dt><dd>is part of where conditions resolved at runtime.</dd>\n", method.dynamicWhereParameterName);
+			}
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");
 		}

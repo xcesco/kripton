@@ -23,10 +23,6 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectType;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_dynamic_sqlContext;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -96,17 +92,6 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		generateCommonPart(elementUtils, method, methodBuilder, fieldList, mapFields, GenerationType.ALL);
 	}
 
-	/**
-	 * <p>Generate common part of generated method.</p> 
-	 * 
-	 * @param elementUtils
-	 * @param method
-	 * @param methodBuilder
-	 * @param fieldList
-	 * @param mapFields
-	 * @param generationType
-	 * @param javadocParts
-	 */
 	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields, GenerationType generationType,
 			JavadocPart... javadocParts) {
 		SQLDaoDefinition daoDefinition = method.getParent();
@@ -142,9 +127,6 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
-		
-		// set if method has static WHERE conditions
-		method.info.setStaticWhereClause(StringUtils.hasText(whereSQL));
 
 		String havingSQL = annotation.getAttribute(AnnotationAttributeType.HAVING);
 		analyzer.execute(elementUtils, method, havingSQL);
@@ -169,25 +151,24 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
-		method.info.setStaticOrderByClause(StringUtils.hasText(orderBySQL));
 
 		// add as used parameter dynamic components too
-		if (method.info.hasDynamicWhereConditions()) {
-			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.info.dynamicWhereParameterName), method,
-					" parameter %s is used like SQL parameter and dynamic WHERE condition.", method.info.dynamicOrderByParameterName);
-			usedMethodParameters.add(method.info.dynamicWhereParameterName);
+		if (method.hasDynamicWhereConditions()) {
+			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicWhereParameterName), method,
+					" parameter %s is used like SQL parameter and dynamic WHERE condition.", method.dynamicOrderByParameterName);
+			usedMethodParameters.add(method.dynamicWhereParameterName);
 		}
 
-		if (method.info.hasDynamicOrderByConditions()) {
-			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.info.dynamicOrderByParameterName), method,
-					" parameter %s is used like SQL parameter and dynamic ORDER BY condition.", method.info.dynamicOrderByParameterName);
-			usedMethodParameters.add(method.info.dynamicOrderByParameterName);
+		if (method.hasDynamicOrderByConditions()) {
+			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicOrderByParameterName), method,
+					" parameter %s is used like SQL parameter and dynamic ORDER BY condition.", method.dynamicOrderByParameterName);
+			usedMethodParameters.add(method.dynamicOrderByParameterName);
 		}
 
-		if (method.info.hasDynamicPageSizeConditions()) {
-			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.info.dynamicPageSizeName), method,
-					" parameter %s is used like SQL parameter and dynamic page size of LIMIT condition.", method.info.dynamicPageSizeName);
-			usedMethodParameters.add(method.info.dynamicPageSizeName);
+		if (method.hasDynamicPageSizeConditions()) {
+			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicPageSizeName), method,
+					" parameter %s is used like SQL parameter and dynamic page size of LIMIT condition.", method.dynamicPageSizeName);
+			usedMethodParameters.add(method.dynamicPageSizeName);
 		}
 
 		// select statement
@@ -197,19 +178,6 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				.orderBy(orderByStatement).limit(pageSize).build(method);
 		String sqlForLog = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement)
 				.orderBy(orderByStatement).limit(pageSize).buildForLog(method);
-		
-		method.info.jql=sqlWithParameters;
-		JQLChecker.getInstance().analyze(sqlWithParameters, new SQLiteBaseListener() {
-			@Override
-			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {				
-				Logger.info("dynamic "+ctx.bind_parameter_name().getText());
-			}
-			
-			@Override
-			public void enterBind_parameter(Bind_parameterContext ctx) {
-				Logger.info("parameter "+ctx.bind_parameter_name().getText());
-			}
-		});
 
 		// generate method signature
 		if (generationType.generateMethodSign) {
@@ -336,21 +304,21 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	}
 
 	public static String formatSqlInternal(SQLiteModelMethod method, String sql, String appendMethod) {
-		if (method.info.hasDynamicWhereConditions()) {						
-			sql = sql.replace("#{" + method.info.dynamicWhereParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.info.dynamicWhereParameterName + ")+\"");
+		if (method.hasDynamicWhereConditions()) {
+			sql = sql.replace("#{" + method.dynamicWhereParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.dynamicWhereParameterName + ")+\"");
 		}
 
-		if (method.info.hasDynamicOrderByConditions()) {
-			sql = sql.replace("#{" + method.info.dynamicOrderByParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.info.dynamicOrderByParameterName + ")+\"");
+		if (method.hasDynamicOrderByConditions()) {
+			sql = sql.replace("#{" + method.dynamicOrderByParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.dynamicOrderByParameterName + ")+\"");
 		}
 
-		if (method.info.hasDynamicPageSizeConditions()) {
-			sql = sql.replace("#{" + method.info.dynamicPageSizeName + "}", String.format("\"+SqlUtils.printIf(%s>0, \" LIMIT \"+%s)+\"", method.info.dynamicPageSizeName, method.info.dynamicPageSizeName));
+		if (method.hasDynamicPageSizeConditions()) {
+			sql = sql.replace("#{" + method.dynamicPageSizeName + "}", String.format("\"+SqlUtils.printIf(%s>0, \" LIMIT \"+%s)+\"", method.dynamicPageSizeName, method.dynamicPageSizeName));
 		}
 
 		if (method.hasPaginatedResultParameter()) {
-			if (method.info.hasDynamicPageSizeConditions()) {
-				sql = sql.replace("#{" + method.paginatedResultName + "}", String.format("\"+SqlUtils.printIf(%s>0 && %s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.info.dynamicPageSizeName,
+			if (method.hasDynamicPageSizeConditions()) {
+				sql = sql.replace("#{" + method.paginatedResultName + "}", String.format("\"+SqlUtils.printIf(%s>0 && %s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.dynamicPageSizeName,
 						method.paginatedResultName, method.paginatedResultName));
 			} else {
 				sql = sql.replace("#{" + method.paginatedResultName + "}",

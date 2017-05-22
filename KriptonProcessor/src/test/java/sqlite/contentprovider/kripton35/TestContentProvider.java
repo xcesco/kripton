@@ -21,8 +21,8 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.contentprovider.kripton35.entities.Person;
+import sqlite.contentprovider.kripton35.persistence.PersonDAO;
 import sqlite.contentprovider.kripton35.persistence.PersonDataSource;
-import sqlite.dynamic.update.PersonDAO;
 
 @RunWith(JUnit4.class)
 public class TestContentProvider extends AbstractBindSQLiteProcessorTest {

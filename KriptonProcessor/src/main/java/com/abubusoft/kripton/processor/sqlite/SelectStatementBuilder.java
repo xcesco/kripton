@@ -76,14 +76,14 @@ public class SelectStatementBuilder {
 	}
 
 	public String build(SQLiteModelMethod method) {
-		return buildInternal(method);
+		return buildInternal(method, "appendForSQL");
 	}
 
 	public String buildForLog(SQLiteModelMethod method) {
-		return buildInternal(method);
+		return buildInternal(method, "appendForLog");
 	}
 
-	private String buildInternal(SQLiteModelMethod method) {
+	private String buildInternal(SQLiteModelMethod method, String nvlFunction) {
 		StringBuilder buffer = new StringBuilder();
 
 		buffer.append("SELECT ");
@@ -92,12 +92,12 @@ public class SelectStatementBuilder {
 		buffer.append(fields);
 		buffer.append(" FROM " + table);
 
-		if (method.info.hasStaticWhereClause() || method.info.hasDynamicWhereConditions()) {
+		if (StringUtils.hasText(where) || method.hasDynamicWhereConditions()) {
 			buffer.append(" WHERE");
 			if (StringUtils.hasText(where))
 				buffer.append(" " + where.trim());
-			if (method.info.hasDynamicWhereConditions()) {
-				buffer.append(" #{"+method.info.dynamicWhereParameterName+"}");
+			if (method.hasDynamicWhereConditions()) {
+				buffer.append(" #{"+method.dynamicWhereParameterName+"}");
 			}
 		}
 
@@ -107,22 +107,22 @@ public class SelectStatementBuilder {
 		if (StringUtils.hasText(groupBy))
 			buffer.append(" GROUP BY " + groupBy.trim());
 		
-		if (StringUtils.hasText(orderBy) || method.info.hasDynamicOrderByConditions()) {
+		if (StringUtils.hasText(orderBy) || method.hasDynamicOrderByConditions()) {
 			buffer.append(" ORDER BY ");
 			if (StringUtils.hasText(orderBy))
 				buffer.append(orderBy.trim());
-			if (method.info.hasDynamicOrderByConditions()) {
-				buffer.append("#{"+method.info.dynamicOrderByParameterName+"}");
+			if (method.hasDynamicOrderByConditions()) {
+				buffer.append("#{"+method.dynamicOrderByParameterName+"}");
 			}
 		}
 		
-		if (pageSize>0 || method.info.hasDynamicPageSizeConditions())
+		if (pageSize>0 || method.hasDynamicPageSizeConditions())
 		{			
 			if (pageSize>0)
 			{
 				buffer.append(" LIMIT "+pageSize);
 			} else {
-				buffer.append("#{"+method.info.dynamicPageSizeName+"}");
+				buffer.append("#{"+method.dynamicPageSizeName+"}");
 			}
 			
 			// we can include OFFSET management only if we have LIMIT

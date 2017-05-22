@@ -38,8 +38,6 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	public String fileName;
 
 	public String generatedClassName;
-	
-	public SQLiteModelContentProvider contentProvider=new SQLiteModelContentProvider();
 
 	/**
 	 * @return the generatedClassName
@@ -66,6 +64,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	 */
 	public String authority;
 
+	public SQLiteModelContentProvider contentProvider;
+
 	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean log, boolean asyncTask, boolean generateCursor) {
 		super(item.getSimpleName().toString(), item);
 
@@ -75,7 +75,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		this.generateAsyncTask = asyncTask;
 		this.generateCursor = generateCursor;
 		this.generatedClassName = "Bind" + getName();
-		this.generateContentProvider=false;		
+		this.generateContentProvider=false;	
+		this.contentProvider=null;
 	}
 
 	public void clear() {

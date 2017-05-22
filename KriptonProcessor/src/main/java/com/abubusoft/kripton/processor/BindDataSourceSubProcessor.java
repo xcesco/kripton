@@ -15,12 +15,15 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
+
+import com.abubusoft.kripton.common.One;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -49,6 +52,7 @@ import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -80,6 +84,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelContentProvider;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
@@ -420,7 +425,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				if (excludedMethods.contains(element.getSimpleName().toString()))
 					return;
 
-				final SQLiteModelMethod currentMethod = new SQLiteModelMethod(currentDaoDefinition, element);
+				final List<ModelAnnotation> annotationList=new ArrayList<>();
+				
+				// optional annotations
+				final List<ModelAnnotation> supportAnnotationList=new ArrayList<>();
 
 				AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
 
@@ -431,20 +439,34 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						(annotationClassName.equals(BindSqlInsert.class.getCanonicalName())
 								|| annotationClassName.equals(BindSqlUpdate.class.getCanonicalName())
 								|| annotationClassName.equals(BindSqlDelete.class.getCanonicalName())
-								|| annotationClassName.equals(BindSqlSelect.class.getCanonicalName())
-								|| annotationClassName.equals(BindContentProviderEntry.class.getCanonicalName()))
+								|| annotationClassName.equals(BindSqlSelect.class.getCanonicalName()))
 						// @formatter:on
 						{
 							ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
-							currentMethod.addAnnotation(annotation);
+							annotationList.add(annotation);
 						} else {
 							// we don't insert annotation
 							return;
 						}
 
+						if // @formatter:off
+						(annotationClassName.equals(BindContentProviderEntry.class.getCanonicalName()))
+						// @formatter:on
+						{
+							ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
+							supportAnnotationList.add(annotation);
+						} else {
+							// we don't insert annotation
+							return;
+						}
 						
 					}
 				});
+				
+				//AssertKripton. assertTrue(annotationList.size()==1, "Dao definition '%s' has method '%s' that is not correctly annotated", currentDaoDefinition.getName(), element.getSimpleName());
+				annotationList.addAll(supportAnnotationList);
+				final SQLiteModelMethod currentMethod = new SQLiteModelMethod(currentDaoDefinition, element, annotationList);								
+				
 
 				// add method				
 				currentDaoDefinition.add(currentMethod);
@@ -492,6 +514,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		if (contentProviderAnnotation!=null) {
 			currentSchema.authority=contentProviderAnnotation.authority();
 			currentSchema.generateContentProvider=true;
+			currentSchema.contentProvider=new SQLiteModelContentProvider();
 		} else {
 			currentSchema.generateContentProvider=false;
 		}

@@ -3,7 +3,7 @@ package sqlite.dynamic.kripton121;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
@@ -14,7 +14,7 @@ import sqlite.dynamic.Person;
 public interface Person1DAO {
 
 	@BindSqlSelect
-	List<Person> selectOne(@BindSqlDynamicWhere String where, @BindSqlOrderBy String orderBy);
+	List<Person> selectOne(@BindSqlWhere String where, @BindSqlOrderBy String orderBy);
 	
 
 

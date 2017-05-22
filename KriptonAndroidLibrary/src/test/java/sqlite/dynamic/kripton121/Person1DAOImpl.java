@@ -40,8 +40,7 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
    *
    * <h2>Dynamic parts:</h2>
    * <dl>
-   * 	<dt>#{where}</dt><dd>is part of where conditions resolved at runtime.</dd>
-   * 	<dt>#{orderBy}</dt><dd>is part of order statement resolved at runtime.</dd>
+   * <dt>#{where}</dt><dd>is part of where conditions resolved at runtime.</dd><dt>#{orderBy}</dt>is part of order statement resolved at runtime.</dd>
    * </dl>
    *
    * @param where

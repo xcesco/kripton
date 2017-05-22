@@ -9,7 +9,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlWhere;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
 import sqlite.dynamic.Person;
@@ -20,16 +20,16 @@ public interface PersonUpdateDAO {
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue);
 	
 	@BindSqlDelete(where="id = ${nameValue}")
-	void deleteRaw(String nameValue, @BindSqlDynamicWhere String where);
+	void deleteRaw(String nameValue, @BindSqlWhere String where);
 	
 	@BindSqlDelete(where="id = ${bean.id}")
-	void deleteBean(Person bean, @BindSqlDynamicWhere String where);	
+	void deleteBean(Person bean, @BindSqlWhere String where);	
 	
 	@BindSqlUpdate(where="id = ${nameValue}")
-	void updateRaw(String name, String nameValue, @BindSqlDynamicWhere String where);
+	void updateRaw(String name, String nameValue, @BindSqlWhere String where);
 	
 	@BindSqlUpdate(where="id = ${bean.id}")
-	void updateBean(Person bean, @BindSqlDynamicWhere String where);
+	void updateBean(Person bean, @BindSqlWhere String where);
 	
 	
 	@BindSqlSelect

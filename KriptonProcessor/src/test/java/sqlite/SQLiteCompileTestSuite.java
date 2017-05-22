@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import bind.generichierarchy.TestGenericHierarchySuite;
+import sqlite.contentprovider.kripton35.TestContentProviderSuite;
 import sqlite.dynamic.TestDynamicSuite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
@@ -85,6 +86,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			Test03.class, 
 			TestFirstAid.class,			
 			TestForeignKeySuite.class,
+			TestContentProviderSuite.class,
 			TestDynamicSuite.class,
 			TestPaginatedResultSuite.class,
 			IndexTestSuite.class,

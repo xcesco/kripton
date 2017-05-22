@@ -43,7 +43,7 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		this.parameters = new ArrayList<Pair<String, TypeName>>();
 		this.annotations = new ArrayList<ModelAnnotation>();
 
-		for (VariableElement p : element.getParameters()) {
+		for (VariableElement p : element.getParameters()) {			
 			parameters.add(new Pair<String, TypeName>(p.getSimpleName().toString(), TypeUtility.typeName(p.asType())));
 		}
 		

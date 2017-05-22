@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -29,30 +28,18 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindSqlDelete;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.ResultType;
-import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
 import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelContentProvider.SupportedOperation;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+import com.google.common.base.CaseFormat;
+import com.google.common.base.Converter;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.CodeBlock.Builder;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -61,7 +48,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import android.content.ContentProvider;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -69,9 +55,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
 /**
- * <p>
- * Generates content provider class.
- * </p>
+ * Generates content provider class
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
@@ -81,15 +65,13 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	public static final String PREFIX = "Bind";
 
 	public static final String SUFFIX = "ContentProvider";
-
+	
 	public BindContentProviderBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
 
 	/**
-	 * <p>
-	 * Generate content provider.
-	 * </p>
+	 * Generate content provider
 	 * 
 	 * @param elementUtils
 	 * @param filer
@@ -98,271 +80,155 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindContentProviderBuilder visitorDao = new BindContentProviderBuilder(elementUtils, filer, schema);
-		visitorDao.analizeContentProvider(elementUtils, filer, schema);
-		visitorDao.buildContentProvider(elementUtils, filer, schema);
+		visitorDao.buildDataSource(elementUtils, filer, schema);
 	}
 
-	public void analizeContentProvider(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
-		String dataSourceName = schema.getName();
-		String contentProviderName = PREFIX + dataSourceName.replace(BindDataSourceBuilder.SUFFIX, "") + SUFFIX;
-
-		schema.contentProvider.setName(contentProviderName);
-
-		for (SQLDaoDefinition dao : schema.getCollection()) {
-			if (!dao.contentProviderEnabled)
-				continue;
-
-			String daoPath = dao.contentProviderPath;
-
-			for (SQLiteModelMethod method : dao.getCollection()) {
-				if (method.hasAnnotation(BindContentProviderEntry.class)) {
-					if (method.hasAnnotation(BindSqlInsert.class)) {
-						schema.contentProvider.addOperation(daoPath, method, SupportedOperation.INSERT);
-					} else if (method.hasAnnotation(BindSqlUpdate.class)) {
-						schema.contentProvider.addOperation(daoPath, method, SupportedOperation.UPDATE);
-					} else if (method.hasAnnotation(BindSqlDelete.class)) {
-						schema.contentProvider.addOperation(daoPath, method, SupportedOperation.DELETE);
-					} else if (method.hasAnnotation(BindSqlSelect.class)) {
-						schema.contentProvider.addOperation(daoPath, method, SupportedOperation.SELECT);
-					}
-
-				}
-			}
-		}
-	}
-
-	public void buildContentProvider(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+	public void buildDataSource(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		String dataSourceName = schema.getName();
 		String dataSourceNameClazz = BindDataSourceBuilder.PREFIX + dataSourceName;
+		String contentProviderName = PREFIX + dataSourceName.replace(BindDataSourceBuilder.SUFFIX, "")+ SUFFIX;
+
+		ClassName contentProviderClazz = className(contentProviderName);
+		Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
-
+		
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, dataSourceName);
-		builder = TypeSpec.classBuilder(schema.contentProvider.getName()).addModifiers(Modifier.PUBLIC).superclass(ContentProvider.class);
-
+		builder = TypeSpec.classBuilder(contentProviderName).addModifiers(Modifier.PUBLIC).superclass(ContentProvider.class);
+		
 		generateOnCreate(dataSourceNameClazz);
-
-		generateInsert(schema);
-
+		
+		generateInsert();
+		
 		generateQuery();
-
-		generateGetType(schema);
-
+		
+		generateGetType();				
+		
 		generateDelete();
-
-		generateUpdate();
-
+		
+		generateUpdate(); 
+		
 		generateOnShutdown(dataSourceNameClazz);
-
+		
 		// define static fields
 
 		// instance
-		builder.addField(FieldSpec.builder(className(dataSourceNameClazz), "dataSource", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
+		builder.addField(FieldSpec.builder(className(dataSourceNameClazz), "dataSource", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());		
+		builder.addField(FieldSpec.builder(String.class, "AUTHORITY", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>Content provider authority</p>\n").initializer("$S",schema.authority).build());
+		builder.addField(FieldSpec.builder(UriMatcher.class, "sURIMatcher", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>URI matcher</p>\n").initializer("new $T($T.NO_MATCH)",UriMatcher.class, UriMatcher.class).build());
+		builder.addStaticBlock(CodeBlock.builder().addStatement("sURIMatcher.addURI(AUTHORITY, BASE_PATH, TODOS)").build());
 
-		builder.addField(FieldSpec.builder(String.class, "AUTHORITY", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>Content provider authority</p>\n")
-				.initializer("$S", schema.authority).build());
+/*
+		builder.addJavadoc("<p>\n");
+		builder.addJavadoc("Rapresents implementation of datasource $L.\n", schema.getName());
+		builder.addJavadoc("This class expose database interface through Dao attribute.\n", schema.getName());
+		builder.addJavadoc("</p>\n\n");
 
-		builder.addField(FieldSpec.builder(UriMatcher.class, "sURIMatcher", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>URI matcher</p>\n")
-				.initializer("new $T($T.NO_MATCH)", UriMatcher.class, UriMatcher.class).build());
-
-		int i = 0;
-
-		Builder staticBuilder = CodeBlock.builder();
-		for (Triple<String, SQLDaoDefinition, Map<SupportedOperation, SQLiteModelMethod>> item : schema.contentProvider.uris) {
-			builder.addField(FieldSpec.builder(Integer.TYPE, schema.contentProvider.getConstant(item.value0), Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-					.addJavadoc("<p>URI matcher for $S, supplied by $S</p>\n", item.value0, item.value1.getName()).initializer("$L", i).build());
-			staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $S, $L)", item.value0, schema.contentProvider.getConstant(item.value0));
-			i++;
+		JavadocUtility.generateJavadocGeneratedBy(builder);
+		builder.addJavadoc("@see $T\n", className(schema.getName()));
+		builder.addJavadoc("@see $T\n", daoFactoryClazz);
+		for (SQLDaoDefinition dao : schema.getCollection()) {
+			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
+			builder.addJavadoc("@see $T\n", dao.getElement());
+			builder.addJavadoc("@see $T\n", daoImplName);
+			builder.addJavadoc("@see $T\n", TypeUtility.typeName(dao.getEntity().getElement()));
 		}
-		builder.addStaticBlock(staticBuilder.build());
-		// builder.addStaticBlock(CodeBlock.builder().addStatement("sURIMatcher.addURI(AUTHORITY,
-		// BASE_PATH, TODOS)").build());
 
-		/*
-		 * builder.addJavadoc("<p>\n");
-		 * builder.addJavadoc("Rapresents implementation of datasource $L.\n",
-		 * schema.getName()); builder.
-		 * addJavadoc("This class expose database interface through Dao attribute.\n"
-		 * , schema.getName()); builder.addJavadoc("</p>\n\n");
-		 * 
-		 * JavadocUtility.generateJavadocGeneratedBy(builder);
-		 * builder.addJavadoc("@see $T\n", className(schema.getName()));
-		 * builder.addJavadoc("@see $T\n", daoFactoryClazz); for
-		 * (SQLDaoDefinition dao : schema.getCollection()) { TypeName
-		 * daoImplName = BindDaoBuilder.daoTypeName(dao);
-		 * builder.addJavadoc("@see $T\n", dao.getElement());
-		 * builder.addJavadoc("@see $T\n", daoImplName);
-		 * builder.addJavadoc("@see $T\n",
-		 * TypeUtility.typeName(dao.getEntity().getElement())); }
-		 * 
-		 * 
-		 * for (SQLDaoDefinition dao : schema.getCollection()) { // TypeName
-		 * daoInterfaceName = // BindDaoBuilder.daoInterfaceTypeName(dao);
-		 * TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
-		 * builder.addField(FieldSpec.builder(daoImplName,
-		 * convert.convert(dao.getName()),
-		 * Modifier.PROTECTED).addJavadoc("<p>dao instance</p>\n").
-		 * initializer("new $T(this)", daoImplName).build());
-		 * 
-		 * // dao with connections { MethodSpec.Builder methodBuilder =
-		 * MethodSpec.methodBuilder("get" +
-		 * dao.getName()).addAnnotation(Override.class).addModifiers(Modifier.
-		 * PUBLIC).returns(BindDaoBuilder.daoTypeName(dao));
-		 * methodBuilder.addCode("return $L;\n",
-		 * convert.convert(dao.getName()));
-		 * builder.addMethod(methodBuilder.build()); } }
-		 * 
-		 * // interface generateMethodExecute(daoFactoryName);
-		 * 
-		 * // generate instance generateInstance(dataSourceName);
-		 * 
-		 * // generate open generateOpen(dataSourceName);
-		 * 
-		 * // generate openReadOnly generateOpenReadOnly(dataSourceName);
-		 * 
-		 * { // constructor MethodSpec.Builder methodBuilder =
-		 * MethodSpec.constructorBuilder().addModifiers(Modifier.PROTECTED);
-		 * methodBuilder.addStatement("super($S, $L)", schema.fileName,
-		 * schema.version); builder.addMethod(methodBuilder.build()); }
-		 * 
-		 * // before use entities, order them with dependencies respect
-		 * List<SQLEntity> orderedEntities =
-		 * generateOrderedEntitiesList(schema);
-		 * 
-		 * // onCreate boolean useForeignKey = generateOnCreate(schema,
-		 * orderedEntities);
-		 * 
-		 * // onUpgrade generateOnUpgrade(schema, orderedEntities);
-		 * 
-		 * // onConfigure generateOnConfigure(useForeignKey);
-		 */
+
+		for (SQLDaoDefinition dao : schema.getCollection()) {
+			// TypeName daoInterfaceName =
+			// BindDaoBuilder.daoInterfaceTypeName(dao);
+			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
+			builder.addField(FieldSpec.builder(daoImplName, convert.convert(dao.getName()), Modifier.PROTECTED).addJavadoc("<p>dao instance</p>\n").initializer("new $T(this)", daoImplName).build());
+
+			// dao with connections
+			{
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get" + dao.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).returns(BindDaoBuilder.daoTypeName(dao));
+				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
+				builder.addMethod(methodBuilder.build());
+			}
+		}
+
+		// interface
+		generateMethodExecute(daoFactoryName);
+
+		// generate instance
+		generateInstance(dataSourceName);
+
+		// generate open
+		generateOpen(dataSourceName);
+
+		// generate openReadOnly
+		generateOpenReadOnly(dataSourceName);
+
+		{
+			// constructor
+			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PROTECTED);
+			methodBuilder.addStatement("super($S, $L)", schema.fileName, schema.version);
+			builder.addMethod(methodBuilder.build());
+		}
+
+		// before use entities, order them with dependencies respect
+		List<SQLEntity> orderedEntities = generateOrderedEntitiesList(schema);
+
+		// onCreate
+		boolean useForeignKey = generateOnCreate(schema, orderedEntities);
+
+		// onUpgrade
+		generateOnUpgrade(schema, orderedEntities);
+
+		// onConfigure
+		generateOnConfigure(useForeignKey);
+		*/
 
 		TypeSpec typeSpec = builder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
-	private void generateInsert(SQLiteDatabaseSchema schema) {
-		// we have to select only INSERT operations
-		SupportedOperation operation = SupportedOperation.INSERT;
-
+	private void generateInsert() {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("insert").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Uri.class);
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(ContentValues.class, "values");
-
-		methodBuilder.addStatement("int uriType=sURIMatcher.match(uri)");
-		methodBuilder.beginControlFlow("switch(uriType)");
-
-		for (Triple<String, SQLDaoDefinition, Map<SupportedOperation, SQLiteModelMethod>> item : schema.contentProvider.uris) {
-			SQLiteModelMethod method = item.value2.get(operation);
-			if (method == null)
-				continue;
-
-			methodBuilder.addCode("case $L:\n" + "$>", schema.contentProvider.getConstant(item.value0));
-			//methodBuilder.addStatement("return \"$L//$L$L\"", type(method), "vnd.", schema.authority + "." + method.getParent().contentProviderTypeName);
-			methodBuilder.addStatement("return $T.parse(\"\" + \"/\" + \"id\")", Uri.class);
-			 
-			methodBuilder.addCode("$<");
-			// methodBuilder.addStatement("return $T.CURSOR_DIR_BASE_TYPE",
-			// ContentResolver.class);
-			// methodBuilder.addStatement("$<break");
-		}
-
-		methodBuilder.addCode("default:\n$>");
-		methodBuilder.addStatement("return null");
-		methodBuilder.addCode("$<");
-		methodBuilder.endControlFlow();
-
+		
+		methodBuilder.addCode("return null;\n");
+		
 		builder.addMethod(methodBuilder.build());
+		
 	}
-
+	
 	private void generateDelete() {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("delete").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Integer.TYPE);
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(String.class, "selection");
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
-
+		
 		methodBuilder.addCode("return 0;\n");
-
-		builder.addMethod(methodBuilder.build());
+		
+		builder.addMethod(methodBuilder.build());		
 	}
-
+	
 	private void generateUpdate() {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("update").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Integer.TYPE);
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(ContentValues.class, "values");
 		methodBuilder.addParameter(String.class, "selection");
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
-
+		
 		methodBuilder.addCode("return 0;\n");
-
+		
 		builder.addMethod(methodBuilder.build());
-
+		
 	}
 
-	private void generateGetType(SQLiteDatabaseSchema schema) {
-		// we have to select only query operations
-		SupportedOperation operation = SupportedOperation.SELECT;
-
+	private void generateGetType() {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("getType").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(String.class);
 		methodBuilder.addParameter(Uri.class, "uri");
-
-		methodBuilder.addStatement("int uriType=sURIMatcher.match(uri)");
-		methodBuilder.beginControlFlow("switch(uriType)");
-
-		for (Triple<String, SQLDaoDefinition, Map<SupportedOperation, SQLiteModelMethod>> item : schema.contentProvider.uris) {
-			SQLiteModelMethod method = item.value2.get(operation);
-			if (method == null)
-				continue;
-
-			methodBuilder.addCode("case $L:\n" + "$>", schema.contentProvider.getConstant(item.value0));
-			methodBuilder.addStatement("return $T.$L+\"/$L$L\"", ContentResolver.class, type(method), "vnd.", schema.authority + "." + method.getParent().contentProviderTypeName);
-			methodBuilder.addCode("$<");
-			// methodBuilder.addStatement("return $T.CURSOR_DIR_BASE_TYPE",
-			// ContentResolver.class);
-			// methodBuilder.addStatement("$<break");
-		}
-
-		methodBuilder.addCode("default:\n$>");
-		methodBuilder.addStatement("return null");
-		methodBuilder.addCode("$<");
-		methodBuilder.endControlFlow();
-
+		
+		methodBuilder.addCode("return null;\n");
+		
 		builder.addMethod(methodBuilder.build());
-	}
-
-	/**
-	 * Resolve for a specific method the cursor type.
-	 * 
-	 * @param method
-	 * @return
-	 */
-	private String type(SQLiteModelMethod method) {
-		// this uri does not have query method associated to URI, so
-		if (method == null)
-			return ContentResolver.CURSOR_ITEM_BASE_TYPE;
-
-		ModelAnnotation annotation = method.getAnnotation(BindContentProviderEntry.class);
-		if (annotation != null) {
-			String parsedValue = AnnotationUtility.extractAsEnumerationValue(elementUtils, method.getElement(), BindContentProviderEntry.class, AnnotationAttributeType.RESULT_TYPE);
-			parsedValue = (parsedValue == null) ? ResultType.DEFAULT.toString() : parsedValue;
-			ResultType resultType = ResultType.valueOf(parsedValue);
-
-			switch (resultType) {
-			case DEFAULT:
-				if (method.hasAnnotation(BindSqlSelect.class)) {
-					return "CURSOR_DIR_BASE_TYPE";
-				} else
-					return "CURSOR_ITEM_BASE_TYPE";
-			case MANY:
-				return "CURSOR_DIR_BASE_TYPE";
-			case ONE:
-				return "CURSOR_ITEM_BASE_TYPE";
-			}
-
-		}
-
-		return "CURSOR_ITEM_BASE_TYPE";
+		
 	}
 
 	private void generateOnCreate(String dataSourceNameClazz) {
@@ -371,28 +237,28 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("<p>Create datasource and open database in read mode.</p>\n");
 		methodBuilder.addJavadoc("\n");
 		methodBuilder.addJavadoc("@see android.content.ContentProvider#onCreate()\n");
-
+			
 		methodBuilder.addStatement("dataSource = $L.instance()", dataSourceNameClazz);
-		methodBuilder.addStatement("dataSource.openReadOnlyDatabase()");
-
+		methodBuilder.addStatement("dataSource.openReadOnlyDatabase()");		
+		
 		methodBuilder.addCode("return true;\n");
-
+		
 		builder.addMethod(methodBuilder.build());
 	}
-
+	
 	private void generateOnShutdown(String dataSourceNameClazz) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("shutdown").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Void.TYPE);
 
 		methodBuilder.addJavadoc("<p>Close database.</p>\n");
 		methodBuilder.addJavadoc("\n");
 		methodBuilder.addJavadoc("@see android.content.ContentProvider#shutdown()\n");
-
+			
 		methodBuilder.addStatement("super.shutdown()");
-		methodBuilder.addStatement("dataSource.close()");
-
+		methodBuilder.addStatement("dataSource.close()");		
+						
 		builder.addMethod(methodBuilder.build());
 	}
-
+	
 	private void generateQuery() {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("query").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Cursor.class);
 		methodBuilder.addParameter(Uri.class, "uri");
@@ -402,9 +268,10 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(String.class, "sortOrder");
 
 		methodBuilder.addCode("return null;\n");
-
+		
 		builder.addMethod(methodBuilder.build());
 	}
+	 
 
 	/**
 	 * @param schemaName
@@ -572,26 +439,35 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		// create interface
 		String transationExecutorName = "Transaction";
-		// @formatter:off
-		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"),
-				className(daoFactory));
-		builder.addType(TypeSpec.interfaceBuilder(transationExecutorName).addModifiers(Modifier.PUBLIC)
-				.addSuperinterface(parameterizedTypeName).addJavadoc("interface to define transactions\n").build());
-		// @formatter:on
+		//@formatter:off
+		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"), className(daoFactory));
+		builder.addType(
+				TypeSpec.interfaceBuilder(transationExecutorName)
+				.addModifiers(Modifier.PUBLIC)
+				.addSuperinterface(parameterizedTypeName)
+				.addJavadoc("interface to define transactions\n").build());
+		//@formatter:on
 
 		// create SimpleTransaction class
 		String simpleTransactionClassName = "SimpleTransaction";
-		// @formatter:off
-		builder.addType(TypeSpec.classBuilder(simpleTransactionClassName)
+		//@formatter:off
+		builder.addType(
+				TypeSpec.classBuilder(simpleTransactionClassName)
 				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
 				.addSuperinterface(className(transationExecutorName))
 				.addJavadoc("Simple class implements interface to define transactions\n")
-				.addMethod(MethodSpec.methodBuilder("onError").addAnnotation(Override.class).returns(Void.TYPE)
-						.addModifiers(Modifier.PUBLIC).addParameter(Throwable.class, "e")
-						.addStatement("throw(new $T(e))", KriptonRuntimeException.class).build())
+				.addMethod(MethodSpec.methodBuilder("onError")
+						.addAnnotation(Override.class)
+						.returns(Void.TYPE)
+						.addModifiers(Modifier.PUBLIC)
+						.addParameter(Throwable.class, "e")						
+						.addStatement("throw(new $T(e))", KriptonRuntimeException.class)
+						.build()
+						)
 				.build());
-
-		// @formatter:on
+				
+				
+		//@formatter:on
 
 		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName), "transaction");
 

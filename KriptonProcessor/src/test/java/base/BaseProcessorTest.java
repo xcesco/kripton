@@ -329,7 +329,7 @@ public class BaseProcessorTest {
 			}
 
 		} catch (Throwable e) {
-			// e.printStackTrace();
+			//e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
 		return counter.longValue();

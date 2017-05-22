@@ -31,44 +31,80 @@ import com.abubusoft.kripton.android.annotation.BindSqlOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlWhere;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLBuilder;
 import com.squareup.javapoet.TypeName;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
+	
+	public enum SQLOperationType {
+		SELECT,
+		INSERT,
+		UPDATE,
+		DELETE
+	}
 
 	interface OnFoundDynamicParameter {
 		void onFoundParameter(String parameterName);
 	}
 
+	/**
+	 * <p>
+	 * It is the typeName of parameter used to dynamic order by condition (defined at
+	 * runtime).
+	 * </p>
+	 */
+	public String dynamicOrderByParameterName;
 
+	/**
+	 * <p>
+	 * It is the typeName of parameter used to dynamic where condition (defined at
+	 * runtime).
+	 * </p>
+	 */
+	public String dynamicWhereParameterName;
+	
+	/**
+	 * <p>
+	 * It is the typeName of parameter used to dynamic page size (defined at
+	 * runtime).
+	 * </p>
+	 */
+	public String dynamicPageSizeName;
+	
 	/**
 	 * typeName of the paginated result parameter typeName.
 	 */
 	public String paginatedResultName;
 
+	public SQLOperationType operationType;
+	
 	protected Map<String, String> parameterAlias2NameField;
 
 	protected Map<String, String> parameterNameField2Alias;
 
 	private WeakReference<SQLDaoDefinition> parent;
 
-	public MethodInfo info;
+	private String jsql;
 
-	/**
-	 * Create method rapresentation of DAO bean. Moreover, it define 
-	 * @param parent
-	 * @param element
-	 */
-	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element) {
+	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
 		this.parent = new WeakReference<SQLDaoDefinition>(parent);
+		
+		// detect type of operation
+		
+		if (annotationList!=null)
+		{
+			this.annotations.addAll(annotationList);
+		}
+				
 		this.parameterAlias2NameField = new HashMap<>();
 		this.parameterNameField2Alias = new HashMap<>();
-		this.info=new MethodInfo();
 
 		// analyze method looking for BindSqlParam
 		for (VariableElement p : element.getParameters()) {
@@ -81,11 +117,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		}
 		
 		// looks for dynamic where conditions
-		findStringDynamicStatement(parent, BindSqlDynamicWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
+		findStringDynamicStatement(parent, BindSqlWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
 
 			@Override
 			public void onFoundParameter(String parameterName) {
-				info.dynamicWhereParameterName = parameterName;
+				dynamicWhereParameterName = parameterName;
 			}
 
 		});
@@ -95,7 +131,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			@Override
 			public void onFoundParameter(String parameterName) {
-				info.dynamicOrderByParameterName = parameterName;
+				dynamicOrderByParameterName = parameterName;
 			}
 
 		});
@@ -105,10 +141,13 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			@Override
 			public void onFoundParameter(String parameterName) {
-				info.dynamicPageSizeName = parameterName;
+				dynamicPageSizeName = parameterName;
 			}
 
 		});
+		
+		// build after others initilizations
+		this.jsql=JQLBuilder.buildJQL(this);
 	}
 
 	@Override
@@ -241,16 +280,30 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
-	 * <p></p>
-	 * 
 	 * @return the parent
 	 */
 	public SQLDaoDefinition getParent() {
 		return parent.get();
 	}
+
+	public boolean hasDynamicOrderByConditions() {
+		return StringUtils.hasText(dynamicOrderByParameterName);
+	}
+
+	public boolean hasDynamicWhereConditions() {
+		return StringUtils.hasText(dynamicWhereParameterName);
+	}
+	
+	public boolean hasDynamicPageSizeConditions() {
+		return StringUtils.hasText(dynamicPageSizeName);
+	}
 	
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
-		return StringUtils.hasText(info.dynamicWhereParameterName) && parameterName.equals(info.dynamicWhereParameterName);
+		return StringUtils.hasText(dynamicWhereParameterName) && parameterName.equals(dynamicWhereParameterName);
+	}
+	
+	public boolean isThisDynamicPageSizeName(String parameterName) {
+		return StringUtils.hasText(dynamicPageSizeName) && parameterName.equals(dynamicPageSizeName);
 	}
 
 	public boolean hasPaginatedResultParameter() {
