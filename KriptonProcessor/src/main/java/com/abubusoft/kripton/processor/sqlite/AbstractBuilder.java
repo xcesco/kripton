@@ -25,7 +25,7 @@ public abstract class AbstractBuilder {
 	
 	protected Elements elementUtils;
 	protected Filer filer;
-	protected Builder builder;
+	protected Builder classBuilder;
 	protected SQLiteDatabaseSchema model;
 	
 	public AbstractBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {

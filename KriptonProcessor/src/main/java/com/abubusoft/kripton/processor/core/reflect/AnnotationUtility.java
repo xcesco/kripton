@@ -32,6 +32,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelEntity;
@@ -144,18 +145,18 @@ public abstract class AnnotationUtility {
 	 * @return attribute value extracted as array of class typeName
 	 */
 	public static List<String> extractAsClassNameArray(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
-		final Result<List<String>> result = new Result<List<String>>();
-		result.value=new ArrayList<>();
+		final One<List<String>> result = new One<List<String>>();
+		result.value0=new ArrayList<>();
 
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
 
 			@Override
 			public void onFound(String value) {
-				result.value = AnnotationUtility.extractAsArrayOfClassName(value);
+				result.value0 = AnnotationUtility.extractAsArrayOfClassName(value);
 			}
 		});
 
-		return result.value;
+		return result.value0;
 	}
 
 	/**
@@ -168,17 +169,17 @@ public abstract class AnnotationUtility {
 	 * @return attribute value extracted as class typeName
 	 */
 	public static String extractAsClassName(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
-		final Result<String> result = new Result<String>();
+		final One<String> result = new One<String>();
 
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
 
 			@Override
 			public void onFound(String value) {
-				result.value = AnnotationUtility.extractAsArrayOfClassName(value).get(0);
+				result.value0 = AnnotationUtility.extractAsArrayOfClassName(value).get(0);
 			}
 		});
 
-		return result.value;
+		return result.value0;
 	}
 
 	/**
@@ -191,7 +192,7 @@ public abstract class AnnotationUtility {
 	 * @return attribute value extracted as class typeName
 	 */
 	public static String extractAsString(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
-		final Result<String> result = new Result<String>();
+		final One<String> result = new One<String>();
 
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
 
@@ -200,13 +201,13 @@ public abstract class AnnotationUtility {
 				List<String> list = AnnotationUtility.extractAsArrayOfString(value);
 
 				if (list.size() > 0)
-					result.value = list.get(0);
+					result.value0 = list.get(0);
 				else
-					result.value = value;
+					result.value0 = value;
 			}
 		});
 
-		return result.value;
+		return result.value0;
 	}
 
 	/**
@@ -222,22 +223,18 @@ public abstract class AnnotationUtility {
 	 * @return attribute value as list of string
 	 */
 	public static String extractAsEnumerationValue(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute) {
-		final Result<String> result = new Result<String>();
+		final One<String> result = new One<String>();
 
 		extractAttributeValue(elementUtils, item, annotationClass.getName(), attribute, new OnAttributeFoundListener() {
 
 			@Override
 			public void onFound(String value) {
 				if (value.indexOf(".") >= 0)
-					result.value = value.substring(value.lastIndexOf(".") + 1);
+					result.value0 = value.substring(value.lastIndexOf(".") + 1);
 			}
 		});
 
-		return result.value;
-	}
-
-	static class Result<T> {
-		T value;
+		return result.value0;
 	}
 
 	interface OnAttributeFoundListener {
@@ -282,16 +279,16 @@ public abstract class AnnotationUtility {
 	 * @return attribute value as list of string
 	 */
 	public static List<String> extractAsStringArray(Elements elementUtils, ModelMethod method, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
-		final Result<List<String>> result = new Result<List<String>>();
+		final One<List<String>> result = new One<List<String>>();
 		extractAttributeValue(elementUtils, method.getElement(), annotationClass.getName(), attribute, new OnAttributeFoundListener() {
 
 			@Override
 			public void onFound(String value) {
-				result.value = AnnotationUtility.extractAsArrayOfString(value);
+				result.value0 = AnnotationUtility.extractAsArrayOfString(value);
 			}
 		});
 
-		return result.value;
+		return result.value0;
 	}
 
 	/**
@@ -307,18 +304,18 @@ public abstract class AnnotationUtility {
 	 * @return attribute value as list of string
 	 */
 	public static String extractAsEnumerationValue(Elements elementUtils, ModelProperty property, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
-		final Result<String> result = new Result<String>();
+		final One<String> result = new One<String>();
 
 		extractAttributeValue(elementUtils, property.getElement(), annotationClass.getName(), attribute, new OnAttributeFoundListener() {
 
 			@Override
 			public void onFound(String value) {
 
-				result.value = value.substring(value.lastIndexOf(".") + 1);
+				result.value0 = value.substring(value.lastIndexOf(".") + 1);
 			}
 		});
 
-		return result.value;
+		return result.value0;
 	}
 
 	/**
@@ -376,32 +373,32 @@ public abstract class AnnotationUtility {
 	}
 
 	public static int extractAsInt(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
-		final Result<Integer> result = new Result<Integer>();
-		result.value = 0;
+		final One<Integer> result = new One<Integer>();
+		result.value0 = 0;
 
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
 
 			@Override
 			public void onFound(String value) {
-				result.value = Integer.parseInt(value);
+				result.value0 = Integer.parseInt(value);
 			}
 		});
 
-		return result.value;
+		return result.value0;
 	}
 
 	public static boolean extractAsBoolean(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute) {
-		final Result<Boolean> result = new Result<Boolean>();
+		final One<Boolean> result = new One<Boolean>(false);
 
 		extractString(elementUtils, item, annotationClass, attribute, new OnAttributeFoundListener() {
 
 			@Override
 			public void onFound(String value) {
-				result.value = Boolean.parseBoolean(value);
+				result.value0 = Boolean.parseBoolean(value);
 			}
 		});
 
-		return result.value;
+		return result.value0;
 	}
 
 	/**
@@ -416,17 +413,17 @@ public abstract class AnnotationUtility {
 	 *            attribute typeName to analyze
 	 */
 	public static <E extends ModelEntity<?>> boolean extractAsBoolean(Elements elementUtils, E item, ModelAnnotation annotation, AnnotationAttributeType attribute) {
-		final Result<Boolean> result = new Result<Boolean>();
+		final One<Boolean> result = new One<Boolean>(false);
 
 		extractAttributeValue(elementUtils, item.getElement(), annotation.getName(), attribute, new OnAttributeFoundListener() {
 
 			@Override
 			public void onFound(String value) {
-				result.value = Boolean.valueOf(value);
+				result.value0 = Boolean.valueOf(value);
 			}
 		});
 
-		return result.value;
+		return result.value0;
 	}
 
 	public static Boolean getAnnotationAttributeAsBoolean(ModelWithAnnotation model, Class<? extends Annotation> annotation, AnnotationAttributeType attribute, Boolean defaultValue) {

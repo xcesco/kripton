@@ -2,6 +2,7 @@ package sqlite.contentprovider.kripton35.entities;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -26,6 +27,18 @@ public class PersonBindMap extends AbstractMapper<Person> {
     int fieldCount=0;
 
     // Serialized Field:
+
+    // field birthCity (mapped with "birthCity")
+    if (object.birthCity!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("birthCity", object.birthCity);
+    }
+
+    // field birthDay (mapped with "birthDay")
+    if (object.birthDay!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("birthDay", DateUtils.write(object.birthDay));
+    }
 
     // field id (mapped with "id")
     fieldCount++;
@@ -53,6 +66,18 @@ public class PersonBindMap extends AbstractMapper<Person> {
     int fieldCount=0;
 
     // Serialized Field:
+
+    // field birthCity (mapped with "birthCity")
+    if (object.birthCity!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("birthCity", object.birthCity);
+    }
+
+    // field birthDay (mapped with "birthDay")
+    if (object.birthDay!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("birthDay", DateUtils.write(object.birthDay));
+    }
 
     // field id (mapped with "id")
     jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
@@ -83,6 +108,20 @@ public class PersonBindMap extends AbstractMapper<Person> {
     }
 
     // Persisted fields:
+
+    // field birthCity (mapped with "birthCity")
+    if (object.birthCity!=null) {
+      xmlSerializer.writeStartElement("birthCity");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.birthCity));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field birthDay (mapped with "birthDay")
+    if (object.birthDay!=null)  {
+      xmlSerializer.writeStartElement("birthDay");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(DateUtils.write(object.birthDay)));
+      xmlSerializer.writeEndElement();
+    }
 
     // field id (mapped with "id")
     xmlSerializer.writeStartElement("id");
@@ -128,6 +167,18 @@ public class PersonBindMap extends AbstractMapper<Person> {
 
       // Parse fields:
       switch (fieldName) {
+          case "birthCity":
+            // field birthCity (mapped with "birthCity")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.birthCity=jacksonParser.getText();
+            }
+          break;
+          case "birthDay":
+            // field birthDay (mapped with "birthDay")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.birthDay=DateUtils.read(jacksonParser.getText());
+            }
+          break;
           case "id":
             // field id (mapped with "id")
             instance.id=jacksonParser.getLongValue();
@@ -171,6 +222,18 @@ public class PersonBindMap extends AbstractMapper<Person> {
 
       // Parse fields:
       switch (fieldName) {
+          case "birthCity":
+            // field birthCity (mapped with "birthCity")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.birthCity=jacksonParser.getText();
+            }
+          break;
+          case "birthDay":
+            // field birthDay (mapped with "birthDay")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.birthDay=DateUtils.read(jacksonParser.getText());
+            }
+          break;
           case "id":
             // field id (mapped with "id")
             instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
@@ -224,6 +287,14 @@ public class PersonBindMap extends AbstractMapper<Person> {
           case XmlPullParser.START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
+                case "birthCity":
+                  // property birthCity (mapped on "birthCity")
+                  instance.birthCity=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "birthDay":
+                  // property birthDay (mapped on "birthDay")
+                  instance.birthDay=DateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
                 case "id":
                   // property id (mapped on "id")
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);

@@ -1,57 +1,43 @@
-/*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *******************************************************************************/
 package sqlite.contentprovider.kripton35.persistence;
 
+import java.util.Date;
 import java.util.List;
 
-import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
-import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlOrderBy;
+import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.ResultType;
+import com.abubusoft.kripton.android.annotation.BindSqlWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlWhere.PrependType;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
 import sqlite.contentprovider.kripton35.entities.Person;
 
-/**
- * Created by xcesco on 27/09/2016.
- */
 
 @BindDao(Person.class)
-@BindContentProviderPath(path="persons",typeName="person")
 public interface PersonDAO {
+
+	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.CONFLICT_FAIL, includePrimaryKey=false)
+	//void insertOne(String name, String surname, String birthCity, Date birthDay);
+	void insertOne(Person bean);
 	
-	@BindSqlInsert
-	@BindContentProviderEntry
-	boolean insert(Person bean);
+	@BindSqlUpdate(where="id=${id}")
+	int updateWhereStaticAndDynamic(@BindSqlParam("birthCity") String dummy, long id, @BindSqlWhere String where);
+
+	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy="id", having="id=2",orderBy="id")
+	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue,@BindSqlPageSize int pageSize,  @BindSqlWhere(prepend=PrependType.OR) String where, @BindSqlOrderBy String orderBy);
+
+	@BindSqlSelect(orderBy = "name")
+	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlOrderBy String orderBy);
 	
-	@BindSqlUpdate
-	@BindContentProviderEntry
-	boolean update(Person bean);
-	
-	@BindSqlSelect
-	@BindContentProviderEntry
-	List<Person> selectAll();
-	
-	@BindSqlSelect(where="id=${id}")
-	@BindContentProviderEntry(path="/#", resultType=ResultType.ONE)
-	Person selectOne(long id);
-	
-	
-	
-		
+	@BindSqlDelete(where="id = ${bean.id}")
+	void deleteBean(Person bean, @BindSqlWhere String where);	
+
+	// @BindSqlSelect(orderBy="typeName")
+	// void selectCursorListener(OnReadCursorListener cursorListener);
 }

@@ -100,7 +100,7 @@ public abstract class AssertKripton {
 	 */
 	public static void assertTrueOrInvalidTypeForAnnotationMethodParameterException(boolean expression, Element classElement, ExecutableElement methodElement, VariableElement parameterElement, Class<? extends Annotation> annotationClazz) {
 		if (!expression) {
-			String msg = String.format("Parameter %s in %s.%s has an invalid type %s for @%s annotation", parameterElement.getSimpleName().toString(), classElement.getSimpleName().toString(),  methodElement.getSimpleName().toString(), parameterElement.asType(),  annotationClazz.getSimpleName());
+			String msg = String.format("In method '%s.%s', parameter '%s' has an invalid type '%s' for @%s annotation", classElement.getSimpleName().toString(),  methodElement.getSimpleName().toString(), parameterElement.getSimpleName().toString(), parameterElement.asType(),  annotationClazz.getSimpleName());
 			throw (new InvalidTypeForAnnotationException(msg));
 		}
 	}

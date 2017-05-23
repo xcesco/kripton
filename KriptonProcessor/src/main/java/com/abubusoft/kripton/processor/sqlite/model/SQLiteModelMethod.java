@@ -38,7 +38,7 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLBuilder;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLMethod;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQL;
 import com.squareup.javapoet.TypeName;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
@@ -91,7 +91,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	private WeakReference<SQLDaoDefinition> parent;
 
-	private JQLMethod jsql;
+	private JQL jsql;
 
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);

@@ -20,7 +20,9 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -28,18 +30,25 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.annotation.BindContentProvider;
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
 import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.CodeBlock.Builder;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -84,6 +93,10 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	public void buildDataSource(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+		BindContentProvider annotationBindContentProvider=schema.getElement().getAnnotation(BindContentProvider.class);
+		
+		boolean includeAllDaos=annotationBindContentProvider.allDAOs();
+		
 		String dataSourceName = schema.getName();
 		String dataSourceNameClazz = BindDataSourceBuilder.PREFIX + dataSourceName;
 		String contentProviderName = PREFIX + dataSourceName.replace(BindDataSourceBuilder.SUFFIX, "")+ SUFFIX;
@@ -95,7 +108,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 		
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, dataSourceName);
-		builder = TypeSpec.classBuilder(contentProviderName).addModifiers(Modifier.PUBLIC).superclass(ContentProvider.class);
+		classBuilder = TypeSpec.classBuilder(contentProviderName).addModifiers(Modifier.PUBLIC).superclass(ContentProvider.class);
 		
 		generateOnCreate(dataSourceNameClazz);
 		
@@ -114,10 +127,60 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		// define static fields
 
 		// instance
-		builder.addField(FieldSpec.builder(className(dataSourceNameClazz), "dataSource", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());		
-		builder.addField(FieldSpec.builder(String.class, "AUTHORITY", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>Content provider authority</p>\n").initializer("$S",schema.authority).build());
-		builder.addField(FieldSpec.builder(UriMatcher.class, "sURIMatcher", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>URI matcher</p>\n").initializer("new $T($T.NO_MATCH)",UriMatcher.class, UriMatcher.class).build());
-		builder.addStaticBlock(CodeBlock.builder().addStatement("sURIMatcher.addURI(AUTHORITY, BASE_PATH, TODOS)").build());
+		classBuilder.addField(FieldSpec.builder(className(dataSourceNameClazz), "dataSource", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
+		classBuilder.addField(FieldSpec.builder(String.class, "AUTHORITY", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>Content provider authority</p>\n").initializer("$S",schema.authority).build());
+		classBuilder.addField(FieldSpec.builder(UriMatcher.class, "sURIMatcher", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>URI matcher</p>\n").initializer("new $T($T.NO_MATCH)",UriMatcher.class, UriMatcher.class).build());
+
+		int i=1;
+		Builder staticBuilder = CodeBlock.builder();		
+		Converter<String, String> daoConstantConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);		
+
+		for (SQLDaoDefinition daoDefinition :schema.getCollection())
+		{			
+			String pathConstantName="PATH_"+daoConstantConverter.convert(daoDefinition.getEntitySimplyClassName());
+			String pathIndexName=pathConstantName+"_INDEX";
+			String pathValue=daoDefinition.getEntitySimplyClassName().toLowerCase();
+			
+			BindContentProviderPath annotationBindContentProviderPath=daoDefinition.getElement().getAnnotation(BindContentProviderPath.class);			
+			
+			// if no every dao must included and annotation @BindContentProviderPath is not included, skip
+			if (!includeAllDaos &&  annotationBindContentProviderPath==null) continue;
+			
+			boolean includeAllMethods=true;			
+			if (annotationBindContentProviderPath!=null)
+			{				
+				if (StringUtils.hasText(annotationBindContentProviderPath.path()))
+				{
+					pathValue=annotationBindContentProviderPath.path();
+				}
+				
+				includeAllMethods=annotationBindContentProviderPath.enabledAllMethods();
+			}
+			
+
+			Set<String> pathAlreadyUsed=new HashSet<>();
+			for (SQLiteModelMethod daoMethod: daoDefinition.getCollection()){
+				BindContentProviderEntry annotationBindContentProviderEntry=daoMethod.getElement().getAnnotation(BindContentProviderEntry.class);
+			
+				if (!includeAllMethods &&  annotationBindContentProviderEntry==null) continue;
+				String methodPath=pathValue;
+				if (annotationBindContentProviderEntry!=null) 
+				{
+					methodPath+="/"+annotationBindContentProviderEntry.path();
+				}
+				
+				if (pathAlreadyUsed.contains(methodPath)) continue;
+				pathAlreadyUsed.add(methodPath);
+								
+				classBuilder.addField(FieldSpec.builder(String.class, pathConstantName, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$S", methodPath)).addJavadoc("<p>path constant for dao '$L'</p>\n", daoDefinition.getElement().getSimpleName().toString()).build());
+				classBuilder.addField(FieldSpec.builder(Integer.TYPE, pathIndexName, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$L", i++)).addJavadoc("<p>path index for dao '$L'</p>\n", daoDefinition.getElement().getSimpleName().toString()).build());
+				staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $L, $L)", pathConstantName, pathIndexName);	
+			}
+			
+			
+		}
+		classBuilder.addStaticBlock(staticBuilder.build());
+		//builder.addStaticBlock(CodeBlock.builder().addStatement("sURIMatcher.addURI(AUTHORITY, BASE_PATH, TODOS)").build());
 
 /*
 		builder.addJavadoc("<p>\n");
@@ -182,7 +245,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		generateOnConfigure(useForeignKey);
 		*/
 
-		TypeSpec typeSpec = builder.build();
+		TypeSpec typeSpec = classBuilder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
@@ -193,7 +256,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		
 		methodBuilder.addCode("return null;\n");
 		
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 		
 	}
 	
@@ -205,7 +268,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		
 		methodBuilder.addCode("return 0;\n");
 		
-		builder.addMethod(methodBuilder.build());		
+		classBuilder.addMethod(methodBuilder.build());		
 	}
 	
 	private void generateUpdate() {
@@ -217,7 +280,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		
 		methodBuilder.addCode("return 0;\n");
 		
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 		
 	}
 
@@ -227,7 +290,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		
 		methodBuilder.addCode("return null;\n");
 		
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 		
 	}
 
@@ -243,7 +306,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		
 		methodBuilder.addCode("return true;\n");
 		
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 	
 	private void generateOnShutdown(String dataSourceNameClazz) {
@@ -256,7 +319,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addStatement("super.shutdown()");
 		methodBuilder.addStatement("dataSource.close()");		
 						
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 	
 	private void generateQuery() {
@@ -269,7 +332,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		methodBuilder.addCode("return null;\n");
 		
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 	 
 
@@ -286,7 +349,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addStatement("instance.openWritableDatabase()");
 		methodBuilder.addCode("return instance;\n");
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 	/**
@@ -302,7 +365,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addStatement("instance.openReadOnlyDatabase()");
 		methodBuilder.addCode("return instance;\n");
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 	/**
@@ -330,7 +393,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addStatement("options.databaseLifecycleHandler.onCreate(database)");
 		methodBuilder.endControlFlow();
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 
 		return useForeignKey;
 	}
@@ -375,7 +438,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		methodBuilder.endControlFlow();
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 	/**
@@ -397,7 +460,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addStatement("options.databaseLifecycleHandler.onConfigure(database)");
 		methodBuilder.endControlFlow();
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 	private List<SQLEntity> generateOrderedEntitiesList(SQLiteDatabaseSchema schema) {
@@ -441,7 +504,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		String transationExecutorName = "Transaction";
 		//@formatter:off
 		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"), className(daoFactory));
-		builder.addType(
+		classBuilder.addType(
 				TypeSpec.interfaceBuilder(transationExecutorName)
 				.addModifiers(Modifier.PUBLIC)
 				.addSuperinterface(parameterizedTypeName)
@@ -451,7 +514,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		// create SimpleTransaction class
 		String simpleTransactionClassName = "SimpleTransaction";
 		//@formatter:off
-		builder.addType(
+		classBuilder.addType(
 				TypeSpec.classBuilder(simpleTransactionClassName)
 				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
 				.addSuperinterface(className(transationExecutorName))
@@ -501,7 +564,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		executeMethod.addJavadoc("\n");
 		executeMethod.addJavadoc("@param transaction\n\ttransaction to execute\n");
 
-		builder.addMethod(executeMethod.build());
+		classBuilder.addMethod(executeMethod.build());
 	}
 
 }

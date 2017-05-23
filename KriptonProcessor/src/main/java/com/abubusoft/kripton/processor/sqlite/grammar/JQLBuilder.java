@@ -28,6 +28,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ArrayTypeName;
+import com.squareup.javapoet.TypeName;
 
 import static  com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.DELETE_KEYWORD;
 import static  com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.DISTINCT_KEYWORD;
@@ -77,9 +78,9 @@ public abstract class JQLBuilder {
 	}
 	
 
-	public static JQLMethod buildJQL(SQLiteModelMethod method) {	
+	public static JQL buildJQL(SQLiteModelMethod method) {	
 		final SQLDaoDefinition dao = method.getParent();
-		final JQLMethod result=new JQLMethod();
+		final JQL result=new JQL();
 		
 		// for each method's parameter
 		forEachParameter(method, new OnParameterListener() {
@@ -114,7 +115,7 @@ public abstract class JQLBuilder {
 	 * @param method
 	 * @return
 	 */
-	private static JQLMethod buildJQLDelete(SQLiteModelMethod method, JQLMethod result) {
+	private static JQL buildJQLDelete(SQLiteModelMethod method, JQL result) {
 		final SQLDaoDefinition dao = method.getParent();		
 		
 		StringBuilder builder=new StringBuilder();
@@ -135,7 +136,7 @@ public abstract class JQLBuilder {
 	 * @param method
 	 * @return
 	 */
-	private static JQLMethod buildJQLInsert(SQLiteModelMethod method, JQLMethod result) {
+	private static JQL buildJQLInsert(SQLiteModelMethod method, JQL result) {
 		final Class<? extends Annotation> annotation=BindSqlInsert.class;
 		final SQLDaoDefinition dao = method.getParent();
 		final boolean includePrimaryKey=AnnotationUtility.extractAsBoolean(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
@@ -184,14 +185,14 @@ public abstract class JQLBuilder {
 	}
 
 	
-	private static JQLMethod buildJQLSelect(SQLiteModelMethod method, JQLMethod result) {		
+	private static JQL buildJQLSelect(SQLiteModelMethod method, JQL result) {		
 		final Class<? extends Annotation> annotation=BindSqlInsert.class;
 		final SQLDaoDefinition dao = method.getParent();		
 		
 		// extract some informaction from method and bean
 		// use annotation's attribute value and exclude and bean definition to define field list
 		final Set<String> fields = defineFields(method, dao, BindSqlSelect.class, true);		
-						
+								
 		boolean distinct=AnnotationUtility.extractAsBoolean(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.DISTINCT);
 		String annotatedGroupBy=AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.GROUP_BY);
 		String annotatedHaving=AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.HAVING);				
@@ -249,7 +250,7 @@ public abstract class JQLBuilder {
 	 * @param method
 	 * @return
 	 */
-	private static JQLMethod buildJQLUpdate(final SQLiteModelMethod method, JQLMethod result) {
+	private static JQL buildJQLUpdate(final SQLiteModelMethod method, JQL result) {
 		final Class<? extends Annotation> annotation=BindSqlInsert.class;
 		final SQLDaoDefinition dao = method.getParent();		
 		
@@ -337,10 +338,10 @@ public abstract class JQLBuilder {
 	 * Define WHERE statement.
 	 * 
 	 * @param method
-	 * @param builder
+	 * @param classBuilder
 	 * @param annotation
 	 */
-	private static <L extends Annotation> String defineLimitStatement(final SQLiteModelMethod method, final JQLMethod result, Class<L> annotation) {
+	private static <L extends Annotation> String defineLimitStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation) {
 		StringBuilder builder=new StringBuilder();
 		
 		int pageSize=AnnotationUtility.extractAsInt(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.PAGE_SIZE);
@@ -361,7 +362,7 @@ public abstract class JQLBuilder {
 					result.paramPageSize=pageDynamicName.value0;
 					
 					//CONSTRAINT: @BindSqlWhereArgs can be used only on String[] parameter type					
-					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(ArrayTypeName.of(String.class),TypeUtility.typeName(methodParam)) , method.getParent().getElement(), method.getElement(),  methodParam, BindSqlWhereArgs.class);
+					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeName.INT,TypeUtility.typeName(methodParam)) , method.getParent().getElement(), method.getElement(),  methodParam, BindSqlPageSize.class);
 				}
 				
 			}
@@ -388,10 +389,10 @@ public abstract class JQLBuilder {
 	 * Define ORDER BY statement.
 	 * 
 	 * @param method
-	 * @param builder
+	 * @param classBuilder
 	 * @param annotation
 	 */
-	private static <L extends Annotation> String defineOrderByStatement(final SQLiteModelMethod method, final JQLMethod result, Class<L> annotation) {
+	private static <L extends Annotation> String defineOrderByStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation) {
 		StringBuilder builder=new StringBuilder();
 		
 		String orderBy=AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.ORDER_BY);
@@ -412,7 +413,7 @@ public abstract class JQLBuilder {
 					result.paramOrderBy=orderDynamicName.value0;
 					
 					//CONSTRAINT: @BindSqlOrderBy can be used only on String parameter type					
-					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(ArrayTypeName.of(String.class),TypeUtility.typeName(methodParam)) , method.getParent().getElement(), method.getElement(),  methodParam, BindSqlOrderBy.class);
+					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeUtility.typeName(String.class),TypeUtility.typeName(methodParam)) , method.getParent().getElement(), method.getElement(),  methodParam, BindSqlOrderBy.class);
 				}
 				
 			}
@@ -441,10 +442,10 @@ public abstract class JQLBuilder {
 	 * Define WHERE statement.
 	 * 
 	 * @param method
-	 * @param builder
+	 * @param classBuilder
 	 * @param annotation
 	 */
-	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQLMethod jql, Class<L> annotation) {
+	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql, Class<L> annotation) {
 		StringBuilder builder=new StringBuilder();
 		
 		String where=AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.WHERE);
@@ -495,7 +496,7 @@ public abstract class JQLBuilder {
 
 
 	/**
-	 * @param builder
+	 * @param classBuilder
 	 * @param fields
 	 */
 	private static String forEachFields(final Set<String> fields, OnFieldListener listener) {

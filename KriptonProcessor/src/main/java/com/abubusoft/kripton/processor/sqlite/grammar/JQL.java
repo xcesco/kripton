@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.processor.sqlite.grammar;
 
-public class JQLMethod {
+public class JQL {
 
 	/**
 	 * JQL statement

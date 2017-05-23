@@ -77,8 +77,8 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 		
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, schemaName);
-		builder=buildDaoFactoryInterfaceInternal(elementUtils, filer, schema);
-		TypeSpec typeSpec = builder.build();
+		classBuilder=buildDaoFactoryInterfaceInternal(elementUtils, filer, schema);
+		TypeSpec typeSpec = classBuilder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 		
 		return schemaName;
@@ -102,21 +102,21 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 		
 		schemaName=schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
 		
-		builder = TypeSpec.interfaceBuilder(schemaName).addModifiers(Modifier.PUBLIC).addSuperinterface(BindDaoFactory.class);
+		classBuilder = TypeSpec.interfaceBuilder(schemaName).addModifiers(Modifier.PUBLIC).addSuperinterface(BindDaoFactory.class);
 		
-		builder.addJavadoc("<p>\n");
-		builder.addJavadoc("Represents dao factory interface for $L.\n",schema.getName());
-		builder.addJavadoc("This class expose database interface through Dao attribute.\n",schema.getName());
-		builder.addJavadoc("</p>\n\n");
+		classBuilder.addJavadoc("<p>\n");
+		classBuilder.addJavadoc("Represents dao factory interface for $L.\n",schema.getName());
+		classBuilder.addJavadoc("This class expose database interface through Dao attribute.\n",schema.getName());
+		classBuilder.addJavadoc("</p>\n\n");
 		
-		JavadocUtility.generateJavadocGeneratedBy(builder);
-		builder.addJavadoc("@see $T\n", TypeUtility.typeName(schema.getElement()));
+		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
+		classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(schema.getElement()));
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			TypeName daoName = BindDaoBuilder.daoInterfaceTypeName(dao);
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao); 
-			builder.addJavadoc("@see $T\n", daoName);
-			builder.addJavadoc("@see $T\n", daoImplName);
-			builder.addJavadoc("@see $T\n", TypeUtility.typeName(dao.getEntity().getElement()));
+			classBuilder.addJavadoc("@see $T\n", daoName);
+			classBuilder.addJavadoc("@see $T\n", daoImplName);
+			classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(dao.getEntity().getElement()));
 		}
 						
 		for (SQLDaoDefinition dao : schema.getCollection()) {
@@ -128,11 +128,11 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 						.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
 						.addJavadoc("\nretrieve dao $L\n", dao.getName())
 						.returns(daoImplName);
-				builder.addMethod(methodBuilder.build());
+				classBuilder.addMethod(methodBuilder.build());
 			}
 		}		
 		
-		return builder;
+		return classBuilder;
 	}
 
 }

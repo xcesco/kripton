@@ -1,11 +1,17 @@
 package sqlite.contentprovider.kripton35.entities;
 
+import java.util.Date;
+
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 public class Person {
 
 	public long id;
+	
+	public String birthCity;
+	
+	public Date birthDay;
 	
 
 	public String getName() {

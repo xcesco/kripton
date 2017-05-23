@@ -111,17 +111,17 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classTableName);
-		builder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC);
+		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC);
 
-		BindTypeContext context = new BindTypeContext(builder, TypeUtility.typeName(packageName, classTableName), Modifier.STATIC, Modifier.PRIVATE);
+		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName), Modifier.STATIC, Modifier.PRIVATE);
 
 		// javadoc for class
-		builder.addJavadoc("<p>");
-		builder.addJavadoc("\nEntity <code>$L</code> is associated to table <code>$L</code>\n", entity.getSimpleName(), entity.getTableName());
-		builder.addJavadoc("This class represents table associated to entity.\n");
-		builder.addJavadoc("</p>\n");
-		JavadocUtility.generateJavadocGeneratedBy(builder);
-		builder.addJavadoc(" @see $T\n", TypeUtility.className(entity.getName()));
+		classBuilder.addJavadoc("<p>");
+		classBuilder.addJavadoc("\nEntity <code>$L</code> is associated to table <code>$L</code>\n", entity.getSimpleName(), entity.getTableName());
+		classBuilder.addJavadoc("This class represents table associated to entity.\n");
+		classBuilder.addJavadoc("</p>\n");
+		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
+		classBuilder.addJavadoc(" @see $T\n", TypeUtility.className(entity.getName()));
 
 		{
 			//@formatter:off
@@ -130,7 +130,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					.initializer("\"$L\"", entity.getTableName())
 					.addJavadoc("Costant represents typeName of table $L\n",entity.getTableName())
 					.build();
-			builder.addField(fieldSpec);
+			classBuilder.addField(fieldSpec);
 			//@formatter:on
 		}
 
@@ -234,7 +234,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
  			fieldSpec.addJavadoc("\n<pre>$L</pre>\n",bufferTable.toString());
  			//@formatter:on
 
-			builder.addField(fieldSpec.initializer("$S", bufferTable.toString()).build());
+			classBuilder.addField(fieldSpec.initializer("$S", bufferTable.toString()).build());
 		}
 
 		{
@@ -250,7 +250,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		 			.addJavadoc("\n<pre>$L</pre>\n",bufferDropTable.toString())
 					.build();
 			//@formatter:on
-			builder.addField(fieldSpec);
+			classBuilder.addField(fieldSpec);
 		}
 
 		// define column typeName set
@@ -260,7 +260,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.BYTE, true, Modifier.STATIC, Modifier.PUBLIC);
 
-		TypeSpec typeSpec = builder.build();
+		TypeSpec typeSpec = classBuilder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
@@ -349,7 +349,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				.addJavadoc("\n @see $T#$L\n", TypeUtility.className(kriptonProperty.getParent().getName()), kriptonProperty.getName())
 				.build();
 		//@formatter:on
-		builder.addField(fieldSpec);
+		classBuilder.addField(fieldSpec);
 	}
 
 }

@@ -40,5 +40,12 @@ public @interface BindContentProvider {
 	 * @return content provider authority
 	 */
 	public String authority();
+	
+	/**
+	 * All DAOs are binded. Default is true
+	 * 
+	 * @return true if all DAO. must be binded
+	 */
+	boolean allDAOs() default true;
 
 }

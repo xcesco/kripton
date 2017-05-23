@@ -55,8 +55,8 @@ public class JQLChecker {
 		analyzeInternal(input, listener);
 	}
 
-	protected Pair<ParserRuleContext, CommonTokenStream> prepareParser(final String sql) {
-		SQLiteLexer lexer = new SQLiteLexer(CharStreams.fromString(sql));
+	protected Pair<ParserRuleContext, CommonTokenStream> prepareParser(final String jql) {
+		SQLiteLexer lexer = new SQLiteLexer(CharStreams.fromString(jql));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		SQLiteParser parser = new SQLiteParser(tokens);
 
@@ -64,7 +64,7 @@ public class JQLChecker {
 		parser.addErrorListener(new SQLiteBaseErrorListener() {
 			@Override
 			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-				AssertKripton.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, sql);
+				AssertKripton.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, jql);
 			}
 		});
 
@@ -75,16 +75,16 @@ public class JQLChecker {
 	/**
 	 * Retrieve set of projected field.
 	 * 
-	 * @param sql
+	 * @param jql
 	 * @return
 	 */
-	public Set<JQLProjection> extractProjections(String sql) {
+	public Set<JQLProjection> extractProjections(String jql) {
 		final Set<JQLProjection> result = new LinkedHashSet<JQLProjection>();
 
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
 
-		analyzeInternal(sql, new SQLiteBaseListener() {
+		analyzeInternal(jql, new SQLiteBaseListener() {
 			@Override
 			public void enterResult_column(Result_columnContext ctx) {
 				valid.value0 = true;				
@@ -118,12 +118,12 @@ public class JQLChecker {
 	/**
 	 * Replace place holder with element passed by listener
 	 * 
-	 * @param sql
+	 * @param jql
 	 * @param listener
 	 * @return
 	 * 		string obtained by replacements
 	 */
-	public String replacePlaceHolders(String sql, final JSQLPlaceHolderReplacerListener listener) {
+	public String replacePlaceHolders(String jql, final JSQLPlaceHolderReplacerListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 				
 		SQLiteBaseListener rewriterListener = new SQLiteBaseListener() {
@@ -140,11 +140,11 @@ public class JQLChecker {
 			}
 		};
 		
-		this.analyzeInternal(sql, new SQLiteBaseListener() {
+		this.analyzeInternal(jql, new SQLiteBaseListener() {
 			
 		});
 		
-		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(sql);
+		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jql);
 		walker.walk(rewriterListener, parser.value0);
 
 		TokenStreamRewriter rewriter = new TokenStreamRewriter(parser.value1);
@@ -186,21 +186,21 @@ public class JQLChecker {
 	/**
 	 * Extract all bind parameters and dynamic part used in query.
 	 * 
-	 * @param sql
+	 * @param jql
 	 * @return
 	 */
-	public List<JQLPlaceHolder> extractPlaceHoldersAsList(String sql) {
-		return extractPlaceHolders(sql, new ArrayList<JQLPlaceHolder>());
+	public List<JQLPlaceHolder> extractPlaceHoldersAsList(String jql) {
+		return extractPlaceHolders(jql, new ArrayList<JQLPlaceHolder>());
 	}
 	
 	/**
 	 * Extract all bind parameters and dynamic part used in query.
 	 * 
-	 * @param sql
+	 * @param jql
 	 * @return
 	 */
-	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(String sql) {
-		return extractPlaceHolders(sql, new LinkedHashSet<JQLPlaceHolder>());
+	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(String jql) {
+		return extractPlaceHolders(jql, new LinkedHashSet<JQLPlaceHolder>());
 	}
 	
 	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(String sql, final L result) {		

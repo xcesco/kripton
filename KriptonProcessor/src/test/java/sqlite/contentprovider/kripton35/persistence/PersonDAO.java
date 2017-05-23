@@ -27,7 +27,7 @@ public interface PersonDAO {
 	void insertOne(Person bean);
 	
 	@BindSqlUpdate(where="id=${id}")
-	int updateWhereStaticAndDynamic(long id, @BindSqlWhere String where);
+	int updateWhereStaticAndDynamic(@BindSqlParam("birthCity") String dummy, long id, @BindSqlWhere String where);
 
 	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy="id", having="id=2",orderBy="id")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue,@BindSqlPageSize int pageSize,  @BindSqlWhere(prepend=PrependType.OR) String where, @BindSqlOrderBy String orderBy);

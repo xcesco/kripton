@@ -83,25 +83,25 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		ClassName className=TypeUtility.className(packageName,classCursorName);
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classCursorName);
-		builder = TypeSpec.classBuilder(classCursorName).addModifiers(Modifier.PUBLIC);
+		classBuilder = TypeSpec.classBuilder(classCursorName).addModifiers(Modifier.PUBLIC);
 
 		// javadoc for class
-		builder.addJavadoc("<p>");
-		builder.addJavadoc("\nCursor implementation for entity <code>$L</code>\n", entity.getSimpleName());
-		builder.addJavadoc("</p>\n");
-		JavadocUtility.generateJavadocGeneratedBy(builder);
-		builder.addJavadoc(" @see $T\n", TypeUtility.className(entity.getElement().getQualifiedName().toString()));
+		classBuilder.addJavadoc("<p>");
+		classBuilder.addJavadoc("\nCursor implementation for entity <code>$L</code>\n", entity.getSimpleName());
+		classBuilder.addJavadoc("</p>\n");
+		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
+		classBuilder.addJavadoc(" @see $T\n", TypeUtility.className(entity.getElement().getQualifiedName().toString()));
 
 		//@formatter:off
 		FieldSpec fieldSpec = FieldSpec.builder(Cursor.class, "cursor", Modifier.PROTECTED)
 				.addJavadoc("Cursor used to read database\n")
 				.build();
 		//@formatter:on
-		builder.addField(fieldSpec);
+		classBuilder.addField(fieldSpec);
 		
 		// add constructor
 		//@formatter:off
-		builder.addMethod(MethodSpec.constructorBuilder()
+		classBuilder.addMethod(MethodSpec.constructorBuilder()
 				.addJavadoc("<p>Constructor</p>\n\n")
 				.addJavadoc("@param cursor cursor used to read from database\n")
 				.addParameter(Cursor.class, "cursor")
@@ -128,17 +128,17 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		wrapMethodBuilder.addCode("\n");
 		wrapMethodBuilder.addCode("return this;\n");
 		
-		builder.addMethod(wrapMethodBuilder.build());
+		classBuilder.addMethod(wrapMethodBuilder.build());
 		
 		// add execute method		
-		builder.addMethod(generateExecuteMethod(packageName, entity).build());
+		classBuilder.addMethod(generateExecuteMethod(packageName, entity).build());
 		
 		// add execute listener method
-		builder.addMethod(generateExecuteListener(packageName, entity).build());
+		classBuilder.addMethod(generateExecuteListener(packageName, entity).build());
 
 		// add create
 		//@formatter:off
-		builder.addMethod(
+		classBuilder.addMethod(
 				MethodSpec.methodBuilder("create")
 				.addModifiers(Modifier.STATIC, Modifier.PUBLIC)
 				.addParameter(Cursor.class, "cursor")
@@ -155,7 +155,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 			item.accept(this);
 		}
 		
-		TypeSpec typeSpec = builder.build();			
+		TypeSpec typeSpec = classBuilder.build();			
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 
 	}
@@ -232,7 +232,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		listenerInterface.addJavadoc("<p>Listener for row read from database.</p>\n");			
 		TypeSpec listenerClass = listenerInterface.build();
 		
-		builder.addType(listenerClass);
+		classBuilder.addType(listenerClass);
 		
 		//@formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("executeListener")
@@ -293,7 +293,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 	@Override
 	public void visit(SQLProperty property) throws Exception {
 		// add property index
-		builder.addField(FieldSpec.builder(Integer.TYPE, "index"+(counter++), Modifier.PROTECTED).addJavadoc("Index for column $S\n", property.getName()).build());
+		classBuilder.addField(FieldSpec.builder(Integer.TYPE, "index"+(counter++), Modifier.PROTECTED).addJavadoc("Index for column $S\n", property.getName()).build());
 
 	}
 

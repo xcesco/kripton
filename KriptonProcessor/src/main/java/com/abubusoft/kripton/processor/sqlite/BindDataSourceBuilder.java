@@ -95,40 +95,40 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, dataSourceName);
-		builder = TypeSpec.classBuilder(dataSourceName).addModifiers(Modifier.PUBLIC).superclass(AbstractDataSource.class).addSuperinterface(daoFactoryClazz)
+		classBuilder = TypeSpec.classBuilder(dataSourceName).addModifiers(Modifier.PUBLIC).superclass(AbstractDataSource.class).addSuperinterface(daoFactoryClazz)
 				.addSuperinterface(TypeUtility.typeName(schema.getElement().asType()));
 
-		builder.addJavadoc("<p>\n");
-		builder.addJavadoc("Rapresents implementation of datasource $L.\n", schema.getName());
-		builder.addJavadoc("This class expose database interface through Dao attribute.\n", schema.getName());
-		builder.addJavadoc("</p>\n\n");
+		classBuilder.addJavadoc("<p>\n");
+		classBuilder.addJavadoc("Rapresents implementation of datasource $L.\n", schema.getName());
+		classBuilder.addJavadoc("This class expose database interface through Dao attribute.\n", schema.getName());
+		classBuilder.addJavadoc("</p>\n\n");
 
-		JavadocUtility.generateJavadocGeneratedBy(builder);
-		builder.addJavadoc("@see $T\n", className(schema.getName()));
-		builder.addJavadoc("@see $T\n", daoFactoryClazz);
+		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
+		classBuilder.addJavadoc("@see $T\n", className(schema.getName()));
+		classBuilder.addJavadoc("@see $T\n", daoFactoryClazz);
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
-			builder.addJavadoc("@see $T\n", dao.getElement());
-			builder.addJavadoc("@see $T\n", daoImplName);
-			builder.addJavadoc("@see $T\n", TypeUtility.typeName(dao.getEntity().getElement()));
+			classBuilder.addJavadoc("@see $T\n", dao.getElement());
+			classBuilder.addJavadoc("@see $T\n", daoImplName);
+			classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(dao.getEntity().getElement()));
 		}
 
 		// define static fields
 
 		// instance
-		builder.addField(FieldSpec.builder(className(dataSourceName), "instance", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").initializer("new $L()", className(dataSourceName)).build());
+		classBuilder.addField(FieldSpec.builder(className(dataSourceName), "instance", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").initializer("new $L()", className(dataSourceName)).build());
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			// TypeName daoInterfaceName =
 			// BindDaoBuilder.daoInterfaceTypeName(dao);
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
-			builder.addField(FieldSpec.builder(daoImplName, convert.convert(dao.getName()), Modifier.PROTECTED).addJavadoc("<p>dao instance</p>\n").initializer("new $T(this)", daoImplName).build());
+			classBuilder.addField(FieldSpec.builder(daoImplName, convert.convert(dao.getName()), Modifier.PROTECTED).addJavadoc("<p>dao instance</p>\n").initializer("new $T(this)", daoImplName).build());
 
 			// dao with connections
 			{
 				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get" + dao.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).returns(BindDaoBuilder.daoTypeName(dao));
 				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
-				builder.addMethod(methodBuilder.build());
+				classBuilder.addMethod(methodBuilder.build());
 			}
 		}
 
@@ -148,7 +148,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			// constructor
 			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PROTECTED);
 			methodBuilder.addStatement("super($S, $L)", schema.fileName, schema.version);
-			builder.addMethod(methodBuilder.build());
+			classBuilder.addMethod(methodBuilder.build());
 		}
 
 		// before use entities, order them with dependencies respect
@@ -163,7 +163,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// onConfigure
 		generateOnConfigure(useForeignKey);
 
-		TypeSpec typeSpec = builder.build();
+		TypeSpec typeSpec = classBuilder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
@@ -177,7 +177,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("instance\n");
 		methodBuilder.addCode("return instance;\n");
 		
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 	/**
@@ -193,7 +193,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addStatement("instance.openWritableDatabase()");
 		methodBuilder.addCode("return instance;\n");
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addStatement("instance.openReadOnlyDatabase()");
 		methodBuilder.addCode("return instance;\n");
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 	/**
@@ -237,7 +237,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addStatement("options.databaseLifecycleHandler.onCreate(database)");
 		methodBuilder.endControlFlow();
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 
 		return useForeignKey;
 	}
@@ -282,7 +282,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		methodBuilder.endControlFlow();
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 	/**
@@ -304,7 +304,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addStatement("options.databaseLifecycleHandler.onConfigure(database)");
 		methodBuilder.endControlFlow();
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 	private List<SQLEntity> generateOrderedEntitiesList(SQLiteDatabaseSchema schema) {
@@ -348,7 +348,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		String transationExecutorName = "Transaction";
 		//@formatter:off
 		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"), className(daoFactory));
-		builder.addType(
+		classBuilder.addType(
 				TypeSpec.interfaceBuilder(transationExecutorName)
 				.addModifiers(Modifier.PUBLIC)
 				.addSuperinterface(parameterizedTypeName)
@@ -358,7 +358,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// create SimpleTransaction class
 		String simpleTransactionClassName = "SimpleTransaction";
 		//@formatter:off
-		builder.addType(
+		classBuilder.addType(
 				TypeSpec.classBuilder(simpleTransactionClassName)
 				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
 				.addSuperinterface(className(transationExecutorName))
@@ -408,7 +408,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		executeMethod.addJavadoc("\n");
 		executeMethod.addJavadoc("@param transaction\n\ttransaction to execute\n");
 
-		builder.addMethod(executeMethod.build());
+		classBuilder.addMethod(executeMethod.build());
 	}
 
 }

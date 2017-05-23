@@ -20,9 +20,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, name TEXT, surname TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, name TEXT, surname TEXT);";
 
   /**
    * <p>
@@ -39,6 +39,20 @@ public class PersonTable {
    *  @see Person#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column typeName.
+   *
+   *  @see Person#birthCity
+   */
+  public static final String COLUMN_BIRTH_CITY = "birth_city";
+
+  /**
+   * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column typeName.
+   *
+   *  @see Person#birthDay
+   */
+  public static final String COLUMN_BIRTH_DAY = "birth_day";
 
   /**
    * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
