@@ -44,5 +44,5 @@ public @interface BindSqlUpdate {
 	 * @return
 	 * 		where conditions
 	 */
-	String where() default "1=1";
+	String where() default "";
 }

@@ -70,6 +70,8 @@ public enum AnnotationAttributeType {
 	VERSION("version"),
 	
 	WHERE("where"),
+	
+	PREPEND("prepend"),
 		
 	XML_ELEMENT_TAG("elementTag"),
 	XML_TYPE("xmlType"), 

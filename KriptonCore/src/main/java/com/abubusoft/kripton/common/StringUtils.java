@@ -32,6 +32,19 @@ public class StringUtils {
 	public static boolean isEmpty(String value) {
 		return value == null || value.length() == 0;
 	}
+	
+	/**
+	 * if <code>value</code> begin with ' ' or '\t' then return <code>' ' + value</code> string, otherwise <code>value</code>
+	 * @param value
+	 * @return
+	 */
+	public static String startWithSpace(String value) {
+		if (value.length()>0 && (value.charAt(0)!=' ' && value.charAt(0)!='\t')) {
+			return " "+value; 
+		}
+		
+		return value;
+	}
 
 	/**
 	 * Contains text.
