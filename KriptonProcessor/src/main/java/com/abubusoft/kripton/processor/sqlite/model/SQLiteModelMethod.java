@@ -38,11 +38,12 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLBuilder;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLMethod;
 import com.squareup.javapoet.TypeName;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
 	
-	public enum SQLOperationType {
+	public enum SQLOperationType { 
 		SELECT,
 		INSERT,
 		UPDATE,
@@ -90,7 +91,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	private WeakReference<SQLDaoDefinition> parent;
 
-	private String jsql;
+	private JQLMethod jsql;
 
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
