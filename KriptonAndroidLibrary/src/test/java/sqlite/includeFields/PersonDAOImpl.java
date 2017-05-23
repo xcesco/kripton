@@ -210,7 +210,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=${bean.name} WHERE 1=1</pre>
+   * <pre>UPDATE person SET name=${bean.name} WHERE </pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -234,13 +234,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] whereConditionsArray={};
 
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE 1=1", (Object[]) whereConditionsArray));
-    int result = database().update("person", contentValues, "1=1", whereConditionsArray);
+    Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE ", (Object[]) whereConditionsArray));
+    int result = database().update("person", contentValues, "", whereConditionsArray);
   }
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET surname=${bean.surname}, birth_city=${bean.birthCity}, birth_day=${bean.birthDay} WHERE 1=1</pre>
+   * <pre>UPDATE person SET surname=${bean.surname}, birth_city=${bean.birthCity}, birth_day=${bean.birthDay} WHERE </pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -278,8 +278,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] whereConditionsArray={};
 
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE 1=1", (Object[]) whereConditionsArray));
-    int result = database().update("person", contentValues, "1=1", whereConditionsArray);
+    Logger.info(SqlUtils.formatSQL("UPDATE person SET surname='"+StringUtils.checkSize(contentValues.get("surname"))+"', birth_city='"+StringUtils.checkSize(contentValues.get("birth_city"))+"', birth_day='"+StringUtils.checkSize(contentValues.get("birth_day"))+"' WHERE ", (Object[]) whereConditionsArray));
+    int result = database().update("person", contentValues, "", whereConditionsArray);
   }
 
   /**

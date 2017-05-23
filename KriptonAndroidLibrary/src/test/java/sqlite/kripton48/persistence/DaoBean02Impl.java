@@ -1,10 +1,10 @@
 package sqlite.kripton48.persistence;
 
+import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
-
-import android.database.Cursor;
+import com.abubusoft.kripton.common.StringUtils;
 import sqlite.kripton48.entities.Bean02;
 
 /**

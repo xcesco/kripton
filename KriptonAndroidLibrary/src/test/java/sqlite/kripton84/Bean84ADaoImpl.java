@@ -364,7 +364,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean84_a SET column_list_string=${bean.columnListString}, column_map_integer_string=${bean.columnMapIntegerString}, column_array_char=${bean.columnArrayChar}, column_array_char_type=${bean.columnArrayCharType}, column_bean=${bean.columnBean}, column_array_byte_type=${bean.columnArrayByteType}, value_string=${bean.valueString} WHERE 1=1</pre>
+   * <pre>UPDATE bean84_a SET column_list_string=${bean.columnListString}, column_map_integer_string=${bean.columnMapIntegerString}, column_array_char=${bean.columnArrayChar}, column_array_char_type=${bean.columnArrayCharType}, column_bean=${bean.columnBean}, column_array_byte_type=${bean.columnArrayByteType}, value_string=${bean.valueString} WHERE </pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -432,8 +432,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     String[] whereConditionsArray={};
 
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE bean84_a SET column_list_string='"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', column_map_integer_string='"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', column_array_char='"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', column_array_char_type='"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"', column_array_byte_type='"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE 1=1", (Object[]) whereConditionsArray));
-    int result = database().update("bean84_a", contentValues, "1=1", whereConditionsArray);
+    Logger.info(SqlUtils.formatSQL("UPDATE bean84_a SET column_list_string='"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', column_map_integer_string='"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', column_array_char='"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', column_array_char_type='"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"', column_array_byte_type='"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE ", (Object[]) whereConditionsArray));
+    int result = database().update("bean84_a", contentValues, "", whereConditionsArray);
     return result!=0;
   }
 

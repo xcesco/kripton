@@ -168,7 +168,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean84_b SET column_bean=${bean.columnBean} WHERE 1=1</pre>
+   * <pre>UPDATE bean84_b SET column_bean=${bean.columnBean} WHERE </pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -194,8 +194,8 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     String[] whereConditionsArray={};
 
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE bean84_b SET column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"' WHERE 1=1", (Object[]) whereConditionsArray));
-    int result = database().update("bean84_b", contentValues, "1=1", whereConditionsArray);
+    Logger.info(SqlUtils.formatSQL("UPDATE bean84_b SET column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"' WHERE ", (Object[]) whereConditionsArray));
+    int result = database().update("bean84_b", contentValues, "", whereConditionsArray);
     return result!=0;
   }
 
