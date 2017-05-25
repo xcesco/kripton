@@ -29,11 +29,12 @@ public class TestContentProvider extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No @BindType is put in bean definition
-	 * @throws Throwable 
+	 * 
+	 * @throws Throwable
 	 */
 	@Test
 	public void test01() throws Throwable {
 		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
 	}
-	
+
 }

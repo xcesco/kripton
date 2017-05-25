@@ -17,17 +17,14 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -41,9 +38,11 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
 import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
@@ -75,35 +74,35 @@ import android.net.Uri;
  *
  */
 public class BindContentProviderBuilder extends AbstractBuilder {
-	
+
 	public static class ContentEntry {
 		public ContentEntry(String path) {
-			this.path=path;
+			this.path = path;
 		}
 
 		public String path;
-		
-		public String uri_index; 
-		
+
+		public String uri_index;
+
 		public SQLiteModelMethod insert;
-		
+
 		public SQLiteModelMethod update;
-		
+
 		public SQLiteModelMethod delete;
-		
+
 		public SQLiteModelMethod select;
 
 		public String pathCostant;
 
 		public String pathIndex;
 	}
-	
-	protected Map<String, ContentEntry> uriSet=new LinkedHashMap<>();
+
+	protected Map<String, ContentEntry> uriSet = new LinkedHashMap<>();
 
 	public static final String PREFIX = "Bind";
 
 	public static final String SUFFIX = "ContentProvider";
-	
+
 	public BindContentProviderBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
@@ -123,220 +122,315 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 	public void build(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		uriSet.clear();
-		BindContentProvider annotationBindContentProvider=schema.getElement().getAnnotation(BindContentProvider.class);
-		
+		BindContentProvider annotationBindContentProvider = schema.getElement().getAnnotation(BindContentProvider.class);
+
 		String dataSourceName = schema.getName();
 		String dataSourceNameClazz = BindDataSourceBuilder.PREFIX + dataSourceName;
-		String contentProviderName = PREFIX + dataSourceName.replace(BindDataSourceBuilder.SUFFIX, "")+ SUFFIX;
+		String contentProviderName = PREFIX + dataSourceName.replace(BindDataSourceBuilder.SUFFIX, "") + SUFFIX;
 
 		ClassName contentProviderClazz = className(contentProviderName);
 		Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
-		
+
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, dataSourceName);
 		classBuilder = TypeSpec.classBuilder(contentProviderName).addModifiers(Modifier.PUBLIC).superclass(ContentProvider.class);
-		
+
 		generateOnCreate(dataSourceNameClazz);
-		
-		generateInsert();
-		
-		generateQuery();
-		
-		generateGetType();				
-		
-		generateDelete();
-		
-		generateUpdate(); 
-		
+
 		generateOnShutdown(dataSourceNameClazz);
-		
+
 		// define static fields
 
 		// instance
 		classBuilder.addField(FieldSpec.builder(className(dataSourceNameClazz), "dataSource", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
-		classBuilder.addField(FieldSpec.builder(String.class, "AUTHORITY", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>Content provider authority</p>\n").initializer("$S",schema.authority).build());
-		classBuilder.addField(FieldSpec.builder(UriMatcher.class, "sURIMatcher", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>URI matcher</p>\n").initializer("new $T($T.NO_MATCH)",UriMatcher.class, UriMatcher.class).build());
+		classBuilder.addField(FieldSpec.builder(String.class, "AUTHORITY", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>Content provider authority</p>\n")
+				.initializer("$S", schema.authority).build());
+		classBuilder.addField(FieldSpec.builder(UriMatcher.class, "sURIMatcher", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>URI matcher</p>\n")
+				.initializer("new $T($T.NO_MATCH)", UriMatcher.class, UriMatcher.class).build());
 
-		int i=1;
-		Builder staticBuilder = CodeBlock.builder();		
-		Converter<String, String> daoConstantConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);		
+		int i = 1;
+		Builder staticBuilder = CodeBlock.builder();
+		Converter<String, String> daoConstantConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);
 
-		for (SQLDaoDefinition daoDefinition :schema.getCollection())
-		{			
-			String pathConstantName="PATH_"+daoConstantConverter.convert(daoDefinition.getEntitySimplyClassName());
-			String pathValue=daoDefinition.getEntitySimplyClassName().toLowerCase();
-			
-			BindContentProviderPath annotationBindContentProviderPath=daoDefinition.getElement().getAnnotation(BindContentProviderPath.class);			
-			
-			// if no every dao must included and annotation @BindContentProviderPath is not included, skip
-			if (annotationBindContentProviderPath==null) continue;
-			
-			if (annotationBindContentProviderPath!=null)
-			{				
-				if (StringUtils.hasText(annotationBindContentProviderPath.path()))
-				{
-					pathValue=annotationBindContentProviderPath.path();
+		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+			String pathConstantName = "PATH_" + daoConstantConverter.convert(daoDefinition.getEntitySimplyClassName());
+			String pathValue = daoDefinition.getEntitySimplyClassName().toLowerCase();
+
+			BindContentProviderPath annotationBindContentProviderPath = daoDefinition.getElement().getAnnotation(BindContentProviderPath.class);
+
+			// if no every dao must included and annotation
+			// @BindContentProviderPath is not included, skip
+			if (annotationBindContentProviderPath == null)
+				continue;
+
+			if (annotationBindContentProviderPath != null) {
+				if (StringUtils.hasText(annotationBindContentProviderPath.path())) {
+					pathValue = annotationBindContentProviderPath.path();
 				}
-				
+
 			}
 
-			for (SQLiteModelMethod daoMethod: daoDefinition.getCollection()){
-				BindContentProviderEntry annotationBindContentProviderEntry=daoMethod.getElement().getAnnotation(BindContentProviderEntry.class);
-			
-				if (annotationBindContentProviderEntry==null) continue;
-				String methodPath=pathValue;
-				if (annotationBindContentProviderEntry!=null) 
-				{
-					methodPath+="/"+annotationBindContentProviderEntry.path();
+			List<FieldSpec> list1 = new ArrayList<>();
+			List<FieldSpec> list2 = new ArrayList<>();
+
+			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
+				BindContentProviderEntry annotationBindContentProviderEntry = daoMethod.getElement().getAnnotation(BindContentProviderEntry.class);
+
+				if (annotationBindContentProviderEntry == null)
+					continue;
+				String methodPath = pathValue;
+				if (StringUtils.hasText(annotationBindContentProviderEntry.path())) {
+					methodPath += "/" + annotationBindContentProviderEntry.path();
 				}
-											
+
 				ContentEntry entry = uriSet.get(methodPath);
-				if (entry==null) {
-					entry=new ContentEntry(methodPath);
+				if (entry == null) {
+					entry = new ContentEntry(methodPath);
 					uriSet.put(methodPath, entry);
-					
-					entry.path=methodPath;
-					entry.pathCostant=pathConstantName+"_"+i;
-					entry.pathIndex=pathConstantName+"_"+i+"_INDEX";
-					
+
+					entry.path = methodPath;
+					entry.pathCostant = pathConstantName + "_" + i;
+					entry.pathIndex = pathConstantName + "_" + i + "_INDEX";
+
+					list1.add(FieldSpec.builder(String.class, entry.pathCostant, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$S", methodPath)).build());
+					list2.add(FieldSpec.builder(Integer.TYPE, entry.pathIndex, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$L", i)).build());
+					staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $L, $L)", entry.pathCostant, entry.pathIndex);
+
 					i++;
-					
-					classBuilder.addField(FieldSpec.builder(String.class, pathConstantName, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$S", item.methodPath)).addJavadoc("<p>path constant for dao '$L'</p>\n", daoDefinition.getElement().getSimpleName().toString()).build());
-					classBuilder.addField(FieldSpec.builder(Integer.TYPE, pathIndex, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$L", i)).addJavadoc("<p>path index for dao '$L'</p>\n", daoDefinition.getElement().getSimpleName().toString()).build());
-					staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $L, $L)", item.pathCostant, item.pathIndex);
 				}
-				
-				
-			}			
-		}
-		
-		// generates costants
-		for (ContentEntry item:uriSet.values()) {
-						
-		}
-		
-		// generates costants
-		for (ContentEntry item:uriSet.values()) {
-						
-		}
 
-		
-		
-		classBuilder.addStaticBlock(staticBuilder.build());
-		//builder.addStaticBlock(CodeBlock.builder().addStatement("sURIMatcher.addURI(AUTHORITY, BASE_PATH, TODOS)").build());
+				switch (daoMethod.jql.operationType) {
+				case INSERT:
+					AssertKripton.fail(entry.insert != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path %s", daoDefinition.getName().toString(),
+							daoMethod.jql.operationType, entry.path));
+					entry.insert = daoMethod;
+					break;
+				case UPDATE:
+					AssertKripton.fail(entry.update != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path %s", daoDefinition.getName().toString(),
+							daoMethod.jql.operationType, entry.path));
+					entry.update = daoMethod;
+					break;
+				case SELECT:
+					AssertKripton.fail(entry.select != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path %s", daoDefinition.getName().toString(),
+							daoMethod.jql.operationType, entry.path));
+					entry.select = daoMethod;
+					break;
+				case DELETE:
+					AssertKripton.fail(entry.delete != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path %s", daoDefinition.getName().toString(),
+							daoMethod.jql.operationType, entry.path));
+					entry.delete = daoMethod;
+					break;
 
-/*
-		builder.addJavadoc("<p>\n");
-		builder.addJavadoc("Rapresents implementation of datasource $L.\n", schema.getName());
-		builder.addJavadoc("This class expose database interface through Dao attribute.\n", schema.getName());
-		builder.addJavadoc("</p>\n\n");
+				}
 
-		JavadocUtility.generateJavadocGeneratedBy(builder);
-		builder.addJavadoc("@see $T\n", className(schema.getName()));
-		builder.addJavadoc("@see $T\n", daoFactoryClazz);
-		for (SQLDaoDefinition dao : schema.getCollection()) {
-			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
-			builder.addJavadoc("@see $T\n", dao.getElement());
-			builder.addJavadoc("@see $T\n", daoImplName);
-			builder.addJavadoc("@see $T\n", TypeUtility.typeName(dao.getEntity().getElement()));
-		}
-
-
-		for (SQLDaoDefinition dao : schema.getCollection()) {
-			// TypeName daoInterfaceName =
-			// BindDaoBuilder.daoInterfaceTypeName(dao);
-			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
-			builder.addField(FieldSpec.builder(daoImplName, convert.convert(dao.getName()), Modifier.PROTECTED).addJavadoc("<p>dao instance</p>\n").initializer("new $T(this)", daoImplName).build());
-
-			// dao with connections
-			{
-				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get" + dao.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).returns(BindDaoBuilder.daoTypeName(dao));
-				methodBuilder.addCode("return $L;\n", convert.convert(dao.getName()));
-				builder.addMethod(methodBuilder.build());
 			}
+
+			for (FieldSpec f : list1) {
+				classBuilder.addField(f);
+			}
+
+			for (FieldSpec f : list2) {
+				classBuilder.addField(f);
+			}
+
 		}
 
-		// interface
-		generateMethodExecute(daoFactoryName);
+		classBuilder.addStaticBlock(staticBuilder.build());
 
-		// generate instance
-		generateInstance(dataSourceName);
+		generateInsert(schema);
 
-		// generate open
-		generateOpen(dataSourceName);
+		generateQuery(schema);
 
-		// generate openReadOnly
-		generateOpenReadOnly(dataSourceName);
+		generateDelete(schema);
 
-		{
-			// constructor
-			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PROTECTED);
-			methodBuilder.addStatement("super($S, $L)", schema.fileName, schema.version);
-			builder.addMethod(methodBuilder.build());
-		}
+		generateUpdate(schema);
 
-		// before use entities, order them with dependencies respect
-		List<SQLEntity> orderedEntities = generateOrderedEntitiesList(schema);
+		generateGetType(schema);
 
-		// onCreate
-		boolean useForeignKey = generateOnCreate(schema, orderedEntities);
+		// builder.addStaticBlock(CodeBlock.builder().addStatement("sURIMatcher.addURI(AUTHORITY,
+		// BASE_PATH, TODOS)").build());
 
-		// onUpgrade
-		generateOnUpgrade(schema, orderedEntities);
-
-		// onConfigure
-		generateOnConfigure(useForeignKey);
-		*/
+		/*
+		 * builder.addJavadoc("<p>\n");
+		 * builder.addJavadoc("Rapresents implementation of datasource $L.\n",
+		 * schema.getName()); builder.
+		 * addJavadoc("This class expose database interface through Dao attribute.\n"
+		 * , schema.getName()); builder.addJavadoc("</p>\n\n");
+		 * 
+		 * JavadocUtility.generateJavadocGeneratedBy(builder);
+		 * builder.addJavadoc("@see $T\n", className(schema.getName()));
+		 * builder.addJavadoc("@see $T\n", daoFactoryClazz); for
+		 * (SQLDaoDefinition dao : schema.getCollection()) { TypeName
+		 * daoImplName = BindDaoBuilder.daoTypeName(dao);
+		 * builder.addJavadoc("@see $T\n", dao.getElement());
+		 * builder.addJavadoc("@see $T\n", daoImplName);
+		 * builder.addJavadoc("@see $T\n",
+		 * TypeUtility.typeName(dao.getEntity().getElement())); }
+		 * 
+		 * 
+		 * for (SQLDaoDefinition dao : schema.getCollection()) { // TypeName
+		 * daoInterfaceName = // BindDaoBuilder.daoInterfaceTypeName(dao);
+		 * TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
+		 * builder.addField(FieldSpec.builder(daoImplName,
+		 * convert.convert(dao.getName()),
+		 * Modifier.PROTECTED).addJavadoc("<p>dao instance</p>\n").
+		 * initializer("new $T(this)", daoImplName).build());
+		 * 
+		 * // dao with connections { MethodSpec.Builder methodBuilder =
+		 * MethodSpec.methodBuilder("get" +
+		 * dao.getName()).addAnnotation(Override.class).addModifiers(Modifier.
+		 * PUBLIC).returns(BindDaoBuilder.daoTypeName(dao));
+		 * methodBuilder.addCode("return $L;\n",
+		 * convert.convert(dao.getName()));
+		 * builder.addMethod(methodBuilder.build()); } }
+		 * 
+		 * // interface generateMethodExecute(daoFactoryName);
+		 * 
+		 * // generate instance generateInstance(dataSourceName);
+		 * 
+		 * // generate open generateOpen(dataSourceName);
+		 * 
+		 * // generate openReadOnly generateOpenReadOnly(dataSourceName);
+		 * 
+		 * { // constructor MethodSpec.Builder methodBuilder =
+		 * MethodSpec.constructorBuilder().addModifiers(Modifier.PROTECTED);
+		 * methodBuilder.addStatement("super($S, $L)", schema.fileName,
+		 * schema.version); builder.addMethod(methodBuilder.build()); }
+		 * 
+		 * // before use entities, order them with dependencies respect
+		 * List<SQLEntity> orderedEntities =
+		 * generateOrderedEntitiesList(schema);
+		 * 
+		 * // onCreate boolean useForeignKey = generateOnCreate(schema,
+		 * orderedEntities);
+		 * 
+		 * // onUpgrade generateOnUpgrade(schema, orderedEntities);
+		 * 
+		 * // onConfigure generateOnConfigure(useForeignKey);
+		 */
 
 		TypeSpec typeSpec = classBuilder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
-	private void generateInsert() {
+	private void generateInsert(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("insert").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Uri.class);
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(ContentValues.class, "values");
-		
+
+		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
+				if (daoMethod.jql.operationType != JQLType.INSERT)
+					continue;
+				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
+			}
+		}
+
+		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
+		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
+			if (item.getValue().insert == null)
+				continue;
+
+			methodBuilder.addJavadoc("uri $L\n", item.getKey());
+
+			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
+			methodBuilder.addStatement("break");
+			methodBuilder.endControlFlow();
+		}
+		methodBuilder.endControlFlow();
+
 		methodBuilder.addCode("return null;\n");
-		
+
 		classBuilder.addMethod(methodBuilder.build());
-		
+
 	}
-	
-	private void generateDelete() {
+
+	private void generateDelete(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("delete").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Integer.TYPE);
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(String.class, "selection");
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
-		
+
+		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
+				if (daoMethod.jql.operationType != JQLType.DELETE)
+					continue;
+				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
+			}
+		}
+
+		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
+		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
+			if (item.getValue().delete == null)
+				continue;
+
+			methodBuilder.addJavadoc("uri $L\n", item.getKey());
+
+			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
+			methodBuilder.addStatement("break");
+			methodBuilder.endControlFlow();
+		}
+		methodBuilder.endControlFlow();
+
 		methodBuilder.addCode("return 0;\n");
-		
-		classBuilder.addMethod(methodBuilder.build());		
+
+		classBuilder.addMethod(methodBuilder.build());
 	}
-	
-	private void generateUpdate() {
+
+	private void generateUpdate(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("update").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Integer.TYPE);
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(ContentValues.class, "values");
 		methodBuilder.addParameter(String.class, "selection");
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
-		
+
+		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
+				if (daoMethod.jql.operationType != JQLType.UPDATE)
+					continue;
+				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
+			}
+		}
+
+		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
+		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
+			if (item.getValue().update == null)
+				continue;
+
+			methodBuilder.addJavadoc("uri $L\n", item.getKey());
+
+			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
+			methodBuilder.addStatement("break");
+			methodBuilder.endControlFlow();
+		}
+		methodBuilder.endControlFlow();
+
 		methodBuilder.addCode("return 0;\n");
-		
+
 		classBuilder.addMethod(methodBuilder.build());
-		
+
 	}
 
-	private void generateGetType() {
+	private void generateGetType(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("getType").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(String.class);
 		methodBuilder.addParameter(Uri.class, "uri");
-		
+
+		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
+		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
+			methodBuilder.addJavadoc("uri $L\n", item.getKey());
+
+			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
+			methodBuilder.addStatement("break");
+			methodBuilder.endControlFlow();
+		}
+		methodBuilder.endControlFlow();
+
 		methodBuilder.addCode("return null;\n");
-		
+
 		classBuilder.addMethod(methodBuilder.build());
-		
+
 	}
 
 	private void generateOnCreate(String dataSourceNameClazz) {
@@ -345,29 +439,29 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("<p>Create datasource and open database in read mode.</p>\n");
 		methodBuilder.addJavadoc("\n");
 		methodBuilder.addJavadoc("@see android.content.ContentProvider#onCreate()\n");
-			
+
 		methodBuilder.addStatement("dataSource = $L.instance()", dataSourceNameClazz);
-		methodBuilder.addStatement("dataSource.openReadOnlyDatabase()");		
-		
+		methodBuilder.addStatement("dataSource.openReadOnlyDatabase()");
+
 		methodBuilder.addCode("return true;\n");
-		
+
 		classBuilder.addMethod(methodBuilder.build());
 	}
-	
+
 	private void generateOnShutdown(String dataSourceNameClazz) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("shutdown").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Void.TYPE);
 
 		methodBuilder.addJavadoc("<p>Close database.</p>\n");
 		methodBuilder.addJavadoc("\n");
 		methodBuilder.addJavadoc("@see android.content.ContentProvider#shutdown()\n");
-			
+
 		methodBuilder.addStatement("super.shutdown()");
-		methodBuilder.addStatement("dataSource.close()");		
-						
+		methodBuilder.addStatement("dataSource.close()");
+
 		classBuilder.addMethod(methodBuilder.build());
 	}
-	
-	private void generateQuery() {
+
+	private void generateQuery(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("query").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Cursor.class);
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "projection").build());
@@ -375,11 +469,31 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 		methodBuilder.addParameter(String.class, "sortOrder");
 
+		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
+				if (daoMethod.jql.operationType != JQLType.SELECT)
+					continue;
+				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
+			}
+		}
+
+		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
+		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
+			if (item.getValue().select == null)
+				continue;
+
+			methodBuilder.addJavadoc("uri $L\n", item.getKey());
+
+			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
+			methodBuilder.addStatement("break");
+			methodBuilder.endControlFlow();
+		}
+		methodBuilder.endControlFlow();
+
 		methodBuilder.addCode("return null;\n");
-		
+
 		classBuilder.addMethod(methodBuilder.build());
 	}
-	 
 
 	/**
 	 * @param schemaName

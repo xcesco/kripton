@@ -37,18 +37,11 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLBuilder;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQL;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLBuilder;
 import com.squareup.javapoet.TypeName;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
-	
-	public enum SQLOperationType { 
-		SELECT,
-		INSERT,
-		UPDATE,
-		DELETE
-	}
 
 	interface OnFoundDynamicParameter {
 		void onFoundParameter(String parameterName);
@@ -56,20 +49,20 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	/**
 	 * <p>
-	 * It is the typeName of parameter used to dynamic order by condition (defined at
-	 * runtime).
+	 * It is the typeName of parameter used to dynamic order by condition
+	 * (defined at runtime).
 	 * </p>
 	 */
 	public String dynamicOrderByParameterName;
 
 	/**
 	 * <p>
-	 * It is the typeName of parameter used to dynamic where condition (defined at
-	 * runtime).
+	 * It is the typeName of parameter used to dynamic where condition (defined
+	 * at runtime).
 	 * </p>
 	 */
 	public String dynamicWhereParameterName;
-	
+
 	/**
 	 * <p>
 	 * It is the typeName of parameter used to dynamic page size (defined at
@@ -77,33 +70,30 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * </p>
 	 */
 	public String dynamicPageSizeName;
-	
+
 	/**
 	 * typeName of the paginated result parameter typeName.
 	 */
 	public String paginatedResultName;
 
-	public SQLOperationType operationType;
-	
 	protected Map<String, String> parameterAlias2NameField;
 
 	protected Map<String, String> parameterNameField2Alias;
 
 	private WeakReference<SQLDaoDefinition> parent;
 
-	private JQL jsql;
+	public final JQL jql;
 
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
 		this.parent = new WeakReference<SQLDaoDefinition>(parent);
-		
+
 		// detect type of operation
-		
-		if (annotationList!=null)
-		{
+
+		if (annotationList != null) {
 			this.annotations.addAll(annotationList);
 		}
-				
+
 		this.parameterAlias2NameField = new HashMap<>();
 		this.parameterNameField2Alias = new HashMap<>();
 
@@ -116,7 +106,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				parameterNameField2Alias.put(p.getSimpleName().toString(), alias);
 			}
 		}
-		
+
 		// looks for dynamic where conditions
 		findStringDynamicStatement(parent, BindSqlWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
 
@@ -136,7 +126,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			}
 
 		});
-		
+
 		// looks for dynamic pageSize
 		findIntDynamicStatement(parent, BindSqlPageSize.class, unsupportedSQLForDynamicOrderBy, new OnFoundDynamicParameter() {
 
@@ -146,9 +136,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			}
 
 		});
-		
+
 		// build after others initilizations
-		this.jsql=JQLBuilder.buildJQL(this);
+		this.jql = JQLBuilder.buildJQL(this);
 	}
 
 	@Override
@@ -178,25 +168,27 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 */
 	private <A extends Annotation> void findStringDynamicStatement(SQLDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
 			OnFoundDynamicParameter listener) {
-							
+
 		int counter = 0;
 		for (VariableElement p : element.getParameters()) {
 			A annotation = p.getAnnotation(annotationClazz);
 			if (annotation != null) {
 				// Dynamic queries can not be used in Inser SQL.
 				for (Class<? extends Annotation> item : unsupportedQueryType) {
-					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this, "in this method is not allowed to mark parameters with @%s annotation.", annotationClazz.getSimpleName());
+					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this, "in this method is not allowed to mark parameters with @%s annotation.",
+							annotationClazz.getSimpleName());
 				}
-				
-				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isString(TypeUtility.typeName(p)), this, "only String parameters can be marked with @%s annotation.", annotationClazz.getSimpleName());
-				
+
+				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isString(TypeUtility.typeName(p)), this, "only String parameters can be marked with @%s annotation.",
+						annotationClazz.getSimpleName());
+
 				listener.onFoundParameter(p.getSimpleName().toString());
 				counter++;
 			}
 		}
 		AssertKripton.assertTrueOrInvalidMethodSignException(counter < 2, this, "there are %s parameters marked with @%s. Only one is allowed.", counter, annotationClazz.getSimpleName());
 	}
-	
+
 	/**
 	 * Look for a method parameter which is annotated with an annotationClass
 	 * annotation. When it is found, a client action is required through
@@ -207,18 +199,20 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 */
 	private <A extends Annotation> void findIntDynamicStatement(SQLDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
 			OnFoundDynamicParameter listener) {
-							
+
 		int counter = 0;
 		for (VariableElement p : element.getParameters()) {
 			A annotation = p.getAnnotation(annotationClazz);
 			if (annotation != null) {
 				// Dynamic queries can not be used in Inser SQL.
 				for (Class<? extends Annotation> item : unsupportedQueryType) {
-					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this, "in this method is not allowed to mark parameters with @%s annotation.", annotationClazz.getSimpleName());
+					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this, "in this method is not allowed to mark parameters with @%s annotation.",
+							annotationClazz.getSimpleName());
 				}
-				
-				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isTypeIncludedIn(TypeUtility.typeName(p), Integer.TYPE), this, "only a int parameter can be marked with @%s annotation.", annotationClazz.getSimpleName());
-				
+
+				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isTypeIncludedIn(TypeUtility.typeName(p), Integer.TYPE), this,
+						"only a int parameter can be marked with @%s annotation.", annotationClazz.getSimpleName());
+
 				listener.onFoundParameter(p.getSimpleName().toString());
 				counter++;
 			}
@@ -294,15 +288,15 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public boolean hasDynamicWhereConditions() {
 		return StringUtils.hasText(dynamicWhereParameterName);
 	}
-	
+
 	public boolean hasDynamicPageSizeConditions() {
 		return StringUtils.hasText(dynamicPageSizeName);
 	}
-	
+
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
 		return StringUtils.hasText(dynamicWhereParameterName) && parameterName.equals(dynamicWhereParameterName);
 	}
-	
+
 	public boolean isThisDynamicPageSizeName(String parameterName) {
 		return StringUtils.hasText(dynamicPageSizeName) && parameterName.equals(dynamicPageSizeName);
 	}
