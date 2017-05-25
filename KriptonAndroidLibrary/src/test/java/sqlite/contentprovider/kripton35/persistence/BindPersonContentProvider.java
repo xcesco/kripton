@@ -27,15 +27,26 @@ public class BindPersonContentProvider extends ContentProvider {
   /**
    * <p>path constant for dao 'PersonDAO'</p>
    */
-  static final String PATH_PERSON = "person";
+  static final String PATH_PERSON_1 = "persons/#";
 
   /**
    * <p>path index for dao 'PersonDAO'</p>
    */
-  static final int PATH_PERSON_INDEX = 1;
+  static final int PATH_PERSON_1_INDEX = 1;
+
+  /**
+   * <p>path constant for dao 'PersonDAO'</p>
+   */
+  static final String PATH_PERSON_2 = "persons/";
+
+  /**
+   * <p>path index for dao 'PersonDAO'</p>
+   */
+  static final int PATH_PERSON_2_INDEX = 2;
 
   static {
-    sURIMatcher.addURI(AUTHORITY, PATH_PERSON, PATH_PERSON_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
   }
 
   /**

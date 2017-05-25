@@ -52,12 +52,4 @@ public @interface BindContentProviderPath {
 	 */
 	public String typeName() default "";
 	
-	/**
-	 * If <code>true</code> enables DAO's methods to be used in content provider generation.
-	 * 
-	 * @return
-	 * 		If <code>true</code> enables DAO's methods to be used in content provider generation.
-	 */
-	public boolean enabledAllMethods() default true;
-
 }

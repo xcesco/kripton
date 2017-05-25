@@ -1,8 +1,9 @@
 package sqlite.contentprovider.kripton35.persistence;
 
-import java.util.Date;
 import java.util.List;
 
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -19,16 +20,20 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import sqlite.contentprovider.kripton35.entities.Person;
 
 
+@BindContentProviderPath(path="persons")
 @BindDao(Person.class)
 public interface PersonDAO {
 
+	@BindContentProviderEntry(path="#")
 	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.CONFLICT_FAIL, includePrimaryKey=false)
 	//void insertOne(String name, String surname, String birthCity, Date birthDay);
 	void insertOne(Person bean);
 	
+	@BindContentProviderEntry(path="#")
 	@BindSqlUpdate(where="id=${id}")
 	int updateWhereStaticAndDynamic(@BindSqlParam("birthCity") String dummy, long id, @BindSqlWhere String where);
 
+	@BindContentProviderEntry
 	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy="id", having="id=2",orderBy="id")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue,@BindSqlPageSize int pageSize,  @BindSqlWhere(prepend=PrependType.OR) String where, @BindSqlOrderBy String orderBy);
 

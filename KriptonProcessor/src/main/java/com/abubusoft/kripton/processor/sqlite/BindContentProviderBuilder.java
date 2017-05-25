@@ -20,9 +20,14 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -70,6 +75,30 @@ import android.net.Uri;
  *
  */
 public class BindContentProviderBuilder extends AbstractBuilder {
+	
+	public static class ContentEntry {
+		public ContentEntry(String path) {
+			this.path=path;
+		}
+
+		public String path;
+		
+		public String uri_index; 
+		
+		public SQLiteModelMethod insert;
+		
+		public SQLiteModelMethod update;
+		
+		public SQLiteModelMethod delete;
+		
+		public SQLiteModelMethod select;
+
+		public String pathCostant;
+
+		public String pathIndex;
+	}
+	
+	protected Map<String, ContentEntry> uriSet=new LinkedHashMap<>();
 
 	public static final String PREFIX = "Bind";
 
@@ -89,13 +118,12 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindContentProviderBuilder visitorDao = new BindContentProviderBuilder(elementUtils, filer, schema);
-		visitorDao.buildDataSource(elementUtils, filer, schema);
+		visitorDao.build(elementUtils, filer, schema);
 	}
 
-	public void buildDataSource(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+	public void build(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+		uriSet.clear();
 		BindContentProvider annotationBindContentProvider=schema.getElement().getAnnotation(BindContentProvider.class);
-		
-		boolean includeAllDaos=annotationBindContentProvider.allDAOs();
 		
 		String dataSourceName = schema.getName();
 		String dataSourceNameClazz = BindDataSourceBuilder.PREFIX + dataSourceName;
@@ -138,15 +166,13 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		for (SQLDaoDefinition daoDefinition :schema.getCollection())
 		{			
 			String pathConstantName="PATH_"+daoConstantConverter.convert(daoDefinition.getEntitySimplyClassName());
-			String pathIndexName=pathConstantName+"_INDEX";
 			String pathValue=daoDefinition.getEntitySimplyClassName().toLowerCase();
 			
 			BindContentProviderPath annotationBindContentProviderPath=daoDefinition.getElement().getAnnotation(BindContentProviderPath.class);			
 			
 			// if no every dao must included and annotation @BindContentProviderPath is not included, skip
-			if (!includeAllDaos &&  annotationBindContentProviderPath==null) continue;
+			if (annotationBindContentProviderPath==null) continue;
 			
-			boolean includeAllMethods=true;			
 			if (annotationBindContentProviderPath!=null)
 			{				
 				if (StringUtils.hasText(annotationBindContentProviderPath.path()))
@@ -154,31 +180,50 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 					pathValue=annotationBindContentProviderPath.path();
 				}
 				
-				includeAllMethods=annotationBindContentProviderPath.enabledAllMethods();
 			}
-			
 
-			Set<String> pathAlreadyUsed=new HashSet<>();
 			for (SQLiteModelMethod daoMethod: daoDefinition.getCollection()){
 				BindContentProviderEntry annotationBindContentProviderEntry=daoMethod.getElement().getAnnotation(BindContentProviderEntry.class);
 			
-				if (!includeAllMethods &&  annotationBindContentProviderEntry==null) continue;
+				if (annotationBindContentProviderEntry==null) continue;
 				String methodPath=pathValue;
 				if (annotationBindContentProviderEntry!=null) 
 				{
 					methodPath+="/"+annotationBindContentProviderEntry.path();
 				}
+											
+				ContentEntry entry = uriSet.get(methodPath);
+				if (entry==null) {
+					entry=new ContentEntry(methodPath);
+					uriSet.put(methodPath, entry);
+					
+					entry.path=methodPath;
+					entry.pathCostant=pathConstantName+"_"+i;
+					entry.pathIndex=pathConstantName+"_"+i+"_INDEX";
+					
+					i++;
+					
+					classBuilder.addField(FieldSpec.builder(String.class, pathConstantName, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$S", item.methodPath)).addJavadoc("<p>path constant for dao '$L'</p>\n", daoDefinition.getElement().getSimpleName().toString()).build());
+					classBuilder.addField(FieldSpec.builder(Integer.TYPE, pathIndex, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$L", i)).addJavadoc("<p>path index for dao '$L'</p>\n", daoDefinition.getElement().getSimpleName().toString()).build());
+					staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $L, $L)", item.pathCostant, item.pathIndex);
+				}
 				
-				if (pathAlreadyUsed.contains(methodPath)) continue;
-				pathAlreadyUsed.add(methodPath);
-								
-				classBuilder.addField(FieldSpec.builder(String.class, pathConstantName, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$S", methodPath)).addJavadoc("<p>path constant for dao '$L'</p>\n", daoDefinition.getElement().getSimpleName().toString()).build());
-				classBuilder.addField(FieldSpec.builder(Integer.TYPE, pathIndexName, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$L", i++)).addJavadoc("<p>path index for dao '$L'</p>\n", daoDefinition.getElement().getSimpleName().toString()).build());
-				staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $L, $L)", pathConstantName, pathIndexName);	
-			}
-			
-			
+				
+			}			
 		}
+		
+		// generates costants
+		for (ContentEntry item:uriSet.values()) {
+						
+		}
+		
+		// generates costants
+		for (ContentEntry item:uriSet.values()) {
+						
+		}
+
+		
+		
 		classBuilder.addStaticBlock(staticBuilder.build());
 		//builder.addStaticBlock(CodeBlock.builder().addStatement("sURIMatcher.addURI(AUTHORITY, BASE_PATH, TODOS)").build());
 
