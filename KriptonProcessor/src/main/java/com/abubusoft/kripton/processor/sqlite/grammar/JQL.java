@@ -14,7 +14,7 @@ public class JQL {
 	/**
 	 * JQL statement
 	 */
-	public String jql;
+	public String value;
 
 	/**
 	 * <code>true</code> if method's annotation contains <code>where</code>

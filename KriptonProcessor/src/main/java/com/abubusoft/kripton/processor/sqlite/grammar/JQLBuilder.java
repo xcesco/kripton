@@ -126,7 +126,7 @@ public abstract class JQLBuilder {
 
 		builder.append(defineWhereStatement(method, result, BindSqlDelete.class));
 
-		result.jql = builder.toString();
+		result.value = builder.toString();
 		result.operationType = JQLType.DELETE;
 		return result;
 	}
@@ -184,7 +184,7 @@ public abstract class JQLBuilder {
 		}));
 		builder.append(")");
 
-		result.jql = builder.toString();
+		result.value = builder.toString();
 		result.operationType = JQLType.INSERT;
 		return result;
 	}
@@ -242,7 +242,7 @@ public abstract class JQLBuilder {
 		// order by
 		builder.append(defineOrderByStatement(method, result, annotation));
 
-		result.jql = builder.toString();
+		result.value = builder.toString();
 		result.operationType = JQLType.SELECT;
 		return result;
 	}
@@ -288,7 +288,7 @@ public abstract class JQLBuilder {
 
 		builder.append(defineWhereStatement(method, result, annotation));
 
-		result.jql = builder.toString();
+		result.value = builder.toString();
 		result.operationType = JQLType.UPDATE;
 		return result;
 	}

@@ -29,6 +29,9 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLPlaceHolderReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -36,6 +39,8 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
+
+import android.content.ContentValues;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -151,6 +156,53 @@ public abstract class SqlInsertBuilder {
 
 		MethodSpec methodSpec = methodBuilder.build();
 		builder.addMethod(methodSpec);
+		
+		if (method.contentProviderEntryPathEnabled) {
+			// we need to generate insert for content provider to
+			generateInsertForContentProvider(elementUtils, builder, method, insertResultType);
+		}
+
+	}
+
+	private static void generateInsertForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, InsertType insertResultType) {
+		SQLDaoDefinition daoDefinition = method.getParent();
+		SQLEntity entity = daoDefinition.getEntity();
+		
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addModifiers(Modifier.PUBLIC);
+		ParameterSpec parameterSpec;
+				
+		
+		parameterSpec = ParameterSpec.builder(ContentValues.class, "contentValues").build();
+		methodBuilder.addParameter(parameterSpec);
+		methodBuilder.returns(Long.TYPE);
+		
+		methodBuilder.addCode("// $L\n",method.jql.value);
+		
+		String resultA=JQLChecker.getInstance().replacePlaceHolders(method.jql, new JSQLPlaceHolderReplacerListener() {
+			
+			@Override
+			public String onParameter(String placeHolder) {
+				// TODO Auto-generated method stub
+				return "arturo";
+			}
+			
+			@Override
+			public String onDynamicSQL(String placeHolder) {
+				// TODO Auto-generated method stub
+				return "rutto";
+			}
+		});
+		
+		JQLChecker.getInstance().analyze(method.jql, new SQLiteBaseListener() {
+			
+		});
+		
+		// generate inner code
+		//insertResultType.generate(elementUtils, methodBuilder, method, TypeName.LONG);		
+		methodBuilder.addCode("// $L\n",resultA);
+		methodBuilder.addStatement("return 0L");
+		
+		builder.addMethod(methodBuilder.build());
 
 	}
 

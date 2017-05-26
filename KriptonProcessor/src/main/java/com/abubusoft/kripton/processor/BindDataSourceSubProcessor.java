@@ -195,7 +195,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				// DAO analysis
 				// Get all dao definitions
 				for (String daoItem : daoIntoDataSource) {
-					createDao(globalBeanElements, globalDaoElements, daoItem);
+					analyzeDao(globalBeanElements, globalDaoElements, daoItem);
 				}
 
 				String msg;
@@ -382,7 +382,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @param globalDaoElements
 	 * @param daoItem
 	 */
-	protected void createDao(final Map<String, TypeElement> globalBeanElements, final Map<String, TypeElement> globalDaoElements, String daoItem) {
+	protected void analyzeDao(final Map<String, TypeElement> globalBeanElements, final Map<String, TypeElement> globalDaoElements, String daoItem) {
 		Element daoElement = globalDaoElements.get(daoItem);
 
 		if (daoElement.getKind() != ElementKind.INTERFACE) {

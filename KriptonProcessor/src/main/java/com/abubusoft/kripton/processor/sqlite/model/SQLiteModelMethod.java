@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlOrderBy;
@@ -84,6 +85,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	public final JQL jql;
 
+	public boolean contentProviderEntryPathEnabled;
+
+	public String contentProviderEntryPath;
+
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
 		this.parent = new WeakReference<SQLDaoDefinition>(parent);
@@ -139,6 +144,23 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 		// build after others initilizations
 		this.jql = JQLBuilder.buildJQL(this);
+		
+		
+		
+		BindContentProviderEntry annotation=element.getAnnotation(BindContentProviderEntry.class);
+		if (annotation!=null) {
+			// manage content provider generation
+			String methodPath = getParent().contentProviderPath;
+			if (StringUtils.hasText(annotation.path())) {
+				methodPath += "/" + annotation.path();
+			}
+			
+			this.contentProviderEntryPathEnabled=true;
+			this.contentProviderEntryPath=methodPath;
+		}
+		
+		
+		
 	}
 
 	@Override

@@ -47,16 +47,16 @@ public class JQLChecker {
 
 	}
 
-	protected <L extends SQLiteBaseListener> void analyzeInternal(final String input, L listener) {
-		walker.walk(listener, prepareParser(input).value0);
+	protected <L extends SQLiteBaseListener> void analyzeInternal(final JQL jql, L listener) {
+		walker.walk(listener, prepareParser(jql).value0);
 	}
 
-	public <L extends SQLiteBaseListener> void analyze(final String input, L listener) {
-		analyzeInternal(input, listener);
+	public <L extends SQLiteBaseListener> void analyze(final JQL jql, L listener) {
+		analyzeInternal(jql, listener);
 	}
 
-	protected Pair<ParserRuleContext, CommonTokenStream> prepareParser(final String jql) {
-		SQLiteLexer lexer = new SQLiteLexer(CharStreams.fromString(jql));
+	protected Pair<ParserRuleContext, CommonTokenStream> prepareParser(final JQL jql) {
+		SQLiteLexer lexer = new SQLiteLexer(CharStreams.fromString(jql.value));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		SQLiteParser parser = new SQLiteParser(tokens);
 
@@ -78,7 +78,7 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public Set<JQLProjection> extractProjections(String jql) {
+	public Set<JQLProjection> extractProjections(JQL jql) {
 		final Set<JQLProjection> result = new LinkedHashSet<JQLProjection>();
 
 		final One<Boolean> valid = new One<>();
@@ -123,7 +123,7 @@ public class JQLChecker {
 	 * @return
 	 * 		string obtained by replacements
 	 */
-	public String replacePlaceHolders(String jql, final JSQLPlaceHolderReplacerListener listener) {
+	public String replacePlaceHolders(JQL jql, final JSQLPlaceHolderReplacerListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 				
 		SQLiteBaseListener rewriterListener = new SQLiteBaseListener() {
@@ -179,8 +179,8 @@ public class JQLChecker {
 	 * 
 	 * @param sql
 	 */
-	public void verify(final String sql) {
-		this.analyzeInternal(sql, new SQLiteBaseListener());
+	public void verify(final JQL jql) {
+		this.analyzeInternal(jql, new SQLiteBaseListener());
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public List<JQLPlaceHolder> extractPlaceHoldersAsList(String jql) {
+	public List<JQLPlaceHolder> extractPlaceHoldersAsList(JQL jql) {
 		return extractPlaceHolders(jql, new ArrayList<JQLPlaceHolder>());
 	}
 	
@@ -199,15 +199,15 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(String jql) {
+	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(JQL jql) {
 		return extractPlaceHolders(jql, new LinkedHashSet<JQLPlaceHolder>());
 	}
 	
-	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(String sql, final L result) {		
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(JQL jql, final L result) {		
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
 
-		analyzeInternal(sql, new SQLiteBaseListener() {
+		analyzeInternal(jql, new SQLiteBaseListener() {
 			
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {

@@ -156,45 +156,28 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
 			String pathConstantName = "PATH_" + daoConstantConverter.convert(daoDefinition.getEntitySimplyClassName());
-			String pathValue = daoDefinition.getEntitySimplyClassName().toLowerCase();
+			
 
-			BindContentProviderPath annotationBindContentProviderPath = daoDefinition.getElement().getAnnotation(BindContentProviderPath.class);
-
-			// if no every dao must included and annotation
-			// @BindContentProviderPath is not included, skip
-			if (annotationBindContentProviderPath == null)
-				continue;
-
-			if (annotationBindContentProviderPath != null) {
-				if (StringUtils.hasText(annotationBindContentProviderPath.path())) {
-					pathValue = annotationBindContentProviderPath.path();
-				}
-
-			}
-
+			if (!daoDefinition.contentProviderEnabled) continue;
+			
+			
 			List<FieldSpec> list1 = new ArrayList<>();
 			List<FieldSpec> list2 = new ArrayList<>();
 
-			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
-				BindContentProviderEntry annotationBindContentProviderEntry = daoMethod.getElement().getAnnotation(BindContentProviderEntry.class);
-
-				if (annotationBindContentProviderEntry == null)
+			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {				
+				if (!daoMethod.contentProviderEntryPathEnabled)
 					continue;
-				String methodPath = pathValue;
-				if (StringUtils.hasText(annotationBindContentProviderEntry.path())) {
-					methodPath += "/" + annotationBindContentProviderEntry.path();
-				}
-
-				ContentEntry entry = uriSet.get(methodPath);
+				
+				ContentEntry entry = uriSet.get(daoMethod.contentProviderEntryPath);
 				if (entry == null) {
-					entry = new ContentEntry(methodPath);
-					uriSet.put(methodPath, entry);
+					entry = new ContentEntry(daoMethod.contentProviderEntryPath);
+					uriSet.put(daoMethod.contentProviderEntryPath, entry);
 
-					entry.path = methodPath;
+					entry.path = daoMethod.contentProviderEntryPath;
 					entry.pathCostant = pathConstantName + "_" + i;
 					entry.pathIndex = pathConstantName + "_" + i + "_INDEX";
 
-					list1.add(FieldSpec.builder(String.class, entry.pathCostant, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$S", methodPath)).build());
+					list1.add(FieldSpec.builder(String.class, entry.pathCostant, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$S", daoMethod.contentProviderEntryPath)).build());
 					list2.add(FieldSpec.builder(Integer.TYPE, entry.pathIndex, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$L", i)).build());
 					staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $L, $L)", entry.pathCostant, entry.pathIndex);
 
