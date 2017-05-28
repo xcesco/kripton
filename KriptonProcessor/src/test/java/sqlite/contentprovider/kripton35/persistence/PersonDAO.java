@@ -23,7 +23,7 @@ import sqlite.contentprovider.kripton35.entities.Person;
 @BindDao(Person.class)
 public interface PersonDAO {
 
-	@BindContentProviderEntry(path = "#")
+	@BindContentProviderEntry
 	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_FAIL, includePrimaryKey = false)
 	// void insertOne(String name, String surname, String birthCity, Date
 	// birthDay);

@@ -24,9 +24,9 @@ public class BindPersonContentProvider extends ContentProvider {
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  static final String PATH_PERSON_1 = "persons/#";
+  static final String PATH_PERSON_1 = "persons";
 
-  static final String PATH_PERSON_2 = "persons";
+  static final String PATH_PERSON_2 = "persons/#";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -62,7 +62,7 @@ public class BindPersonContentProvider extends ContentProvider {
 
   /**
    * method PersonDAO.insertOne
-   * uri persons/#
+   * uri persons
    */
   @Override
   public Uri insert(Uri uri, ContentValues values) {
@@ -82,7 +82,7 @@ public class BindPersonContentProvider extends ContentProvider {
   @Override
   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
     switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_2_INDEX: {
+      case PATH_PERSON_1_INDEX: {
         break;
       }
     }
@@ -96,7 +96,7 @@ public class BindPersonContentProvider extends ContentProvider {
   @Override
   public int delete(Uri uri, String selection, String[] selectionArgs) {
     switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_1_INDEX: {
+      case PATH_PERSON_2_INDEX: {
         break;
       }
     }
@@ -110,7 +110,7 @@ public class BindPersonContentProvider extends ContentProvider {
   @Override
   public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
     switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_1_INDEX: {
+      case PATH_PERSON_2_INDEX: {
         break;
       }
     }
@@ -118,8 +118,8 @@ public class BindPersonContentProvider extends ContentProvider {
   }
 
   /**
-   * uri persons/#
    * uri persons
+   * uri persons/#
    */
   @Override
   public String getType(Uri uri) {

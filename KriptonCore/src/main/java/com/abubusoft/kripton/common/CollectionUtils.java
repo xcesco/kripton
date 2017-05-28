@@ -1,6 +1,7 @@
 package com.abubusoft.kripton.common;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -12,6 +13,22 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
  *
  */
 public class CollectionUtils {
+
+	/**
+	 * create a string set, with initial values.
+	 * 
+	 * @param objects
+	 * @return
+	 */
+	public static HashSet<String> newSet(String... objects) {
+		HashSet<String> result = new HashSet<String>();
+
+		for (String item : objects) {
+			result.add(item);
+		}
+
+		return result;
+	}
 
 	public static <E extends List<Byte>> E asList(Byte[] array, Class<E> listType) {
 		E result;
@@ -61,7 +78,7 @@ public class CollectionUtils {
 			throw (new KriptonRuntimeException(e.getMessage()));
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static <E extends List<T>, T> E asList(T[] array, Class<E> listType) {
 		E result;
@@ -423,10 +440,10 @@ public class CollectionUtils {
 		return result;
 	}
 
-	public static <E>  E[] asArray(List<E> input, E[] newArray) {
+	public static <E> E[] asArray(List<E> input, E[] newArray) {
 		return input.toArray(newArray);
 	}
-	
+
 	public static Float[] asFloatArray(List<Float> input) {
 		Float[] result = new Float[input.size()];
 

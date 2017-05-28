@@ -32,17 +32,19 @@ public class StringUtils {
 	public static boolean isEmpty(String value) {
 		return value == null || value.length() == 0;
 	}
-	
+
 	/**
-	 * if <code>value</code> begin with ' ' or '\t' then return <code>' ' + value</code> string, otherwise <code>value</code>
+	 * if <code>value</code> begin with ' ' or '\t' then return
+	 * <code>' ' + value</code> string, otherwise <code>value</code>
+	 * 
 	 * @param value
 	 * @return
 	 */
 	public static String startWithSpace(String value) {
-		if (value.length()>0 && (value.charAt(0)!=' ' && value.charAt(0)!='\t')) {
-			return " "+value; 
+		if (value.length() > 0 && (value.charAt(0) != ' ' && value.charAt(0) != '\t')) {
+			return " " + value;
 		}
-		
+
 		return value;
 	}
 
@@ -59,41 +61,47 @@ public class StringUtils {
 	/**
 	 * limit string size
 	 */
-	public static String checkSize(Object value, int limitSize) {		
+	public static String checkSize(Object value, int limitSize, String defaultValue) {
 		if (value != null) {
-			if (byte[].class.getSimpleName().equals(value.getClass().getSimpleName()))
-			{
-				return checkSize((byte[])value, limitSize);
+			if (byte[].class.getSimpleName().equals(value.getClass().getSimpleName())) {
+				return checkSize((byte[]) value, limitSize);
 			}
-					
-			String str=value.toString();
+
+			String str = value.toString();
 			if (str.length() > limitSize) {
-				return str.substring(0, limitSize-3)+"...";
+				return str.substring(0, limitSize - 3) + "...";
 			} else
 				return str;
 		} else
-			return null;
+			return defaultValue;
 
 	}
-	
-	public static String checkSize(byte[] value, int limitSize) {		
-		if (value != null) {			
+
+	public static String checkSize(byte[] value, int limitSize) {
+		if (value != null) {
 			if (value.length > limitSize) {
-				return new String(value, 0, limitSize-3)+"...";
+				return new String(value, 0, limitSize - 3) + "...";
 			} else
 				return new String(value);
 		} else
 			return null;
 
 	}
-	
+
 	/**
 	 * limit string size to 32
 	 */
 	public static String checkSize(Object value) {
-		return checkSize(value, VIEW_SIZE);
+		return checkSize(value, VIEW_SIZE, null);
 	}
-	
+
+	/**
+	 * limit string size to 32
+	 */
+	public static String checkSize(Object value, String defaultValue) {
+		return checkSize(value, VIEW_SIZE, defaultValue);
+	}
+
 	/**
 	 * limit string size to 32
 	 */
