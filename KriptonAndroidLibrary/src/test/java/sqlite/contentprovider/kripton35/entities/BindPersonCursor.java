@@ -32,14 +32,19 @@ public class BindPersonCursor {
   protected int index2;
 
   /**
-   * Index for column "name"
+   * Index for column "value"
    */
   protected int index3;
 
   /**
-   * Index for column "surname"
+   * Index for column "name"
    */
   protected int index4;
+
+  /**
+   * Index for column "surname"
+   */
+  protected int index5;
 
   /**
    * <p>Constructor</p>
@@ -61,8 +66,9 @@ public class BindPersonCursor {
     index0=cursor.getColumnIndex("id");
     index1=cursor.getColumnIndex("birth_city");
     index2=cursor.getColumnIndex("birth_day");
-    index3=cursor.getColumnIndex("name");
-    index4=cursor.getColumnIndex("surname");
+    index3=cursor.getColumnIndex("value");
+    index4=cursor.getColumnIndex("name");
+    index5=cursor.getColumnIndex("surname");
 
     return this;
   }
@@ -85,8 +91,9 @@ public class BindPersonCursor {
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.birthCity=cursor.getString(index1);}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(cursor.getString(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3));}
-        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setSurname(cursor.getString(index4));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.value=cursor.getLong(index3);}
+        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setName(cursor.getString(index4));}
+        if (index5>=0 && !cursor.isNull(index5)) { resultBean.setSurname(cursor.getString(index5));}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -110,14 +117,16 @@ public class BindPersonCursor {
         if (index0>=0) { resultBean.id=0L;}
         if (index1>=0) { resultBean.birthCity=null;}
         if (index2>=0) { resultBean.birthDay=null;}
-        if (index3>=0) { resultBean.setName(null);}
-        if (index4>=0) { resultBean.setSurname(null);}
+        if (index3>=0) { resultBean.value=0L;}
+        if (index4>=0) { resultBean.setName(null);}
+        if (index5>=0) { resultBean.setSurname(null);}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.birthCity=cursor.getString(index1);}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(cursor.getString(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3));}
-        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setSurname(cursor.getString(index4));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.value=cursor.getLong(index3);}
+        if (index4>=0 && !cursor.isNull(index4)) { resultBean.setName(cursor.getString(index4));}
+        if (index5>=0 && !cursor.isNull(index5)) { resultBean.setSurname(cursor.getString(index5));}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

@@ -56,6 +56,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("surname", object.getSurname());
     }
 
+    // field value (mapped with "value")
+    fieldCount++;
+    jacksonSerializer.writeNumberField("value", object.value);
+
     jacksonSerializer.writeEndObject();
     return fieldCount;
   }
@@ -93,6 +97,9 @@ public class PersonBindMap extends AbstractMapper<Person> {
       fieldCount++;
       jacksonSerializer.writeStringField("surname", object.getSurname());
     }
+
+    // field value (mapped with "value")
+    jacksonSerializer.writeStringField("value", PrimitiveUtils.writeLong(object.value));
 
     jacksonSerializer.writeEndObject();
     return fieldCount;
@@ -141,6 +148,11 @@ public class PersonBindMap extends AbstractMapper<Person> {
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getSurname()));
       xmlSerializer.writeEndElement();
     }
+
+    // field value (mapped with "value")
+    xmlSerializer.writeStartElement("value");
+    xmlSerializer.writeLong(object.value);
+    xmlSerializer.writeEndElement();
 
     if (currentEventType == 0) {
       xmlSerializer.writeEndElement();
@@ -194,6 +206,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.setSurname(jacksonParser.getText());
             }
+          break;
+          case "value":
+            // field value (mapped with "value")
+            instance.value=jacksonParser.getLongValue();
           break;
           default:
             jacksonParser.skipChildren();
@@ -249,6 +265,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.setSurname(jacksonParser.getText());
             }
+          break;
+          case "value":
+            // field value (mapped with "value")
+            instance.value=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
           break;
           default:
             jacksonParser.skipChildren();
@@ -306,6 +326,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
                 case "surname":
                   // property surname (mapped on "surname")
                   instance.setSurname(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
+                case "value":
+                  // property value (mapped on "value")
+                  instance.value=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                 break;
                 default:
                 break;

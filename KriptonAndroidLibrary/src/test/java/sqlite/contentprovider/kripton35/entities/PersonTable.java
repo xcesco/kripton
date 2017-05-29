@@ -20,9 +20,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, name TEXT, surname TEXT);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, value INTEGER, name TEXT, surname TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, name TEXT, surname TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, value INTEGER, name TEXT, surname TEXT);";
 
   /**
    * <p>
@@ -53,6 +53,13 @@ public class PersonTable {
    *  @see Person#birthDay
    */
   public static final String COLUMN_BIRTH_DAY = "birth_day";
+
+  /**
+   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column typeName.
+   *
+   *  @see Person#value
+   */
+  public static final String COLUMN_VALUE = "value";
 
   /**
    * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.

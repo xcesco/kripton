@@ -22,8 +22,12 @@ import java.util.Set;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
+import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -32,12 +36,17 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JQLParameterName;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLInsertReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
+import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
@@ -172,7 +181,7 @@ public abstract class SqlInsertBuilder {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName() + "ContentChecker");
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName + "ContentChecker");
 		ParameterSpec parameterSpec;
 
 		parameterSpec = ParameterSpec.builder(ContentValues.class, "contentValues").build();
@@ -210,10 +219,13 @@ public abstract class SqlInsertBuilder {
 	}
 
 	private static void generateInsertForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, InsertType insertResultType) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
+		final SQLDaoDefinition daoDefinition = method.getParent();
+		final Converter<String, String> columnNameConverter=daoDefinition.getColumnNameConverter();
+		final Converter<String, String> tableNameConverter = daoDefinition.getClassNameConverter();
+		final SQLEntity entity = daoDefinition.getEntity();
+		final StringBuilder parametersBuilder=new StringBuilder();
 
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName());
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
 		ParameterSpec parameterSpec;
 
 		parameterSpec = ParameterSpec.builder(ContentValues.class, "contentValues").build();
@@ -224,36 +236,58 @@ public abstract class SqlInsertBuilder {
 
 		Set<JQLProjection> columns = JQLChecker.getInstance().extractProjections(method.jql);
 
-		String resultA = JQLChecker.getInstance().replacePlaceHolders(method.jql, new JSQLPlaceHolderReplacerListener() {
-
+		String resultA = JQLChecker.getInstance().replaceInsert(method.jql, new JSQLInsertReplacerListener() {
+			
 			@Override
-			public String onParameter(String placeHolder) {
-				// TODO Auto-generated method stub
-				return "arturo";
+			public String onColumnName(String columnName) {
+				return columnNameConverter.convert(columnName);				
+			}
+			
+			@Override
+			public String onColumnValue(String columnValue) {
+				JQLParameterName parameterName=JQLParameterName.parse(columnValue);
+				
+				String limit="";
+				SQLProperty property = daoDefinition.getEntity().get(parameterName.getValue());
+				SQLColumnType columnType = SQLTransformer.columnType(property);				
+				switch(columnType) {
+				case BLOB:
+				case TEXT:
+					limit="'";
+				case INTEGER:
+				case REAL:
+				default:
+					;
+				}
+				
+				parametersBuilder.append(", StringUtils.formatParam(contentValues.get(\""+columnNameConverter.convert(parameterName.getValue())+"\"),\""+limit+"\")");
+				
+				return "%s";
 			}
 
 			@Override
-			public String onDynamicSQL(String placeHolder) {
-				// TODO Auto-generated method stub
-				return "rutto";
+			public String onTableName(String tableName) {
+				return tableNameConverter.convert(tableName);
 			}
+			
+			
 		});
-
-		JQLChecker.getInstance().analyze(method.jql, new SQLiteBaseListener() {
-
-		});
-
-		// generate inner code
-		// insertResultType.generate(elementUtils, methodBuilder, method,
-		// TypeName.LONG);
-		methodBuilder.addCode("// $L\n", resultA);
-
-		methodBuilder.addStatement("$L(contentValues)", method.getName() + "ContentChecker");
+		
+		
+		methodBuilder.addStatement("$L(contentValues)", method.contentProviderMethodName + "ContentChecker");
+		
+		methodBuilder.addCode("// $L\n", resultA);		
+		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
+		
+		if (daoDefinition.getParent().generateLog) {			
+			methodBuilder.addStatement("$T.info($T.formatSQL($S$L))", Logger.class, SqlUtils.class, resultA, parametersBuilder.toString());
+		}
 		methodBuilder.addStatement("long result = database().insert($S, null, contentValues)", entity.getTableName());
 		methodBuilder.addStatement("return result");
 
 		builder.addMethod(methodBuilder.build());
 
 	}
-
+			
+			
 }

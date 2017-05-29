@@ -159,7 +159,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			for (SQLProperty item : entity.getCollection()) {
 				bufferTable.append(separator);
 				bufferTable.append(item.columnName);
-				bufferTable.append(" " + SQLTransformer.columnType(item));
+				bufferTable.append(" " + SQLTransformer.columnTypeAsString(item));
 
 				annotationBindColumn = item.getAnnotation(BindColumn.class);
 

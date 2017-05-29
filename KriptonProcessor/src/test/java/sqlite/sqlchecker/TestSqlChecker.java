@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.sqlite.grammar.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLPlaceHolder;
@@ -50,11 +51,13 @@ public class TestSqlChecker extends BaseProcessorTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void testOK() throws Throwable {
+	public void testOK() throws Throwable {				
 		String sql = "SELECT id, action, number, countryCode, contactName, contactId FROM phone_number WHERE number = ${bean.number} and number = ${bean.number} and #{dynamicWhere} and #{dynamicWhere}";
+		JQL jql=new JQL();
+		jql.value=sql;
 
 		JQLChecker jsqChecker = JQLChecker.getInstance();
-		jsqChecker.analyze(sql, new SQLiteBaseListener() {
+		jsqChecker.analyze(jql, new SQLiteBaseListener() {
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
@@ -68,8 +71,8 @@ public class TestSqlChecker extends BaseProcessorTest {
 
 		});
 
-		jsqChecker.extractPlaceHoldersAsList(sql);
-		log("replaced " + jsqChecker.replacePlaceHolders(sql, new JSQLPlaceHolderReplacerListener() {
+		jsqChecker.extractPlaceHoldersAsList(jql);
+		log("replaced " + jsqChecker.replacePlaceHolders(jql, new JSQLPlaceHolderReplacerListener() {
 
 			@Override
 			public String onParameter(String value) {
@@ -88,17 +91,23 @@ public class TestSqlChecker extends BaseProcessorTest {
 	@Test
 	public void testProjectColumn() {
 		String sql = "select count(*) as pippo ,fieldName1, composed.fieldName2 from table where id = ${bean.id}";
-		JQLChecker.getInstance().extractProjections(sql);
+		JQL jql=new JQL();
+		jql.value=sql;
+
+		JQLChecker.getInstance().extractProjections(jql);
 	}
 
 	@Test
 	public void testDelet1() {
 		String sql = "DELETE channel WHERE ownerUid=${field1} and ownerUid=${bean.field2} and ownerUid=${bean.field3} and ownerUid=${field5}";
-
+		JQL jql=new JQL();
+		jql.value=sql;
+		
+		
 		JQLChecker checker = JQLChecker.getInstance();
 
 		// verify sql
-		checker.verify(sql);
+		checker.verify(jql);
 
 		// check bind parameters
 		{
@@ -107,7 +116,7 @@ public class TestSqlChecker extends BaseProcessorTest {
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field2"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field3"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field5"));
-			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(sql);
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql);
 
 			checkCollectionExactly(actual, aspected);
 		}
@@ -121,19 +130,22 @@ public class TestSqlChecker extends BaseProcessorTest {
 	public void testSelect01() {
 		// String sql="SELECT count(*) FROM channel WHERE
 		// updateTime=${bean.updateTime}";
-		String jsql = "SELECT count(*) as alias1, field2, field3 as alias3, table1.field3 as alias3, table2.field4 as alias4 FROM channel WHERE updateTime=${ bean.field1 } and field=${ field2  } and #{dynamicWhere1}";
+		String sql = "SELECT count(*) as alias1, field2, field3 as alias3, table1.field3 as alias3, table2.field4 as alias4 FROM channel WHERE updateTime=${ bean.field1 } and field=${ field2  } and #{dynamicWhere1}";
 
 		String logSql = "SELECT count(*) as alias1, field2, field3 as alias3, table1.field3 as alias3, table2.field4 as alias4 FROM channel WHERE updateTime=? and field=? and \"+dynamicWhere1+\"";
 		// String usedSql = "SELECT count(*) FROM channel WHERE
 		// updateTime=${bean.updateTime}";
+		JQL jql=new JQL();
+		jql.value=sql;
+
 
 		JQLChecker checker = JQLChecker.getInstance();
 
 		// verify sql
-		checker.verify(jsql);
+		checker.verify(jql);
 
 		// check projections
-		Set<JQLProjection> projections = checker.extractProjections(jsql);
+		Set<JQLProjection> projections = checker.extractProjections(jql);
 		{
 			LinkedHashSet<JQLProjection> aspected = new LinkedHashSet<>();
 			aspected.add(JQLProjection.ProjectionBuilder.create().type(ProjectionType.COMPLEX).expression("count(*)")
@@ -154,13 +166,13 @@ public class TestSqlChecker extends BaseProcessorTest {
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field1"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field2"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, "dynamicWhere1"));
-			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jsql);
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql);
 
 			checkCollectionExactly(actual, aspected);
 		}
 
 		// prepare for log
-		String sqlLogResult = checker.replacePlaceHolders(jsql, new JSQLPlaceHolderReplacerListener() {
+		String sqlLogResult = checker.replacePlaceHolders(jql, new JSQLPlaceHolderReplacerListener() {
 
 			@Override
 			public String onParameter(String placeHolder) {
@@ -178,11 +190,13 @@ public class TestSqlChecker extends BaseProcessorTest {
 	@Test
 	public void testInsert01() {
 		String sql = "INSERT INTO channel (uid, owner_uid, update_time, name, field) VALUES (${bean.field1}, ${bean.field2}, ${bean.field3}, ${bean.field4}, ${field5})";
+		JQL jql=new JQL();
+		jql.value=sql;
 
 		JQLChecker checker = JQLChecker.getInstance();
 
 		// verify sql
-		checker.verify(sql);
+		checker.verify(jql);
 
 		// check bind parameters
 		{
@@ -192,7 +206,7 @@ public class TestSqlChecker extends BaseProcessorTest {
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field3"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field4"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, "field5"));
-			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(sql);
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql);
 
 			checkCollectionExactly(actual, aspected);
 		}
@@ -201,13 +215,17 @@ public class TestSqlChecker extends BaseProcessorTest {
 
 	@Test
 	public void testUpdate01() {
-		String jsql = "UPDATE channel SET uid=${ bean.field1}, owner_uid=${bean.field2}, update_time=${bean.field3}, name=${field4} WHERE id=${bean.field1}";
+		String sql = "UPDATE channel SET uid=${ bean.field1}, owner_uid=${bean.field2}, update_time=${bean.field3}, name=${field4} WHERE id=${bean.field1}";
 		String sqlForLog = "UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
+		
+		JQL jql=new JQL();
+		jql.value=sql;
+
 
 		JQLChecker checker = JQLChecker.getInstance();
 
 		// verify sql
-		checker.verify(jsql);
+		checker.verify(jql);
 
 		// check bind parameters
 		{
@@ -217,13 +235,13 @@ public class TestSqlChecker extends BaseProcessorTest {
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field3"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field4"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field1"));
-			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jsql);
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql);
 
 			checkCollectionExactly(actual, aspected);
 		}
 
 		// prepare for log
-		String sqlLogResult = checker.replacePlaceHolders(jsql, new JSQLPlaceHolderReplacerListener() {
+		String sqlLogResult = checker.replacePlaceHolders(jql, new JSQLPlaceHolderReplacerListener() {
 
 			@Override
 			public String onParameter(String placeHolder) {

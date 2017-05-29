@@ -27,7 +27,9 @@ import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection.ProjectionBu
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection.ProjectionType;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameterContext;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Result_columnContext;
+import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Table_nameContext;
 
 public class JQLChecker {
 
@@ -127,6 +129,7 @@ public class JQLChecker {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 				
 		SQLiteBaseListener rewriterListener = new SQLiteBaseListener() {
+									
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
 				String value=listener.onDynamicSQL(ctx.bind_parameter_name().getText());
@@ -140,10 +143,52 @@ public class JQLChecker {
 			}
 		};
 		
-		this.analyzeInternal(jql, new SQLiteBaseListener() {
-			
-		});
+//		this.analyzeInternal(jql, new SQLiteBaseListener() {
+//			
+//		});
 		
+		return replaceInternal(jql, replace, rewriterListener);
+	}
+	
+	/**
+	 * Replace place holder with element passed by listener
+	 * 
+	 * @param jql
+	 * @param listener
+	 * @return
+	 * 		string obtained by replacements
+	 */
+	public String replaceInsert(JQL jql, final JSQLInsertReplacerListener listener) {
+		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
+				
+		SQLiteBaseListener rewriterListener = new SQLiteBaseListener() {
+			
+			@Override
+			public void enterTable_name(Table_nameContext ctx) {
+				String value=listener.onTableName(ctx.getText());
+				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+			}
+
+			@Override
+			public void enterBind_parameter(Bind_parameterContext ctx) {
+				String value=listener.onColumnValue(ctx.bind_parameter_name().getText());
+				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+			}
+
+			@Override
+			public void enterColumn_name(Column_nameContext ctx) {
+				String value=listener.onColumnName(ctx.getText());
+				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+			}
+						
+		
+		};
+					
+		return replaceInternal(jql, replace, rewriterListener);
+
+	}
+
+	private String replaceInternal(JQL jql, final List<Triple<Token, Token, String>> replace, SQLiteBaseListener rewriterListener) {
 		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jql);
 		walker.walk(rewriterListener, parser.value0);
 
@@ -154,7 +199,6 @@ public class JQLChecker {
 		}
 
 		return rewriter.getText();
-
 	}
 	
 	public interface JSQLPlaceHolderReplacerListener {
@@ -167,8 +211,32 @@ public class JQLChecker {
 		 */
 		String onParameter(String placeHolder);
 
-		String onDynamicSQL(String placeHolder);
+		String onDynamicSQL(String placeHolder);		
+	}
+	
+	public interface JSQLInsertReplacerListener {
 		
+		String onTableName(String tableName);
+		
+		String onColumnName(String columnName);
+
+		String onColumnValue(String columnValue);		
+	}
+	
+	public static class JQLParameterName {
+		private JQLParameterName(String value) {
+			values=value.split("\\.");
+		}
+		
+		private String[] values;
+		
+		public String getValue() {
+			return values[values.length-1];			
+		}
+		
+		public static JQLParameterName parse(String value) {
+			return new JQLParameterName(value);
+		}
 	}
 
 	/**
@@ -222,5 +290,5 @@ public class JQLChecker {
 		});
 		return result;
 	}
-
+		
 }

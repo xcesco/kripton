@@ -87,6 +87,32 @@ public class StringUtils {
 			return null;
 
 	}
+	
+	/**
+	 * format as sql parameter. If value is not null, method will return 'value'. If value is not null, delimiter will be
+	 * used to delimit return value. Otherwise, defaultValue will be returned, without delimiter.
+	 * 
+	 * @param value
+	 * @param delimiter
+	 * @param limitSize
+	 * @param defaultValue
+	 * @return
+	 */
+	public static String formatParam(Object value, String delimiter) {
+		if (value != null) {
+			if (byte[].class.getSimpleName().equals(value.getClass().getSimpleName())) {
+				return checkSize((byte[]) value, VIEW_SIZE);
+			}
+
+			String str = value.toString();
+			if (str.length() > VIEW_SIZE) {
+				return delimiter+str.substring(0, VIEW_SIZE - 3) + "..."+delimiter;
+			} else
+				return delimiter+str+delimiter;
+		} else
+			return "<undefined>";
+
+	}
 
 	/**
 	 * limit string size to 32

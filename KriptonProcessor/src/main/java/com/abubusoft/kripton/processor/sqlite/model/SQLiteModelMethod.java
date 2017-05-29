@@ -89,6 +89,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	public String contentProviderEntryPath;
 
+	/**
+	 * name of method generated for content provider
+	 */
+	public String contentProviderMethodName;
+
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
 		this.parent = new WeakReference<SQLDaoDefinition>(parent);
@@ -143,9 +148,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		});
 
 		// build after others initilizations
-		this.jql = JQLBuilder.buildJQL(this);
-		
-		
+		this.jql = JQLBuilder.buildJQL(this);				
 		
 		BindContentProviderEntry annotation=element.getAnnotation(BindContentProviderEntry.class);
 		if (annotation!=null) {
@@ -157,6 +160,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			
 			this.contentProviderEntryPathEnabled=true;
 			this.contentProviderEntryPath=methodPath;
+			this.contentProviderMethodName=getElement().getSimpleName().toString()+parent.contentProviderCounter;
+			
+			parent.contentProviderCounter++;
 		}
 		
 		

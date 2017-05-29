@@ -13,6 +13,8 @@ public class Person {
 	
 	public Date birthDay;
 	
+	public long value;
+	
 
 	public String getName() {
 		return name;

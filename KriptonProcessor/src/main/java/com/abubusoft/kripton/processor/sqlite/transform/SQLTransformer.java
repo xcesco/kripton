@@ -34,6 +34,7 @@ import javax.lang.model.type.TypeMirror;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
@@ -356,13 +357,23 @@ public abstract class SQLTransformer {
 
 	}
 
-	public static String columnType(ModelProperty property) {
+	public static String columnTypeAsString(ModelProperty property) {
 		SQLTransform transform = lookup(property.getElement().asType());
 
 		if (transform == null) {
 			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
 		}
 		return transform.getColumnTypeAsString();
+
+	}
+	
+	public static SQLColumnType columnType(ModelProperty property) {
+		SQLTransform transform = lookup(property.getElement().asType());
+
+		if (transform == null) {
+			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
+		}
+		return transform.getColumnType();
 
 	}
 

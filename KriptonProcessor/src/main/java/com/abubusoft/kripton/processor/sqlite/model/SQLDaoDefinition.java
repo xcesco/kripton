@@ -146,6 +146,11 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	 * type name exposed by content provider
 	 */
 	public String contentProviderTypeName;
+	
+	/**
+	 * number of element generated for content provider
+	 */
+	public long contentProviderCounter;
 
 	public String generateJava2ContentSerializer(TypeName paramTypeName) {
 		if (!managedParams.containsKey(paramTypeName))
