@@ -96,7 +96,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s)
     //SqlUtils and StringUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s)", StringUtils.formatParam(contentValues.get("birth_city"),"'"), StringUtils.formatParam(contentValues.get("birth_day"),"'"), StringUtils.formatParam(contentValues.get("value"),""), StringUtils.formatParam(contentValues.get("name"),"'"), StringUtils.formatParam(contentValues.get("surname"),"'")));
-    long result = database().insert("person", null, contentValues);
+    long result = database().insertWithOnConflict("person", null, contentValues, SQLiteDatabase.CONFLICT_FAIL);
     return result;
   }
 

@@ -24,6 +24,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
@@ -53,6 +54,7 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -282,7 +284,16 @@ public abstract class SqlInsertBuilder {
 		if (daoDefinition.getParent().generateLog) {			
 			methodBuilder.addStatement("$T.info($T.formatSQL($S$L))", Logger.class, SqlUtils.class, resultA, parametersBuilder.toString());
 		}
-		methodBuilder.addStatement("long result = database().insert($S, null, contentValues)", entity.getTableName());
+		
+		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
+		String conflictString1 = "";
+		String conflictString2 = "";		
+		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
+			conflictString1 = "WithOnConflict";
+			conflictString2 = ", SQLiteDatabase." + conflictAlgorithmType;			
+		}
+		methodBuilder.addStatement("long result = database().insert$L($S, null, contentValues$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
+
 		methodBuilder.addStatement("return result");
 
 		builder.addMethod(methodBuilder.build());
