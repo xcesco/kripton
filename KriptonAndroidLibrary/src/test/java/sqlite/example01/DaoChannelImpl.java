@@ -295,7 +295,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO channel (uid, owner_uid, update_time, name) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
     long result = database().insert("channel", null, contentValues);
     bean.setId(result);
@@ -348,7 +347,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO channel (uid, owner_uid, update_time, name) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
     long result = database().insert("channel", null, contentValues);
     bean.setId(result);

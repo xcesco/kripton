@@ -51,7 +51,6 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO p_k_bean (id, description) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("description"))+"')"));
     long result = database().insert("p_k_bean", null, contentValues);
     bean.id=result;

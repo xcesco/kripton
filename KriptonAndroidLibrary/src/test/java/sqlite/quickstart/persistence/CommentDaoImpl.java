@@ -72,7 +72,6 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO comment (post_id, id, name, email, body) VALUES ('"+StringUtils.checkSize(contentValues.get("post_id"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("email"))+"', '"+StringUtils.checkSize(contentValues.get("body"))+"')"));
     long result = database().insert("comment", null, contentValues);
     bean.id=result;

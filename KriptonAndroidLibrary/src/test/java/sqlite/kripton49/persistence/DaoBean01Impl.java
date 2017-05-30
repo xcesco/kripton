@@ -247,7 +247,6 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO bean01 (text) VALUES ('"+StringUtils.checkSize(contentValues.get("text"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     bean.setId(result);

@@ -154,7 +154,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO person (name) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"')"));
     long result = database().insert("person", null, contentValues);
     bean.id=result;
@@ -202,7 +201,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO person (surname, birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("surname"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
     long result = database().insert("person", null, contentValues);
     bean.id=result;

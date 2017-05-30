@@ -98,7 +98,6 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO user (id, name, username, email, address, phone, website, company) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("username"))+"', '"+StringUtils.checkSize(contentValues.get("email"))+"', '"+StringUtils.checkSize(contentValues.get("address"))+"', '"+StringUtils.checkSize(contentValues.get("phone"))+"', '"+StringUtils.checkSize(contentValues.get("website"))+"', '"+StringUtils.checkSize(contentValues.get("company"))+"')"));
     long result = database().insert("user", null, contentValues);
     bean.id=result;

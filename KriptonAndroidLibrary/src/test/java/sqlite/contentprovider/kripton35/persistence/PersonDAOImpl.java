@@ -1,16 +1,17 @@
 package sqlite.contentprovider.kripton35.persistence;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.LinkedList;
-import java.util.List;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.util.Date;
+import java.util.Set;
 import sqlite.contentprovider.kripton35.entities.Person;
 
 /**
@@ -23,6 +24,12 @@ import sqlite.contentprovider.kripton35.entities.Person;
  *  @see sqlite.contentprovider.kripton35.entities.PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
+  private static final Set<String> insertOne0ColumnSet = CollectionUtils.asSet(String.class, "birth_city", "birth_day", "value", "name", "surname");
+
+  private static final Set<String> insertTwo1ColumnSet = CollectionUtils.asSet(String.class, "birth_city", "birth_day", "value", "name", "surname");
+
+  private static final Set<String> insertTwo2ColumnSet = CollectionUtils.asSet(String.class, "name", "surname", "birth_city", "birth_day");
+
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
   }
@@ -85,14 +92,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     bean.id=result;
   }
 
-  void insertOne0ContentChecker(ContentValues contentValues) {
-    // INSERT OR FAIL INTO Person (birthCity, birthDay, value, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})
-    // INSERT OR FAIL INTO Person (birthCity, birthDay, value, name, surname) VALUES (arturo, arturo, arturo, arturo, arturo)
-  }
-
   long insertOne0(ContentValues contentValues) {
     // INSERT OR FAIL INTO Person (birthCity, birthDay, value, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})
-    insertOne0ContentChecker(contentValues);
+    for (String columnName:contentValues.keySet()) {
+      if (!insertOne0ColumnSet.contains(columnName)) {
+        throw new KriptonRuntimeException(String.format("Column '%s' does not exists in table '%s'", columnName, "person" ));
+      }
+    }
     // INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s)
     //SqlUtils and StringUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s)", StringUtils.formatParam(contentValues.get("birth_city"),"'"), StringUtils.formatParam(contentValues.get("birth_day"),"'"), StringUtils.formatParam(contentValues.get("value"),""), StringUtils.formatParam(contentValues.get("name"),"'"), StringUtils.formatParam(contentValues.get("surname"),"'")));
@@ -101,221 +107,152 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   }
 
   /**
-   * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET birthCity=${birthCity} WHERE id=${id} #{where}</pre>
+   * <p>SQL insert:</p>
+   * <pre>INSERT OR ABORT INTO person (birth_day) VALUES (${birthDay})</pre>
    *
-   * <h2>Updated columns:</strong></h2>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>birth_city</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>dummy</strong></dd>
+   * 	<dt>birth_day</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>birthDay</strong></dd>
    * </dl>
    *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * @param birthDay
+   * 	is binded to column <strong>birth_day</strong>
    *
-   * <h2>Dynamic parts:</h2>
-   * <dl>
-   * 	<dt>#{where}</dt><dd>is part of where conditions resolved at runtime.</dd>
-   * </dl>
    *
-   * @param dummy
-   * 	is used as updated field <strong>birthCity</strong>
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
-   * @param where
-   * 	is used as dynamic where conditions
-   *
-   * @return number of updated records
    */
   @Override
-  public int updateWhereStaticAndDynamic(String dummy, long id, String where) {
+  public void insertTwo(Date birthDay) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-    if (dummy!=null) {
-      contentValues.put("birth_city", dummy);
+
+    if (birthDay!=null) {
+      contentValues.put("birth_day", DateUtils.write(birthDay));
     } else {
-      contentValues.putNull("birth_city");
+      contentValues.putNull("birth_day");
     }
 
-    String[] whereConditionsArray={String.valueOf(id)};
-
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE person SET birthCity='"+StringUtils.checkSize(contentValues.get("birth_city"))+"' WHERE id=%s "+SqlUtils.appendForLog(where), (Object[])whereConditionsArray));
-    int result = database().update("person", contentValues, "id=? "+SqlUtils.appendForSQL(where)+"", whereConditionsArray);
+    // log
+    Logger.info(SqlUtils.formatSQL("INSERT OR ABORT INTO person (birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
+    // use SQLiteDatabase conflicts algorithm
+    database().insertWithOnConflict("person", null, contentValues, SQLiteDatabase.CONFLICT_ABORT);
+  }
+
+  long insertTwo1(ContentValues contentValues) {
+    // INSERT OR ABORT INTO Person (birthCity, birthDay, value, name, surname) VALUES (${birthCity}, ${birthDay}, ${value}, ${name}, ${surname})
+    for (String columnName:contentValues.keySet()) {
+      if (!insertTwo1ColumnSet.contains(columnName)) {
+        throw new KriptonRuntimeException(String.format("Column '%s' does not exists in table '%s'", columnName, "person" ));
+      }
+    }
+    // INSERT OR ABORT INTO person (birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s)
+    //SqlUtils and StringUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("INSERT OR ABORT INTO person (birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s)", StringUtils.formatParam(contentValues.get("birth_city"),"'"), StringUtils.formatParam(contentValues.get("birth_day"),"'"), StringUtils.formatParam(contentValues.get("value"),""), StringUtils.formatParam(contentValues.get("name"),"'"), StringUtils.formatParam(contentValues.get("surname"),"'")));
+    long result = database().insertWithOnConflict("person", null, contentValues, SQLiteDatabase.CONFLICT_ABORT);
     return result;
   }
 
   /**
-   * <h2>Select SQL:</h2>
+   * <p>SQL insert:</p>
+   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
    *
-   * <pre>SELECT id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || \'%\' #{where} HAVING id=2 GROUP BY id ORDER BY id#{orderBy}#{pageSize}</pre>
-   *
-   * <h2>Projected columns:</h2>
+   * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
-   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
-   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
+   * 	<dt>birth_city</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>birthDay</strong></dd>
    * </dl>
    *
-   * <h2>Dynamic parts:</h2>
-   * <dl>
-   * <dt>#{where}</dt><dd>is part of where conditions resolved at runtime.</dd><dt>#{orderBy}</dt>is part of order statement resolved at runtime.</dd><dt>#{pageSize}</dt>is part of limit statement resolved at runtime.</dd>
-   * </dl>
+   * @param name
+   * 	is binded to column <strong>name</strong>
+   * @param surname
+   * 	is binded to column <strong>surname</strong>
+   * @param birthCity
+   * 	is binded to column <strong>birth_city</strong>
+   * @param birthDay
+   * 	is binded to column <strong>birth_day</strong>
    *
-   * <h2>Query's parameters:</h2>
-   * <dl>
-   * 	<dt>${nameTemp}</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
-   * </dl>
    *
-   * @param nameValue
-   * 	is binded to <code>${nameTemp}</code>
-   * @param pageSize
-   * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
-   * @param where
-   * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
-   * @param orderBy
-   * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
-   * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectOne(String nameValue, int pageSize, String where, String orderBy) {
-    // build where condition
-    String[] _args={(nameValue==null?"":nameValue)};
+  public void insertTwo(String name, String surname, String birthCity, Date birthDay) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
 
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, birth_city, birth_day, value, name, surname FROM person WHERE name like '%s' || \'%%' "+SqlUtils.appendForLog(where)+" HAVING id=2 GROUP BY id ORDER BY id"+SqlUtils.appendForLog(orderBy)+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize),(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, birth_city, birth_day, value, name, surname FROM person WHERE name like ? || \'%\' "+SqlUtils.appendForSQL(where)+" HAVING id=2 GROUP BY id ORDER BY id"+SqlUtils.appendForSQL(orderBy)+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize), _args)) {
-      Logger.info("Rows found: %s",cursor.getCount());
-
-      LinkedList<Person> resultList=new LinkedList<Person>();
-      Person resultBean=null;
-
-      if (cursor.moveToFirst()) {
-
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("birth_city");
-        int index2=cursor.getColumnIndex("birth_day");
-        int index3=cursor.getColumnIndex("value");
-        int index4=cursor.getColumnIndex("name");
-        int index5=cursor.getColumnIndex("surname");
-
-        do
-         {
-          resultBean=new Person();
-
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.birthCity=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(cursor.getString(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.value=cursor.getLong(index3); }
-          if (!cursor.isNull(index4)) { resultBean.setName(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.setSurname(cursor.getString(index5)); }
-
-          resultList.add(resultBean);
-        } while (cursor.moveToNext());
-      }
-
-      return resultList;
+    if (name!=null) {
+      contentValues.put("name", name);
+    } else {
+      contentValues.putNull("name");
     }
+
+    if (surname!=null) {
+      contentValues.put("surname", surname);
+    } else {
+      contentValues.putNull("surname");
+    }
+
+    if (birthCity!=null) {
+      contentValues.put("birth_city", birthCity);
+    } else {
+      contentValues.putNull("birth_city");
+    }
+
+    if (birthDay!=null) {
+      contentValues.put("birth_day", DateUtils.write(birthDay));
+    } else {
+      contentValues.putNull("birth_day");
+    }
+
+    //StringUtils and SqlUtils will be used to format SQL
+    // log
+    Logger.info(SqlUtils.formatSQL("INSERT INTO person (name, surname, birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
+    database().insert("person", null, contentValues);
   }
 
-  /**
-   * <h2>Select SQL:</h2>
-   *
-   * <pre>SELECT id, birth_city, birth_day, value, name, surname FROM person ORDER BY name#{orderBy}</pre>
-   *
-   * <h2>Projected columns:</h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
-   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
-   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
-   * </dl>
-   *
-   * <h2>Dynamic parts:</h2>
-   * <dl>
-   * <dt>#{orderBy}</dt>is part of order statement resolved at runtime.</dd>
-   * </dl>
-   *
-   * @param beanListener
-   * 	is the Person listener
-   * @param orderBy
-   * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
-   */
-  @Override
-  public void selectBeanListener(OnReadBeanListener<Person> beanListener, String orderBy) {
-    // build where condition
-    String[] _args={};
-
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, birth_city, birth_day, value, name, surname FROM person ORDER BY name"+SqlUtils.appendForLog(orderBy),(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, birth_city, birth_day, value, name, surname FROM person ORDER BY name"+SqlUtils.appendForSQL(orderBy), _args)) {
-      Logger.info("Rows found: %s",cursor.getCount());
-      Person resultBean=new Person();
-      if (cursor.moveToFirst()) {
-
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("birth_city");
-        int index2=cursor.getColumnIndex("birth_day");
-        int index3=cursor.getColumnIndex("value");
-        int index4=cursor.getColumnIndex("name");
-        int index5=cursor.getColumnIndex("surname");
-
-        int rowCount=cursor.getCount();
-        do
-         {
-          // reset mapping
-          resultBean.id=0L;
-          resultBean.birthCity=null;
-          resultBean.birthDay=null;
-          resultBean.value=0L;
-          resultBean.setName(null);
-          resultBean.setSurname(null);
-
-          // generate mapping
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.birthCity=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(cursor.getString(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.value=cursor.getLong(index3); }
-          if (!cursor.isNull(index4)) { resultBean.setName(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.setSurname(cursor.getString(index5)); }
-
-          beanListener.onRead(resultBean, cursor.getPosition(), rowCount);
-        } while (cursor.moveToNext());
+  long insertTwo2(ContentValues contentValues) {
+    // INSERT INTO Person (name, surname, birthCity, birthDay) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})
+    for (String columnName:contentValues.keySet()) {
+      if (!insertTwo2ColumnSet.contains(columnName)) {
+        throw new KriptonRuntimeException(String.format("Column '%s' does not exists in table '%s'", columnName, "person" ));
       }
     }
+    // INSERT INTO person (name, surname, birth_city, birth_day) VALUES (%s, %s, %s, %s)
+    //SqlUtils and StringUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("INSERT INTO person (name, surname, birth_city, birth_day) VALUES (%s, %s, %s, %s)", StringUtils.formatParam(contentValues.get("name"),"'"), StringUtils.formatParam(contentValues.get("surname"),"'"), StringUtils.formatParam(contentValues.get("birth_city"),"'"), StringUtils.formatParam(contentValues.get("birth_day"),"'")));
+    long result = database().insert("person", null, contentValues);
+    return result;
   }
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE id = ${bean.id} #{where}</pre>
+   * <pre>DELETE person WHERE id = ${id} and birthCity= ${birthCity}</pre></pre>
    *
-   * <h2>Parameters used in where conditions:</h2>
+   * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>${birthCity}</dt><dd>is mapped to method's parameter <strong>birthCity</strong></dd>
    * </dl>
    *
-   * <h2>Dynamic parts:</h2>
-   * <dl>
-   * 	<dt>#{where}</dt><dd>is part of where conditions resolved at runtime.</dd>
-   * </dl>
-   *
-   * @param bean
-   * 	is used as ${bean}
-   * @param where
-   * 	is used as dynamic where conditions
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param birthCity
+   * 	is used as where parameter <strong>${birthCity}</strong>
    */
   @Override
-  public void deleteBean(Person bean, String where) {
-    String[] whereConditionsArray={String.valueOf(bean.id)};
+  public void delete(long id, Date birthCity) {
+    String[] whereConditionsArray={String.valueOf(id), (birthCity==null?"":DateUtils.write(birthCity))};
 
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("DELETE person WHERE id = %s  "+SqlUtils.appendForLog(where), (Object[]) whereConditionsArray));
-    int result = database().delete("person", "id = ?", whereConditionsArray);
+    Logger.info(SqlUtils.formatSQL("DELETE person WHERE id = %s and birthCity= %s", (Object[])whereConditionsArray));
+    int result = database().delete("person", "id = ? and birth_city= ?", whereConditionsArray);
+  }
+
+  long delete3(Uri uri, String selection, String selectionArgs) {
+    // DELETE FROM Person WHERE id = ${id} and birthCity= ${birthCity}
+    // DELETE FROM person WHERE id = %s and birth_city= %s
+    //SqlUtils and StringUtils will be used to format SQL
+    long result = database().delete("person", null, null);
+    return result;
   }
 }

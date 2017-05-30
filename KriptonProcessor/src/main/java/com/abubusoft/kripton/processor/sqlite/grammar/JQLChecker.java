@@ -22,6 +22,7 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLPlaceHolder.JQLPlaceHolderType;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection.ProjectionBuilder;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection.ProjectionType;
@@ -49,16 +50,20 @@ public class JQLChecker {
 
 	}
 
-	protected <L extends SQLiteBaseListener> void analyzeInternal(final JQL jql, L listener) {
+	protected <L extends SQLiteBaseListener> void analyzeInternal(final String jql, L listener) {
 		walker.walk(listener, prepareParser(jql).value0);
+	}
+	
+	protected <L extends SQLiteBaseListener> void analyzeWhereInternal(final String jql, L listener) {
+		walker.walk(listener, prepareWhere(jql).value0);
 	}
 
 	public <L extends SQLiteBaseListener> void analyze(final JQL jql, L listener) {
-		analyzeInternal(jql, listener);
+		analyzeInternal(jql.value, listener);
 	}
 
-	protected Pair<ParserRuleContext, CommonTokenStream> prepareParser(final JQL jql) {
-		SQLiteLexer lexer = new SQLiteLexer(CharStreams.fromString(jql.value));
+	protected Pair<ParserRuleContext, CommonTokenStream> prepareParser(final String jql) {
+		SQLiteLexer lexer = new SQLiteLexer(CharStreams.fromString(jql));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		SQLiteParser parser = new SQLiteParser(tokens);
 
@@ -71,6 +76,23 @@ public class JQLChecker {
 		});
 
 		ParserRuleContext context = parser.parse();
+		return new Pair<>(context, tokens);
+	}
+	
+	protected Pair<ParserRuleContext, CommonTokenStream> prepareWhere(final String jql) {
+		SQLiteLexer lexer = new SQLiteLexer(CharStreams.fromString(jql));
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		SQLiteParser parser = new SQLiteParser(tokens);
+
+		parser.removeErrorListeners();
+		parser.addErrorListener(new SQLiteBaseErrorListener() {
+			@Override
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+				AssertKripton.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, jql);
+			}
+		});
+
+		ParserRuleContext context = parser.where_stmt_clauses();
 		return new Pair<>(context, tokens);
 	}
 
@@ -86,7 +108,7 @@ public class JQLChecker {
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
 
-		analyzeInternal(jql, new SQLiteBaseListener() {
+		analyzeInternal(jql.value, new SQLiteBaseListener() {
 			@Override
 			public void enterResult_column(Result_columnContext ctx) {
 				valid.value0 = true;				
@@ -143,10 +165,6 @@ public class JQLChecker {
 			}
 		};
 		
-//		this.analyzeInternal(jql, new SQLiteBaseListener() {
-//			
-//		});
-		
 		return replaceInternal(jql, replace, rewriterListener);
 	}
 	
@@ -158,7 +176,7 @@ public class JQLChecker {
 	 * @return
 	 * 		string obtained by replacements
 	 */
-	public String replaceInsert(JQL jql, final JSQLInsertReplacerListener listener) {
+	public String replace(JQL jql, final JSQLReplacerListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 				
 		SQLiteBaseListener rewriterListener = new SQLiteBaseListener() {
@@ -189,7 +207,7 @@ public class JQLChecker {
 	}
 
 	private String replaceInternal(JQL jql, final List<Triple<Token, Token, String>> replace, SQLiteBaseListener rewriterListener) {
-		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jql);
+		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jql.value);
 		walker.walk(rewriterListener, parser.value0);
 
 		TokenStreamRewriter rewriter = new TokenStreamRewriter(parser.value1);
@@ -214,7 +232,7 @@ public class JQLChecker {
 		String onDynamicSQL(String placeHolder);		
 	}
 	
-	public interface JSQLInsertReplacerListener {
+	public interface JSQLReplacerListener {
 		
 		String onTableName(String tableName);
 		
@@ -248,7 +266,7 @@ public class JQLChecker {
 	 * @param sql
 	 */
 	public void verify(final JQL jql) {
-		this.analyzeInternal(jql, new SQLiteBaseListener());
+		this.analyzeInternal(jql.value, new SQLiteBaseListener());
 	}
 
 	/**
@@ -257,7 +275,7 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public List<JQLPlaceHolder> extractPlaceHoldersAsList(JQL jql) {
+	public List<JQLPlaceHolder> extractPlaceHoldersAsList(String jql) {
 		return extractPlaceHolders(jql, new ArrayList<JQLPlaceHolder>());
 	}
 	
@@ -267,11 +285,22 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(JQL jql) {
+	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(String jql) {
 		return extractPlaceHolders(jql, new LinkedHashSet<JQLPlaceHolder>());
 	}
 	
-	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(JQL jql, final L result) {		
+	/**
+	 * Extract all bind parameters and dynamic part used in query.
+	 * 
+	 * @param jql
+	 * @return
+	 */
+	public Set<JQLPlaceHolder> extractPlaceHoldersFromWhereCondition(String jql) {
+		return extractPlaceHoldersFromWhereCondition(jql, new LinkedHashSet<JQLPlaceHolder>());
+	}
+	
+	
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(String jql, final L result) {		
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
 
@@ -290,5 +319,26 @@ public class JQLChecker {
 		});
 		return result;
 	}
+
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromWhereCondition(String jql, final L result) {		
+		final One<Boolean> valid = new One<>();
+		valid.value0 = false;
+
+		analyzeWhereInternal(jql, new SQLiteBaseListener() {
+			
+			@Override
+			public void enterBind_parameter(Bind_parameterContext ctx) {
+				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, ctx.bind_parameter_name().getText()));				
+			}
+			
+			@Override
+			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
+				result.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, ctx.bind_parameter_name().getText()));				
+			}						
+					
+		});
+		return result;
+	}
+
 		
 }

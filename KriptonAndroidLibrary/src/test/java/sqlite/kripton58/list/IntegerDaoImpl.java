@@ -398,7 +398,6 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO integer_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("integer_bean", null, contentValues);
     bean.id=result;

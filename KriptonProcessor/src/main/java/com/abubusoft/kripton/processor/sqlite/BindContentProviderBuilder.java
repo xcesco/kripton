@@ -158,8 +158,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			String pathConstantName = "PATH_" + daoConstantConverter.convert(daoDefinition.getEntitySimplyClassName());
 			
 
-			if (!daoDefinition.contentProviderEnabled) continue;
-			
+			if (!daoDefinition.contentProviderEnabled) continue;			
 			
 			List<FieldSpec> list1 = new ArrayList<>();
 			List<FieldSpec> list2 = new ArrayList<>();
@@ -223,12 +222,12 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		classBuilder.addStaticBlock(staticBuilder.build());
 
 		generateInsert(schema);
+		
+		generateUpdate(schema);
 
 		generateQuery(schema);
 
 		generateDelete(schema);
-
-		generateUpdate(schema);
 
 		generateGetType(schema);
 
@@ -298,10 +297,16 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
 
+	/**
+	 * <p>Generate INSERT code for content provider</p>.
+	 * 
+	 * @param schema
+	 */
 	private void generateInsert(SQLiteDatabaseSchema schema) {
+		// method sign
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("insert").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Uri.class);
 		methodBuilder.addParameter(Uri.class, "uri");
-		methodBuilder.addParameter(ContentValues.class, "values");
+		methodBuilder.addParameter(ContentValues.class, "contentValues");
 
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
 			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
@@ -311,6 +316,9 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			}
 		}
 
+		// method code
+		methodBuilder.addStatement("long id=-1");
+		methodBuilder.addStatement("String notifyURL=null");
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
 			if (item.getValue().insert == null)
@@ -319,12 +327,21 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
+			methodBuilder.addStatement("id=dataSource.get$L().$L(contentValues)", item.getValue().insert.getParent().getName(), item.getValue().insert.contentProviderMethodName);
+			methodBuilder.addStatement("notifyURL=$L", item.getValue().pathCostant);		
+			
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
+		
+		methodBuilder.beginControlFlow("default:");
+		methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+        methodBuilder.endControlFlow();
+		
 		methodBuilder.endControlFlow();
-
-		methodBuilder.addCode("return null;\n");
+		
+		methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
+		methodBuilder.addStatement("return Uri.parse(notifyURL+\"/\"+id)");
 
 		classBuilder.addMethod(methodBuilder.build());
 

@@ -2,7 +2,9 @@ package com.abubusoft.kripton.common;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
@@ -15,15 +17,17 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 public class CollectionUtils {
 
 	/**
-	 * create a string set, with initial values.
+	 * create a collection set, with initial values.
+	 * @param <T>
 	 * 
 	 * @param objects
 	 * @return
 	 */
-	public static HashSet<String> newSet(String... objects) {
-		HashSet<String> result = new HashSet<String>();
+	@SuppressWarnings("unchecked")
+	public static <T> Set<T> asSet(Class<T> itemType, T... objects) {
+		LinkedHashSet<T> result = new LinkedHashSet<T>();
 
-		for (String item : objects) {
+		for (T item : objects) {
 			result.add(item);
 		}
 
@@ -462,6 +466,19 @@ public class CollectionUtils {
 		}
 
 		return result;
+	}
+
+	/**
+	 * trim each element of lists.
+	 * 
+	 * @param value
+	 */
+	public static void trim(List<String> value) {
+		if (value==null) return;
+		for (int i=0; i<value.size(); i++) {
+			value.set(i, value.get(i).trim());
+		}
+		
 	}
 
 }

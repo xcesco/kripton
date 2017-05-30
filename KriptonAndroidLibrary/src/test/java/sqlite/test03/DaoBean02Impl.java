@@ -68,7 +68,6 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     contentValues.put("value", bean.getValue());
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO bean01 (lista, message_date, message_text, bean_list, value) VALUES ('"+StringUtils.checkSize(contentValues.get("lista"))+"', '"+StringUtils.checkSize(contentValues.get("message_date"))+"', '"+StringUtils.checkSize(contentValues.get("message_text"))+"', '"+StringUtils.checkSize(contentValues.get("bean_list"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
     long result = database().insert("bean01", null, contentValues);
     bean.setId(result);

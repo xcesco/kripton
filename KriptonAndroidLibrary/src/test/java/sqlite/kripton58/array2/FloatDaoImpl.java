@@ -416,7 +416,6 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO float_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
     long result = database().insert("float_bean", null, contentValues);
     bean.setId(result);

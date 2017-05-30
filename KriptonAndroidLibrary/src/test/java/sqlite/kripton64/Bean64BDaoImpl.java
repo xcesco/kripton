@@ -176,7 +176,6 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO bean64_b (value_map_string_bean, value_set_string, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("value_map_string_bean"))+"', '"+StringUtils.checkSize(contentValues.get("value_set_string"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
     long result = database().insert("bean64_b", null, contentValues);
     bean.id=result;

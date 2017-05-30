@@ -1,8 +1,5 @@
 package com.abubusoft.kripton.processor.core.reflect;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -111,7 +111,7 @@ compound_select_stmt
 create_index_stmt
  : K_CREATE K_UNIQUE? K_INDEX ( K_IF K_NOT K_EXISTS )?
    ( database_name '.' )? index_name K_ON table_name '(' indexed_column ( ',' indexed_column )* ')'
-   ( K_WHERE expr )?
+   where_stmt
  ;
 
 create_table_stmt
@@ -143,12 +143,12 @@ create_virtual_table_stmt
 
 delete_stmt
  : with_clause? K_DELETE K_FROM qualified_table_name
-   ( K_WHERE expr )?
+   where_stmt
  ;
 
 delete_stmt_limited
  : with_clause? K_DELETE K_FROM qualified_table_name
-   ( K_WHERE expr )?
+   where_stmt
    ( ( K_ORDER K_BY ordering_term ( ',' ordering_term )* )?
      K_LIMIT expr ( ( K_OFFSET | ',' ) expr )?
    )?
@@ -235,7 +235,7 @@ select_stmt
 select_or_values
  : K_SELECT ( K_DISTINCT | K_ALL )? result_column ( ',' result_column )*
    ( K_FROM ( table_or_subquery ( ',' table_or_subquery )* | join_clause ) )?
-   ( K_WHERE expr )?
+   where_stmt
    ( K_GROUP K_BY expr ( ',' expr )* ( K_HAVING expr )? )?
  | K_VALUES '(' expr ( ',' expr )* ')' ( ',' '(' expr ( ',' expr )* ')' )*
  ;
@@ -246,7 +246,7 @@ update_stmt
                          | K_OR K_REPLACE
                          | K_OR K_FAIL
                          | K_OR K_IGNORE )? qualified_table_name
-   K_SET column_name '=' expr ( ',' column_name '=' expr )* ( K_WHERE expr )?
+   K_SET column_name '=' expr ( ',' column_name '=' expr )* where_stmt
  ;
 
 update_stmt_limited
@@ -255,7 +255,7 @@ update_stmt_limited
                          | K_OR K_REPLACE
                          | K_OR K_FAIL
                          | K_OR K_IGNORE )? qualified_table_name
-   K_SET column_name '=' expr ( ',' column_name '=' expr )* ( K_WHERE expr )?
+   K_SET column_name '=' expr ( ',' column_name '=' expr )* where_stmt
    ( ( K_ORDER K_BY ordering_term ( ',' ordering_term )* )?
      K_LIMIT expr ( ( K_OFFSET | ',' ) expr )?
    )?
@@ -388,6 +388,14 @@ table_constraint
 with_clause
  : K_WITH K_RECURSIVE? cte_table_name K_AS '(' select_stmt ')' ( ',' cte_table_name K_AS '(' select_stmt ')' )*
  ;
+ 
+where_stmt
+ : ( K_WHERE where_stmt_clauses )?
+ ;
+
+where_stmt_clauses
+ : expr
+ ;
 
 qualified_table_name
  : ( database_name '.' )? table_name ( K_INDEXED K_BY index_name
@@ -441,7 +449,7 @@ join_constraint
 select_core
  : K_SELECT ( K_DISTINCT | K_ALL )? result_column ( ',' result_column )*
    ( K_FROM ( table_or_subquery ( ',' table_or_subquery )* | join_clause ) )?
-   ( K_WHERE expr )?
+   where_stmt
    ( K_GROUP K_BY expr ( ',' expr )* ( K_HAVING expr )? )?
  | K_VALUES '(' expr ( ',' expr )* ')' ( ',' '(' expr ( ',' expr )* ')' )*
  ;

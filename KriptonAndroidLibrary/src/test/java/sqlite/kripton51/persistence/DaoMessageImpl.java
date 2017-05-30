@@ -248,7 +248,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO message (channel_id, owner_type, face_uid, text, owner_uid, channel_uid, update_time, type) VALUES ('"+StringUtils.checkSize(contentValues.get("channel_id"))+"', '"+StringUtils.checkSize(contentValues.get("owner_type"))+"', '"+StringUtils.checkSize(contentValues.get("face_uid"))+"', '"+StringUtils.checkSize(contentValues.get("text"))+"', '"+StringUtils.checkSize(contentValues.get("owner_uid"))+"', '"+StringUtils.checkSize(contentValues.get("channel_uid"))+"', '"+StringUtils.checkSize(contentValues.get("update_time"))+"', '"+StringUtils.checkSize(contentValues.get("type"))+"')"));
     long result = database().insert("message", null, contentValues);
     bean.id=result;

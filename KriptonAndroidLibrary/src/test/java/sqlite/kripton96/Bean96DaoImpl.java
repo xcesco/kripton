@@ -106,7 +106,6 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO bean96 (name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
     long result = database().insert("bean96", null, contentValues);
     bean.id=result;

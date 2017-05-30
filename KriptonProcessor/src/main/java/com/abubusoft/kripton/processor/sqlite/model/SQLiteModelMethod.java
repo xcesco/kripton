@@ -94,6 +94,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 */
 	public String contentProviderMethodName;
 
+	private Object parameterBeanName;
+
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
 		this.parent = new WeakReference<SQLDaoDefinition>(parent);
@@ -114,6 +116,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				String alias = paramAlias.value();
 				parameterAlias2NameField.put(alias, p.getSimpleName().toString());
 				parameterNameField2Alias.put(p.getSimpleName().toString(), alias);
+			}
+			
+			if (TypeUtility.isEquals(TypeUtility.typeName(p.asType()), parent.getEntityClassName())) {
+				this.parameterBeanName=p.getSimpleName().toString();
 			}
 		}
 

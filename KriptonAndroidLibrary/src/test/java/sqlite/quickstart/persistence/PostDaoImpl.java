@@ -65,7 +65,6 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO post (user_id, id, title, body) VALUES ('"+StringUtils.checkSize(contentValues.get("user_id"))+"', '"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("title"))+"', '"+StringUtils.checkSize(contentValues.get("body"))+"')"));
     long result = database().insert("post", null, contentValues);
     bean.id=result;

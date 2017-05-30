@@ -516,7 +516,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO bean (value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"')"));
     long result = database().insert("bean", null, contentValues);
     bean.id=result;

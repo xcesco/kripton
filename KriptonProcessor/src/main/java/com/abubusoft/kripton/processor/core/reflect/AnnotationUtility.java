@@ -209,6 +209,31 @@ public abstract class AnnotationUtility {
 
 		return result.value0;
 	}
+	
+	/**
+	 * Extract from an annotation of a method the attribute value specified. IF NO ELEMENT WAS FOUND, AN EMPTY LIST WILL RETURN.
+	 * 
+	 * @param elementUtils
+	 * @param item
+	 * @param annotationClass
+	 * @param attributeName
+	 * @return attribute value extracted as class typeName
+	 */
+	public static List<String> extractAsStringArray(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+		final One<List<String>> result = new One<List<String>>(new ArrayList<String>());
+
+		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
+
+			@Override
+			public void onFound(String value) {
+				List<String> list = AnnotationUtility.extractAsArrayOfString(value);
+
+				result.value0 = list;
+			}
+		});
+
+		return result.value0;
+	}
 
 	/**
 	 * Estract from an annotation of a property the attribute value specified

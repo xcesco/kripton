@@ -17,6 +17,8 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
@@ -26,6 +28,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -38,7 +41,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JQLParameterName;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLInsertReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
@@ -48,8 +51,10 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
@@ -172,82 +177,40 @@ public abstract class SqlInsertBuilder {
 		builder.addMethod(methodSpec);
 
 		if (method.contentProviderEntryPathEnabled) {
-			// we need to generate insert for content provider to
-			generateInsertCheckForContentProvider(elementUtils, builder, method, insertResultType);
+			// we need to generate insert for content provider to			
 			generateInsertForContentProvider(elementUtils, builder, method, insertResultType);
 		}
 
 	}
 
-	private static void generateInsertCheckForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, InsertType insertResultType) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
-
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName + "ContentChecker");
-		ParameterSpec parameterSpec;
-
-		parameterSpec = ParameterSpec.builder(ContentValues.class, "contentValues").build();
-		methodBuilder.addParameter(parameterSpec);
-		methodBuilder.returns(Void.TYPE);
-
-		methodBuilder.addCode("// $L\n", method.jql.value);
-
-		String resultA = JQLChecker.getInstance().replacePlaceHolders(method.jql, new JSQLPlaceHolderReplacerListener() {
-
-			@Override
-			public String onParameter(String placeHolder) {
-				// TODO Auto-generated method stub
-				return "arturo";
-			}
-
-			@Override
-			public String onDynamicSQL(String placeHolder) {
-				// TODO Auto-generated method stub
-				return "rutto";
-			}
-		});
-
-		JQLChecker.getInstance().analyze(method.jql, new SQLiteBaseListener() {
-
-		});
-
-		// generate inner code
-		// insertResultType.generate(elementUtils, methodBuilder, method,
-		// TypeName.LONG);
-		methodBuilder.addCode("// $L\n", resultA);
-
-		builder.addMethod(methodBuilder.build());
-
-	}
-
+	/**
+	 * <p>Generate insert used in content provider class.</p>
+	 * 
+	 * @param elementUtils
+	 * @param builder
+	 * @param method
+	 * @param insertResultType
+	 */
 	private static void generateInsertForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, InsertType insertResultType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final Converter<String, String> columnNameConverter=daoDefinition.getColumnNameConverter();
 		final Converter<String, String> tableNameConverter = daoDefinition.getClassNameConverter();
 		final SQLEntity entity = daoDefinition.getEntity();
+		final Set<String> columns=new LinkedHashSet<>();
 		final StringBuilder parametersBuilder=new StringBuilder();
-
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
-		ParameterSpec parameterSpec;
-
-		parameterSpec = ParameterSpec.builder(ContentValues.class, "contentValues").build();
-		methodBuilder.addParameter(parameterSpec);
-		methodBuilder.returns(Long.TYPE);
-
-		methodBuilder.addCode("// $L\n", method.jql.value);
-
-		Set<JQLProjection> columns = JQLChecker.getInstance().extractProjections(method.jql);
-
-		String resultA = JQLChecker.getInstance().replaceInsert(method.jql, new JSQLInsertReplacerListener() {
+		
+		String resultA = JQLChecker.getInstance().replace(method.jql, new JSQLReplacerListener() {
 			
 			@Override
 			public String onColumnName(String columnName) {
-				return columnNameConverter.convert(columnName);				
+				String convertedColumnName=columnNameConverter.convert(columnName);
+				columns.add(convertedColumnName);
+				return convertedColumnName;				
 			}
 			
 			@Override
 			public String onColumnValue(String columnValue) {
-				JQLParameterName parameterName=JQLParameterName.parse(columnValue);
+				JQLParameterName parameterName=JQLParameterName.parse(columnValue);				
 				
 				String limit="";
 				SQLProperty property = daoDefinition.getEntity().get(parameterName.getValue());
@@ -276,8 +239,23 @@ public abstract class SqlInsertBuilder {
 		});
 		
 		
-		methodBuilder.addStatement("$L(contentValues)", method.contentProviderMethodName + "ContentChecker");
+		generateInsertCheckForContentProvider(elementUtils, builder, method,columns);
 		
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
+		ParameterSpec parameterSpec;
+
+		parameterSpec = ParameterSpec.builder(ContentValues.class, "contentValues").build();
+		methodBuilder.addParameter(parameterSpec);
+		methodBuilder.returns(Long.TYPE);
+
+		methodBuilder.addCode("// $L\n", method.jql.value);
+		
+		methodBuilder.beginControlFlow("for (String columnName:contentValues.keySet())");
+			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName+"ColumnSet");
+				methodBuilder.addStatement("throw new $T(String.format(\"Column '%s' does not exists in table '%s'\", columnName, $S ))", KriptonRuntimeException.class, daoDefinition.getEntity().getTableName());
+			methodBuilder.endControlFlow();
+		methodBuilder.endControlFlow();
+				
 		methodBuilder.addCode("// $L\n", resultA);		
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
 		
@@ -293,10 +271,28 @@ public abstract class SqlInsertBuilder {
 			conflictString2 = ", SQLiteDatabase." + conflictAlgorithmType;			
 		}
 		methodBuilder.addStatement("long result = database().insert$L($S, null, contentValues$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
-
 		methodBuilder.addStatement("return result");
 
 		builder.addMethod(methodBuilder.build());
+	}
+	
+
+	private static void generateInsertCheckForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
+		StringBuilder initBuilder=new StringBuilder();
+		String temp="";
+		
+		for (String item: columnNames)
+		{
+			initBuilder.append(temp+"\""+item+"\"");
+			temp=", ";
+		}
+		
+		FieldSpec.Builder fieldBuilder=FieldSpec.builder(ParameterizedTypeName.get(Set.class, String.class), method.contentProviderMethodName+"ColumnSet", Modifier.STATIC, Modifier.PRIVATE, Modifier.FINAL);
+		
+		
+		fieldBuilder.initializer("$T.asSet($T.class, $L)",CollectionUtils.class, String.class,initBuilder.toString());		
+
+		builder.addField(fieldBuilder.build());
 
 	}
 			

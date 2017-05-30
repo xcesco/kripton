@@ -61,7 +61,6 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     contentValues.put("completed", bean.completed);
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
     Logger.info(SqlUtils.formatSQL("INSERT INTO todo (id, user_id, title, completed) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("user_id"))+"', '"+StringUtils.checkSize(contentValues.get("title"))+"', '"+StringUtils.checkSize(contentValues.get("completed"))+"')"));
     long result = database().insert("todo", null, contentValues);
     bean.id=result;
