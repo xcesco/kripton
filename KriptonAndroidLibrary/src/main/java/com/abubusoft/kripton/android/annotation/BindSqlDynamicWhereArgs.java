@@ -27,18 +27,18 @@ import java.lang.annotation.Target;
  * 
  * <ul>
  *    <li>on SELECT, DELETE, UPDATE query type</li>
- *    <li>if {@link BindSqlWhere} marked argument is defined is the same method</li>
+ *    <li>if {@link BindSqlDynamicWhere} marked argument is defined is the same method</li>
  *    <li>on type <code>String[]</code> parameter</li>
  *    <li>only one annotation for method</li>
  * </ul>
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  * 
- * @see BindSqlWhere
+ * @see BindSqlDynamicWhere
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface BindSqlWhereArgs {
+public @interface BindSqlDynamicWhereArgs {
 
 }

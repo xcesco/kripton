@@ -28,18 +28,18 @@ import javax.lang.model.element.VariableElement;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlOrderBy;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindSqlWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQL;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLBuilder;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLBuilder;
 import com.squareup.javapoet.TypeName;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
@@ -124,7 +124,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		}
 
 		// looks for dynamic where conditions
-		findStringDynamicStatement(parent, BindSqlWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
+		findStringDynamicStatement(parent, BindSqlDynamicWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
 
 			@Override
 			public void onFoundParameter(String parameterName) {
@@ -134,7 +134,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		});
 
 		// looks for dynamic orderBy conditions
-		findStringDynamicStatement(parent, BindSqlOrderBy.class, unsupportedSQLForDynamicOrderBy, new OnFoundDynamicParameter() {
+		findStringDynamicStatement(parent, BindSqlDynamicOrderBy.class, unsupportedSQLForDynamicOrderBy, new OnFoundDynamicParameter() {
 
 			@Override
 			public void onFoundParameter(String parameterName) {

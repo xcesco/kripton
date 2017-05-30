@@ -1,21 +1,21 @@
-package com.abubusoft.kripton.processor.sqlite.grammar;
+package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.DELETE_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.DISTINCT_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.FROM_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.GROUP_BY_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.HAVING_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.INSERT_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.INTO_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.LIMIT_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.OFFSET_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.ORDER_BY_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.SELECT_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.SET_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.UPDATE_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.VALUES_KEYWORD;
-import static com.abubusoft.kripton.processor.sqlite.grammar.JQLKeywords.WHERE_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.DELETE_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.DISTINCT_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.FROM_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.GROUP_BY_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.HAVING_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.INSERT_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.INTO_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.LIMIT_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.OFFSET_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.ORDER_BY_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.SELECT_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.SET_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.UPDATE_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.VALUES_KEYWORD;
+import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.WHERE_KEYWORD;
 
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
@@ -27,14 +27,14 @@ import javax.lang.model.element.VariableElement;
 
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlOrderBy;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindSqlWhere;
-import com.abubusoft.kripton.android.annotation.BindSqlWhere.PrependType;
-import com.abubusoft.kripton.android.annotation.BindSqlWhereArgs;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere.PrependType;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.One;
@@ -46,7 +46,7 @@ import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQL.JQLType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -127,7 +127,7 @@ public abstract class JQLBuilder {
 		final SQLDaoDefinition dao = method.getParent();
 
 		StringBuilder builder = new StringBuilder();
-		builder.append(DELETE_KEYWORD+" "+FROM_KEYWORD);				
+		builder.append(DELETE_KEYWORD + " " + FROM_KEYWORD);
 		// entity name
 		builder.append(" " + dao.getEntitySimplyClassName());
 
@@ -149,8 +149,7 @@ public abstract class JQLBuilder {
 	private static JQL buildJQLInsert(SQLiteModelMethod method, JQL result) {
 		final Class<? extends Annotation> annotation = BindSqlInsert.class;
 		final SQLDaoDefinition dao = method.getParent();
-		final boolean includePrimaryKey = AnnotationUtility.extractAsBoolean(BindDataSourceSubProcessor.elementUtils,
-				method.getElement(), annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
+		final boolean includePrimaryKey = AnnotationUtility.extractAsBoolean(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
 
 		// use annotation's attribute value and exclude and bean definition to
 		// define field list
@@ -158,11 +157,9 @@ public abstract class JQLBuilder {
 
 		StringBuilder builder = new StringBuilder();
 		builder.append(INSERT_KEYWORD);
-		builder.append(
-				" " + ConflictAlgorithmType
-						.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils,
-								method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE))
-						.getSql());
+		builder.append(" " + ConflictAlgorithmType
+				.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE))
+				.getSql());
 
 		builder.append(INTO_KEYWORD);
 		builder.append(" " + dao.getEntitySimplyClassName());
@@ -208,12 +205,9 @@ public abstract class JQLBuilder {
 		// define field list
 		final Set<String> fields = defineFields(method, BindSqlSelect.class, true);
 
-		boolean distinct = AnnotationUtility.extractAsBoolean(BindDataSourceSubProcessor.elementUtils,
-				method.getElement(), annotation, AnnotationAttributeType.DISTINCT);
-		String annotatedGroupBy = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils,
-				method.getElement(), annotation, AnnotationAttributeType.GROUP_BY);
-		String annotatedHaving = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils,
-				method.getElement(), annotation, AnnotationAttributeType.HAVING);
+		boolean distinct = AnnotationUtility.extractAsBoolean(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.DISTINCT);
+		String annotatedGroupBy = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.GROUP_BY);
+		String annotatedHaving = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.HAVING);
 
 		StringBuilder builder = new StringBuilder();
 		builder.append(SELECT_KEYWORD + " ");
@@ -313,25 +307,20 @@ public abstract class JQLBuilder {
 	 * @param includePrimaryKey
 	 * @return
 	 */
-	private static <A extends Annotation> Set<String> defineFields(final SQLiteModelMethod method,
-			Class<A> annotationClazz, final boolean includePrimaryKey) {
+	private static <A extends Annotation> Set<String> defineFields(final SQLiteModelMethod method, Class<A> annotationClazz, final boolean includePrimaryKey) {
 		final SQLDaoDefinition dao = method.getParent();
 		final SQLEntity entity = method.getParent().getEntity();
 
 		// extract some informaction from method and bean
-		List<String> annotatedFieldValues = AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils,
-				method.getElement(), annotationClazz, AnnotationAttributeType.VALUE);
-		List<String> annotatedExcludedFieldValues = AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils,
-				method.getElement(), annotationClazz, AnnotationAttributeType.EXCLUDED_FIELDS);
+		List<String> annotatedFieldValues = AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method.getElement(), annotationClazz, AnnotationAttributeType.VALUE);
+		List<String> annotatedExcludedFieldValues = AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method.getElement(), annotationClazz, AnnotationAttributeType.EXCLUDED_FIELDS);
 		CollectionUtils.trim(annotatedFieldValues);
 		CollectionUtils.trim(annotatedExcludedFieldValues);
-		String annotatedWhere = AnnotationUtility.extractAsString(BaseProcessor.elementUtils, method.getElement(),
-				annotationClazz, AnnotationAttributeType.WHERE);
-		
+		String annotatedWhere = AnnotationUtility.extractAsString(BaseProcessor.elementUtils, method.getElement(), annotationClazz, AnnotationAttributeType.WHERE);
+
 		Set<String> annotatedWhereParameters = new HashSet<String>();
 		if (StringUtils.hasText(annotatedWhere)) {
-			Set<JQLPlaceHolder> parametersUsedInWhereConditions = JQLChecker.getInstance()
-					.extractPlaceHoldersFromWhereCondition(annotatedWhere);
+			Set<JQLPlaceHolder> parametersUsedInWhereConditions = JQLChecker.getInstance().extractPlaceHoldersFromWhereCondition(annotatedWhere);
 
 			for (JQLPlaceHolder item : parametersUsedInWhereConditions) {
 				annotatedWhereParameters.add(item.value);
@@ -368,10 +357,10 @@ public abstract class JQLBuilder {
 
 			@Override
 			public void onMethodParameter(VariableElement item) {
-				BindSqlOrderBy parameterOrderBy = item.getAnnotation(BindSqlOrderBy.class);
+				BindSqlDynamicOrderBy parameterOrderBy = item.getAnnotation(BindSqlDynamicOrderBy.class);
 				BindSqlPageSize parameterPageSize = item.getAnnotation(BindSqlPageSize.class);
-				BindSqlWhere parameterWhere = item.getAnnotation(BindSqlWhere.class);
-				BindSqlWhereArgs paramegerWhereArgs = item.getAnnotation(BindSqlWhereArgs.class);
+				BindSqlDynamicWhere parameterWhere = item.getAnnotation(BindSqlDynamicWhere.class);
+				BindSqlDynamicWhereArgs paramegerWhereArgs = item.getAnnotation(BindSqlDynamicWhereArgs.class);
 				BindSqlParam paramAlias = item.getAnnotation(BindSqlParam.class);
 
 				int i = 0;
@@ -392,22 +381,21 @@ public abstract class JQLBuilder {
 					i++;
 				}
 
-				AssertKripton.assertTrue(i <= 1,
-						"In method %s.%s parameter %s is annotated with incompatible annotations",
-						dao.getName().toString(), method.getName().toString(), item.getSimpleName().toString());
+				AssertKripton.assertTrue(i <= 1, "In method %s.%s parameter %s is annotated with incompatible annotations", dao.getName().toString(), method.getName().toString(),
+						item.getSimpleName().toString());
 
-				
 				if (paramAlias != null) {
 					i++;
 				}
-				
-				AssertKripton.assertTrue(i <= 1,
-						"In method %s.%s parameter %s is annotated with incompatible annotations",
-						dao.getName().toString(), method.getName().toString(), item.getSimpleName().toString());
-				
-				// ASSERT: only @Param is good annotation for fields. With other one, we have to ignore parameter.
-				if (i>0 && paramAlias==null) return;
-				
+
+				AssertKripton.assertTrue(i <= 1, "In method %s.%s parameter %s is annotated with incompatible annotations", dao.getName().toString(), method.getName().toString(),
+						item.getSimpleName().toString());
+
+				// ASSERT: only @Param is good annotation for fields. With other
+				// one, we have to ignore parameter.
+				if (i > 0 && paramAlias == null)
+					return;
+
 				String alias = item.getSimpleName().toString();
 				if (paramAlias != null && StringUtils.hasText(paramAlias.value())) {
 					alias = paramAlias.value();
@@ -417,18 +405,19 @@ public abstract class JQLBuilder {
 			}
 		});
 
-		// parameter fields have major priority respect annotated field definition (they can not coexsists).
+		// parameter fields have major priority respect annotated field
+		// definition (they can not coexsists).
 		// case: 1 parameter usefull of type bean
-		if (parameterFields.size() == 1) { 
-			
+		if (parameterFields.size() == 1) {
+
 		} else if (parameterFields.size() > 0) {
 			// replace annotated field with parameter fields
 			annotatedFields.clear();
 			annotatedFields.addAll(parameterFields);
-		} 
-		
+		}
+
 		annotatedFields.removeAll(annotatedWhereParameters);
-		
+
 		return annotatedFields;
 	}
 
@@ -439,12 +428,10 @@ public abstract class JQLBuilder {
 	 * @param classBuilder
 	 * @param annotation
 	 */
-	private static <L extends Annotation> String defineLimitStatement(final SQLiteModelMethod method, final JQL result,
-			Class<L> annotation) {
+	private static <L extends Annotation> String defineLimitStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation) {
 		StringBuilder builder = new StringBuilder();
 
-		int pageSize = AnnotationUtility.extractAsInt(BindDataSourceSubProcessor.elementUtils, method.getElement(),
-				annotation, AnnotationAttributeType.PAGE_SIZE);
+		int pageSize = AnnotationUtility.extractAsInt(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.PAGE_SIZE);
 		if (pageSize > 0) {
 			result.annotatedPageSize = true;
 		}
@@ -460,9 +447,8 @@ public abstract class JQLBuilder {
 
 					// CONSTRAINT: @BindSqlWhereArgs can be used only on
 					// String[] parameter type
-					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(
-							TypeUtility.isEquals(TypeName.INT, TypeUtility.typeName(methodParam)),
-							method.getParent().getElement(), method.getElement(), methodParam, BindSqlPageSize.class);
+					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeName.INT, TypeUtility.typeName(methodParam)), method.getParent().getElement(),
+							method.getElement(), methodParam, BindSqlPageSize.class);
 				}
 
 			}
@@ -491,12 +477,10 @@ public abstract class JQLBuilder {
 	 * @param classBuilder
 	 * @param annotation
 	 */
-	private static <L extends Annotation> String defineOrderByStatement(final SQLiteModelMethod method,
-			final JQL result, Class<L> annotation) {
+	private static <L extends Annotation> String defineOrderByStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation) {
 		StringBuilder builder = new StringBuilder();
 
-		String orderBy = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(),
-				annotation, AnnotationAttributeType.ORDER_BY);
+		String orderBy = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.ORDER_BY);
 
 		if (StringUtils.hasText(orderBy)) {
 			result.annotatedOrderBy = true;
@@ -507,16 +491,15 @@ public abstract class JQLBuilder {
 
 			@Override
 			public void onMethodParameter(VariableElement methodParam) {
-				if (methodParam.getAnnotation(BindSqlOrderBy.class) != null) {
+				if (methodParam.getAnnotation(BindSqlDynamicOrderBy.class) != null) {
 					orderDynamicName.value0 = methodParam.getSimpleName().toString();
 
 					result.paramOrderBy = orderDynamicName.value0;
 
 					// CONSTRAINT: @BindSqlOrderBy can be used only on String
 					// parameter type
-					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(
-							TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(methodParam)),
-							method.getParent().getElement(), method.getElement(), methodParam, BindSqlOrderBy.class);
+					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(methodParam)),
+							method.getParent().getElement(), method.getElement(), methodParam, BindSqlDynamicOrderBy.class);
 				}
 
 			}
@@ -547,12 +530,10 @@ public abstract class JQLBuilder {
 	 * @param classBuilder
 	 * @param annotation
 	 */
-	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql,
-			Class<L> annotation) {
+	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql, Class<L> annotation) {
 		StringBuilder builder = new StringBuilder();
 
-		String where = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(),
-				annotation, AnnotationAttributeType.WHERE);
+		String where = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.WHERE);
 		if (StringUtils.hasText(where))
 			jql.annotatedWhere = true;
 
@@ -561,27 +542,24 @@ public abstract class JQLBuilder {
 
 			@Override
 			public void onMethodParameter(VariableElement methodParam) {
-				if (methodParam.getAnnotation(BindSqlWhere.class) != null) {
+				if (methodParam.getAnnotation(BindSqlDynamicWhere.class) != null) {
 					jql.paramWhere = methodParam.getSimpleName().toString();
-					PrependType prepend = PrependType.valueOf(
-							AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils,
-									methodParam, BindSqlWhere.class, AnnotationAttributeType.PREPEND));
+					PrependType prepend = PrependType
+							.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, methodParam, BindSqlDynamicWhere.class, AnnotationAttributeType.PREPEND));
 					whereDynamicName.value0 = prepend.toString();
 					whereDynamicName.value1 = methodParam.getSimpleName().toString();
 
 					// CONSTRAINT: @BindSqlWhere can be used only on String
 					// parameter type
-					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(
-							TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(methodParam)),
-							method.getParent().getElement(), method.getElement(), methodParam, BindSqlWhere.class);
-				} else if (methodParam.getAnnotation(BindSqlWhereArgs.class) != null) {
+					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(methodParam)),
+							method.getParent().getElement(), method.getElement(), methodParam, BindSqlDynamicWhere.class);
+				} else if (methodParam.getAnnotation(BindSqlDynamicWhereArgs.class) != null) {
 					jql.paramWhereArgs = methodParam.getSimpleName().toString();
 
 					// CONSTRAINT: @BindSqlWhereArgs can be used only on
 					// String[] parameter type
-					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(
-							TypeUtility.isEquals(ArrayTypeName.of(String.class), TypeUtility.typeName(methodParam)),
-							method.getParent().getElement(), method.getElement(), methodParam, BindSqlWhereArgs.class);
+					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(ArrayTypeName.of(String.class), TypeUtility.typeName(methodParam)),
+							method.getParent().getElement(), method.getElement(), methodParam, BindSqlDynamicWhereArgs.class);
 				}
 
 			}
@@ -634,12 +612,9 @@ public abstract class JQLBuilder {
 		}
 	}
 
-	private static <A extends Annotation> Pair<String, String> getDefinedFieldsInAnnotation(SQLiteModelMethod method,
-			Class<A> annotation) {
-		String values = AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils,
-				method.getElement(), annotation, AnnotationAttributeType.VALUE);
-		String excluedValues = AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils,
-				method.getElement(), annotation, AnnotationAttributeType.EXCLUDED_FIELDS);
+	private static <A extends Annotation> Pair<String, String> getDefinedFieldsInAnnotation(SQLiteModelMethod method, Class<A> annotation) {
+		String values = AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.VALUE);
+		String excluedValues = AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.EXCLUDED_FIELDS);
 
 		return new Pair<String, String>(values, excluedValues);
 	}

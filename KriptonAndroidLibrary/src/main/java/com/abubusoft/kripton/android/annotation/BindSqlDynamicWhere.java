@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface BindSqlWhere {
+public @interface BindSqlDynamicWhere {
 	
 	/**
 	 * Conjunction to prepend to dynamic where statement

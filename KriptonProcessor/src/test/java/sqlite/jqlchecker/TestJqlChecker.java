@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.sqlchecker;
+package sqlite.jqlchecker;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -27,21 +26,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.processor.sqlite.grammar.JQL;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLPlaceHolderReplacerListener;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLPlaceHolder.JQLPlaceHolderType;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection.ProjectionType;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_dynamic_sqlContext;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteParser.Bind_parameterContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 
 import base.BaseProcessorTest;
 
 @RunWith(JUnit4.class)
-public class TestSqlChecker extends BaseProcessorTest {
+public class TestJqlChecker extends BaseProcessorTest {
 
 	/**
 	 * <p>
@@ -57,22 +56,22 @@ public class TestSqlChecker extends BaseProcessorTest {
 		jql.value=sql;
 
 		JQLChecker jsqChecker = JQLChecker.getInstance();
-		jsqChecker.analyze(jql, new SQLiteBaseListener() {
+		jsqChecker.analyze(jql, new JqlBaseListener() {
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				TestSqlChecker.this.log("xx parameter name %s", ctx.bind_parameter_name().getText());
+				TestJqlChecker.this.log("xx parameter name %s", ctx.bind_parameter_name().getText());
 			}
 
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				TestSqlChecker.this.log("xx dynamic %s", ctx.bind_parameter_name().getText());
+				TestJqlChecker.this.log("xx dynamic %s", ctx.bind_parameter_name().getText());
 			}
 
 		});
 
-		jsqChecker.extractPlaceHoldersAsList(jql);
-		log("replaced " + jsqChecker.replacePlaceHolders(jql, new JSQLPlaceHolderReplacerListener() {
+		jsqChecker.extractPlaceHoldersAsList(jql.value);
+		log("replaced " + jsqChecker.replacePlaceHolders(jql, new JQLPlaceHolderReplacerListener() {
 
 			@Override
 			public String onParameter(String value) {
@@ -116,7 +115,7 @@ public class TestSqlChecker extends BaseProcessorTest {
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field2"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field3"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field5"));
-			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql);
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql.value);
 
 			checkCollectionExactly(actual, aspected);
 		}
@@ -166,13 +165,13 @@ public class TestSqlChecker extends BaseProcessorTest {
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field1"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field2"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, "dynamicWhere1"));
-			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql);
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql.value);
 
 			checkCollectionExactly(actual, aspected);
 		}
 
 		// prepare for log
-		String sqlLogResult = checker.replacePlaceHolders(jql, new JSQLPlaceHolderReplacerListener() {
+		String sqlLogResult = checker.replacePlaceHolders(jql, new JQLPlaceHolderReplacerListener() {
 
 			@Override
 			public String onParameter(String placeHolder) {
@@ -206,7 +205,7 @@ public class TestSqlChecker extends BaseProcessorTest {
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field3"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field4"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, "field5"));
-			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql);
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql.value);
 
 			checkCollectionExactly(actual, aspected);
 		}
@@ -235,13 +234,13 @@ public class TestSqlChecker extends BaseProcessorTest {
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field3"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field4"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field1"));
-			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql);
+			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql.value);
 
 			checkCollectionExactly(actual, aspected);
 		}
 
 		// prepare for log
-		String sqlLogResult = checker.replacePlaceHolders(jql, new JSQLPlaceHolderReplacerListener() {
+		String sqlLogResult = checker.replacePlaceHolders(jql, new JQLPlaceHolderReplacerListener() {
 
 			@Override
 			public String onParameter(String placeHolder) {

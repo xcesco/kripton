@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.processor.sqlite.grammar;
+package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
 import java.util.BitSet;
 
@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
 
-public class SQLiteBaseErrorListener implements ANTLRErrorListener {
+public class JQLBaseErrorListener implements ANTLRErrorListener {
 
 	@Override
 	public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine,

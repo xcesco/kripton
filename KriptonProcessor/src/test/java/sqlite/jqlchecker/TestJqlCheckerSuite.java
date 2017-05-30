@@ -1,4 +1,4 @@
-package sqlite.sqlchecker;
+package sqlite.jqlchecker;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -7,9 +7,9 @@ import org.junit.runners.Suite;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestSqlChecker.class		
+		TestJqlChecker.class		
 		 })
 //@formatter:on
-public class TestSqlCheckerSuite  {
+public class TestJqlCheckerSuite  {
 
 }

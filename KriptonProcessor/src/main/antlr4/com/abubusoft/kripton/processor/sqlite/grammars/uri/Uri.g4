@@ -33,7 +33,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
 */
 
-grammar ContentURL;
+grammar Uri;
 
 bind_parameter
  : '$' '{' SPACES* bind_parameter_name SPACES* '}'

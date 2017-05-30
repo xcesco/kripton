@@ -40,9 +40,9 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertType;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JQLParameterName;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -211,7 +211,7 @@ public abstract class SqlModifyBuilder {
 		
 		String resultA="";
 		
-		resultA = JQLChecker.getInstance().replace(method.jql, new JSQLReplacerListener() {
+		resultA = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListener() {
 			
 			@Override
 			public String onColumnName(String columnName) {

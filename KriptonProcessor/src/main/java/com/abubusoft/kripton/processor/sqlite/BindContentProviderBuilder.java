@@ -42,7 +42,7 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
 import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQL.JQLType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;

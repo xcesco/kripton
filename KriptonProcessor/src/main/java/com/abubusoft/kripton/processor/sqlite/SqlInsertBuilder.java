@@ -39,12 +39,9 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JQLParameterName;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLReplacerListener;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLChecker.JSQLPlaceHolderReplacerListener;
-import com.abubusoft.kripton.processor.sqlite.grammar.JQLProjection;
-import com.abubusoft.kripton.processor.sqlite.grammar.SQLiteBaseListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -59,11 +56,9 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
- *
  *
  * @since 05/mag/2016
  */
@@ -199,7 +194,7 @@ public abstract class SqlInsertBuilder {
 		final Set<String> columns=new LinkedHashSet<>();
 		final StringBuilder parametersBuilder=new StringBuilder();
 		
-		String resultA = JQLChecker.getInstance().replace(method.jql, new JSQLReplacerListener() {
+		String resultA = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListener() {
 			
 			@Override
 			public String onColumnName(String columnName) {

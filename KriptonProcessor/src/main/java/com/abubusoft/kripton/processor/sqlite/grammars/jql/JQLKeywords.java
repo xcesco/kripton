@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.processor.sqlite.grammar;
+package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

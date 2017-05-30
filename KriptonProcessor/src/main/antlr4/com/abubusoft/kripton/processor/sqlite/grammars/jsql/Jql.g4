@@ -28,7 +28,7 @@
  *                https://github.com/bkiers/sqlite-parser
  * Developed by : Bart Kiers, bart@big-o.nl
  */
-grammar SQLite;
+grammar Jql;
 
 parse
  : ( sql_stmt_list | error )* EOF
