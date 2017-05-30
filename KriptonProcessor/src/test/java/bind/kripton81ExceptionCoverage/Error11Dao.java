@@ -9,6 +9,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 @BindDao(Error11Bean.class)
 public interface Error11Dao {
 
-	@BindSqlSelect(value = { "date1" }, where = "date=${date}")
+	@BindSqlSelect(fields = { "date1" }, where = "date=${date}")
 	public List<Error11Bean> selectAll(Date date);
 }

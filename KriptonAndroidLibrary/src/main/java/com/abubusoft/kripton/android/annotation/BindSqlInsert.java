@@ -135,7 +135,7 @@ public @interface BindSqlInsert {
 	 * 
 	 * @return property's names to include
 	 */
-	String[] value() default {};
+	String[] fields() default {};
 
 	/**
 	 * <p>

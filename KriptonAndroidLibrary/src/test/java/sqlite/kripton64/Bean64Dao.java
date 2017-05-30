@@ -382,60 +382,60 @@ public interface Bean64Dao {
 	@BindSqlSelect(where = "valueUrl=${valueUrl}")
 	Bean64 selectOneURL(URL valueUrl);
 	
-	@BindSqlSelect(value="valueBool")
+	@BindSqlSelect(fields="valueBool")
 	public Boolean selectValueBool();
 	
 	//-- select raw
-	@BindSqlSelect(value="valueBoolType")
+	@BindSqlSelect(fields="valueBoolType")
 	boolean selectValueBoolType();
 	
 	
-	@BindSqlSelect(value="valueByte")
+	@BindSqlSelect(fields="valueByte")
 	public Byte selectValueByte();
 	
-	@BindSqlSelect(value="valueByteType")
+	@BindSqlSelect(fields="valueByteType")
 	public byte selectValueByteType();
 	
-	@BindSqlSelect(value="valueChar")
+	@BindSqlSelect(fields="valueChar")
 	public Character selectValueChar();
 	
-	@BindSqlSelect(value="valueCharType")
+	@BindSqlSelect(fields="valueCharType")
 	public char selectValueCharType();
 	
 	
-	@BindSqlSelect(value="valueDouble")
+	@BindSqlSelect(fields="valueDouble")
 	public Double selectValueDouble();
 	
-	@BindSqlSelect(value="valueDoubleType")
+	@BindSqlSelect(fields="valueDoubleType")
 	public double selectValueDoubleType();
 	
-	@BindSqlSelect(value="valueFloat")
+	@BindSqlSelect(fields="valueFloat")
 	public Float selectValueFloat();
 	
-	@BindSqlSelect(value="valueFloatType")
+	@BindSqlSelect(fields="valueFloatType")
 	public float selectValueFloatType();
 
 	
-	@BindSqlSelect(value="valueInt")
+	@BindSqlSelect(fields="valueInt")
 	public Integer selectValueInt();
 	
-	@BindSqlSelect(value="valueIntType")
+	@BindSqlSelect(fields="valueIntType")
 	public int selectValueIntType();
 	
-	@BindSqlSelect(value="valueLong")
+	@BindSqlSelect(fields="valueLong")
 	public Long selectValueLong();
 	
-	@BindSqlSelect(value="valueLongType")
+	@BindSqlSelect(fields="valueLongType")
 	public long selectValueLongType();
 	
 	
-	@BindSqlSelect(value="valueShort")
+	@BindSqlSelect(fields="valueShort")
 	public Short selectValueShort();
 	
-	@BindSqlSelect(value="valueShortType")
+	@BindSqlSelect(fields="valueShortType")
 	public short selectValueShortType();
 	
-	@BindSqlSelect(value="valueString")
+	@BindSqlSelect(fields="valueString")
 	public String selectValueString();
 	
 	@BindSqlUpdate(where = "id=${value.id}")

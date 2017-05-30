@@ -69,7 +69,7 @@ public abstract class CodeBuilderUtility {
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
 
 		// check included and excluded fields
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE);
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.FIELDS);
 		if (alreadyUsedBeanPropertiesNames != null) {
 			includedFields.removeAll(alreadyUsedBeanPropertiesNames);
 		}
@@ -159,7 +159,7 @@ public abstract class CodeBuilderUtility {
 		SQLEntity entity = daoDefinition.getEntity();
 		// check included and excluded fields
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE);
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.FIELDS);
 		if (includedFields == null)
 			includedFields = new ArrayList<String>();
 		// CESCOZ
@@ -223,7 +223,7 @@ public abstract class CodeBuilderUtility {
 
 		// check included and excluded fields
 		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE);
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.FIELDS);
 		// CESCOZ
 		/*
 		 * if (alreadyUsedBeanPropertiesNames != null) {

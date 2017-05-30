@@ -10,19 +10,19 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 @BindDao(Person.class)
 public interface PersonDAO {
-	@BindSqlSelect(value={"name", "id"}, where="typeName=${bean.name}",orderBy="name")
+	@BindSqlSelect(fields={"name", "id"}, where="typeName=${bean.name}",orderBy="name")
 	List<Person> selectIncludeOne(Person bean);
 	
 	@BindSqlSelect(excludedFields={"name", "id"}, orderBy="name")
 	List<Person> selectExcludeOne();
 	
-	@BindSqlInsert(value={"name", "id"})
+	@BindSqlInsert(fields={"name", "id"})
 	void insertIncludeOne(Person bean);
 	
 	@BindSqlInsert(excludedFields={"name", "id"})
 	void insertExcludeOne(Person bean);	
 	
-	@BindSqlUpdate(value={"name", "id"})
+	@BindSqlUpdate(fields={"name", "id"})
 	void updateIncludeOne(Person bean);
 	
 	@BindSqlUpdate(excludedFields={"name", "id"})

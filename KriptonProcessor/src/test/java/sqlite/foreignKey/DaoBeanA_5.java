@@ -16,7 +16,7 @@ public interface DaoBeanA_5 {
 	@BindSqlSelect(where="id=${id}")
 	List<BeanA_5> selectById(long id);
 	
-	@BindSqlSelect(value="id",where="valueString=${dummy}")
+	@BindSqlSelect(fields="id",where="valueString=${dummy}")
 	List<BeanA_5> selectByString(@BindSqlParam("dummy") String value);
 	
 	@BindSqlInsert

@@ -312,7 +312,7 @@ public abstract class JQLBuilder {
 		final SQLEntity entity = method.getParent().getEntity();
 
 		// extract some informaction from method and bean
-		List<String> annotatedFieldValues = AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method.getElement(), annotationClazz, AnnotationAttributeType.VALUE);
+		List<String> annotatedFieldValues = AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method.getElement(), annotationClazz, AnnotationAttributeType.FIELDS);
 		List<String> annotatedExcludedFieldValues = AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method.getElement(), annotationClazz, AnnotationAttributeType.EXCLUDED_FIELDS);
 		CollectionUtils.trim(annotatedFieldValues);
 		CollectionUtils.trim(annotatedExcludedFieldValues);
@@ -613,7 +613,7 @@ public abstract class JQLBuilder {
 	}
 
 	private static <A extends Annotation> Pair<String, String> getDefinedFieldsInAnnotation(SQLiteModelMethod method, Class<A> annotation) {
-		String values = AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.VALUE);
+		String values = AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.FIELDS);
 		String excluedValues = AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.EXCLUDED_FIELDS);
 
 		return new Pair<String, String>(values, excluedValues);

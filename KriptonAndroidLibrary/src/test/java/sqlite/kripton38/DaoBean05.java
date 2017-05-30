@@ -39,10 +39,10 @@ public interface DaoBean05 {
 	@BindSqlSelect(where="pk=${id}")
 	List<Bean05> selectAll(long id);
 
-	@BindSqlSelect(value="pk",where=" text = ${text}")
+	@BindSqlSelect(fields="pk",where=" text = ${text}")
 	List<Long> selectPK(String text);
 	
-	@BindSqlSelect(value="count(*)",where=" text = ${text}")
+	@BindSqlSelect(fields="count(*)",where=" text = ${text}")
 	Long selectCount(String text);
 	
 	@BindSqlSelect(where="pk=${id}")
@@ -81,7 +81,7 @@ public interface DaoBean05 {
 	@BindSqlDelete(where="pk=${va.pk}")
 	long deleteBean(Bean05 va);
 	
-	@BindSqlSelect(value="content",where="pk=${id}")
+	@BindSqlSelect(fields="content",where="pk=${id}")
 	byte[] getOne(long id);
 	
 }

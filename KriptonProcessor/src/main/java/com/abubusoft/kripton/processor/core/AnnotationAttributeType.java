@@ -43,6 +43,7 @@ public enum AnnotationAttributeType {
 	EXCLUDED_FIELDS("excludedFields"),
 	FILENAME("fileName"),
 	
+	FIELDS("fields"),
 	FOREIGN_KEY("foreignKey"),
 	
 	GROUP_BY("groupBy"),

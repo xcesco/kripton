@@ -127,8 +127,8 @@ public abstract class SqlInsertBuilder {
 			ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
 
 			// check value attribute
-			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.VALUE).size() > 0, method,
-					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.VALUE.getValue());
+			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.FIELDS).size() > 0, method,
+					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.FIELDS.getValue());
 
 			// check excludeFields attribute
 			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() > 0, method,

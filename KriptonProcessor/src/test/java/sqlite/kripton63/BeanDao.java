@@ -85,10 +85,10 @@ public interface BeanDao {
 	@BindSqlUpdate(where = "value=${valueMapEnumByte}")
 	long updateOne(long id, HashMap<EnumType, Byte> valueMapEnumByte);
 	
-	@BindSqlSelect(value = "valueMapEnumByte")
+	@BindSqlSelect(fields = "valueMapEnumByte")
 	List<Bean63> selectMapEnumByteOne();
 	
-	@BindSqlSelect(value = "valueMapEnumByte")
+	@BindSqlSelect(fields = "valueMapEnumByte")
 	List<String> selectMapEnumByteOneString();
 	
 	

@@ -28,13 +28,13 @@ public interface PersonDAO {
 	@BindSqlUpdate(where="id=${bean.id} and typeName=${bean.name}")
 	void updateThreeInclude(Person bean);
 	
-	@BindSqlUpdate(value={"surname"},where="id=${bean.id} and typeName=${bean.name}")
+	@BindSqlUpdate(fields={"surname"},where="id=${bean.id} and typeName=${bean.name}")
 	void updateThreeIncludeOK(Person bean);
 	
-	@BindSqlSelect(value={"typeName"},where="id=${bean.id} and typeName=${bean.name}")
+	@BindSqlSelect(fields={"typeName"},where="id=${bean.id} and typeName=${bean.name}")
 	List<Person> selectThreeIncludeERR(Person bean);
 	
-	@BindSqlUpdate(value={"typeName"},where="id=${bean.id} and typeName=${bean.name}")
+	@BindSqlUpdate(fields={"typeName"},where="id=${bean.id} and typeName=${bean.name}")
 	void updateThreeIncludeERR(Person bean);
 	
 	@BindSqlUpdate(where="surname=${surname} and typeName=${nameValue}")

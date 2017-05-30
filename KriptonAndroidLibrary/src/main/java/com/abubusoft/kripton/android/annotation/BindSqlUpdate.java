@@ -29,7 +29,7 @@ public @interface BindSqlUpdate {
 	 * @return
 	 * 		property's names to include
 	 */
-	String[] value() default {};
+	String[] fields() default {};
 	
 	/**
 	 * properties to exclude from UPDATE command

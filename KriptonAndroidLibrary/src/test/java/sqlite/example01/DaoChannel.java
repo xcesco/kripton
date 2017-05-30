@@ -103,28 +103,28 @@ public interface DaoChannel {
 	@BindSqlSelect(where = "updateTime=${a}")
 	Set<Channel> selectRaw5(@BindSqlParam("a") long updateTimeA);
 
-	@BindSqlSelect(value = "count(*)", where = "updateTime=${bean.updateTime}")
+	@BindSqlSelect(fields = "count(*)", where = "updateTime=${bean.updateTime}")
 	long selectBean1(@BindSqlParam("bean") Channel value);
 
-	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	@BindSqlSelect(fields = "updateTime", where = "updateTime=${bean.updateTime}")
 	void selectBean2(@BindSqlParam("bean") Channel value, OnReadBeanListener<Channel> listener);
 
-	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	@BindSqlSelect(fields = "updateTime", where = "updateTime=${bean.updateTime}")
 	void selectBean3(@BindSqlParam("bean") Channel value, OnReadCursorListener listener);
 
-	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	@BindSqlSelect(fields = "updateTime", where = "updateTime=${bean.updateTime}")
 	Cursor selectBean4(@BindSqlParam("bean") Channel value);
 
-	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	@BindSqlSelect(fields = "updateTime", where = "updateTime=${bean.updateTime}")
 	Channel selectBean5(@BindSqlParam("bean") Channel value);
 
-	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	@BindSqlSelect(fields = "updateTime", where = "updateTime=${bean.updateTime}")
 	ArrayList<Channel> selectBean6(@BindSqlParam("bean") Channel value);
 
-	@BindSqlSelect(value = "updateTime", where = "updateTime=${bean.updateTime}")
+	@BindSqlSelect(fields = "updateTime", where = "updateTime=${bean.updateTime}")
 	Set<Channel> selectBean7(@BindSqlParam("bean") Channel value);
 
-	@BindSqlSelect(value="updateTime",where="updateTime=${bean.updateTime}")
+	@BindSqlSelect(fields="updateTime",where="updateTime=${bean.updateTime}")
     List<Long> selectBean8(@BindSqlParam("bean") Channel value);
 
 	
