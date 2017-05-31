@@ -18,11 +18,19 @@ public final class KriptonBinderConverterFactory extends Converter.Factory {
 	public static KriptonBinderConverterFactory create() {
 		return new KriptonBinderConverterFactory();
 	}
+	
+	public static KriptonBinderConverterFactory create(BinderType binderType) {
+		return new KriptonBinderConverterFactory(binderType);
+	}
 
 	protected BinderContext binderContext;
 
 	private KriptonBinderConverterFactory() {
 		binderContext=KriptonBinder.bind(BinderType.JSON);
+	}
+	
+	private KriptonBinderConverterFactory(BinderType binderType) {
+		binderContext=KriptonBinder.bind(binderType);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
