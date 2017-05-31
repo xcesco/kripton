@@ -20,6 +20,7 @@ import org.junit.runners.Suite;
 
 import bind.generichierarchy.TestGenericHierarchySuite;
 import sqlite.contentprovider.kripton35.TestContentProviderSuite;
+import sqlite.contenturichecker.TestUriCheckerSuite;
 import sqlite.dynamic.TestDynamicSuite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
@@ -27,6 +28,7 @@ import sqlite.foreignKey.TestForeignKeySuite;
 import sqlite.generichierarchy.TestCompileGenericHierarchySuite;
 import sqlite.includeFields.IncludeFieldsTestSuite;
 import sqlite.indexes.IndexTestSuite;
+import sqlite.jqlchecker.TestJqlCheckerSuite;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
 import sqlite.kripton40.Test40Suite;
@@ -87,6 +89,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestFirstAid.class,			
 			TestForeignKeySuite.class,
 			TestContentProviderSuite.class,
+			TestUriCheckerSuite.class,
+			TestJqlCheckerSuite.class,
 			TestDynamicSuite.class,
 			TestPaginatedResultSuite.class,
 			IndexTestSuite.class,

@@ -52,37 +52,16 @@ bind_parameter_number
  ;
   
  
-fragmentaddress
-   : uri ('#' fragmentid)? WS?
-   ;
-
 uri
    : url
    ;
 
 url
-   : K_CONTENT '://' authority '/' (path)? ('?' search)?
+   : K_CONTENT '://' authority '/' (path)?
    ;
 
 authority
    : STRING
-   ;
-
-host
-   : hostname
-   | hostnumber
-   ;
-
-hostname
-   : STRING ('.' STRING)*
-   ;
-
-hostnumber
-   : DIGITS '.' DIGITS '.' DIGITS '.' DIGITS
-   ;
-
-port
-   : DIGITS
    ;
 
 protocol
@@ -97,30 +76,6 @@ path_segment
    : bind_parameter |  bind_parameter_number | bind_parameter_text | STRING
    ;
 
-search
-   : searchparameter ('&' searchparameter)*
-   ;
-
-searchparameter
-    : STRING ('=' (STRING |DIGITS | HEX))?;
-
-user
-   : STRING
-   ;
-
-login
-    : user ':' password '@'
-    ;
-
-password
-   : STRING
-   ;
-
-fragmentid
-   : STRING
-   ;
-
-  
 
 K_CONTENT
  : C O N T E N T ;
@@ -130,7 +85,7 @@ HEX
     ;
 
 STRING
-   : ( [a-zA-Z_] |HEX )+ ('.' ([a-zA-Z0-9_]| HEX)*)*
+   : ([a-zA-Z0-9_.]| HEX)*
    ;
 
 
