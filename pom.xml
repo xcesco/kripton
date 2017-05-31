@@ -22,6 +22,7 @@
 	<module>KriptonDataFormatCbor</module>
 	<module>KriptonDataFormatProperties</module>	
 	<module>KriptonDataFormatYaml</module>
+	<module>KriptonDataFormatSmile</module>
     <module>KriptonAndroidLibrary</module>
 	<module>KriptonProcessor</module>
 	<module>KriptonRetrofitConverter</module>
