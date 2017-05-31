@@ -8,7 +8,10 @@ import java.lang.annotation.Target;
 import com.abubusoft.kripton.BindTypeAdapter;
 
 /**
- * Defines TypeAdapter to use to the field
+ * <p>Defines TypeAdapter to use to the field.</p>
+ * 
+ * <p>This kind of adapter is applied from java to data format (JSON/XML/etc) and viceversa. <strong>It is not used in 
+ * SharedPreference and SQLite generation.</strong></p>
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
