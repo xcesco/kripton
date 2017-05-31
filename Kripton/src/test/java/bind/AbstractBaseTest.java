@@ -1,13 +1,10 @@
 package bind;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayInputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.output.NullOutputStream;
@@ -22,6 +19,7 @@ import com.abubusoft.kripton.BinderType;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonCborContext;
 import com.abubusoft.kripton.KriptonPropertiesContext;
+import com.abubusoft.kripton.KriptonSmileContext;
 import com.abubusoft.kripton.KriptonYamlContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
@@ -43,7 +41,7 @@ public class AbstractBaseTest {
 		int i = 0;
 		for (BinderType checkType : BinderType.values()) {
 			if (all || checkList.contains(checkType)) {
-				if (checkType == BinderType.CBOR) {
+				if (checkType.onlyBinary) {
 					values[i] = serializeAndParseBinary(bean, checkType);
 				} else {
 					values[i] = serializeAndParse(bean, checkType);
@@ -76,7 +74,7 @@ public class AbstractBaseTest {
 		int i = 0;
 		for (BinderType checkType : BinderType.values()) {
 			if (all || checkList.contains(checkType)) {
-				if (checkType == BinderType.CBOR) {
+				if (checkType.onlyBinary) {
 					values[i] = serializeAndParseCollectionBinary(collection, beanClazz, checkType);
 				} else {
 					values[i] = serializeAndParseCollection(collection, beanClazz, checkType);
@@ -213,6 +211,7 @@ public class AbstractBaseTest {
 		KriptonBinder.registryBinder(new KriptonYamlContext());
 		KriptonBinder.registryBinder(new KriptonPropertiesContext());
 		KriptonBinder.registryBinder(new KriptonCborContext());
+		KriptonBinder.registryBinder(new KriptonSmileContext());
 	}
 	
 	public void log(String format, Object ... args)
