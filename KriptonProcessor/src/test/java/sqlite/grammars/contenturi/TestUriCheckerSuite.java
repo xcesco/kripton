@@ -1,4 +1,4 @@
-package sqlite.contenturichecker;
+package sqlite.grammars.contenturi;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

@@ -53,7 +53,7 @@ bind_parameter_number
   
  
 uri
-   : url
+   : url EOF
    ;
 
 url
@@ -85,7 +85,7 @@ HEX
     ;
 
 STRING
-   : ([a-zA-Z0-9_.]| HEX)*
+   : ([a-zA-Z0-9_.]| HEX)+
    ;
 
 

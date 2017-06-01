@@ -1,4 +1,4 @@
-package sqlite.jqlchecker;
+package sqlite.grammars.jql;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
