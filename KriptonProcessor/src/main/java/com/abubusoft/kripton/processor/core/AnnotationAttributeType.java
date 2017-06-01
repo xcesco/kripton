@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa.
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,32 +27,31 @@ import javax.lang.model.element.ExecutableElement;
  */
 public enum AnnotationAttributeType {
 	ADAPTER("adapter"),	
-	ALL_FIELDS("allFields"),	
-	ASYNCTASK("asyncTask"),
+	ALL_FIELDS("allFields"),
 	
 	COLUMN_TYPE("columnType"),	
 	CONFLICT_ALGORITHM_TYPE("conflictAlgorithm"),
 	
-	CURSOR("cursor"),	
-	DAO("dao"),
-	DATA_TYPE("dataType"),
-	
+	DAO("dao"),	
+	DATA_TYPE("dataType"),	
 	DISTINCT("distinct"),
-	ENABLED("enabled"),
 	
+	ENABLED("enabled"),	
 	EXCLUDED_FIELDS("excludedFields"),
-	FILENAME("fileName"),
 	
-	FIELDS("fields"),
+	FIELDS("fields"),	
+	FILENAME("fileName"),
 	FOREIGN_KEY("foreignKey"),
 	
+	GENERATE_ASYNC_TASK("generateAsyncTask"),
+	GENERATE_CURSOR_WRAPPER("generateCursorWrapper"),	
+	GENERATE_LOG("generateLog"),	
 	GROUP_BY("groupBy"),
 	
 	HAVING("having"),
-	INCLUDE_PRIMARY_KEY("includePrimaryKey"),
-	INDEXES("indexes"),
 	
-	LOG("log"),
+	INCLUDE_PRIMARY_KEY("includePrimaryKey"),	
+	INDEXES("indexes"),
 	
 	MAP_ENTRY_TYPE("mapEntryType"),
 	MAP_KEY_NAME("mapKeyName"),
@@ -63,24 +62,24 @@ public enum AnnotationAttributeType {
 	ORDER("order"),	
 	ORDER_BY("orderBy"),
 	
-	PAGE_SIZE("pageSize"),
+	PAGE_SIZE("pageSize"),	
+	PATH("path"),
 	
-	RAW_FIELDS("rawFields"),
+	PREPEND("prepend"),
 	
-	VALUE("value"),
+	RAW_FIELDS("rawFields"),	
+	RESULT_TYPE("resultType"),
+	
+	TYPE_PARAMETERS("typeParameters"),		
+	TYPE_VARIABLES("typeVariables"),
+	
+	VALUE("value"), 
 	VERSION("version"),
 	
 	WHERE("where"),
 	
-	PREPEND("prepend"),
-		
-	XML_ELEMENT_TAG("elementTag"),
-	XML_TYPE("xmlType"), 
-	TYPE_VARIABLES("typeVariables"),
-	TYPE_PARAMETERS("typeParameters"),
-	
-	RESULT_TYPE("resultType"), 
-	PATH("path")
+	XML_ELEMENT_TAG("elementTag"), 
+	XML_TYPE("xmlType")
 	;
 	
 	

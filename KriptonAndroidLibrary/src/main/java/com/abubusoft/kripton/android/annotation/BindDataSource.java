@@ -62,7 +62,7 @@ public @interface BindDataSource {
 	 * @return
 	 * 		true if you want to produce log code
 	 */
-	boolean log() default true;
+	boolean generateLog() default true;
 	
 	/**
 	 * TODO
@@ -78,7 +78,7 @@ public @interface BindDataSource {
 	 * @return
 	 * 		true if you want to generate async task class
 	 */
-	boolean asyncTask() default true;
+	boolean generateAsyncTask() default true;
 
 	/**
 	 * if true, generate cursor wrapper
@@ -86,6 +86,6 @@ public @interface BindDataSource {
 	 * @return
 	 * 		true if you want to generate cursor wrapper
 	 */
-	boolean cursor() default true;
+	boolean generateCursorWrapper() default true;
 	
 }

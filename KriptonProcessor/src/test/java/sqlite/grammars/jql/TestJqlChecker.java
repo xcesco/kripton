@@ -1,11 +1,11 @@
 /*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa.
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -98,7 +98,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 	@Test
 	public void testDelet1() {
-		String sql = "DELETE channel WHERE ownerUid=${field1} and ownerUid=${bean.field2} and ownerUid=${bean.field3} and ownerUid=${field5}";
+		String sql = "DELETE FROM channel WHERE ownerUid=${field1} and ownerUid=${bean.field2} and ownerUid=${bean.field3} and ownerUid=${field5}";
 		JQL jql=new JQL();
 		jql.value=sql;
 		
@@ -204,7 +204,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field2"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field3"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field4"));
-			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, "field5"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field5"));
 			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql.value);
 
 			checkCollectionExactly(actual, aspected);
