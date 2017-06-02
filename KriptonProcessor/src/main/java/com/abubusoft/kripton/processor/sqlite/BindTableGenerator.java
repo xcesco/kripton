@@ -203,7 +203,11 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 						bufferForeignKey.append(", FOREIGN KEY(" + columnNameToLowerCaseConverter.convert(item.getName()) + ") REFERENCES " + reference.buildTableName(elementUtils, model) + "("
 								+ columnNameToLowerCaseConverter.convert(reference.getPrimaryKey().columnName) + ")");
 
-						entity.referedEntities.add(reference);
+						// INSERT as dependency only if reference is another entity. Same entity can not be own dependency.
+						if (!entity.equals(reference)) {
+							entity.referedEntities.add(reference);	
+						}
+						
 					}
 
 				} else if (primaryKey.equals(item)) {
