@@ -31,19 +31,19 @@ import com.abubusoft.kripton.android.sqlite.ContentProviderURIParamsExtractor;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriChecker;
-import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriChecker.UriPlaceHolderReplacerListener;
-import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriPlaceHolder;
+import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 
 import base.BaseProcessorTest;
 
 @RunWith(JUnit4.class)
 public class TestUriChecker extends BaseProcessorTest {
 
-	protected void checkList(List<UriPlaceHolder> actual, UriPlaceHolder... input) {
-		List<UriPlaceHolder> aspected = new ArrayList<>();
+	protected void checkList(List<ContentUriPlaceHolder> actual, ContentUriPlaceHolder... input) {
+		List<ContentUriPlaceHolder> aspected = new ArrayList<>();
 
-		for (UriPlaceHolder item : input) {
+		for (ContentUriPlaceHolder item : input) {
 			aspected.add(item);
 		}
 
@@ -59,7 +59,7 @@ public class TestUriChecker extends BaseProcessorTest {
 		};
 
 		for (String input : inputs) {
-			UriChecker.getInstance().verify(input);
+			ContentUriChecker.getInstance().verify(input);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class TestUriChecker extends BaseProcessorTest {
 		for (String input : inputs) {
 
 			try {
-				UriChecker.getInstance().verify(input);
+				ContentUriChecker.getInstance().verify(input);
 				fail();
 			} catch (KriptonProcessorException e) {
 				// Every cycle has to go here
@@ -85,26 +85,26 @@ public class TestUriChecker extends BaseProcessorTest {
 	public void testExtractParameters() {
 		String input = "content://androi.authority/test/${ input }/ test /${ detail.id}";
 
-		UriChecker checker = UriChecker.getInstance();
+		ContentUriChecker checker = ContentUriChecker.getInstance();
 
 		{
-			List<UriPlaceHolder> result = checker.extract(input);
+			List<ContentUriPlaceHolder> result = checker.extract(input);
 
-			for (UriPlaceHolder item : result) {
+			for (ContentUriPlaceHolder item : result) {
 				log(item.toString());
 			}
 
-			checkList(result, new UriPlaceHolder(1, "input"), new UriPlaceHolder(3, "detail.id"));			
+			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));			
 		}
 
 		{
-			List<UriPlaceHolder> result = checker.extract(input);
+			List<ContentUriPlaceHolder> result = checker.extract(input);
 
-			for (UriPlaceHolder item : result) {
+			for (ContentUriPlaceHolder item : result) {
 				log(item.toString());
 			}
 
-			checkList(result, new UriPlaceHolder(1, "input"), new UriPlaceHolder(3, "detail.id"));			
+			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));			
 		}
 	}
 
@@ -120,7 +120,7 @@ public class TestUriChecker extends BaseProcessorTest {
 		String input = "content://androi.authority/test/${ input }";
 		log(input);
 
-		UriChecker checker = UriChecker.getInstance();
+		ContentUriChecker checker = ContentUriChecker.getInstance();
 
 		String actual=checker.replace(input, new UriPlaceHolderReplacerListener() {
 
@@ -138,9 +138,9 @@ public class TestUriChecker extends BaseProcessorTest {
 		String input = "content://androi.authority/master/${ master }/detail/${detail}/subdetail/${subdetail}";
 		log(input);
 
-		UriChecker checker = UriChecker.getInstance();
+		ContentUriChecker checker = ContentUriChecker.getInstance();
 		
-		Map<String, UriPlaceHolder> parameters = checker.extractAsMap(input);
+		Map<String, ContentUriPlaceHolder> parameters = checker.extractAsMap(input);
 
 		String actual=checker.replace(input, new UriPlaceHolderReplacerListener() {
 
@@ -159,7 +159,7 @@ public class TestUriChecker extends BaseProcessorTest {
 		
 		ContentProviderURIParamsExtractor extractor = new ContentProviderURIParamsExtractor(expected, input.split("/").length);
 		
-		for (UriPlaceHolder item: parameters.values()) {
+		for (ContentUriPlaceHolder item: parameters.values()) {
 			assertTrue(extractor.getPathSegment(item.pathSegmentIndex).equals("?"));	
 		}
 		
@@ -180,7 +180,7 @@ public class TestUriChecker extends BaseProcessorTest {
 		String input = "content://androi.authority/test/${ input }/";
 		log(input);
 
-		UriChecker checker = UriChecker.getInstance();
+		ContentUriChecker checker = ContentUriChecker.getInstance();
 		checker.verify(input);		
 	}
 
@@ -197,14 +197,14 @@ public class TestUriChecker extends BaseProcessorTest {
 	public void testAuthorityWithVariableInPath() {
 		String input = "content://androi.authority/test/${ input1 }/${input2   }";
 
-		UriChecker checker = UriChecker.getInstance();
+		ContentUriChecker checker = ContentUriChecker.getInstance();
 
 		// check bind parameters
 		{
-			List<UriPlaceHolder> aspected = new ArrayList<>();
-			aspected.add(new UriPlaceHolder(1, "input1"));
-			aspected.add(new UriPlaceHolder(2, "input2"));
-			List<UriPlaceHolder> actual = checker.extract(input);
+			List<ContentUriPlaceHolder> aspected = new ArrayList<>();
+			aspected.add(new ContentUriPlaceHolder(1, "input1"));
+			aspected.add(new ContentUriPlaceHolder(2, "input2"));
+			List<ContentUriPlaceHolder> actual = checker.extract(input);
 
 			checkCollectionExactly(actual, aspected);
 		}
@@ -215,14 +215,14 @@ public class TestUriChecker extends BaseProcessorTest {
 	public void testAuthorityWithVariableInPathError() {
 		String input = "content://androi.authority/test/${ input0 }/";
 
-		UriChecker checker = UriChecker.getInstance();
+		ContentUriChecker checker = ContentUriChecker.getInstance();
 
 		// check bind parameters
 		{
-			List<UriPlaceHolder> aspected = new ArrayList<>();
-			aspected.add(new UriPlaceHolder(1, "input0"));
-			aspected.add(new UriPlaceHolder(2, "input1"));
-			List<UriPlaceHolder> actual = checker.extract(input);
+			List<ContentUriPlaceHolder> aspected = new ArrayList<>();
+			aspected.add(new ContentUriPlaceHolder(1, "input0"));
+			aspected.add(new ContentUriPlaceHolder(2, "input1"));
+			List<ContentUriPlaceHolder> actual = checker.extract(input);
 
 			checkCollectionExactly(actual, aspected);
 		}
@@ -232,26 +232,26 @@ public class TestUriChecker extends BaseProcessorTest {
 	public void testExtractParametersFromPath() {
 		String input = "test/${ input }/ test /${ detail.id}";
 
-		UriChecker checker = UriChecker.getInstance();
+		ContentUriChecker checker = ContentUriChecker.getInstance();
 
 		{
-			List<UriPlaceHolder> result = checker.extractFromPath(input);
+			List<ContentUriPlaceHolder> result = checker.extractFromPath(input);
 
-			for (UriPlaceHolder item : result) {
+			for (ContentUriPlaceHolder item : result) {
 				log(item.toString());
 			}
 
-			checkList(result, new UriPlaceHolder(1, "input"), new UriPlaceHolder(3, "detail.id"));			
+			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));			
 		}
 
 		{
-			List<UriPlaceHolder> result = checker.extractFromPath(input);
+			List<ContentUriPlaceHolder> result = checker.extractFromPath(input);
 
-			for (UriPlaceHolder item : result) {
+			for (ContentUriPlaceHolder item : result) {
 				log(item.toString());
 			}
 
-			checkList(result, new UriPlaceHolder(1, "input"), new UriPlaceHolder(3, "detail.id"));			
+			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));			
 		}
 	}
 
@@ -259,17 +259,17 @@ public class TestUriChecker extends BaseProcessorTest {
 	public void testAuthorityWithVariableInPathError2() {
 		String input = "content://androi.authority/test/#";
 
-		UriChecker checker = UriChecker.getInstance();
+		ContentUriChecker checker = ContentUriChecker.getInstance();
 
 		// verify sql
 		checker.verify(input);
 
 		// check bind parameters
 		{
-			List<UriPlaceHolder> aspected = new ArrayList<>();
-			aspected.add(new UriPlaceHolder(1, "input0"));
-			aspected.add(new UriPlaceHolder(2, "input1"));
-			List<UriPlaceHolder> actual = checker.extract(input);
+			List<ContentUriPlaceHolder> aspected = new ArrayList<>();
+			aspected.add(new ContentUriPlaceHolder(1, "input0"));
+			aspected.add(new ContentUriPlaceHolder(2, "input1"));
+			List<ContentUriPlaceHolder> actual = checker.extract(input);
 
 			checkCollectionExactly(actual, aspected);
 		}
@@ -282,7 +282,7 @@ public class TestUriChecker extends BaseProcessorTest {
 
 		log(input);
 
-		UriChecker checker = UriChecker.getInstance();
+		ContentUriChecker checker = ContentUriChecker.getInstance();
 
 		// verify sql
 		checker.verify(input);
@@ -307,10 +307,10 @@ public class TestUriChecker extends BaseProcessorTest {
 			assertEquals(actual, expected);
 
 			{
-				List<UriPlaceHolder> aspectedHolders = new ArrayList<>();
-				aspectedHolders.add(new UriPlaceHolder(1, "field0"));
-				aspectedHolders.add(new UriPlaceHolder(2, "field1"));
-				List<UriPlaceHolder> actualHolders = checker.extract(input);
+				List<ContentUriPlaceHolder> aspectedHolders = new ArrayList<>();
+				aspectedHolders.add(new ContentUriPlaceHolder(1, "field0"));
+				aspectedHolders.add(new ContentUriPlaceHolder(2, "field1"));
+				List<ContentUriPlaceHolder> actualHolders = checker.extract(input);
 
 				checkCollectionExactly(aspectedHolders, actualHolders);
 			}

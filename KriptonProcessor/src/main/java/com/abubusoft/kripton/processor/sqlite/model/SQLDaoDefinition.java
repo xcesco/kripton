@@ -170,4 +170,16 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 		return PARAM_PARSER_PREFIX+managedParams.get(paramTypeName);
 	}
 
+	public String contentProviderUri() {
+		if (!contentProviderEnabled) return "";
+		
+		return this.getParent().contentProviderUri()+"/"+contentProviderPath;
+	}
+
+	public String contentProviderPath() {
+		if (!contentProviderEnabled) return "";
+		
+		return contentProviderPath;
+	}
+
 }

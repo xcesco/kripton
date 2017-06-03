@@ -52,7 +52,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Path_segmen
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class UriChecker {
+public class ContentUriChecker {
 
 	public static class UriParameterName {
 		public static UriParameterName parse(String value) {
@@ -76,11 +76,11 @@ public class UriChecker {
 
 	}
 
-	protected static UriChecker instance;
+	protected static ContentUriChecker instance;
 
-	public static final UriChecker getInstance() {
+	public static final ContentUriChecker getInstance() {
 		if (instance == null) {
-			instance = new UriChecker();
+			instance = new ContentUriChecker();
 		}
 
 		return instance;
@@ -90,7 +90,7 @@ public class UriChecker {
 
 	ParseTreeWalker walker = new ParseTreeWalker();
 
-	private UriChecker() {
+	private ContentUriChecker() {
 
 	}
 
@@ -151,8 +151,8 @@ public class UriChecker {
 	 * @param input
 	 * @return
 	 */
-	public List<UriPlaceHolder> extract(String input) {
-		return extractPlaceHoldersFromURI(input, new ArrayList<UriPlaceHolder>());
+	public List<ContentUriPlaceHolder> extract(String input) {
+		return extractPlaceHoldersFromURI(input, new ArrayList<ContentUriPlaceHolder>());
 	}
 	
 	/**
@@ -161,11 +161,11 @@ public class UriChecker {
 	 * @param input
 	 * @return
 	 */
-	public Map<String, UriPlaceHolder> extractAsMap(String input) {		
-		HashMap<String, UriPlaceHolder> result=new HashMap<>();
-		ArrayList<UriPlaceHolder> list = extractPlaceHoldersFromURI(input, new ArrayList<UriPlaceHolder>());
+	public Map<String, ContentUriPlaceHolder> extractAsMap(String input) {		
+		HashMap<String, ContentUriPlaceHolder> result=new HashMap<>();
+		ArrayList<ContentUriPlaceHolder> list = extractPlaceHoldersFromURI(input, new ArrayList<ContentUriPlaceHolder>());
 		
-		for (UriPlaceHolder item: list) {
+		for (ContentUriPlaceHolder item: list) {
 			result.put(item.value, item);
 		}
 		
@@ -176,8 +176,8 @@ public class UriChecker {
 	 * @param input
 	 * @return
 	 */
-	public List<UriPlaceHolder> extractFromPath(String input) {
-		final List<UriPlaceHolder> result = new ArrayList<>();
+	public List<ContentUriPlaceHolder> extractFromPath(String input) {
+		final List<ContentUriPlaceHolder> result = new ArrayList<>();
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
 
@@ -185,7 +185,7 @@ public class UriChecker {
 			
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				result.add(new UriPlaceHolder(pathSegmentIndex, ctx.bind_parameter_name().getText()));
+				result.add(new ContentUriPlaceHolder(pathSegmentIndex, ctx.bind_parameter_name().getText()));
 			}
 
 			@Override
@@ -197,7 +197,7 @@ public class UriChecker {
 		return result;
 	}
 
-	private <L extends Collection<UriPlaceHolder>> L extractPlaceHoldersFromURI(String uri, final L result) {
+	private <L extends Collection<ContentUriPlaceHolder>> L extractPlaceHoldersFromURI(String uri, final L result) {
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;			
 
@@ -205,7 +205,7 @@ public class UriChecker {
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				result.add(new UriPlaceHolder(pathSegmentIndex, ctx.bind_parameter_name().getText()));
+				result.add(new ContentUriPlaceHolder(pathSegmentIndex, ctx.bind_parameter_name().getText()));
 			}
 
 			@Override
@@ -223,7 +223,7 @@ public class UriChecker {
 		UriParser parser = new UriParser(tokens);
 
 		parser.removeErrorListeners();
-		parser.addErrorListener(new UriBaseErrorListener() {
+		parser.addErrorListener(new ContentUriBaseErrorListener() {
 			@Override
 			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
 					int charPositionInLine, String msg, RecognitionException e) {
@@ -241,7 +241,7 @@ public class UriChecker {
 		UriParser parser = new UriParser(tokens);
 
 		parser.removeErrorListeners();
-		parser.addErrorListener(new UriBaseErrorListener() {
+		parser.addErrorListener(new ContentUriBaseErrorListener() {
 			@Override
 			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
 					int charPositionInLine, String msg, RecognitionException e) {

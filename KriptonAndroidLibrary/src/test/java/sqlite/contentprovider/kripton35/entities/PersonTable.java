@@ -20,9 +20,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, value INTEGER, name TEXT, surname TEXT);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_parent_id INTEGER, birth_city TEXT, birth_day TEXT, value INTEGER, name TEXT, surname TEXT, FOREIGN KEY(alias_parent_id) REFERENCES person(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, value INTEGER, name TEXT, surname TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_parent_id INTEGER, birth_city TEXT, birth_day TEXT, value INTEGER, name TEXT, surname TEXT, FOREIGN KEY(alias_parent_id) REFERENCES person(id));";
 
   /**
    * <p>
@@ -39,6 +39,13 @@ public class PersonTable {
    *  @see Person#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Entity's property <code>parentId</code> is associated to table column <code>alias_parent_id</code>. This costant represents column typeName.
+   *
+   *  @see Person#parentId
+   */
+  public static final String COLUMN_PARENT_ID = "alias_parent_id";
 
   /**
    * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column typeName.

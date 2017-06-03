@@ -47,6 +47,8 @@ public class SQLiteModelContentProvider {
 	public List<Triple<String, SQLDaoDefinition, Map<SupportedOperation, SQLiteModelMethod>>> uris=new ArrayList<>();
 	
 	protected String name;
+
+	public String authority;
 	
 	public void setName(String name) {
 		this.name = name;
@@ -132,5 +134,9 @@ public class SQLiteModelContentProvider {
 	
 	public String getName() {
 		return name;
+	}
+
+	public String getUri() {
+		return "content://"+authority;
 	}
 }

@@ -50,6 +50,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("name", object.getName());
     }
 
+    // field parentId (mapped with "parentId")
+    fieldCount++;
+    jacksonSerializer.writeNumberField("parentId", object.parentId);
+
     // field surname (mapped with "surname")
     if (object.getSurname()!=null)  {
       fieldCount++;
@@ -91,6 +95,9 @@ public class PersonBindMap extends AbstractMapper<Person> {
       fieldCount++;
       jacksonSerializer.writeStringField("name", object.getName());
     }
+
+    // field parentId (mapped with "parentId")
+    jacksonSerializer.writeStringField("parentId", PrimitiveUtils.writeLong(object.parentId));
 
     // field surname (mapped with "surname")
     if (object.getSurname()!=null)  {
@@ -141,6 +148,11 @@ public class PersonBindMap extends AbstractMapper<Person> {
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getName()));
       xmlSerializer.writeEndElement();
     }
+
+    // field parentId (mapped with "parentId")
+    xmlSerializer.writeStartElement("parentId");
+    xmlSerializer.writeLong(object.parentId);
+    xmlSerializer.writeEndElement();
 
     // field surname (mapped with "surname")
     if (object.getSurname()!=null) {
@@ -201,6 +213,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.setName(jacksonParser.getText());
             }
           break;
+          case "parentId":
+            // field parentId (mapped with "parentId")
+            instance.parentId=jacksonParser.getLongValue();
+          break;
           case "surname":
             // field surname (mapped with "surname")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -259,6 +275,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.setName(jacksonParser.getText());
             }
+          break;
+          case "parentId":
+            // field parentId (mapped with "parentId")
+            instance.parentId=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
           break;
           case "surname":
             // field surname (mapped with "surname")
@@ -322,6 +342,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
                 case "name":
                   // property name (mapped on "name")
                   instance.setName(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
+                case "parentId":
+                  // property parentId (mapped on "parentId")
+                  instance.parentId=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                 break;
                 case "surname":
                   // property surname (mapped on "surname")

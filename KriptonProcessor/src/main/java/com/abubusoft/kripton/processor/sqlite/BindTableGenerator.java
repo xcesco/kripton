@@ -71,7 +71,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	public static final String SUFFIX = "Table";
 
 	private Converter<String, String> columnNameToUpperCaseConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);
-	private Converter<String, String> columnNameToLowerCaseConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
+	//private Converter<String, String> columnNameToLowerCaseConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	public BindTableGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
@@ -200,8 +200,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 							throw new InvalidForeignKeyTypeException(item);
 						}
 
-						bufferForeignKey.append(", FOREIGN KEY(" + columnNameToLowerCaseConverter.convert(item.getName()) + ") REFERENCES " + reference.buildTableName(elementUtils, model) + "("
-								+ columnNameToLowerCaseConverter.convert(reference.getPrimaryKey().columnName) + ")");
+						bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.buildTableName(elementUtils, model) + "("
+								+ reference.getPrimaryKey().columnName + ")");
 
 						// INSERT as dependency only if reference is another entity. Same entity can not be own dependency.
 						if (!entity.equals(reference)) {
@@ -346,7 +346,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	public void visit(SQLProperty kriptonProperty) {
 		//@formatter:off
 		FieldSpec fieldSpec = FieldSpec.builder(String.class, "COLUMN_" + columnNameToUpperCaseConverter.convert(kriptonProperty.getName()), Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
-				.initializer("$S", columnNameToLowerCaseConverter.convert(kriptonProperty.columnName))
+				.initializer("$S", kriptonProperty.columnName)
 				.addJavadoc("Entity's property <code>$L</code> is associated to table column <code>$L</code>. This costant represents column typeName.\n",
 						kriptonProperty.getName(),
 						kriptonProperty.columnName)

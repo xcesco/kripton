@@ -509,9 +509,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// manage for content provider generation
 		BindContentProvider contentProviderAnnotation = databaseSchema.getAnnotation(BindContentProvider.class);
 		if (contentProviderAnnotation!=null) {
-			currentSchema.authority=contentProviderAnnotation.authority();
+			
 			currentSchema.generateContentProvider=true;
 			currentSchema.contentProvider=new SQLiteModelContentProvider();
+			currentSchema.contentProvider.authority=contentProviderAnnotation.authority();
 		} else {
 			currentSchema.generateContentProvider=false;
 		}

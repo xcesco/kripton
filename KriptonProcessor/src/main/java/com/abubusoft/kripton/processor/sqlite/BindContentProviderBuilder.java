@@ -33,10 +33,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindContentProvider;
-import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
-import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -141,12 +138,13 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		generateOnShutdown(dataSourceNameClazz);
 
-		// define static fields
+		// define static fields		
+		classBuilder.addField(FieldSpec.builder(String.class, "URI", Modifier.STATIC, Modifier.PUBLIC, Modifier.FINAL).initializer("$S",schema.contentProviderUri()).addJavadoc("<p>content provider's URI. Example:</p>\n<pre>content://sqlite.contentprovider.kripton35</pre>\n").build());
 
 		// instance
 		classBuilder.addField(FieldSpec.builder(className(dataSourceNameClazz), "dataSource", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
-		classBuilder.addField(FieldSpec.builder(String.class, "AUTHORITY", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>Content provider authority</p>\n")
-				.initializer("$S", schema.authority).build());
+		classBuilder.addField(FieldSpec.builder(String.class, "AUTHORITY", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>Content provider authority</p>\n")
+				.initializer("$S", schema.contentProvider.authority).build());
 		classBuilder.addField(FieldSpec.builder(UriMatcher.class, "sURIMatcher", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).addJavadoc("<p>URI matcher</p>\n")
 				.initializer("new $T($T.NO_MATCH)", UriMatcher.class, UriMatcher.class).build());
 
@@ -176,7 +174,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 					entry.pathCostant = pathConstantName + "_" + i;
 					entry.pathIndex = pathConstantName + "_" + i + "_INDEX";
 
-					list1.add(FieldSpec.builder(String.class, entry.pathCostant, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$S", daoMethod.contentProviderEntryPath)).build());
+					list1.add(FieldSpec.builder(String.class, entry.pathCostant, Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC).initializer(CodeBlock.of("$S", daoMethod.contentProviderEntryPathTemplate)).build());
 					list2.add(FieldSpec.builder(Integer.TYPE, entry.pathIndex, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$L", i)).build());
 					staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $L, $L)", entry.pathCostant, entry.pathIndex);
 
@@ -318,7 +316,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		// method code
 		methodBuilder.addStatement("long id=-1");
-		methodBuilder.addStatement("String notifyURL=null");
+		methodBuilder.addStatement("$T returnURL=null", Uri.class);
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
 			if (item.getValue().insert == null)
@@ -327,8 +325,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
-			methodBuilder.addStatement("id=dataSource.get$L().$L(contentValues)", item.getValue().insert.getParent().getName(), item.getValue().insert.contentProviderMethodName);
-			methodBuilder.addStatement("notifyURL=$L", item.getValue().pathCostant);		
+			methodBuilder.addStatement("id=dataSource.get$L().$L(uri, contentValues)", item.getValue().insert.getParent().getName(), item.getValue().insert.contentProviderMethodName);
+			methodBuilder.addStatement("returnURL=Uri.withAppendedPath(uri, String.valueOf(id))");		
 			
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
@@ -341,7 +339,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.endControlFlow();
 		
 		methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
-		methodBuilder.addStatement("return Uri.parse(notifyURL+\"/\"+id)");
+		methodBuilder.addStatement("return returnURL");
 
 		classBuilder.addMethod(methodBuilder.build());
 

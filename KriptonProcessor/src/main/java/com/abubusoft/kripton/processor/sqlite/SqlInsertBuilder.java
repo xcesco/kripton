@@ -17,8 +17,8 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
@@ -42,6 +42,9 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -56,6 +59,7 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.content.ContentValues;
+import android.net.Uri;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -186,9 +190,8 @@ public abstract class SqlInsertBuilder {
 	 * @param method
 	 * @param insertResultType
 	 */
-	private static void generateInsertForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, InsertType insertResultType) {
+	private static void generateInsertForContentProvider(Elements elementUtils, Builder builder, final SQLiteModelMethod method, InsertType insertResultType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
-		final Converter<String, String> columnNameConverter=daoDefinition.getColumnNameConverter();
 		final Converter<String, String> tableNameConverter = daoDefinition.getClassNameConverter();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final Set<String> columns=new LinkedHashSet<>();
@@ -198,7 +201,7 @@ public abstract class SqlInsertBuilder {
 			
 			@Override
 			public String onColumnName(String columnName) {
-				String convertedColumnName=columnNameConverter.convert(columnName);
+				String convertedColumnName=entity.get(columnName).columnName;
 				columns.add(convertedColumnName);
 				return convertedColumnName;				
 			}
@@ -220,7 +223,7 @@ public abstract class SqlInsertBuilder {
 					;
 				}
 				
-				parametersBuilder.append(", StringUtils.formatParam(contentValues.get(\""+columnNameConverter.convert(parameterName.getValue())+"\"),\""+limit+"\")");
+				parametersBuilder.append(", StringUtils.formatParam(contentValues.get(\""+property.columnName+"\"),\""+limit+"\")");
 				
 				return "%s";
 			}
@@ -234,20 +237,41 @@ public abstract class SqlInsertBuilder {
 		});
 		
 		
-		generateInsertCheckForContentProvider(elementUtils, builder, method,columns);
+		generateInsertColumnCheckForContentProvider(elementUtils, builder, method,columns);
 		
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
 		ParameterSpec parameterSpec;
 
+		parameterSpec = ParameterSpec.builder(Uri.class, "uri").build();
+		methodBuilder.addParameter(parameterSpec);
 		parameterSpec = ParameterSpec.builder(ContentValues.class, "contentValues").build();
 		methodBuilder.addParameter(parameterSpec);
 		methodBuilder.returns(Long.TYPE);
-
+		
+		methodBuilder.addCode("// $L\n", method.contentProviderUriTemplate);
+		methodBuilder.addCode("// $L\n", method.contentProviderPath());
+		methodBuilder.addCode("// $L\n", method.contentProviderUri());
 		methodBuilder.addCode("// $L\n", method.jql.value);
+		
+		// generate get uri variables in content values
+		// every controls was done in constructor of SQLiteModelMethod
+		for (ContentUriPlaceHolder variable: method.contentProviderUriVariables) {
+			SQLProperty entityProperty = entity.get(variable.value);
+			
+			if (entityProperty!=null) {
+				TypeName entityPropertyType=entityProperty.getPropertyType().getTypeName();
+				if (TypeUtility.isString(entityPropertyType)) {
+					methodBuilder.addStatement("contentValues.put($S, uri.getPathSegments().get($L))", entityProperty.columnName, variable.pathSegmentIndex);									
+				} else {
+					methodBuilder.addStatement("contentValues.put($S, Long.valueOf(uri.getPathSegments().get($L)))", entityProperty.columnName, variable.pathSegmentIndex);					
+				}													
+			} 
+		}
+		
 		
 		methodBuilder.beginControlFlow("for (String columnName:contentValues.keySet())");
 			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName+"ColumnSet");
-				methodBuilder.addStatement("throw new $T(String.format(\"Column '%s' does not exists in table '%s'\", columnName, $S ))", KriptonRuntimeException.class, daoDefinition.getEntity().getTableName());
+				methodBuilder.addStatement("throw new $T(String.format(\"Column '%s' does not exists in table '%s' or can not be defined in this INSERT operation\", columnName, $S ))", KriptonRuntimeException.class, daoDefinition.getEntity().getTableName());
 			methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 				
@@ -272,7 +296,7 @@ public abstract class SqlInsertBuilder {
 	}
 	
 
-	private static void generateInsertCheckForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
+	private static void generateInsertColumnCheckForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
 		StringBuilder initBuilder=new StringBuilder();
 		String temp="";
 		
@@ -282,9 +306,7 @@ public abstract class SqlInsertBuilder {
 			temp=", ";
 		}
 		
-		FieldSpec.Builder fieldBuilder=FieldSpec.builder(ParameterizedTypeName.get(Set.class, String.class), method.contentProviderMethodName+"ColumnSet", Modifier.STATIC, Modifier.PRIVATE, Modifier.FINAL);
-		
-		
+		FieldSpec.Builder fieldBuilder=FieldSpec.builder(ParameterizedTypeName.get(Set.class, String.class), method.contentProviderMethodName+"ColumnSet", Modifier.STATIC, Modifier.PRIVATE, Modifier.FINAL);				
 		fieldBuilder.initializer("$T.asSet($T.class, $L)",CollectionUtils.class, String.class,initBuilder.toString());		
 
 		builder.addField(fieldBuilder.build());

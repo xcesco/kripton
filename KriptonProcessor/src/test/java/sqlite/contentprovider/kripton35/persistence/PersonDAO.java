@@ -40,20 +40,20 @@ import sqlite.contentprovider.kripton35.entities.Person;
 public interface PersonDAO {
 
 	@BindContentProviderEntry
-	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_FAIL, includePrimaryKey = false)
+	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_FAIL, excludedFields="parentId")
 	void insertOne(Person bean);
 	
-	@BindContentProviderEntry(path="test")
+	@BindContentProviderEntry(path="${parentId}/children")
 	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_ABORT)
-	void insertTwo(Date birthDay);
-	
-	@BindContentProviderEntry(path="test1")
-	@BindSqlInsert
-	void insertTwo(String name, String surname, String birthCity, Date birthDay);
-	
-	@BindContentProviderEntry(path="${id}/dummy/${birthCity}")
-	@BindSqlDelete(where="id = ${id} and birthCity= ${birthCity}")
-	void delete(long id, Date birthCity);
+	void insertChild(Person bean);
+//	
+//	@BindContentProviderEntry(path="test1")
+//	@BindSqlInsert
+//	void insertTwo(String name, String surname, String birthCity, Date birthDay);
+//	
+//	@BindContentProviderEntry(path="${id}/dummy/${birthCity}")
+//	@BindSqlDelete(where="id = ${id} and birthCity= ${birthCity}")
+//	void delete(long id, Date birthCity);
 	
 //
 //	@BindContentProviderEntry(path = "#")

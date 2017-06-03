@@ -129,9 +129,10 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				// Closing database
 				database.close();
 				database = null;
-			}
-			Logger.info("database CLOSE (%s) (id: %s)", status.get(), openCounter.intValue());
-
+				Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
+			} else {
+				Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());	
+			}		
 		} finally {
 			lockDb.unlock();
 			switch (status.get()) {
@@ -249,11 +250,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			if (openCounter.incrementAndGet() == 1) {
 				// open new read database
 				database = sqliteHelper.getReadableDatabase();
-			}
+				Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() ));
+			} else {
+				Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
+			}					
 		} finally {
 			lockDb.unlock();
 			lockReadAccess.lock();
-			Logger.info("database OPEN %s (id: %s)", status.get(), (openCounter.intValue() - 1));
+			
 		}
 
 		return database;
@@ -277,11 +281,13 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			if (openCounter.incrementAndGet() == 1) {
 				// open new write database
 				database = sqliteHelper.getWritableDatabase();
-			}
+				Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() ));
+			} else {
+				Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
+			}					
 		} finally {
 			lockDb.unlock();
-			lockReadWriteAccess.lock();
-			Logger.info("database OPEN %s (id: %s)", status.get(), (openCounter.intValue() - 1));
+			lockReadWriteAccess.lock();			
 		}
 
 		return database;

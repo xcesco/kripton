@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.uri;
 
-public class UriPlaceHolder {
+public class ContentUriPlaceHolder {
 	
 	@Override
 	public String toString() {
@@ -45,7 +45,7 @@ public class UriPlaceHolder {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UriPlaceHolder other = (UriPlaceHolder) obj;
+		ContentUriPlaceHolder other = (ContentUriPlaceHolder) obj;
 		if (composed != other.composed)
 			return false;
 		if (pathSegmentIndex != other.pathSegmentIndex)
@@ -60,7 +60,7 @@ public class UriPlaceHolder {
 
 	public boolean composed;
 	
-	public UriPlaceHolder(int pathIndex, String value) {
+	public ContentUriPlaceHolder(int pathIndex, String value) {
 		this.pathSegmentIndex=pathIndex;
 		this.value=value;
 		this.composed=value.indexOf(".")>=0;	

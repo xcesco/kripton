@@ -17,12 +17,17 @@ package sqlite.contentprovider.kripton35.entities;
 
 import java.util.Date;
 
+import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
+
 public class Person {
 
 	public long id;
+
+	@BindColumn(value="alias_parent_id", foreignKey=Person.class, nullable=true)
+	public long parentId;
 	
 	public String birthCity;
 	

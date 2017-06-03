@@ -88,4 +88,5 @@ public @interface BindDataSource {
 	 */
 	boolean generateCursorWrapper() default true;
 	
+	
 }

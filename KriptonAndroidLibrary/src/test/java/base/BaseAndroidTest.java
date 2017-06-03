@@ -15,6 +15,8 @@ import org.robolectric.shadows.ShadowLog;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+import android.content.Context;
+
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public abstract class BaseAndroidTest {
@@ -35,6 +37,10 @@ public abstract class BaseAndroidTest {
 
 		KriptonLibrary.init(RuntimeEnvironment.application);
 	}
+	
+	protected Context getApplicationContext() {
+		return RuntimeEnvironment.application;
+	}
 
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
@@ -46,6 +52,11 @@ public abstract class BaseAndroidTest {
 
 	public <E> void expectedException(Class<? extends Throwable> clazzException) throws InstantiationException, IllegalAccessException {
 		expectedEx.expect(clazzException);
+	}
+	
+	public void log(String format, Object ...objects)
+	{
+		System.out.println(String.format(format, objects));
 	}
 
 }

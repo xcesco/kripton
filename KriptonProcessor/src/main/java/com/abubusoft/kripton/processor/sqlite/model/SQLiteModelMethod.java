@@ -27,12 +27,12 @@ import javax.lang.model.element.VariableElement;
 
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -40,6 +40,9 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLBuilder;
+import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.squareup.javapoet.TypeName;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
@@ -94,7 +97,18 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 */
 	public String contentProviderMethodName;
 
-	private Object parameterBeanName;
+	public String parameterBeanName;
+
+	public List<ContentUriPlaceHolder> contentProviderUriVariables;
+
+	/**
+	 * <p>It's the uri with place holder replaced with <code>#</code> or <code>*</code>. An example:</p>
+	 * 
+	 * <pre>content://sqlite.contentprovider.kripton35/persons/#/children</pre>
+	 */
+	public String contentProviderUriTemplate;
+
+	public String contentProviderEntryPathTemplate;
 
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
@@ -159,9 +173,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		BindContentProviderEntry annotation=element.getAnnotation(BindContentProviderEntry.class);
 		if (annotation!=null) {
 			// manage content provider generation
-			String methodPath = getParent().contentProviderPath;
+			String methodPath = "";
 			if (StringUtils.hasText(annotation.path())) {
-				methodPath += "/" + annotation.path();
+				methodPath = annotation.path();
 			}
 			
 			this.contentProviderEntryPathEnabled=true;
@@ -169,6 +183,40 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			this.contentProviderMethodName=getElement().getSimpleName().toString()+parent.contentProviderCounter;
 			
 			parent.contentProviderCounter++;
+			
+			final SQLEntity entity=this.getParent().getEntity();
+			
+			
+			List<ContentUriPlaceHolder> uriParams = ContentUriChecker.getInstance().extract(contentProviderUri());
+			String uriTemplate = ContentUriChecker.getInstance().replace(contentProviderUri(), new UriPlaceHolderReplacerListener() {
+				
+				@Override
+				public String onParameterName(int pathSegmentIndex, String name) {
+					SQLProperty entityProperty = entity.get(name);
+					
+					if (entityProperty!=null) {
+						TypeName entityPropertyType=entityProperty.getPropertyType().getTypeName();
+						if (TypeUtility.isString(entityPropertyType)) {
+							return "*";						
+						} else if (TypeUtility.isTypeIncludedIn(entityPropertyType, Long.class, Long.TYPE)) {
+							return "#";
+						} else {
+							AssertKripton.fail("Invalid type '%s' for parameter '%s' is used in content provider path '%s' associated to method '%s.%s'",entityPropertyType, name, contentProviderUri(), getParent().getName(), getName());
+						}
+					} else {				
+						AssertKripton.fail("Invalid parameter '%s' is used in content provider path '%s' associated to method '%s.%s'",name, contentProviderUri(), getParent().getName(), getName());
+					}
+					return null;
+					
+				}
+			});
+			
+			this.contentProviderUriVariables=uriParams;
+			this.contentProviderUriTemplate=uriTemplate;
+			
+			// if we have a path, we have to remove the initial /
+			this.contentProviderEntryPathTemplate=uriTemplate.substring(getParent().getParent().contentProviderUri().length());
+			if (this.contentProviderEntryPathTemplate.startsWith("/")) contentProviderEntryPathTemplate=this.contentProviderEntryPathTemplate.substring(1);
 		}
 		
 		
@@ -337,6 +385,18 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	public boolean hasPaginatedResultParameter() {
 		return StringUtils.hasText(paginatedResultName);
+	}
+
+	public String contentProviderUri() {
+		if (!contentProviderEntryPathEnabled) return "";
+		
+		return this.getParent().contentProviderUri()+(StringUtils.hasText(contentProviderEntryPath) ? ("/"+contentProviderEntryPath) : "");
+	}
+	
+	public String contentProviderPath() {
+		if (!contentProviderEntryPathEnabled) return "";
+		
+		return (StringUtils.hasText(contentProviderEntryPath) ? ("/"+contentProviderEntryPath) : "");
 	}
 
 }

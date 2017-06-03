@@ -82,6 +82,10 @@ public abstract class AssertKripton {
 	public static void failWithMethodWithoutSupportedAnnotationException(SQLiteModelMethod value) {
 		throw (new MethodWithoutSupportedAnnotationException(value.getParent(), value));
 	}
+		
+	public static void fail(String messageFormat, Object... args) {
+		assertTrue(false, messageFormat, args);
+	}
 
 	/**
 	 * Fails if expression is true

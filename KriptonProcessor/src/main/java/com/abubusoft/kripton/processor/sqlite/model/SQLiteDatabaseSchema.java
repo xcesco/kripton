@@ -58,12 +58,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	 * if <code>true</code>, content provider is generated.
 	 */
 	public boolean generateContentProvider;
-
-	/**
-	 * <p>Authority for content provider</p>
-	 */
-	public String authority;
-
+	
 	public SQLiteModelContentProvider contentProvider;
 
 	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean log, boolean asyncTask, boolean generateCursor) {
@@ -101,6 +96,13 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public boolean isLogEnabled() {
 		return generateLog;
+	}
+
+	public String contentProviderUri() {
+		if (!generateContentProvider) return "";
+		
+		return contentProvider.getUri();
+		
 	}
 
 }

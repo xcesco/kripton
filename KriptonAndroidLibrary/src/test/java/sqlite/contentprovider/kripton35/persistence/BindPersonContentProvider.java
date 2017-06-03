@@ -11,6 +11,12 @@ import java.lang.String;
 
 public class BindPersonContentProvider extends ContentProvider {
   /**
+   * <p>content provider's URI. Example:</p>
+   * <pre>content://sqlite.contentprovider.kripton35</pre>
+   */
+  public static final String URI = "content://sqlite.contentprovider.kripton35";
+
+  /**
    * <p>datasource singleton</p>
    */
   private static BindPersonDataSource dataSource;
@@ -18,34 +24,24 @@ public class BindPersonContentProvider extends ContentProvider {
   /**
    * <p>Content provider authority</p>
    */
-  private static final String AUTHORITY = "sqlite.contentprovider.kripton35";
+  public static final String AUTHORITY = "sqlite.contentprovider.kripton35";
 
   /**
    * <p>URI matcher</p>
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  static final String PATH_PERSON_1 = "persons";
+  public static final String PATH_PERSON_1 = "persons";
 
-  static final String PATH_PERSON_2 = "persons/test";
-
-  static final String PATH_PERSON_3 = "persons/test1";
-
-  static final String PATH_PERSON_4 = "persons/${id}/dummy/${birthCity}";
+  public static final String PATH_PERSON_2 = "persons/#/children";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
   static final int PATH_PERSON_2_INDEX = 2;
 
-  static final int PATH_PERSON_3_INDEX = 3;
-
-  static final int PATH_PERSON_4_INDEX = 4;
-
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
-    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_3, PATH_PERSON_3_INDEX);
-    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_4, PATH_PERSON_4_INDEX);
   }
 
   /**
@@ -73,30 +69,23 @@ public class BindPersonContentProvider extends ContentProvider {
 
   /**
    * method PersonDAO.insertOne
-   * method PersonDAO.insertTwo
-   * method PersonDAO.insertTwo
-   * uri persons
-   * uri persons/test
-   * uri persons/test1
+   * method PersonDAO.insertChild
+   * uri 
+   * uri ${parentId}/children
    */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
     long id=-1;
-    String notifyURL=null;
+    Uri returnURL=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
-        id=dataSource.getPersonDAO().insertOne0(contentValues);
-        notifyURL=PATH_PERSON_1;
+        id=dataSource.getPersonDAO().insertOne0(uri, contentValues);
+        returnURL=Uri.withAppendedPath(uri, String.valueOf(id));
         break;
       }
       case PATH_PERSON_2_INDEX: {
-        id=dataSource.getPersonDAO().insertTwo1(contentValues);
-        notifyURL=PATH_PERSON_2;
-        break;
-      }
-      case PATH_PERSON_3_INDEX: {
-        id=dataSource.getPersonDAO().insertTwo2(contentValues);
-        notifyURL=PATH_PERSON_3;
+        id=dataSource.getPersonDAO().insertChild1(uri, contentValues);
+        returnURL=Uri.withAppendedPath(uri, String.valueOf(id));
         break;
       }
       default: {
@@ -104,7 +93,7 @@ public class BindPersonContentProvider extends ContentProvider {
       }
     }
     getContext().getContentResolver().notifyChange(uri, null);
-    return Uri.parse(notifyURL+"/"+id);
+    return returnURL;
   }
 
   @Override
@@ -121,25 +110,16 @@ public class BindPersonContentProvider extends ContentProvider {
     return null;
   }
 
-  /**
-   * method PersonDAO.delete
-   * uri persons/${id}/dummy/${birthCity}
-   */
   @Override
   public int delete(Uri uri, String selection, String[] selectionArgs) {
     switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_4_INDEX: {
-        break;
-      }
     }
     return 0;
   }
 
   /**
-   * uri persons
-   * uri persons/test
-   * uri persons/test1
-   * uri persons/${id}/dummy/${birthCity}
+   * uri 
+   * uri ${parentId}/children
    */
   @Override
   public String getType(Uri uri) {
@@ -148,12 +128,6 @@ public class BindPersonContentProvider extends ContentProvider {
         break;
       }
       case PATH_PERSON_2_INDEX: {
-        break;
-      }
-      case PATH_PERSON_3_INDEX: {
-        break;
-      }
-      case PATH_PERSON_4_INDEX: {
         break;
       }
     }

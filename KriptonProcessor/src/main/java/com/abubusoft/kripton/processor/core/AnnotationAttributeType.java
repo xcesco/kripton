@@ -48,6 +48,7 @@ public enum AnnotationAttributeType {
 	GENERATE_LOG("generateLog"),	
 	GROUP_BY("groupBy"),
 	
+	
 	HAVING("having"),
 	
 	INCLUDE_PRIMARY_KEY("includePrimaryKey"),	
