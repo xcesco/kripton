@@ -56,9 +56,9 @@ public @interface BindContentProviderEntry {
 	 * Define numerosity of result of operation exposed by content provider
 	 * @return
 	 */
-	public ResultType resultType() default ResultType.DEFAULT;
+	public MultiplicityResultType MultiplicityResult() default MultiplicityResultType.DEFAULT;
 	
-	public enum ResultType {
+	public enum MultiplicityResultType {
 		/**
 		 * default means: select return many rows, other operation only one.
 		 */

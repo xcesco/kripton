@@ -18,7 +18,6 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
@@ -42,8 +41,6 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
-import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
-import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -237,10 +234,14 @@ public abstract class SqlInsertBuilder {
 		});
 		
 		
-		generateInsertColumnCheckForContentProvider(elementUtils, builder, method,columns);
+		generateColumnCheckForContentProvider(elementUtils, builder, method,columns);
 		
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
 		ParameterSpec parameterSpec;
+		
+		// javadoc
+		methodBuilder.addJavadoc("<p>Manage the INSERT operation for content provider URI:</p>\n", method.contentProviderUriTemplate);
+		methodBuilder.addJavadoc("<pre>$L</pre>\n", method.contentProviderUriTemplate);
 
 		parameterSpec = ParameterSpec.builder(Uri.class, "uri").build();
 		methodBuilder.addParameter(parameterSpec);
@@ -253,6 +254,7 @@ public abstract class SqlInsertBuilder {
 		methodBuilder.addCode("// $L\n", method.contentProviderUri());
 		methodBuilder.addCode("// $L\n", method.jql.value);
 		
+		// extract pathVariables
 		// generate get uri variables in content values
 		// every controls was done in constructor of SQLiteModelMethod
 		for (ContentUriPlaceHolder variable: method.contentProviderUriVariables) {
@@ -266,8 +268,7 @@ public abstract class SqlInsertBuilder {
 					methodBuilder.addStatement("contentValues.put($S, Long.valueOf(uri.getPathSegments().get($L)))", entityProperty.columnName, variable.pathSegmentIndex);					
 				}													
 			} 
-		}
-		
+		}		
 		
 		methodBuilder.beginControlFlow("for (String columnName:contentValues.keySet())");
 			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName+"ColumnSet");
@@ -296,7 +297,7 @@ public abstract class SqlInsertBuilder {
 	}
 	
 
-	private static void generateInsertColumnCheckForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
+	static void generateColumnCheckForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
 		StringBuilder initBuilder=new StringBuilder();
 		String temp="";
 		
@@ -310,7 +311,6 @@ public abstract class SqlInsertBuilder {
 		fieldBuilder.initializer("$T.asSet($T.class, $L)",CollectionUtils.class, String.class,initBuilder.toString());		
 
 		builder.addField(fieldBuilder.build());
-
 	}
 			
 			

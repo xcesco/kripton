@@ -154,7 +154,7 @@ public abstract class JQLBuilder {
 	}
 
 	/**
-	 * <pre>
+	 * <pre> 
 	 * INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})
 	 * </pre>
 	 * 
@@ -551,47 +551,19 @@ public abstract class JQLBuilder {
 		String where = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.WHERE);
 		if (StringUtils.hasText(where))
 			jql.annotatedWhere = true;
-
-		final Pair<String, String> whereDynamicName = new Pair<String, String>(null, null);
-		forEachParameter(method, new OnMethodParameterListener() {
-
-			@Override
-			public void onMethodParameter(VariableElement methodParam) {
-				if (methodParam.getAnnotation(BindSqlDynamicWhere.class) != null) {
-					jql.paramWhere = methodParam.getSimpleName().toString();
-					PrependType prepend = PrependType
-							.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, methodParam, BindSqlDynamicWhere.class, AnnotationAttributeType.PREPEND));
-					whereDynamicName.value0 = prepend.toString();
-					whereDynamicName.value1 = methodParam.getSimpleName().toString();
-
-					// CONSTRAINT: @BindSqlWhere can be used only on String
-					// parameter type
-					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(methodParam)),
-							method.getParent().getElement(), method.getElement(), methodParam, BindSqlDynamicWhere.class);
-				} else if (methodParam.getAnnotation(BindSqlDynamicWhereArgs.class) != null) {
-					jql.paramWhereArgs = methodParam.getSimpleName().toString();
-
-					// CONSTRAINT: @BindSqlWhereArgs can be used only on
-					// String[] parameter type
-					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(ArrayTypeName.of(String.class), TypeUtility.typeName(methodParam)),
-							method.getParent().getElement(), method.getElement(), methodParam, BindSqlDynamicWhereArgs.class);
-				}
-
-			}
-		});
-
-		if (StringUtils.hasText(where) || StringUtils.hasText(whereDynamicName.value1)) {
+		
+		if (StringUtils.hasText(where) || method.hasDynamicWhereConditions()) {
 			builder.append(" " + WHERE_KEYWORD);
 
 			if (StringUtils.hasText(where)) {
 				builder.append(StringUtils.startWithSpace(where));
 			}
 
-			if (StringUtils.hasText(whereDynamicName.value1)) {
+			if (StringUtils.hasText(method.dynamicWhereParameterName)) {
 				if (StringUtils.hasText(where)) {
-					builder.append(" " + whereDynamicName.value0);
+					builder.append(" " + method.dynamicWherePrepend);
 				}
-				builder.append(" #{" + whereDynamicName.value1 + "}");
+				builder.append(" #{" + method.dynamicWhereParameterName + "}");
 			}
 		}
 

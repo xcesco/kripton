@@ -10,6 +10,7 @@ import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.util.ArrayList;
 import java.util.Set;
 import sqlite.contentprovider.kripton35.entities.Person;
 
@@ -89,6 +90,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     bean.id=result;
   }
 
+  /**
+   * <p>Manage the INSERT operation for content provider URI:</p>
+   * <pre>content://sqlite.contentprovider.kripton35/persons</pre>
+   */
   long insertOne0(Uri uri, ContentValues contentValues) {
     // content://sqlite.contentprovider.kripton35/persons
     // 
@@ -167,6 +172,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     bean.id=result;
   }
 
+  /**
+   * <p>Manage the INSERT operation for content provider URI:</p>
+   * <pre>content://sqlite.contentprovider.kripton35/persons/#/children</pre>
+   */
   long insertChild1(Uri uri, ContentValues contentValues) {
     // content://sqlite.contentprovider.kripton35/persons/#/children
     // /${parentId}/children
@@ -182,6 +191,131 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     //SqlUtils and StringUtils will be used to format SQL
     Logger.info(SqlUtils.formatSQL("INSERT OR ABORT INTO person (alias_parent_id, birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s, %s)", StringUtils.formatParam(contentValues.get("alias_parent_id"),""), StringUtils.formatParam(contentValues.get("birth_city"),"'"), StringUtils.formatParam(contentValues.get("birth_day"),"'"), StringUtils.formatParam(contentValues.get("value"),""), StringUtils.formatParam(contentValues.get("name"),"'"), StringUtils.formatParam(contentValues.get("surname"),"'")));
     long result = database().insertWithOnConflict("person", null, contentValues, SQLiteDatabase.CONFLICT_ABORT);
+    return result;
+  }
+
+  /**
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE person WHERE id = ${id}</pre> #{runtimeWhere}</pre>
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * </dl>
+   *
+   * <h2>Dynamic parts:</h2>
+   * <dl>
+   * 	<dt>#{runtimeWhere}</dt><dd>is part of where conditions resolved at runtime.</dd>
+   * </dl>
+   *
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param runtimeWhere
+   * 	is used as dynamic where conditions
+   * @param args
+   * 	is used as updated field <strong>args</strong>
+   */
+  @Override
+  public void delete(long id, String runtimeWhere, String[] args) {
+    String[] whereConditionsArray={String.valueOf(id)};
+
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE person WHERE id = %s "+SqlUtils.appendForLog(runtimeWhere), (Object[])whereConditionsArray));
+    int result = database().delete("person", "id = ? "+SqlUtils.appendForSQL(runtimeWhere)+"", whereConditionsArray);
+  }
+
+  /**
+   * <h1>Content provider URI (DELETE operation):</h1>
+   * <pre>content://sqlite.contentprovider.kripton35/persons/#</pre>
+   *
+   * <p>Path variables defined:</p>
+   * <ul>
+   * <li><strong>${id}</strong> at path segment 1</li>
+   * </ul>
+   *
+   * <h2>JQL delete for Content Provider</h2>
+   * <pre>DELETE FROM Person WHERE id = ${id} AND #{runtimeWhere}</pre>
+   *
+   * <h2>SQL delete for Content Provider</h2>
+   * <pre>DELETE FROM person WHERE id = ${id} AND #{runtimeWhere}</pre>
+   *
+   * @param uri "content://sqlite.contentprovider.kripton35/persons/#"
+   * @param selection dynamic part of <code>where</code> statement 
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
+   */
+  long delete2(Uri uri, String selection, String[] selectionArgs) {
+    //SqlUtils and StringUtils will be used to format SQL
+    String whereCondition=" id = ? ";
+    if (StringUtils.hasText(selection)) {
+      whereCondition+="AND " + selection;
+    }
+    ArrayList<String> whereParams=new ArrayList<>();
+    // Add parameter id at path segment 1
+    whereParams.add(uri.getPathSegments().get(1));
+    if (StringUtils.hasText(selection) && selectionArgs!=null) {
+      for (String arg: selectionArgs) {
+        whereParams.add(arg);
+      }
+    }
+    long result = database().delete("person", whereCondition, whereParams.toArray(new String[whereParams.size()]));
+    return result;
+  }
+
+  /**
+   * <h2>SQL delete:</h2>
+   * <pre>DELETE person WHERE id = ${id} and birthDay=${parentId}</pre></pre>
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param parentId
+   * 	is used as where parameter <strong>${parentId}</strong>
+   */
+  @Override
+  public void delete(long id, long parentId) {
+    String[] whereConditionsArray={String.valueOf(id), String.valueOf(parentId)};
+
+    //StringUtils and SqlUtils will be used to format SQL
+    Logger.info(SqlUtils.formatSQL("DELETE person WHERE id = %s and birthDay=%s", (Object[])whereConditionsArray));
+    int result = database().delete("person", "id = ? and birth_day=?", whereConditionsArray);
+  }
+
+  /**
+   * <h1>Content provider URI (DELETE operation):</h1>
+   * <pre>content://sqlite.contentprovider.kripton35/persons/level1/#/#</pre>
+   *
+   * <p>Path variables defined:</p>
+   * <ul>
+   * <li><strong>${id}</strong> at path segment 2</li>
+   * <li><strong>${parentId}</strong> at path segment 3</li>
+   * </ul>
+   *
+   * <h2>JQL delete for Content Provider</h2>
+   * <pre>DELETE FROM Person WHERE id = ${id} and birthDay=${parentId}</pre>
+   *
+   * <h2>SQL delete for Content Provider</h2>
+   * <pre>DELETE FROM person WHERE id = ${id} and birth_day=${parentId}</pre>
+   *
+   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
+   *
+   * @param uri "content://sqlite.contentprovider.kripton35/persons/level1/#/#"
+   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
+   */
+  long delete3(Uri uri, String selection, String[] selectionArgs) {
+    //SqlUtils and StringUtils will be used to format SQL
+    String whereCondition=" id = ${id} and birthDay=${parentId}";
+    ArrayList<String> whereParams=new ArrayList<>();
+    // Add parameter id at path segment 2
+    whereParams.add(uri.getPathSegments().get(2));
+    // Add parameter parentId at path segment 3
+    whereParams.add(uri.getPathSegments().get(3));
+    long result = database().delete("person", whereCondition, whereParams.toArray(new String[whereParams.size()]));
     return result;
   }
 }

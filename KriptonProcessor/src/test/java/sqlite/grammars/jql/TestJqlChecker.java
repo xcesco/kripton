@@ -255,5 +255,26 @@ public class TestJqlChecker extends BaseProcessorTest {
 		assertEquals("sql for log generation failed", sqlForLog, sqlLogResult);
 
 	}
+	
+	@Test
+	public void testWhereStatement() {
+		String sql = "DELETE FROM person WHERE id = ${dummy} and a=${dummy2}";		
+		
+		JQL jql=new JQL();
+		jql.value=sql;
+
+
+		JQLChecker checker = JQLChecker.getInstance();
+
+		// verify sql
+		checker.verify(jql);
+
+		
+		String where=checker.extractWhereStatement(sql);
+		log(where);
+		assertEquals(where, " id = ${dummy} and a=${dummy2}");
+	}
+	
+	
 
 }

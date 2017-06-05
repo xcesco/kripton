@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+
 public class JQL {
 
 	public enum JQLType {
@@ -70,17 +72,10 @@ public class JQL {
 	 */
 	public String paramBean;
 
-	/**
-	 * parameter's name with {@link BindD
-	 */
-	public String paramWhere;
-
-	public String paramWhereArgs;
-
 	public String paramPageSize;
 
 	public String paramOrderBy;
-
+	
 	public boolean hasParamReadBeanListener() {
 		return paramReadBeanListener != null;
 	}
@@ -91,14 +86,6 @@ public class JQL {
 
 	public boolean hasParamBean() {
 		return paramBean != null;
-	}
-
-	public boolean hasParamWhere() {
-		return paramWhere != null;
-	}
-
-	public boolean hasParamWhereArgs() {
-		return paramWhereArgs != null;
 	}
 
 	public boolean hasParamPageSize() {

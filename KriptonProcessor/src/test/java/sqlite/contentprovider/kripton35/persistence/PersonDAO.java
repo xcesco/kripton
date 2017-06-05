@@ -15,23 +15,16 @@
  *******************************************************************************/
 package sqlite.contentprovider.kripton35.persistence;
 
-import java.util.Date;
-import java.util.List;
-
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
-import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
-import com.abubusoft.kripton.android.annotation.BindSqlParam;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere.PrependType;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
-import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+
+import java.util.Date;
 
 import sqlite.contentprovider.kripton35.entities.Person;
 
@@ -51,9 +44,13 @@ public interface PersonDAO {
 //	@BindSqlInsert
 //	void insertTwo(String name, String surname, String birthCity, Date birthDay);
 //	
-//	@BindContentProviderEntry(path="${id}/dummy/${birthCity}")
-//	@BindSqlDelete(where="id = ${id} and birthCity= ${birthCity}")
-//	void delete(long id, Date birthCity);
+	@BindContentProviderEntry(path="${id}")
+	@BindSqlDelete(where="id = ${id}")
+	void delete(long id, @BindSqlDynamicWhere String runtimeWhere, @BindSqlDynamicWhereArgs String[] args);
+	
+	@BindContentProviderEntry(path="level1/${id}/${parentId}")
+	@BindSqlDelete(where="id = ${id} and birthDay=${parentId}")
+	void delete(long id, long parentId);
 	
 //
 //	@BindContentProviderEntry(path = "#")

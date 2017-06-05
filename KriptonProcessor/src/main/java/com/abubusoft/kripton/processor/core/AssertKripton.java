@@ -27,7 +27,6 @@ import com.abubusoft.kripton.processor.exceptions.InvalidTypeForAnnotationExcept
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
-import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 

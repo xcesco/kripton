@@ -35,13 +35,23 @@ public class BindPersonContentProvider extends ContentProvider {
 
   public static final String PATH_PERSON_2 = "persons/#/children";
 
+  public static final String PATH_PERSON_3 = "persons/#";
+
+  public static final String PATH_PERSON_4 = "persons/level1/#/#";
+
   static final int PATH_PERSON_1_INDEX = 1;
 
   static final int PATH_PERSON_2_INDEX = 2;
 
+  static final int PATH_PERSON_3_INDEX = 3;
+
+  static final int PATH_PERSON_4_INDEX = 4;
+
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_3, PATH_PERSON_3_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_4, PATH_PERSON_4_INDEX);
   }
 
   /**
@@ -110,9 +120,21 @@ public class BindPersonContentProvider extends ContentProvider {
     return null;
   }
 
+  /**
+   * method PersonDAO.delete
+   * method PersonDAO.delete
+   * uri ${id}
+   * uri level1/${id}/${parentId}
+   */
   @Override
   public int delete(Uri uri, String selection, String[] selectionArgs) {
     switch (sURIMatcher.match(uri)) {
+      case PATH_PERSON_3_INDEX: {
+        break;
+      }
+      case PATH_PERSON_4_INDEX: {
+        break;
+      }
     }
     return 0;
   }
@@ -120,6 +142,8 @@ public class BindPersonContentProvider extends ContentProvider {
   /**
    * uri 
    * uri ${parentId}/children
+   * uri ${id}
+   * uri level1/${id}/${parentId}
    */
   @Override
   public String getType(Uri uri) {
@@ -128,6 +152,12 @@ public class BindPersonContentProvider extends ContentProvider {
         break;
       }
       case PATH_PERSON_2_INDEX: {
+        break;
+      }
+      case PATH_PERSON_3_INDEX: {
+        break;
+      }
+      case PATH_PERSON_4_INDEX: {
         break;
       }
     }

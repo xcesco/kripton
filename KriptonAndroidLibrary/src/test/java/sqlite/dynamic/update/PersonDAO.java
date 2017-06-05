@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.ResultType;
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.MultiplicityResultType;
 
 import sqlite.contentprovider.kripton35.entities.Person;
 
@@ -48,7 +48,7 @@ public interface PersonDAO {
 	List<Person> selectAll();
 	
 	@BindSqlSelect(where="id=${id}")
-	@BindContentProviderEntry(path="/#", resultType=ResultType.ONE)
+	@BindContentProviderEntry(path="/#", MultiplicityResult=MultiplicityResultType.ONE)
 	Person selectOne(long id);
 	
 	

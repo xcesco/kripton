@@ -79,6 +79,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				// skip for dynamic where
 				continue;
 			}
+			
+			if (method.isThisDynamicWhereArgsName(name)) {
+				// skip for dynamic where
+				continue;
+			}
+			
+			 
 
 			if (where.value1.contains(new Pair<>(name, param.value1))) {
 				whereParams.add(param);

@@ -29,20 +29,26 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere.PrependType;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
+import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLBuilder;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
+import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.TypeName;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
@@ -66,6 +72,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * </p>
 	 */
 	public String dynamicWhereParameterName;
+	
+	/**
+	 * <p>It's the name of the parameter used to define arguments for dynamic where statement. It can be used only on
+	 * String[] parameter type.</p>
+	 */
+	public String dynamicWhereArgsParameterName;
 
 	/**
 	 * <p>
@@ -110,6 +122,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	public String contentProviderEntryPathTemplate;
 
+	public PrependType dynamicWherePrepend;
+
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
 		this.parent = new WeakReference<SQLDaoDefinition>(parent);
@@ -134,6 +148,31 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			
 			if (TypeUtility.isEquals(TypeUtility.typeName(p.asType()), parent.getEntityClassName())) {
 				this.parameterBeanName=p.getSimpleName().toString();
+			}
+			
+			BindSqlDynamicWhere paramDynamicWhereName = p.getAnnotation(BindSqlDynamicWhere.class);
+			if (paramDynamicWhereName!=null) {
+				this.dynamicWhereParameterName=p.getSimpleName().toString();
+				PrependType prepend = PrependType
+						.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, p, BindSqlDynamicWhere.class, AnnotationAttributeType.PREPEND));
+				this.dynamicWherePrepend=prepend;
+				
+				// CONSTRAINT: @BindSqlWhere can be used only on String
+				// parameter type
+				AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(p.asType())),
+						getParent().getElement(), getElement(), p, BindSqlDynamicWhere.class);
+			}
+					
+			
+			BindSqlDynamicWhereArgs paramDynamicWhereArgsName = p.getAnnotation(BindSqlDynamicWhereArgs.class);
+			if (paramDynamicWhereArgsName!=null) {
+				
+				this.dynamicWhereArgsParameterName=p.getSimpleName().toString();
+				
+				// only String[] parameter can be marked as dynamicWhereArgs				
+				// CONSTRAINT: @BindSqlWhereArgs can be used only on
+				// String[] parameter type
+				AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(ArrayTypeName.of(String.class), TypeUtility.typeName(p.asType())), getParent().getElement(), getElement(), p, BindSqlDynamicWhereArgs.class);
 			}
 		}
 
@@ -201,7 +240,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 						} else if (TypeUtility.isTypeIncludedIn(entityPropertyType, Long.class, Long.TYPE)) {
 							return "#";
 						} else {
-							AssertKripton.fail("Invalid type '%s' for parameter '%s' is used in content provider path '%s' associated to method '%s.%s'",entityPropertyType, name, contentProviderUri(), getParent().getName(), getName());
+							AssertKripton.fail("In '%s.%s', parameter '%s' has an invalid type '%s' to be used in path content provider path '%s'", getParent().getName(), getName(), name, entityPropertyType, contentProviderUri());
 						}
 					} else {				
 						AssertKripton.fail("Invalid parameter '%s' is used in content provider path '%s' associated to method '%s.%s'",name, contentProviderUri(), getParent().getName(), getName());
@@ -370,6 +409,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public boolean hasDynamicWhereConditions() {
 		return StringUtils.hasText(dynamicWhereParameterName);
 	}
+	
+	public boolean hasDynamicWhereArgs() {
+		return StringUtils.hasText(dynamicWhereArgsParameterName);
+	}
 
 	public boolean hasDynamicPageSizeConditions() {
 		return StringUtils.hasText(dynamicPageSizeName);
@@ -381,6 +424,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	public boolean isThisDynamicPageSizeName(String parameterName) {
 		return StringUtils.hasText(dynamicPageSizeName) && parameterName.equals(dynamicPageSizeName);
+	}
+	
+
+	public boolean isThisDynamicWhereArgsName(String parameterName) {
+		return StringUtils.hasText(dynamicWhereArgsParameterName) && parameterName.equals(dynamicWhereArgsParameterName);
 	}
 
 	public boolean hasPaginatedResultParameter() {
@@ -398,5 +446,6 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		
 		return (StringUtils.hasText(contentProviderEntryPath) ? ("/"+contentProviderEntryPath) : "");
 	}
+
 
 }

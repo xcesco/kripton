@@ -48,6 +48,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_param
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Result_columnContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_nameContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_clausesContext;
 
 public class JQLChecker {
 
@@ -70,7 +71,7 @@ public class JQLChecker {
 	protected <L extends JqlBaseListener> void analyzeInternal(final String jql, L listener) {
 		walker.walk(listener, prepareParser(jql).value0);
 	}
-	
+
 	protected <L extends JqlBaseListener> void analyzeWhereInternal(final String jql, L listener) {
 		walker.walk(listener, prepareWhere(jql).value0);
 	}
@@ -95,7 +96,7 @@ public class JQLChecker {
 		ParserRuleContext context = parser.parse();
 		return new Pair<>(context, tokens);
 	}
-	
+
 	protected Pair<ParserRuleContext, CommonTokenStream> prepareWhere(final String jql) {
 		JqlLexer lexer = new JqlLexer(CharStreams.fromString(jql));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -128,26 +129,26 @@ public class JQLChecker {
 		analyzeInternal(jql.value, new JqlBaseListener() {
 			@Override
 			public void enterResult_column(Result_columnContext ctx) {
-				valid.value0 = true;				
+				valid.value0 = true;
 				ProjectionBuilder builder = ProjectionBuilder.create();
-				if (ctx.expr().column_name() != null) {					
+				if (ctx.expr().column_name() != null) {
 					if (ctx.expr().table_name() != null) {
-						builder.table(ctx.expr().table_name().getText());						
-					}					
+						builder.table(ctx.expr().table_name().getText());
+					}
 					builder.column(ctx.expr().column_name().getText());
 					builder.type(ProjectionType.COLUMN);
-				} else {					
-					builder.type(ProjectionType.COMPLEX);				
+				} else {
+					builder.type(ProjectionType.COMPLEX);
 					builder.expression(ctx.expr().getText());
 				}
-				
-				if (ctx.column_alias() != null) {					
+
+				if (ctx.column_alias() != null) {
 					builder.alias(ctx.column_alias().getText());
-				} 		
+				}
 				result.add(builder.build());
 
 			}
-	
+
 			@Override
 			public void exitResult_column(Result_columnContext ctx) {
 				valid.value0 = false;
@@ -161,27 +162,26 @@ public class JQLChecker {
 	 * 
 	 * @param jql
 	 * @param listener
-	 * @return
-	 * 		string obtained by replacements
+	 * @return string obtained by replacements
 	 */
 	public String replacePlaceHolders(JQL jql, final JQLPlaceHolderReplacerListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
-				
+
 		JqlBaseListener rewriterListener = new JqlBaseListener() {
-									
+
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				String value=listener.onDynamicSQL(ctx.bind_parameter_name().getText());
+				String value = listener.onDynamicSQL(ctx.bind_parameter_name().getText());
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				String value=listener.onParameter(ctx.bind_parameter_name().getText());
+				String value = listener.onParameter(ctx.bind_parameter_name().getText());
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 		};
-		
+
 		return replaceInternal(jql, replace, rewriterListener);
 	}
 	
@@ -190,35 +190,61 @@ public class JQLChecker {
 	 * 
 	 * @param jql
 	 * @param listener
-	 * @return
-	 * 		string obtained by replacements
+	 * @return string obtained by replacements
 	 */
-	public String replace(JQL jql, final JQLReplacerListener listener) {
+	public String replaceFromWhere(String jql, final JQLPlaceHolderReplacerListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
-				
+
 		JqlBaseListener rewriterListener = new JqlBaseListener() {
-			
+
 			@Override
-			public void enterTable_name(Table_nameContext ctx) {
-				String value=listener.onTableName(ctx.getText());
+			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
+				String value = listener.onDynamicSQL(ctx.bind_parameter_name().getText());
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				String value=listener.onColumnValue(ctx.bind_parameter_name().getText());
+				String value = listener.onParameter(ctx.bind_parameter_name().getText());
+				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+			}
+		};
+
+		return replaceFromWhereInternal(jql, replace, rewriterListener);
+	}
+
+	/**
+	 * Replace place holder with element passed by listener
+	 * 
+	 * @param jql
+	 * @param listener
+	 * @return string obtained by replacements
+	 */
+	public String replace(JQL jql, final JQLReplacerListener listener) {
+		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
+
+		JqlBaseListener rewriterListener = new JqlBaseListener() {
+
+			@Override
+			public void enterTable_name(Table_nameContext ctx) {
+				String value = listener.onTableName(ctx.getText());
+				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+			}
+
+			@Override
+			public void enterBind_parameter(Bind_parameterContext ctx) {
+				String value = listener.onColumnValue(ctx.bind_parameter_name().getText());
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 
 			@Override
 			public void enterColumn_name(Column_nameContext ctx) {
-				String value=listener.onColumnName(ctx.getText());
+				String value = listener.onColumnName(ctx.getText());
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
-						
-		
+
 		};
-					
+
 		return replaceInternal(jql, replace, rewriterListener);
 
 	}
@@ -236,39 +262,53 @@ public class JQLChecker {
 		return rewriter.getText();
 	}
 	
+	private String replaceFromWhereInternal(String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
+		Pair<ParserRuleContext, CommonTokenStream> parser = prepareWhere(jql);
+		walker.walk(rewriterListener, parser.value0);
+
+		TokenStreamRewriter rewriter = new TokenStreamRewriter(parser.value1);
+
+		for (Triple<Token, Token, String> item : replace) {
+			rewriter.replace(item.value0, item.value1, item.value2);
+		}
+
+		return rewriter.getText();
+	}
+
 	public interface JQLPlaceHolderReplacerListener {
-		
+
 		/**
-		 * Event fired when we found a parameter: either it is a parameter, either it is dynamic sql
+		 * Event fired when we found a parameter: either it is a parameter,
+		 * either it is dynamic sql
 		 * 
 		 * @param string
 		 * @return
 		 */
 		String onParameter(String placeHolder);
 
-		String onDynamicSQL(String placeHolder);		
+		String onDynamicSQL(String placeHolder);
 	}
-	
+
 	public interface JQLReplacerListener {
-		
+
 		String onTableName(String tableName);
-		
+
 		String onColumnName(String columnName);
 
-		String onColumnValue(String columnValue);		
+		String onColumnValue(String columnValue);
 	}
-	
+
 	public static class JQLParameterName {
 		private JQLParameterName(String value) {
-			values=value.split("\\.");
+			values = value.split("\\.");
 		}
-		
+
 		private String[] values;
-		
+
 		public String getValue() {
-			return values[values.length-1];			
+			return values[values.length - 1];
 		}
-		
+
 		public static JQLParameterName parse(String value) {
 			return new JQLParameterName(value);
 		}
@@ -295,7 +335,7 @@ public class JQLChecker {
 	public List<JQLPlaceHolder> extractPlaceHoldersAsList(String jql) {
 		return extractPlaceHolders(jql, new ArrayList<JQLPlaceHolder>());
 	}
-	
+
 	/**
 	 * Extract all bind parameters and dynamic part used in query.
 	 * 
@@ -305,7 +345,7 @@ public class JQLChecker {
 	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(String jql) {
 		return extractPlaceHolders(jql, new LinkedHashSet<JQLPlaceHolder>());
 	}
-	
+
 	/**
 	 * Extract all bind parameters and dynamic part used in query.
 	 * 
@@ -315,47 +355,75 @@ public class JQLChecker {
 	public Set<JQLPlaceHolder> extractPlaceHoldersFromWhereCondition(String jql) {
 		return extractPlaceHoldersFromWhereCondition(jql, new LinkedHashSet<JQLPlaceHolder>());
 	}
-	
-	
-	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(String jql, final L result) {		
+
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(String jql, final L result) {
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
 
 		analyzeInternal(jql, new JqlBaseListener() {
-			
+
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, ctx.bind_parameter_name().getText()));				
+				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, ctx.bind_parameter_name().getText()));
 			}
-			
+
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				result.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, ctx.bind_parameter_name().getText()));				
-			}						
-					
+				result.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, ctx.bind_parameter_name().getText()));
+			}
+
 		});
 		return result;
 	}
 
-	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromWhereCondition(String jql, final L result) {		
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromWhereCondition(String jql, final L result) {
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
 
 		analyzeWhereInternal(jql, new JqlBaseListener() {
-			
+
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, ctx.bind_parameter_name().getText()));				
+				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, ctx.bind_parameter_name().getText()));
 			}
-			
+
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				result.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, ctx.bind_parameter_name().getText()));				
-			}						
-					
+				result.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, ctx.bind_parameter_name().getText()));
+			}
+
 		});
 		return result;
 	}
 
+	/**
+	 * <p>Given an sql statement, extract the first where statement.
+	 * @param jql
+	 * @return
+	 */
+	public String extractWhereStatement(final String jql) {
+		final One<Integer> whereCounter = new One<>(0);
+		final One<String> result = new One<>("");
+
+		analyzeInternal(jql, new JqlBaseListener() {
+
+			@Override
+			public void enterWhere_stmt_clauses(Where_stmt_clausesContext ctx) {
+				whereCounter.value0++;
+				
+				// store only first where statement. In case of annidated select, take the first one.
+				if (whereCounter.value0 == 1) {
+					int start=ctx.getStart().getStartIndex()-1;
+					int stop=ctx.getStop().getStopIndex()+1;
+					result.value0 =jql.substring(start,stop ); 
+				}
+			}
+
+		});
 		
+		return result.value0;
+		
+
+	}
+
 }

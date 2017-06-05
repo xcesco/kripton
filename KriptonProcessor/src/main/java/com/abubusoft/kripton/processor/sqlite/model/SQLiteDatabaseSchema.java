@@ -34,6 +34,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	protected Map<String, SQLEntity> entities = new HashMap<String, SQLEntity>();
+	
+	protected Map<String, SQLEntity> entitiesBySimpleName = new HashMap<String, SQLEntity>();
 
 	public String fileName;
 
@@ -72,14 +74,17 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		this.generatedClassName = "Bind" + getName();
 		this.generateContentProvider=false;	
 		this.contentProvider=null;
+		
 	}
 
 	public void clear() {
 		entities.clear();
+		entitiesBySimpleName.clear();
 	}
 
 	public void addEntity(SQLEntity value) {
 		entities.put(value.getName(), value);
+		entitiesBySimpleName.put(value.getSimpleName().toString(), value);
 	}
 
 	public Collection<SQLEntity> getEntities() {
@@ -92,6 +97,10 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public SQLEntity getEntity(String entityClassName) {
 		return entities.get(entityClassName);
+	}
+	
+	public SQLEntity getEntityBySimpleName(String entityName) {
+		return entitiesBySimpleName.get(entityName);
 	}
 
 	public boolean isLogEnabled() {
