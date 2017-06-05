@@ -41,15 +41,14 @@ import java.util.Set;
 import javax.lang.model.element.VariableElement;
 
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere.PrependType;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.One;
@@ -66,7 +65,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.TypeName;
 
 public abstract class JQLBuilder {
@@ -257,12 +255,12 @@ public abstract class JQLBuilder {
 			result.annotatedGroupBy = true;
 			builder.append(" " + HAVING_KEYWORD + " " + annotatedHaving);
 		}
-
-		// limit
-		builder.append(defineLimitStatement(method, result, annotation));
-
+		
 		// order by
 		builder.append(defineOrderByStatement(method, result, annotation));
+		
+		// limit
+		builder.append(defineLimitStatement(method, result, annotation));
 
 		result.value = builder.toString();
 		result.operationType = JQLType.SELECT;
@@ -279,7 +277,7 @@ public abstract class JQLBuilder {
 	 * @return
 	 */
 	private static JQL buildJQLUpdate(final SQLiteModelMethod method, JQL result) {
-		final Class<? extends Annotation> annotation = BindSqlInsert.class;
+		final Class<? extends Annotation> annotation = BindSqlUpdate.class;
 		final SQLDaoDefinition dao = method.getParent();
 
 		// extract some informaction from method and bean
@@ -335,7 +333,7 @@ public abstract class JQLBuilder {
 
 		Set<String> annotatedWhereParameters = new HashSet<String>();
 		if (StringUtils.hasText(annotatedWhere)) {
-			Set<JQLPlaceHolder> parametersUsedInWhereConditions = JQLChecker.getInstance().extractPlaceHoldersFromWhereCondition(annotatedWhere);
+			Set<JQLPlaceHolder> parametersUsedInWhereConditions = JQLChecker.getInstance().extractFromWhereConditionAsSet(annotatedWhere);
 
 			for (JQLPlaceHolder item : parametersUsedInWhereConditions) {
 				annotatedWhereParameters.add(item.value);
@@ -372,11 +370,13 @@ public abstract class JQLBuilder {
 
 			@Override
 			public void onMethodParameter(VariableElement item) {
-				BindSqlDynamicOrderBy parameterOrderBy = item.getAnnotation(BindSqlDynamicOrderBy.class);
+				BindSqlParam paramAlias = item.getAnnotation(BindSqlParam.class);
 				BindSqlPageSize parameterPageSize = item.getAnnotation(BindSqlPageSize.class);
+				
 				BindSqlDynamicWhere parameterWhere = item.getAnnotation(BindSqlDynamicWhere.class);
 				BindSqlDynamicWhereArgs paramegerWhereArgs = item.getAnnotation(BindSqlDynamicWhereArgs.class);
-				BindSqlParam paramAlias = item.getAnnotation(BindSqlParam.class);
+				
+				BindSqlDynamicOrderBy parameterOrderBy = item.getAnnotation(BindSqlDynamicOrderBy.class);				
 
 				int i = 0;
 

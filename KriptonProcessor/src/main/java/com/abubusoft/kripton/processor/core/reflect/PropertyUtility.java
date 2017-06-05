@@ -33,7 +33,7 @@ import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
-import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
+import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder;
 import com.squareup.javapoet.TypeName;
 
 public abstract class PropertyUtility {

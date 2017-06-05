@@ -1,17 +1,15 @@
 package sqlite.contentprovider.kripton35.persistence;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
+import android.database.Cursor;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
-import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 import sqlite.contentprovider.kripton35.entities.Person;
 
 /**
@@ -24,298 +22,118 @@ import sqlite.contentprovider.kripton35.entities.Person;
  *  @see sqlite.contentprovider.kripton35.entities.PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
-  private static final Set<String> insertOne0ColumnSet = CollectionUtils.asSet(String.class, "birth_city", "birth_day", "value", "name", "surname");
-
-  private static final Set<String> insertChild1ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
-
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
   }
 
   /**
-   * <p>SQL insert:</p>
-   * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
+   * <h2>Select SQL:</h2>
    *
-   * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
+   * <pre>SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || \'%\' #{dynamicWhere} HAVING id=2 GROUP BY id ORDER BY id#{orderBy}#{pageSize}</pre>
    *
-   * <p><strong>Inserted columns:</strong></p>
+   * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
-   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * </dl>
-   *
-   * @param bean
-   * 	is mapped to parameter <strong>bean</strong>
-   *
-   *
-   */
-  @Override
-  public void insertOne(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    if (bean.birthCity!=null) {
-      contentValues.put("birth_city", bean.birthCity);
-    } else {
-      contentValues.putNull("birth_city");
-    }
-
-    if (bean.birthDay!=null) {
-      contentValues.put("birth_day", DateUtils.write(bean.birthDay));
-    } else {
-      contentValues.putNull("birth_day");
-    }
-
-    contentValues.put("value", bean.value);
-
-    if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
-    } else {
-      contentValues.putNull("name");
-    }
-
-    if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
-    } else {
-      contentValues.putNull("surname");
-    }
-
-    //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
-    // use SQLiteDatabase conflicts algorithm
-    long result = database().insertWithOnConflict("person", null, contentValues, SQLiteDatabase.CONFLICT_FAIL);
-    bean.id=result;
-  }
-
-  /**
-   * <p>Manage the INSERT operation for content provider URI:</p>
-   * <pre>content://sqlite.contentprovider.kripton35/persons</pre>
-   */
-  long insertOne0(Uri uri, ContentValues contentValues) {
-    // content://sqlite.contentprovider.kripton35/persons
-    // 
-    // content://sqlite.contentprovider.kripton35/persons
-    // INSERT OR FAIL INTO Person (birthCity, birthDay, value, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})
-    for (String columnName:contentValues.keySet()) {
-      if (!insertOne0ColumnSet.contains(columnName)) {
-        throw new KriptonRuntimeException(String.format("Column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
-      }
-    }
-    // INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s)
-    //SqlUtils and StringUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s)", StringUtils.formatParam(contentValues.get("birth_city"),"'"), StringUtils.formatParam(contentValues.get("birth_day"),"'"), StringUtils.formatParam(contentValues.get("value"),""), StringUtils.formatParam(contentValues.get("name"),"'"), StringUtils.formatParam(contentValues.get("surname"),"'")));
-    long result = database().insertWithOnConflict("person", null, contentValues, SQLiteDatabase.CONFLICT_FAIL);
-    return result;
-  }
-
-  /**
-   * <p>SQL insert:</p>
-   * <pre>INSERT OR ABORT INTO person (parent_id, birth_city, birth_day, value, name, surname) VALUES (${bean.parentId}, ${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
-   *
-   * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
-   *
-   * <p><strong>Inserted columns:</strong></p>
-   * <dl>
-   * 	<dt>parent_id</dt><dd>is mapped to <strong>${bean.parentId}</strong></dd>
-   * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
-   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * </dl>
-   *
-   * @param bean
-   * 	is mapped to parameter <strong>bean</strong>
-   *
-   *
-   */
-  @Override
-  public void insertChild(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("parent_id", bean.parentId);
-
-    if (bean.birthCity!=null) {
-      contentValues.put("birth_city", bean.birthCity);
-    } else {
-      contentValues.putNull("birth_city");
-    }
-
-    if (bean.birthDay!=null) {
-      contentValues.put("birth_day", DateUtils.write(bean.birthDay));
-    } else {
-      contentValues.putNull("birth_day");
-    }
-
-    contentValues.put("value", bean.value);
-
-    if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
-    } else {
-      contentValues.putNull("name");
-    }
-
-    if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
-    } else {
-      contentValues.putNull("surname");
-    }
-
-    //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT OR ABORT INTO person (parent_id, birth_city, birth_day, value, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("parent_id"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
-    // use SQLiteDatabase conflicts algorithm
-    long result = database().insertWithOnConflict("person", null, contentValues, SQLiteDatabase.CONFLICT_ABORT);
-    bean.id=result;
-  }
-
-  /**
-   * <p>Manage the INSERT operation for content provider URI:</p>
-   * <pre>content://sqlite.contentprovider.kripton35/persons/#/children</pre>
-   */
-  long insertChild1(Uri uri, ContentValues contentValues) {
-    // content://sqlite.contentprovider.kripton35/persons/#/children
-    // /${parentId}/children
-    // content://sqlite.contentprovider.kripton35/persons/${parentId}/children
-    // INSERT OR ABORT INTO Person (parentId, birthCity, birthDay, value, name, surname) VALUES (${bean.parentId}, ${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})
-    contentValues.put("alias_parent_id", Long.valueOf(uri.getPathSegments().get(1)));
-    for (String columnName:contentValues.keySet()) {
-      if (!insertChild1ColumnSet.contains(columnName)) {
-        throw new KriptonRuntimeException(String.format("Column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
-      }
-    }
-    // INSERT OR ABORT INTO person (alias_parent_id, birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s, %s)
-    //SqlUtils and StringUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT OR ABORT INTO person (alias_parent_id, birth_city, birth_day, value, name, surname) VALUES (%s, %s, %s, %s, %s, %s)", StringUtils.formatParam(contentValues.get("alias_parent_id"),""), StringUtils.formatParam(contentValues.get("birth_city"),"'"), StringUtils.formatParam(contentValues.get("birth_day"),"'"), StringUtils.formatParam(contentValues.get("value"),""), StringUtils.formatParam(contentValues.get("name"),"'"), StringUtils.formatParam(contentValues.get("surname"),"'")));
-    long result = database().insertWithOnConflict("person", null, contentValues, SQLiteDatabase.CONFLICT_ABORT);
-    return result;
-  }
-
-  /**
-   * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE id = ${id}</pre> #{runtimeWhere}</pre>
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * <h2>Dynamic parts:</h2>
    * <dl>
-   * 	<dt>#{runtimeWhere}</dt><dd>is part of where conditions resolved at runtime.</dd>
+   * <dt>#{dynamicWhere}</dt><dd>is part of where conditions resolved at runtime.</dd><dt>#{orderBy}</dt>is part of order statement resolved at runtime.</dd><dt>#{pageSize}</dt>is part of limit statement resolved at runtime.</dd>
    * </dl>
    *
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
-   * @param runtimeWhere
-   * 	is used as dynamic where conditions
-   * @param args
-   * 	is used as updated field <strong>args</strong>
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${nameTemp}</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
+   * </dl>
+   *
+   * @param nameValue
+   * 	is binded to <code>${nameTemp}</code>
+   * @param pageSize
+   * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @param dynamicWhere
+   * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @param orderBy
+   * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @return collection of bean or empty collection.
    */
   @Override
-  public void delete(long id, String runtimeWhere, String[] args) {
-    String[] whereConditionsArray={String.valueOf(id)};
+  public List<Person> selectOne(String nameValue, int pageSize, String dynamicWhere, String orderBy) {
+    // build where condition
+    String[] _args={(nameValue==null?"":nameValue)};
 
-    //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("DELETE person WHERE id = %s "+SqlUtils.appendForLog(runtimeWhere), (Object[])whereConditionsArray));
-    int result = database().delete("person", "id = ? "+SqlUtils.appendForSQL(runtimeWhere)+"", whereConditionsArray);
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    Logger.info(SqlUtils.formatSQL("SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like '%s' || \'%%' "+SqlUtils.appendForLog(dynamicWhere)+" HAVING id=2 GROUP BY id ORDER BY id"+SqlUtils.appendForLog(orderBy)+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize),(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ? || \'%\' "+SqlUtils.appendForSQL(dynamicWhere)+" HAVING id=2 GROUP BY id ORDER BY id"+SqlUtils.appendForSQL(orderBy)+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize), _args)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+
+      LinkedList<Person> resultList=new LinkedList<Person>();
+      Person resultBean=null;
+
+      if (cursor.moveToFirst()) {
+
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("parent_id");
+        int index2=cursor.getColumnIndex("birth_city");
+        int index3=cursor.getColumnIndex("birth_day");
+        int index4=cursor.getColumnIndex("value");
+        int index5=cursor.getColumnIndex("name");
+        int index6=cursor.getColumnIndex("surname");
+
+        do
+         {
+          resultBean=new Person();
+
+          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
+          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
+          if (!cursor.isNull(index4)) { resultBean.value=cursor.getLong(index4); }
+          if (!cursor.isNull(index5)) { resultBean.setName(cursor.getString(index5)); }
+          if (!cursor.isNull(index6)) { resultBean.setSurname(cursor.getString(index6)); }
+
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
+    }
   }
 
   /**
-   * <h1>Content provider URI (DELETE operation):</h1>
-   * <pre>content://sqlite.contentprovider.kripton35/persons/#</pre>
+   * <h1>Content provider URI (SELECT operation):</h1>
+   * <pre>content://sqlite.contentprovider.kripton35/persons</pre>
    *
-   * <p>Path variables defined:</p>
-   * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
-   * </ul>
+   * <h2>JQL SELECT for Content Provider</h2>
+   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person WHERE #{dynamicWhere} ORDER BY #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}</pre>
    *
-   * <h2>JQL delete for Content Provider</h2>
-   * <pre>DELETE FROM Person WHERE id = ${id} AND #{runtimeWhere}</pre>
+   * <h2>SQL SELECT for Content Provider</h2>
+   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE #{dynamicWhere} ORDER BY #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}</pre>
    *
-   * <h2>SQL delete for Content Provider</h2>
-   * <pre>DELETE FROM person WHERE id = ${id} AND #{runtimeWhere}</pre>
-   *
-   * @param uri "content://sqlite.contentprovider.kripton35/persons/#"
+   * @param uri "content://sqlite.contentprovider.kripton35/persons"
    * @param selection dynamic part of <code>where</code> statement 
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
+   * @return number of effected rows
    */
-  int delete2(Uri uri, String selection, String[] selectionArgs) {
+  Cursor selectOne0(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
     //SqlUtils and StringUtils will be used to format SQL
-    String whereCondition=" id = ? ";
+    String whereCondition=" ";
     if (StringUtils.hasText(selection)) {
-      whereCondition+="AND " + selection;
+      whereCondition+="OR " + selection;
     }
     ArrayList<String> whereParams=new ArrayList<>();
-    // Add parameter id at path segment 1
-    whereParams.add(uri.getPathSegments().get(1));
     if (StringUtils.hasText(selection) && selectionArgs!=null) {
       for (String arg: selectionArgs) {
         whereParams.add(arg);
       }
     }
-    int result = database().delete("person", whereCondition, whereParams.toArray(new String[whereParams.size()]));
-    return result;
-  }
-
-  /**
-   * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE id = ${id} and birthDay=${parentId}</pre></pre>
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
-   * </dl>
-   *
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
-   * @param parentId
-   * 	is used as where parameter <strong>${parentId}</strong>
-   */
-  @Override
-  public void delete(long id, long parentId) {
-    String[] whereConditionsArray={String.valueOf(id), String.valueOf(parentId)};
-
-    //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("DELETE person WHERE id = %s and birthDay=%s", (Object[])whereConditionsArray));
-    int result = database().delete("person", "id = ? and birth_day=?", whereConditionsArray);
-  }
-
-  /**
-   * <h1>Content provider URI (DELETE operation):</h1>
-   * <pre>content://sqlite.contentprovider.kripton35/persons/level1/#/#</pre>
-   *
-   * <p>Path variables defined:</p>
-   * <ul>
-   * <li><strong>${id}</strong> at path segment 2</li>
-   * <li><strong>${parentId}</strong> at path segment 3</li>
-   * </ul>
-   *
-   * <h2>JQL delete for Content Provider</h2>
-   * <pre>DELETE FROM Person WHERE id = ${id} and birthDay=${parentId}</pre>
-   *
-   * <h2>SQL delete for Content Provider</h2>
-   * <pre>DELETE FROM person WHERE id = ${id} and birth_day=${parentId}</pre>
-   *
-   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   *
-   * @param uri "content://sqlite.contentprovider.kripton35/persons/level1/#/#"
-   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   */
-  int delete3(Uri uri, String selection, String[] selectionArgs) {
-    //SqlUtils and StringUtils will be used to format SQL
-    String whereCondition=" id = ${id} and birthDay=${parentId}";
-    ArrayList<String> whereParams=new ArrayList<>();
-    // Add parameter id at path segment 2
-    whereParams.add(uri.getPathSegments().get(2));
-    // Add parameter parentId at path segment 3
-    whereParams.add(uri.getPathSegments().get(3));
-    int result = database().delete("person", whereCondition, whereParams.toArray(new String[whereParams.size()]));
+    String sql="SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE #{dynamicWhere} ORDER BY #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}";
+    Cursor result = database().rawQuery(sql, whereParams.toArray(new String[whereParams.size()]));
     return result;
   }
 }

@@ -29,6 +29,7 @@ import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -194,12 +195,15 @@ public abstract class SqlInsertBuilder {
 		final Set<String> columns=new LinkedHashSet<>();
 		final StringBuilder parametersBuilder=new StringBuilder();
 		
+		final One<Boolean> useColumns=new One<Boolean>(true);
 		String resultA = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListener() {
 			
 			@Override
 			public String onColumnName(String columnName) {
 				String convertedColumnName=entity.get(columnName).columnName;
-				columns.add(convertedColumnName);
+				if (useColumns.value0) {				
+					columns.add(convertedColumnName);
+				}
 				return convertedColumnName;				
 			}
 			
@@ -229,12 +233,22 @@ public abstract class SqlInsertBuilder {
 			public String onTableName(String tableName) {
 				return tableNameConverter.convert(tableName);
 			}
+
+			@Override
+			public void onWhereStatementBegin() {
+				useColumns.value0=false;
+			}
+
+			@Override
+			public void onWhereStatementEnd() {
+				useColumns.value0=true;
+			}
 			
 			
 		});
 		
 		
-		generateColumnCheckForContentProvider(elementUtils, builder, method,columns);
+		generateColumnCheckSet(elementUtils, builder, method,columns);
 		
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
 		ParameterSpec parameterSpec;
@@ -270,11 +284,7 @@ public abstract class SqlInsertBuilder {
 			} 
 		}		
 		
-		methodBuilder.beginControlFlow("for (String columnName:contentValues.keySet())");
-			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName+"ColumnSet");
-				methodBuilder.addStatement("throw new $T(String.format(\"Column '%s' does not exists in table '%s' or can not be defined in this INSERT operation\", columnName, $S ))", KriptonRuntimeException.class, daoDefinition.getEntity().getTableName());
-			methodBuilder.endControlFlow();
-		methodBuilder.endControlFlow();
+		generateColumnCheck(method, methodBuilder, "INSERT");
 				
 		methodBuilder.addCode("// $L\n", resultA);		
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
@@ -295,9 +305,33 @@ public abstract class SqlInsertBuilder {
 
 		builder.addMethod(methodBuilder.build());
 	}
+
+	/**
+	 * <p>Generate column check</p>
+	 * 
+	 * @param method
+	 * @param daoDefinition
+	 * @param operationType
+	 */
+	static void generateColumnCheck(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, String operationType) {
+		SQLDaoDefinition daoDefinition=method.getParent();
+		methodBuilder.beginControlFlow("for (String columnName:contentValues.keySet())");
+			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName+"ColumnSet");
+				methodBuilder.addStatement("throw new $T(String.format(\"For URI '$L', column '%s' does not exists in table '%s' or can not be defined in this $L operation\", columnName, $S ))", KriptonRuntimeException.class, method.contentProviderUriTemplate,  operationType ,daoDefinition.getEntity().getTableName());
+			methodBuilder.endControlFlow();
+		methodBuilder.endControlFlow();
+	}
 	
 
-	static void generateColumnCheckForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
+	/**
+	 * <p></p>
+	 * 
+	 * @param elementUtils
+	 * @param builder
+	 * @param method
+	 * @param columnNames
+	 */
+	static void generateColumnCheckSet(Elements elementUtils, Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
 		StringBuilder initBuilder=new StringBuilder();
 		String temp="";
 		

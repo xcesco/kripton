@@ -75,7 +75,7 @@ import com.abubusoft.kripton.processor.sqlite.BindCursorBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindTableGenerator;
-import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
+import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -415,7 +415,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		currentSchema.add(currentDaoDefinition);
 
 		// create method for dao
-		SelectBuilderUtility.forEachMethods(elementUtils, (TypeElement) daoElement, new MethodFoundListener() {
+		SqlSelectBuilder.forEachMethods(elementUtils, (TypeElement) daoElement, new MethodFoundListener() {
 
 			@Override
 			public void onMethod(ExecutableElement element) {

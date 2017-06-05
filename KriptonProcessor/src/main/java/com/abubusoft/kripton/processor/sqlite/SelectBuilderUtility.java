@@ -15,172 +15,71 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.PaginatedResult;
-import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
-import android.database.Cursor;
-
+/**
+ * @author Francesco Benincasa (abubusoft@gmail.com)
+ *
+ *
+ * @since 05/mag/2016
+ */
 public abstract class SelectBuilderUtility {
 
-	/**
-	 * Iterate over methods.
-	 * 
-	 * @param elementUtils
-	 * @param typeElement
-	 * @param listener
-	 */
-	public static void forEachMethods(Elements elementUtils, TypeElement typeElement, MethodFoundListener listener) {
-		List<? extends Element> list = elementUtils.getAllMembers(typeElement);
+	public interface SelectCodeGenerator {
+		void generate(Elements elementUtils, Builder builder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 
-		for (Element item : list) {
-			if (item.getKind() == ElementKind.METHOD) {
-				listener.onMethod((ExecutableElement) item);
-			}
-		}
+		void setSelectResultTye(SelectType selectResultType);
 	}
 
-	public static boolean hasParameterOfType(ModelMethod method, TypeName parameter) {
-		return countParameterOfType(method, parameter)>0;
-	}
+	public enum SelectType {
+			BEAN(SelectBeanHelper.class, true),
+			CURSOR(SelectRawHelper.class, false),
+			LIST_BEAN(SelectBeanListHelper.class, true),
+			LIST_SCALAR(SelectScalarListHelper.class, false),
+			LISTENER_BEAN(SelectBeanListenerHelper.class, true),
+			LISTENER_CURSOR(SelectRawListenerHelper.class, false),
+			PAGED_RESULT(SelectPaginatedResultHelper.class, true),
+			SCALAR(SelectScalarHelper.class, false);
 
-	public static int countParameterOfType(ModelMethod method, TypeName parameter) {
-		int counter = 0;
-		for (Pair<String, TypeName> item : method.getParameters()) {
-			if (item.value1.equals(parameter)) {
-				counter++;
-			}
-		}
+		private SelectCodeGenerator codeGenerator;
 
-		return counter;
-	}
+		private boolean mapFields;
 
-	public static String getNameParameterOfType(ModelMethod method, TypeName parameter) {
-		for (Pair<String, TypeName> item : method.getParameters()) {
-			if (item.value1.equals(parameter)) {
-				return item.value0;
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param elementUtils
-	 * @param builder
-	 * @param method
-	 */
-	public static void generateSelect(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
-
-		SqlSelectBuilder.SelectType selectResultType = null;
-
-		// if true, field must be associate to ben attributes
-		TypeName returnTypeName = method.getReturnClass();
-
-		ParameterizedTypeName readBeanListener=ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class), ClassName.get(entity.getElement()));
-		ClassName readCursorListener=ClassName.get(OnReadCursorListener.class);
-		//LiteralType readBeanListener = LiteralType.of(OnReadBeanListener.class.getCanonicalName(), entity.getName());
-		//LiteralType readCursorListener = LiteralType.of(OnReadCursorListener.class);
-		
-
-		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
-		int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
-		
-		AssertKripton.failWithInvalidMethodSignException(pageSize<0, method, "in @%s(pageSize) must be set with positive number",BindSqlSelect.class.getSimpleName());
-		AssertKripton.failWithInvalidMethodSignException(pageSize>0 && method.hasDynamicPageSizeConditions(), method, "can not define @%s(pageSize) and mark a method parameter with @%s ",BindSqlSelect.class.getSimpleName(), BindSqlPageSize.class.getSimpleName());		
-
-		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
-			// return VOID (in the parameters must be a listener)
-			if (hasParameterOfType(method, readCursorListener)) {
-				selectResultType = SqlSelectBuilder.SelectType.LISTENER_CURSOR;
-			} else if (hasParameterOfType(method, readBeanListener)) {
-				selectResultType = SqlSelectBuilder.SelectType.LISTENER_BEAN;
-			}
-		} else if (TypeUtility.isTypeIncludedIn(returnTypeName, Cursor.class)) {
-			// return Cursor (no listener)
-			selectResultType = SqlSelectBuilder.SelectType.CURSOR;
-		} else if (returnTypeName instanceof ParameterizedTypeName) {
-			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) returnTypeName;
-			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;
-
-			// return List (no listener)
-			AssertKripton.assertTrueOrInvalidMethodSignException(returnParameterizedTypeName.typeArguments.size() == 1, method, "return type %s is not supported", returnTypeName);
-			TypeName elementName = returnParameterizedTypeName.typeArguments.get(0);
-
+		private SelectType(Class<? extends AbstractSelectCodeGenerator> codeGenerator, boolean mapFields) {
 			try {
-				Class<?> wrapperClazz = Class.forName(returnParameterizedClassName.toString());
-				if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
-					// method must have pageSize, statically or dynamically
-					// defined
-					AssertKripton.assertTrueOrInvalidMethodSignException(method.hasDynamicPageSizeConditions() || pageSize > 0, method,
-							"use of PaginatedResult require 'pageSize' attribute or a @%s annotated parameter", returnTypeName, BindSqlPageSize.class.getSimpleName());
-
-					// paged result
-					AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isEquals(elementName, entity.getName().toString()), method, "return type %s is not supported", returnTypeName);
-					selectResultType = SqlSelectBuilder.SelectType.PAGED_RESULT;
-					// set typeName of paginatedResult
-					method.paginatedResultName="paginatedResult";
-				} else if (Collection.class.isAssignableFrom(wrapperClazz)) {
-					if (TypeUtility.isEquals(elementName, entity.getName().toString())) {
-						// entity list
-						selectResultType = SqlSelectBuilder.SelectType.LIST_BEAN;
-					} else if (SQLTransformer.isSupportedJDKType(elementName) || TypeUtility.isByteArray(elementName)) {
-						// scalar list
-						selectResultType = SqlSelectBuilder.SelectType.LIST_SCALAR;
-					} else {
-						AssertKripton.failWithInvalidMethodSignException(true, method, "");
-					}
-
-				}
-			} catch (Exception e) {
-				// error
+				this.mapFields = mapFields;
+				this.codeGenerator = codeGenerator.newInstance();
+				this.codeGenerator.setSelectResultTye(this);
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
 			}
-		} else if (TypeUtility.isEquals(returnTypeName, entity)) {
-			// return one element (no listener)
-			selectResultType = SqlSelectBuilder.SelectType.BEAN;
-		} else if (SQLTransformer.isSupportedJDKType(returnTypeName) || TypeUtility.isByteArray(returnTypeName)) {
-			// return single value string, int, long, short, double, float,
-			// String (no listener)
-			selectResultType = SqlSelectBuilder.SelectType.SCALAR;
 		}
 
-		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method,"'%s' as return type is not supported", returnTypeName);
+		public void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method, TypeName returnType) {
+			codeGenerator.generate(elementUtils, builder, this.isMapFields(), method, returnType);
+		}
 
-		// generate select method
-		selectResultType.generate(elementUtils, builder, method, returnTypeName);
+		/**
+		 * @return the codeGenerator
+		 */
+		public SelectCodeGenerator getCodeGenerator() {
+			return codeGenerator;
+		}
+
+		/**
+		 * if true, map cursor fields to bean attributes.
+		 * 
+		 * @return the mapFields
+		 */
+		public boolean isMapFields() {
+			return mapFields;
+		}
 	}
-
-
-
-
 
 }

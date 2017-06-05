@@ -21,12 +21,15 @@ import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowContentResolver;
+import org.robolectric.util.ContentProviderController;
 
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.ContentValues;
+import android.content.pm.ProviderInfo;
 import android.net.Uri;
 import base.BaseAndroidTest;
 import sqlite.contentprovider.kripton35.entities.Person;
@@ -41,8 +44,14 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 
 	@Before
 	public void setupContentProvider() {
-		BindPersonContentProvider mProvider = new BindPersonContentProvider();
-		ShadowContentResolver.registerProvider(BindPersonContentProvider.AUTHORITY, mProvider);
+//		BindPersonContentProvider mProvider = new BindPersonContentProvider();
+//		ShadowContentResolver.registerProvider(BindPersonContentProvider.AUTHORITY, mProvider);
+//		
+		ProviderInfo info=new ProviderInfo();
+		info.authority=BindPersonContentProvider.AUTHORITY;
+		
+		ContentProviderController<BindPersonContentProvider> controller=Robolectric.buildContentProvider(BindPersonContentProvider.class);
+		controller.create(info);
 	}
 
 	@Test

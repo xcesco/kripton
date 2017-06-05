@@ -33,25 +33,10 @@ public class BindPersonContentProvider extends ContentProvider {
 
   public static final String PATH_PERSON_1 = "persons";
 
-  public static final String PATH_PERSON_2 = "persons/#/children";
-
-  public static final String PATH_PERSON_3 = "persons/#";
-
-  public static final String PATH_PERSON_4 = "persons/level1/#/#";
-
   static final int PATH_PERSON_1_INDEX = 1;
-
-  static final int PATH_PERSON_2_INDEX = 2;
-
-  static final int PATH_PERSON_3_INDEX = 3;
-
-  static final int PATH_PERSON_4_INDEX = 4;
 
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
-    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
-    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_3, PATH_PERSON_3_INDEX);
-    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_4, PATH_PERSON_4_INDEX);
   }
 
   /**
@@ -77,96 +62,63 @@ public class BindPersonContentProvider extends ContentProvider {
     dataSource.close();
   }
 
-  /**
-   * method PersonDAO.insertOne
-   * method PersonDAO.insertChild
-   * uri 
-   * uri ${parentId}/children
-   */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
     long id=-1;
     Uri returnURL=null;
     switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_1_INDEX: {
-        id=dataSource.getPersonDAO().insertOne0(uri, contentValues);
-        returnURL=Uri.withAppendedPath(uri, String.valueOf(id));
-        break;
-      }
-      case PATH_PERSON_2_INDEX: {
-        id=dataSource.getPersonDAO().insertChild1(uri, contentValues);
-        returnURL=Uri.withAppendedPath(uri, String.valueOf(id));
-        break;
-      }
       default: {
         throw new IllegalArgumentException("Unknown URI: " + uri);
       }
     }
-    getContext().getContentResolver().notifyChange(uri, null);
-    return returnURL;
   }
 
   @Override
-  public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+  public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+    int returnRowUpdated=1;
     switch (sURIMatcher.match(uri)) {
+      default: {
+        throw new IllegalArgumentException("Unknown URI: " + uri);
+      }
     }
-    return 0;
-  }
-
-  @Override
-  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-    switch (sURIMatcher.match(uri)) {
-    }
-    return null;
   }
 
   /**
-   * method PersonDAO.delete
-   * method PersonDAO.delete
-   * uri ${id}
-   * uri level1/${id}/${parentId}
+   * method PersonDAO.selectOne
+   * method PersonDAO.selectOne
+   * uri 
    */
+  @Override
+  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    Cursor returnCursor=null;
+    switch (sURIMatcher.match(uri)) {
+      case PATH_PERSON_1_INDEX: {
+        // URI: content://sqlite.contentprovider.kripton35/persons
+        returnCursor=dataSource.getPersonDAO().selectOne0(uri, projection, selection, selectionArgs, sortOrder);
+        break;
+      }
+    }
+    getContext().getContentResolver().notifyChange(uri, null);
+    return returnCursor;
+  }
+
   @Override
   public int delete(Uri uri, String selection, String[] selectionArgs) {
     int returnRowDeleted=-1;
     switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_3_INDEX: {
-        // URI: content://sqlite.contentprovider.kripton35/persons/${id}
-        returnRowDeleted=dataSource.getPersonDAO().delete2(uri, selection, selectionArgs);
-        break;
-      }
-      case PATH_PERSON_4_INDEX: {
-        // URI: content://sqlite.contentprovider.kripton35/persons/level1/${id}/${parentId}
-        returnRowDeleted=dataSource.getPersonDAO().delete3(uri, selection, selectionArgs);
-        break;
-      }
       default: {
         throw new IllegalArgumentException("Unknown URI: " + uri);
       }
     }
-    getContext().getContentResolver().notifyChange(uri, null);
-    return returnRowDeleted;
   }
 
   /**
    * uri 
-   * uri ${parentId}/children
-   * uri ${id}
-   * uri level1/${id}/${parentId}
    */
   @Override
   public String getType(Uri uri) {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
-        break;
-      }
-      case PATH_PERSON_2_INDEX: {
-        break;
-      }
-      case PATH_PERSON_3_INDEX: {
-        break;
-      }
-      case PATH_PERSON_4_INDEX: {
         break;
       }
     }

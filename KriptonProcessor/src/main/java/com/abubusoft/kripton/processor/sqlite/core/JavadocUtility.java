@@ -29,7 +29,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPart;
 import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPartType;
 import com.abubusoft.kripton.processor.sqlite.PropertyList;
-import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SelectType;
+import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;

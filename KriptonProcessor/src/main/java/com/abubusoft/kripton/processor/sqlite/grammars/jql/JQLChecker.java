@@ -48,6 +48,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_param
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Result_columnContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_nameContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_clausesContext;
 
 public class JQLChecker {
@@ -242,6 +243,17 @@ public class JQLChecker {
 				String value = listener.onColumnName(ctx.getText());
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
+			
+			@Override
+			public void enterWhere_stmt(Where_stmtContext ctx) {
+				listener.onWhereStatementBegin();
+			}
+			
+			@Override
+			public void exitWhere_stmt(Where_stmtContext ctx) {
+				listener.onWhereStatementEnd();
+			}
+			
 
 		};
 
@@ -296,6 +308,10 @@ public class JQLChecker {
 		String onColumnName(String columnName);
 
 		String onColumnValue(String columnValue);
+		
+		void onWhereStatementBegin();
+		
+		void onWhereStatementEnd();
 	}
 
 	public static class JQLParameterName {
@@ -352,8 +368,18 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public Set<JQLPlaceHolder> extractPlaceHoldersFromWhereCondition(String jql) {
+	public Set<JQLPlaceHolder> extractFromWhereConditionAsSet(String jql) {
 		return extractPlaceHoldersFromWhereCondition(jql, new LinkedHashSet<JQLPlaceHolder>());
+	}
+	
+	/**
+	 * Extract all bind parameters and dynamic part used in query.
+	 * 
+	 * @param jql
+	 * @return
+	 */
+	public List<JQLPlaceHolder> extractFromWhereCondition(String jql) {
+		return extractPlaceHoldersFromWhereCondition(jql, new ArrayList<JQLPlaceHolder>());
 	}
 
 	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(String jql, final L result) {

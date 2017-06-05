@@ -151,7 +151,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		} else if (value.getAnnotation(BindSqlDelete.class) != null) {
 			SqlModifyBuilder.generate(elementUtils, builder, value, false);
 		} else if (value.getAnnotation(BindSqlSelect.class) != null) {
-			SelectBuilderUtility.generateSelect(elementUtils, builder, value);
+			SqlSelectBuilder.generateSelect(elementUtils, builder, value);
 		} else {
 			// method without supported annotation
 			AssertKripton.failWithMethodWithoutSupportedAnnotationException(value);

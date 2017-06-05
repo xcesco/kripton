@@ -306,14 +306,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(Uri.class, "uri");
 		methodBuilder.addParameter(ContentValues.class, "contentValues");
 
-		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
-			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
-				if (daoMethod.jql.operationType != JQLType.INSERT)
-					continue;
-				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
-			}
-		}
-
+		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.INSERT);
+		
 		// method code
 		methodBuilder.addStatement("long id=-1");
 		methodBuilder.addStatement("$T returnURL=null", Uri.class);
@@ -338,8 +332,10 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		
 		methodBuilder.endControlFlow();
 		
-		methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
-		methodBuilder.addStatement("return returnURL");
+		if (hasOperation) {		
+			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
+			methodBuilder.addStatement("return returnURL");
+		}
 
 		classBuilder.addMethod(methodBuilder.build());
 
@@ -351,13 +347,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(String.class, "selection");
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 
-		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
-			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
-				if (daoMethod.jql.operationType != JQLType.DELETE)
-					continue;
-				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
-			}
-		}
+		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.DELETE);
 
 		methodBuilder.addStatement("int returnRowDeleted=-1");
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
@@ -379,9 +369,13 @@ public class BindContentProviderBuilder extends AbstractBuilder {
         methodBuilder.endControlFlow();
 		
 		methodBuilder.endControlFlow();
+		
+		if (hasOperation) {		
+			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
+			methodBuilder.addCode("return returnRowDeleted;\n");
+		}
 
-		methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
-		methodBuilder.addCode("return returnRowDeleted;\n");
+		
 
 		classBuilder.addMethod(methodBuilder.build());
 	}
@@ -389,18 +383,14 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	private void generateUpdate(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("update").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Integer.TYPE);
 		methodBuilder.addParameter(Uri.class, "uri");
-		methodBuilder.addParameter(ContentValues.class, "values");
+		methodBuilder.addParameter(ContentValues.class, "contentValues");
 		methodBuilder.addParameter(String.class, "selection");
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 
-		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
-			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
-				if (daoMethod.jql.operationType != JQLType.UPDATE)
-					continue;
-				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
-			}
-		}
+		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.UPDATE);
 
+		methodBuilder.addStatement("int returnRowUpdated=1");
+		
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
 			if (item.getValue().update == null)
@@ -409,15 +399,43 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
+			methodBuilder.addCode("// URI: $L\n",item.getValue().update.contentProviderUri());
+			methodBuilder.addStatement("returnRowUpdated=dataSource.get$L().$L(uri, contentValues, selection, selectionArgs)", item.getValue().update.getParent().getName(), item.getValue().update.contentProviderMethodName);
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
+		
+		methodBuilder.beginControlFlow("default:");
+		methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+        methodBuilder.endControlFlow();
+		
 		methodBuilder.endControlFlow();
 
-		methodBuilder.addCode("return 0;\n");
+		if (hasOperation) {
+			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
+			methodBuilder.addStatement("return returnRowUpdated");
+		}
 
 		classBuilder.addMethod(methodBuilder.build());
 
+	}
+
+	/**
+	 * @param schema
+	 * @param methodBuilder
+	 * @return
+	 */
+	private boolean hasOperationOfType(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder, JQLType jqlType) {
+		boolean hasOperation=false;
+		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
+				if (daoMethod.jql.operationType != jqlType)
+					continue;
+				hasOperation=true;
+				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
+			}
+		}
+		return hasOperation;
 	}
 
 	private void generateGetType(SQLiteDatabaseSchema schema) {
@@ -475,6 +493,9 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(String.class, "selection");
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 		methodBuilder.addParameter(String.class, "sortOrder");
+		
+		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.SELECT);
+		methodBuilder.addStatement("$T returnCursor=null", Cursor.class);
 
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
 			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
@@ -492,12 +513,17 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
+			methodBuilder.addCode("// URI: $L\n",item.getValue().select.contentProviderUri());
+			methodBuilder.addStatement("returnCursor=dataSource.get$L().$L(uri, projection, selection, selectionArgs, sortOrder)", item.getValue().select.getParent().getName(), item.getValue().select.contentProviderMethodName);			
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
 		methodBuilder.endControlFlow();
 
-		methodBuilder.addCode("return null;\n");
+		if (hasOperation) {
+			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
+			methodBuilder.addStatement("return returnCursor");
+		}
 
 		classBuilder.addMethod(methodBuilder.build());
 	}
