@@ -359,6 +359,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			}
 		}
 
+		methodBuilder.addStatement("int returnRowDeleted=-1");
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
 			if (item.getValue().delete == null)
@@ -367,12 +368,20 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
+			methodBuilder.addCode("// URI: $L\n",item.getValue().delete.contentProviderUri());
+			methodBuilder.addStatement("returnRowDeleted=dataSource.get$L().$L(uri, selection, selectionArgs)", item.getValue().delete.getParent().getName(), item.getValue().delete.contentProviderMethodName);			
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
+		
+		methodBuilder.beginControlFlow("default:");
+		methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+        methodBuilder.endControlFlow();
+		
 		methodBuilder.endControlFlow();
 
-		methodBuilder.addCode("return 0;\n");
+		methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
+		methodBuilder.addCode("return returnRowDeleted;\n");
 
 		classBuilder.addMethod(methodBuilder.build());
 	}

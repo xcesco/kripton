@@ -282,7 +282,7 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(Uri.class, "uri").build());
 		methodBuilder.addParameter(ParameterSpec.builder(String.class, "selection").build());
 		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "selectionArgs").build());
-		methodBuilder.returns(Long.TYPE);
+		methodBuilder.returns(Integer.TYPE);
 
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
 
@@ -364,7 +364,7 @@ public abstract class SqlModifyBuilder {
 		switch (updateResultType) {
 		case DELETE_BEAN:
 		case DELETE_RAW:
-			methodBuilder.addStatement("long result = database().delete($S, whereCondition, whereParams.toArray(new String[whereParams.size()]))", daoDefinition.getEntity().getTableName());
+			methodBuilder.addStatement("int result = database().delete($S, whereCondition, whereParams.toArray(new String[whereParams.size()]))", daoDefinition.getEntity().getTableName());
 			break;
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
@@ -375,7 +375,7 @@ public abstract class SqlModifyBuilder {
 					daoDefinition.getEntity().getTableName());
 			methodBuilder.endControlFlow();
 			methodBuilder.endControlFlow();
-			methodBuilder.addStatement("long result = database().update($S, null, null)", daoDefinition.getEntity().getTableName());
+			methodBuilder.addStatement("int result = database().update($S, null, null)", daoDefinition.getEntity().getTableName());
 			break;
 		}
 

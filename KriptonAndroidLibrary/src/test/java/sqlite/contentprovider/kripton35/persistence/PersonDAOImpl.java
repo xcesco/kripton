@@ -243,7 +243,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @param selection dynamic part of <code>where</code> statement 
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    */
-  long delete2(Uri uri, String selection, String[] selectionArgs) {
+  int delete2(Uri uri, String selection, String[] selectionArgs) {
     //SqlUtils and StringUtils will be used to format SQL
     String whereCondition=" id = ? ";
     if (StringUtils.hasText(selection)) {
@@ -257,7 +257,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         whereParams.add(arg);
       }
     }
-    long result = database().delete("person", whereCondition, whereParams.toArray(new String[whereParams.size()]));
+    int result = database().delete("person", whereCondition, whereParams.toArray(new String[whereParams.size()]));
     return result;
   }
 
@@ -307,7 +307,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    */
-  long delete3(Uri uri, String selection, String[] selectionArgs) {
+  int delete3(Uri uri, String selection, String[] selectionArgs) {
     //SqlUtils and StringUtils will be used to format SQL
     String whereCondition=" id = ${id} and birthDay=${parentId}";
     ArrayList<String> whereParams=new ArrayList<>();
@@ -315,7 +315,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     whereParams.add(uri.getPathSegments().get(2));
     // Add parameter parentId at path segment 3
     whereParams.add(uri.getPathSegments().get(3));
-    long result = database().delete("person", whereCondition, whereParams.toArray(new String[whereParams.size()]));
+    int result = database().delete("person", whereCondition, whereParams.toArray(new String[whereParams.size()]));
     return result;
   }
 }

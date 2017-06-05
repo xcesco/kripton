@@ -128,15 +128,24 @@ public class BindPersonContentProvider extends ContentProvider {
    */
   @Override
   public int delete(Uri uri, String selection, String[] selectionArgs) {
+    int returnRowDeleted=-1;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_3_INDEX: {
+        // URI: content://sqlite.contentprovider.kripton35/persons/${id}
+        returnRowDeleted=dataSource.getPersonDAO().delete2(uri, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_4_INDEX: {
+        // URI: content://sqlite.contentprovider.kripton35/persons/level1/${id}/${parentId}
+        returnRowDeleted=dataSource.getPersonDAO().delete3(uri, selection, selectionArgs);
         break;
       }
+      default: {
+        throw new IllegalArgumentException("Unknown URI: " + uri);
+      }
     }
-    return 0;
+    getContext().getContentResolver().notifyChange(uri, null);
+    return returnRowDeleted;
   }
 
   /**
