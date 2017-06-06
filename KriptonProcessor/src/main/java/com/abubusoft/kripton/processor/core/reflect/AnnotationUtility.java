@@ -32,6 +32,8 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.util.Elements;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -63,8 +65,9 @@ public abstract class AnnotationUtility {
 
 		List<String> result = new ArrayList<String>();
 
+		//	we need to unscape javascript format, otherwise string like " where id like '%' " will become " where id like \'%\' " 
 		while (matcher.find()) {
-			result.add(matcher.group(1));
+			result.add(StringEscapeUtils.unescapeEcmaScript(matcher.group(1)));
 		}
 
 		return result;
@@ -191,7 +194,8 @@ public abstract class AnnotationUtility {
 	 * @param attributeName
 	 * @return attribute value extracted as class typeName
 	 */
-	public static String extractAsString(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+	public static String extractAsString(final Elements elementUtils, final Element item, final Class<? extends Annotation> annotationClass, final AnnotationAttributeType attributeName) {
+		
 		final One<String> result = new One<String>();
 
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
@@ -203,7 +207,7 @@ public abstract class AnnotationUtility {
 				if (list.size() > 0)
 					result.value0 = list.get(0);
 				else
-					result.value0 = value;
+					result.value0 = value;							
 			}
 		});
 
@@ -277,8 +281,7 @@ public abstract class AnnotationUtility {
 	 */
 	static void extractAttributeValue(Elements elementUtils, Element item, String annotationName, AnnotationAttributeType attribute, OnAttributeFoundListener listener) {
 		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(item);
-		for (AnnotationMirror annotation : annotationList) {
-
+		for (AnnotationMirror annotation : annotationList) {			
 			if (annotationName.equals(annotation.getAnnotationType().asElement().toString())) {
 				// found annotation
 				for (Entry<? extends ExecutableElement, ? extends AnnotationValue> annotationItem : elementUtils.getElementValuesWithDefaults(annotation).entrySet()) {

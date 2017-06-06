@@ -231,10 +231,11 @@ public class JQLChecker {
 				String value = listener.onTableName(ctx.getText());
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
+						
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				String value = listener.onColumnValue(ctx.bind_parameter_name().getText());
+				String value = listener.onBindParameter(ctx.bind_parameter_name().getText());
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 
@@ -246,12 +247,15 @@ public class JQLChecker {
 			
 			@Override
 			public void enterWhere_stmt(Where_stmtContext ctx) {
-				listener.onWhereStatementBegin();
+				String value=listener.onWhereStatementBegin(ctx);
+				
+				if (value!=null)
+				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 			
 			@Override
 			public void exitWhere_stmt(Where_stmtContext ctx) {
-				listener.onWhereStatementEnd();
+				listener.onWhereStatementEnd(ctx);
 			}
 			
 
@@ -307,11 +311,16 @@ public class JQLChecker {
 
 		String onColumnName(String columnName);
 
-		String onColumnValue(String columnValue);
+		String onBindParameter(String bindParameterName);
 		
-		void onWhereStatementBegin();
+		/**
+		 * if return something different than null, the value will replace where statement
+		 * @param ctx
+		 * @return
+		 */
+		String onWhereStatementBegin(Where_stmtContext ctx);
 		
-		void onWhereStatementEnd();
+		void onWhereStatementEnd(Where_stmtContext ctx);
 	}
 
 	public static class JQLParameterName {

@@ -63,9 +63,9 @@ public interface PersonDAO {
 //	@BindSqlUpdate(where = "id=${id}")
 //	int updateWhereStaticAndDynamic(Date birthDay, long id);
 
-	@BindContentProviderEntry
+	@BindContentProviderEntry(path="${nameTemp}/test")
 	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy = "id", having = "id=2", orderBy = "id")
-	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicWhere(prepend = PrependType.OR) String dynamicWhere, @BindSqlDynamicOrderBy String orderBy);
+	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicOrderBy String orderBy);
 //
 //	@BindSqlSelect(orderBy = "name")
 //	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlOrderBy String orderBy);

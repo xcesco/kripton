@@ -29,7 +29,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || \'%\' #{dynamicWhere} HAVING id=2 GROUP BY id ORDER BY id#{orderBy}#{pageSize}</pre>
+   * <pre>SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || \'%\' HAVING id=2 GROUP BY id ORDER BY id#{orderBy}#{pageSize}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -44,7 +44,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Dynamic parts:</h2>
    * <dl>
-   * <dt>#{dynamicWhere}</dt><dd>is part of where conditions resolved at runtime.</dd><dt>#{orderBy}</dt>is part of order statement resolved at runtime.</dd><dt>#{pageSize}</dt>is part of limit statement resolved at runtime.</dd>
+   * <dt>#{orderBy}</dt>is part of order statement resolved at runtime.</dd><dt>#{pageSize}</dt>is part of limit statement resolved at runtime.</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -56,20 +56,18 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	is binded to <code>${nameTemp}</code>
    * @param pageSize
    * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
-   * @param dynamicWhere
-   * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param orderBy
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectOne(String nameValue, int pageSize, String dynamicWhere, String orderBy) {
+  public List<Person> selectOne(String nameValue, int pageSize, String orderBy) {
     // build where condition
     String[] _args={(nameValue==null?"":nameValue)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like '%s' || \'%%' "+SqlUtils.appendForLog(dynamicWhere)+" HAVING id=2 GROUP BY id ORDER BY id"+SqlUtils.appendForLog(orderBy)+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize),(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ? || \'%\' "+SqlUtils.appendForSQL(dynamicWhere)+" HAVING id=2 GROUP BY id ORDER BY id"+SqlUtils.appendForSQL(orderBy)+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize), _args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like '%s' || \'%%' HAVING id=2 GROUP BY id ORDER BY id"+SqlUtils.appendForLog(orderBy)+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize),(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ? || \'%\' HAVING id=2 GROUP BY id ORDER BY id"+SqlUtils.appendForSQL(orderBy)+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize), _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -107,32 +105,36 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
-   * <pre>content://sqlite.contentprovider.kripton35/persons</pre>
+   * <pre>content://sqlite.contentprovider.kripton35/persons/[*]/test</pre>
+   *
+   * <p>Path variables defined:</p>
+   * <ul>
+   * <li><strong>${nameTemp}</strong> at path segment 1</li>
+   * </ul>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person WHERE #{dynamicWhere} ORDER BY #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}</pre>
+   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE #{dynamicWhere} ORDER BY #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}</pre>
+   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}</pre>
    *
-   * @param uri "content://sqlite.contentprovider.kripton35/persons"
-   * @param selection dynamic part of <code>where</code> statement 
-   * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
+   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
+   *
+   * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
+   *
+   * @param uri "content://sqlite.contentprovider.kripton35/persons/[*]/test"
+   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
   Cursor selectOne0(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
     //SqlUtils and StringUtils will be used to format SQL
-    String whereCondition=" ";
-    if (StringUtils.hasText(selection)) {
-      whereCondition+="OR " + selection;
-    }
+    String whereCondition=" name like ${nameTemp} || '%'";
     ArrayList<String> whereParams=new ArrayList<>();
-    if (StringUtils.hasText(selection) && selectionArgs!=null) {
-      for (String arg: selectionArgs) {
-        whereParams.add(arg);
-      }
-    }
-    String sql="SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE #{dynamicWhere} ORDER BY #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}";
+    // Add parameter nameTemp at path segment 1
+    whereParams.add(uri.getPathSegments().get(1));
+
+    String sql="SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}";
     Cursor result = database().rawQuery(sql, whereParams.toArray(new String[whereParams.size()]));
     return result;
   }

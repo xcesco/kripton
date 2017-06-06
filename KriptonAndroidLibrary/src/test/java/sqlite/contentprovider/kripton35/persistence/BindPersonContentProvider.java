@@ -31,7 +31,7 @@ public class BindPersonContentProvider extends ContentProvider {
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  public static final String PATH_PERSON_1 = "persons";
+  public static final String PATH_PERSON_1 = "persons/*/test";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -86,14 +86,14 @@ public class BindPersonContentProvider extends ContentProvider {
   /**
    * method PersonDAO.selectOne
    * method PersonDAO.selectOne
-   * uri 
+   * uri ${nameTemp}/test
    */
   @Override
   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
     Cursor returnCursor=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
-        // URI: content://sqlite.contentprovider.kripton35/persons
+        // URI: content://sqlite.contentprovider.kripton35/persons/${nameTemp}/test
         returnCursor=dataSource.getPersonDAO().selectOne0(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
@@ -113,7 +113,7 @@ public class BindPersonContentProvider extends ContentProvider {
   }
 
   /**
-   * uri 
+   * uri ${nameTemp}/test
    */
   @Override
   public String getType(Uri uri) {

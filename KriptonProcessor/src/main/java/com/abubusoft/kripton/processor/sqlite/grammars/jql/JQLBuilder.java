@@ -210,7 +210,7 @@ public abstract class JQLBuilder {
 	}
 
 	private static JQL buildJQLSelect(SQLiteModelMethod method, JQL result) {
-		final Class<? extends Annotation> annotation = BindSqlInsert.class;
+		final Class<? extends Annotation> annotation = BindSqlSelect.class;
 		final SQLDaoDefinition dao = method.getParent();
 
 		// extract some informaction from method and bean
@@ -529,7 +529,7 @@ public abstract class JQLBuilder {
 
 			if (StringUtils.hasText(orderDynamicName.value0)) {
 				if (StringUtils.hasText(orderBy)) {
-					builder.append(", " + orderDynamicName.value0);
+					builder.append(", ");
 				}
 				builder.append(" #{" + orderDynamicName.value0 + "}");
 			}
@@ -547,7 +547,7 @@ public abstract class JQLBuilder {
 	 */
 	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql, Class<L> annotation) {
 		StringBuilder builder = new StringBuilder();
-
+		
 		String where = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.WHERE);
 		if (StringUtils.hasText(where))
 			jql.annotatedWhere = true;

@@ -45,6 +45,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHo
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -252,7 +253,7 @@ public abstract class SqlModifyBuilder {
 			}
 
 			@Override
-			public String onColumnValue(String columnValue) {
+			public String onBindParameter(String columnValue) {
 				JQLParameterName parameterName = JQLParameterName.parse(columnValue);
 
 				String limit = "";
@@ -278,17 +279,16 @@ public abstract class SqlModifyBuilder {
 			public String onTableName(String tableName) {
 				return schema.getEntityBySimpleName(tableName).getTableName();
 			}
-
+			
 			@Override
-			public void onWhereStatementBegin() {
-				useColumns.value0 = false;
-
+			public String onWhereStatementBegin(Where_stmtContext ctx) {
+				useColumns.value0=false;					
+				return null;
 			}
 
 			@Override
-			public void onWhereStatementEnd() {
-				useColumns.value0 = true;
-
+			public void onWhereStatementEnd(Where_stmtContext ctx) {
+				useColumns.value0=true;				
 			}
 		});
 
@@ -300,7 +300,7 @@ public abstract class SqlModifyBuilder {
 			}
 
 			@Override
-			public String onColumnValue(String columnValue) {
+			public String onBindParameter(String columnValue) {
 				return "${" + columnValue + "}";
 			}
 
@@ -310,15 +310,12 @@ public abstract class SqlModifyBuilder {
 			}
 
 			@Override
-			public void onWhereStatementBegin() {
-				// TODO Auto-generated method stub
-
+			public String onWhereStatementBegin(Where_stmtContext ctx) {
+				return null;
 			}
 
 			@Override
-			public void onWhereStatementEnd() {
-				// TODO Auto-generated method stub
-
+			public void onWhereStatementEnd(Where_stmtContext ctx) {
 			}
 		});
 
@@ -437,7 +434,7 @@ public abstract class SqlModifyBuilder {
 		// javadoc
 		String operation = updateResultType.toString().replaceAll("_BEAN", "").replaceAll("_RAW", "");
 		methodBuilder.addJavadoc("<h1>Content provider URI ($L operation):</h1>\n", operation);
-		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.contentProviderUriTemplate);
+		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.contentProviderUriTemplate.replace("*", "[*]"));
 
 		if (method.contentProviderUriVariables.size() > 0) {
 			methodBuilder.addJavadoc("<p>Path variables defined:</p>\n<ul>\n");
@@ -458,8 +455,10 @@ public abstract class SqlModifyBuilder {
 					"<p><strong>Dynamic where statement is ignored, due no param with @$L was added.</strong></p>\n\n",
 					BindSqlDynamicWhere.class.getSimpleName());
 		}
+		
+		methodBuilder.addJavadoc("<p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>\n\n");
 
-		methodBuilder.addJavadoc("@param uri $S\n", method.contentProviderUriTemplate);
+		methodBuilder.addJavadoc("@param uri $S\n", method.contentProviderUriTemplate.replace("*", "[*]"));
 		switch (updateResultType) {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
@@ -474,6 +473,7 @@ public abstract class SqlModifyBuilder {
 				method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
 
 		methodBuilder.addJavadoc("@return number of effected rows\n");
+		
 
 		builder.addMethod(methodBuilder.build());
 	}

@@ -376,5 +376,15 @@ public abstract class SQLTransformer {
 		return transform.getColumnType();
 
 	}
+	
+	public static SQLColumnType columnType(TypeName property) {
+		SQLTransform transform = lookup(property);
+
+		if (transform == null) {
+			throw new IllegalArgumentException("Transform of " + property + " not supported");
+		}
+		return transform.getColumnType();
+
+	}
 
 }

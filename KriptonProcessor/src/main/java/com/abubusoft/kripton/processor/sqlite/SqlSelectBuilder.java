@@ -27,6 +27,8 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
@@ -50,6 +52,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -90,7 +93,7 @@ public abstract class SqlSelectBuilder {
 	}
 
 	public static boolean hasParameterOfType(ModelMethod method, TypeName parameter) {
-		return countParameterOfType(method, parameter)>0;
+		return countParameterOfType(method, parameter) > 0;
 	}
 
 	public static int countParameterOfType(ModelMethod method, TypeName parameter) {
@@ -129,14 +132,18 @@ public abstract class SqlSelectBuilder {
 		// if true, field must be associate to ben attributes
 		TypeName returnTypeName = method.getReturnClass();
 
-		ParameterizedTypeName readBeanListener=ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class), ClassName.get(entity.getElement()));
-		ClassName readCursorListener=ClassName.get(OnReadCursorListener.class);
+		ParameterizedTypeName readBeanListener = ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class),
+				ClassName.get(entity.getElement()));
+		ClassName readCursorListener = ClassName.get(OnReadCursorListener.class);
 
 		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 		int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
-		
-		AssertKripton.failWithInvalidMethodSignException(pageSize<0, method, "in @%s(pageSize) must be set with positive number",BindSqlSelect.class.getSimpleName());
-		AssertKripton.failWithInvalidMethodSignException(pageSize>0 && method.hasDynamicPageSizeConditions(), method, "can not define @%s(pageSize) and mark a method parameter with @%s ",BindSqlSelect.class.getSimpleName(), BindSqlPageSize.class.getSimpleName());		
+
+		AssertKripton.failWithInvalidMethodSignException(pageSize < 0, method,
+				"in @%s(pageSize) must be set with positive number", BindSqlSelect.class.getSimpleName());
+		AssertKripton.failWithInvalidMethodSignException(pageSize > 0 && method.hasDynamicPageSizeConditions(), method,
+				"can not define @%s(pageSize) and mark a method parameter with @%s ",
+				BindSqlSelect.class.getSimpleName(), BindSqlPageSize.class.getSimpleName());
 
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
@@ -153,7 +160,8 @@ public abstract class SqlSelectBuilder {
 			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;
 
 			// return List (no listener)
-			AssertKripton.assertTrueOrInvalidMethodSignException(returnParameterizedTypeName.typeArguments.size() == 1, method, "return type %s is not supported", returnTypeName);
+			AssertKripton.assertTrueOrInvalidMethodSignException(returnParameterizedTypeName.typeArguments.size() == 1,
+					method, "return type %s is not supported", returnTypeName);
 			TypeName elementName = returnParameterizedTypeName.typeArguments.get(0);
 
 			try {
@@ -161,14 +169,18 @@ public abstract class SqlSelectBuilder {
 				if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
 					// method must have pageSize, statically or dynamically
 					// defined
-					AssertKripton.assertTrueOrInvalidMethodSignException(method.hasDynamicPageSizeConditions() || pageSize > 0, method,
-							"use of PaginatedResult require 'pageSize' attribute or a @%s annotated parameter", returnTypeName, BindSqlPageSize.class.getSimpleName());
+					AssertKripton.assertTrueOrInvalidMethodSignException(
+							method.hasDynamicPageSizeConditions() || pageSize > 0, method,
+							"use of PaginatedResult require 'pageSize' attribute or a @%s annotated parameter",
+							returnTypeName, BindSqlPageSize.class.getSimpleName());
 
 					// paged result
-					AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isEquals(elementName, entity.getName().toString()), method, "return type %s is not supported", returnTypeName);
+					AssertKripton.assertTrueOrInvalidMethodSignException(
+							TypeUtility.isEquals(elementName, entity.getName().toString()), method,
+							"return type %s is not supported", returnTypeName);
 					selectResultType = SelectBuilderUtility.SelectType.PAGED_RESULT;
 					// set typeName of paginatedResult
-					method.paginatedResultName="paginatedResult";
+					method.paginatedResultName = "paginatedResult";
 				} else if (Collection.class.isAssignableFrom(wrapperClazz)) {
 					if (TypeUtility.isEquals(elementName, entity.getName().toString())) {
 						// entity list
@@ -193,17 +205,18 @@ public abstract class SqlSelectBuilder {
 			selectResultType = SelectBuilderUtility.SelectType.SCALAR;
 		}
 
-		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method,"'%s' as return type is not supported", returnTypeName);
+		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method,
+				"'%s' as return type is not supported", returnTypeName);
 
 		// generate select method
 		selectResultType.generate(elementUtils, builder, method, returnTypeName);
-		
+
 		if (method.contentProviderEntryPathEnabled) {
 			// we need to generate UPDATE or DELETE for content provider to
 			generateSelectForContentProvider(elementUtils, builder, method, selectResultType);
 		}
 	}
-	
+
 	/**
 	 * <p>
 	 * Generate select used in content provider class.
@@ -215,7 +228,7 @@ public abstract class SqlSelectBuilder {
 	 * @param selectResultType
 	 */
 	private static void generateSelectForContentProvider(Elements elementUtils, Builder builder,
-			SQLiteModelMethod method, SelectType selectResultType) {
+			final SQLiteModelMethod method, SelectType selectResultType) {
 		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
@@ -247,24 +260,41 @@ public abstract class SqlSelectBuilder {
 			}
 
 			@Override
-			public String onColumnValue(String columnValue) {
-				JQLParameterName parameterName = JQLParameterName.parse(columnValue);
+			public String onBindParameter(String bindParameterName) {
+				JQLParameterName parameterName = JQLParameterName.parse(bindParameterName);
 
 				String limit = "";
 				SQLProperty property = daoDefinition.getEntity().get(parameterName.getValue());
-				SQLColumnType columnType = SQLTransformer.columnType(property);
-				switch (columnType) {
-				case BLOB:
-				case TEXT:
-					limit = "'";
-				case INTEGER:
-				case REAL:
-				default:
-					;
-				}
+				TypeName methodParameterType = method.findParameterTypeByAliasOrName(bindParameterName);
 
-				parametersBuilder.append(", StringUtils.formatParam(contentValues.get(\"" + property.columnName
-						+ "\"),\"" + limit + "\")");
+				if (property != null) {
+					SQLColumnType columnType = SQLTransformer.columnType(property);
+					switch (columnType) {
+					case BLOB:
+					case TEXT:
+						limit = "'";
+					case INTEGER:
+					case REAL:
+					default:
+						;
+					}
+
+					parametersBuilder.append(", StringUtils.formatParam(contentValues.get(\"" + property.columnName
+							+ "\"),\"" + limit + "\")");
+				} else if (methodParameterType!=null) {
+					SQLColumnType columnType = SQLTransformer.columnType(methodParameterType);
+					switch (columnType) {
+					case BLOB:
+					case TEXT:
+						limit = "'";
+					case INTEGER:
+					case REAL:
+					default:
+						;
+					}
+
+					parametersBuilder.append(", StringUtils.formatParam(contentValues.get(\"" + bindParameterName + "\"),\"" + limit + "\")");
+				}
 
 				return "%s";
 			}
@@ -275,18 +305,20 @@ public abstract class SqlSelectBuilder {
 			}
 
 			@Override
-			public void onWhereStatementBegin() {
+			public String onWhereStatementBegin(Where_stmtContext ctx) {
 				useColumns.value0 = false;
+				
+				return null;
 
 			}
 
 			@Override
-			public void onWhereStatementEnd() {
+			public void onWhereStatementEnd(Where_stmtContext ctx) {
 				useColumns.value0 = true;
 
 			}
 		});
-
+		
 		String sql = jqlChecker.replace(method.jql, new JQLReplacerListener() {
 
 			@Override
@@ -295,7 +327,7 @@ public abstract class SqlSelectBuilder {
 			}
 
 			@Override
-			public String onColumnValue(String columnValue) {
+			public String onBindParameter(String columnValue) {
 				return "${" + columnValue + "}";
 			}
 
@@ -305,15 +337,13 @@ public abstract class SqlSelectBuilder {
 			}
 
 			@Override
-			public void onWhereStatementBegin() {
-				// TODO Auto-generated method stub
-
+			public String onWhereStatementBegin(Where_stmtContext ctx) {
+				
+				return "gulrp";
 			}
 
 			@Override
-			public void onWhereStatementEnd() {
-				// TODO Auto-generated method stub
-
+			public void onWhereStatementEnd(Where_stmtContext ctx) {
 			}
 		});
 
@@ -325,7 +355,7 @@ public abstract class SqlSelectBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(String.class, "selection").build());
 		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "selectionArgs").build());
 		methodBuilder.addParameter(ParameterSpec.builder(String.class, "sortOrder").build());
-		
+
 		methodBuilder.returns(Cursor.class);
 
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
@@ -378,20 +408,30 @@ public abstract class SqlSelectBuilder {
 					daoDefinition.getName(), method.getName());
 
 			SQLProperty entityProperty = entity.get(variable.value);
+			TypeName methodParameterType = method.findParameterTypeByAliasOrName(variable.value);
 
-			if (entityProperty != null) {
-				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value,
-						variable.pathSegmentIndex);
-				methodBuilder.addStatement("whereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+			methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
+			methodBuilder.addStatement("whereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+			
+			if (entityProperty != null) {				
+				
 				AssertKripton.assertTrue(
 						TypeUtility.isTypeIncludedIn(entityProperty.getPropertyType().getTypeName(), String.class,
 								Long.class, Long.TYPE),
 						"In '%s.%s' content provider URI path variables %s must be String of Long type",
 						daoDefinition.getName(), method.getName(), entityProperty.getName());
+			} else if (methodParameterType!=null) 
+			{
+				AssertKripton.assertTrue(
+						TypeUtility.isTypeIncludedIn(methodParameterType, String.class,
+								Long.class, Long.TYPE),
+						"In '%s.%s' content provider URI path variables %s must be String of Long type",
+						daoDefinition.getName(), method.getName(), method.findParameterNameByAlias(variable.value));
 			}
 
 			i++;
 		}
+		methodBuilder.addCode("\n");
 
 		if (method.hasDynamicWhereConditions()) {
 			// ASSERT: only with dynamic where conditions
@@ -406,22 +446,9 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.endControlFlow();
 		}
 
-		methodBuilder.addStatement("String sql=$S",sql);
-		methodBuilder.addStatement("Cursor result = database().rawQuery(sql, whereParams.toArray(new String[whereParams.size()]))");
-		/*switch (selectResultType) {
-		case BEAN:
-		case DELETE_RAW:
-			
-			break;
-		case UPDATE_BEAN:
-		case UPDATE_RAW:
-			SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
-			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "UPDATE");
-			methodBuilder.addStatement(
-					"int result = database().update($S, contentValues, whereCondition, whereParams.toArray(new String[whereParams.size()]))",
-					daoDefinition.getEntity().getTableName());
-			break;
-		}*/
+		methodBuilder.addStatement("String sql=$S", sql);
+		methodBuilder.addStatement(
+				"Cursor result = database().rawQuery(sql, whereParams.toArray(new String[whereParams.size()]))");		
 
 		methodBuilder.addStatement("return result");
 
@@ -430,7 +457,7 @@ public abstract class SqlSelectBuilder {
 		// javadoc
 		String operation = "SELECT";
 		methodBuilder.addJavadoc("<h1>Content provider URI ($L operation):</h1>\n", operation);
-		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.contentProviderUriTemplate);
+		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.contentProviderUriTemplate.replace("*", "[*]"));
 
 		if (method.contentProviderUriVariables.size() > 0) {
 			methodBuilder.addJavadoc("<p>Path variables defined:</p>\n<ul>\n");
@@ -451,16 +478,10 @@ public abstract class SqlSelectBuilder {
 					"<p><strong>Dynamic where statement is ignored, due no param with @$L was added.</strong></p>\n\n",
 					BindSqlDynamicWhere.class.getSimpleName());
 		}
+		
+		methodBuilder.addJavadoc("<p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>\n\n");
 
-		methodBuilder.addJavadoc("@param uri $S\n", method.contentProviderUriTemplate);
-//		switch (selectResultType) {
-//		case UPDATE_BEAN:
-//		case UPDATE_RAW:
-//			methodBuilder.addJavadoc("@param contentValues content values\n");
-//			break;
-//		default:
-//			break;
-//		}
+		methodBuilder.addJavadoc("@param uri $S\n", method.contentProviderUriTemplate.replace("*", "[*]"));		
 		methodBuilder.addJavadoc("@param selection dynamic part of <code>where</code> statement $L\n",
 				method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
 		methodBuilder.addJavadoc("@param selectionArgs arguments of dynamic part of <code>where</code> statement $L\n",
@@ -470,9 +491,5 @@ public abstract class SqlSelectBuilder {
 
 		builder.addMethod(methodBuilder.build());
 	}
-
-
-
-
 
 }

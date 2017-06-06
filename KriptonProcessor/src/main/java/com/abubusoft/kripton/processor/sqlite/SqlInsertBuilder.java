@@ -42,6 +42,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -208,7 +209,7 @@ public abstract class SqlInsertBuilder {
 			}
 			
 			@Override
-			public String onColumnValue(String columnValue) {
+			public String onBindParameter(String columnValue) {
 				JQLParameterName parameterName=JQLParameterName.parse(columnValue);				
 				
 				String limit="";
@@ -233,16 +234,19 @@ public abstract class SqlInsertBuilder {
 			public String onTableName(String tableName) {
 				return tableNameConverter.convert(tableName);
 			}
-
+	
 			@Override
-			public void onWhereStatementBegin() {
+			public String onWhereStatementBegin(Where_stmtContext ctx) {
 				useColumns.value0=false;
+				
+				return null;
 			}
 
 			@Override
-			public void onWhereStatementEnd() {
-				useColumns.value0=true;
+			public void onWhereStatementEnd(Where_stmtContext ctx) {
+				useColumns.value0=true;				
 			}
+			
 			
 			
 		});
@@ -256,6 +260,7 @@ public abstract class SqlInsertBuilder {
 		// javadoc
 		methodBuilder.addJavadoc("<p>Manage the INSERT operation for content provider URI:</p>\n", method.contentProviderUriTemplate);
 		methodBuilder.addJavadoc("<pre>$L</pre>\n", method.contentProviderUriTemplate);
+		methodBuilder.addJavadoc("<p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>\n\n");
 
 		parameterSpec = ParameterSpec.builder(Uri.class, "uri").build();
 		methodBuilder.addParameter(parameterSpec);
