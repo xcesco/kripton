@@ -26,11 +26,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerStatementListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
@@ -273,6 +275,77 @@ public class TestJqlChecker extends BaseProcessorTest {
 		String where=checker.extractWhereStatement(sql);
 		log(where);
 		assertEquals(where, " id = ${dummy} and a=${dummy2}");
+	}
+	
+	@Test
+	public void testExtractWhereStatement() {
+		final One<String> where=new One<>();
+		final One<String> orderBy=new One<>();
+		final One<String> limit=new One<>();
+		final One<String> offset=new One<>();
+		final One<String> group=new One<>();
+		final One<String> having=new One<>();
+		
+		String sql = "SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}";		
+		
+		JQL jql=new JQL();
+		jql.value=sql;
+
+
+		JQLChecker checker = JQLChecker.getInstance();
+
+		// verify sql
+		checker.verify(jql);
+
+		
+		String finalSql=checker.replaceStatements(jql, new JQLReplacerStatementListener() {
+
+			@Override
+			public String onWhere(String whereStatement) {
+				where.value0=whereStatement;
+				return "";
+			}
+
+			@Override
+			public String onOrderBy(String orderByStatement) {
+				orderBy.value0=orderByStatement;
+				return "";
+			}
+
+			@Override
+			public String onLimit(String statement) {
+				limit.value0=statement;
+				return "";
+			}
+
+			@Override
+			public String onOffset(String statement) {
+				offset.value0=statement;
+				return "";
+			}
+
+			@Override
+			public String onGroup(String statement) {
+				group.value0=statement;
+				return "";
+			}
+
+			@Override
+			public String onHaving(String statement) {
+				having.value0=statement;
+				return "";
+			}
+			
+		});
+		
+		log(where.value0);
+		log(orderBy.value0);
+		log(group.value0);
+		log(having.value0);
+		log(offset.value0);
+		log(limit.value0);
+		log(finalSql);
+		//assertEquals(where, " id = ${dummy} and a=${dummy2}");
 	}
 	
 	

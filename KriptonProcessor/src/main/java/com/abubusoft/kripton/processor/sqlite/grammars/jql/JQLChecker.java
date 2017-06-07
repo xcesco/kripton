@@ -46,6 +46,11 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Group_stmtContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Having_stmtContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Limit_stmtContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Offset_stmtContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Order_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Result_columnContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
@@ -185,7 +190,7 @@ public class JQLChecker {
 
 		return replaceInternal(jql, replace, rewriterListener);
 	}
-	
+
 	/**
 	 * Replace place holder with element passed by listener
 	 * 
@@ -231,7 +236,6 @@ public class JQLChecker {
 				String value = listener.onTableName(ctx.getText());
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
-						
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
@@ -244,20 +248,16 @@ public class JQLChecker {
 				String value = listener.onColumnName(ctx.getText());
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
-			
+
 			@Override
 			public void enterWhere_stmt(Where_stmtContext ctx) {
-				String value=listener.onWhereStatementBegin(ctx);
-				
-				if (value!=null)
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				listener.onWhereStatementBegin(ctx);
 			}
-			
+
 			@Override
 			public void exitWhere_stmt(Where_stmtContext ctx) {
 				listener.onWhereStatementEnd(ctx);
 			}
-			
 
 		};
 
@@ -277,7 +277,7 @@ public class JQLChecker {
 
 		return rewriter.getText();
 	}
-	
+
 	private String replaceFromWhereInternal(String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
 		Pair<ParserRuleContext, CommonTokenStream> parser = prepareWhere(jql);
 		walker.walk(rewriterListener, parser.value0);
@@ -312,15 +312,33 @@ public class JQLChecker {
 		String onColumnName(String columnName);
 
 		String onBindParameter(String bindParameterName);
-		
+
 		/**
-		 * if return something different than null, the value will replace where statement
+		 * if return something different than null, the value will replace where
+		 * statement
+		 * 
 		 * @param ctx
 		 * @return
 		 */
-		String onWhereStatementBegin(Where_stmtContext ctx);
-		
+		void onWhereStatementBegin(Where_stmtContext ctx);
+
 		void onWhereStatementEnd(Where_stmtContext ctx);
+	}
+
+	public interface JQLReplacerStatementListener {
+
+		String onWhere(String whereStatement);
+		
+		String onOrderBy(String orderByStatement);
+
+		String onLimit(String statement);
+
+		String onOffset(String statement);
+
+		String onGroup(String statement);
+
+		String onHaving(String statement);
+
 	}
 
 	public static class JQLParameterName {
@@ -380,7 +398,7 @@ public class JQLChecker {
 	public Set<JQLPlaceHolder> extractFromWhereConditionAsSet(String jql) {
 		return extractPlaceHoldersFromWhereCondition(jql, new LinkedHashSet<JQLPlaceHolder>());
 	}
-	
+
 	/**
 	 * Extract all bind parameters and dynamic part used in query.
 	 * 
@@ -432,7 +450,9 @@ public class JQLChecker {
 	}
 
 	/**
-	 * <p>Given an sql statement, extract the first where statement.
+	 * <p>
+	 * Given an sql statement, extract the first where statement.
+	 * 
 	 * @param jql
 	 * @return
 	 */
@@ -445,20 +465,116 @@ public class JQLChecker {
 			@Override
 			public void enterWhere_stmt_clauses(Where_stmt_clausesContext ctx) {
 				whereCounter.value0++;
-				
-				// store only first where statement. In case of annidated select, take the first one.
+
+				// store only first where statement. In case of annidated
+				// select, take the first one.
 				if (whereCounter.value0 == 1) {
-					int start=ctx.getStart().getStartIndex()-1;
-					int stop=ctx.getStop().getStopIndex()+1;
-					result.value0 =jql.substring(start,stop ); 
+					int start = ctx.getStart().getStartIndex() - 1;
+					int stop = ctx.getStop().getStopIndex() + 1;
+					result.value0 = jql.substring(start, stop);
 				}
 			}
 
 		});
-		
-		return result.value0;
-		
 
+		return result.value0;
+
+	}
+
+	/**
+	 * Given a sql, replace som component like where, order by, etc..
+	 * @param jql
+	 * @param listener
+	 * @return
+	 */
+	public String replaceStatements(final JQL jql, final JQLReplacerStatementListener listener) {
+		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
+
+		JqlBaseListener rewriterListener = new JqlBaseListener() {
+
+			@Override
+			public void enterWhere_stmt(Where_stmtContext ctx) {
+				int start = ctx.getStart().getStartIndex() - 1;
+				int stop = ctx.getStop().getStopIndex() + 1;
+				String statement = jql.value.substring(start, stop);
+				
+				String value = listener.onWhere(statement);
+
+				if (value != null) {
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
+			}
+			
+			@Override
+			public void enterOrder_stmt(Order_stmtContext ctx) {
+				int start = ctx.getStart().getStartIndex() - 1;
+				int stop = ctx.getStop().getStopIndex() + 1;
+				String statement = jql.value.substring(start, stop);
+				
+				String value = listener.onOrderBy(statement);
+
+				if (value != null) {
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
+			}
+			
+			@Override
+			public void enterGroup_stmt(Group_stmtContext ctx) {
+				int start = ctx.getStart().getStartIndex() - 1;
+				int stop = ctx.getStop().getStopIndex() + 1;
+				String statement = jql.value.substring(start, stop);
+				
+				String value = listener.onGroup(statement);
+
+				if (value != null) {
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
+			}
+			
+			@Override
+			public void enterHaving_stmt(Having_stmtContext ctx) {
+				int start = ctx.getStart().getStartIndex() - 1;
+				int stop = ctx.getStop().getStopIndex() + 1;
+				String statement = jql.value.substring(start, stop);
+				
+				String value = listener.onHaving(statement);
+
+				if (value != null) {
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
+			}
+			
+			
+			@Override
+			public void enterOffset_stmt(Offset_stmtContext ctx) {
+				int start = ctx.getStart().getStartIndex() - 1;
+				int stop = ctx.getStop().getStopIndex() + 1;
+				String statement = jql.value.substring(start, stop);
+				
+				String value = listener.onOffset(statement);
+
+				if (value != null) {
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
+			}
+			
+			@Override
+			public void enterLimit_stmt(Limit_stmtContext ctx) {
+				int start = ctx.getStart().getStartIndex() - 1;
+				int stop = ctx.getStop().getStopIndex() + 1;
+				String statement = jql.value.substring(start, stop);
+				
+				String value = listener.onLimit(statement);
+
+				if (value != null) {
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
+			}
+			
+			
+		};
+
+		return replaceInternal(jql, replace, rewriterListener);
 	}
 
 }

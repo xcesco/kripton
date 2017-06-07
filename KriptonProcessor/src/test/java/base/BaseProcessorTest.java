@@ -65,23 +65,28 @@ public class BaseProcessorTest {
 	protected TestType testType = TestType.NONE;
 
 	public void log(String message, Object... objects) {
-		System.out.println(String.format(message, objects));
+		if (objects.length==0) {
+			System.out.println(message);
+		} else {
+			System.out.println(String.format(message, objects));
+		}
 	}
-	
+
 	/**
-	 * Test each elements of two collections. It does not matter the collections' kind. Elements are compared by reflection.
+	 * Test each elements of two collections. It does not matter the
+	 * collections' kind. Elements are compared by reflection.
 	 * 
 	 * @param collection1
 	 * @param collection2
 	 */
 	public void checkCollectionExactly(Collection<?> collection1, Collection<?> collection2) {
-		assertEquals("collections does not have same size", collection1.size(),collection2.size());
-		
+		assertEquals("collections does not have same size", collection1.size(), collection2.size());
+
 		Iterator<?> i1 = collection1.iterator();
 		Iterator<?> i2 = collection2.iterator();
-		
+
 		while (i1.hasNext()) {
-			ReflectionAssert.assertReflectionEquals(i1.next(), i2.next(), ReflectionComparatorMode.LENIENT_ORDER);			
+			ReflectionAssert.assertReflectionEquals(i1.next(), i2.next(), ReflectionComparatorMode.LENIENT_ORDER);
 		}
 	}
 
@@ -329,7 +334,7 @@ public class BaseProcessorTest {
 			}
 
 		} catch (Throwable e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
 		return counter.longValue();

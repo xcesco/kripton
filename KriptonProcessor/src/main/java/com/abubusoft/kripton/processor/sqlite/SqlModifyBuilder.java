@@ -281,9 +281,8 @@ public abstract class SqlModifyBuilder {
 			}
 			
 			@Override
-			public String onWhereStatementBegin(Where_stmtContext ctx) {
+			public void onWhereStatementBegin(Where_stmtContext ctx) {
 				useColumns.value0=false;					
-				return null;
 			}
 
 			@Override
@@ -310,8 +309,7 @@ public abstract class SqlModifyBuilder {
 			}
 
 			@Override
-			public String onWhereStatementBegin(Where_stmtContext ctx) {
-				return null;
+			public void onWhereStatementBegin(Where_stmtContext ctx) {
 			}
 
 			@Override

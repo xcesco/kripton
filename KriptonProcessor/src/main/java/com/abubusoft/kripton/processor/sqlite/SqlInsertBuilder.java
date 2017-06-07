@@ -236,10 +236,8 @@ public abstract class SqlInsertBuilder {
 			}
 	
 			@Override
-			public String onWhereStatementBegin(Where_stmtContext ctx) {
+			public void onWhereStatementBegin(Where_stmtContext ctx) {
 				useColumns.value0=false;
-				
-				return null;
 			}
 
 			@Override

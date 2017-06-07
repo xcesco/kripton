@@ -104,8 +104,8 @@ commit_stmt
 compound_select_stmt
  : ( K_WITH K_RECURSIVE? common_table_expression ( ',' common_table_expression )* )?
    select_core ( ( K_UNION K_ALL? | K_INTERSECT | K_EXCEPT ) select_core )+
-   ( K_ORDER K_BY ordering_term ( ',' ordering_term )* )?
-   ( K_LIMIT expr ( ( K_OFFSET | ',' ) expr )? )?
+   order_stmt
+   ( limit_stmt offset_stmt )?
  ;
 
 create_index_stmt
@@ -149,8 +149,8 @@ delete_stmt
 delete_stmt_limited
  : with_clause? K_DELETE K_FROM qualified_table_name
    where_stmt
-   ( ( K_ORDER K_BY ordering_term ( ',' ordering_term )* )?
-     K_LIMIT expr ( ( K_OFFSET | ',' ) expr )?
+   ( order_stmt 
+     limit_stmt offset_stmt     
    )?
  ;
 
@@ -177,8 +177,8 @@ drop_view_stmt
 factored_select_stmt
  : ( K_WITH K_RECURSIVE? common_table_expression ( ',' common_table_expression )* )?
    select_core ( compound_operator select_core )*
-   ( K_ORDER K_BY ordering_term ( ',' ordering_term )* )?
-   ( K_LIMIT expr ( ( K_OFFSET | ',' ) expr )? )?
+   order_stmt   
+   ( limit_stmt offset_stmt )?
  ;
 
 insert_stmt
@@ -194,6 +194,10 @@ insert_stmt
    | select_stmt
    | K_DEFAULT K_VALUES
    )
+ ;
+ 
+limit_stmt
+ : K_LIMIT expr
  ;
 
 pragma_stmt
@@ -221,22 +225,22 @@ savepoint_stmt
 
 simple_select_stmt
  : ( K_WITH K_RECURSIVE? common_table_expression ( ',' common_table_expression )* )?
-   select_core ( K_ORDER K_BY ordering_term ( ',' ordering_term )* )?
-   ( K_LIMIT expr ( ( K_OFFSET | ',' ) expr )? )?
+   select_core order_stmt   
+   ( limit_stmt offset_stmt )?
  ;
 
 select_stmt
  : ( K_WITH K_RECURSIVE? common_table_expression ( ',' common_table_expression )* )?
    select_or_values ( compound_operator select_or_values )*
-   ( K_ORDER K_BY ordering_term ( ',' ordering_term )* )?
-   ( K_LIMIT expr ( ( K_OFFSET | ',' ) expr )? )?
+   order_stmt
+   ( limit_stmt offset_stmt )?
  ;
 
 select_or_values
  : K_SELECT ( K_DISTINCT | K_ALL )? result_column ( ',' result_column )*
    ( K_FROM ( table_or_subquery ( ',' table_or_subquery )* | join_clause ) )?
    where_stmt
-   ( K_GROUP K_BY expr ( ',' expr )* ( K_HAVING expr )? )?
+   ( group_stmt having_stmt )?
  | K_VALUES '(' expr ( ',' expr )* ')' ( ',' '(' expr ( ',' expr )* ')' )*
  ;
 
@@ -256,8 +260,8 @@ update_stmt_limited
                          | K_OR K_FAIL
                          | K_OR K_IGNORE )? qualified_table_name
    K_SET column_name '=' expr ( ',' column_name '=' expr )* where_stmt
-   ( ( K_ORDER K_BY ordering_term ( ',' ordering_term )* )?
-     K_LIMIT expr ( ( K_OFFSET | ',' ) expr )?
+   ( order_stmt
+     limit_stmt offset_stmt
    )?
  ;
 
@@ -401,6 +405,14 @@ qualified_table_name
  : ( database_name '.' )? table_name ( K_INDEXED K_BY index_name
                                      | K_NOT K_INDEXED )?
  ;
+ 
+offset_stmt
+ : ( ( K_OFFSET | ',' ) expr )?
+ ;
+ 
+order_stmt
+ : ( K_ORDER K_BY ordering_term ( ',' ordering_term )* )?
+ ;
 
 ordering_term
  : expr ( K_COLLATE collation_name )? ( K_ASC | K_DESC )?
@@ -450,7 +462,7 @@ select_core
  : K_SELECT ( K_DISTINCT | K_ALL )? result_column ( ',' result_column )*
    ( K_FROM ( table_or_subquery ( ',' table_or_subquery )* | join_clause ) )?
    where_stmt
-   ( K_GROUP K_BY expr ( ',' expr )* ( K_HAVING expr )? )?
+   ( group_stmt having_stmt )?
  | K_VALUES '(' expr ( ',' expr )* ')' ( ',' '(' expr ( ',' expr )* ')' )*
  ;
 
@@ -635,6 +647,14 @@ name
 
 function_name
  : any_name
+ ;
+ 
+group_stmt
+ : K_GROUP K_BY expr ( ',' expr )*
+ ;
+
+having_stmt 
+ : ( K_HAVING expr )?
  ;
 
 database_name

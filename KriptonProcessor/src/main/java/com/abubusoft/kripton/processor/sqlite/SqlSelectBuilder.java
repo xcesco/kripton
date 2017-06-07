@@ -27,8 +27,6 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
@@ -46,12 +44,11 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
-import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
@@ -69,7 +66,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
@@ -305,10 +301,8 @@ public abstract class SqlSelectBuilder {
 			}
 
 			@Override
-			public String onWhereStatementBegin(Where_stmtContext ctx) {
+			public void onWhereStatementBegin(Where_stmtContext ctx) {
 				useColumns.value0 = false;
-				
-				return null;
 
 			}
 
@@ -337,9 +331,7 @@ public abstract class SqlSelectBuilder {
 			}
 
 			@Override
-			public String onWhereStatementBegin(Where_stmtContext ctx) {
-				
-				return "gulrp";
+			public void onWhereStatementBegin(Where_stmtContext ctx) {
 			}
 
 			@Override
