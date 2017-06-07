@@ -298,7 +298,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		checker.verify(jql);
 
 		
-		String finalSql=checker.replaceStatements(jql, new JQLReplacerStatementListener() {
+		String finalSql=checker.replaceStatements(jql.value, new JQLReplacerStatementListener() {
 
 			@Override
 			public String onWhere(String whereStatement) {

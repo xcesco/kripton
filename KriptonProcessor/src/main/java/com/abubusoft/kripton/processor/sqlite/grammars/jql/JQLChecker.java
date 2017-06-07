@@ -188,7 +188,7 @@ public class JQLChecker {
 			}
 		};
 
-		return replaceInternal(jql, replace, rewriterListener);
+		return replaceInternal(jql.value, replace, rewriterListener);
 	}
 
 	/**
@@ -261,12 +261,12 @@ public class JQLChecker {
 
 		};
 
-		return replaceInternal(jql, replace, rewriterListener);
+		return replaceInternal(jql.value, replace, rewriterListener);
 
 	}
 
-	private String replaceInternal(JQL jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
-		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jql.value);
+	private String replaceInternal(String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
+		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jql);
 		walker.walk(rewriterListener, parser.value0);
 
 		TokenStreamRewriter rewriter = new TokenStreamRewriter(parser.value1);
@@ -487,7 +487,7 @@ public class JQLChecker {
 	 * @param listener
 	 * @return
 	 */
-	public String replaceStatements(final JQL jql, final JQLReplacerStatementListener listener) {
+	public String replaceStatements(final String jql, final JQLReplacerStatementListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 
 		JqlBaseListener rewriterListener = new JqlBaseListener() {
@@ -496,7 +496,7 @@ public class JQLChecker {
 			public void enterWhere_stmt(Where_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				String statement = jql.value.substring(start, stop);
+				String statement = jql.substring(start, stop);
 				
 				String value = listener.onWhere(statement);
 
@@ -509,7 +509,7 @@ public class JQLChecker {
 			public void enterOrder_stmt(Order_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				String statement = jql.value.substring(start, stop);
+				String statement = jql.substring(start, stop);
 				
 				String value = listener.onOrderBy(statement);
 
@@ -522,7 +522,7 @@ public class JQLChecker {
 			public void enterGroup_stmt(Group_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				String statement = jql.value.substring(start, stop);
+				String statement = jql.substring(start, stop);
 				
 				String value = listener.onGroup(statement);
 
@@ -535,7 +535,7 @@ public class JQLChecker {
 			public void enterHaving_stmt(Having_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				String statement = jql.value.substring(start, stop);
+				String statement = jql.substring(start, stop);
 				
 				String value = listener.onHaving(statement);
 
@@ -549,7 +549,7 @@ public class JQLChecker {
 			public void enterOffset_stmt(Offset_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				String statement = jql.value.substring(start, stop);
+				String statement = jql.substring(start, stop);
 				
 				String value = listener.onOffset(statement);
 
@@ -562,7 +562,7 @@ public class JQLChecker {
 			public void enterLimit_stmt(Limit_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				String statement = jql.value.substring(start, stop);
+				String statement = jql.substring(start, stop);
 				
 				String value = listener.onLimit(statement);
 
