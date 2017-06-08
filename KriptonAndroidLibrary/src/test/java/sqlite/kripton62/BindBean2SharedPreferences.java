@@ -2,6 +2,7 @@ package sqlite.kripton62;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
@@ -9,7 +10,6 @@ import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -47,7 +47,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
 
   /**
    * BeanBindMap */
-  private BeanBindMap beanBindMap = AbstractContext.mapperFor(Bean.class);
+  private BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
 
   /**
    * constructor

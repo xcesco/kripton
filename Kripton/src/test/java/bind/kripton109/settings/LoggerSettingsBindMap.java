@@ -2,9 +2,9 @@ package bind.kripton109.settings;
 
 import bind.kripton109.settings.logger.ElioLoggerLevelType;
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
   /**
    * LoggerAppenderSettingsBindMap */
-  private LoggerAppenderSettingsBindMap loggerAppenderSettingsBindMap = AbstractContext.mapperFor(LoggerAppenderSettings.class);
+  private LoggerAppenderSettingsBindMap loggerAppenderSettingsBindMap = BinderUtils.mapperFor(LoggerAppenderSettings.class);
 
   @Override
   public int serializeOnJackson(LoggerSettings object, JsonGenerator jacksonSerializer) throws Exception {

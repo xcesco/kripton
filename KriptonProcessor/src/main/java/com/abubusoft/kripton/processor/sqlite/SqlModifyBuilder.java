@@ -418,7 +418,7 @@ public abstract class SqlModifyBuilder {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
 			SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
-			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "UPDATE");
+			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "UPDATE", "contentValues.keySet()");
 			methodBuilder.addStatement(
 					"int result = database().update($S, contentValues, whereCondition, whereParams.toArray(new String[whereParams.size()]))",
 					daoDefinition.getEntity().getTableName());

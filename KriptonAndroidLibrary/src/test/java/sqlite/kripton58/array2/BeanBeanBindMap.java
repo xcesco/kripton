@@ -1,11 +1,11 @@
 package sqlite.kripton58.array2;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
@@ -28,7 +28,7 @@ import sqlite.kripton58.BeanInnerBindMap;
 public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
   /**
    * BeanInnerBindMap */
-  private BeanInnerBindMap beanInnerBindMap = AbstractContext.mapperFor(BeanInner.class);
+  private BeanInnerBindMap beanInnerBindMap = BinderUtils.mapperFor(BeanInner.class);
 
   @Override
   public int serializeOnJackson(BeanBean object, JsonGenerator jacksonSerializer) throws Exception {

@@ -1,8 +1,8 @@
 package sqlite.quickstart.model;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -22,7 +22,7 @@ import java.lang.Override;
 public class AddressBindMap extends AbstractMapper<Address> {
   /**
    * GeoBindMap */
-  private GeoBindMap geoBindMap = AbstractContext.mapperFor(Geo.class);
+  private GeoBindMap geoBindMap = BinderUtils.mapperFor(Geo.class);
 
   @Override
   public int serializeOnJackson(Address object, JsonGenerator jacksonSerializer) throws Exception {

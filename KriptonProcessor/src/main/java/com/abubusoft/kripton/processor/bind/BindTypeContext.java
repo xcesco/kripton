@@ -20,7 +20,7 @@ import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 
-import com.abubusoft.kripton.core.AbstractContext;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
@@ -58,7 +58,7 @@ public class BindTypeContext {
 			} else {				
 				context.builder.addField(FieldSpec.builder(bindMapperName, simpleName, modifiers)					
 						.addJavadoc("$T", bindMapperName)
-						.initializer("$T.mapperFor($T.class)", AbstractContext.class, typeName)
+						.initializer("$T.mapperFor($T.class)", BinderUtils.class, typeName)
 						.build());	
 			}		
 		}

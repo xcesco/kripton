@@ -2,6 +2,7 @@ package sqlite.kripton58.list;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -11,7 +12,6 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -36,12 +36,12 @@ import sqlite.kripton58.BeanInnerBindMap;
  */
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
-   * BeanBeanBindMap */
-  private BeanBeanBindMap beanBeanBindMap = AbstractContext.mapperFor(BeanBean.class);
+   * BeanInnerBindMap */
+  private BeanInnerBindMap beanInnerBindMap = BinderUtils.mapperFor(BeanInner.class);
 
   /**
-   * BeanInnerBindMap */
-  private BeanInnerBindMap beanInnerBindMap = AbstractContext.mapperFor(BeanInner.class);
+   * BeanBeanBindMap */
+  private BeanBeanBindMap beanBeanBindMap = BinderUtils.mapperFor(BeanBean.class);
 
   public BeanDaoImpl(BindBeanDataSource dataSet) {
     super(dataSet);
@@ -443,76 +443,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  private byte[] serializer1(List<BeanBean> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.size();
-        BeanBean item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value.get(i);
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            beanBeanBindMap.serializeOnJackson(item, jacksonSerializer);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private List<BeanBean> parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      List<BeanBean> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<BeanBean> collection=new ArrayList<>();
-        BeanBean item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=beanBeanBindMap.parseOnJackson(jacksonParser);
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
   private byte[] serializer2(List<BeanInner> value) {
     if (value==null) {
       return null;
@@ -569,6 +499,76 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
             item=null;
           } else {
             item=beanInnerBindMap.parseOnJackson(jacksonParser);
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer1(List<BeanBean> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.size();
+        BeanBean item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            beanBeanBindMap.serializeOnJackson(item, jacksonSerializer);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private List<BeanBean> parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      List<BeanBean> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<BeanBean> collection=new ArrayList<>();
+        BeanBean item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=beanBeanBindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }

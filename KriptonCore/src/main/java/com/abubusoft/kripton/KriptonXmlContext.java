@@ -10,7 +10,6 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;

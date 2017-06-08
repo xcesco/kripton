@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,6 +50,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParamet
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
@@ -242,16 +245,21 @@ public abstract class SqlSelectBuilder {
 				"In '%s.%s' content provider URI path variables and variables in where conditions are different",
 				daoDefinition.getName(), method.getName());
 
-		final One<Boolean> useColumns = new One<Boolean>(true);
+		Set<JQLProjection> projectedColumns=jqlChecker.extractProjections(method.jql);
+		for (JQLProjection item: projectedColumns) {
+			if (item.type==ProjectionType.COLUMN){
+				columns.add(item.column.trim());
+			} else {
+				columns.add(item.expression.trim());
+			}
+		}
+		
 		String resultForLog = jqlChecker.replace(method.jql, new JQLReplacerListener() {
 
 			@Override
 			public String onColumnName(String columnName) {
 				String convertedColumnName = entity.get(columnName).columnName;
 
-				if (useColumns.value0) {
-					columns.add(convertedColumnName);
-				}
 				return convertedColumnName;
 			}
 
@@ -302,13 +310,11 @@ public abstract class SqlSelectBuilder {
 
 			@Override
 			public void onWhereStatementBegin(Where_stmtContext ctx) {
-				useColumns.value0 = false;
 
 			}
 
 			@Override
 			public void onWhereStatementEnd(Where_stmtContext ctx) {
-				useColumns.value0 = true;
 
 			}
 		});
@@ -391,6 +397,10 @@ public abstract class SqlSelectBuilder {
 
 		methodBuilder.addStatement("$T<String> whereParams=new $T<>()", ArrayList.class, ArrayList.class);
 
+		// generate projected column check
+		SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
+		SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "SELECT", "projection");
+		
 		int i = 0;
 		// extract pathVariables
 		// every controls was done in constructor of SQLiteModelMethod

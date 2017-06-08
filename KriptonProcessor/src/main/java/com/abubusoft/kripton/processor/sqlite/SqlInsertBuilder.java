@@ -287,7 +287,7 @@ public abstract class SqlInsertBuilder {
 			} 
 		}		
 		
-		generateColumnCheck(method, methodBuilder, "INSERT");
+		generateColumnCheck(method, methodBuilder, "INSERT", "contentValues.keySet()");
 				
 		methodBuilder.addCode("// $L\n", resultA);		
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
@@ -316,9 +316,9 @@ public abstract class SqlInsertBuilder {
 	 * @param daoDefinition
 	 * @param operationType
 	 */
-	static void generateColumnCheck(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, String operationType) {
+	static void generateColumnCheck(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, String operationType, String columnSetString) {
 		SQLDaoDefinition daoDefinition=method.getParent();
-		methodBuilder.beginControlFlow("for (String columnName:contentValues.keySet())");
+		methodBuilder.beginControlFlow("for (String columnName:$L)", columnSetString);
 			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName+"ColumnSet");
 				methodBuilder.addStatement("throw new $T(String.format(\"For URI '$L', column '%s' does not exists in table '%s' or can not be defined in this $L operation\", columnName, $S ))", KriptonRuntimeException.class, method.contentProviderUriTemplate,  operationType ,daoDefinition.getEntity().getTableName());
 			methodBuilder.endControlFlow();

@@ -129,13 +129,9 @@ public class JQLChecker {
 	public Set<JQLProjection> extractProjections(JQL jql) {
 		final Set<JQLProjection> result = new LinkedHashSet<JQLProjection>();
 
-		final One<Boolean> valid = new One<>();
-		valid.value0 = false;
-
 		analyzeInternal(jql.value, new JqlBaseListener() {
 			@Override
 			public void enterResult_column(Result_columnContext ctx) {
-				valid.value0 = true;
 				ProjectionBuilder builder = ProjectionBuilder.create();
 				if (ctx.expr().column_name() != null) {
 					if (ctx.expr().table_name() != null) {
@@ -157,7 +153,6 @@ public class JQLChecker {
 
 			@Override
 			public void exitResult_column(Result_columnContext ctx) {
-				valid.value0 = false;
 			}
 		});
 		return result;

@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.core;
+package com.abubusoft.kripton;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;

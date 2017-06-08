@@ -904,53 +904,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * write
    */
-  private byte[] serializer1(Long value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        jacksonSerializer.writeNumberField("element", value);
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private Long parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Long result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getLongValue();
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
   private byte[] serializer2(byte[] value) {
     if (value==null) {
       return null;
@@ -988,6 +941,53 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       byte[] result=null;
       if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
         result=jacksonParser.getBinaryValue();
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer1(Long value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        jacksonSerializer.writeNumberField("element", value);
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private Long parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Long result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getLongValue();
       }
       return result;
     } catch(Exception e) {

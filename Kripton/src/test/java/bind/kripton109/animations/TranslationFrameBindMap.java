@@ -3,9 +3,9 @@ package bind.kripton109.animations;
 import bind.kripton109.animations.math.Vector3;
 import bind.kripton109.animations.math.Vector3BindMap;
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -25,7 +25,7 @@ import java.lang.Override;
 public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
   /**
    * Vector3BindMap */
-  private Vector3BindMap vector3BindMap = AbstractContext.mapperFor(Vector3.class);
+  private Vector3BindMap vector3BindMap = BinderUtils.mapperFor(Vector3.class);
 
   @Override
   public int serializeOnJackson(TranslationFrame object, JsonGenerator jacksonSerializer) throws Exception {

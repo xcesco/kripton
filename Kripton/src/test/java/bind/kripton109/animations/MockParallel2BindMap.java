@@ -1,10 +1,10 @@
 package bind.kripton109.animations;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
   /**
    * MockKeyFrameBindMap */
-  private MockKeyFrameBindMap mockKeyFrameBindMap = AbstractContext.mapperFor(MockKeyFrame.class);
+  private MockKeyFrameBindMap mockKeyFrameBindMap = BinderUtils.mapperFor(MockKeyFrame.class);
 
   @Override
   public int serializeOnJackson(MockParallel2 object, JsonGenerator jacksonSerializer) throws Exception {

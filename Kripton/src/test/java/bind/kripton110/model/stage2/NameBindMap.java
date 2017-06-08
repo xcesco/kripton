@@ -1,8 +1,8 @@
 package bind.kripton110.model.stage2;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -22,7 +22,7 @@ import java.lang.Override;
 public class NameBindMap extends AbstractMapper<Name> {
   /**
    * NativeBindMap */
-  private NativeBindMap nativeBindMap = AbstractContext.mapperFor(Native.class);
+  private NativeBindMap nativeBindMap = BinderUtils.mapperFor(Native.class);
 
   @Override
   public int serializeOnJackson(Name object, JsonGenerator jacksonSerializer) throws Exception {

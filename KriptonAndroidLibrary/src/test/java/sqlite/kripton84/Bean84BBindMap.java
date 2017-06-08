@@ -1,9 +1,9 @@
 package sqlite.kripton84;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlPullParser;
@@ -22,7 +22,7 @@ import java.lang.Override;
 public class Bean84BBindMap extends AbstractMapper<Bean84B> {
   /**
    * Bean84B2BindMap */
-  private Bean84B2BindMap bean84B2BindMap = AbstractContext.mapperFor(Bean84B2.class);
+  private Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
 
   @Override
   public int serializeOnJackson(Bean84B object, JsonGenerator jacksonSerializer) throws Exception {

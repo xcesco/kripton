@@ -1,8 +1,8 @@
 package shared.kripton47;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -22,11 +22,11 @@ import java.lang.Override;
 public class Security47BindMap extends AbstractMapper<Security47> {
   /**
    * DeviceAccessTokenBindMap */
-  private DeviceAccessTokenBindMap deviceAccessTokenBindMap = AbstractContext.mapperFor(DeviceAccessToken.class);
+  private DeviceAccessTokenBindMap deviceAccessTokenBindMap = BinderUtils.mapperFor(DeviceAccessToken.class);
 
   /**
    * UserIdentityBindMap */
-  private UserIdentityBindMap userIdentityBindMap = AbstractContext.mapperFor(UserIdentity.class);
+  private UserIdentityBindMap userIdentityBindMap = BinderUtils.mapperFor(UserIdentity.class);
 
   @Override
   public int serializeOnJackson(Security47 object, JsonGenerator jacksonSerializer) throws Exception {

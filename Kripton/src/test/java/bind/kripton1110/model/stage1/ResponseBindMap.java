@@ -1,10 +1,12 @@
 package bind.kripton1110.model.stage1;
 
+import java.util.ArrayList;
+
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -13,9 +15,6 @@ import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.lang.Exception;
-import java.lang.Override;
-import java.util.ArrayList;
 
 /**
  * This class is binder map for Response
@@ -26,7 +25,7 @@ import java.util.ArrayList;
 public class ResponseBindMap extends AbstractMapper<Response> {
   /**
    * UserBindMap */
-  private UserBindMap userBindMap = AbstractContext.mapperFor(User.class);
+  private UserBindMap userBindMap = BinderUtils.mapperFor(User.class);
 
   @Override
   public int serializeOnJackson(Response object, JsonGenerator jacksonSerializer) throws Exception {

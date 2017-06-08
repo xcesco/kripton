@@ -1,8 +1,8 @@
 package bind.kripton109.settings;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -22,19 +22,19 @@ import java.lang.Override;
 public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
   /**
    * ApplicationSettingsBindMap */
-  private ApplicationSettingsBindMap applicationSettingsBindMap = AbstractContext.mapperFor(ApplicationSettings.class);
+  private ApplicationSettingsBindMap applicationSettingsBindMap = BinderUtils.mapperFor(ApplicationSettings.class);
 
   /**
    * LoggerSettingsBindMap */
-  private LoggerSettingsBindMap loggerSettingsBindMap = AbstractContext.mapperFor(LoggerSettings.class);
+  private LoggerSettingsBindMap loggerSettingsBindMap = BinderUtils.mapperFor(LoggerSettings.class);
 
   /**
    * OpenGLSettingsBindMap */
-  private OpenGLSettingsBindMap openGLSettingsBindMap = AbstractContext.mapperFor(OpenGLSettings.class);
+  private OpenGLSettingsBindMap openGLSettingsBindMap = BinderUtils.mapperFor(OpenGLSettings.class);
 
   /**
    * ViewFrustumSettingsBindMap */
-  private ViewFrustumSettingsBindMap viewFrustumSettingsBindMap = AbstractContext.mapperFor(ViewFrustumSettings.class);
+  private ViewFrustumSettingsBindMap viewFrustumSettingsBindMap = BinderUtils.mapperFor(ViewFrustumSettings.class);
 
   @Override
   public int serializeOnJackson(ArgonSettings object, JsonGenerator jacksonSerializer) throws Exception {

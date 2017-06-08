@@ -5,11 +5,14 @@ import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import sqlite.contentprovider.kripton35.entities.Person;
 
 /**
@@ -22,6 +25,8 @@ import sqlite.contentprovider.kripton35.entities.Person;
  *  @see sqlite.contentprovider.kripton35.entities.PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
+  private static final Set<String> selectOne0ColumnSet = CollectionUtils.asSet(String.class, "id", "parentId", "birthCity", "birthDay", "value", "name", "surname");
+
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
   }
@@ -131,6 +136,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     //SqlUtils and StringUtils will be used to format SQL
     String whereCondition=" name like ${nameTemp} || '%'";
     ArrayList<String> whereParams=new ArrayList<>();
+    for (String columnName:projection) {
+      if (!selectOne0ColumnSet.contains(columnName)) {
+        throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.contentprovider.kripton35/persons/*/test', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
+      }
+    }
     // Add parameter nameTemp at path segment 1
     whereParams.add(uri.getPathSegments().get(1));
 

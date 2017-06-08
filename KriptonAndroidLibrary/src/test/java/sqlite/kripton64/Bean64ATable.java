@@ -1,9 +1,9 @@
 package sqlite.kripton64;
 
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -78,7 +78,7 @@ public class Bean64ATable {
 
   /**
    * Bean64ABindMap */
-  private static Bean64ABindMap bean64ABindMap = AbstractContext.mapperFor(Bean64A.class);
+  private static Bean64ABindMap bean64ABindMap = BinderUtils.mapperFor(Bean64A.class);
 
   /**
    * write

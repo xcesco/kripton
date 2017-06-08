@@ -1,10 +1,10 @@
 package sqlite.test03;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class Bean01BindMap extends AbstractMapper<Bean01> {
   /**
    * Bean02BindMap */
-  private Bean02BindMap bean02BindMap = AbstractContext.mapperFor(Bean02.class);
+  private Bean02BindMap bean02BindMap = BinderUtils.mapperFor(Bean02.class);
 
   @Override
   public int serializeOnJackson(Bean01 object, JsonGenerator jacksonSerializer) throws Exception {

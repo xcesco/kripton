@@ -2,6 +2,7 @@ package sqlite.kripton84;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -9,7 +10,6 @@ import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -30,7 +30,7 @@ import java.nio.charset.StandardCharsets;
 public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   /**
    * Bean84B2BindMap */
-  private Bean84B2BindMap bean84B2BindMap = AbstractContext.mapperFor(Bean84B2.class);
+  private Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
 
   public Bean84BDaoImpl(BindBean84BDataSource dataSet) {
     super(dataSet);

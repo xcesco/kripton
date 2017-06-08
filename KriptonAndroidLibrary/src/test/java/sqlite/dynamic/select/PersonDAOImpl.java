@@ -17,8 +17,6 @@ import sqlite.dynamic.Person;
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>PersonDAO</code>
  * </p>
- * 
- * <a href="content://prova.com/*atest">aaa</a>
  *
  *  @see Person
  *  @see PersonDAO

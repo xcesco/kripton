@@ -1,16 +1,14 @@
 package bind.kripton1110.model.stage2;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.lang.Exception;
-import java.lang.Override;
 
 /**
  * This class is binder map for Native
@@ -21,11 +19,11 @@ import java.lang.Override;
 public class NativeBindMap extends AbstractMapper<Native> {
   /**
    * NldBindMap */
-  private NldBindMap nldBindMap = AbstractContext.mapperFor(Nld.class);
+  private NldBindMap nldBindMap = BinderUtils.mapperFor(Nld.class);
 
   /**
    * PapBindMap */
-  private PapBindMap papBindMap = AbstractContext.mapperFor(Pap.class);
+  private PapBindMap papBindMap = BinderUtils.mapperFor(Pap.class);
 
   @Override
   public int serializeOnJackson(Native object, JsonGenerator jacksonSerializer) throws Exception {

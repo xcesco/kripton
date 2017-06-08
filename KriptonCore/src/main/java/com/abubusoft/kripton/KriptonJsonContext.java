@@ -1,6 +1,5 @@
 package com.abubusoft.kripton;
 
-import com.abubusoft.kripton.core.AbstractJacksonContext;
 import com.fasterxml.jackson.core.JsonFactory;
 
 /**

@@ -2,13 +2,13 @@ package shared.kripton47;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -41,7 +41,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
 
   /**
    * UserAccessTokenBindMap */
-  private UserAccessTokenBindMap userAccessTokenBindMap = AbstractContext.mapperFor(UserAccessToken.class);
+  private UserAccessTokenBindMap userAccessTokenBindMap = BinderUtils.mapperFor(UserAccessToken.class);
 
   /**
    * constructor

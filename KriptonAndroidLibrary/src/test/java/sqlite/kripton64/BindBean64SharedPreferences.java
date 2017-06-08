@@ -2,6 +2,7 @@ package sqlite.kripton64;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
@@ -16,7 +17,6 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TimeUtils;
 import com.abubusoft.kripton.common.TimeZoneUtils;
 import com.abubusoft.kripton.common.UrlUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -69,7 +69,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
 
   /**
    * Bean64BindMap */
-  private Bean64BindMap bean64BindMap = AbstractContext.mapperFor(Bean64.class);
+  private Bean64BindMap bean64BindMap = BinderUtils.mapperFor(Bean64.class);
 
   /**
    * constructor

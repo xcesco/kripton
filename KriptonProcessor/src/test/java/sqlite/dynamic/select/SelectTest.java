@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.InvalidTypeForAnnotationException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.dynamic.Person;
@@ -44,7 +45,7 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testErr1() throws Throwable {
-		this.expectedException(InvalidMethodSignException.class);
+		this.expectedException(InvalidTypeForAnnotationException.class);
 		buildDataSourceProcessorTest(Err1DataSource.class, Err1DAO.class, Person.class);
 	}
 	
@@ -64,7 +65,7 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testErr3() throws Throwable {
-		this.expectedException(InvalidMethodSignException.class);
+		this.expectedException(InvalidTypeForAnnotationException.class);
 		buildDataSourceProcessorTest(Err3DataSource.class, Err3DAO.class, Person.class);
 	}
 	
@@ -74,7 +75,7 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testErr4() throws Throwable {
-		this.expectedException(InvalidMethodSignException.class);
+		this.expectedException(InvalidTypeForAnnotationException.class);
 		buildDataSourceProcessorTest(Err4DataSource.class, Err4DAO.class, Person.class);
 	}
 	

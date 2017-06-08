@@ -1,10 +1,13 @@
 package bind.kripton1110.model.stage1;
 
+import java.util.ArrayList;
+
+import com.abubusoft.kripton.AbstractContext;
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -13,11 +16,6 @@ import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.lang.Exception;
-import java.lang.Integer;
-import java.lang.Override;
-import java.lang.String;
-import java.util.ArrayList;
 
 /**
  * This class is binder map for User
@@ -28,15 +26,15 @@ import java.util.ArrayList;
 public class UserBindMap extends AbstractMapper<User> {
   /**
    * FriendBindMap */
-  private FriendBindMap friendBindMap = AbstractContext.mapperFor(Friend.class);
+  private FriendBindMap friendBindMap = BinderUtils.mapperFor(Friend.class);
 
   /**
    * ImageBindMap */
-  private ImageBindMap imageBindMap = AbstractContext.mapperFor(Image.class);
+  private ImageBindMap imageBindMap = BinderUtils.mapperFor(Image.class);
 
   /**
    * NameBindMap */
-  private NameBindMap nameBindMap = AbstractContext.mapperFor(Name.class);
+  private NameBindMap nameBindMap = BinderUtils.mapperFor(Name.class);
 
   @Override
   public int serializeOnJackson(User object, JsonGenerator jacksonSerializer) throws Exception {

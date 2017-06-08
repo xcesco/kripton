@@ -3,9 +3,9 @@ package bind.generichierarchy.case1.transfer;
 import bind.generichierarchy.case1.model.Message;
 import bind.generichierarchy.case1.model.MessageBindMap;
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class MessageListResponseBindMap extends AbstractMapper<MessageListResponse> {
   /**
    * MessageBindMap */
-  private MessageBindMap messageBindMap = AbstractContext.mapperFor(Message.class);
+  private MessageBindMap messageBindMap = BinderUtils.mapperFor(Message.class);
 
   @Override
   public int serializeOnJackson(MessageListResponse object, JsonGenerator jacksonSerializer) throws Exception {

@@ -1,9 +1,9 @@
 package bind.generichierarchy;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -27,7 +27,7 @@ import java.util.Map;
 public class ChannelListResponseBindMap extends AbstractMapper<ChannelListResponse> {
   /**
    * ChannelBindMap */
-  private ChannelBindMap channelBindMap = AbstractContext.mapperFor(Channel.class);
+  private ChannelBindMap channelBindMap = BinderUtils.mapperFor(Channel.class);
 
   @Override
   public int serializeOnJackson(ChannelListResponse object, JsonGenerator jacksonSerializer) throws Exception {

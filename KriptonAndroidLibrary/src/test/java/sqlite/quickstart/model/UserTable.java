@@ -1,9 +1,9 @@
 package sqlite.quickstart.model;
 
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
-import com.abubusoft.kripton.core.AbstractContext;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -102,11 +102,11 @@ public class UserTable {
 
   /**
    * AddressBindMap */
-  private static AddressBindMap addressBindMap = AbstractContext.mapperFor(Address.class);
+  private static AddressBindMap addressBindMap = BinderUtils.mapperFor(Address.class);
 
   /**
    * CompanyBindMap */
-  private static CompanyBindMap companyBindMap = AbstractContext.mapperFor(Company.class);
+  private static CompanyBindMap companyBindMap = BinderUtils.mapperFor(Company.class);
 
   /**
    * write
