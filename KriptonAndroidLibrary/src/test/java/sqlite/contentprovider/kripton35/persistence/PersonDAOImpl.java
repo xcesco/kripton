@@ -4,14 +4,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 import sqlite.contentprovider.kripton35.entities.Person;
 
@@ -25,7 +24,7 @@ import sqlite.contentprovider.kripton35.entities.Person;
  *  @see sqlite.contentprovider.kripton35.entities.PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
-  private static final Set<String> selectOne0ColumnSet = CollectionUtils.asSet(String.class, "id", "parentId", "birthCity", "birthDay", "value", "name", "surname");
+  private static final Set<String> selectBeanListener0ColumnSet = CollectionUtils.asSet(String.class, "id", "parentId", "birthCity", "birthDay", "value", "name", "surname");
 
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
@@ -34,7 +33,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || \'%\' HAVING id=2 GROUP BY id ORDER BY id#{orderBy}#{pageSize}</pre>
+   * <pre>SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person ORDER BY name#{orderBy}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -49,35 +48,24 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Dynamic parts:</h2>
    * <dl>
-   * <dt>#{orderBy}</dt>is part of order statement resolved at runtime.</dd><dt>#{pageSize}</dt>is part of limit statement resolved at runtime.</dd>
+   * <dt>#{orderBy}</dt>is part of order statement resolved at runtime.</dd>
    * </dl>
    *
-   * <h2>Query's parameters:</h2>
-   * <dl>
-   * 	<dt>${nameTemp}</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
-   * </dl>
-   *
-   * @param nameValue
-   * 	is binded to <code>${nameTemp}</code>
-   * @param pageSize
-   * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @param beanListener
+   * 	is the Person listener
    * @param orderBy
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
-   * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectOne(String nameValue, int pageSize, String orderBy) {
+  public void selectBeanListener(OnReadBeanListener<Person> beanListener, String orderBy) {
     // build where condition
-    String[] _args={(nameValue==null?"":nameValue)};
+    String[] _args={};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like '%s' || \'%%' HAVING id=2 GROUP BY id ORDER BY id"+SqlUtils.appendForLog(orderBy)+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize),(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ? || \'%\' HAVING id=2 GROUP BY id ORDER BY id"+SqlUtils.appendForSQL(orderBy)+SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize), _args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person ORDER BY name"+SqlUtils.appendForLog(orderBy),(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT id, parent_id, birth_city, birth_day, value, name, surname FROM person ORDER BY name"+SqlUtils.appendForSQL(orderBy), _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
-
-      LinkedList<Person> resultList=new LinkedList<Person>();
-      Person resultBean=null;
-
+      Person resultBean=new Person();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
@@ -88,10 +76,19 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         int index5=cursor.getColumnIndex("name");
         int index6=cursor.getColumnIndex("surname");
 
+        int rowCount=cursor.getCount();
         do
          {
-          resultBean=new Person();
+          // reset mapping
+          resultBean.id=0L;
+          resultBean.parentId=0L;
+          resultBean.birthCity=null;
+          resultBean.birthDay=null;
+          resultBean.value=0L;
+          resultBean.setName(null);
+          resultBean.setSurname(null);
 
+          // generate mapping
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
           if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getString(index2); }
@@ -100,51 +97,47 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
           if (!cursor.isNull(index5)) { resultBean.setName(cursor.getString(index5)); }
           if (!cursor.isNull(index6)) { resultBean.setSurname(cursor.getString(index6)); }
 
-          resultList.add(resultBean);
+          beanListener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
       }
-
-      return resultList;
     }
   }
 
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
-   * <pre>content://sqlite.contentprovider.kripton35/persons/[*]/test</pre>
-   *
-   * <p>Path variables defined:</p>
-   * <ul>
-   * <li><strong>${nameTemp}</strong> at path segment 1</li>
-   * </ul>
+   * <pre>content://sqlite.contentprovider.kripton35/persons</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}</pre>
+   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person ORDER BY name,  #{orderBy}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}</pre>
+   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person ORDER BY name,  #{orderBy}</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
-   * @param uri "content://sqlite.contentprovider.kripton35/persons/[*]/test"
+   * @param uri "content://sqlite.contentprovider.kripton35/persons"
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectOne0(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+  Cursor selectBeanListener0(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
     //SqlUtils and StringUtils will be used to format SQL
-    String whereCondition=" name like ${nameTemp} || '%'";
+    String sqlWhereStatement=null;
+    String sqlGroupStatement=null;
+    String sqlHavingStatement=null;
+    String sqlOrderByStatement=" ORDER BY name,  #{orderBy}";
+    String sqlLimitStatement=null;
+    String sqlOffsetStatement=null;
     ArrayList<String> whereParams=new ArrayList<>();
     for (String columnName:projection) {
-      if (!selectOne0ColumnSet.contains(columnName)) {
-        throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.contentprovider.kripton35/persons/*/test', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
+      if (!selectBeanListener0ColumnSet.contains(columnName)) {
+        throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.contentprovider.kripton35/persons', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
       }
     }
-    // Add parameter nameTemp at path segment 1
-    whereParams.add(uri.getPathSegments().get(1));
 
-    String sql="SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}";
+    String sql="SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person ORDER BY name,  #{orderBy}";
     Cursor result = database().rawQuery(sql, whereParams.toArray(new String[whereParams.size()]));
     return result;
   }

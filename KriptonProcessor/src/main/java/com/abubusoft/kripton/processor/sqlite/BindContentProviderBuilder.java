@@ -348,6 +348,12 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.DELETE);
+		
+		if (!hasOperation) {
+			methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+			classBuilder.addMethod(methodBuilder.build());
+			return;
+		}
 
 		methodBuilder.addStatement("int returnRowDeleted=-1");
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
@@ -369,13 +375,9 @@ public class BindContentProviderBuilder extends AbstractBuilder {
         methodBuilder.endControlFlow();
 		
 		methodBuilder.endControlFlow();
-		
-		if (hasOperation) {		
-			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
-			methodBuilder.addCode("return returnRowDeleted;\n");
-		}
-
-		
+					
+		methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");					
+		methodBuilder.addCode("return returnRowDeleted;\n");
 
 		classBuilder.addMethod(methodBuilder.build());
 	}
@@ -388,6 +390,12 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.UPDATE);
+		
+		if (!hasOperation) {
+			methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+			classBuilder.addMethod(methodBuilder.build());
+			return;
+		}
 
 		methodBuilder.addStatement("int returnRowUpdated=1");
 		
@@ -411,10 +419,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		
 		methodBuilder.endControlFlow();
 
-		if (hasOperation) {
-			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
-			methodBuilder.addStatement("return returnRowUpdated");
-		}
+		methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");			
+		methodBuilder.addStatement("return returnRowUpdated");
 
 		classBuilder.addMethod(methodBuilder.build());
 
@@ -495,6 +501,13 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(String.class, "sortOrder");
 		
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.SELECT);
+		
+		if (!hasOperation) {
+			methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+			classBuilder.addMethod(methodBuilder.build());
+			return;
+		}
+		
 		methodBuilder.addStatement("$T returnCursor=null", Cursor.class);
 
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {

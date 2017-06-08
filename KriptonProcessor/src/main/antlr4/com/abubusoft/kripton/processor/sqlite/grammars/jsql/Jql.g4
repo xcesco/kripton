@@ -33,6 +33,11 @@ grammar Jql;
 parse
  : ( sql_stmt_list | error )* EOF
  ;
+ 
+ /* CUSTOM: variable parts of a query */
+parse_variable
+ : where_stmt | group_stmt | having_stmt | order_stmt | limit_stmt | offset_stmt
+ ;
 
 error
  : UNEXPECTED_CHAR
@@ -104,14 +109,14 @@ commit_stmt
 compound_select_stmt
  : ( K_WITH K_RECURSIVE? common_table_expression ( ',' common_table_expression )* )?
    select_core ( ( K_UNION K_ALL? | K_INTERSECT | K_EXCEPT ) select_core )+
-   order_stmt
-   ( limit_stmt offset_stmt )?
+   ( order_stmt )?
+   ( limit_stmt ( offset_stmt )? )?
  ;
 
 create_index_stmt
  : K_CREATE K_UNIQUE? K_INDEX ( K_IF K_NOT K_EXISTS )?
    ( database_name '.' )? index_name K_ON table_name '(' indexed_column ( ',' indexed_column )* ')'
-   where_stmt
+   ( where_stmt )?
  ;
 
 create_table_stmt
@@ -143,14 +148,14 @@ create_virtual_table_stmt
 
 delete_stmt
  : with_clause? K_DELETE K_FROM qualified_table_name
-   where_stmt
+   ( where_stmt )?
  ;
 
 delete_stmt_limited
  : with_clause? K_DELETE K_FROM qualified_table_name
-   where_stmt
-   ( order_stmt 
-     limit_stmt offset_stmt     
+   ( where_stmt )?
+   ( ( order_stmt )?
+     limit_stmt ( offset_stmt )?     
    )?
  ;
 
@@ -177,8 +182,8 @@ drop_view_stmt
 factored_select_stmt
  : ( K_WITH K_RECURSIVE? common_table_expression ( ',' common_table_expression )* )?
    select_core ( compound_operator select_core )*
-   order_stmt   
-   ( limit_stmt offset_stmt )?
+   ( order_stmt )?
+   ( limit_stmt ( offset_stmt )? )?
  ;
 
 insert_stmt
@@ -225,22 +230,22 @@ savepoint_stmt
 
 simple_select_stmt
  : ( K_WITH K_RECURSIVE? common_table_expression ( ',' common_table_expression )* )?
-   select_core order_stmt   
-   ( limit_stmt offset_stmt )?
+   select_core ( order_stmt )?   
+   ( limit_stmt ( offset_stmt )? )?
  ;
 
 select_stmt
  : ( K_WITH K_RECURSIVE? common_table_expression ( ',' common_table_expression )* )?
    select_or_values ( compound_operator select_or_values )*
-   order_stmt
-   ( limit_stmt offset_stmt )?
+   ( order_stmt )?
+   ( limit_stmt ( offset_stmt )? )?
  ;
 
 select_or_values
  : K_SELECT ( K_DISTINCT | K_ALL )? result_column ( ',' result_column )*
    ( K_FROM ( table_or_subquery ( ',' table_or_subquery )* | join_clause ) )?
-   where_stmt
-   ( group_stmt having_stmt )?
+   ( where_stmt )?
+   ( group_stmt ( having_stmt )? )?
  | K_VALUES '(' expr ( ',' expr )* ')' ( ',' '(' expr ( ',' expr )* ')' )*
  ;
 
@@ -250,7 +255,7 @@ update_stmt
                          | K_OR K_REPLACE
                          | K_OR K_FAIL
                          | K_OR K_IGNORE )? qualified_table_name
-   K_SET column_name '=' expr ( ',' column_name '=' expr )* where_stmt
+   K_SET column_name '=' expr ( ',' column_name '=' expr )* ( where_stmt )?
  ;
 
 update_stmt_limited
@@ -259,9 +264,9 @@ update_stmt_limited
                          | K_OR K_REPLACE
                          | K_OR K_FAIL
                          | K_OR K_IGNORE )? qualified_table_name
-   K_SET column_name '=' expr ( ',' column_name '=' expr )* where_stmt
-   ( order_stmt
-     limit_stmt offset_stmt
+   K_SET column_name '=' expr ( ',' column_name '=' expr )* ( where_stmt )?
+   ( ( order_stmt )?
+     limit_stmt ( offset_stmt )?
    )?
  ;
 
@@ -394,7 +399,7 @@ with_clause
  ;
  
 where_stmt
- : ( K_WHERE where_stmt_clauses )?
+ : K_WHERE where_stmt_clauses
  ;
 
 where_stmt_clauses
@@ -407,11 +412,11 @@ qualified_table_name
  ;
  
 offset_stmt
- : ( ( K_OFFSET | ',' ) expr )?
+ : ( K_OFFSET | ',' ) expr
  ;
  
 order_stmt
- : ( K_ORDER K_BY ordering_term ( ',' ordering_term )* )?
+ : K_ORDER K_BY ordering_term ( ',' ordering_term )*
  ;
 
 ordering_term
@@ -461,8 +466,8 @@ join_constraint
 select_core
  : K_SELECT ( K_DISTINCT | K_ALL )? result_column ( ',' result_column )*
    ( K_FROM ( table_or_subquery ( ',' table_or_subquery )* | join_clause ) )?
-   where_stmt
-   ( group_stmt having_stmt )?
+   ( where_stmt )?
+   ( group_stmt ( having_stmt )? )?
  | K_VALUES '(' expr ( ',' expr )* ')' ( ',' '(' expr ( ',' expr )* ')' )*
  ;
 
@@ -654,7 +659,7 @@ group_stmt
  ;
 
 having_stmt 
- : ( K_HAVING expr )?
+ : K_HAVING expr
  ;
 
 database_name

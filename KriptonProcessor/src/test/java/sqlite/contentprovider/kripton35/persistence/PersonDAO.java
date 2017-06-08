@@ -29,6 +29,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
 import java.util.Date;
 import java.util.List;
@@ -63,12 +64,13 @@ public interface PersonDAO {
 //	@BindSqlUpdate(where = "id=${id}")
 //	int updateWhereStaticAndDynamic(Date birthDay, long id);
 
-	@BindContentProviderEntry(path="${nameTemp}/test")
-	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy = "id", having = "id=2", orderBy = "id")
-	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicOrderBy String orderBy);
+//	@BindContentProviderEntry(path="${nameTemp}/test")
+//	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy = "id", having = "id=2", orderBy = "id")
+//	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicOrderBy String orderBy);
 //
-//	@BindSqlSelect(orderBy = "name")
-//	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlOrderBy String orderBy);
+	@BindContentProviderEntry
+	@BindSqlSelect(orderBy = "name")
+	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlDynamicOrderBy String orderBy);
 //
 //	@BindContentProviderEntry(path = "#")
 //	@BindSqlDelete(where = "id = ${bean.id}")

@@ -31,7 +31,7 @@ public class BindPersonContentProvider extends ContentProvider {
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  public static final String PATH_PERSON_1 = "persons/*/test";
+  public static final String PATH_PERSON_1 = "persons";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -75,26 +75,21 @@ public class BindPersonContentProvider extends ContentProvider {
 
   @Override
   public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
-    int returnRowUpdated=1;
-    switch (sURIMatcher.match(uri)) {
-      default: {
-        throw new IllegalArgumentException("Unknown URI: " + uri);
-      }
-    }
+    throw new IllegalArgumentException("Unknown URI: " + uri);
   }
 
   /**
-   * method PersonDAO.selectOne
-   * method PersonDAO.selectOne
-   * uri ${nameTemp}/test
+   * method PersonDAO.selectBeanListener
+   * method PersonDAO.selectBeanListener
+   * uri 
    */
   @Override
   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
     Cursor returnCursor=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
-        // URI: content://sqlite.contentprovider.kripton35/persons/${nameTemp}/test
-        returnCursor=dataSource.getPersonDAO().selectOne0(uri, projection, selection, selectionArgs, sortOrder);
+        // URI: content://sqlite.contentprovider.kripton35/persons
+        returnCursor=dataSource.getPersonDAO().selectBeanListener0(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
     }
@@ -104,16 +99,11 @@ public class BindPersonContentProvider extends ContentProvider {
 
   @Override
   public int delete(Uri uri, String selection, String[] selectionArgs) {
-    int returnRowDeleted=-1;
-    switch (sURIMatcher.match(uri)) {
-      default: {
-        throw new IllegalArgumentException("Unknown URI: " + uri);
-      }
-    }
+    throw new IllegalArgumentException("Unknown URI: " + uri);
   }
 
   /**
-   * uri ${nameTemp}/test
+   * uri 
    */
   @Override
   public String getType(Uri uri) {

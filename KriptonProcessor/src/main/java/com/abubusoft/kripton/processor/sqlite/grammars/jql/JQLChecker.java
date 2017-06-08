@@ -35,6 +35,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
@@ -78,8 +79,8 @@ public class JQLChecker {
 		walker.walk(listener, prepareParser(jql).value0);
 	}
 
-	protected <L extends JqlBaseListener> void analyzeWhereInternal(final String jql, L listener) {
-		walker.walk(listener, prepareWhere(jql).value0);
+	protected <L extends JqlBaseListener> void analyzeVariableStatementInternal(final String jql, L listener) {
+		walker.walk(listener, prepareVariableStatement(jql).value0);
 	}
 
 	public <L extends JqlBaseListener> void analyze(final JQL jql, L listener) {
@@ -103,7 +104,22 @@ public class JQLChecker {
 		return new Pair<>(context, tokens);
 	}
 
-	protected Pair<ParserRuleContext, CommonTokenStream> prepareWhere(final String jql) {
+	/**
+	 * <p>Parse the variable parts of a SQL: </p>
+	 * 
+	 * <ul>
+	 * <li>where_stmt</li>
+	 * <li>group_stmt</li>
+	 * <li>having_stmt</li>
+	 * <li>order_stmt</li>
+	 * <li>limit_stmt</li>
+	 * <li>offset_stmt</li>
+	 * </ul>
+	 * 
+	 * @param jql
+	 * @return
+	 */
+	protected Pair<ParserRuleContext, CommonTokenStream> prepareVariableStatement(final String jql) {
 		JqlLexer lexer = new JqlLexer(CharStreams.fromString(jql));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		JqlParser parser = new JqlParser(tokens);
@@ -116,7 +132,7 @@ public class JQLChecker {
 			}
 		});
 
-		ParserRuleContext context = parser.where_stmt_clauses();
+		ParserRuleContext context = parser.parse_variable();
 		return new Pair<>(context, tokens);
 	}
 
@@ -193,7 +209,7 @@ public class JQLChecker {
 	 * @param listener
 	 * @return string obtained by replacements
 	 */
-	public String replaceFromWhere(String jql, final JQLPlaceHolderReplacerListener listener) {
+	public String replaceFromVariableStatement(String jql, final JQLPlaceHolderReplacerListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 
 		JqlBaseListener rewriterListener = new JqlBaseListener() {
@@ -211,7 +227,7 @@ public class JQLChecker {
 			}
 		};
 
-		return replaceFromWhereInternal(jql, replace, rewriterListener);
+		return replaceFromVariableStatementInternal(jql, replace, rewriterListener);
 	}
 
 	/**
@@ -273,8 +289,8 @@ public class JQLChecker {
 		return rewriter.getText();
 	}
 
-	private String replaceFromWhereInternal(String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
-		Pair<ParserRuleContext, CommonTokenStream> parser = prepareWhere(jql);
+	private String replaceFromVariableStatementInternal(String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
+		Pair<ParserRuleContext, CommonTokenStream> parser = prepareVariableStatement(jql);
 		walker.walk(rewriterListener, parser.value0);
 
 		TokenStreamRewriter rewriter = new TokenStreamRewriter(parser.value1);
@@ -322,9 +338,9 @@ public class JQLChecker {
 
 	public interface JQLReplacerStatementListener {
 
-		String onWhere(String whereStatement);
+		String onWhere(String statement);
 		
-		String onOrderBy(String orderByStatement);
+		String onOrderBy(String statement);
 
 		String onLimit(String statement);
 
@@ -390,8 +406,8 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public Set<JQLPlaceHolder> extractFromWhereConditionAsSet(String jql) {
-		return extractPlaceHoldersFromWhereCondition(jql, new LinkedHashSet<JQLPlaceHolder>());
+	public Set<JQLPlaceHolder> extractPlaceHoldersFromVariableStatementAsSet(String jql) {
+		return extractPlaceHoldersFromVariableStatement(jql, new LinkedHashSet<JQLPlaceHolder>());
 	}
 
 	/**
@@ -400,8 +416,8 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public List<JQLPlaceHolder> extractFromWhereCondition(String jql) {
-		return extractPlaceHoldersFromWhereCondition(jql, new ArrayList<JQLPlaceHolder>());
+	public List<JQLPlaceHolder> extractFromVariableStatement(String jql) {
+		return extractPlaceHoldersFromVariableStatement(jql, new ArrayList<JQLPlaceHolder>());
 	}
 
 	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(String jql, final L result) {
@@ -424,11 +440,14 @@ public class JQLChecker {
 		return result;
 	}
 
-	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromWhereCondition(String jql, final L result) {
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromVariableStatement(String jql, final L result) {
 		final One<Boolean> valid = new One<>();
+		
+		if (!StringUtils.hasText(jql)) return result;		
+		
 		valid.value0 = false;
 
-		analyzeWhereInternal(jql, new JqlBaseListener() {
+		analyzeVariableStatementInternal(jql, new JqlBaseListener() {
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
@@ -482,7 +501,7 @@ public class JQLChecker {
 	 * @param listener
 	 * @return
 	 */
-	public String replaceStatements(final String jql, final JQLReplacerStatementListener listener) {
+	public String replaceVariableStatements(final String jql, final JQLReplacerStatementListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 
 		JqlBaseListener rewriterListener = new JqlBaseListener() {
@@ -491,6 +510,9 @@ public class JQLChecker {
 			public void enterWhere_stmt(Where_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
+				
+				if (start==stop) return;
+				
 				String statement = jql.substring(start, stop);
 				
 				String value = listener.onWhere(statement);
@@ -504,6 +526,9 @@ public class JQLChecker {
 			public void enterOrder_stmt(Order_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
+				
+				if (start==stop) return;
+				
 				String statement = jql.substring(start, stop);
 				
 				String value = listener.onOrderBy(statement);
@@ -517,6 +542,9 @@ public class JQLChecker {
 			public void enterGroup_stmt(Group_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
+				
+				if (start==stop) return;
+				
 				String statement = jql.substring(start, stop);
 				
 				String value = listener.onGroup(statement);
@@ -530,6 +558,9 @@ public class JQLChecker {
 			public void enterHaving_stmt(Having_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
+				
+				if (start==stop) return;
+				
 				String statement = jql.substring(start, stop);
 				
 				String value = listener.onHaving(statement);
@@ -544,6 +575,9 @@ public class JQLChecker {
 			public void enterOffset_stmt(Offset_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
+				
+				if (start==stop) return;
+				
 				String statement = jql.substring(start, stop);
 				
 				String value = listener.onOffset(statement);
@@ -557,6 +591,9 @@ public class JQLChecker {
 			public void enterLimit_stmt(Limit_stmtContext ctx) {
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
+				
+				if (start==stop) return;
+				
 				String statement = jql.substring(start, stop);
 				
 				String value = listener.onLimit(statement);

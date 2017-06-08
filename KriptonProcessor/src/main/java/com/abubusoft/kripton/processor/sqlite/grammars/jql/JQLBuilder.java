@@ -333,7 +333,7 @@ public abstract class JQLBuilder {
 
 		Set<String> annotatedWhereParameters = new HashSet<String>();
 		if (StringUtils.hasText(annotatedWhere)) {
-			Set<JQLPlaceHolder> parametersUsedInWhereConditions = JQLChecker.getInstance().extractFromWhereConditionAsSet(annotatedWhere);
+			Set<JQLPlaceHolder> parametersUsedInWhereConditions = JQLChecker.getInstance().extractPlaceHoldersFromVariableStatementAsSet(annotatedWhere);
 
 			for (JQLPlaceHolder item : parametersUsedInWhereConditions) {
 				annotatedWhereParameters.add(item.value);

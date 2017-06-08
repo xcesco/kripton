@@ -232,7 +232,7 @@ public abstract class SqlModifyBuilder {
 
 		// parameters extracted from query
 		String whereStatement = jqlChecker.extractWhereStatement(method.jql.value);
-		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromWhereCondition(whereStatement);
+		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(whereStatement);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = removeDynamicPlaceHolder(placeHolders);
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(),
@@ -334,7 +334,7 @@ public abstract class SqlModifyBuilder {
 
 		if (method.hasDynamicWhereConditions()) {
 			final One<Integer> dynamicWhereCounter = new One<Integer>(0);
-			whereStatement = jqlChecker.replaceFromWhere(whereStatement, new JQLPlaceHolderReplacerListener() {
+			whereStatement = jqlChecker.replaceFromVariableStatement(whereStatement, new JQLPlaceHolderReplacerListener() {
 
 				@Override
 				public String onParameter(String placeHolder) {

@@ -278,7 +278,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 	}
 	
 	@Test
-	public void testExtractWhereStatement() {
+	public void testBindParametersFromVariableStatements() {
 		final One<String> where=new One<>();
 		final One<String> orderBy=new One<>();
 		final One<String> limit=new One<>();
@@ -298,7 +298,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		checker.verify(jql);
 
 		
-		String finalSql=checker.replaceStatements(jql.value, new JQLReplacerStatementListener() {
+		String finalSql=checker.replaceVariableStatements(jql.value, new JQLReplacerStatementListener() {
 
 			@Override
 			public String onWhere(String whereStatement) {
@@ -344,8 +344,33 @@ public class TestJqlChecker extends BaseProcessorTest {
 		log(having.value0);
 		log(offset.value0);
 		log(limit.value0);
+		
 		log(finalSql);
 		//assertEquals(where, " id = ${dummy} and a=${dummy2}");
+		
+		{
+			List<JQLPlaceHolder> list = checker.extractFromVariableStatement(where.value0);
+			
+			for (JQLPlaceHolder item : list) {
+				log(item.value);
+			}
+			
+			String replacedSql=checker.replaceFromVariableStatement(where.value0, new JQLPlaceHolderReplacerListener() {
+				
+				@Override
+				public String onParameter(String placeHolder) {
+					return "?";
+				}
+				
+				@Override
+				public String onDynamicSQL(String placeHolder) {
+					// TODO Auto-generated method stub
+					return "*";
+				}
+			});
+			
+			log(replacedSql);
+		}
 	}
 	
 	
