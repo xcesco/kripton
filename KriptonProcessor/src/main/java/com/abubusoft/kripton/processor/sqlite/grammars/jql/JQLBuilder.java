@@ -33,9 +33,11 @@ import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.VA
 import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.WHERE_KEYWORD;
 
 import java.lang.annotation.Annotation;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.lang.model.element.VariableElement;
@@ -60,6 +62,7 @@ import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -101,6 +104,7 @@ public abstract class JQLBuilder {
 
 	public static JQL buildJQL(SQLiteModelMethod method) {
 		final SQLDaoDefinition dao = method.getParent();
+		Map<JQLDynamicStatementType, String> dynamicReplace=new HashMap<>();
 		final JQL result = new JQL();
 
 		// for each method's parameter
@@ -115,13 +119,13 @@ public abstract class JQLBuilder {
 		});
 
 		if (method.hasAnnotation(BindSqlSelect.class)) {
-			return buildJQLSelect(method, result);
+			return buildJQLSelect(method, result, dynamicReplace);
 		} else if (method.hasAnnotation(BindSqlInsert.class)) {
 			return buildJQLInsert(method, result);
 		} else if (method.hasAnnotation(BindSqlUpdate.class)) {
-			return buildJQLUpdate(method, result);
+			return buildJQLUpdate(method, result, dynamicReplace);
 		} else if (method.hasAnnotation(BindSqlDelete.class)) {
-			return buildJQLDelete(method, result);
+			return buildJQLDelete(method, result, dynamicReplace);
 		}
 
 		return null;
@@ -136,7 +140,7 @@ public abstract class JQLBuilder {
 	 * @param method
 	 * @return
 	 */
-	private static JQL buildJQLDelete(SQLiteModelMethod method, JQL result) {
+	private static JQL buildJQLDelete(SQLiteModelMethod method, JQL result, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		final SQLDaoDefinition dao = method.getParent();
 
 		StringBuilder builder = new StringBuilder();
@@ -144,10 +148,11 @@ public abstract class JQLBuilder {
 		// entity name
 		builder.append(" " + dao.getEntitySimplyClassName());
 
-		builder.append(defineWhereStatement(method, result, BindSqlDelete.class));
+		builder.append(defineWhereStatement(method, result, BindSqlDelete.class, dynamicReplace));
 
 		result.value = builder.toString();
 		result.operationType = JQLType.DELETE;
+		result.dynamicReplace=dynamicReplace;
 		return result;
 	}
 
@@ -206,10 +211,11 @@ public abstract class JQLBuilder {
 
 		result.value = builder.toString();
 		result.operationType = JQLType.INSERT;
+		result.dynamicReplace=new HashMap<>();
 		return result;
 	}
 
-	private static JQL buildJQLSelect(SQLiteModelMethod method, JQL result) {
+	private static JQL buildJQLSelect(SQLiteModelMethod method, JQL result, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		final Class<? extends Annotation> annotation = BindSqlSelect.class;
 		final SQLDaoDefinition dao = method.getParent();
 
@@ -225,6 +231,7 @@ public abstract class JQLBuilder {
 		StringBuilder builder = new StringBuilder();
 		builder.append(SELECT_KEYWORD + " ");
 
+		// 
 		if (distinct) {
 			builder.append(DISTINCT_KEYWORD + " ");
 		}
@@ -242,7 +249,7 @@ public abstract class JQLBuilder {
 		builder.append(" " + FROM_KEYWORD + " " + dao.getEntitySimplyClassName());
 
 		// where
-		builder.append(defineWhereStatement(method, result, annotation));
+		builder.append(defineWhereStatement(method, result, annotation, dynamicReplace));
 
 		// group by
 		if (StringUtils.hasText(annotatedGroupBy)) {
@@ -257,13 +264,14 @@ public abstract class JQLBuilder {
 		}
 		
 		// order by
-		builder.append(defineOrderByStatement(method, result, annotation));
+		builder.append(defineOrderByStatement(method, result, annotation, dynamicReplace));
 		
 		// limit
 		builder.append(defineLimitStatement(method, result, annotation));
 
 		result.value = builder.toString();
 		result.operationType = JQLType.SELECT;
+		result.dynamicReplace=dynamicReplace;
 		return result;
 	}
 
@@ -276,7 +284,7 @@ public abstract class JQLBuilder {
 	 * @param method
 	 * @return
 	 */
-	private static JQL buildJQLUpdate(final SQLiteModelMethod method, JQL result) {
+	private static JQL buildJQLUpdate(final SQLiteModelMethod method, JQL result, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		final Class<? extends Annotation> annotation = BindSqlUpdate.class;
 		final SQLDaoDefinition dao = method.getParent();
 
@@ -306,10 +314,11 @@ public abstract class JQLBuilder {
 			}
 		}));
 
-		builder.append(defineWhereStatement(method, result, annotation));
+		builder.append(defineWhereStatement(method, result, annotation, dynamicReplace));
 
 		result.value = builder.toString();
 		result.operationType = JQLType.UPDATE;
+		result.dynamicReplace=dynamicReplace;
 		return result;
 	}
 
@@ -492,7 +501,7 @@ public abstract class JQLBuilder {
 	 * @param classBuilder
 	 * @param annotation
 	 */
-	private static <L extends Annotation> String defineOrderByStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation) {
+	private static <L extends Annotation> String defineOrderByStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
 
 		String orderBy = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.ORDER_BY);
@@ -526,13 +535,22 @@ public abstract class JQLBuilder {
 			if (StringUtils.hasText(orderBy)) {
 				builder.append(StringUtils.startWithSpace(orderBy));
 			}
+			
+			StringBuffer dynamicBuffer=new StringBuffer();			
 
 			if (StringUtils.hasText(orderDynamicName.value0)) {
 				if (StringUtils.hasText(orderBy)) {
+					dynamicBuffer.append(", ");
 					builder.append(", ");
 				}
-				builder.append(" #{" + orderDynamicName.value0 + "}");
+				
+				dynamicBuffer.append(" #{" + JQLDynamicStatementType.DYNAMIC_ORDER_BY + "}");
+				builder.append(" #{" + JQLDynamicStatementType.DYNAMIC_ORDER_BY + "}");
+				
+				// define replacement string for WHERE
+				dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_ORDER_BY, dynamicBuffer.toString());
 			}
+			
 		}
 
 		return builder.toString();
@@ -545,7 +563,7 @@ public abstract class JQLBuilder {
 	 * @param classBuilder
 	 * @param annotation
 	 */
-	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql, Class<L> annotation) {
+	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
 		
 		String where = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.WHERE);
@@ -559,12 +577,20 @@ public abstract class JQLBuilder {
 				builder.append(StringUtils.startWithSpace(where));
 			}
 
+			StringBuffer dynamicBuffer=new StringBuffer();
+			
 			if (StringUtils.hasText(method.dynamicWhereParameterName)) {
 				if (StringUtils.hasText(where)) {
+					dynamicBuffer.append(" " + method.dynamicWherePrepend);
 					builder.append(" " + method.dynamicWherePrepend);
 				}
-				builder.append(" #{" + method.dynamicWhereParameterName + "}");
-			}
+				dynamicBuffer.append(" #{"+JQLDynamicStatementType.DYNAMIC_WHERE+"}");
+				builder.append(" #{"+JQLDynamicStatementType.DYNAMIC_WHERE+"}");
+				
+				// define replacement string for WHERE
+				dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_WHERE, dynamicBuffer.toString());
+			}			
+			
 		}
 
 		return builder.toString();

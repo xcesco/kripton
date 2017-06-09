@@ -15,12 +15,17 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import java.util.Map;
 
 public class JQL {
 
 	public enum JQLType {
 		SELECT, INSERT, UPDATE, DELETE
+	}
+	
+	public enum JQLDynamicStatementType {
+		DYNAMIC_WHERE,
+		DYNAMIC_ORDER_BY		
 	}
 
 	/**
@@ -75,6 +80,8 @@ public class JQL {
 	public String paramPageSize;
 
 	public String paramOrderBy;
+
+	public Map<JQLDynamicStatementType, String> dynamicReplace;
 	
 	public boolean hasParamReadBeanListener() {
 		return paramReadBeanListener != null;
