@@ -104,7 +104,7 @@ public abstract class JQLBuilder {
 
 	public static JQL buildJQL(SQLiteModelMethod method) {
 		final SQLDaoDefinition dao = method.getParent();
-		Map<JQLDynamicStatementType, String> dynamicReplace=new HashMap<>();
+		Map<JQLDynamicStatementType, String> dynamicReplace = new HashMap<>();
 		final JQL result = new JQL();
 
 		// for each method's parameter
@@ -152,12 +152,13 @@ public abstract class JQLBuilder {
 
 		result.value = builder.toString();
 		result.operationType = JQLType.DELETE;
-		result.dynamicReplace=dynamicReplace;
+		result.dynamicReplace = dynamicReplace;
 		return result;
 	}
 
 	/**
-	 * <pre> 
+	 * <pre>
+	 *  
 	 * INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})
 	 * </pre>
 	 * 
@@ -211,7 +212,7 @@ public abstract class JQLBuilder {
 
 		result.value = builder.toString();
 		result.operationType = JQLType.INSERT;
-		result.dynamicReplace=new HashMap<>();
+		result.dynamicReplace = new HashMap<>();
 		return result;
 	}
 
@@ -231,7 +232,7 @@ public abstract class JQLBuilder {
 		StringBuilder builder = new StringBuilder();
 		builder.append(SELECT_KEYWORD + " ");
 
-		// 
+		//
 		if (distinct) {
 			builder.append(DISTINCT_KEYWORD + " ");
 		}
@@ -259,19 +260,19 @@ public abstract class JQLBuilder {
 
 		// having
 		if (StringUtils.hasText(annotatedHaving)) {
-			result.annotatedGroupBy = true;
+			result.annotatedHavingBy = true;
 			builder.append(" " + HAVING_KEYWORD + " " + annotatedHaving);
 		}
-		
+
 		// order by
 		builder.append(defineOrderByStatement(method, result, annotation, dynamicReplace));
-		
+
 		// limit
 		builder.append(defineLimitStatement(method, result, annotation));
 
 		result.value = builder.toString();
 		result.operationType = JQLType.SELECT;
-		result.dynamicReplace=dynamicReplace;
+		result.dynamicReplace = dynamicReplace;
 		return result;
 	}
 
@@ -318,7 +319,7 @@ public abstract class JQLBuilder {
 
 		result.value = builder.toString();
 		result.operationType = JQLType.UPDATE;
-		result.dynamicReplace=dynamicReplace;
+		result.dynamicReplace = dynamicReplace;
 		return result;
 	}
 
@@ -381,11 +382,11 @@ public abstract class JQLBuilder {
 			public void onMethodParameter(VariableElement item) {
 				BindSqlParam paramAlias = item.getAnnotation(BindSqlParam.class);
 				BindSqlPageSize parameterPageSize = item.getAnnotation(BindSqlPageSize.class);
-				
+
 				BindSqlDynamicWhere parameterWhere = item.getAnnotation(BindSqlDynamicWhere.class);
 				BindSqlDynamicWhereArgs paramegerWhereArgs = item.getAnnotation(BindSqlDynamicWhereArgs.class);
-				
-				BindSqlDynamicOrderBy parameterOrderBy = item.getAnnotation(BindSqlDynamicOrderBy.class);				
+
+				BindSqlDynamicOrderBy parameterOrderBy = item.getAnnotation(BindSqlDynamicOrderBy.class);
 
 				int i = 0;
 
@@ -533,24 +534,25 @@ public abstract class JQLBuilder {
 			builder.append(" " + ORDER_BY_KEYWORD);
 
 			if (StringUtils.hasText(orderBy)) {
+				result.staticOrderBy = true;
 				builder.append(StringUtils.startWithSpace(orderBy));
 			}
-			
-			StringBuffer dynamicBuffer=new StringBuffer();			
+
+			StringBuffer dynamicBuffer = new StringBuffer();
 
 			if (StringUtils.hasText(orderDynamicName.value0)) {
 				if (StringUtils.hasText(orderBy)) {
 					dynamicBuffer.append(", ");
 					builder.append(", ");
 				}
-				
+
 				dynamicBuffer.append(" #{" + JQLDynamicStatementType.DYNAMIC_ORDER_BY + "}");
 				builder.append(" #{" + JQLDynamicStatementType.DYNAMIC_ORDER_BY + "}");
-				
+
 				// define replacement string for WHERE
 				dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_ORDER_BY, dynamicBuffer.toString());
 			}
-			
+
 		}
 
 		return builder.toString();
@@ -565,32 +567,33 @@ public abstract class JQLBuilder {
 	 */
 	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
-		
+
 		String where = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.WHERE);
 		if (StringUtils.hasText(where))
 			jql.annotatedWhere = true;
-		
+
 		if (StringUtils.hasText(where) || method.hasDynamicWhereConditions()) {
 			builder.append(" " + WHERE_KEYWORD);
 
 			if (StringUtils.hasText(where)) {
+				jql.staticWhereConditions = true;
 				builder.append(StringUtils.startWithSpace(where));
 			}
 
-			StringBuffer dynamicBuffer=new StringBuffer();
-			
+			StringBuffer dynamicBuffer = new StringBuffer();
+
 			if (StringUtils.hasText(method.dynamicWhereParameterName)) {
 				if (StringUtils.hasText(where)) {
 					dynamicBuffer.append(" " + method.dynamicWherePrepend);
 					builder.append(" " + method.dynamicWherePrepend);
 				}
-				dynamicBuffer.append(" #{"+JQLDynamicStatementType.DYNAMIC_WHERE+"}");
-				builder.append(" #{"+JQLDynamicStatementType.DYNAMIC_WHERE+"}");
-				
+				dynamicBuffer.append(" #{" + JQLDynamicStatementType.DYNAMIC_WHERE + "}");
+				builder.append(" #{" + JQLDynamicStatementType.DYNAMIC_WHERE + "}");
+
 				// define replacement string for WHERE
 				dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_WHERE, dynamicBuffer.toString());
-			}			
-			
+			}
+
 		}
 
 		return builder.toString();

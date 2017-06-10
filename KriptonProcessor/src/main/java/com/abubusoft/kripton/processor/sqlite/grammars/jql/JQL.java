@@ -22,10 +22,9 @@ public class JQL {
 	public enum JQLType {
 		SELECT, INSERT, UPDATE, DELETE
 	}
-	
+
 	public enum JQLDynamicStatementType {
-		DYNAMIC_WHERE,
-		DYNAMIC_ORDER_BY		
+		DYNAMIC_WHERE, DYNAMIC_ORDER_BY
 	}
 
 	/**
@@ -82,7 +81,13 @@ public class JQL {
 	public String paramOrderBy;
 
 	public Map<JQLDynamicStatementType, String> dynamicReplace;
-	
+
+	public boolean annotatedHavingBy;
+
+	public boolean staticOrderBy;
+
+	public boolean staticWhereConditions;
+
 	public boolean hasParamReadBeanListener() {
 		return paramReadBeanListener != null;
 	}
