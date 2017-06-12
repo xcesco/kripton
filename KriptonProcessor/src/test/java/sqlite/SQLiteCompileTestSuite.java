@@ -18,7 +18,6 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.generichierarchy.TestGenericHierarchySuite;
 import sqlite.contentprovider.kripton35.TestContentProviderSuite;
 import sqlite.dynamic.TestDynamicSuite;
 import sqlite.example01.Example01Suite;

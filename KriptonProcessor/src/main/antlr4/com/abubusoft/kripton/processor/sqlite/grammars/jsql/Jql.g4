@@ -464,7 +464,7 @@ join_constraint
  ;
 
 select_core
- : K_SELECT ( K_DISTINCT | K_ALL )? result_column ( ',' result_column )*
+ : K_SELECT ( K_DISTINCT | K_ALL )? projected_columns
    ( K_FROM ( table_or_subquery ( ',' table_or_subquery )* | join_clause ) )?
    ( where_stmt )?
    ( group_stmt ( having_stmt )? )?
@@ -708,6 +708,10 @@ module_name
 
 pragma_name
  : any_name
+ ;
+ 
+projected_columns
+ : result_column ( ',' result_column )*
  ;
 
 savepoint_name

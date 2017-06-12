@@ -39,6 +39,7 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
@@ -244,8 +245,11 @@ public abstract class SqlInsertBuilder {
 			public void onWhereStatementEnd(Where_stmtContext ctx) {
 				useColumns.value0=true;				
 			}
-			
-			
+
+			@Override
+			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+				return null;
+			}
 			
 		});
 		
@@ -287,7 +291,7 @@ public abstract class SqlInsertBuilder {
 			} 
 		}		
 		
-		generateColumnCheck(method, methodBuilder, "INSERT", "contentValues.keySet()");
+		generateColumnCheck(method, methodBuilder, "INSERT", "contentValues.keySet()", null);
 				
 		methodBuilder.addCode("// $L\n", resultA);		
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
@@ -316,12 +320,14 @@ public abstract class SqlInsertBuilder {
 	 * @param daoDefinition
 	 * @param operationType
 	 */
-	static void generateColumnCheck(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, String operationType, String columnSetString) {
+	static void generateColumnCheck(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, String operationType, String columnSetString, OnColumnListener listener) {
 		SQLDaoDefinition daoDefinition=method.getParent();
 		methodBuilder.beginControlFlow("for (String columnName:$L)", columnSetString);
 			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName+"ColumnSet");
 				methodBuilder.addStatement("throw new $T(String.format(\"For URI '$L', column '%s' does not exists in table '%s' or can not be defined in this $L operation\", columnName, $S ))", KriptonRuntimeException.class, method.contentProviderUriTemplate,  operationType ,daoDefinition.getEntity().getTableName());
 			methodBuilder.endControlFlow();
+			if (listener!=null)
+				listener.onColumnCheck(methodBuilder, "columnName");
 		methodBuilder.endControlFlow();
 	}
 	

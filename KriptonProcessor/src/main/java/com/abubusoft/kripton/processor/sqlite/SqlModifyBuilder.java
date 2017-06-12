@@ -39,6 +39,7 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
@@ -289,6 +290,12 @@ public abstract class SqlModifyBuilder {
 			public void onWhereStatementEnd(Where_stmtContext ctx) {
 				useColumns.value0=true;				
 			}
+
+			@Override
+			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		});
 
 		String sql = jqlChecker.replace(method.jql, new JQLReplacerListener() {
@@ -315,6 +322,12 @@ public abstract class SqlModifyBuilder {
 			@Override
 			public void onWhereStatementEnd(Where_stmtContext ctx) {
 			}
+
+			@Override
+			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		});
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
@@ -337,14 +350,14 @@ public abstract class SqlModifyBuilder {
 			whereStatement = jqlChecker.replaceFromVariableStatement(whereStatement, new JQLPlaceHolderReplacerListener() {
 
 				@Override
-				public String onParameter(String placeHolder) {
-					return "?";
+				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+					dynamicWhereCounter.value0++;
+					return "#{" + dynamicStatement + "}"; 
 				}
 
 				@Override
-				public String onDynamicSQL(String placeHolder) {
-					dynamicWhereCounter.value0++;
-					return "#{" + placeHolder + "}";
+				public String onBindParameter(String bindParameterName) {
+					return "?";
 				}
 			});
 			AssertKripton.assertTrue(dynamicWhereCounter.value0 <= 1,
@@ -418,7 +431,7 @@ public abstract class SqlModifyBuilder {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
 			SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
-			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "UPDATE", "contentValues.keySet()");
+			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "UPDATE", "contentValues.keySet()", null);
 			methodBuilder.addStatement(
 					"int result = database().update($S, contentValues, whereCondition, whereParams.toArray(new String[whereParams.size()]))",
 					daoDefinition.getEntity().getTableName());

@@ -38,6 +38,7 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionBuilder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
@@ -52,6 +53,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Having_stm
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Limit_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Offset_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Order_stmtContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Result_columnContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
@@ -188,13 +190,19 @@ public class JQLChecker {
 
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				String value = listener.onDynamicSQL(ctx.bind_parameter_name().getText());
+				String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 
 			@Override
-			public void enterBind_parameter(Bind_parameterContext ctx) {
-				String value = listener.onParameter(ctx.bind_parameter_name().getText());
+			public void enterBind_parameter(Bind_parameterContext ctx) {				
+				String value;
+				if (ctx.bind_parameter_name()!=null) {
+					value = listener.onBindParameter(ctx.bind_parameter_name().getText());
+				} else {
+					value = listener.onBindParameter(ctx.getText());
+				}
+				
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 		};
@@ -216,13 +224,27 @@ public class JQLChecker {
 
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				String value = listener.onDynamicSQL(ctx.bind_parameter_name().getText());
+				String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
+				
+				// skip without replace
+				if (value==null) return;
+				
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				String value = listener.onParameter(ctx.bind_parameter_name().getText());
+				String value;
+				if (ctx.bind_parameter_name()!=null) {
+					value = listener.onBindParameter(ctx.bind_parameter_name().getText());
+				} else {
+					value = listener.onBindParameter(ctx.getText());
+				}		
+				
+				
+				// skip without replace
+				if (value==null) return;
+				
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 		};
@@ -245,18 +267,45 @@ public class JQLChecker {
 			@Override
 			public void enterTable_name(Table_nameContext ctx) {
 				String value = listener.onTableName(ctx.getText());
+				
+				// skip without replace
+				if (value==null) return;
+				
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				String value = listener.onBindParameter(ctx.bind_parameter_name().getText());
+				String value;
+				if (ctx.bind_parameter_name()!=null) {
+					value = listener.onBindParameter(ctx.bind_parameter_name().getText());
+				} else {
+					value = listener.onBindParameter(ctx.getText());
+				}
+				
+				// skip without replace
+				if (value==null) return;
+				
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 
 			@Override
 			public void enterColumn_name(Column_nameContext ctx) {
 				String value = listener.onColumnName(ctx.getText());
+				
+				// skip without replace
+				if (value==null) return;
+				
+				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+			}
+			
+			@Override
+			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
+				String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
+				
+				// skip without replace
+				if (value==null) return;
+				
 				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 			}
 
@@ -311,18 +360,16 @@ public class JQLChecker {
 		 * @param string
 		 * @return
 		 */
-		String onParameter(String placeHolder);
+		String onBindParameter(String bindParameterName);
 
-		String onDynamicSQL(String placeHolder);
+		String onDynamicSQL(JQLDynamicStatementType dynamicStatement);
 	}
 
-	public interface JQLReplacerListener {
+	public interface JQLReplacerListener extends JQLPlaceHolderReplacerListener  {
 
 		String onTableName(String tableName);
 
 		String onColumnName(String columnName);
-
-		String onBindParameter(String bindParameterName);
 
 		/**
 		 * if return something different than null, the value will replace where
@@ -349,6 +396,8 @@ public class JQLChecker {
 		String onGroup(String statement);
 
 		String onHaving(String statement);
+
+		String onProjectedColumns(String statement);
 
 	}
 
@@ -428,7 +477,13 @@ public class JQLChecker {
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, ctx.bind_parameter_name().getText()));
+				String value;
+				if (ctx.bind_parameter_name()!=null) {
+					value = ctx.bind_parameter_name().getText();
+				} else {
+					value = ctx.getText();
+				}
+				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, value));
 			}
 
 			@Override
@@ -451,7 +506,14 @@ public class JQLChecker {
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
-				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, ctx.bind_parameter_name().getText()));
+				String parameter;
+				if (ctx.bind_parameter_name()!=null)
+				{
+					parameter=ctx.bind_parameter_name().getText();
+				} else {
+					parameter=ctx.getText();
+				}
+				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, parameter));
 			}
 
 			@Override
@@ -505,6 +567,22 @@ public class JQLChecker {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 
 		JqlBaseListener rewriterListener = new JqlBaseListener() {
+			
+			@Override
+			public void enterProjected_columns(Projected_columnsContext ctx) {
+				int start = ctx.getStart().getStartIndex() - 1;
+				int stop = ctx.getStop().getStopIndex() + 1;
+				
+				if (start==stop) return;
+				
+				String statement = jql.substring(start, stop);
+				
+				String value = listener.onProjectedColumns(statement);
+
+				if (value != null) {
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
+			}
 
 			@Override
 			public void enterWhere_stmt(Where_stmtContext ctx) {

@@ -24,7 +24,7 @@ public class JQL {
 	}
 
 	public enum JQLDynamicStatementType {
-		DYNAMIC_WHERE, DYNAMIC_ORDER_BY
+		DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE, DYNAMIC_PAGE_OFFSET
 	}
 
 	/**
@@ -84,9 +84,50 @@ public class JQL {
 
 	public boolean annotatedHavingBy;
 
-	public boolean staticOrderBy;
+	boolean staticOrderBy;
 
-	public boolean staticWhereConditions;
+	public boolean isStaticOrderBy() {
+		return staticOrderBy;
+	}
+
+	boolean staticWhereConditions;
+
+	/**
+	 * if <code>true</code> states that JQL has a static WHERE statement.
+	 * 
+	 * @return if <code>true</code> states that JQL has a static WHERE
+	 *         statement.
+	 */
+	public boolean isStaticWhereConditions() {
+		return staticWhereConditions;
+	}
+	
+	public boolean isDynamicOrderBy() {
+		return dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_ORDER_BY);
+	}
+	
+	public boolean isOrderBy() {
+		return isStaticOrderBy() || isDynamicOrderBy();
+	}
+
+	/**
+	 * if <code>true</code> states that JQL has a dynamic WHERE statement.
+	 * 
+	 * @return if <code>true</code> states that JQL has a dynamic WHERE
+	 *         statement.
+	 */
+	public boolean isDynamicWhereConditions() {
+		return dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_WHERE);
+	}
+	
+	/**
+	 * if <code>true</code> states that JQL has a WHERE statement, static or dynamic.
+	 * 
+	 * @return if <code>true</code> states that JQL has a WHERE statement, static or dynamic.
+	 */
+	public boolean isWhereConditions() {
+		return isStaticWhereConditions() || isDynamicWhereConditions();
+	}
 
 	public boolean hasParamReadBeanListener() {
 		return paramReadBeanListener != null;

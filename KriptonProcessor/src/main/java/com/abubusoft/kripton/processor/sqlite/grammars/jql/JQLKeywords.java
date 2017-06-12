@@ -20,21 +20,21 @@ import java.util.Set;
 
 public class JQLKeywords {
 
-	static final String DELETE_KEYWORD = "DELETE";
-	static final String DISTINCT_KEYWORD ="DISTINCT";
-	static final String FROM_KEYWORD ="FROM";
-	static final String GROUP_BY_KEYWORD ="GROUP BY";
-	static final String HAVING_KEYWORD ="HAVING";
-	static final String INSERT_KEYWORD = "INSERT";
-	static final String INTO_KEYWORD = "INTO";
-	static final String LIMIT_KEYWORD ="LIMIT";
-	static final String OFFSET_KEYWORD ="OFFSET";
-	static final String ORDER_BY_KEYWORD ="ORDER BY";	
-	static final String SELECT_KEYWORD = "SELECT";
-	static final String SET_KEYWORD = "SET";
-	static final String UPDATE_KEYWORD = "UPDATE";
-	static final String VALUES_KEYWORD = "VALUES";
-	static final String WHERE_KEYWORD = "WHERE";
+	public static final String DELETE_KEYWORD = "DELETE";
+	public static final String DISTINCT_KEYWORD ="DISTINCT";
+	public static final String FROM_KEYWORD ="FROM";
+	public static final String GROUP_BY_KEYWORD ="GROUP BY";
+	public static final String HAVING_KEYWORD ="HAVING";
+	public static final String INSERT_KEYWORD = "INSERT";
+	public static final String INTO_KEYWORD = "INTO";
+	public static final String LIMIT_KEYWORD ="LIMIT";
+	public static final String OFFSET_KEYWORD ="OFFSET";
+	public static final String ORDER_BY_KEYWORD ="ORDER BY";	
+	public static final String SELECT_KEYWORD = "SELECT";
+	public static final String SET_KEYWORD = "SET";
+	public static final String UPDATE_KEYWORD = "UPDATE";
+	public static final String VALUES_KEYWORD = "VALUES";
+	public static final String WHERE_KEYWORD = "WHERE";
 	
 	static final Set<String> keywords=new LinkedHashSet<>();
 	

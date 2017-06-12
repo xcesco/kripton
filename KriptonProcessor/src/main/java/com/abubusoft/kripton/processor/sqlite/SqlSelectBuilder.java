@@ -27,6 +27,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
@@ -44,13 +45,16 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerStatementListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
@@ -73,6 +77,8 @@ import android.database.Cursor;
 import android.net.Uri;
 
 public abstract class SqlSelectBuilder {
+
+	private static final String PLACE_HOLDER_FOR_PROJECTED_COLUMNS = "@{__TEMPORARY_PLACE_HOLDER_FOR_PROJECTED_COLUMNS__}";
 
 	/**
 	 * Iterate over methods.
@@ -221,6 +227,7 @@ public abstract class SqlSelectBuilder {
 		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
+		final JQL jql = method.jql;
 		final Set<String> columns = new LinkedHashSet<>();
 		final StringBuilder parametersBuilder = new StringBuilder();
 
@@ -233,8 +240,40 @@ public abstract class SqlSelectBuilder {
 		final One<String> sqlHavingStatement = new One<>();
 		final One<String> sqlGroupStatement = new One<>();
 
-		// parameters extracted from query
-		String basicSQl = jqlChecker.replaceVariableStatements(method.jql.value, new JQLReplacerStatementListener() {
+		String sql = jqlChecker.replace(method.jql, new JQLReplacerListener() {
+
+			@Override
+			public String onTableName(String tableName) {
+				return schema.getEntityBySimpleName(tableName).getTableName();
+			}
+
+			@Override
+			public String onBindParameter(String bindParameterName) {
+				return "${" + bindParameterName + "}";
+			}
+
+			@Override
+			public String onColumnName(String columnName) {
+				return entity.get(columnName).columnName;
+			}
+
+			@Override
+			public void onWhereStatementBegin(Where_stmtContext ctx) {
+			}
+
+			@Override
+			public void onWhereStatementEnd(Where_stmtContext ctx) {
+			}
+
+			@Override
+			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+
+		// parameters extracted from JQL converted in SQL
+		String basicSQl = jqlChecker.replaceVariableStatements(sql, new JQLReplacerStatementListener() {
 
 			@Override
 			public String onWhere(String statement) {
@@ -271,7 +310,13 @@ public abstract class SqlSelectBuilder {
 				sqlGroupStatement.value0 = statement;
 				return "";
 			}
+
+			@Override
+			public String onProjectedColumns(String statement) {
+				return PLACE_HOLDER_FOR_PROJECTED_COLUMNS;
+			}
 		});
+
 		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(sqlWhereStatement.value0);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = SqlModifyBuilder.removeDynamicPlaceHolder(placeHolders);
@@ -287,7 +332,7 @@ public abstract class SqlSelectBuilder {
 			}
 		}
 
-		String resultForLog = jqlChecker.replace(method.jql, new JQLReplacerListener() {
+		String sqlForLog = jqlChecker.replace(method.jql, new JQLReplacerListener() {
 
 			@Override
 			public String onColumnName(String columnName) {
@@ -349,31 +394,15 @@ public abstract class SqlSelectBuilder {
 			public void onWhereStatementEnd(Where_stmtContext ctx) {
 
 			}
-		});
-
-		String sql = jqlChecker.replace(method.jql, new JQLReplacerListener() {
 
 			@Override
-			public String onTableName(String tableName) {
-				return schema.getEntityBySimpleName(tableName).getTableName();
-			}
-
-			@Override
-			public String onBindParameter(String columnValue) {
-				return "${" + columnValue + "}";
-			}
-
-			@Override
-			public String onColumnName(String columnName) {
-				return entity.get(columnName).columnName;
-			}
-
-			@Override
-			public void onWhereStatementBegin(Where_stmtContext ctx) {
-			}
-
-			@Override
-			public void onWhereStatementEnd(Where_stmtContext ctx) {
+			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+				if (dynamicStatement == JQLDynamicStatementType.DYNAMIC_WHERE) {
+					return "\"+selection+\"";
+				} else if (dynamicStatement == JQLDynamicStatementType.DYNAMIC_ORDER_BY) {
+					return "\"+sortOrder+\"";
+				}
+				return null;
 			}
 		});
 
@@ -390,91 +419,74 @@ public abstract class SqlSelectBuilder {
 
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
 
-		// if (method.hasDynamicWhereConditions()) {
-		// final One<Integer> dynamicWhereCounter = new One<Integer>(0);
-		// whereStatement =
-		// jqlChecker.replaceFromVariableStatement(whereStatement., new
-		// JQLPlaceHolderReplacerListener() {
-		//
-		// @Override
-		// public String onParameter(String placeHolder) {
-		// return "?";
-		// }
-		//
-		// @Override
-		// public String onDynamicSQL(String placeHolder) {
-		// dynamicWhereCounter.value0++;
-		// return "#{" + placeHolder + "}";
-		// }
-		// });
-		// AssertKripton.assertTrue(dynamicWhereCounter.value0 <= 1, "In %s.%s,
-		// @DynamicWhere variable are used more then one time",
-		// daoDefinition.getName(), method.getName()); //
-		//
-		// if (method.hasDynamicWhereConditions()) {
-		// whereStatement = whereStatement.replace(method.dynamicWherePrepend +
-		// " #{" + method.dynamicWhereParameterName + "}", "");
-		// whereStatement = whereStatement.replace("#{" +
-		// method.dynamicWhereParameterName + "}", "");
-		//
-		// }
-		// methodBuilder.addStatement("String whereCondition=$S",
-		// whereStatement);
-		//
-		// if (method.hasDynamicWhereConditions()) {
-		// methodBuilder.beginControlFlow("if ($T.hasText(selection))",
-		// StringUtils.class);
-		// methodBuilder.addStatement("whereCondition+=\"$L \" + $L",
-		// method.dynamicWherePrepend, "selection");
-		// methodBuilder.endControlFlow();
-		// }
-		//
-		// } else {
-		// methodBuilder.addStatement("String whereCondition=$S",
-		// whereStatement);
-		// }
+		methodBuilder.addStatement("$T sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
+		methodBuilder.addStatement("$T projectionBuffer=new $T()", StringBuilder.class, StringBuilder.class);
 
-		methodBuilder.addStatement("String sqlWhereStatement=$S", sqlWhereStatement.value0);
-		methodBuilder.addStatement("String sqlGroupStatement=$S", sqlGroupStatement.value0);
-		methodBuilder.addStatement("String sqlHavingStatement=$S", sqlHavingStatement.value0);
-		methodBuilder.addStatement("String sqlOrderByStatement=$S", sqlOrderByStatement.value0);
-		methodBuilder.addStatement("String sqlLimitStatement=$S", sqlLimitStatement.value0);
-		methodBuilder.addStatement("String sqlOffsetStatement=$S", sqlOffsetStatement.value0);
+		methodBuilder.addStatement("sqlBuilder.append($S)", basicSQl);
 
-		methodBuilder.addStatement("$T<String> whereParams=new $T<>()", ArrayList.class, ArrayList.class);
+		if (jql.isWhereConditions()) {
+			methodBuilder.addCode("\n// manage WHERE statement\n");
+			String value = sqlWhereStatement.value0;
+			String valueToReplace = jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE);
 
-		// generate projected column check
-		SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
-		SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "SELECT", "projection");
+			if (jql.isStaticWhereConditions() && !jql.isDynamicWhereConditions()) {
+				// case static statement and NO dynamic
 
-		int i = 0;
-		// extract pathVariables
-		// every controls was done in constructor of SQLiteModelMethod
-		for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
-			AssertKripton.assertTrue(SqlModifyBuilder.validate(variable.value, placeHolders, i), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
-					daoDefinition.getName(), method.getName());
-
-			SQLProperty entityProperty = entity.get(variable.value);
-			TypeName methodParameterType = method.findParameterTypeByAliasOrName(variable.value);
-
-			methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
-			methodBuilder.addStatement("whereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
-
-			if (entityProperty != null) {
-
-				AssertKripton.assertTrue(TypeUtility.isTypeIncludedIn(entityProperty.getPropertyType().getTypeName(), String.class, Long.class, Long.TYPE),
-						"In '%s.%s' content provider URI path variables %s must be String of Long type", daoDefinition.getName(), method.getName(), entityProperty.getName());
-			} else if (methodParameterType != null) {
-				AssertKripton.assertTrue(TypeUtility.isTypeIncludedIn(methodParameterType, String.class, Long.class, Long.TYPE),
-						"In '%s.%s' content provider URI path variables %s must be String of Long type", daoDefinition.getName(), method.getName(), method.findParameterNameByAlias(variable.value));
+				methodBuilder.addStatement("String sqlWhereStatement=$S", value);
+			} else if (jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
+				methodBuilder.addStatement("String sqlWhereStatement=$S+($T.hasText($L) ? \", \"+$L: \"\")", value.replace(valueToReplace, ""), StringUtils.class, "selection", "selection");
+			} else if (!jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
+				methodBuilder.addStatement("String sqlWhereStatement=($T.hasText($L) ? \" $L \"+$L: \"\")", StringUtils.class, "selection", JQLKeywords.WHERE_KEYWORD, "selection");
 			}
 
-			i++;
+			methodBuilder.addStatement("sqlBuilder.append($L)", "sqlWhereStatement");
 		}
-		methodBuilder.addCode("\n");
+
+		if (StringUtils.hasText(sqlGroupStatement.value0)) {
+			methodBuilder.addCode("\n// manage GROUP BY statement\n");
+			methodBuilder.addStatement("String sqlGroupByStatement=$S", sqlGroupStatement.value0);
+			methodBuilder.addStatement("sqlBuilder.append($L)", "sqlGroupByStatement");
+		}
+
+		if (StringUtils.hasText(sqlHavingStatement.value0)) {
+			methodBuilder.addCode("\n// manage HAVING statement\n");
+			methodBuilder.addStatement("String sqlHavingStatement=$S", sqlHavingStatement.value0);
+			methodBuilder.addStatement("sqlBuilder.append($L)", "sqlHavingStatement");
+		}
+
+		if (jql.isOrderBy()) {
+			methodBuilder.addCode("\n// manage order by statement\n");
+			String value = sqlOrderByStatement.value0;
+			String valueToReplace = jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_ORDER_BY);
+
+			if (jql.isStaticOrderBy() && !jql.isDynamicOrderBy()) {
+				// case static statement and NO dynamic
+
+				methodBuilder.addStatement("String sqlOrderByStatement=$S", value);
+			} else if (jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
+				methodBuilder.addStatement("String sqlOrderByStatement=$S+($T.hasText($L) ? \", \"+$L: \"\")", value.replace(valueToReplace, ""), StringUtils.class, "sortOrder", "sortOrder");
+			} else if (!jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
+				methodBuilder.addStatement("String sqlOrderByStatement=($T.hasText($L) ? \" $L \"+$L: \"\")", StringUtils.class, "sortOrder", JQLKeywords.ORDER_BY_KEYWORD, "sortOrder");
+			}
+
+			methodBuilder.addStatement("sqlBuilder.append($L)", "sqlOrderByStatement");
+
+		}
+
+		if (StringUtils.hasText(sqlLimitStatement.value0)) {
+			methodBuilder.addStatement("String sqlLimitStatement=$S", sqlLimitStatement.value0);
+		}
+
+		if (StringUtils.hasText(sqlOffsetStatement.value0)) {
+			methodBuilder.addStatement("String sqlOffsetStatement=$S", sqlOffsetStatement.value0);
+		}
+
+		methodBuilder.addCode("\n// check projected fields\n");
+		methodBuilder.addStatement("$T<String> whereParams=new $T<>()", ArrayList.class, ArrayList.class);
 
 		if (method.hasDynamicWhereConditions()) {
 			// ASSERT: only with dynamic where conditions
+			methodBuilder.addCode("\n// manage where arguments\n");
 			methodBuilder.beginControlFlow("if ($T.hasText(selection) && selectionArgs!=null)", StringUtils.class);
 
 			if (method.hasDynamicWhereConditions()) {
@@ -486,7 +498,50 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.endControlFlow();
 		}
 
-		methodBuilder.addStatement("String sql=$S", sql);
+		// generate and check columns
+		{
+			// generate projected column check
+			SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
+			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "SELECT", "projection", new OnColumnListener() {
+				
+				@Override
+				public void onColumnCheck(MethodSpec.Builder methodBuilder, String string) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+			int i = 0;
+			// extract pathVariables
+			// every controls was done in constructor of SQLiteModelMethod
+			for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
+				AssertKripton.assertTrue(SqlModifyBuilder.validate(variable.value, placeHolders, i), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
+						daoDefinition.getName(), method.getName());
+
+				SQLProperty entityProperty = entity.get(variable.value);
+				TypeName methodParameterType = method.findParameterTypeByAliasOrName(variable.value);
+
+				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
+				methodBuilder.addStatement("whereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+
+				if (entityProperty != null) {
+
+					AssertKripton.assertTrue(TypeUtility.isTypeIncludedIn(entityProperty.getPropertyType().getTypeName(), String.class, Long.class, Long.TYPE),
+							"In '%s.%s' content provider URI path variables %s must be String of Long type", daoDefinition.getName(), method.getName(), entityProperty.getName());
+				} else if (methodParameterType != null) {
+					AssertKripton.assertTrue(TypeUtility.isTypeIncludedIn(methodParameterType, String.class, Long.class, Long.TYPE),
+							"In '%s.%s' content provider URI path variables %s must be String of Long type", daoDefinition.getName(), method.getName(),
+							method.findParameterNameByAlias(variable.value));
+				}
+
+				i++;
+			}
+		}
+
+		methodBuilder.addCode("\n// execute query\n");
+		methodBuilder.addStatement("String sql=sqlBuilder.toString()", sql);
+		methodBuilder.addCode("\n// $L\n", sqlForLog);
+		methodBuilder.addStatement("$T.info(sql)", Logger.class);
 		methodBuilder.addStatement("Cursor result = database().rawQuery(sql, whereParams.toArray(new String[whereParams.size()]))");
 
 		methodBuilder.addStatement("return result");

@@ -172,6 +172,12 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicWhereParameterName), method,
 					" parameter %s is used like SQL parameter and dynamic WHERE condition.", method.dynamicOrderByParameterName);
 			usedMethodParameters.add(method.dynamicWhereParameterName);
+			
+			if (method.hasDynamicWhereArgs()) {
+				AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicWhereArgsParameterName), method,
+						" parameter %s is used like SQL parameter and dynamic WHERE ARGS condition.", method.dynamicWhereArgsParameterName);
+				usedMethodParameters.add(method.dynamicWhereArgsParameterName);
+			}
 		}
 
 		if (method.hasDynamicOrderByConditions()) {

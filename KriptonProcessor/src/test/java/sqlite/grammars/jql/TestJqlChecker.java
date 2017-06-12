@@ -28,6 +28,7 @@ import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
@@ -53,7 +54,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 	 */
 	@Test
 	public void testOK() throws Throwable {				
-		String sql = "SELECT id, action, number, countryCode, contactName, contactId FROM phone_number WHERE number = ${bean.number} and number = ${bean.number} and #{dynamicWhere} and #{dynamicWhere}";
+		String sql = "SELECT id, action, number, countryCode, contactName, contactId FROM phone_number WHERE number = ${bean.number} and number = ${bean.number} and #{"+JQLDynamicStatementType.DYNAMIC_WHERE+"}";
 		JQL jql=new JQL();
 		jql.value=sql;
 
@@ -76,13 +77,13 @@ public class TestJqlChecker extends BaseProcessorTest {
 		log("replaced " + jsqChecker.replacePlaceHolders(jql, new JQLPlaceHolderReplacerListener() {
 
 			@Override
-			public String onParameter(String value) {
-				return "?";
+			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+				return String.format("\"+%s+\"", dynamicStatement);
 			}
 
 			@Override
-			public String onDynamicSQL(String text) {
-				return String.format("\"+%s+\"", text);
+			public String onBindParameter(String bindParameterName) {
+				return "?";
 			}
 		}));
 
@@ -131,9 +132,9 @@ public class TestJqlChecker extends BaseProcessorTest {
 	public void testSelect01() {
 		// String sql="SELECT count(*) FROM channel WHERE
 		// updateTime=${bean.updateTime}";
-		String sql = "SELECT count(*) as alias1, field2, field3 as alias3, table1.field3 as alias3, table2.field4 as alias4 FROM channel WHERE updateTime=${ bean.field1 } and field=${ field2  } and #{dynamicWhere1}";
+		String sql = "SELECT count(*) as alias1, field2, field3 as alias3, table1.field3 as alias3, table2.field4 as alias4 FROM channel WHERE updateTime=${ bean.field1 } and field=${ field2  } and #{"+JQLDynamicStatementType.DYNAMIC_WHERE+"}";
 
-		String logSql = "SELECT count(*) as alias1, field2, field3 as alias3, table1.field3 as alias3, table2.field4 as alias4 FROM channel WHERE updateTime=? and field=? and \"+dynamicWhere1+\"";
+		String logSql = "SELECT count(*) as alias1, field2, field3 as alias3, table1.field3 as alias3, table2.field4 as alias4 FROM channel WHERE updateTime=? and field=? and \"+DYNAMIC_WHERE+\"";
 		// String usedSql = "SELECT count(*) FROM channel WHERE
 		// updateTime=${bean.updateTime}";
 		JQL jql=new JQL();
@@ -166,7 +167,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 			List<JQLPlaceHolder> aspected = new ArrayList<>();
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "bean.field1"));
 			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, "field2"));
-			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, "dynamicWhere1"));
+			aspected.add(new JQLPlaceHolder(JQLPlaceHolderType.DYNAMIC_SQL, JQLDynamicStatementType.DYNAMIC_WHERE.toString()));
 			List<JQLPlaceHolder> actual = checker.extractPlaceHoldersAsList(jql.value);
 
 			checkCollectionExactly(actual, aspected);
@@ -176,13 +177,13 @@ public class TestJqlChecker extends BaseProcessorTest {
 		String sqlLogResult = checker.replacePlaceHolders(jql, new JQLPlaceHolderReplacerListener() {
 
 			@Override
-			public String onParameter(String placeHolder) {
-				return "?";
+			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+				return String.format("\"+%s+\"", dynamicStatement);
 			}
 
 			@Override
-			public String onDynamicSQL(String placeHolder) {
-				return String.format("\"+%s+\"", placeHolder);
+			public String onBindParameter(String bindParameterName) {
+				return "?";
 			}
 		});
 		assertEquals("sql for log generation failed", logSql, sqlLogResult);
@@ -245,13 +246,13 @@ public class TestJqlChecker extends BaseProcessorTest {
 		String sqlLogResult = checker.replacePlaceHolders(jql, new JQLPlaceHolderReplacerListener() {
 
 			@Override
-			public String onParameter(String placeHolder) {
-				return "?";
+			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+				return String.format("\"+%s+\"", dynamicStatement);
 			}
 
 			@Override
-			public String onDynamicSQL(String placeHolder) {
-				return String.format("\"+%s+\"", placeHolder);
+			public String onBindParameter(String bindParameterName) {
+				return "?";
 			}
 		});
 		assertEquals("sql for log generation failed", sqlForLog, sqlLogResult);
@@ -286,7 +287,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		final One<String> group=new One<>();
 		final One<String> having=new One<>();
 		
-		String sql = "SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{orderBy} LIMIT #{pageSize} OFFSET #{pageOffset}";		
+		String sql = "SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{"+JQLDynamicStatementType.DYNAMIC_ORDER_BY+"} LIMIT #{"+JQLDynamicStatementType.DYNAMIC_PAGE_SIZE+"} OFFSET #{"+JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET+"}";		
 		
 		JQL jql=new JQL();
 		jql.value=sql;
@@ -335,6 +336,11 @@ public class TestJqlChecker extends BaseProcessorTest {
 				having.value0=statement;
 				return "";
 			}
+
+			@Override
+			public String onProjectedColumns(String statement) {
+				return null;
+			}
 			
 		});
 		
@@ -358,15 +364,16 @@ public class TestJqlChecker extends BaseProcessorTest {
 			String replacedSql=checker.replaceFromVariableStatement(where.value0, new JQLPlaceHolderReplacerListener() {
 				
 				@Override
-				public String onParameter(String placeHolder) {
+				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+					return "*";
+				}
+
+				@Override
+				public String onBindParameter(String bindParameterName) {
 					return "?";
 				}
 				
-				@Override
-				public String onDynamicSQL(String placeHolder) {
-					// TODO Auto-generated method stub
-					return "*";
-				}
+		
 			});
 			
 			log(replacedSql);
