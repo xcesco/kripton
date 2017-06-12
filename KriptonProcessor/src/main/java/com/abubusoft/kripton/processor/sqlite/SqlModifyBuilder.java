@@ -44,6 +44,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
@@ -233,7 +234,7 @@ public abstract class SqlModifyBuilder {
 
 		// parameters extracted from query
 		String whereStatement = jqlChecker.extractWhereStatement(method.jql.value);
-		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(whereStatement);
+		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(JQLKeywords.WHERE_KEYWORD+ " "+ whereStatement);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = removeDynamicPlaceHolder(placeHolders);
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(),
@@ -347,7 +348,7 @@ public abstract class SqlModifyBuilder {
 
 		if (method.hasDynamicWhereConditions()) {
 			final One<Integer> dynamicWhereCounter = new One<Integer>(0);
-			whereStatement = jqlChecker.replaceFromVariableStatement(whereStatement, new JQLPlaceHolderReplacerListener() {
+			whereStatement = jqlChecker.replaceFromVariableStatement(JQLKeywords.WHERE_KEYWORD+ " "+whereStatement, new JQLPlaceHolderReplacerListener() {
 
 				@Override
 				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {

@@ -267,7 +267,6 @@ public abstract class SqlSelectBuilder {
 
 			@Override
 			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		});
@@ -313,7 +312,7 @@ public abstract class SqlSelectBuilder {
 
 			@Override
 			public String onProjectedColumns(String statement) {
-				return PLACE_HOLDER_FOR_PROJECTED_COLUMNS;
+				return "%s";
 			}
 		});
 
@@ -326,7 +325,7 @@ public abstract class SqlSelectBuilder {
 		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method.jql);
 		for (JQLProjection item : projectedColumns) {
 			if (item.type == ProjectionType.COLUMN) {
-				columns.add(item.column.trim());
+				columns.add(entity.get(item.column.trim()).columnName);
 			} else {
 				columns.add(item.expression.trim());
 			}
@@ -418,7 +417,8 @@ public abstract class SqlSelectBuilder {
 		methodBuilder.returns(Cursor.class);
 
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
-
+		methodBuilder.addStatement("$T.info($S, uri.toString())", Logger.class, "URI %s");
+				
 		methodBuilder.addStatement("$T sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
 		methodBuilder.addStatement("$T projectionBuffer=new $T()", StringBuilder.class, StringBuilder.class);
 
@@ -434,9 +434,9 @@ public abstract class SqlSelectBuilder {
 
 				methodBuilder.addStatement("String sqlWhereStatement=$S", value);
 			} else if (jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
-				methodBuilder.addStatement("String sqlWhereStatement=$S+($T.hasText($L) ? \", \"+$L: \"\")", value.replace(valueToReplace, ""), StringUtils.class, "selection", "selection");
+				methodBuilder.addStatement("String sqlWhereStatement=$S+$T.ifNotEmpty($L,\" $L \"+$L)", value.replace(valueToReplace, ""), StringUtils.class, "selection", method.dynamicWherePrepend, "selection");
 			} else if (!jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
-				methodBuilder.addStatement("String sqlWhereStatement=($T.hasText($L) ? \" $L \"+$L: \"\")", StringUtils.class, "selection", JQLKeywords.WHERE_KEYWORD, "selection");
+				methodBuilder.addStatement("String sqlWhereStatement=$T.ifNotEmpty($L, \" $L \"+$L)", StringUtils.class, "selection", JQLKeywords.WHERE_KEYWORD, "selection");
 			}
 
 			methodBuilder.addStatement("sqlBuilder.append($L)", "sqlWhereStatement");
@@ -464,9 +464,9 @@ public abstract class SqlSelectBuilder {
 
 				methodBuilder.addStatement("String sqlOrderByStatement=$S", value);
 			} else if (jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
-				methodBuilder.addStatement("String sqlOrderByStatement=$S+($T.hasText($L) ? \", \"+$L: \"\")", value.replace(valueToReplace, ""), StringUtils.class, "sortOrder", "sortOrder");
+				methodBuilder.addStatement("String sqlOrderByStatement=$S+$T.ifNotEmpty($L, \", \"+$L)", value.replace(valueToReplace, ""), StringUtils.class, "sortOrder", "sortOrder");
 			} else if (!jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
-				methodBuilder.addStatement("String sqlOrderByStatement=($T.hasText($L) ? \" $L \"+$L: \"\")", StringUtils.class, "sortOrder", JQLKeywords.ORDER_BY_KEYWORD, "sortOrder");
+				methodBuilder.addStatement("String sqlOrderByStatement=$T.ifNotEmpty($L,\" $L \"+$L)", StringUtils.class, "sortOrder", JQLKeywords.ORDER_BY_KEYWORD, "sortOrder");
 			}
 
 			methodBuilder.addStatement("sqlBuilder.append($L)", "sqlOrderByStatement");
@@ -481,12 +481,11 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.addStatement("String sqlOffsetStatement=$S", sqlOffsetStatement.value0);
 		}
 
-		methodBuilder.addCode("\n// check projected fields\n");
+		methodBuilder.addCode("\n// manage where arguments\n");
 		methodBuilder.addStatement("$T<String> whereParams=new $T<>()", ArrayList.class, ArrayList.class);
 
 		if (method.hasDynamicWhereConditions()) {
-			// ASSERT: only with dynamic where conditions
-			methodBuilder.addCode("\n// manage where arguments\n");
+			// ASSERT: only with dynamic where conditions			
 			methodBuilder.beginControlFlow("if ($T.hasText(selection) && selectionArgs!=null)", StringUtils.class);
 
 			if (method.hasDynamicWhereConditions()) {
@@ -500,16 +499,25 @@ public abstract class SqlSelectBuilder {
 
 		// generate and check columns
 		{
+			methodBuilder.addCode("\n// manage projected columns\n");
+			methodBuilder.addStatement("String columnSeparator=\"\"");
+			methodBuilder.beginControlFlow("if (projection!=null && projection.length>0)");
 			// generate projected column check
-			SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
+			String columnCheckSetName=SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
 			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "SELECT", "projection", new OnColumnListener() {
 				
 				@Override
-				public void onColumnCheck(MethodSpec.Builder methodBuilder, String string) {
-					// TODO Auto-generated method stub
-					
+				public void onColumnCheck(MethodSpec.Builder methodBuilder, String projectedColumnVariable) {
+					methodBuilder.addStatement("projectionBuffer.append(columnSeparator + $L)", projectedColumnVariable);
+					methodBuilder.addStatement("columnSeparator=\", \"");
 				}
 			});
+			methodBuilder.nextControlFlow("else");
+				methodBuilder.beginControlFlow("for (String column: $L)", columnCheckSetName);
+					methodBuilder.addStatement("projectionBuffer.append(columnSeparator + column)");
+					methodBuilder.addStatement("columnSeparator=\", \"");
+				methodBuilder.endControlFlow();
+			methodBuilder.endControlFlow();
 			
 			int i = 0;
 			// extract pathVariables
@@ -539,7 +547,7 @@ public abstract class SqlSelectBuilder {
 		}
 
 		methodBuilder.addCode("\n// execute query\n");
-		methodBuilder.addStatement("String sql=sqlBuilder.toString()", sql);
+		methodBuilder.addStatement("String sql=String.format(sqlBuilder.toString(), projectionBuffer.toString())", sql);
 		methodBuilder.addCode("\n// $L\n", sqlForLog);
 		methodBuilder.addStatement("$T.info(sql)", Logger.class);
 		methodBuilder.addStatement("Cursor result = database().rawQuery(sql, whereParams.toArray(new String[whereParams.size()]))");

@@ -40,13 +40,13 @@ import sqlite.contentprovider.kripton35.entities.Person;
 @BindDao(Person.class)
 public interface PersonDAO {
 
-//	@BindContentProviderEntry
-//	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_FAIL, excludedFields="parentId")
-//	void insertOne(Person bean);
-//	
-//	@BindContentProviderEntry(path="${parentId}/children")
-//	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_ABORT)
-//	void insertChild(Person bean);
+	@BindContentProviderEntry
+	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_FAIL)
+	void insertOne(Person bean);
+	
+	@BindContentProviderEntry(path="${parentId}/children")
+	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_ABORT)
+	void insertChild(Person bean);
 //	
 //	@BindContentProviderEntry(path="test1")
 //	@BindSqlInsert
@@ -56,21 +56,25 @@ public interface PersonDAO {
 //	@BindSqlDelete(where="id = ${id}")
 //	void delete(long id, @BindSqlDynamicWhere String runtimeWhere, @BindSqlDynamicWhereArgs String[] args);
 //	
-//	@BindContentProviderEntry(path="level1/${id}/${parentId}")
-//	@BindSqlDelete(where="id = ${id} and birthDay=${parentId}")
-//	void delete(long id, long parentId);
-//
-//	@BindContentProviderEntry(path = "${id}")
-//	@BindSqlUpdate(where = "id=${id}")
-//	int updateWhereStaticAndDynamic(Date birthDay, long id);
+	@BindContentProviderEntry(path="${id}")
+	@BindSqlDelete(where="id = ${id}")
+	void delete(long id);
+	
+//	@BindContentProviderEntry(path="${bean.id}")
+//	@BindSqlDelete(where="id = ${bean.id}")
+//	void update(Person bean);
+
+	@BindContentProviderEntry(path = "${id}")
+	@BindSqlUpdate(where = "id=${id}")
+	int updateName(String name, long id);
 
 //	@BindContentProviderEntry(path="${nameTemp}/test")
 //	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy = "id", having = "id=2", orderBy = "id")
 //	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicOrderBy String orderBy);
 //
-	@BindContentProviderEntry(path="${id}")
-	@BindSqlSelect(excludedFields={"id"}, where="parentId= ${id}", groupBy="parentId", having="parentId = 'a'", orderBy="name")
-	void selectBeanListener(OnReadBeanListener<Person> beanListener, long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
+	@BindContentProviderEntry
+	@BindSqlSelect(fields="name", orderBy="name")
+	List<Person> selectAll(@BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args, @BindSqlDynamicOrderBy String order);
 //
 //	@BindContentProviderEntry(path = "#")
 //	@BindSqlDelete(where = "id = ${bean.id}")

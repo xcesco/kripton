@@ -339,8 +339,12 @@ public abstract class SqlInsertBuilder {
 	 * @param builder
 	 * @param method
 	 * @param columnNames
+	 * 
+	 * @return
+	 * 		name of column name set
 	 */
-	static void generateColumnCheckSet(Elements elementUtils, Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
+	static String generateColumnCheckSet(Elements elementUtils, Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
+		String columnNameSet=method.contentProviderMethodName+"ColumnSet";
 		StringBuilder initBuilder=new StringBuilder();
 		String temp="";
 		
@@ -350,10 +354,12 @@ public abstract class SqlInsertBuilder {
 			temp=", ";
 		}
 		
-		FieldSpec.Builder fieldBuilder=FieldSpec.builder(ParameterizedTypeName.get(Set.class, String.class), method.contentProviderMethodName+"ColumnSet", Modifier.STATIC, Modifier.PRIVATE, Modifier.FINAL);				
+		FieldSpec.Builder fieldBuilder=FieldSpec.builder(ParameterizedTypeName.get(Set.class, String.class), columnNameSet, Modifier.STATIC, Modifier.PRIVATE, Modifier.FINAL);				
 		fieldBuilder.initializer("$T.asSet($T.class, $L)",CollectionUtils.class, String.class,initBuilder.toString());		
 
 		builder.addField(fieldBuilder.build());
+		
+		return columnNameSet;
 	}
 			
 			

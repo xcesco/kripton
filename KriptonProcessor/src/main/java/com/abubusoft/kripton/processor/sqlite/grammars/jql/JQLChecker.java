@@ -537,7 +537,7 @@ public class JQLChecker {
 		final One<String> result = new One<>("");
 
 		analyzeInternal(jql, new JqlBaseListener() {
-
+			
 			@Override
 			public void enterWhere_stmt_clauses(Where_stmt_clausesContext ctx) {
 				whereCounter.value0++;

@@ -87,10 +87,11 @@ public class StringUtils {
 			return null;
 
 	}
-	
+
 	/**
-	 * format as sql parameter. If value is not null, method will return 'value'. If value is not null, delimiter will be
-	 * used to delimit return value. Otherwise, defaultValue will be returned, without delimiter.
+	 * format as sql parameter. If value is not null, method will return
+	 * 'value'. If value is not null, delimiter will be used to delimit return
+	 * value. Otherwise, defaultValue will be returned, without delimiter.
 	 * 
 	 * @param value
 	 * @param delimiter
@@ -106,9 +107,9 @@ public class StringUtils {
 
 			String str = value.toString();
 			if (str.length() > VIEW_SIZE) {
-				return delimiter+str.substring(0, VIEW_SIZE - 3) + "..."+delimiter;
+				return delimiter + str.substring(0, VIEW_SIZE - 3) + "..." + delimiter;
 			} else
-				return delimiter+str+delimiter;
+				return delimiter + str + delimiter;
 		} else
 			return "<undefined>";
 
@@ -165,6 +166,24 @@ public class StringUtils {
 		}
 
 		return stringbuf.toString();
+	}
+
+	/**
+	 * <p>
+	 * If <code>checkString</code> has text, then return value string. Otherwise
+	 * empty string was returned
+	 * </p>
+	 * 
+	 * @param chekString
+	 * @param value
+	 * @return
+	 */
+	public static String ifNotEmpty(String chekString, String value) {
+		if (hasText(chekString)) {
+			return value;
+		} else {
+			return "";
+		}
 	}
 
 }

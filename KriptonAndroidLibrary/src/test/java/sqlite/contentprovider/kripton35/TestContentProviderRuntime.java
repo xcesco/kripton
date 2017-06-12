@@ -28,6 +28,7 @@ import org.robolectric.util.ContentProviderController;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+import android.database.Cursor;
 import android.content.ContentValues;
 import android.content.pm.ProviderInfo;
 import android.net.Uri;
@@ -64,15 +65,19 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 			Uri uri = Uri.parse(BindPersonContentProvider.URI + "/" + BindPersonContentProvider.PATH_PERSON_1);
 			Uri resultURI = getApplicationContext().getContentResolver().insert(uri, contentValues);
 			assertTrue(resultURI.toString().equals("content://sqlite.contentprovider.kripton35/persons/" + (i + 1)));
-		}
+		}					
+	}
+	
+	@Test
+	public void testRunSelectAfterInsert() {
+		testRunInsert();
 		
-		contentValues.put(PersonTable.COLUMN_PARENT_ID, 1);
-		for (int i = 10; i < 20; i++) {
-			Uri uri = Uri.parse(BindPersonContentProvider.URI + "/persons/1/children");
-			Uri resultURI = getApplicationContext().getContentResolver().insert(uri, contentValues);
-			log(resultURI.toString());
-			assertTrue(resultURI.toString().equals("content://sqlite.contentprovider.kripton35/persons/1/children/" + (i + 1)));
-		}
+		Uri uri = Uri.parse(BindPersonContentProvider.URI+ "/"+BindPersonContentProvider.PATH_PERSON_1);
+		Cursor cursor=getApplicationContext().getContentResolver().query(uri, null, null, null, null);
+		
+		System.out.println(cursor.getColumnCount() + " "+cursor.getCount());
+		
+		
 	}
 
 	/**
