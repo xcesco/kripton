@@ -501,6 +501,8 @@ public abstract class SqlSelectBuilder {
 	}
 
 	/**
+	 * <p>In <code>sqlWhereStatement</code> is contained static where statement.</p>
+	 * 
 	 * @param methodBuilder
 	 * @param method
 	 * @param jql

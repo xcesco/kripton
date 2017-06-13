@@ -25,6 +25,7 @@ import java.util.Set;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
@@ -44,6 +45,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerStatementListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
@@ -233,8 +235,54 @@ public abstract class SqlModifyBuilder {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 
 		// parameters extracted from query
-		String whereStatement = jqlChecker.extractWhereStatement(method.jql.value);
-		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(JQLKeywords.WHERE_KEYWORD+ " "+ whereStatement);
+		final One<String> whereStatement=new One<>();
+		
+		jqlChecker.replaceVariableStatements(method.jql.value, new JQLReplacerStatementListener() {
+			
+			@Override
+			public String onWhere(String statement) {
+				whereStatement.value0=statement;
+				return "";
+			}
+			
+			@Override
+			public String onProjectedColumns(String statement) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public String onOrderBy(String statement) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public String onOffset(String statement) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public String onLimit(String statement) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public String onHaving(String statement) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public String onGroup(String statement) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+		
+		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(whereStatement.value0);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = removeDynamicPlaceHolder(placeHolders);
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(),
@@ -345,47 +393,10 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.returns(Integer.TYPE);
 
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
-
-		if (method.hasDynamicWhereConditions()) {
-			final One<Integer> dynamicWhereCounter = new One<Integer>(0);
-			whereStatement = jqlChecker.replaceFromVariableStatement(JQLKeywords.WHERE_KEYWORD+ " "+whereStatement, new JQLPlaceHolderReplacerListener() {
-
-				@Override
-				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
-					dynamicWhereCounter.value0++;
-					return "#{" + dynamicStatement + "}"; 
-				}
-
-				@Override
-				public String onBindParameter(String bindParameterName) {
-					return "?";
-				}
-			});
-			AssertKripton.assertTrue(dynamicWhereCounter.value0 <= 1,
-					"In %s.%s, @DynamicWhere variable are used more then one time", daoDefinition.getName(),
-					method.getName()); //
-
-			if (method.hasDynamicWhereConditions()) {
-				whereStatement = whereStatement
-						.replace(method.dynamicWherePrepend + " #{" + method.dynamicWhereParameterName + "}", "");
-				whereStatement = whereStatement.replace("#{" + method.dynamicWhereParameterName + "}", "");
-
-			}
-			methodBuilder.addStatement("String whereCondition=$S", whereStatement);
-
-			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.beginControlFlow("if ($T.hasText(selection))", StringUtils.class);
-				methodBuilder.addStatement("whereCondition+=\"$L \" + $L", method.dynamicWherePrepend, "selection");
-				methodBuilder.endControlFlow();
-			}
-
-		} else {
-			methodBuilder.addStatement("String whereCondition=$S", whereStatement);
-		}
 		
 		// where
 		methodBuilder.addStatement("$T sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
-		SqlSelectBuilder.generateWhereCondition(methodBuilder, method, method.jql, jqlChecker, JQLKeywords.WHERE_KEYWORD + " " + whereStatement);
+		SqlSelectBuilder.generateWhereCondition(methodBuilder, method, method.jql, jqlChecker, whereStatement.value0);
 
 		methodBuilder.addStatement("$T<String> whereParams=new $T<>()", ArrayList.class, ArrayList.class);
 
@@ -425,20 +436,63 @@ public abstract class SqlModifyBuilder {
 
 			methodBuilder.endControlFlow();
 		}
-
+		
+		// column checj
+		switch (updateResultType) {
+		case UPDATE_BEAN:
+		case UPDATE_RAW:
+			SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
+			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "UPDATE", "contentValues.keySet()", null);			
+			break;
+		default:
+			break;
+		}
+		
+		// display log
+		if (schema.generateLog) {
+			final List<String> paramsLog=new ArrayList<String>();
+			
+			methodBuilder.addCode("\n// display log\n");
+			
+			String sqlForLog=jqlChecker.replacePlaceHolders(method.jql, new JQLPlaceHolderReplacerListener() {
+				
+				@Override
+				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {										
+					return null;
+				}
+				
+				@Override
+				public String onBindParameter(String bindParameterName) {
+					paramsLog.add("StringUtils.checkSize(contentValues.get(\""+bindParameterName+"\"))");
+					return "?";
+				}
+			});
+			
+			if (method.jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_WHERE)) {
+				methodBuilder.addStatement("$T.info($S, $L)", Logger.class, sqlForLog.replace(method.jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE), "%s"), "StringUtils.ifNotEmpty(selection,\" AND \"+selection)");	
+			} else {
+				methodBuilder.addStatement("$T.info($S)", Logger.class, sqlForLog);	
+			}
+			
+			for (String item: paramsLog) {
+				
+			}
+			
+						 
+		}
+		
+		methodBuilder.addCode("\n// excute SQL\n");
 		switch (updateResultType) {
 		case DELETE_BEAN:
 		case DELETE_RAW:
 			methodBuilder.addStatement(
-					"int result = database().delete($S, whereCondition, whereParams.toArray(new String[whereParams.size()]))",
+					"int result = database().delete($S, sqlWhereStatement, whereParams.toArray(new String[whereParams.size()]))",
 					daoDefinition.getEntity().getTableName());
 			break;
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
-			SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
-			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "UPDATE", "contentValues.keySet()", null);
 			methodBuilder.addStatement(
-					"int result = database().update($S, contentValues, whereCondition, whereParams.toArray(new String[whereParams.size()]))",
+					"int result = database().update($S, contentValues, sqlWhereStatement, whereParams.toArray(new String[whereParams.size()]))",
 					daoDefinition.getEntity().getTableName());
 			break;
 		}

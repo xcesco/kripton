@@ -177,7 +177,8 @@ public class JQLChecker {
 	}
 
 	/**
-	 * Replace place holder with element passed by listener
+	 * Replace place holder with element passed by listener. To replace an element, a not empty string must be passed as
+	 * event listener result. 
 	 * 
 	 * @param jql
 	 * @param listener
@@ -191,7 +192,10 @@ public class JQLChecker {
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
 				String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				
+				if (value!=null) {				
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
 			}
 
 			@Override
@@ -203,7 +207,9 @@ public class JQLChecker {
 					value = listener.onBindParameter(ctx.getText());
 				}
 				
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				if (value!=null) {				
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
 			}
 		};
 

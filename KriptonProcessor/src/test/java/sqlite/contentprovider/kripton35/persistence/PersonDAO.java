@@ -72,9 +72,9 @@ public interface PersonDAO {
 //	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy = "id", having = "id=2", orderBy = "id")
 //	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicOrderBy String orderBy);
 //
-	@BindContentProviderEntry(path="${name}")
-	@BindSqlSelect(fields="name", where="name=${name}", orderBy="name")
-	List<Person> selectAll(String name, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args, @BindSqlDynamicOrderBy String order);
+	@BindContentProviderEntry
+	@BindSqlSelect(fields="name", orderBy="name")
+	List<Person> selectAll(@BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args, @BindSqlDynamicOrderBy String order);
 //
 //	@BindContentProviderEntry(path = "#")
 //	@BindSqlDelete(where = "id = ${bean.id}")
