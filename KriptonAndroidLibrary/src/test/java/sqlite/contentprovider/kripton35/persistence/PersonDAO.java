@@ -66,15 +66,15 @@ public interface PersonDAO {
 
 	@BindContentProviderEntry(path = "${id}")
 	@BindSqlUpdate(where = "id=${id}")
-	int updateName(String name, long id);
+	int updateName(String name, long id, @BindSqlDynamicWhere String where);
 
 //	@BindContentProviderEntry(path="${nameTemp}/test")
 //	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy = "id", having = "id=2", orderBy = "id")
 //	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicOrderBy String orderBy);
 //
-	@BindContentProviderEntry
-	@BindSqlSelect(fields="name", orderBy="name")
-	List<Person> selectAll(@BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args, @BindSqlDynamicOrderBy String order);
+	@BindContentProviderEntry(path="${name}")
+	@BindSqlSelect(fields="name", where="name=${name}", orderBy="name")
+	List<Person> selectAll(String name, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args, @BindSqlDynamicOrderBy String order);
 //
 //	@BindContentProviderEntry(path = "#")
 //	@BindSqlDelete(where = "id = ${bean.id}")

@@ -37,16 +37,21 @@ public class BindPersonContentProvider extends ContentProvider {
 
   public static final String PATH_PERSON_3 = "persons/#";
 
+  public static final String PATH_PERSON_4 = "persons/*";
+
   static final int PATH_PERSON_1_INDEX = 1;
 
   static final int PATH_PERSON_2_INDEX = 2;
 
   static final int PATH_PERSON_3_INDEX = 3;
 
+  static final int PATH_PERSON_4_INDEX = 4;
+
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_3, PATH_PERSON_3_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_4, PATH_PERSON_4_INDEX);
   }
 
   /**
@@ -57,7 +62,7 @@ public class BindPersonContentProvider extends ContentProvider {
   @Override
   public boolean onCreate() {
     dataSource = BindPersonDataSource.instance();
-    dataSource.openReadOnlyDatabase();
+    dataSource.openWritableDatabase();
     return true;
   }
 
@@ -125,16 +130,19 @@ public class BindPersonContentProvider extends ContentProvider {
   /**
    * method PersonDAO.selectAll
    * method PersonDAO.selectAll
-   * uri 
+   * uri ${name}
    */
   @Override
   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
     Cursor returnCursor=null;
     switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_1_INDEX: {
-        // URI: content://sqlite.contentprovider.kripton35/persons
+      case PATH_PERSON_4_INDEX: {
+        // URI: content://sqlite.contentprovider.kripton35/persons/${name}
         returnCursor=dataSource.getPersonDAO().selectAll4(uri, projection, selection, selectionArgs, sortOrder);
         break;
+      }
+      default: {
+        throw new IllegalArgumentException("Unsupported URI for SELECT operation: " + uri);
       }
     }
     getContext().getContentResolver().notifyChange(uri, null);
@@ -166,6 +174,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * uri 
    * uri ${parentId}/children
    * uri ${id}
+   * uri ${name}
    */
   @Override
   public String getType(Uri uri) {
@@ -177,6 +186,9 @@ public class BindPersonContentProvider extends ContentProvider {
         break;
       }
       case PATH_PERSON_3_INDEX: {
+        break;
+      }
+      case PATH_PERSON_4_INDEX: {
         break;
       }
     }

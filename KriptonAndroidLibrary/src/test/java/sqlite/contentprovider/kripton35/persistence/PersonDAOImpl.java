@@ -256,6 +256,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   int delete2(Uri uri, String selection, String[] selectionArgs) {
     //SqlUtils and StringUtils will be used to format SQL
     String whereCondition=" id = ${id}";
+    StringBuilder sqlBuilder=new StringBuilder();
+
+    // manage WHERE statement
+    String sqlWhereStatement="WHERE  id = ?";
+    sqlBuilder.append(sqlWhereStatement);
     ArrayList<String> whereParams=new ArrayList<>();
     // Add parameter id at path segment 1
     whereParams.add(uri.getPathSegments().get(1));
@@ -265,7 +270,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id}</pre>
+   * <pre>UPDATE person SET name=${name} WHERE id=${id} #{where}</pre>
    *
    * <h2>Updated columns:</strong></h2>
    * <dl>
@@ -277,15 +282,22 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
+   * <h2>Dynamic parts:</h2>
+   * <dl>
+   * 	<dt>#{where}</dt><dd>is part of where conditions resolved at runtime.</dd>
+   * </dl>
+   *
    * @param name
    * 	is used as updated field <strong>name</strong>
    * @param id
    * 	is used as where parameter <strong>${id}</strong>
+   * @param where
+   * 	is used as dynamic where conditions
    *
    * @return number of updated records
    */
   @Override
-  public int updateName(String name, long id) {
+  public int updateName(String name, long id, String where) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
     if (name!=null) {
@@ -297,8 +309,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] whereConditionsArray={String.valueOf(id)};
 
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id=%s", (Object[])whereConditionsArray));
-    int result = database().update("person", contentValues, "id=?", whereConditionsArray);
+    Logger.info(SqlUtils.formatSQL("UPDATE person SET name='"+StringUtils.checkSize(contentValues.get("name"))+"' WHERE id=%s "+SqlUtils.appendForLog(where), (Object[])whereConditionsArray));
+    int result = database().update("person", contentValues, "id=? "+SqlUtils.appendForSQL(where)+"", whereConditionsArray);
     return result;
   }
 
@@ -312,27 +324,38 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * </ul>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} WHERE id=${id}</pre>
+   * <pre>UPDATE Person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id}</pre>
-   *
-   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
+   * <pre>UPDATE person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.contentprovider.kripton35/persons/#"
    * @param contentValues content values
-   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @param selection dynamic part of <code>where</code> statement 
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
   int updateName3(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     //SqlUtils and StringUtils will be used to format SQL
-    String whereCondition=" id=${id}";
+    String whereCondition="WHERE  id=? AND #{DYNAMIC_WHERE}";
+    if (StringUtils.hasText(selection)) {
+      whereCondition+="AND " + selection;
+    }
+    StringBuilder sqlBuilder=new StringBuilder();
+
+    // manage WHERE statement
+    String sqlWhereStatement="WHERE WHERE  id"+StringUtils.ifNotEmpty(selection," AND "+selection);
+    sqlBuilder.append(sqlWhereStatement);
     ArrayList<String> whereParams=new ArrayList<>();
     // Add parameter id at path segment 1
     whereParams.add(uri.getPathSegments().get(1));
+    if (StringUtils.hasText(selection) && selectionArgs!=null) {
+      for (String arg: selectionArgs) {
+        whereParams.add(arg);
+      }
+    }
     for (String columnName:contentValues.keySet()) {
       if (!updateName3ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.contentprovider.kripton35/persons/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
@@ -345,7 +368,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT name FROM person WHERE #{where} ORDER BY name#{order}</pre>
+   * <pre>SELECT name FROM person WHERE name=${name} #{where} ORDER BY name#{order}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -357,6 +380,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <dt>#{where}</dt><dd>is part of where conditions resolved at runtime.</dd><dt>#{order}</dt>is part of order statement resolved at runtime.</dd>
    * </dl>
    *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * </dl>
+   *
+   * @param name
+   * 	is binded to <code>${name}</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param args
@@ -366,13 +396,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectAll(String where, String[] args, String order) {
+  public List<Person> selectAll(String name, String where, String[] args, String order) {
     // build where condition
-    String[] _args={};
+    String[] _args={(name==null?"":name)};
 
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT name FROM person WHERE "+SqlUtils.appendForLog(where)+" ORDER BY name"+SqlUtils.appendForLog(order),(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT name FROM person WHERE "+SqlUtils.appendForSQL(where)+" ORDER BY name"+SqlUtils.appendForSQL(order), _args)) {
+    Logger.info(SqlUtils.formatSQL("SELECT name FROM person WHERE name='%s' "+SqlUtils.appendForLog(where)+" ORDER BY name"+SqlUtils.appendForLog(order),(Object[])_args));
+    try (Cursor cursor = database().rawQuery("SELECT name FROM person WHERE name=? "+SqlUtils.appendForSQL(where)+" ORDER BY name"+SqlUtils.appendForSQL(order), _args)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -398,17 +428,22 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
-   * <pre>content://sqlite.contentprovider.kripton35/persons</pre>
+   * <pre>content://sqlite.contentprovider.kripton35/persons/[*]</pre>
+   *
+   * <p>Path variables defined:</p>
+   * <ul>
+   * <li><strong>${name}</strong> at path segment 1</li>
+   * </ul>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT name FROM Person WHERE #{DYNAMIC_WHERE} ORDER BY name,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT name FROM Person WHERE name=${name} AND #{DYNAMIC_WHERE} ORDER BY name,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT name FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT name FROM person WHERE name=${name} AND #{DYNAMIC_WHERE} ORDER BY name,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
-   * @param uri "content://sqlite.contentprovider.kripton35/persons"
+   * @param uri "content://sqlite.contentprovider.kripton35/persons/[*]"
    * @param selection dynamic part of <code>where</code> statement 
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
@@ -421,7 +456,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     sqlBuilder.append("SELECT %s FROM person  ");
 
     // manage WHERE statement
-    String sqlWhereStatement=StringUtils.ifNotEmpty(selection, " WHERE "+selection);
+    String sqlWhereStatement=" WHERE name=?"+StringUtils.ifNotEmpty(selection," AND "+selection);
     sqlBuilder.append(sqlWhereStatement);
 
     // manage order by statement
@@ -441,7 +476,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
         if (!selectAll4ColumnSet.contains(columnName)) {
-          throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.contentprovider.kripton35/persons', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
+          throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.contentprovider.kripton35/persons/*', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         projectionBuffer.append(columnSeparator + columnName);
         columnSeparator=", ";
@@ -452,11 +487,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         columnSeparator=", ";
       }
     }
+    // Add parameter name at path segment 1
+    whereParams.add(uri.getPathSegments().get(1));
 
     // execute query
     String sql=String.format(sqlBuilder.toString(), projectionBuffer.toString());
-
-    // SELECT name FROM person WHERE "+selection+" ORDER BY name,  "+sortOrder+"
     Logger.info(sql);
     Cursor result = database().rawQuery(sql, whereParams.toArray(new String[whereParams.size()]));
     return result;

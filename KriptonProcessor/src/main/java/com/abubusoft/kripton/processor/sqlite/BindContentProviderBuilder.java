@@ -472,7 +472,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("@see android.content.ContentProvider#onCreate()\n");
 
 		methodBuilder.addStatement("dataSource = $L.instance()", dataSourceNameClazz);
-		methodBuilder.addStatement("dataSource.openReadOnlyDatabase()");
+		methodBuilder.addStatement("dataSource.openWritableDatabase()");
 
 		methodBuilder.addCode("return true;\n");
 
@@ -502,8 +502,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.SELECT);
 		
-		if (!hasOperation) {
-			methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+		if (!hasOperation) {			
+			methodBuilder.addStatement("throw new $T(\"Unsupported URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.SELECT);
 			classBuilder.addMethod(methodBuilder.build());
 			return;
 		}
@@ -531,6 +531,10 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
+		methodBuilder.beginControlFlow("default:");			
+			methodBuilder.addStatement("throw new $T(\"Unsupported URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.SELECT);
+		methodBuilder.endControlFlow();
+	        
 		methodBuilder.endControlFlow();
 
 		if (hasOperation) {

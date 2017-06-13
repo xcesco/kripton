@@ -72,7 +72,7 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 	public void testRunSelectAfterInsert() {
 		testRunInsert();
 		
-		Uri uri = Uri.parse(BindPersonContentProvider.URI+ "/"+BindPersonContentProvider.PATH_PERSON_1);
+		Uri uri = Uri.parse(BindPersonContentProvider.URI+ "/"+BindPersonContentProvider.PATH_PERSON_1+"/"+"toast");
 		Cursor cursor=getApplicationContext().getContentResolver().query(uri, null, null, null, null);
 		
 		System.out.println(cursor.getColumnCount() + " "+cursor.getCount());

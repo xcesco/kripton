@@ -242,7 +242,7 @@ public abstract class SqlModifyBuilder {
 				daoDefinition.getName(), method.getName());
 
 		final One<Boolean> useColumns = new One<Boolean>(true);
-		String resultForLog = jqlChecker.replace(method.jql, new JQLReplacerListener() {
+		jqlChecker.replace(method.jql, new JQLReplacerListener() {
 
 			@Override
 			public String onColumnName(String columnName) {
@@ -382,6 +382,10 @@ public abstract class SqlModifyBuilder {
 		} else {
 			methodBuilder.addStatement("String whereCondition=$S", whereStatement);
 		}
+		
+		// where
+		methodBuilder.addStatement("$T sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
+		SqlSelectBuilder.generateWhereCondition(methodBuilder, method, method.jql, jqlChecker, JQLKeywords.WHERE_KEYWORD + " " + whereStatement);
 
 		methodBuilder.addStatement("$T<String> whereParams=new $T<>()", ArrayList.class, ArrayList.class);
 
