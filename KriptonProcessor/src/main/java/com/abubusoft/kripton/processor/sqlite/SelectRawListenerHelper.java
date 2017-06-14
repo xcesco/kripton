@@ -44,7 +44,7 @@ public class SelectRawListenerHelper extends AbstractSelectCodeGenerator {
 		//LiteralType listenerType=LiteralType.of(OnReadCursorListener.class);
 		ClassName listenerType=ClassName.get(OnReadCursorListener.class);
 		
-		int counter = SqlSelectBuilder.countParameterOfType(method, listenerType);
+		int counter = SqlBuilderHelper.countParameterOfType(method, listenerType);
 		if (counter == 0) {
 			// non listener found
 			throw (new InvalidMethodSignException(method, "there is no parameter of type \"ReadCursorListener\""));

@@ -21,7 +21,6 @@ import java.util.List;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
@@ -60,11 +59,9 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		// generate javadoc and query
 		sqlInsert = generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
-		
-		if (daoDefinition.isLogEnabled()) {
-			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"));\n", Logger.class, SqlUtils.class, sqlInsert);
-		}
-		
+
+		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
+
 		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
 		String conflictString1 = "";
 		String conflictString2 = "";
@@ -107,6 +104,8 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		return sqlInsert;
 	}
 
+
+
 	/**
 	 * @param methodBuilder
 	 * @param method
@@ -135,11 +134,12 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 				separator = ", ";
 			}
-			
+
 			ConflictAlgorithmType conflictAlgorithmType = getConflictAlgorithmType(method);
 
 			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
-			methodBuilder.addJavadoc("<pre>INSERT $LINTO $L ($L) VALUES ($L)</pre>\n\n", conflictAlgorithmType.getSql(), daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferValue.toString());
+			methodBuilder.addJavadoc("<pre>INSERT $LINTO $L ($L) VALUES ($L)</pre>\n\n", conflictAlgorithmType.getSql(), daoDefinition.getEntity().getTableName(), bufferName.toString(),
+					bufferValue.toString());
 			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");
 
@@ -170,11 +170,10 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	public static ConflictAlgorithmType getConflictAlgorithmType(SQLiteModelMethod method) {
 		ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
 
-		String value=annotation.getAttribute(AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE);
-		
-		if (value!=null && value.indexOf(".")>-1)
-		{
-			value=value.substring(value.lastIndexOf(".")+1);
+		String value = annotation.getAttribute(AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE);
+
+		if (value != null && value.indexOf(".") > -1) {
+			value = value.substring(value.lastIndexOf(".") + 1);
 		}
 		ConflictAlgorithmType conflictAlgorithmType = ConflictAlgorithmType.valueOf(value);
 

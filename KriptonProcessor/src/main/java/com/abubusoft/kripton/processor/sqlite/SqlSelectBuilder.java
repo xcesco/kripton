@@ -15,20 +15,13 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
@@ -41,20 +34,17 @@ import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplaceVariableStatementListenerImpl;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -75,38 +65,6 @@ import android.database.Cursor;
 import android.net.Uri;
 
 public abstract class SqlSelectBuilder {
-
-	/**
-	 * Iterate over methods.
-	 * 
-	 * @param elementUtils
-	 * @param typeElement
-	 * @param listener
-	 */
-	public static void forEachMethods(Elements elementUtils, TypeElement typeElement, MethodFoundListener listener) {
-		List<? extends Element> list = elementUtils.getAllMembers(typeElement);
-
-		for (Element item : list) {
-			if (item.getKind() == ElementKind.METHOD) {
-				listener.onMethod((ExecutableElement) item);
-			}
-		}
-	}
-
-	public static boolean hasParameterOfType(ModelMethod method, TypeName parameter) {
-		return countParameterOfType(method, parameter) > 0;
-	}
-
-	public static int countParameterOfType(ModelMethod method, TypeName parameter) {
-		int counter = 0;
-		for (Pair<String, TypeName> item : method.getParameters()) {
-			if (item.value1.equals(parameter)) {
-				counter++;
-			}
-		}
-
-		return counter;
-	}
 
 	public static String getNameParameterOfType(ModelMethod method, TypeName parameter) {
 		for (Pair<String, TypeName> item : method.getParameters()) {
@@ -145,9 +103,9 @@ public abstract class SqlSelectBuilder {
 
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
-			if (hasParameterOfType(method, readCursorListener)) {
+			if (SqlBuilderHelper.hasParameterOfType(method, readCursorListener)) {
 				selectResultType = SelectBuilderUtility.SelectType.LISTENER_CURSOR;
-			} else if (hasParameterOfType(method, readBeanListener)) {
+			} else if (SqlBuilderHelper.hasParameterOfType(method, readBeanListener)) {
 				selectResultType = SelectBuilderUtility.SelectType.LISTENER_BEAN;
 			}
 		} else if (TypeUtility.isTypeIncludedIn(returnTypeName, Cursor.class)) {
@@ -314,7 +272,7 @@ public abstract class SqlSelectBuilder {
 
 		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(sqlWhereStatement.value0);
 		// remove placeholder for dynamic where, we are not interested here
-		placeHolders = SqlModifyBuilder.removeDynamicPlaceHolder(placeHolders);
+		placeHolders = SqlBuilderHelper.removeDynamicPlaceHolder(placeHolders);
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
 				daoDefinition.getName(), method.getName());
 
@@ -338,14 +296,14 @@ public abstract class SqlSelectBuilder {
 
 		methodBuilder.returns(Cursor.class);
 
-		generateLogForMethodBeginning(method, methodBuilder);
+		SqlBuilderHelper.generateLogForMethodBeginning(method, methodBuilder);
 
 		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
 		methodBuilder.addStatement("$T _projectionBuffer=new $T()", StringBuilder.class, StringBuilder.class);
 
 		methodBuilder.addStatement("_sqlBuilder.append($S)", basicSQl);
 
-		generateWhereCondition(methodBuilder, method, jql, jqlChecker, sqlWhereStatement.value0);
+		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, jql, jqlChecker, sqlWhereStatement.value0);
 
 		if (StringUtils.hasText(sqlGroupStatement.value0)) {
 			methodBuilder.addCode("\n// manage GROUP BY statement\n");
@@ -392,8 +350,8 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.addStatement("String _columnSeparator=\"\"");
 			methodBuilder.beginControlFlow("if (projection!=null && projection.length>0)");
 			// generate projected column check
-			String columnCheckSetName = SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
-			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "projection", new OnColumnListener() {
+			String columnCheckSetName = SqlBuilderHelper.generateColumnCheckSet(elementUtils, builder, method, columns);
+			SqlBuilderHelper.forEachColumnInContentValue(method, methodBuilder, "projection", true, new OnColumnListener() {
 
 				@Override
 				public void onColumnCheck(MethodSpec.Builder methodBuilder, String projectedColumnVariable) {
@@ -412,7 +370,7 @@ public abstract class SqlSelectBuilder {
 			// extract pathVariables
 			// every controls was done in constructor of SQLiteModelMethod
 			for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
-				AssertKripton.assertTrue(SqlModifyBuilder.validate(variable.value, placeHolders, i), "In '%s.%s' content provider URI path and where conditions have to use same set of variables",
+				AssertKripton.assertTrue(SqlBuilderHelper.validate(variable.value, placeHolders, i), "In '%s.%s' content provider URI path and where conditions have to use same set of variables",
 						daoDefinition.getName(), method.getName());
 
 				SQLProperty entityProperty = entity.get(variable.value);
@@ -435,9 +393,9 @@ public abstract class SqlSelectBuilder {
 			}
 		}
 
-		generateLogForSQL(method, methodBuilder);
+		SqlBuilderHelper.generateLogForSQL(method, methodBuilder);
 
-		generateLogForWhereParameters(method, methodBuilder);
+		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 
 		methodBuilder.addCode("\n// execute query\n");
 		methodBuilder.addStatement("Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))");
@@ -445,7 +403,7 @@ public abstract class SqlSelectBuilder {
 		methodBuilder.addStatement("return _result");
 
 		// we add at last javadoc, because need info is built at last.
-		SqlModifyBuilder.generateJavaDoc(method, methodBuilder);
+		SqlBuilderHelper.generateJavaDocForContentProvider(method, methodBuilder);
 
 		methodBuilder.addJavadoc("@param uri $S\n", method.contentProviderUriTemplate.replace("*", "[*]"));
 		methodBuilder.addJavadoc("@param selection dynamic part of <code>where</code> statement $L\n", method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
@@ -454,174 +412,6 @@ public abstract class SqlSelectBuilder {
 		methodBuilder.addJavadoc("@return number of effected rows\n");
 
 		builder.addMethod(methodBuilder.build());
-	}
-
-	/**
-	 * <p>
-	 * Generate log for where conditions.
-	 * </p>
-	 * 
-	 * <h2>pre conditions</h2>
-	 * <p>
-	 * required variable are:
-	 * </p>
-	 * <ul>
-	 * <li>_sqlBuilder</li>
-	 * <li>_projectionBuffer</li> *
-	 * </ul>
-	 * 
-	 * <h2>post conditions</h2>
-	 * <p>
-	 * created variables are:</li>
-	 * <ul>
-	 * <li>_sql</li>
-	 * </ul>
-	 * 
-	 * @param method
-	 * @param methodBuilder
-	 */
-	private static void generateLogForSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		// manage log
-		if (method.getParent().getParent().generateLog) {
-			methodBuilder.addCode("\n// manage log\n");
-			methodBuilder.addStatement("String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString())");
-			methodBuilder.addStatement("$T.info(_sql)", Logger.class);
-		}
-	}
-
-	/**
-	 * <p>
-	 * Generate log for where conditions.
-	 * </p>
-	 * 
-	 * <h2>pre conditions</h2>
-	 * <p>
-	 * required variable are:
-	 * </p>
-	 * <ul>
-	 * <li>_sqlWhereParams</li>
-	 * </ul>
-	 * 
-	 * <h2>post conditions</h2>
-	 * <p>
-	 * created variables are:</li>
-	 * <ul>
-	 * <li>_whereParamCounter</li>
-	 * </ul>
-	 * 
-	 * @param method
-	 * @param methodBuilder
-	 */
-	public static void generateLogForWhereParameters(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		// manage log for where parameters
-		if (method.getParent().getParent().generateLog) {
-			methodBuilder.addCode("\n// manage log for where parameters\n");
-			methodBuilder.addStatement("int _whereParamCounter=0");
-			methodBuilder.beginControlFlow("for (String _whereParamItem: _sqlWhereParams)");
-			methodBuilder.addStatement("$T.info(\"param (%s): '%s'\",(_whereParamCounter++), _whereParamItem)", Logger.class);
-			methodBuilder.endControlFlow();
-		}
-	}
-
-	/**
-	 * <p>
-	 * Generate log info at beginning of method
-	 * </p>
-	 * 
-	 * @param method
-	 * @param methodBuilder
-	 */
-	public static void generateLogForMethodBeginning(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		if (method.getParent().isLogEnabled()) {
-			methodBuilder.addStatement("$T.info($S, uri.toString())", Logger.class, "Execute " + method.jql.operationType + " for URI %s");
-		}
-
-	}
-
-	/**
-	 * <p>
-	 * Generate where management code.
-	 * </p>
-	 * 
-	 * <h2>post conditions</h2>
-	 * <dl>
-	 * <dt>_sqlWhereParams</dt>
-	 * <dd>ArraList</dd>
-	 * <dt>_sqlWhereStatement</dt>
-	 * <dd>String</dd>
-	 * </dl>
-	 * 
-	 * @param methodBuilder
-	 * @param method
-	 * @param jql
-	 * @param jqlChecker
-	 * @param sqlWhereStatement
-	 */
-	static void generateWhereCondition(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, final JQL jql, JQLChecker jqlChecker, final String sqlWhereStatement) {
-		if (jql.isWhereConditions()) {
-			methodBuilder.addCode("\n// manage WHERE arguments\n");
-			methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<>()", ArrayList.class, ArrayList.class);
-
-			String sqlWhere = jqlChecker.replaceFromVariableStatement(sqlWhereStatement, new JQLReplacerListenerImpl() {
-
-				@Override
-				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
-					return null;
-				}
-
-				@Override
-				public String onBindParameter(String bindParameterName) {
-					return "?";
-				}
-			});
-
-			methodBuilder.addCode("\n// manage WHERE statement\n");
-			String value = sqlWhere;
-			String valueToReplace = jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE);
-
-			if (method.jql.operationType == JQLType.SELECT) {
-				// we have to include WHERE keywords
-				if (jql.isStaticWhereConditions() && !jql.isDynamicWhereConditions()) {
-					// case static statement and NO dynamic
-
-					methodBuilder.addStatement("String _sqlWhereStatement=$S", value);
-				} else if (jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
-					methodBuilder.addStatement("String _sqlWhereStatement=$S+$T.ifNotEmptyAppend($L,\" $L \")", value.replace(valueToReplace, ""), StringUtils.class, "selection",
-							method.dynamicWherePrepend);
-				} else if (!jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
-					methodBuilder.addStatement("String _sqlWhereStatement=$T.ifNotEmptyAppend($L, \" $L \")", StringUtils.class, "selection", JQLKeywords.WHERE_KEYWORD);
-				}
-			} else {			
-				// we DON'T have to include WHERE keywords
-				value=value.replace(" "+JQLKeywords.WHERE_KEYWORD, "");
-				if (jql.isStaticWhereConditions() && !jql.isDynamicWhereConditions()) {
-					// case static statement and NO dynamic
-					methodBuilder.addStatement("String _sqlWhereStatement=$S", value);
-				} else if (jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
-					methodBuilder.addStatement("String _sqlWhereStatement=$S+$T.ifNotEmptyAppend($L,\" $L \")", value.replace(valueToReplace, ""), StringUtils.class, "selection",
-							method.dynamicWherePrepend);
-				} else if (!jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
-					methodBuilder.addStatement("String _sqlWhereStatement=$T.ifNotEmptyAppend($L, \" \")", StringUtils.class, "selection");
-				}
-
-			}
-
-			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlWhereStatement");
-		}
-
-		// manage where arguments
-		if (method.hasDynamicWhereConditions()) {
-			// ASSERT: only with dynamic where conditions
-			methodBuilder.beginControlFlow("if ($T.hasText(selection) && selectionArgs!=null)", StringUtils.class);
-
-			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.beginControlFlow("for (String arg: selectionArgs)");
-				methodBuilder.addStatement("_sqlWhereParams.add(arg)");
-				methodBuilder.endControlFlow();
-			}
-
-			methodBuilder.endControlFlow();
-		}
 	}
 
 }

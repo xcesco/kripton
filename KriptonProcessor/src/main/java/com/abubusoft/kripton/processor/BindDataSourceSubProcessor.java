@@ -75,7 +75,7 @@ import com.abubusoft.kripton.processor.sqlite.BindCursorBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindTableGenerator;
-import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder;
+import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -415,7 +415,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		currentSchema.add(currentDaoDefinition);
 
 		// create method for dao
-		SqlSelectBuilder.forEachMethods(elementUtils, (TypeElement) daoElement, new MethodFoundListener() {
+		SqlBuilderHelper.forEachMethods(elementUtils, (TypeElement) daoElement, new MethodFoundListener() {
 
 			@Override
 			public void onMethod(ExecutableElement element) {
@@ -436,7 +436,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						(annotationClassName.equals(BindSqlInsert.class.getCanonicalName())
 								|| annotationClassName.equals(BindSqlUpdate.class.getCanonicalName())
 								|| annotationClassName.equals(BindSqlDelete.class.getCanonicalName())
-								|| annotationClassName.equals(BindSqlSelect.class.getCanonicalName()))
+								|| annotationClassName.equals(BindSqlSelect.class.getCanonicalName())
+								|| annotationClassName.equals(BindContentProviderEntry.class.getCanonicalName()))
 						// @formatter:on
 						{
 							ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
@@ -444,19 +445,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						} else {
 							// we don't insert annotation
 							return;
-						}
-
-						if // @formatter:off
-						(annotationClassName.equals(BindContentProviderEntry.class.getCanonicalName()))
-						// @formatter:on
-						{
-							ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
-							supportAnnotationList.add(annotation);
-						} else {
-							// we don't insert annotation
-							return;
-						}
-						
+						}												
 					}
 				});
 				

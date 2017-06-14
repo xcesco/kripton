@@ -23,6 +23,6 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
  */
 
 @BindContentProvider(authority="sqlite.contentprovider.kripton35")
-@BindDataSource(dao={PersonDAO.class}, fileName = "whisper", version = 1)
+@BindDataSource(dao={PersonDAO.class}, fileName = "whisper", version = 1, generateLog=true)
 public interface PersonDataSource {
 }

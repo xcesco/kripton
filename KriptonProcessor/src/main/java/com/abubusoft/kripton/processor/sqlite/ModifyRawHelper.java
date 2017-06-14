@@ -161,14 +161,21 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[])whereConditionsArray));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[])_sqlWhereParams));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				
+				// log for where parames
+				SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 			}
-			methodBuilder.addCode("int result = database().update($S, contentValues, \"$L$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(), where.value0, appendSQL(method));
+			methodBuilder.addCode("int result = database().update($S, contentValues, \"$L$L\", _sqlWhereParams);\n", daoDefinition.getEntity().getTableName(), where.value0, appendSQL(method));
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[])whereConditionsArray));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[])_sqlWhereParams));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				
+				// log for where parames
+				SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
+				
 			}
-			methodBuilder.addCode("int result = database().delete($S, \"$L$L\", whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),
+			methodBuilder.addCode("int result = database().delete($S, \"$L$L\", _sqlWhereParams);\n", daoDefinition.getEntity().getTableName(),
 					where.value0, appendSQL(method));
 		}
 
@@ -330,7 +337,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeName>>> where) {
 		boolean nullable;
 
-		methodBuilder.addCode("String[] whereConditionsArray={");
+		methodBuilder.addCode("String[] _sqlWhereParams={");
 		String separator = "";
 		for (Pair<String, TypeName> item : where.value1) {
 			String resolvedParamName = method.findParameterNameByAlias(item.value0);

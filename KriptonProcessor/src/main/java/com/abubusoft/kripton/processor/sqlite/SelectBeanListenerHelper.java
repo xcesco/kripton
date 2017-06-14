@@ -61,7 +61,7 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 		List<SQLProperty> fields = fieldList.value1;
 		TypeName entityClass = typeName(entity.getElement());
 
-		int counter = SqlSelectBuilder.countParameterOfType(method, listenerType);
+		int counter = SqlBuilderHelper.countParameterOfType(method, listenerType);
 		if (counter == 0) {
 			// non listener found
 			throw (new InvalidMethodSignException(method, "there is no parameter of type \"ReadCursorListener\""));

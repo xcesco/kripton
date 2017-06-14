@@ -83,12 +83,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addCode("\n");
 		}
 		
-		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
-
-		if (daoDefinition.isLogEnabled()) {
-			methodBuilder.addCode("// log\n");
-			methodBuilder.addCode("$T.info($T.formatSQL(\"$L\"));\n", Logger.class, SqlUtils.class, sqlInsert);
-		}
+		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
 
 		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
 		String conflictString1 = "";

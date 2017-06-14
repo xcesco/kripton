@@ -40,41 +40,46 @@ import sqlite.contentprovider.kripton35.entities.Person;
 @BindDao(Person.class)
 public interface PersonDAO {
 
-	@BindContentProviderEntry
-	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_FAIL)
-	void insertBean(Person bean);
-	
-	@BindContentProviderEntry(path="${parentId}/children")
-	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_ABORT)
-	void insertBeanChild(Person bean);
+//	@BindContentProviderEntry
+//	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_FAIL)
+//	void insertBean(Person bean);
 //	
+	//@BindContentProviderEntry(path="${name}")
+	//@BindSqlInsert
+	//void insertName(@BindSqlParam("name") String tempName);
+	
+	@BindContentProviderEntry(path="${id}")
+	@BindSqlDelete(where="id = ${id}")
+	void deleteA(long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
+	
+//	@BindContentProviderEntry(path="${id}")
+//	@BindSqlDelete(where="id = ${id}")
+//	void delete(long id);
+
+	
+	//@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_ABORT)
+	//void insertBeanChild(Person bean);
+	
 //	@BindContentProviderEntry(path="test1")
 //	@BindSqlInsert
 //	void insertTwo(String name, String surname, String birthCity, Date birthDay);
 //
-//	@BindContentProviderEntry(path="${id}")
-//	@BindSqlDelete(where="id = ${id}")
-//	void delete(long id, @BindSqlDynamicWhere String runtimeWhere, @BindSqlDynamicWhereArgs String[] args);
-//	
-	@BindContentProviderEntry(path="${id}")
-	@BindSqlDelete(where="id = ${id}")
-	void delete(long id);
 	
 //	@BindContentProviderEntry(path="${id}")
 //	@BindSqlDelete(where="id = ${id}")
 //	void update(Person bean);
 
-	@BindContentProviderEntry(path = "${id}")
-	@BindSqlUpdate(where = "id=${id}")
-	int updateName(String name, long id, @BindSqlDynamicWhere String where);
+//	@BindContentProviderEntry(path = "${id}")
+//	@BindSqlUpdate(where = "id=${id}")
+//	int updateName(String name, long id, @BindSqlDynamicWhere String where);
 
 //	@BindContentProviderEntry(path="${nameTemp}/test")
 //	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy = "id", having = "id=2", orderBy = "id")
 //	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicOrderBy String orderBy);
 //
-	@BindContentProviderEntry
-	@BindSqlSelect(orderBy="name asc")
-	List<Person> selectAll(@BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args, @BindSqlDynamicOrderBy String order);
+//	@BindContentProviderEntry
+//	@BindSqlSelect(orderBy="name asc")
+//	List<Person> selectAll(@BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args, @BindSqlDynamicOrderBy String order);
 //
 //	@BindContentProviderEntry(path = "#")
 //	@BindSqlDelete(where = "id = ${bean.id}")

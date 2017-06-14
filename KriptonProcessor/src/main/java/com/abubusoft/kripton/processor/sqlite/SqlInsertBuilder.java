@@ -27,7 +27,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
-import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -39,17 +38,16 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplaceVariableStatementListenerImpl;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListenerImpl;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.content.ContentValues;
@@ -184,7 +182,7 @@ public abstract class SqlInsertBuilder {
 	 * @param method
 	 * @param insertResultType
 	 */
-	private static void generateInsertForContentProvider(Elements elementUtils, Builder builder, final SQLiteModelMethod method, InsertType insertResultType) {
+	private static void generateInsertForContentProvider(Elements elementUtils, TypeSpec.Builder builder, final SQLiteModelMethod method, InsertType insertResultType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();		
 		final SQLEntity entity = daoDefinition.getEntity();
 		final Set<String> columns=new LinkedHashSet<>();
@@ -197,7 +195,7 @@ public abstract class SqlInsertBuilder {
 		methodBuilder.addParameter(parameterSpec);
 		methodBuilder.returns(Long.TYPE);
 			
-		SqlSelectBuilder.generateLogForMethodBeginning(method, methodBuilder);
+		SqlBuilderHelper.generateLogForMethodBeginning(method, methodBuilder);
 				
 		// just detect which columns are admitted
 		JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
@@ -216,8 +214,11 @@ public abstract class SqlInsertBuilder {
 								
 		});
 		
+		// generate columnCheckSet
+		SqlBuilderHelper.generateColumnCheckSet(elementUtils, builder, method,columns);
 		
-		generateColumnCheckSet(elementUtils, builder, method,columns);
+		// generate column check
+		SqlBuilderHelper.forEachColumnInContentValue(method, methodBuilder, "contentValues.keySet()", true, null);
 		
 		methodBuilder.addCode("\n");
 		
@@ -238,39 +239,8 @@ public abstract class SqlInsertBuilder {
 			} 
 		}		
 		
-		methodBuilder.addStatement("$T _columnNameBuffer=new $T()", StringBuffer.class, StringBuffer.class);
-		methodBuilder.addStatement("$T _columnValueBuffer=new $T()", StringBuffer.class, StringBuffer.class);
-		methodBuilder.addStatement("String _columnSeparator=$S", "");	
-		
-		generateColumnCheck(method, methodBuilder, "contentValues.keySet()", new OnColumnListener() {
-			
-			@Override
-			public void onColumnCheck(MethodSpec.Builder methodBuilder, String columNameVariable) {
-				methodBuilder.addStatement("_columnNameBuffer.append(_columnSeparator+$L)", columNameVariable);
-				methodBuilder.addStatement("_columnValueBuffer.append(_columnSeparator+$S+$L)",":",columNameVariable);
-				methodBuilder.addStatement("_columnSeparator=$S",", ");	
-				
-			}
-		});
-						
-		JQLChecker checker=JQLChecker.getInstance();
-		String sql=checker.replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
-			@Override
-			public String onColumnNameSet(String statement) {
-				return "%s";
-			}
-			
-			@Override
-			public String onColumnValueSet(String statement) {
-				return "%s";
-			}
-		});	
-		
-		if (daoDefinition.getParent().generateLog) {			
-			methodBuilder.addStatement("$T.info($T.formatSQL($S, _columnNameBuffer.toString(), _columnValueBuffer.toString()))", Logger.class, SqlUtils.class, sql);
-		}
-		
-		SqlModifyBuilder.generateLogForContentValues(method, methodBuilder);
+		// generate log for inser operation
+		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
 		
 		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
 		String conflictString1 = "";
@@ -284,7 +254,7 @@ public abstract class SqlInsertBuilder {
 		
 		// javadoc
 		// we add at last javadoc, because need info is built at last.
-		SqlModifyBuilder.generateJavaDoc(method, methodBuilder);
+		SqlBuilderHelper.generateJavaDocForContentProvider(method, methodBuilder);
 
 		methodBuilder.addJavadoc("@param uri $S\n", method.contentProviderUriTemplate.replace("*", "[*]"));
 		methodBuilder.addJavadoc("@param contentValues content values\n");
@@ -293,55 +263,6 @@ public abstract class SqlInsertBuilder {
 
 
 		builder.addMethod(methodBuilder.build());
-	}
-
-	/**
-	 * <p>Generate column check</p>
-	 * 
-	 * @param method
-	 * @param daoDefinition
-	 * @param operationType
-	 */
-	static void generateColumnCheck(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, String columnSetString, OnColumnListener listener) {
-		SQLDaoDefinition daoDefinition=method.getParent();
-		methodBuilder.beginControlFlow("for (String columnName:$L)", columnSetString);
-			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName+"ColumnSet");
-				methodBuilder.addStatement("throw new $T(String.format(\"For URI '$L', column '%s' does not exists in table '%s' or can not be defined in this $L operation\", columnName, $S ))", KriptonRuntimeException.class, method.contentProviderUriTemplate,  method.jql.operationType ,daoDefinition.getEntity().getTableName());
-			methodBuilder.endControlFlow();
-			if (listener!=null)
-				listener.onColumnCheck(methodBuilder, "columnName");
-		methodBuilder.endControlFlow();
-	}
-	
-
-	/**
-	 * <p></p>
-	 * 
-	 * @param elementUtils
-	 * @param builder
-	 * @param method
-	 * @param columnNames
-	 * 
-	 * @return
-	 * 		name of column name set
-	 */
-	static String generateColumnCheckSet(Elements elementUtils, Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
-		String columnNameSet=method.contentProviderMethodName+"ColumnSet";
-		StringBuilder initBuilder=new StringBuilder();
-		String temp="";
-		
-		for (String item: columnNames)
-		{
-			initBuilder.append(temp+"\""+item+"\"");
-			temp=", ";
-		}
-		
-		FieldSpec.Builder fieldBuilder=FieldSpec.builder(ParameterizedTypeName.get(Set.class, String.class), columnNameSet, Modifier.STATIC, Modifier.PRIVATE, Modifier.FINAL);				
-		fieldBuilder.initializer("$T.asSet($T.class, $L)",CollectionUtils.class, String.class,initBuilder.toString());		
-
-		builder.addField(fieldBuilder.build());
-		
-		return columnNameSet;
 	}
 			
 			

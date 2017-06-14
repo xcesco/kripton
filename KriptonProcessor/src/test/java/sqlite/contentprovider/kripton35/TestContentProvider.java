@@ -33,7 +33,7 @@ public class TestContentProvider extends AbstractBindSQLiteProcessorTest {
 	 * @throws Throwable
 	 */
 	@Test
-	public void test01() throws Throwable {
+	public void testCompile01() throws Throwable {
 		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
 	}
 

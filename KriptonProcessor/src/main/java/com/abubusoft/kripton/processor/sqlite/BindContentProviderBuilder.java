@@ -29,6 +29,7 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -160,7 +161,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 					uriSet.put(daoMethod.contentProviderEntryPath, entry);
 
 					entry.path = daoMethod.contentProviderEntryPath;
-					entry.pathCostant = pathConstantName + "_"+ i;
+					entry.pathCostant = pathConstantName + "_" + i;
 					entry.pathIndex = pathConstantName + "_" + i + "_INDEX";
 
 					list1.add(FieldSpec.builder(String.class, entry.pathCostant, Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC)
@@ -219,68 +220,6 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		generateGetType(schema);
 
-		// builder.addStaticBlock(CodeBlock.builder().addStatement("sURIMatcher.addURI(AUTHORITY,
-		// BASE_PATH, TODOS)").build());
-
-		/*
-		 * builder.addJavadoc("<p>\n");
-		 * builder.addJavadoc("Rapresents implementation of datasource $L.\n",
-		 * schema.getName()); builder.
-		 * addJavadoc("This class expose database interface through Dao attribute.\n"
-		 * , schema.getName()); builder.addJavadoc("</p>\n\n");
-		 * 
-		 * JavadocUtility.generateJavadocGeneratedBy(builder);
-		 * builder.addJavadoc("@see $T\n", className(schema.getName()));
-		 * builder.addJavadoc("@see $T\n", daoFactoryClazz); for
-		 * (SQLDaoDefinition dao : schema.getCollection()) { TypeName
-		 * daoImplName = BindDaoBuilder.daoTypeName(dao);
-		 * builder.addJavadoc("@see $T\n", dao.getElement());
-		 * builder.addJavadoc("@see $T\n", daoImplName);
-		 * builder.addJavadoc("@see $T\n",
-		 * TypeUtility.typeName(dao.getEntity().getElement())); }
-		 * 
-		 * 
-		 * for (SQLDaoDefinition dao : schema.getCollection()) { // TypeName
-		 * daoInterfaceName = // BindDaoBuilder.daoInterfaceTypeName(dao);
-		 * TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
-		 * builder.addField(FieldSpec.builder(daoImplName,
-		 * convert.convert(dao.getName()),
-		 * Modifier.PROTECTED).addJavadoc("<p>dao instance</p>\n").
-		 * initializer("new $T(this)", daoImplName).build());
-		 * 
-		 * // dao with connections { MethodSpec.Builder methodBuilder =
-		 * MethodSpec.methodBuilder("get" +
-		 * dao.getName()).addAnnotation(Override.class).addModifiers(Modifier.
-		 * PUBLIC).returns(BindDaoBuilder.daoTypeName(dao));
-		 * methodBuilder.addCode("return $L;\n",
-		 * convert.convert(dao.getName()));
-		 * builder.addMethod(methodBuilder.build()); } }
-		 * 
-		 * // interface generateMethodExecute(daoFactoryName);
-		 * 
-		 * // generate instance generateInstance(dataSourceName);
-		 * 
-		 * // generate open generateOpen(dataSourceName);
-		 * 
-		 * // generate openReadOnly generateOpenReadOnly(dataSourceName);
-		 * 
-		 * { // constructor MethodSpec.Builder methodBuilder =
-		 * MethodSpec.constructorBuilder().addModifiers(Modifier.PROTECTED);
-		 * methodBuilder.addStatement("super($S, $L)", schema.fileName,
-		 * schema.version); builder.addMethod(methodBuilder.build()); }
-		 * 
-		 * // before use entities, order them with dependencies respect
-		 * List<SQLEntity> orderedEntities =
-		 * generateOrderedEntitiesList(schema);
-		 * 
-		 * // onCreate boolean useForeignKey = generateOnCreate(schema,
-		 * orderedEntities);
-		 * 
-		 * // onUpgrade generateOnUpgrade(schema, orderedEntities);
-		 * 
-		 * // onConfigure generateOnConfigure(useForeignKey);
-		 */
-
 		TypeSpec typeSpec = classBuilder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 	}
@@ -320,7 +259,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		}
 
 		methodBuilder.beginControlFlow("default:");
-		methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.INSERT);
 		methodBuilder.endControlFlow();
 
 		methodBuilder.endControlFlow();
@@ -329,7 +268,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 			if (schema.generateLog) {
 				methodBuilder.addStatement("$T.info(\"Element is created with URI '%s'\", _returnURL)", Logger.class);
-				methodBuilder.addStatement("$T.info(\"Changes are notified for URI '%s'\", uri)", Logger.class);				
+				methodBuilder.addStatement("$T.info(\"Changes are notified for URI '%s'\", uri)", Logger.class);
 			}
 			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
 			methodBuilder.addStatement("return _returnURL");
@@ -377,7 +316,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		if (hasOperation) {
 			if (schema.generateLog) {
-				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);				
+				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);
 			}
 			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
 		}
@@ -438,6 +377,9 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	/**
+	 * iterate methods, selecting only jqlType and
+	 * contains @BindContentProviderEntry annotation.
+	 * 
 	 * @param schema
 	 * @param methodBuilder
 	 * @return
@@ -446,8 +388,13 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		boolean hasOperation = false;
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
 			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
-				if (daoMethod.jql.operationType != jqlType)
+				if (daoMethod.jql.operationType != jqlType) {
 					continue;
+				}
+				if (!daoMethod.hasAnnotation(BindContentProviderEntry.class)) {
+					continue;
+				}
+
 				hasOperation = true;
 				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
 			}
@@ -549,7 +496,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		methodBuilder.endControlFlow();
 
-		if (hasOperation) {			
+		if (hasOperation) {
 			methodBuilder.addStatement("return returnCursor");
 		}
 

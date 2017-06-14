@@ -99,15 +99,19 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		if (updateMode) {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[]) whereConditionsArray));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[]) _sqlWhereParams));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				// log for where parames
+				SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 			}
-			methodBuilder.addCode("int result = database().update($S, contentValues, $L, whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),
+			methodBuilder.addCode("int result = database().update($S, contentValues, $L, _sqlWhereParams);\n", daoDefinition.getEntity().getTableName(),
 					AbstractSelectCodeGenerator.formatSql(method, analyzer.getSQLStatement()));
 		} else {
 			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[]) whereConditionsArray));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[]) _sqlWhereParams));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
+				// log for where parames
+				SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 			}
-			methodBuilder.addCode("int result = database().delete($S, $L, whereConditionsArray);\n", daoDefinition.getEntity().getTableName(),AbstractSelectCodeGenerator.formatSql(method, analyzer.getSQLStatement()));
+			methodBuilder.addCode("int result = database().delete($S, $L, _sqlWhereParams);\n", daoDefinition.getEntity().getTableName(),AbstractSelectCodeGenerator.formatSql(method, analyzer.getSQLStatement()));
 		}
 
 		// define return value
@@ -129,7 +133,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		boolean nullable;
 		TypeName beanClass = typeName(entity.getElement());
 
-		methodBuilder.addCode("String[] whereConditionsArray={");
+		methodBuilder.addCode("String[] _sqlWhereParams={");
 		String separator = "";
 		for (String item : analyzer.getUsedBeanPropertyNames()) {
 			property = entity.findByName(item);

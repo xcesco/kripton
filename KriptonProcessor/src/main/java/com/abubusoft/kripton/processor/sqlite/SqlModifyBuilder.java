@@ -27,7 +27,6 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
@@ -42,9 +41,8 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplaceVariableStatementListenerImpl;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -228,7 +226,7 @@ public abstract class SqlModifyBuilder {
 
 		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(whereStatement.value0);
 		// remove placeholder for dynamic where, we are not interested here
-		placeHolders = removeDynamicPlaceHolder(placeHolders);
+		placeHolders = SqlBuilderHelper.removeDynamicPlaceHolder(placeHolders);
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
 				daoDefinition.getName(), method.getName());
 
@@ -272,17 +270,17 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "selectionArgs").build());
 		methodBuilder.returns(Integer.TYPE);
 
-		SqlSelectBuilder.generateLogForMethodBeginning(method, methodBuilder);
+		SqlBuilderHelper.generateLogForMethodBeginning(method, methodBuilder);
 
 		// where
 		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
-		SqlSelectBuilder.generateWhereCondition(methodBuilder, method, method.jql, jqlChecker, whereStatement.value0);
+		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, method.jql, jqlChecker, whereStatement.value0);
 
 		int i = 0;
 		// extract pathVariables
 		// every controls was done in constructor of SQLiteModelMethod
 		for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
-			AssertKripton.assertTrue(validate(variable.value, placeHolders, i), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
+			AssertKripton.assertTrue(SqlBuilderHelper.validate(variable.value, placeHolders, i), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
 					daoDefinition.getName(), method.getName());
 
 			SQLProperty entityProperty = entity.get(variable.value);
@@ -314,8 +312,8 @@ public abstract class SqlModifyBuilder {
 		switch (updateResultType) {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
-			SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
-			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "contentValues.keySet()", null);
+			SqlBuilderHelper.generateColumnCheckSet(elementUtils, builder, method, columns);
+			SqlBuilderHelper.forEachColumnInContentValue(method, methodBuilder, "contentValues.keySet()", true, null);
 			break;
 		default:
 			break;
@@ -340,6 +338,11 @@ public abstract class SqlModifyBuilder {
 					} else {
 						return "?";
 					}
+				}
+				
+				@Override
+				public String onTableName(String tableName) {
+					return schema.getEntityBySimpleName(tableName).getTableName();
 				}
 
 				@Override
@@ -366,13 +369,14 @@ public abstract class SqlModifyBuilder {
 		switch (updateResultType) {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
-			generateLogForContentValues(method, methodBuilder);
+			SqlBuilderHelper.generateLogForContentValues(method, methodBuilder);
 			break;
 		default:
 			break;
 		}
 
-		SqlSelectBuilder.generateLogForWhereParameters(method, methodBuilder);
+		// log for where parames
+		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 
 		methodBuilder.addCode("\n// execute SQL\n");
 		switch (updateResultType) {
@@ -390,7 +394,7 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addStatement("return result");
 
 		// we add at last javadoc, because need info is built at last.
-		generateJavaDoc(method, methodBuilder);
+		SqlBuilderHelper.generateJavaDocForContentProvider(method, methodBuilder);
 
 		methodBuilder.addJavadoc("@param uri $S\n", method.contentProviderUriTemplate.replace("*", "[*]"));
 		switch (updateResultType) {
@@ -407,111 +411,6 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addJavadoc("@return number of effected rows\n");
 
 		builder.addMethod(methodBuilder.build());
-	}
-
-	/**
-	 * @param method
-	 * @param methodBuilder
-	 */
-	public static void generateJavaDoc(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		// javadoc
-		String operation = method.jql.operationType.toString();
-		methodBuilder.addJavadoc("<h1>Content provider URI ($L operation):</h1>\n", operation);
-		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.contentProviderUriTemplate.replace("*", "[*]"));
-		
-		methodBuilder.addJavadoc("<h2>JQL $L for Content Provider</h2>\n", operation);
-		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.jql.value);
-		methodBuilder.addJavadoc("<h2>SQL $L for Content Provider</h2>\n", operation);
-		String sql=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
-			
-			
-			@Override
-			public String onTableName(String tableName) {
-				return method.getParent().getParent().getEntityBySimpleName(tableName).getTableName();
-			}
-						
-			@Override
-			public String onColumnName(String columnName) {
-				return method.getParent().getEntity().get(columnName).columnName;
-			}
-			
-		} );
-		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sql);
-
-
-		if (method.contentProviderUriVariables.size() > 0) {
-			methodBuilder.addJavadoc("<h3>Path variables defined:</h3>\n<ul>\n");
-			for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
-				methodBuilder.addJavadoc("<li><strong>$${$L}</strong> at path segment $L</li>\n", variable.value, variable.pathSegmentIndex);
-			}
-			methodBuilder.addJavadoc("</ul>\n\n");
-		}
-
-
-		if (!method.hasDynamicWhereConditions()) {
-			methodBuilder.addJavadoc("<p><strong>Dynamic where statement is ignored, due no param with @$L was added.</strong></p>\n\n", BindSqlDynamicWhere.class.getSimpleName());
-		}
-
-		methodBuilder.addJavadoc("<p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>\n\n");
-	}
-
-	/**
-	 * <p>
-	 * Generate log for content values
-	 * </p>
-	 * 
-	 * <h2>pre conditions</h2>
-	 * <p>
-	 * required variable are:
-	 * </p>
-	 * <ul>
-	 * <li>contentValues</li>
-	 * </ul>
-	 * 
-	 * <h2>post conditions</h2>
-	 * <p>
-	 * created variables are:</li>
-	 * 
-	 * 
-	 * @param method
-	 * @param methodBuilder
-	 */
-	public static void generateLogForContentValues(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		methodBuilder.addCode("\n// manage log for content values\n");
-		methodBuilder.addStatement("Object _contentValue");
-		methodBuilder.beginControlFlow("for (String _contentKey:contentValues.keySet())");
-		methodBuilder.addStatement("_contentValue=contentValues.get(_contentKey)");
-		methodBuilder.beginControlFlow("if (_contentValue==null)");
-		methodBuilder.addStatement("$T.info(\"value :%s = <null>\", _contentKey)", Logger.class);
-		methodBuilder.nextControlFlow("else");
-		methodBuilder.addStatement("$T.info(\"value :%s = '%s' of type %s\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getName())", Logger.class, StringUtils.class);
-		methodBuilder.endControlFlow();
-		methodBuilder.endControlFlow();
-
-	}
-
-	static List<JQLPlaceHolder> removeDynamicPlaceHolder(List<JQLPlaceHolder> placeHolders) {
-		List<JQLPlaceHolder> result = new ArrayList<>();
-
-		for (JQLPlaceHolder item : placeHolders) {
-			if (item.type != JQLPlaceHolderType.DYNAMIC_SQL) {
-				result.add(item);
-			}
-		}
-
-		return result;
-	}
-
-	/**
-	 * look for variable name in place holders defined through path of content
-	 * provider.
-	 * 
-	 * @param value
-	 * @param placeHolders
-	 * @return <code>true</code> if we found it path
-	 */
-	static boolean validate(String value, List<JQLPlaceHolder> placeHolders, int pos) {
-		return placeHolders.get(pos).value.equals(value);
 	}
 
 }
