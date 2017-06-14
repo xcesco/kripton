@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import com.abubusoft.kripton.android.Logger;
 import java.lang.IllegalArgumentException;
 import java.lang.Override;
 import java.lang.String;
@@ -80,25 +81,27 @@ public class BindPersonContentProvider extends ContentProvider {
    */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
-    long id=-1;
-    Uri returnURL=null;
+    long _id=-1;
+    Uri _returnURL=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
-        id=dataSource.getPersonDAO().insertOne0(uri, contentValues);
-        returnURL=Uri.withAppendedPath(uri, String.valueOf(id));
+        _id=dataSource.getPersonDAO().insertOne0(uri, contentValues);
+        _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
       case PATH_PERSON_2_INDEX: {
-        id=dataSource.getPersonDAO().insertChild1(uri, contentValues);
-        returnURL=Uri.withAppendedPath(uri, String.valueOf(id));
+        _id=dataSource.getPersonDAO().insertChild1(uri, contentValues);
+        _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
       default: {
         throw new IllegalArgumentException("Unknown URI: " + uri);
       }
     }
+    Logger.info("Element is created with URI '%s'", _returnURL);
+    Logger.info("Changes are notified for URI '%s'", uri);
     getContext().getContentResolver().notifyChange(uri, null);
-    return returnURL;
+    return _returnURL;
   }
 
   /**
@@ -118,6 +121,7 @@ public class BindPersonContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI: " + uri);
       }
     }
+    Logger.info("Changes are notified for URI %s", uri);
     getContext().getContentResolver().notifyChange(uri, null);
     return returnRowUpdated;
   }
@@ -161,6 +165,7 @@ public class BindPersonContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI: " + uri);
       }
     }
+    Logger.info("Changes are notified for URI %s", uri);
     getContext().getContentResolver().notifyChange(uri, null);
     return returnRowDeleted;
   }

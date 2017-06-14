@@ -60,8 +60,8 @@ public interface PersonDAO {
 	@BindSqlDelete(where="id = ${id}")
 	void delete(long id);
 	
-//	@BindContentProviderEntry(path="${bean.id}")
-//	@BindSqlDelete(where="id = ${bean.id}")
+//	@BindContentProviderEntry(path="${id}")
+//	@BindSqlDelete(where="id = ${id}")
 //	void update(Person bean);
 
 	@BindContentProviderEntry(path = "${id}")
@@ -73,7 +73,7 @@ public interface PersonDAO {
 //	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicOrderBy String orderBy);
 //
 	@BindContentProviderEntry
-	@BindSqlSelect(fields="name", orderBy="name")
+	@BindSqlSelect(orderBy="name asc")
 	List<Person> selectAll(@BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args, @BindSqlDynamicOrderBy String order);
 //
 //	@BindContentProviderEntry(path = "#")

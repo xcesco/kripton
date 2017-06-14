@@ -30,11 +30,11 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListenerImpl;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerStatementListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
@@ -74,7 +74,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		});
 
 		jsqChecker.extractPlaceHoldersAsList(jql.value);
-		log("replaced " + jsqChecker.replacePlaceHolders(jql, new JQLPlaceHolderReplacerListener() {
+		log("replaced " + jsqChecker.replace(jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
@@ -174,7 +174,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		}
 
 		// prepare for log
-		String sqlLogResult = checker.replacePlaceHolders(jql, new JQLPlaceHolderReplacerListener() {
+		String sqlLogResult = checker.replace(jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
@@ -243,7 +243,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		}
 
 		// prepare for log
-		String sqlLogResult = checker.replacePlaceHolders(jql, new JQLPlaceHolderReplacerListener() {
+		String sqlLogResult = checker.replace(jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
@@ -259,24 +259,6 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 	}
 	
-	@Test
-	public void testWhereStatement() {
-		String sql = "DELETE FROM person WHERE id = ${dummy} and a=${dummy2}";		
-		
-		JQL jql=new JQL();
-		jql.value=sql;
-
-
-		JQLChecker checker = JQLChecker.getInstance();
-
-		// verify sql
-		checker.verify(jql);
-
-		
-		String where=checker.extractWhereStatement(sql);
-		log(where);
-		assertEquals(where, " id = ${dummy} and a=${dummy2}");
-	}
 	
 	@Test
 	public void testBindParametersFromVariableStatements() {
@@ -299,7 +281,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		checker.verify(jql);
 
 		
-		String finalSql=checker.replaceVariableStatements(jql.value, new JQLReplacerStatementListener() {
+		String finalSql=checker.replaceVariableStatements(jql.value, new JQLReplaceVariableStatementListenerImpl() {
 
 			@Override
 			public String onWhere(String whereStatement) {
@@ -361,7 +343,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 				log(item.value);
 			}
 			
-			String replacedSql=checker.replaceFromVariableStatement(where.value0, new JQLPlaceHolderReplacerListener() {
+			String replacedSql=checker.replaceFromVariableStatement(where.value0, new JQLReplacerListenerImpl() {
 				
 				@Override
 				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {

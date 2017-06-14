@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Robolectric;
@@ -45,39 +46,59 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 
 	@Before
 	public void setupContentProvider() {
-//		BindPersonContentProvider mProvider = new BindPersonContentProvider();
-//		ShadowContentResolver.registerProvider(BindPersonContentProvider.AUTHORITY, mProvider);
-//		
-		ProviderInfo info=new ProviderInfo();
-		info.authority=BindPersonContentProvider.AUTHORITY;
-		
-		ContentProviderController<BindPersonContentProvider> controller=Robolectric.buildContentProvider(BindPersonContentProvider.class);
+		// BindPersonContentProvider mProvider = new
+		// BindPersonContentProvider();
+		// ShadowContentResolver.registerProvider(BindPersonContentProvider.AUTHORITY,
+		// mProvider);
+		//
+		ProviderInfo info = new ProviderInfo();
+		info.authority = BindPersonContentProvider.AUTHORITY;
+
+		ContentProviderController<BindPersonContentProvider> controller = Robolectric.buildContentProvider(BindPersonContentProvider.class);
 		controller.create(info);
 	}
 
 	@Test
 	public void testRunInsert() {
+		insertRows(10);
+	}
+
+	private void insertRows(int rows) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(PersonTable.COLUMN_BIRTH_CITY, "New York");
 		contentValues.put(PersonTable.COLUMN_BIRTH_DAY, DateUtils.write(new Date()));
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < rows; i++) {
 			Uri uri = Uri.parse(BindPersonContentProvider.URI + "/" + BindPersonContentProvider.PATH_PERSON_1);
 			Uri resultURI = getApplicationContext().getContentResolver().insert(uri, contentValues);
 			assertTrue(resultURI.toString().equals("content://sqlite.contentprovider.kripton35/persons/" + (i + 1)));
-		}					
+		}
 	}
-	
+
 	@Test
 	public void testRunSelectAfterInsert() {
-		testRunInsert();
-		
-		Uri uri = Uri.parse(BindPersonContentProvider.URI+ "/"+BindPersonContentProvider.PATH_PERSON_1+"/"+"toast");
-		Cursor cursor=getApplicationContext().getContentResolver().query(uri, null, null, null, null);
-		
-		System.out.println(cursor.getColumnCount() + " "+cursor.getCount());
-		
-		
+		int rows = 10;
+		insertRows(rows);
+
+		{
+			Uri uri = Uri.parse(BindPersonContentProvider.URI + "/" + BindPersonContentProvider.PATH_PERSON_1);
+			String[] args = { "New York" };
+			Cursor cursor = getApplicationContext().getContentResolver().query(uri, null, PersonTable.COLUMN_BIRTH_CITY + "=?", args, null);
+
+			System.out.println(cursor.getColumnCount() + " " + cursor.getCount());
+			Assert.assertEquals(rows, cursor.getCount());
+			Assert.assertEquals(7, cursor.getColumnCount());
+		}
+
+		{
+			Uri uriUpdate = Uri.parse(BindPersonContentProvider.URI + "/" + BindPersonContentProvider.PATH_PERSON_3);
+			String temp=uriUpdate.toString().replace("#", "8");
+			uriUpdate=Uri.parse(temp);
+			ContentValues contentValues=new ContentValues();
+			contentValues.put(PersonTable.COLUMN_NAME, "London");
+			getApplicationContext().getContentResolver().update(uriUpdate, contentValues, null, null);
+		}
+
 	}
 
 	/**
@@ -88,7 +109,7 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 	@Test(expected = KriptonRuntimeException.class)
 	public void testFail1Insert() {
 		ContentValues contentValues = new ContentValues();
-				
+
 		contentValues.put(PersonTable.COLUMN_ID, 25);
 		contentValues.put(PersonTable.COLUMN_BIRTH_CITY, "New York");
 		contentValues.put(PersonTable.COLUMN_BIRTH_DAY, DateUtils.write(new Date()));
@@ -96,16 +117,17 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 		Uri uri = Uri.parse(BindPersonContentProvider.URI + "/" + BindPersonContentProvider.PATH_PERSON_1);
 		getApplicationContext().getContentResolver().insert(uri, contentValues);
 	}
-	
+
 	/**
 	 * <p>
-	 * This test fails because we try to insert PARENT_ID column that is excluded in @BindSqlInsert
+	 * This test fails because we try to insert PARENT_ID column that is
+	 * excluded in @BindSqlInsert
 	 */
 	@Test(expected = KriptonRuntimeException.class)
 	public void testFail2Insert() {
 		ContentValues contentValues = new ContentValues();
-		
-		contentValues.put(PersonTable.COLUMN_PARENT_ID, 1);		
+
+		contentValues.put(PersonTable.COLUMN_PARENT_ID, 1);
 		contentValues.put(PersonTable.COLUMN_BIRTH_CITY, "New York");
 		contentValues.put(PersonTable.COLUMN_BIRTH_DAY, DateUtils.write(new Date()));
 

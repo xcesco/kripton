@@ -178,9 +178,9 @@ public class StringUtils {
 	 * @param value
 	 * @return
 	 */
-	public static String ifNotEmpty(String chekString, String value) {
+	public static String ifNotEmptyAppend(String chekString, String value) {
 		if (hasText(chekString)) {
-			return value;
+			return value+chekString;
 		} else {
 			return "";
 		}

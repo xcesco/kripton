@@ -29,7 +29,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -42,22 +41,17 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLPlaceHolderReplacerListener;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListener;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerStatementListener;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplaceVariableStatementListenerImpl;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -76,8 +70,7 @@ import android.net.Uri;
 public abstract class SqlModifyBuilder {
 
 	public enum ModifyType {
-		UPDATE_BEAN(ModifyBeanHelper.class, true), UPDATE_RAW(ModifyRawHelper.class,
-				true), DELETE_BEAN(ModifyBeanHelper.class, false), DELETE_RAW(ModifyRawHelper.class, false);
+		UPDATE_BEAN(ModifyBeanHelper.class, true), UPDATE_RAW(ModifyRawHelper.class, true), DELETE_BEAN(ModifyBeanHelper.class, false), DELETE_RAW(ModifyRawHelper.class, false);
 
 		private ModifyCodeGenerator codeGenerator;
 
@@ -102,16 +95,14 @@ public abstract class SqlModifyBuilder {
 			}
 		}
 
-		public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity,
-				MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
+		public void generate(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLEntity entity, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
 			codeGenerator.generate(elementUtils, methodBuilder, isUpdate(), method, returnType);
 
 		}
 	}
 
 	public interface ModifyCodeGenerator {
-		void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields,
-				SQLiteModelMethod method, TypeName returnType);
+		void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**
@@ -149,25 +140,17 @@ public abstract class SqlModifyBuilder {
 			if (updateMode) {
 				annotation = method.getAnnotation(BindSqlUpdate.class);
 
-				AssertKripton
-						.assertTrueOrInvalidMethodSignException(
-								AnnotationUtility.extractAsStringArray(elementUtils, method, annotation,
-										AnnotationAttributeType.FIELDS).size() == 0,
-								method, " can not use attribute %s in this kind of query definition",
-								AnnotationAttributeType.FIELDS.getValue());
-				AssertKripton.assertTrueOrInvalidMethodSignException(
-						AnnotationUtility.extractAsStringArray(elementUtils, method, annotation,
-								AnnotationAttributeType.EXCLUDED_FIELDS).size() == 0,
-						method, " can not use attribute %s in this kind of query definition",
-						AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
+				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.FIELDS).size() == 0, method,
+						" can not use attribute %s in this kind of query definition", AnnotationAttributeType.FIELDS.getValue());
+				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() == 0,
+						method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
 
 			} else {
 				annotation = method.getAnnotation(BindSqlDelete.class);
 			}
 
 			// check if there is only one parameter
-			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() > 1
-					&& TypeUtility.isEquals(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()),
+			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() > 1 && TypeUtility.isEquals(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()),
 					method);
 
 		} else if (count == 1) {
@@ -176,12 +159,10 @@ public abstract class SqlModifyBuilder {
 			// with dynamic where conditions, we have to add 1 to parameter
 			// check size (one parameter is a bean and one is the where
 			// conditions)
-			AssertKripton.assertTrueOrInvalidMethodSignException(
-					method.getParameters().size() == 1 + (method.hasDynamicWhereConditions() ? 1 : 0), method,
-					" expected only one parameter of %s type", daoDefinition.getEntityClassName());
+			AssertKripton.assertTrueOrInvalidMethodSignException(method.getParameters().size() == 1 + (method.hasDynamicWhereConditions() ? 1 : 0), method, " expected only one parameter of %s type",
+					daoDefinition.getEntityClassName());
 		} else {
-			throw (new InvalidMethodSignException(method,
-					"only one parameter of type " + typeName(entity.getElement()) + " can be used"));
+			throw (new InvalidMethodSignException(method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));
 		}
 
 		// if true, field must be associate to ben attributes
@@ -192,8 +173,7 @@ public abstract class SqlModifyBuilder {
 		}
 
 		// generate method code
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class)
-				.addModifiers(Modifier.PUBLIC);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeName> item : method.getParameters()) {
 			parameterSpec = ParameterSpec.builder(item.value1, item.value0).build();
@@ -224,73 +204,38 @@ public abstract class SqlModifyBuilder {
 	 * @param method
 	 * @param updateResultType
 	 */
-	private static void generateModifierForContentProvider(Elements elementUtils, Builder builder,
-			SQLiteModelMethod method, ModifyType updateResultType) {
+	private static void generateModifierForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, ModifyType updateResultType) {
 		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
-		final StringBuilder parametersBuilder = new StringBuilder();
 
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 
 		// parameters extracted from query
-		final One<String> whereStatement=new One<>();
-		
-		jqlChecker.replaceVariableStatements(method.jql.value, new JQLReplacerStatementListener() {
-			
+		final One<String> whereStatement = new One<>();
+
+		// put in whereStatement value of where statement.
+		jqlChecker.replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
+
 			@Override
 			public String onWhere(String statement) {
-				whereStatement.value0=statement;
+				whereStatement.value0 = statement;
 				return "";
 			}
-			
-			@Override
-			public String onProjectedColumns(String statement) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public String onOrderBy(String statement) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public String onOffset(String statement) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public String onLimit(String statement) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public String onHaving(String statement) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public String onGroup(String statement) {
-				// TODO Auto-generated method stub
-				return null;
-			}
+
 		});
-		
+
 		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(whereStatement.value0);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = removeDynamicPlaceHolder(placeHolders);
-		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(),
-				"In '%s.%s' content provider URI path variables and variables in where conditions are different",
+		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
 				daoDefinition.getName(), method.getName());
 
 		final One<Boolean> useColumns = new One<Boolean>(true);
-		jqlChecker.replace(method.jql, new JQLReplacerListener() {
+
+		// detect column used for content value
+		jqlChecker.replace(method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public String onColumnName(String columnName) {
@@ -299,84 +244,19 @@ public abstract class SqlModifyBuilder {
 				if (useColumns.value0) {
 					columns.add(convertedColumnName);
 				}
-				return convertedColumnName;
-			}
-
-			@Override
-			public String onBindParameter(String columnValue) {
-				JQLParameterName parameterName = JQLParameterName.parse(columnValue);
-
-				String limit = "";
-				SQLProperty property = daoDefinition.getEntity().get(parameterName.getValue());
-				SQLColumnType columnType = SQLTransformer.columnType(property);
-				switch (columnType) {
-				case BLOB:
-				case TEXT:
-					limit = "'";
-				case INTEGER:
-				case REAL:
-				default:
-					;
-				}
-
-				parametersBuilder.append(", StringUtils.formatParam(contentValues.get(\"" + property.columnName
-						+ "\"),\"" + limit + "\")");
-
-				return "%s";
-			}
-
-			@Override
-			public String onTableName(String tableName) {
-				return schema.getEntityBySimpleName(tableName).getTableName();
-			}
-			
-			@Override
-			public void onWhereStatementBegin(Where_stmtContext ctx) {
-				useColumns.value0=false;					
-			}
-
-			@Override
-			public void onWhereStatementEnd(Where_stmtContext ctx) {
-				useColumns.value0=true;				
-			}
-
-			@Override
-			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
-				// TODO Auto-generated method stub
 				return null;
-			}
-		});
-
-		String sql = jqlChecker.replace(method.jql, new JQLReplacerListener() {
-
-			@Override
-			public String onTableName(String tableName) {
-				return schema.getEntityBySimpleName(tableName).getTableName();
-			}
-
-			@Override
-			public String onBindParameter(String columnValue) {
-				return "${" + columnValue + "}";
-			}
-
-			@Override
-			public String onColumnName(String columnName) {
-				return entity.get(columnName).columnName;
 			}
 
 			@Override
 			public void onWhereStatementBegin(Where_stmtContext ctx) {
+				useColumns.value0 = false;
 			}
 
 			@Override
 			public void onWhereStatementEnd(Where_stmtContext ctx) {
+				useColumns.value0 = true;
 			}
 
-			@Override
-			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
-				// TODO Auto-generated method stub
-				return null;
-			}
 		});
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
@@ -392,33 +272,26 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "selectionArgs").build());
 		methodBuilder.returns(Integer.TYPE);
 
-		methodBuilder.addCode("//$T and $T will be used to format SQL\n", SqlUtils.class, StringUtils.class);
-		
-		// where
-		methodBuilder.addStatement("$T sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
-		SqlSelectBuilder.generateWhereCondition(methodBuilder, method, method.jql, jqlChecker, whereStatement.value0);
+		SqlSelectBuilder.generateLogForMethodBeginning(method, methodBuilder);
 
-		methodBuilder.addStatement("$T<String> whereParams=new $T<>()", ArrayList.class, ArrayList.class);
+		// where
+		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
+		SqlSelectBuilder.generateWhereCondition(methodBuilder, method, method.jql, jqlChecker, whereStatement.value0);
 
 		int i = 0;
 		// extract pathVariables
 		// every controls was done in constructor of SQLiteModelMethod
 		for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
-			AssertKripton.assertTrue(validate(variable.value, placeHolders, i),
-					"In '%s.%s' content provider URI path variables and variables in where conditions are different",
+			AssertKripton.assertTrue(validate(variable.value, placeHolders, i), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
 					daoDefinition.getName(), method.getName());
 
 			SQLProperty entityProperty = entity.get(variable.value);
 
 			if (entityProperty != null) {
-				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value,
-						variable.pathSegmentIndex);
-				methodBuilder.addStatement("whereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
-				AssertKripton.assertTrue(
-						TypeUtility.isTypeIncludedIn(entityProperty.getPropertyType().getTypeName(), String.class,
-								Long.class, Long.TYPE),
-						"In '%s.%s' content provider URI path variables %s must be String of Long type",
-						daoDefinition.getName(), method.getName(), entityProperty.getName());
+				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
+				methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				AssertKripton.assertTrue(TypeUtility.isTypeIncludedIn(entityProperty.getPropertyType().getTypeName(), String.class, Long.class, Long.TYPE),
+						"In '%s.%s' content provider URI path variables %s must be String of Long type", daoDefinition.getName(), method.getName(), entityProperty.getName());
 			}
 
 			i++;
@@ -430,69 +303,86 @@ public abstract class SqlModifyBuilder {
 
 			if (method.hasDynamicWhereConditions()) {
 				methodBuilder.beginControlFlow("for (String arg: selectionArgs)");
-				methodBuilder.addStatement("whereParams.add(arg)");
+				methodBuilder.addStatement("_sqlWhereParams.add(arg)");
 				methodBuilder.endControlFlow();
 			}
 
 			methodBuilder.endControlFlow();
 		}
-		
+
 		// column checj
 		switch (updateResultType) {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
 			SqlInsertBuilder.generateColumnCheckSet(elementUtils, builder, method, columns);
-			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "UPDATE", "contentValues.keySet()", null);			
+			SqlInsertBuilder.generateColumnCheck(method, methodBuilder, "contentValues.keySet()", null);
 			break;
 		default:
 			break;
 		}
-		
+
 		// display log
 		if (schema.generateLog) {
-			final List<String> paramsLog=new ArrayList<String>();
-			
+			final One<Boolean> useIt = new One<Boolean>(true);
+			final List<String> paramsLog = new ArrayList<String>();
+
 			methodBuilder.addCode("\n// display log\n");
-			
-			String sqlForLog=jqlChecker.replacePlaceHolders(method.jql, new JQLPlaceHolderReplacerListener() {
-				
-				@Override
-				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {										
-					return null;
-				}
-				
+
+			String sqlForLog = jqlChecker.replace(method.jql, new JQLReplacerListenerImpl() {
+
 				@Override
 				public String onBindParameter(String bindParameterName) {
-					paramsLog.add("StringUtils.checkSize(contentValues.get(\""+bindParameterName+"\"))");
-					return "?";
+					paramsLog.add("StringUtils.checkSize(contentValues.get(\"" + bindParameterName + "\"))");
+
+					if (useIt.value0) {
+						String convertedColumnName = entity.get(bindParameterName).columnName;
+						return ":" + convertedColumnName;
+					} else {
+						return "?";
+					}
 				}
+
+				@Override
+				public void onWhereStatementBegin(Where_stmtContext ctx) {
+					useIt.value0 = false;
+				}
+
+				public void onWhereStatementEnd(Where_stmtContext ctx) {
+					useIt.value0 = true;
+				};
+
 			});
-			
+
 			if (method.jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_WHERE)) {
-				methodBuilder.addStatement("$T.info($S, $L)", Logger.class, sqlForLog.replace(method.jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE), "%s"), "StringUtils.ifNotEmpty(selection,\" AND \"+selection)");	
+				methodBuilder.addStatement("$T.info($S, $L)", Logger.class, sqlForLog.replace(method.jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE), "%s"),
+						"StringUtils.ifNotEmptyAppend(selection,\" AND \")");
 			} else {
-				methodBuilder.addStatement("$T.info($S)", Logger.class, sqlForLog);	
+				methodBuilder.addStatement("$T.info($S)", Logger.class, sqlForLog);
 			}
-			
-			for (String item: paramsLog) {
-				
-			}
-			
-						 
+
 		}
-		
-		methodBuilder.addCode("\n// excute SQL\n");
+
+		// generate log for content values
+		switch (updateResultType) {
+		case UPDATE_BEAN:
+		case UPDATE_RAW:
+			generateLogForContentValues(method, methodBuilder);
+			break;
+		default:
+			break;
+		}
+
+		SqlSelectBuilder.generateLogForWhereParameters(method, methodBuilder);
+
+		methodBuilder.addCode("\n// execute SQL\n");
 		switch (updateResultType) {
 		case DELETE_BEAN:
 		case DELETE_RAW:
-			methodBuilder.addStatement(
-					"int result = database().delete($S, sqlWhereStatement, whereParams.toArray(new String[whereParams.size()]))",
-					daoDefinition.getEntity().getTableName());
+			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))", daoDefinition.getEntity().getTableName());
 			break;
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
-			methodBuilder.addStatement(
-					"int result = database().update($S, contentValues, sqlWhereStatement, whereParams.toArray(new String[whereParams.size()]))",
+			methodBuilder.addStatement("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))",
 					daoDefinition.getEntity().getTableName());
 			break;
 		}
@@ -500,33 +390,7 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addStatement("return result");
 
 		// we add at last javadoc, because need info is built at last.
-
-		// javadoc
-		String operation = updateResultType.toString().replaceAll("_BEAN", "").replaceAll("_RAW", "");
-		methodBuilder.addJavadoc("<h1>Content provider URI ($L operation):</h1>\n", operation);
-		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.contentProviderUriTemplate.replace("*", "[*]"));
-
-		if (method.contentProviderUriVariables.size() > 0) {
-			methodBuilder.addJavadoc("<p>Path variables defined:</p>\n<ul>\n");
-			for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
-				methodBuilder.addJavadoc("<li><strong>$${$L}</strong> at path segment $L</li>\n", variable.value,
-						variable.pathSegmentIndex);
-			}
-			methodBuilder.addJavadoc("</ul>\n\n");
-		}
-
-		methodBuilder.addJavadoc("<h2>JQL $L for Content Provider</h2>\n", operation);
-		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.jql.value);
-		methodBuilder.addJavadoc("<h2>SQL $L for Content Provider</h2>\n", operation);
-		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sql);
-
-		if (!method.hasDynamicWhereConditions()) {
-			methodBuilder.addJavadoc(
-					"<p><strong>Dynamic where statement is ignored, due no param with @$L was added.</strong></p>\n\n",
-					BindSqlDynamicWhere.class.getSimpleName());
-		}
-		
-		methodBuilder.addJavadoc("<p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>\n\n");
+		generateJavaDoc(method, methodBuilder);
 
 		methodBuilder.addJavadoc("@param uri $S\n", method.contentProviderUriTemplate.replace("*", "[*]"));
 		switch (updateResultType) {
@@ -537,15 +401,93 @@ public abstract class SqlModifyBuilder {
 		default:
 			break;
 		}
-		methodBuilder.addJavadoc("@param selection dynamic part of <code>where</code> statement $L\n",
-				method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
-		methodBuilder.addJavadoc("@param selectionArgs arguments of dynamic part of <code>where</code> statement $L\n",
-				method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
+		methodBuilder.addJavadoc("@param selection dynamic part of <code>where</code> statement $L\n", method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
+		methodBuilder.addJavadoc("@param selectionArgs arguments of dynamic part of <code>where</code> statement $L\n", method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
 
 		methodBuilder.addJavadoc("@return number of effected rows\n");
-		
 
 		builder.addMethod(methodBuilder.build());
+	}
+
+	/**
+	 * @param method
+	 * @param methodBuilder
+	 */
+	public static void generateJavaDoc(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		// javadoc
+		String operation = method.jql.operationType.toString();
+		methodBuilder.addJavadoc("<h1>Content provider URI ($L operation):</h1>\n", operation);
+		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.contentProviderUriTemplate.replace("*", "[*]"));
+		
+		methodBuilder.addJavadoc("<h2>JQL $L for Content Provider</h2>\n", operation);
+		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.jql.value);
+		methodBuilder.addJavadoc("<h2>SQL $L for Content Provider</h2>\n", operation);
+		String sql=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+			
+			
+			@Override
+			public String onTableName(String tableName) {
+				return method.getParent().getParent().getEntityBySimpleName(tableName).getTableName();
+			}
+						
+			@Override
+			public String onColumnName(String columnName) {
+				return method.getParent().getEntity().get(columnName).columnName;
+			}
+			
+		} );
+		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sql);
+
+
+		if (method.contentProviderUriVariables.size() > 0) {
+			methodBuilder.addJavadoc("<h3>Path variables defined:</h3>\n<ul>\n");
+			for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
+				methodBuilder.addJavadoc("<li><strong>$${$L}</strong> at path segment $L</li>\n", variable.value, variable.pathSegmentIndex);
+			}
+			methodBuilder.addJavadoc("</ul>\n\n");
+		}
+
+
+		if (!method.hasDynamicWhereConditions()) {
+			methodBuilder.addJavadoc("<p><strong>Dynamic where statement is ignored, due no param with @$L was added.</strong></p>\n\n", BindSqlDynamicWhere.class.getSimpleName());
+		}
+
+		methodBuilder.addJavadoc("<p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>\n\n");
+	}
+
+	/**
+	 * <p>
+	 * Generate log for content values
+	 * </p>
+	 * 
+	 * <h2>pre conditions</h2>
+	 * <p>
+	 * required variable are:
+	 * </p>
+	 * <ul>
+	 * <li>contentValues</li>
+	 * </ul>
+	 * 
+	 * <h2>post conditions</h2>
+	 * <p>
+	 * created variables are:</li>
+	 * 
+	 * 
+	 * @param method
+	 * @param methodBuilder
+	 */
+	public static void generateLogForContentValues(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		methodBuilder.addCode("\n// manage log for content values\n");
+		methodBuilder.addStatement("Object _contentValue");
+		methodBuilder.beginControlFlow("for (String _contentKey:contentValues.keySet())");
+		methodBuilder.addStatement("_contentValue=contentValues.get(_contentKey)");
+		methodBuilder.beginControlFlow("if (_contentValue==null)");
+		methodBuilder.addStatement("$T.info(\"value :%s = <null>\", _contentKey)", Logger.class);
+		methodBuilder.nextControlFlow("else");
+		methodBuilder.addStatement("$T.info(\"value :%s = '%s' of type %s\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getName())", Logger.class, StringUtils.class);
+		methodBuilder.endControlFlow();
+		methodBuilder.endControlFlow();
+
 	}
 
 	static List<JQLPlaceHolder> removeDynamicPlaceHolder(List<JQLPlaceHolder> placeHolders) {

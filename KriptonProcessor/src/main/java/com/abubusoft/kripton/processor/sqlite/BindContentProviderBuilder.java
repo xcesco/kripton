@@ -138,8 +138,9 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		generateOnShutdown(dataSourceNameClazz);
 
-		// define static fields		
-		classBuilder.addField(FieldSpec.builder(String.class, "URI", Modifier.STATIC, Modifier.PUBLIC, Modifier.FINAL).initializer("$S",schema.contentProviderUri()).addJavadoc("<p>content provider's URI. Example:</p>\n<pre>content://sqlite.contentprovider.kripton35</pre>\n").build());
+		// define static fields
+		classBuilder.addField(FieldSpec.builder(String.class, "URI", Modifier.STATIC, Modifier.PUBLIC, Modifier.FINAL).initializer("$S", schema.contentProviderUri())
+				.addJavadoc("<p>content provider's URI. Example:</p>\n<pre>content://sqlite.contentprovider.kripton35</pre>\n").build());
 
 		// instance
 		classBuilder.addField(FieldSpec.builder(className(dataSourceNameClazz), "dataSource", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
@@ -154,27 +155,28 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
 			String pathConstantName = "PATH_" + daoConstantConverter.convert(daoDefinition.getEntitySimplyClassName());
-			
 
-			if (!daoDefinition.contentProviderEnabled) continue;			
-			
+			if (!daoDefinition.contentProviderEnabled)
+				continue;
+
 			List<FieldSpec> list1 = new ArrayList<>();
 			List<FieldSpec> list2 = new ArrayList<>();
 
-			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {				
+			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
 				if (!daoMethod.contentProviderEntryPathEnabled)
 					continue;
-				
+
 				ContentEntry entry = uriSet.get(daoMethod.contentProviderEntryPath);
 				if (entry == null) {
 					entry = new ContentEntry(daoMethod.contentProviderEntryPath);
 					uriSet.put(daoMethod.contentProviderEntryPath, entry);
 
 					entry.path = daoMethod.contentProviderEntryPath;
-					entry.pathCostant = pathConstantName + "_" + i;
+					entry.pathCostant = pathConstantName + "_"+ i;
 					entry.pathIndex = pathConstantName + "_" + i + "_INDEX";
 
-					list1.add(FieldSpec.builder(String.class, entry.pathCostant, Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC).initializer(CodeBlock.of("$S", daoMethod.contentProviderEntryPathTemplate)).build());
+					list1.add(FieldSpec.builder(String.class, entry.pathCostant, Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC)
+							.initializer(CodeBlock.of("$S", daoMethod.contentProviderEntryPathTemplate)).build());
 					list2.add(FieldSpec.builder(Integer.TYPE, entry.pathIndex, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$L", i)).build());
 					staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $L, $L)", entry.pathCostant, entry.pathIndex);
 
@@ -220,7 +222,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		classBuilder.addStaticBlock(staticBuilder.build());
 
 		generateInsert(schema);
-		
+
 		generateUpdate(schema);
 
 		generateQuery(schema);
@@ -296,7 +298,10 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * <p>Generate INSERT code for content provider</p>.
+	 * <p>
+	 * Generate INSERT code for content provider
+	 * </p>
+	 * .
 	 * 
 	 * @param schema
 	 */
@@ -307,10 +312,10 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(ContentValues.class, "contentValues");
 
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.INSERT);
-		
+
 		// method code
-		methodBuilder.addStatement("long id=-1");
-		methodBuilder.addStatement("$T returnURL=null", Uri.class);
+		methodBuilder.addStatement("long _id=-1");
+		methodBuilder.addStatement("$T _returnURL=null", Uri.class);
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
 			if (item.getValue().insert == null)
@@ -319,22 +324,27 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
-			methodBuilder.addStatement("id=dataSource.get$L().$L(uri, contentValues)", item.getValue().insert.getParent().getName(), item.getValue().insert.contentProviderMethodName);
-			methodBuilder.addStatement("returnURL=Uri.withAppendedPath(uri, String.valueOf(id))");		
-			
+			methodBuilder.addStatement("_id=dataSource.get$L().$L(uri, contentValues)", item.getValue().insert.getParent().getName(), item.getValue().insert.contentProviderMethodName);
+			methodBuilder.addStatement("_returnURL=Uri.withAppendedPath(uri, String.valueOf(_id))");
+
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
-		
+
 		methodBuilder.beginControlFlow("default:");
 		methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
-        methodBuilder.endControlFlow();
-		
 		methodBuilder.endControlFlow();
-		
-		if (hasOperation) {		
+
+		methodBuilder.endControlFlow();
+
+		if (hasOperation) {
+
+			if (schema.generateLog) {
+				methodBuilder.addStatement("$T.info(\"Element is created with URI '%s'\", _returnURL)", Logger.class);
+				methodBuilder.addStatement("$T.info(\"Changes are notified for URI '%s'\", uri)", Logger.class);				
+			}
 			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
-			methodBuilder.addStatement("return returnURL");
+			methodBuilder.addStatement("return _returnURL");
 		}
 
 		classBuilder.addMethod(methodBuilder.build());
@@ -348,7 +358,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.DELETE);
-		
+
 		if (!hasOperation) {
 			methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
 			classBuilder.addMethod(methodBuilder.build());
@@ -364,19 +374,25 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
-			methodBuilder.addCode("// URI: $L\n",item.getValue().delete.contentProviderUri());
-			methodBuilder.addStatement("returnRowDeleted=dataSource.get$L().$L(uri, selection, selectionArgs)", item.getValue().delete.getParent().getName(), item.getValue().delete.contentProviderMethodName);			
+			methodBuilder.addCode("// URI: $L\n", item.getValue().delete.contentProviderUri());
+			methodBuilder.addStatement("returnRowDeleted=dataSource.get$L().$L(uri, selection, selectionArgs)", item.getValue().delete.getParent().getName(),
+					item.getValue().delete.contentProviderMethodName);
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
-		
+
 		methodBuilder.beginControlFlow("default:");
 		methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
-        methodBuilder.endControlFlow();
-		
 		methodBuilder.endControlFlow();
-					
-		methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");					
+
+		methodBuilder.endControlFlow();
+
+		if (hasOperation) {
+			if (schema.generateLog) {
+				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);				
+			}
+			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
+		}
 		methodBuilder.addCode("return returnRowDeleted;\n");
 
 		classBuilder.addMethod(methodBuilder.build());
@@ -390,7 +406,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.UPDATE);
-		
+
 		if (!hasOperation) {
 			methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
 			classBuilder.addMethod(methodBuilder.build());
@@ -398,7 +414,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		}
 
 		methodBuilder.addStatement("int returnRowUpdated=1");
-		
+
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
 			if (item.getValue().update == null)
@@ -407,19 +423,26 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
-			methodBuilder.addCode("// URI: $L\n",item.getValue().update.contentProviderUri());
-			methodBuilder.addStatement("returnRowUpdated=dataSource.get$L().$L(uri, contentValues, selection, selectionArgs)", item.getValue().update.getParent().getName(), item.getValue().update.contentProviderMethodName);
+			methodBuilder.addCode("// URI: $L\n", item.getValue().update.contentProviderUri());
+			methodBuilder.addStatement("returnRowUpdated=dataSource.get$L().$L(uri, contentValues, selection, selectionArgs)", item.getValue().update.getParent().getName(),
+					item.getValue().update.contentProviderMethodName);
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
-		
+
 		methodBuilder.beginControlFlow("default:");
 		methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
-        methodBuilder.endControlFlow();
-		
 		methodBuilder.endControlFlow();
 
-		methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");			
+		methodBuilder.endControlFlow();
+
+		if (hasOperation) {
+			if (schema.generateLog) {
+				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);
+			}
+
+			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
+		}
 		methodBuilder.addStatement("return returnRowUpdated");
 
 		classBuilder.addMethod(methodBuilder.build());
@@ -432,12 +455,12 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	 * @return
 	 */
 	private boolean hasOperationOfType(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder, JQLType jqlType) {
-		boolean hasOperation=false;
+		boolean hasOperation = false;
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
 			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
 				if (daoMethod.jql.operationType != jqlType)
 					continue;
-				hasOperation=true;
+				hasOperation = true;
 				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
 			}
 		}
@@ -499,15 +522,15 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addParameter(String.class, "selection");
 		methodBuilder.addParameter(ParameterSpec.builder(TypeUtility.arrayTypeName(String.class), "selectionArgs").build());
 		methodBuilder.addParameter(String.class, "sortOrder");
-		
+
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.SELECT);
-		
-		if (!hasOperation) {			
+
+		if (!hasOperation) {
 			methodBuilder.addStatement("throw new $T(\"Unsupported URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.SELECT);
 			classBuilder.addMethod(methodBuilder.build());
 			return;
 		}
-		
+
 		methodBuilder.addStatement("$T returnCursor=null", Cursor.class);
 
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
@@ -526,15 +549,16 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
-			methodBuilder.addCode("// URI: $L\n",item.getValue().select.contentProviderUri());
-			methodBuilder.addStatement("returnCursor=dataSource.get$L().$L(uri, projection, selection, selectionArgs, sortOrder)", item.getValue().select.getParent().getName(), item.getValue().select.contentProviderMethodName);			
+			methodBuilder.addCode("// URI: $L\n", item.getValue().select.contentProviderUri());
+			methodBuilder.addStatement("returnCursor=dataSource.get$L().$L(uri, projection, selection, selectionArgs, sortOrder)", item.getValue().select.getParent().getName(),
+					item.getValue().select.contentProviderMethodName);
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
-		methodBuilder.beginControlFlow("default:");			
-			methodBuilder.addStatement("throw new $T(\"Unsupported URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.SELECT);
+		methodBuilder.beginControlFlow("default:");
+		methodBuilder.addStatement("throw new $T(\"Unsupported URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.SELECT);
 		methodBuilder.endControlFlow();
-	        
+
 		methodBuilder.endControlFlow();
 
 		if (hasOperation) {

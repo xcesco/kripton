@@ -194,11 +194,19 @@ insert_stmt
                 | K_INSERT K_OR K_ABORT
                 | K_INSERT K_OR K_FAIL
                 | K_INSERT K_OR K_IGNORE ) K_INTO
-   ( database_name '.' )? table_name ( '(' column_name ( ',' column_name )* ')' )?
-   ( K_VALUES '(' expr ( ',' expr )* ')' ( ',' '(' expr ( ',' expr )* ')' )*
+   ( database_name '.' )? table_name ( '(' column_name_set ')' )?
+   ( K_VALUES '(' column_value_set ')' ( ',' '(' expr ( ',' expr )* ')' )*
    | select_stmt
    | K_DEFAULT K_VALUES
    )
+ ;
+ 
+column_name_set
+ : column_name ( ',' column_name )*
+ ; 
+
+column_value_set
+ : expr ( ',' expr )*
  ;
  
 limit_stmt

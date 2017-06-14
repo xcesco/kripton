@@ -4,6 +4,6 @@ import com.squareup.javapoet.MethodSpec.Builder;
 
 public interface OnColumnListener {
 
-	void onColumnCheck(Builder methodBuilder, String string);
+	void onColumnCheck(Builder methodBuilder, String columnName);
 
 }

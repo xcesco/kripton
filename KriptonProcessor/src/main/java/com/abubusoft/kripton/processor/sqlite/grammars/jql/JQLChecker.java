@@ -48,6 +48,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Group_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Having_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Limit_stmtContext;
@@ -57,7 +59,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Result_columnContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_clausesContext;
 
 public class JQLChecker {
 
@@ -177,86 +178,94 @@ public class JQLChecker {
 	}
 
 	/**
-	 * Replace place holder with element passed by listener. To replace an element, a not empty string must be passed as
-	 * event listener result. 
-	 * 
-	 * @param jql
-	 * @param listener
-	 * @return string obtained by replacements
-	 */
-	public String replacePlaceHolders(JQL jql, final JQLPlaceHolderReplacerListener listener) {
-		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
-
-		JqlBaseListener rewriterListener = new JqlBaseListener() {
-
-			@Override
-			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
-				
-				if (value!=null) {				
-					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
-				}
-			}
-
-			@Override
-			public void enterBind_parameter(Bind_parameterContext ctx) {				
-				String value;
-				if (ctx.bind_parameter_name()!=null) {
-					value = listener.onBindParameter(ctx.bind_parameter_name().getText());
-				} else {
-					value = listener.onBindParameter(ctx.getText());
-				}
-				
-				if (value!=null) {				
-					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
-				}
-			}
-		};
-
-		return replaceInternal(jql.value, replace, rewriterListener);
-	}
-
-	/**
 	 * Replace place holder with element passed by listener
 	 * 
 	 * @param jql
 	 * @param listener
 	 * @return string obtained by replacements
 	 */
-	public String replaceFromVariableStatement(String jql, final JQLPlaceHolderReplacerListener listener) {
-		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
-
-		JqlBaseListener rewriterListener = new JqlBaseListener() {
-
-			@Override
-			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
-				
-				// skip without replace
-				if (value==null) return;
-				
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
-			}
-
-			@Override
-			public void enterBind_parameter(Bind_parameterContext ctx) {
-				String value;
-				if (ctx.bind_parameter_name()!=null) {
-					value = listener.onBindParameter(ctx.bind_parameter_name().getText());
-				} else {
-					value = listener.onBindParameter(ctx.getText());
-				}		
-				
-				
-				// skip without replace
-				if (value==null) return;
-				
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
-			}
-		};
+	public String replaceFromVariableStatement(String jql, final JQLReplacerListener listener) {
+		rewriterListener.init(listener);	
 
 		return replaceFromVariableStatementInternal(jql, replace, rewriterListener);
 	}
+	
+	List<Triple<Token, Token, String>> replace = new ArrayList<>();
+	
+	/**
+	 * 
+	 * @author Francesco Benincasa (abubusoft@gmail.com)
+	 *
+	 */
+	public class JQLRewriterListener extends JqlBaseListener {
+		
+		private JQLReplacerListener listener;
+
+		public void init(JQLReplacerListener listener) {
+			this.listener=listener;
+			replace.clear();			
+		}
+		
+		@Override
+		public void enterTable_name(Table_nameContext ctx) {
+			String value = listener.onTableName(ctx.getText());
+			
+			// skip without replace
+			if (value==null) return;
+			
+			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+		}		
+
+		@Override
+		public void enterBind_parameter(Bind_parameterContext ctx) {
+			String value;
+			if (ctx.bind_parameter_name()!=null) {
+				value = listener.onBindParameter(ctx.bind_parameter_name().getText());
+			} else {
+				value = listener.onBindParameter(ctx.getText());
+			}
+			
+			// skip without replace
+			if (value==null) return;
+			
+			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+		}
+
+		@Override
+		public void enterColumn_name(Column_nameContext ctx) {
+			String value = listener.onColumnName(ctx.getText());
+			
+			// skip without replace
+			if (value==null) return;
+			
+			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+		}
+		
+		@Override
+		public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
+			String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
+			
+			// skip without replace
+			if (value==null) return;
+			
+			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+		}
+		
+		
+
+		@Override
+		public void enterWhere_stmt(Where_stmtContext ctx) {
+			listener.onWhereStatementBegin(ctx);
+		}
+
+		@Override
+		public void exitWhere_stmt(Where_stmtContext ctx) {
+			listener.onWhereStatementEnd(ctx);
+		}
+	}
+	
+	JQLRewriterListener rewriterListener = new JQLRewriterListener();
+
 
 	/**
 	 * Replace place holder with element passed by listener
@@ -266,67 +275,8 @@ public class JQLChecker {
 	 * @return string obtained by replacements
 	 */
 	public String replace(JQL jql, final JQLReplacerListener listener) {
-		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
-
-		JqlBaseListener rewriterListener = new JqlBaseListener() {
-
-			@Override
-			public void enterTable_name(Table_nameContext ctx) {
-				String value = listener.onTableName(ctx.getText());
-				
-				// skip without replace
-				if (value==null) return;
-				
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
-			}
-
-			@Override
-			public void enterBind_parameter(Bind_parameterContext ctx) {
-				String value;
-				if (ctx.bind_parameter_name()!=null) {
-					value = listener.onBindParameter(ctx.bind_parameter_name().getText());
-				} else {
-					value = listener.onBindParameter(ctx.getText());
-				}
-				
-				// skip without replace
-				if (value==null) return;
-				
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
-			}
-
-			@Override
-			public void enterColumn_name(Column_nameContext ctx) {
-				String value = listener.onColumnName(ctx.getText());
-				
-				// skip without replace
-				if (value==null) return;
-				
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
-			}
-			
-			@Override
-			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-				String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
-				
-				// skip without replace
-				if (value==null) return;
-				
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
-			}
-
-			@Override
-			public void enterWhere_stmt(Where_stmtContext ctx) {
-				listener.onWhereStatementBegin(ctx);
-			}
-
-			@Override
-			public void exitWhere_stmt(Where_stmtContext ctx) {
-				listener.onWhereStatementEnd(ctx);
-			}
-
-		};
-
+		rewriterListener.init(listener);	
+		
 		return replaceInternal(jql.value, replace, rewriterListener);
 
 	}
@@ -357,55 +307,228 @@ public class JQLChecker {
 		return rewriter.getText();
 	}
 
-	public interface JQLPlaceHolderReplacerListener {
-
+	public interface JQLReplacerListener {
+		
 		/**
-		 * Event fired when we found a parameter: either it is a parameter,
-		 * either it is dynamic sql
+		 * If event return null, replacement will no executed.
 		 * 
-		 * @param string
+		 * @param statement
 		 * @return
+		 * 		<code>null</code> to avoid replacement.
 		 */
 		String onBindParameter(String bindParameterName);
 
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
 		String onDynamicSQL(JQLDynamicStatementType dynamicStatement);
-	}
-
-	public interface JQLReplacerListener extends JQLPlaceHolderReplacerListener  {
-
-		String onTableName(String tableName);
-
-		String onColumnName(String columnName);
+		
 
 		/**
-		 * if return something different than null, the value will replace where
-		 * statement
+		 * If event return null, replacement will no executed.
 		 * 
-		 * @param ctx
+		 * @param statement
 		 * @return
+		 * 		<code>null</code> to avoid replacement.
 		 */
+		String onTableName(String tableName);
+
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
+		String onColumnName(String columnName);
+		
 		void onWhereStatementBegin(Where_stmtContext ctx);
 
 		void onWhereStatementEnd(Where_stmtContext ctx);
 	}
+	
+	public static class JQLReplacerListenerImpl implements JQLReplacerListener {
 
-	public interface JQLReplacerStatementListener {
+		@Override
+		public String onBindParameter(String bindParameterName) {
+			return null;
+		}
 
+		@Override
+		public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+			return null;
+		}
+
+		@Override
+		public String onTableName(String tableName) {
+			return null;
+		}
+
+		@Override
+		public String onColumnName(String columnName) {
+			return null;
+		}
+
+		@Override
+		public void onWhereStatementBegin(Where_stmtContext ctx) {
+			
+		}
+
+		@Override
+		public void onWhereStatementEnd(Where_stmtContext ctx) {
+			
+		}
+		
+	}
+
+	/**
+	 * Listener to replace variable parts of a sql statement. 
+	 * 
+	 * If event return null, replacement will no executed.
+	 * 
+	 * @author Francesco Benincasa (abubusoft@gmail.com)
+	 *
+	 */
+	public interface JQLReplaceVariableStatementListener {
+
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
 		String onWhere(String statement);
 		
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
 		String onOrderBy(String statement);
 
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
 		String onLimit(String statement);
 
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
 		String onOffset(String statement);
 
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
 		String onGroup(String statement);
 
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
 		String onHaving(String statement);
 
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
 		String onProjectedColumns(String statement);
 
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
+		String onColumnNameSet(String statement);
+		
+		/**
+		 * If event return null, replacement will no executed.
+		 * 
+		 * @param statement
+		 * @return
+		 * 		<code>null</code> to avoid replacement.
+		 */
+		String onColumnValueSet(String statement);
+
 	}
+	
+	public static class JQLReplaceVariableStatementListenerImpl implements JQLReplaceVariableStatementListener  {
+
+		@Override
+		public String onWhere(String statement) {
+			return null;
+		}
+
+		@Override
+		public String onOrderBy(String statement) {
+			return null;
+		}
+
+		@Override
+		public String onLimit(String statement) {
+			return null;
+		}
+
+		@Override
+		public String onOffset(String statement) {
+			return null;
+		}
+
+		@Override
+		public String onGroup(String statement) {
+			return null;
+		}
+
+		@Override
+		public String onHaving(String statement) {
+			return null;
+		}
+
+		@Override
+		public String onProjectedColumns(String statement) {
+			return null;
+		}
+
+		@Override
+		public String onColumnNameSet(String statement) {
+			return null;
+		}
+
+		@Override
+		public String onColumnValueSet(String statement) {
+			return null;
+		}
+		
+
+	}
+	
+	
 
 	public static class JQLParameterName {
 		private JQLParameterName(String value) {
@@ -532,44 +655,12 @@ public class JQLChecker {
 	}
 
 	/**
-	 * <p>
-	 * Given an sql statement, extract the first where statement.
-	 * 
-	 * @param jql
-	 * @return
-	 */
-	public String extractWhereStatement(final String jql) {
-		final One<Integer> whereCounter = new One<>(0);
-		final One<String> result = new One<>("");
-
-		analyzeInternal(jql, new JqlBaseListener() {
-			
-			@Override
-			public void enterWhere_stmt_clauses(Where_stmt_clausesContext ctx) {
-				whereCounter.value0++;
-
-				// store only first where statement. In case of annidated
-				// select, take the first one.
-				if (whereCounter.value0 == 1) {
-					int start = ctx.getStart().getStartIndex() - 1;
-					int stop = ctx.getStop().getStopIndex() + 1;
-					result.value0 = jql.substring(start, stop);
-				}
-			}
-
-		});
-
-		return result.value0;
-
-	}
-
-	/**
 	 * Given a sql, replace som component like where, order by, etc..
 	 * @param jql
 	 * @param listener
 	 * @return
 	 */
-	public String replaceVariableStatements(final String jql, final JQLReplacerStatementListener listener) {
+	public String replaceVariableStatements(final String jql, final JQLReplaceVariableStatementListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 
 		JqlBaseListener rewriterListener = new JqlBaseListener() {
@@ -681,6 +772,38 @@ public class JQLChecker {
 				String statement = jql.substring(start, stop);
 				
 				String value = listener.onLimit(statement);
+
+				if (value != null) {
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
+			}
+			
+			@Override
+			public void enterColumn_name_set(Column_name_setContext ctx) {
+				int start = ctx.getStart().getStartIndex() - 1;
+				int stop = ctx.getStop().getStopIndex() + 1;
+				
+				if (start==stop) return;
+				
+				String statement = jql.substring(start, stop);
+				
+				String value = listener.onColumnNameSet(statement);
+
+				if (value != null) {
+					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+				}
+			}
+			
+			@Override
+			public void enterColumn_value_set(Column_value_setContext ctx) {
+				int start = ctx.getStart().getStartIndex() - 1;
+				int stop = ctx.getStop().getStopIndex() + 1;
+				
+				if (start==stop) return;
+				
+				String statement = jql.substring(start, stop);
+				
+				String value = listener.onColumnValueSet(statement);
 
 				if (value != null) {
 					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
