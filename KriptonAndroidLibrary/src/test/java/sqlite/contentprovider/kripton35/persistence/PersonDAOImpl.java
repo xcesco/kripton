@@ -410,7 +410,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?"+StringUtils.ifNotEmptyAppend(selection," AND ");
+    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(selection," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
     if (StringUtils.hasText(selection) && selectionArgs!=null) {
       for (String arg: selectionArgs) {

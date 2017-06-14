@@ -18,9 +18,6 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,22 +29,17 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
-import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.CodeBlock.Builder;
 import com.squareup.javapoet.FieldSpec;
@@ -119,14 +111,10 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 	public void build(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		uriSet.clear();
-		BindContentProvider annotationBindContentProvider = schema.getElement().getAnnotation(BindContentProvider.class);
 
 		String dataSourceName = schema.getName();
 		String dataSourceNameClazz = BindDataSourceBuilder.PREFIX + dataSourceName;
 		String contentProviderName = PREFIX + dataSourceName.replace(BindDataSourceBuilder.SUFFIX, "") + SUFFIX;
-
-		ClassName contentProviderClazz = className(contentProviderName);
-		Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
@@ -561,167 +549,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		methodBuilder.endControlFlow();
 
-		if (hasOperation) {
-			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
+		if (hasOperation) {			
 			methodBuilder.addStatement("return returnCursor");
 		}
 
 		classBuilder.addMethod(methodBuilder.build());
-	}
-
-	/**
-	 * @param schemaName
-	 */
-	private void generateOpen(String schemaName) {
-		// instance
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("open").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
-
-		methodBuilder.addJavadoc("Retrieve data source instance and open it.\n");
-		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
-
-		methodBuilder.addStatement("instance.openWritableDatabase()");
-		methodBuilder.addCode("return instance;\n");
-
-		classBuilder.addMethod(methodBuilder.build());
-	}
-
-	/**
-	 * @param schemaName
-	 */
-	private void generateOpenReadOnly(String schemaName) {
-		// instance
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("openReadOnly").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
-
-		methodBuilder.addJavadoc("Retrieve data source instance and open it in read only mode.\n");
-		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
-
-		methodBuilder.addStatement("instance.openReadOnlyDatabase()");
-		methodBuilder.addCode("return instance;\n");
-
-		classBuilder.addMethod(methodBuilder.build());
-	}
-
-	/**
-	 * @param schema
-	 * @param orderedEntities
-	 */
-	private boolean generateOnCreate(SQLiteDatabaseSchema schema, List<SQLEntity> orderedEntities) {
-		boolean useForeignKey = false;
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
-		methodBuilder.addParameter(SQLiteDatabase.class, "database");
-		methodBuilder.addJavadoc("onCreate\n");
-		methodBuilder.addCode("// generate tables\n");
-		for (SQLEntity item : orderedEntities) {
-			if (schema.isLogEnabled()) {
-				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
-			}
-			methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
-
-			if (item.referedEntities.size() > 0) {
-				useForeignKey = true;
-			}
-		}
-
-		methodBuilder.beginControlFlow("if (options.databaseLifecycleHandler != null)");
-		methodBuilder.addStatement("options.databaseLifecycleHandler.onCreate(database)");
-		methodBuilder.endControlFlow();
-
-		classBuilder.addMethod(methodBuilder.build());
-
-		return useForeignKey;
-	}
-
-	/**
-	 * @param schema
-	 * @param orderedEntities
-	 */
-	private void generateOnUpgrade(SQLiteDatabaseSchema schema, List<SQLEntity> orderedEntities) {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
-		methodBuilder.addParameter(SQLiteDatabase.class, "database");
-		methodBuilder.addParameter(Integer.TYPE, "oldVersion");
-		methodBuilder.addParameter(Integer.TYPE, "newVersion");
-		methodBuilder.addJavadoc("onUpgrade\n");
-
-		Collections.reverse(orderedEntities);
-
-		methodBuilder.beginControlFlow("if (options.databaseLifecycleHandler != null)");
-		methodBuilder.addStatement("options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true)");
-		methodBuilder.nextControlFlow("else");
-
-		methodBuilder.addCode("// drop tables\n");
-		for (SQLEntity item : orderedEntities) {
-			if (schema.isLogEnabled()) {
-				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.DROP_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
-			}
-			methodBuilder.addCode("database.execSQL($T.DROP_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
-		}
-
-		// reorder entities
-		Collections.reverse(orderedEntities);
-
-		methodBuilder.addCode("\n");
-		methodBuilder.addCode("// generate tables\n");
-
-		for (SQLEntity item : orderedEntities) {
-			if (schema.isLogEnabled()) {
-				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(item));
-			}
-			methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
-		}
-
-		methodBuilder.endControlFlow();
-
-		classBuilder.addMethod(methodBuilder.build());
-	}
-
-	/**
-	 * @param useForeignKey
-	 */
-	private void generateOnConfigure(boolean useForeignKey) {
-		// onConfigure
-
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onConfigure").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
-		methodBuilder.addParameter(SQLiteDatabase.class, "database");
-		methodBuilder.addJavadoc("onConfigure\n");
-		methodBuilder.addCode("// configure database\n");
-
-		if (useForeignKey) {
-			methodBuilder.addStatement("database.setForeignKeyConstraintsEnabled(true)");
-		}
-
-		methodBuilder.beginControlFlow("if (options.databaseLifecycleHandler != null)");
-		methodBuilder.addStatement("options.databaseLifecycleHandler.onConfigure(database)");
-		methodBuilder.endControlFlow();
-
-		classBuilder.addMethod(methodBuilder.build());
-	}
-
-	private List<SQLEntity> generateOrderedEntitiesList(SQLiteDatabaseSchema schema) {
-		List<SQLEntity> entities = schema.getEntitiesAsList();
-		Collections.sort(entities, new Comparator<SQLEntity>() {
-
-			@Override
-			public int compare(SQLEntity lhs, SQLEntity rhs) {
-				return lhs.getTableName().compareTo(rhs.getTableName());
-			}
-		});
-
-		List<SQLEntity> list = schema.getEntitiesAsList();
-
-		EntityUtility<SQLEntity> sorder = new EntityUtility<SQLEntity>(list) {
-
-			@Override
-			public Collection<SQLEntity> getDependencies(SQLEntity item) {
-				return item.referedEntities;
-			}
-
-			@Override
-			public void generateError(SQLEntity item) {
-				throw new CircularRelationshipException(item);
-			}
-		};
-
-		return sorder.order();
 	}
 
 	/**

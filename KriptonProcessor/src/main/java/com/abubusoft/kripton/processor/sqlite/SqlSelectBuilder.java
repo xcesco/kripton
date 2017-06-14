@@ -591,11 +591,12 @@ public abstract class SqlSelectBuilder {
 				} else if (!jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
 					methodBuilder.addStatement("String _sqlWhereStatement=$T.ifNotEmptyAppend($L, \" $L \")", StringUtils.class, "selection", JQLKeywords.WHERE_KEYWORD);
 				}
-			} else {
+			} else {			
 				// we DON'T have to include WHERE keywords
+				value=value.replace(" "+JQLKeywords.WHERE_KEYWORD, "");
 				if (jql.isStaticWhereConditions() && !jql.isDynamicWhereConditions()) {
 					// case static statement and NO dynamic
-					methodBuilder.addStatement("String _sqlWhereStatement=$S", value.replace(" "+JQLKeywords.WHERE_KEYWORD, ""));
+					methodBuilder.addStatement("String _sqlWhereStatement=$S", value);
 				} else if (jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
 					methodBuilder.addStatement("String _sqlWhereStatement=$S+$T.ifNotEmptyAppend($L,\" $L \")", value.replace(valueToReplace, ""), StringUtils.class, "selection",
 							method.dynamicWherePrepend);
