@@ -42,12 +42,12 @@ public interface PersonDAO {
 
 	@BindContentProviderEntry
 	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_FAIL)
-	void insertOne(Person bean);
+	void insertBean(Person bean);
 	
 	@BindContentProviderEntry(path="${parentId}/children")
 	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_ABORT)
-	void insertChild(Person bean);
-//	
+	void insertBeanChild(Person bean);
+	
 //	@BindContentProviderEntry(path="test1")
 //	@BindSqlInsert
 //	void insertTwo(String name, String surname, String birthCity, Date birthDay);

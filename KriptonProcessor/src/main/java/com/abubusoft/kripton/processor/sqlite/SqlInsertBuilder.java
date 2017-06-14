@@ -219,13 +219,16 @@ public abstract class SqlInsertBuilder {
 		
 		generateColumnCheckSet(elementUtils, builder, method,columns);
 		
+		methodBuilder.addCode("\n");
+		
 		// extract pathVariables
 		// generate get uri variables in content values
-		// every controls was done in constructor of SQLiteModelMethod
+		// every controls was done in constructor of SQLiteModelMethod		
 		for (ContentUriPlaceHolder variable: method.contentProviderUriVariables) {
 			SQLProperty entityProperty = entity.get(variable.value);
 			
 			if (entityProperty!=null) {
+				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
 				TypeName entityPropertyType=entityProperty.getPropertyType().getTypeName();
 				if (TypeUtility.isString(entityPropertyType)) {
 					methodBuilder.addStatement("contentValues.put($S, uri.getPathSegments().get($L))", entityProperty.columnName, variable.pathSegmentIndex);									

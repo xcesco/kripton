@@ -27,9 +27,9 @@ import sqlite.contentprovider.kripton35.entities.Person;
  *  @see sqlite.contentprovider.kripton35.entities.PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
-  private static final Set<String> insertOne0ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
 
-  private static final Set<String> insertChild1ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> insertBeanChild1ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
 
   private static final Set<String> updateName3ColumnSet = CollectionUtils.asSet(String.class, "name");
 
@@ -61,7 +61,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    */
   @Override
-  public void insertOne(Person bean) {
+  public void insertBean(Person bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
@@ -118,13 +118,14 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @param contentValues content values
    * @return new row's id
    */
-  long insertOne0(Uri uri, ContentValues contentValues) {
+  long insertBean0(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
+
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
     for (String columnName:contentValues.keySet()) {
-      if (!insertOne0ColumnSet.contains(columnName)) {
+      if (!insertBean0ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.contentprovider.kripton35/persons', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
       _columnNameBuffer.append(_columnSeparator+columnName);
@@ -169,7 +170,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    */
   @Override
-  public void insertChild(Person bean) {
+  public void insertBeanChild(Person bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
@@ -231,14 +232,16 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @param contentValues content values
    * @return new row's id
    */
-  long insertChild1(Uri uri, ContentValues contentValues) {
+  long insertBeanChild1(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
+
+    // Add parameter parentId at path segment 1
     contentValues.put("alias_parent_id", Long.valueOf(uri.getPathSegments().get(1)));
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
     for (String columnName:contentValues.keySet()) {
-      if (!insertChild1ColumnSet.contains(columnName)) {
+      if (!insertBeanChild1ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.contentprovider.kripton35/persons/#/children', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
       _columnNameBuffer.append(_columnSeparator+columnName);

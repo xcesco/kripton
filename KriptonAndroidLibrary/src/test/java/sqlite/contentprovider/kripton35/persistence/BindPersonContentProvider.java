@@ -74,8 +74,8 @@ public class BindPersonContentProvider extends ContentProvider {
   }
 
   /**
-   * method PersonDAO.insertOne
-   * method PersonDAO.insertChild
+   * method PersonDAO.insertBean
+   * method PersonDAO.insertBeanChild
    * uri 
    * uri ${parentId}/children
    */
@@ -85,12 +85,12 @@ public class BindPersonContentProvider extends ContentProvider {
     Uri _returnURL=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
-        _id=dataSource.getPersonDAO().insertOne0(uri, contentValues);
+        _id=dataSource.getPersonDAO().insertBean0(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
       case PATH_PERSON_2_INDEX: {
-        _id=dataSource.getPersonDAO().insertChild1(uri, contentValues);
+        _id=dataSource.getPersonDAO().insertBeanChild1(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
@@ -144,7 +144,6 @@ public class BindPersonContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unsupported URI for SELECT operation: " + uri);
       }
     }
-    getContext().getContentResolver().notifyChange(uri, null);
     return returnCursor;
   }
 
