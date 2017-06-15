@@ -19,6 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.isTypeIncludedIn;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.util.Elements;
@@ -28,6 +29,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -35,6 +37,9 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -44,32 +49,14 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
 public class ModifyBeanHelper implements ModifyCodeGenerator {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteUpdateBuilder.
-	 * UpdateCodeGenerator#generate(javax.lang.model.util.Elements,
-	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema,
-	 * com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition,
-	 * com.abubusoft.kripton.processor.sqlite.model.SQLEntity,
-	 * com.squareup.javapoet.MethodSpec.Builder, boolean,
-	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod,
-	 * com.squareup.javapoet.TypeName)
-	 */
+	
 	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 
 		String beanNameParameter = method.getParameters().get(0).value0;
 		SqlAnalyzer analyzer = new SqlAnalyzer();
 
-		String whereCondition;
-
-		if (updateMode) {
-			whereCondition = method.getAnnotation(BindSqlUpdate.class).getAttribute(AnnotationAttributeType.WHERE);
-		} else {
-			whereCondition = method.getAnnotation(BindSqlDelete.class).getAttribute(AnnotationAttributeType.WHERE);
-		}
+		String whereCondition = ModifyRawHelper.extractWhereConditions(updateMode, method);
 
 		if (StringUtils.hasText(whereCondition)) {
 			whereCondition = whereCondition.trim();
@@ -89,34 +76,63 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		}
 		// build javadoc
 		String sqlModify = buildJavadoc(methodBuilder, updateMode, method, beanNameParameter, whereCondition, listUsedProperty, analyzer.getUsedBeanPropertyNames());
-
+		
+		
 		// build where condition
 		generateWhereCondition(methodBuilder, method, analyzer);
-
 		methodBuilder.addCode("\n");
 
-		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
-
-		if (updateMode) {
-			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[]) _sqlWhereParams));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
-				// log for where parames
-				SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
-			}
-			methodBuilder.addCode("int result = database().update($S, contentValues, $L, _sqlWhereParams);\n", daoDefinition.getEntity().getTableName(),
-					AbstractSelectCodeGenerator.formatSql(method, analyzer.getSQLStatement()));
-		} else {
-			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[]) _sqlWhereParams));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
-				// log for where parames
-				SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
-			}
-			methodBuilder.addCode("int result = database().delete($S, $L, _sqlWhereParams);\n", daoDefinition.getEntity().getTableName(),AbstractSelectCodeGenerator.formatSql(method, analyzer.getSQLStatement()));
-		}
+		generateModifyQueryCommonPart(method, methodBuilder);
 
 		// define return value
 		buildReturnCode(methodBuilder, updateMode, method, returnType);
 
+	}
+
+	/**
+	 * @param method
+	 * @param methodBuilder
+	 * @param updateMode
+	 * @param daoDefinition
+	 * @param analyzer
+	 * @param sqlModify
+	 */
+	static void generateModifyQueryCommonPart(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {		
+		boolean updateMode=(method.jql.operationType==JQLType.UPDATE);
+		
+		SQLDaoDefinition daoDefinition=method.getParent();
+		String tableName=daoDefinition.getEntity().getTableName();			
+		
+		// query builder
+		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);		
+		// where _sqlDynamicWhere and _sqlDynamicWhereArgs
+		if (method.hasDynamicWhereConditions()) {
+			methodBuilder.addStatement("String _sqlDynamicWhere=$L", method.dynamicWhereParameterName);
+		}
+		if (method.hasDynamicWhereArgs()) {
+			methodBuilder.addStatement("String[] _sqlDynamicWhereArgs=$L", method.dynamicWhereArgsParameterName);
+		}		
+		
+		// generate where condition
+		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, true);
+
+		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
+
+		SqlModifyBuilder.generateLogForModifiers(method, methodBuilder);
+		
+		if (method.jql.operationType==JQLType.UPDATE) {
+			// generate log for content values
+			SqlBuilderHelper.generateLogForContentValues(method, methodBuilder);
+		}
+		
+		// log for where parames
+		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
+				
+		if (updateMode) {			
+			methodBuilder.addCode("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));\n", tableName);
+		} else {			
+			methodBuilder.addCode("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));\n", tableName);
+		}
 	}
 
 	/**
@@ -133,11 +149,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		boolean nullable;
 		TypeName beanClass = typeName(entity.getElement());
 
-		methodBuilder.addCode("String[] _sqlWhereParams={");
-		String separator = "";
+		methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<String>()", ArrayList.class, ArrayList.class);
+		
 		for (String item : analyzer.getUsedBeanPropertyNames()) {
 			property = entity.findByName(item);
-			methodBuilder.addCode(separator);
+			methodBuilder.addCode("_sqlWhereParams.add(");
 			nullable = TypeUtility.isNullable(property);
 
 			if (nullable) {
@@ -154,12 +170,10 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			if (nullable) {
 				methodBuilder.addCode(")");
 			}
-
-			separator = ", ";
-		}
-		methodBuilder.addCode("};");
-
-		methodBuilder.addCode("\n");
+			
+			methodBuilder.addCode(");\n");
+			
+		}		
 	}
 
 	/**

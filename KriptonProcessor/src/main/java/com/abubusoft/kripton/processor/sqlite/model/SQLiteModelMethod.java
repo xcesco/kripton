@@ -45,6 +45,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLBuilder;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
@@ -244,7 +245,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 						@Override
 						public String onParameterName(int pathSegmentIndex, String name) {
-							SQLProperty entityProperty = entity.get(name);
+							JQLParameterName pName=JQLParameterName.parse(name);
+							
+							String propertyName=pName.getValue();
+							
+							SQLProperty entityProperty = entity.get(propertyName);
 							TypeName methodParamTypeName = SQLiteModelMethod.this.findParameterTypeByAliasOrName(name);
 
 							if (entityProperty != null) {
@@ -274,8 +279,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 								}
 								
 							} else {
-								AssertKripton.fail(
-										"Invalid parameter '%s' is used in content provider path '%s' associated to method '%s.%s'",
+								AssertKripton.fail("Invalid parameter '%s' is used in content provider path '%s' associated to method '%s.%s'",
 										name, contentProviderUri(), getParent().getName(), getName());
 							}
 							return null;

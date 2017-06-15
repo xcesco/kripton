@@ -30,8 +30,10 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
@@ -147,11 +149,12 @@ public class SqlAnalyzer {
 		String effectiveName;
 		for (String rawName: paramNames)
 		{
-			splittedName=rawName.split("\\.");
+			JQLParameterName pName=JQLParameterName.parse(rawName);			
+			String propertyName=pName.getValue();						
 			
-			if (splittedName.length==1)
+			if (!pName.isNested())
 			{
-				effectiveName=method.findParameterNameByAlias(rawName);
+				effectiveName=method.findParameterNameByAlias(pName.getValue());
 				rawNameType = method.findParameterTypeByAliasOrName(effectiveName);
 				if (rawNameType==null)
 				{
@@ -161,28 +164,29 @@ public class SqlAnalyzer {
 				paramTypeNames.add(rawNameType);
 				
 				usedMethodParameters.add(effectiveName);
-			} else if (splittedName.length==2) {
+			} else {
 				//TODO verify
-				if (method.findParameterTypeByAliasOrName(splittedName[0])==null)
+				if (method.findParameterTypeByAliasOrName(pName.getBeanName())==null)
 				{
-					throw new MethodParameterNotFoundException(method, splittedName[0]);
+					throw new MethodParameterNotFoundException(method, pName.getBeanName());
 				}
 				 
-				if (TypeUtility.isEquals(method.findParameterTypeByAliasOrName(splittedName[0]), entity) && entity.contains(splittedName[1]))
+				if (TypeUtility.isEquals(method.findParameterTypeByAliasOrName(pName.getBeanName()), entity) && entity.contains(pName.getValue()))
 				{				
 					// there are nested property invocation
-					paramGetters.add(method.findParameterNameByAlias(splittedName[0])+"."+getter(entity.findByName(splittedName[1])));
-					usedBeanPropertyNames.add(splittedName[1]);
+					paramGetters.add(method.findParameterNameByAlias(pName.getBeanName())+"."+getter(entity.findByName(pName.getValue())));
+					usedBeanPropertyNames.add(pName.getValue());
 					//paramTypeNames.add(entity.findByName(splittedName[1]).getPropertyType());
-					paramTypeNames.add(TypeUtility.typeName(entity.findByName(splittedName[1]).getElement().asType()));
+					paramTypeNames.add(TypeUtility.typeName(entity.findByName(pName.getValue()).getElement().asType()));
 					
-					usedMethodParameters.add(method.findParameterNameByAlias(splittedName[0]));
+					usedMethodParameters.add(method.findParameterNameByAlias(pName.getBeanName()));
 				} else {
-					throw (new PropertyInAnnotationNotFoundException(method, splittedName[1]));
+					throw (new PropertyInAnnotationNotFoundException(method, pName.getValue()));
 				}
-			} else {
-				throw (new PropertyInAnnotationNotFoundException(method, rawName));
 			}
+//			} else {
+//				throw (new PropertyInAnnotationNotFoundException(method, rawName));
+//			}
 			
 		}
 				

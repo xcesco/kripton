@@ -39,11 +39,11 @@ import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
@@ -303,7 +303,7 @@ public abstract class SqlSelectBuilder {
 
 		methodBuilder.addStatement("_sqlBuilder.append($S)", basicSQl);
 
-		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, jql, jqlChecker, sqlWhereStatement.value0);
+		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, false);
 
 		if (StringUtils.hasText(sqlGroupStatement.value0)) {
 			methodBuilder.addCode("\n// manage GROUP BY statement\n");

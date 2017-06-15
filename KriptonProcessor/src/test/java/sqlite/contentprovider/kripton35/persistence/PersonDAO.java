@@ -44,38 +44,42 @@ public interface PersonDAO {
 //	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_FAIL)
 //	void insertBean(Person bean);
 //	
-	//@BindContentProviderEntry(path="${name}")
-	//@BindSqlInsert
-	//void insertName(@BindSqlParam("name") String tempName);
-	
-	@BindContentProviderEntry(path="${id}")
-	@BindSqlDelete(where="id = ${id}")
-	void deleteA(long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
-	
-//	@BindContentProviderEntry(path="${id}")
-//	@BindSqlDelete(where="id = ${id}")
-//	void delete(long id);
-
-	
-	//@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_ABORT)
-	//void insertBeanChild(Person bean);
-	
-//	@BindContentProviderEntry(path="test1")
+//	@BindContentProviderEntry(path = "${name}")
 //	@BindSqlInsert
-//	void insertTwo(String name, String surname, String birthCity, Date birthDay);
-//
-	
+//	void insertName(@BindSqlParam("name") String tempName);
+//	
 //	@BindContentProviderEntry(path="${id}")
 //	@BindSqlDelete(where="id = ${id}")
-//	void update(Person bean);
-
-//	@BindContentProviderEntry(path = "${id}")
+//	void deleteRaw(long id);
+//	
+//	@BindContentProviderEntry(path="test0/${id}")
+//	@BindSqlDelete(where="id = ${id}")
+//	void deleteRaw(long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
+//	
+//	@BindContentProviderEntry(path="test1/${bean.id}")
+//	@BindSqlDelete(where="id = ${bean.id}")
+//	void deleteBean(Person bean);
+//	
+//	@BindContentProviderEntry(path = "test0/${id}")
 //	@BindSqlUpdate(where = "id=${id}")
-//	int updateName(String name, long id, @BindSqlDynamicWhere String where);
-
-//	@BindContentProviderEntry(path="${nameTemp}/test")
-//	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy = "id", having = "id=2", orderBy = "id")
-//	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicOrderBy String orderBy);
+//	int updateRaw(String name, long id);
+//	
+//	@BindContentProviderEntry(path = "test1/${id}")
+//	@BindSqlUpdate(where = "id=${id}")
+//	int updateRaw(String name, long id, @BindSqlDynamicWhere String where);
+//	
+//	@BindContentProviderEntry(path = "test1/${id}")
+//	@BindSqlUpdate(where = "id=${id}")
+//	int updateRaw(String name, long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
+//	
+//	@BindContentProviderEntry(path = "test2/${person.id}")
+//	@BindSqlUpdate(where = "id=${person.id}")
+//	int updateBean(Person person);
+	
+	
+	@BindContentProviderEntry(path="${nameTemp}/test")
+	@BindSqlSelect(where = "name like ${nameTemp} || '%'", groupBy = "id", having = "id=2", orderBy = "id")
+	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlPageSize int pageSize, @BindSqlDynamicOrderBy String orderBy);
 //
 //	@BindContentProviderEntry
 //	@BindSqlSelect(orderBy="name asc")

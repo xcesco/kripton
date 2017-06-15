@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
-import com.abubusoft.kripton.android.Logger;
 import java.lang.IllegalArgumentException;
 import java.lang.Override;
 import java.lang.String;
@@ -32,7 +31,7 @@ public class BindPersonContentProvider extends ContentProvider {
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  public static final String PATH_PERSON_1 = "persons/#";
+  public static final String PATH_PERSON_1 = "persons/*/test";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -79,35 +78,34 @@ public class BindPersonContentProvider extends ContentProvider {
     throw new IllegalArgumentException("Unknown URI: " + uri);
   }
 
-  @Override
-  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-    throw new IllegalArgumentException("Unsupported URI for SELECT operation: " + uri);
-  }
-
   /**
-   * method PersonDAO.deleteA
-   * uri ${id}
+   * method PersonDAO.selectOne
+   * method PersonDAO.selectOne
+   * uri ${nameTemp}/test
    */
   @Override
-  public int delete(Uri uri, String selection, String[] selectionArgs) {
-    int returnRowDeleted=-1;
+  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    Cursor returnCursor=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
-        // URI: content://sqlite.contentprovider.kripton35/persons/${id}
-        returnRowDeleted=dataSource.getPersonDAO().deleteA0(uri, selection, selectionArgs);
+        // URI: content://sqlite.contentprovider.kripton35/persons/${nameTemp}/test
+        returnCursor=dataSource.getPersonDAO().selectOne0(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       default: {
-        throw new IllegalArgumentException("Unknown URI: " + uri);
+        throw new IllegalArgumentException("Unsupported URI for SELECT operation: " + uri);
       }
     }
-    Logger.info("Changes are notified for URI %s", uri);
-    getContext().getContentResolver().notifyChange(uri, null);
-    return returnRowDeleted;
+    return returnCursor;
+  }
+
+  @Override
+  public int delete(Uri uri, String selection, String[] selectionArgs) {
+    throw new IllegalArgumentException("Unknown URI: " + uri);
   }
 
   /**
-   * uri ${id}
+   * uri ${nameTemp}/test
    */
   @Override
   public String getType(Uri uri) {

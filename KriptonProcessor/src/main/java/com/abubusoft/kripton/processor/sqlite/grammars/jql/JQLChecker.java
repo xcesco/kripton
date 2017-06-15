@@ -307,151 +307,6 @@ public class JQLChecker {
 		return rewriter.getText();
 	}
 
-	/**
-	 * Listener to replace variable parts of a sql statement. 
-	 * 
-	 * If event return null, replacement will no executed.
-	 * 
-	 * @author Francesco Benincasa (abubusoft@gmail.com)
-	 *
-	 */
-	public interface JQLReplaceVariableStatementListener {
-
-		/**
-		 * If event return null, replacement will no executed.
-		 * 
-		 * @param statement
-		 * @return
-		 * 		<code>null</code> to avoid replacement.
-		 */
-		String onWhere(String statement);
-		
-		/**
-		 * If event return null, replacement will no executed.
-		 * 
-		 * @param statement
-		 * @return
-		 * 		<code>null</code> to avoid replacement.
-		 */
-		String onOrderBy(String statement);
-
-		/**
-		 * If event return null, replacement will no executed.
-		 * 
-		 * @param statement
-		 * @return
-		 * 		<code>null</code> to avoid replacement.
-		 */
-		String onLimit(String statement);
-
-		/**
-		 * If event return null, replacement will no executed.
-		 * 
-		 * @param statement
-		 * @return
-		 * 		<code>null</code> to avoid replacement.
-		 */
-		String onOffset(String statement);
-
-		/**
-		 * If event return null, replacement will no executed.
-		 * 
-		 * @param statement
-		 * @return
-		 * 		<code>null</code> to avoid replacement.
-		 */
-		String onGroup(String statement);
-
-		/**
-		 * If event return null, replacement will no executed.
-		 * 
-		 * @param statement
-		 * @return
-		 * 		<code>null</code> to avoid replacement.
-		 */
-		String onHaving(String statement);
-
-		/**
-		 * If event return null, replacement will no executed.
-		 * 
-		 * @param statement
-		 * @return
-		 * 		<code>null</code> to avoid replacement.
-		 */
-		String onProjectedColumns(String statement);
-
-		/**
-		 * If event return null, replacement will no executed.
-		 * 
-		 * @param statement
-		 * @return
-		 * 		<code>null</code> to avoid replacement.
-		 */
-		String onColumnNameSet(String statement);
-		
-		/**
-		 * If event return null, replacement will no executed.
-		 * 
-		 * @param statement
-		 * @return
-		 * 		<code>null</code> to avoid replacement.
-		 */
-		String onColumnValueSet(String statement);
-
-	}
-	
-	public static class JQLReplaceVariableStatementListenerImpl implements JQLReplaceVariableStatementListener  {
-
-		@Override
-		public String onWhere(String statement) {
-			return null;
-		}
-
-		@Override
-		public String onOrderBy(String statement) {
-			return null;
-		}
-
-		@Override
-		public String onLimit(String statement) {
-			return null;
-		}
-
-		@Override
-		public String onOffset(String statement) {
-			return null;
-		}
-
-		@Override
-		public String onGroup(String statement) {
-			return null;
-		}
-
-		@Override
-		public String onHaving(String statement) {
-			return null;
-		}
-
-		@Override
-		public String onProjectedColumns(String statement) {
-			return null;
-		}
-
-		@Override
-		public String onColumnNameSet(String statement) {
-			return null;
-		}
-
-		@Override
-		public String onColumnValueSet(String statement) {
-			return null;
-		}
-		
-
-	}
-	
-	
-
 	public static class JQLParameterName {
 		private JQLParameterName(String value) {
 			values = value.split("\\.");
@@ -461,6 +316,17 @@ public class JQLChecker {
 
 		public String getValue() {
 			return values[values.length - 1];
+		}
+		
+		public String getBeanName() {
+			if (isNested())
+			return values[0];
+			
+			return "";
+		}
+		
+		public boolean isNested() {
+			return values.length>1;
 		}
 
 		public static JQLParameterName parse(String value) {

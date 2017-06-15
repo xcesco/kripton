@@ -35,6 +35,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -54,13 +55,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		// separate params used for update bean and params used in
 		// whereCondition
 		// analyze whereCondition
-		String whereCondition = null;
-
-		if (updateMode) {
-			whereCondition = method.getAnnotation(BindSqlUpdate.class).getAttribute(AnnotationAttributeType.WHERE);
-		} else {
-			whereCondition = method.getAnnotation(BindSqlDelete.class).getAttribute(AnnotationAttributeType.WHERE);
-		}
+		String whereCondition = extractWhereConditions(updateMode, method);
 
 		Pair<String, List<Pair<String, TypeName>>> where = SqlUtility.extractParametersFromString(whereCondition, method, daoDefinition.getColumnNameConverter(), entity);
 
@@ -147,37 +142,16 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				}
 			}
 		}
-
-		// build where condition
-		generateWhereCondition(methodBuilder, method, where);
-
-		methodBuilder.addCode("\n");
-		methodBuilder.addCode("\n");
-
+		
 		// generate javadoc
 		String sqlModify = generateJavaDoc(daoDefinition, method, methodBuilder, updateMode, whereCondition, where, methodParams, updateableParams);
 
-		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
-
-		if (updateMode) {
-			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[])_sqlWhereParams));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
-				
-				// log for where parames
-				SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
-			}
-			methodBuilder.addCode("int result = database().update($S, contentValues, \"$L$L\", _sqlWhereParams);\n", daoDefinition.getEntity().getTableName(), where.value0, appendSQL(method));
-		} else {
-			if (daoDefinition.isLogEnabled()) {
-				methodBuilder.addCode("$T.info($T.formatSQL($L, (Object[])_sqlWhereParams));\n", Logger.class, SqlUtils.class, AbstractSelectCodeGenerator.formatSqlForLog(method, sqlModify));
-				
-				// log for where parames
-				SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
-				
-			}
-			methodBuilder.addCode("int result = database().delete($S, \"$L$L\", _sqlWhereParams);\n", daoDefinition.getEntity().getTableName(),
-					where.value0, appendSQL(method));
-		}
+		// build where condition
+		generateWhereCondition(methodBuilder, method, where);
+		methodBuilder.addCode("\n");		
+		
+		ModifyBeanHelper.generateModifyQueryCommonPart(method, methodBuilder);
+			
 
 		// define return value
 		if (returnType == TypeName.VOID) {
@@ -207,15 +181,22 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		}
 	}
 
-	private static String appendSQL(SQLiteModelMethod method) {
-		String result = "";
-		if (method.hasDynamicWhereConditions()) {
-			// add a space
-			result = " \"+SqlUtils.appendForSQL(" + method.dynamicWhereParameterName + ")+\"";
-		}
 
-		return result;
+	/**
+	 * @param updateMode
+	 * @param method
+	 * @return
+	 */
+	static String extractWhereConditions(boolean updateMode, SQLiteModelMethod method) {
+		String whereCondition;
+		if (updateMode) {
+			whereCondition = method.getAnnotation(BindSqlUpdate.class).getAttribute(AnnotationAttributeType.WHERE);
+		} else {
+			whereCondition = method.getAnnotation(BindSqlDelete.class).getAttribute(AnnotationAttributeType.WHERE);
+		}
+		return whereCondition;
 	}
+
 
 	/**
 	 * @param daoDefinition
@@ -336,12 +317,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 */
 	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeName>>> where) {
 		boolean nullable;
-
-		methodBuilder.addCode("String[] _sqlWhereParams={");
-		String separator = "";
+		
+		methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<String>()", ArrayList.class, ArrayList.class);		
 		for (Pair<String, TypeName> item : where.value1) {
 			String resolvedParamName = method.findParameterNameByAlias(item.value0);
-			methodBuilder.addCode(separator);
+			methodBuilder.addCode("_sqlWhereParams.add(");
+			
 
 			nullable = isNullable(item.value1);
 
@@ -360,10 +341,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			if (nullable) {
 				methodBuilder.addCode(")");
 			}
-
-			separator = ", ";
-		}
-		methodBuilder.addCode("};");
+			
+			methodBuilder.addCode(");\n");
+		}		
 	}
 
 	static boolean isIn(TypeName value, Class<?>... classes) {
