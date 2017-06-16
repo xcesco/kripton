@@ -16,7 +16,7 @@
 
 		<!-- dependencies version -->
 		<retrofit.version>2.2.0</retrofit.version>
-		<kripton.version>1.7.0-SNAPSHOT</kripton.version>
+		<kripton.version>2.0.0-SNAPSHOT</kripton.version>
 	</properties>
 
 	<dependencies>
