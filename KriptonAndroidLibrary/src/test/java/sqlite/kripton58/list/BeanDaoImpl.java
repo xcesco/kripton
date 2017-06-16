@@ -458,7 +458,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -521,7 +521,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -584,7 +584,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END

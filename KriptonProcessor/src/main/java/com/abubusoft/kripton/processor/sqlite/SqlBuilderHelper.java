@@ -202,7 +202,7 @@ public abstract class SqlBuilderHelper {
 		methodBuilder.beginControlFlow("if (_contentValue==null)");
 		methodBuilder.addStatement("$T.info(\"==> :%s = <null>\", _contentKey)", Logger.class);
 		methodBuilder.nextControlFlow("else");
-		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' of type %s\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getTypeName())", Logger.class, StringUtils.class);
+		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' of type %s\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getCanonicalName())", Logger.class, StringUtils.class);
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 		methodBuilder.addCode("// log for content values -- END\n");
