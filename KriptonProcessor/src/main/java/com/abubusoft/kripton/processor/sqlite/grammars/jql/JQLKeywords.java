@@ -36,25 +36,25 @@ public class JQLKeywords {
 	public static final String VALUES_KEYWORD = "VALUES";
 	public static final String WHERE_KEYWORD = "WHERE";
 	
-	static final Set<String> keywords=new LinkedHashSet<>();
-	
-	{
-		keywords.add(DELETE_KEYWORD);
-		keywords.add(DISTINCT_KEYWORD);
-		keywords.add(FROM_KEYWORD);
-		keywords.add(GROUP_BY_KEYWORD);
-		keywords.add(HAVING_KEYWORD);
-		keywords.add(INSERT_KEYWORD);
-		keywords.add(INTO_KEYWORD);
-		keywords.add(LIMIT_KEYWORD);
-		keywords.add(OFFSET_KEYWORD);
-		keywords.add(ORDER_BY_KEYWORD);	
-		keywords.add(SELECT_KEYWORD);
-		keywords.add(SET_KEYWORD);
-		keywords.add(UPDATE_KEYWORD);
-		keywords.add(VALUES_KEYWORD);
-		keywords.add(WHERE_KEYWORD);				
-	}
+//	static final Set<String> keywords=new LinkedHashSet<>();
+//	
+//	{
+//		keywords.add(DELETE_KEYWORD);
+//		keywords.add(DISTINCT_KEYWORD);
+//		keywords.add(FROM_KEYWORD);
+//		keywords.add(GROUP_BY_KEYWORD);
+//		keywords.add(HAVING_KEYWORD);
+//		keywords.add(INSERT_KEYWORD);
+//		keywords.add(INTO_KEYWORD);
+//		keywords.add(LIMIT_KEYWORD);
+//		keywords.add(OFFSET_KEYWORD);
+//		keywords.add(ORDER_BY_KEYWORD);	
+//		keywords.add(SELECT_KEYWORD);
+//		keywords.add(SET_KEYWORD);
+//		keywords.add(UPDATE_KEYWORD);
+//		keywords.add(VALUES_KEYWORD);
+//		keywords.add(WHERE_KEYWORD);				
+//	}
 	
 
 }

@@ -65,7 +65,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   @Override
   public Bean2 selectOne() {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -75,12 +75,12 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -157,7 +157,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean2> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -175,12 +175,12 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -272,7 +272,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -290,12 +290,12 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -344,7 +344,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   @Override
   public List<Bean2> selectList(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -362,12 +362,12 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -540,9 +540,9 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -550,7 +550,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean2", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
@@ -664,16 +664,16 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info(SqlUtils.formatSQL("INSERT INTO bean2 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+    Logger.info("INSERT INTO bean2 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -719,16 +719,16 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info(SqlUtils.formatSQL("INSERT INTO bean2 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+    Logger.info("INSERT INTO bean2 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -771,7 +771,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   @Override
   public Bean2 selectOne(HashSet<BigDecimal> valueBigDecimalSet) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -789,12 +789,12 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -875,7 +875,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean2", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
@@ -933,9 +933,9 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -943,7 +943,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean2", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));

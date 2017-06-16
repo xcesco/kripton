@@ -53,7 +53,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public ByteBean selectOne() {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -63,12 +63,12 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -117,7 +117,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public ByteBean selectOne(List<Short> value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -135,12 +135,12 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -190,7 +190,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public void selectOne(List<Byte> value, OnReadBeanListener<ByteBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -208,12 +208,12 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -269,7 +269,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public void selectOne(List<Short> value, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -287,12 +287,12 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -332,7 +332,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public List<ByteBean> selectList(List<Short> value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -350,12 +350,12 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -445,9 +445,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -455,7 +455,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("byte_bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
@@ -501,16 +501,16 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info(SqlUtils.formatSQL("INSERT INTO byte_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+    Logger.info("INSERT INTO byte_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -564,16 +564,16 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info(SqlUtils.formatSQL("INSERT INTO byte_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+    Logger.info("INSERT INTO byte_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -623,81 +623,11 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("byte_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
-  }
-
-  /**
-   * write
-   */
-  private byte[] serializer2(List<Byte> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.size();
-        Byte item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value.get(i);
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeNumber(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private List<Byte> parser2(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      List<Byte> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Byte> collection=new ArrayList<>();
-        Byte item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getByteValue();
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
   }
 
   /**
@@ -759,6 +689,76 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
             item=null;
           } else {
             item=jacksonParser.getShortValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer2(List<Byte> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.size();
+        Byte item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private List<Byte> parser2(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      List<Byte> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Byte> collection=new ArrayList<>();
+        Byte item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getByteValue();
           }
           collection.add(item);
         }

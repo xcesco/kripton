@@ -3,7 +3,6 @@ package sqlite.kripton41;
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -59,16 +58,16 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info(SqlUtils.formatSQL("INSERT INTO bean01 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+    Logger.info("INSERT INTO bean01 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END

@@ -64,7 +64,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public Bean05 selectOne(Long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -82,12 +82,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -146,7 +146,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public Bean05 selectOne(Bean05 bean) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -165,12 +165,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -228,7 +228,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public List<Bean05> selectAll(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -246,12 +246,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -310,7 +310,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public List<Long> selectPK(String text) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT pk FROM ws_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -328,12 +328,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -379,7 +379,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public Long selectCount(String text) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT count(*) FROM ws_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -397,12 +397,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -446,7 +446,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectCursorListener(Long id, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -464,12 +464,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -513,7 +513,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -531,12 +531,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -604,7 +604,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectOne(Long id, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -622,12 +622,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -671,7 +671,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectOne(long id, OnReadBeanListener<Bean05> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -689,12 +689,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -786,16 +786,16 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info(SqlUtils.formatSQL("INSERT INTO ws_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+    Logger.info("INSERT INTO ws_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -866,16 +866,16 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info(SqlUtils.formatSQL("INSERT INTO ws_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+    Logger.info("INSERT INTO ws_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -967,9 +967,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -977,7 +977,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("ws_bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
@@ -1055,9 +1055,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     for (String _contentKey:contentValues.keySet()) {
       _contentValue=contentValues.get(_contentKey);
       if (_contentValue==null) {
-        Logger.info("value :%s = <null>", _contentKey);
+        Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getTypeName());
       }
     }
     // log for content values -- END
@@ -1065,7 +1065,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("ws_bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
@@ -1114,7 +1114,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("ws_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
@@ -1167,7 +1167,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("ws_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
@@ -1212,7 +1212,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("ws_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
@@ -1257,7 +1257,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("ws_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
@@ -1286,7 +1286,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public byte[] getOne(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT content FROM ws_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1304,12 +1304,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql,(Object[])_sqlArgs);
+    Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1322,53 +1322,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
         result=parser2(cursor.getBlob(0));
       }
       return result;
-    }
-  }
-
-  /**
-   * write
-   */
-  private byte[] serializer1(Long value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        jacksonSerializer.writeNumberField("element", value);
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private Long parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Long result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getLongValue();
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
@@ -1412,6 +1365,53 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       byte[] result=null;
       if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
         result=jacksonParser.getBinaryValue();
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer1(Long value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        jacksonSerializer.writeNumberField("element", value);
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private Long parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Long result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getLongValue();
       }
       return result;
     } catch(Exception e) {

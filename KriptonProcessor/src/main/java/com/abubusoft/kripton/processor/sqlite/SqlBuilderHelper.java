@@ -200,9 +200,9 @@ public abstract class SqlBuilderHelper {
 		methodBuilder.beginControlFlow("for (String _contentKey:contentValues.keySet())");
 		methodBuilder.addStatement("_contentValue=contentValues.get(_contentKey)");
 		methodBuilder.beginControlFlow("if (_contentValue==null)");
-		methodBuilder.addStatement("$T.info(\"value :%s = <null>\", _contentKey)", Logger.class);
+		methodBuilder.addStatement("$T.info(\"==> :%s = <null>\", _contentKey)", Logger.class);
 		methodBuilder.nextControlFlow("else");
-		methodBuilder.addStatement("$T.info(\"value :%s = '%s' of type %s\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getName())", Logger.class, StringUtils.class);
+		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' of type %s\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getTypeName())", Logger.class, StringUtils.class);
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 		methodBuilder.addCode("// log for content values -- END\n");
@@ -238,7 +238,7 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.addCode("\n// log for where parameters -- BEGIN\n");
 			methodBuilder.addStatement("int _whereParamCounter=0");
 			methodBuilder.beginControlFlow("for (String _whereParamItem: _sqlWhereParams)");
-			methodBuilder.addStatement("$T.info(\"param (%s): '%s'\",(_whereParamCounter++), _whereParamItem)", Logger.class);
+			methodBuilder.addStatement("$T.info(\"==> param (%s): '%s'\",(_whereParamCounter++), _whereParamItem)", Logger.class);
 			methodBuilder.endControlFlow();
 			methodBuilder.addCode("// log for where parameters -- END\n");
 		}
@@ -493,7 +493,7 @@ public abstract class SqlBuilderHelper {
 				}
 			});
 
-			methodBuilder.addStatement("$T.info($T.formatSQL($S, _columnNameBuffer.toString(), _columnValueBuffer.toString()))", Logger.class, SqlUtils.class, sql);
+			methodBuilder.addStatement("$T.info($S, _columnNameBuffer.toString(), _columnValueBuffer.toString())", Logger.class, sql);
 			generateLogForContentValues(method, methodBuilder);
 			
 			methodBuilder.addCode("// log for insert -- END \n\n");

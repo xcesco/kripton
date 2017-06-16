@@ -54,22 +54,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Path_segmen
  */
 public class ContentUriChecker {
 
-	public static class UriParameterName {
-		public static UriParameterName parse(String value) {
-			return new UriParameterName(value);
-		}
-
-		private String[] values;
-
-		private UriParameterName(String value) {
-			values = value.split("\\.");
-		}
-
-		public String getValue() {
-			return values[values.length - 1];
-		}
-	}
-
 	public interface UriPlaceHolderReplacerListener {
 
 		String onParameterName(int pathSegmentIndex, String name);

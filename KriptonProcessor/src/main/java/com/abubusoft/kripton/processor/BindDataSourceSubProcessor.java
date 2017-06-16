@@ -401,7 +401,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			if (StringUtils.isEmpty(currentDaoDefinition.contentProviderTypeName))
 			{
 				Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
-				currentDaoDefinition.contentProviderTypeName=convert.convert(currentDaoDefinition.getSimpleEntityClassName());
+				currentDaoDefinition.contentProviderTypeName=currentDaoDefinition.getParent().contentProvider.authority+"."+convert.convert(currentDaoDefinition.getSimpleEntityClassName());
 			}
 		}
 				

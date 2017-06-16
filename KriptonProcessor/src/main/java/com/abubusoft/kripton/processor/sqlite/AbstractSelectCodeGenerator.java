@@ -122,13 +122,13 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		TypeName returnTypeName = method.getReturnClass();
 
 		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
-		int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
+		//int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
 
 		// take field list
-		String fieldStatement = fieldList.value0;
-		String tableStatement = daoDefinition.getEntity().getTableName();
+		//String fieldStatement = fieldList.value0;
+		//String tableStatement = daoDefinition.getEntity().getTableName();
 
-		boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.DISTINCT));
+		//boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.DISTINCT));
 
 		// parameters
 		List<String> paramNames = new ArrayList<String>();
@@ -214,10 +214,12 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		JavadocUtility.generateJavaDocForSelect(methodBuilder, paramNames, method, annotation, fieldList, selectType, javadocParts);
 
 		if (generationType.generateMethodContent) {
-			SplittedSql splittedSql=SqlSelectBuilder.generateSQL(method, methodBuilder);
+			SplittedSql splittedSql=SqlSelectBuilder.generateSQL(method, methodBuilder, false);
 			
 			methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
-			methodBuilder.addStatement("$T _projectionBuffer=new $T()", StringBuilder.class, StringBuilder.class);
+						
+			methodBuilder.addStatement("_sqlBuilder.append($S)", splittedSql.sqlBasic);
+			
 			SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, method.dynamicWhereParameterName, method.dynamicWhereArgsParameterName);			
 			
 			if (method.jql.isOrderBy()) {
@@ -278,7 +280,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			
 			if (daoDefinition.isLogEnabled()) {
 			    // manage log			    
-				methodBuilder.addStatement("$T.info(_sql,(Object[])_sqlArgs)", Logger.class);
+				methodBuilder.addStatement("$T.info(_sql)", Logger.class);
 			}
 			
 			// log for where parames

@@ -56,7 +56,7 @@ public @interface BindContentProviderEntry {
 	 * Define numerosity of result of operation exposed by content provider
 	 * @return
 	 */
-	public MultiplicityResultType MultiplicityResult() default MultiplicityResultType.DEFAULT;
+	public MultiplicityResultType multiplicityResult() default MultiplicityResultType.DEFAULT;
 	
 	public enum MultiplicityResultType {
 		/**

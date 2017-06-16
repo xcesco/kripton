@@ -44,7 +44,7 @@ public @interface BindContentProviderPath {
 	
 
 	/**
-	 * Name of type that content provider returns. If not specified, class name
+	 * Name of type that content provider returns. If not specified, class name with authority
 	 * will be used.
 	 * 
 	 * @return

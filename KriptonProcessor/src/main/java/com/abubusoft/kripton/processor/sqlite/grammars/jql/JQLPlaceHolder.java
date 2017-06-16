@@ -37,23 +37,7 @@ public class JQLPlaceHolder {
 		this.composed=value.indexOf(".")>=0;
 		this.type=type;
 	}
-	
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Parameter [");
-		if (type != null) {
-			builder.append("type=");
-			builder.append(type);
-			builder.append(", ");
-		}
-		if (value != null) {
-			builder.append("value=");
-			builder.append(value);
-		}
-		builder.append("]");
-		return builder.toString();
-	}
+
 
 	public enum JQLPlaceHolderType {
 		PARAMETER,		

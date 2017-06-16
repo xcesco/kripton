@@ -17,7 +17,6 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -406,8 +405,7 @@ public abstract class SqlModifyBuilder {
 			JQLChecker jqlChecker=JQLChecker.getInstance();
 			
 			final One<Boolean> usedInWhere = new One<Boolean>(false);
-			//final List<String> paramsLog = new ArrayList<String>();
-
+			
 			methodBuilder.addCode("\n// display log\n");
 
 			String sqlForLog = jqlChecker.replace(method.jql, new JQLReplacerListenerImpl() {

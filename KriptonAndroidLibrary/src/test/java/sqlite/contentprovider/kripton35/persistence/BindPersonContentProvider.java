@@ -179,7 +179,7 @@ public class BindPersonContentProvider extends ContentProvider {
         break;
       }
       default: {
-        throw new IllegalArgumentException("Unknown URI: " + uri);
+        throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
       }
     }
     Logger.info("Changes are notified for URI %s", uri);
@@ -227,7 +227,7 @@ public class BindPersonContentProvider extends ContentProvider {
         break;
       }
       default: {
-        throw new IllegalArgumentException("Unsupported URI for SELECT operation: " + uri);
+        throw new IllegalArgumentException("Unknown URI for SELECT operation: " + uri);
       }
     }
     return returnCursor;
@@ -261,7 +261,7 @@ public class BindPersonContentProvider extends ContentProvider {
         break;
       }
       default: {
-        throw new IllegalArgumentException("Unknown URI: " + uri);
+        throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
       }
     }
     Logger.info("Changes are notified for URI %s", uri);
@@ -286,39 +286,39 @@ public class BindPersonContentProvider extends ContentProvider {
   public String getType(Uri uri) {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
-        break;
+        return "vnd.android.cursor.dir/vnd.sqlite.contentprovider.kripton35.person";
       }
       case PATH_PERSON_2_INDEX: {
-        break;
+        return "vnd.android.cursor.item/vnd.sqlite.contentprovider.kripton35.person";
       }
       case PATH_PERSON_3_INDEX: {
-        break;
+        return "vnd.android.cursor.item/vnd.sqlite.contentprovider.kripton35.person";
       }
       case PATH_PERSON_4_INDEX: {
-        break;
+        return "vnd.android.cursor.item/vnd.sqlite.contentprovider.kripton35.person";
       }
       case PATH_PERSON_5_INDEX: {
-        break;
+        return "vnd.android.cursor.item/vnd.sqlite.contentprovider.kripton35.person";
       }
       case PATH_PERSON_6_INDEX: {
-        break;
+        return "vnd.android.cursor.item/vnd.sqlite.contentprovider.kripton35.person";
       }
       case PATH_PERSON_7_INDEX: {
-        break;
+        return "vnd.android.cursor.item/vnd.sqlite.contentprovider.kripton35.person";
       }
       case PATH_PERSON_8_INDEX: {
-        break;
+        return "vnd.android.cursor.item/vnd.sqlite.contentprovider.kripton35.person";
       }
       case PATH_PERSON_9_INDEX: {
-        break;
+        return "vnd.android.cursor.dir/vnd.sqlite.contentprovider.kripton35.person";
       }
       case PATH_PERSON_10_INDEX: {
-        break;
+        return "vnd.android.cursor.dir/vnd.sqlite.contentprovider.kripton35.person";
       }
       case PATH_PERSON_11_INDEX: {
-        break;
+        return "vnd.android.cursor.dir/vnd.sqlite.contentprovider.kripton35.person";
       }
     }
-    return null;
+    throw new IllegalArgumentException("Unknown URI for getType operation: " + uri);
   }
 }

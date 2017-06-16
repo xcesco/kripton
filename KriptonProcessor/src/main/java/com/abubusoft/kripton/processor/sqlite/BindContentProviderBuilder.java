@@ -30,9 +30,12 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.MultiplicityResultType;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -47,14 +50,12 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
 /**
@@ -85,6 +86,30 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		public String pathCostant;
 
 		public String pathIndex;
+		
+		public String getContentType() {
+			String type="item";
+			
+			String typeName=null;
+			SQLiteModelMethod[] methods={insert,update,delete,select};
+			
+			for (SQLiteModelMethod item: methods) {
+				if (item==null) continue;
+				if (typeName==null) {
+					typeName=item.getParent().contentProviderTypeName;
+				}
+				
+				String value=AnnotationUtility.extractAsEnumerationValue(BaseProcessor.elementUtils, item.getElement(), BindContentProviderEntry.class, AnnotationAttributeType.MULTIPLICITY_RESULT);
+				MultiplicityResultType multiplicity=MultiplicityResultType.valueOf(value);
+				
+				if (multiplicity==MultiplicityResultType.MANY || (multiplicity==MultiplicityResultType.DEFAULT && item.jql.operationType==JQLType.SELECT)) {
+					type="dir";
+				} 
+			}			
+			
+			return "vnd.android.cursor."+type+"/vnd."+ typeName;
+			
+		}
 	}
 
 	protected Map<String, ContentEntry> uriSet = new LinkedHashMap<>();
@@ -258,7 +283,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.endControlFlow();
 		}
 
-		methodBuilder.beginControlFlow("default:");
+		methodBuilder.beginControlFlow("default:");		
 		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.INSERT);
 		methodBuilder.endControlFlow();
 
@@ -287,7 +312,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.DELETE);
 
 		if (!hasOperation) {
-			methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+			methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.DELETE);
 			classBuilder.addMethod(methodBuilder.build());
 			return;
 		}
@@ -309,7 +334,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		}
 
 		methodBuilder.beginControlFlow("default:");
-		methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.DELETE);
 		methodBuilder.endControlFlow();
 
 		methodBuilder.endControlFlow();
@@ -335,7 +360,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.UPDATE);
 
 		if (!hasOperation) {
-			methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+			methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.UPDATE);
 			classBuilder.addMethod(methodBuilder.build());
 			return;
 		}
@@ -358,7 +383,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		}
 
 		methodBuilder.beginControlFlow("default:");
-		methodBuilder.addStatement("throw new $T(\"Unknown URI: \" + uri)", IllegalArgumentException.class);
+		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.UPDATE);
 		methodBuilder.endControlFlow();
 
 		methodBuilder.endControlFlow();
@@ -411,12 +436,12 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
-			methodBuilder.addStatement("break");
+			methodBuilder.addStatement("return $S",item.getValue().getContentType());			
 			methodBuilder.endControlFlow();
 		}
 		methodBuilder.endControlFlow();
 
-		methodBuilder.addCode("return null;\n");
+		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, "getType");
 
 		classBuilder.addMethod(methodBuilder.build());
 
@@ -461,7 +486,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.SELECT);
 
 		if (!hasOperation) {
-			methodBuilder.addStatement("throw new $T(\"Unsupported URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.SELECT);
+			methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.SELECT);
 			classBuilder.addMethod(methodBuilder.build());
 			return;
 		}
@@ -491,7 +516,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.endControlFlow();
 		}
 		methodBuilder.beginControlFlow("default:");
-		methodBuilder.addStatement("throw new $T(\"Unsupported URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.SELECT);
+		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.SELECT);		
 		methodBuilder.endControlFlow();
 
 		methodBuilder.endControlFlow();
@@ -502,81 +527,6 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		classBuilder.addMethod(methodBuilder.build());
 	}
-
-	/**
-	 * <p>
-	 * Generate transaction an execute method
-	 * </p>
-	 * 
-	 * @param dataSource
-	 */
-	public void generateMethodExecute(String daoFactory) {
-
-		// create interface
-		String transationExecutorName = "Transaction";
-		//@formatter:off
-		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className("AbstractTransaction"), className(daoFactory));
-		classBuilder.addType(
-				TypeSpec.interfaceBuilder(transationExecutorName)
-				.addModifiers(Modifier.PUBLIC)
-				.addSuperinterface(parameterizedTypeName)
-				.addJavadoc("interface to define transactions\n").build());
-		//@formatter:on
-
-		// create SimpleTransaction class
-		String simpleTransactionClassName = "SimpleTransaction";
-		//@formatter:off
-		classBuilder.addType(
-				TypeSpec.classBuilder(simpleTransactionClassName)
-				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
-				.addSuperinterface(className(transationExecutorName))
-				.addJavadoc("Simple class implements interface to define transactions\n")
-				.addMethod(MethodSpec.methodBuilder("onError")
-						.addAnnotation(Override.class)
-						.returns(Void.TYPE)
-						.addModifiers(Modifier.PUBLIC)
-						.addParameter(Throwable.class, "e")						
-						.addStatement("throw(new $T(e))", KriptonRuntimeException.class)
-						.build()
-						)
-				.build());
-				
-				
-		//@formatter:on
-
-		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName), "transaction");
-
-		executeMethod.addCode("$T connection=openWritableDatabase();\n", SQLiteDatabase.class);
-
-		executeMethod.beginControlFlow("try");
-		executeMethod.addCode("connection.beginTransaction();\n");
-
-		executeMethod.beginControlFlow("if (transaction!=null && transaction.onExecute(this))");
-		executeMethod.addCode("connection.setTransactionSuccessful();\n");
-		executeMethod.endControlFlow();
-
-		executeMethod.nextControlFlow("catch($T e)", Throwable.class);
-
-		executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
-		executeMethod.addStatement("e.printStackTrace()");
-		executeMethod.addStatement("if (transaction!=null) transaction.onError(e)");
-
-		executeMethod.nextControlFlow("finally");
-		executeMethod.beginControlFlow("try");
-		executeMethod.addStatement("connection.endTransaction()");
-		executeMethod.nextControlFlow("catch ($T e)", Throwable.class);
-		executeMethod.addStatement("$T.warn(\"error closing transaction %s\", e.getMessage())", Logger.class);
-		executeMethod.endControlFlow();
-		executeMethod.addStatement("close()");
-		executeMethod.endControlFlow();
-
-		// generate javadoc
-		executeMethod.addJavadoc("<p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The"
-				+ "drawback is only one transaction at time can be executed. The database will be open in write mode.</p>\n");
-		executeMethod.addJavadoc("\n");
-		executeMethod.addJavadoc("@param transaction\n\ttransaction to execute\n");
-
-		classBuilder.addMethod(executeMethod.build());
-	}
+	
 
 }

@@ -48,7 +48,7 @@ public interface PersonDAO {
 	List<Person> selectAll();
 	
 	@BindSqlSelect(where="id=${id}")
-	@BindContentProviderEntry(path="/#", MultiplicityResult=MultiplicityResultType.ONE)
+	@BindContentProviderEntry(path="/#", multiplicityResult=MultiplicityResultType.ONE)
 	Person selectOne(long id);
 	
 	

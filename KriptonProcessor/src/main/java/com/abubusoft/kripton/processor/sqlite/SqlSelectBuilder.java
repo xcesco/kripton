@@ -205,7 +205,7 @@ public abstract class SqlSelectBuilder {
 		SqlBuilderHelper.generateLogForContentProviderBeginning(method, methodBuilder);
 		
 		JQLChecker jqlChecker=JQLChecker.getInstance();
-		SplittedSql splittedSql=generateSQL(method, methodBuilder);
+		SplittedSql splittedSql=generateSQL(method, methodBuilder, true);
 
 		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(splittedSql.sqlWhereStatement);
 		// remove placeholder for dynamic where, we are not interested here
@@ -353,7 +353,7 @@ public abstract class SqlSelectBuilder {
 		}
 	}
 
-	static SplittedSql generateSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+	static SplittedSql generateSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, final boolean replaceProjectedColumns) {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 		final SQLEntity entity=method.getParent().getEntity();
 		final SQLiteDatabaseSchema schema=method.getParent().getParent();
@@ -433,7 +433,7 @@ public abstract class SqlSelectBuilder {
 
 			@Override
 			public String onProjectedColumns(String statement) {
-				return "%s";
+				if (replaceProjectedColumns) return "%s"; else return null;
 			}
 		});
 		

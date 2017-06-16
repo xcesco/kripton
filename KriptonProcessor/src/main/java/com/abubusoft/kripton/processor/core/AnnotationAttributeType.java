@@ -80,7 +80,9 @@ public enum AnnotationAttributeType {
 	WHERE("where"),
 	
 	XML_ELEMENT_TAG("elementTag"), 
-	XML_TYPE("xmlType")
+	XML_TYPE("xmlType"),
+	
+	MULTIPLICITY_RESULT("multiplicityResult")
 	;
 	
 	
