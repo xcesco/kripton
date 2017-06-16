@@ -115,7 +115,6 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity=daoDefinition.getEntity();
 
 		String sqlInsert;
 		// generate javadoc and result

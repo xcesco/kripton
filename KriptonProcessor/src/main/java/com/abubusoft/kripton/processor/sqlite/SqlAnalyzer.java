@@ -33,7 +33,6 @@ import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundEx
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
-import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
@@ -145,12 +144,10 @@ public class SqlAnalyzer {
 		
 		TypeName rawNameType;
 		// analyze parametersName
-		String[] splittedName;
 		String effectiveName;
 		for (String rawName: paramNames)
 		{
 			JQLParameterName pName=JQLParameterName.parse(rawName);			
-			String propertyName=pName.getValue();						
 			
 			if (!pName.isNested())
 			{
@@ -165,7 +162,6 @@ public class SqlAnalyzer {
 				
 				usedMethodParameters.add(effectiveName);
 			} else {
-				//TODO verify
 				if (method.findParameterTypeByAliasOrName(pName.getBeanName())==null)
 				{
 					throw new MethodParameterNotFoundException(method, pName.getBeanName());
