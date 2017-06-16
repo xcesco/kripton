@@ -54,7 +54,8 @@ public class TestJqlChecker extends BaseProcessorTest {
 	 */
 	@Test
 	public void testOK() throws Throwable {				
-		String sql = "SELECT id, action, number, countryCode, contactName, contactId FROM phone_number WHERE number = ${bean.number} and number = ${bean.number} and #{"+JQLDynamicStatementType.DYNAMIC_WHERE+"}";
+		String sql = "SELECT id, action, number, countryCode, contactName, contactId FROM phone_number WHERE number = ${bean.number} and number like ${bean.number} || '%' and #{"+JQLDynamicStatementType.DYNAMIC_WHERE+"}";
+		log(sql);
 		JQL jql=new JQL();
 		jql.value=sql;
 

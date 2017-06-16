@@ -126,7 +126,7 @@ public class TestUriChecker extends BaseProcessorTest {
 
 			@Override
 			public String onParameterName(int pathSegmentIndex, String name) {
-				log("segment : %s, name: %s", pathSegmentIndex, name);				
+				log("segment : %s, name: [%s]", pathSegmentIndex, name);				
 				return "?";
 			}
 		});
