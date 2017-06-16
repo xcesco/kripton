@@ -52,12 +52,26 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public DoubleBean selectOne() {
-    // build where condition
-    String[] _args={};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    String _sqlWhereStatement="";
 
+    // build where condition
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       DoubleBean resultBean=null;
@@ -102,12 +116,34 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public DoubleBean selectOne(List<Double> value) {
-    // build where condition
-    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE value=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       DoubleBean resultBean=null;
@@ -153,12 +189,34 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public void selectOne(List<Double> value, OnReadBeanListener<DoubleBean> listener) {
-    // build where condition
-    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE value=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
       DoubleBean resultBean=new DoubleBean();
       if (cursor.moveToFirst()) {
@@ -210,12 +268,34 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public void selectOne(List<Double> value, OnReadCursorListener listener) {
-    // build where condition
-    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE value=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {
@@ -251,12 +331,34 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public List<DoubleBean> selectList(List<Double> value) {
-    // build where condition
-    String[] _args={(value==null?"":new String(serializer1(value),StandardCharsets.UTF_8))};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE value=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value, value2 FROM double_bean WHERE value='%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value, value2 FROM double_bean WHERE value=?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<DoubleBean> resultList=new LinkedList<DoubleBean>();
@@ -318,11 +420,45 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
       contentValues.putNull("value");
     }
 
-    String[] whereConditionsArray={(id==null?"":String.valueOf(id)), (paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8))};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add((id==null?"":String.valueOf(id)));
+    _sqlWhereParams.add((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id=? and value=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE double_bean SET value='"+StringUtils.checkSize(contentValues.get("value"))+"' WHERE id=%s and value=%s", (Object[])whereConditionsArray));
-    int result = database().update("double_bean", contentValues, "id=? and value=?", whereConditionsArray);
+
+    // display log
+    Logger.info("UPDATE double_bean SET value=:value WHERE id=? and value=?");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().update("double_bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 
@@ -356,9 +492,30 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
       contentValues.putNull("value");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
-    // log
-    Logger.info(SqlUtils.formatSQL("INSERT INTO double_bean (id, value) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("value"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT INTO double_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     long result = database().insert("double_bean", null, contentValues);
     return result;
   }
@@ -398,7 +555,30 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT INTO double_bean (value, value2) VALUES ('"+StringUtils.checkSize(contentValues.get("value"))+"', '"+StringUtils.checkSize(contentValues.get("value2"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT INTO double_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     long result = database().insert("double_bean", null, contentValues);
     bean.id=result;
 
@@ -421,11 +601,32 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public long delete(List<Double> paramValue) {
-    String[] whereConditionsArray={(paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8))};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" value=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("DELETE double_bean WHERE value=%s", (Object[])whereConditionsArray));
-    int result = database().delete("double_bean", "value=?", whereConditionsArray);
+
+    // display log
+    Logger.info("DELETE FROM double_bean WHERE value=?");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().delete("double_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 

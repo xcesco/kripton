@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY typeName</pre>
+   * <pre>SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY description</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -58,12 +59,31 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    */
   @Override
   public List<FirstAid> selectAll() {
-    // build where condition
-    String[] _args={};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    String _sqlWhereStatement="";
 
+    // build where condition
+
+    // manage order by statement
+    String _sqlOrderByStatement=" ORDER BY description";
+    _sqlBuilder.append(_sqlOrderByStatement);
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY typeName",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY typeName", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<FirstAid> resultList=new LinkedList<FirstAid>();
@@ -142,11 +162,31 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    */
   @Override
   public int deleteAll() {
-    String[] whereConditionsArray={};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" 1=1";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("DELETE first_aid WHERE 1=1", (Object[])whereConditionsArray));
-    int result = database().delete("first_aid", "1=1", whereConditionsArray);
+
+    // display log
+    Logger.info("DELETE FROM first_aid WHERE 1=1");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().delete("first_aid", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 
@@ -286,7 +326,30 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT INTO first_aid (uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time) VALUES ('"+StringUtils.checkSize(contentValues.get("uid"))+"', '"+StringUtils.checkSize(contentValues.get("description"))+"', '"+StringUtils.checkSize(contentValues.get("info"))+"', '"+StringUtils.checkSize(contentValues.get("longitude"))+"', '"+StringUtils.checkSize(contentValues.get("latitude"))+"', '"+StringUtils.checkSize(contentValues.get("address"))+"', '"+StringUtils.checkSize(contentValues.get("address2"))+"', '"+StringUtils.checkSize(contentValues.get("city"))+"', '"+StringUtils.checkSize(contentValues.get("phone"))+"', '"+StringUtils.checkSize(contentValues.get("total_patient_count"))+"', '"+StringUtils.checkSize(contentValues.get("white_waiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("white_visiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("white_average_waiting_time"))+"', '"+StringUtils.checkSize(contentValues.get("green_waiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("green_visiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("green_average_waiting_time"))+"', '"+StringUtils.checkSize(contentValues.get("yellow_waiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("yellow_visiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("yellow_average_waiting_time"))+"', '"+StringUtils.checkSize(contentValues.get("red_waiting_patients"))+"', '"+StringUtils.checkSize(contentValues.get("red_average_waiting_time"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT INTO first_aid (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     long result = database().insert("first_aid", null, contentValues);
     bean.id=result;
 

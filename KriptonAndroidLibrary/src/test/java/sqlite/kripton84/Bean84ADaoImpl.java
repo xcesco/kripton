@@ -40,11 +40,15 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a</pre>
+   * <pre>SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>param1</dt><dd>is associated to bean's property <strong>param1</strong></dd>
+   * 	<dt>param2</dt><dd>is associated to bean's property <strong>param2</strong></dd>
+   * 	<dt>param3</dt><dd>is associated to bean's property <strong>param3</strong></dd>
+   * 	<dt>param4</dt><dd>is associated to bean's property <strong>param4</strong></dd>
    * 	<dt>column_list_string</dt><dd>is associated to bean's property <strong>columnListString</strong></dd>
    * 	<dt>column_map_integer_string</dt><dd>is associated to bean's property <strong>columnMapIntegerString</strong></dd>
    * 	<dt>column_array_char</dt><dd>is associated to bean's property <strong>columnArrayChar</strong></dd>
@@ -58,12 +62,26 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectAll() {
-    // build where condition
-    String[] _args={};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    String _sqlWhereStatement="";
 
+    // build where condition
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean84A> resultList=new LinkedList<Bean84A>();
@@ -72,26 +90,34 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("column_list_string");
-        int index2=cursor.getColumnIndex("column_map_integer_string");
-        int index3=cursor.getColumnIndex("column_array_char");
-        int index4=cursor.getColumnIndex("column_array_char_type");
-        int index5=cursor.getColumnIndex("column_bean");
-        int index6=cursor.getColumnIndex("column_array_byte_type");
-        int index7=cursor.getColumnIndex("value_string");
+        int index1=cursor.getColumnIndex("param1");
+        int index2=cursor.getColumnIndex("param2");
+        int index3=cursor.getColumnIndex("param3");
+        int index4=cursor.getColumnIndex("param4");
+        int index5=cursor.getColumnIndex("column_list_string");
+        int index6=cursor.getColumnIndex("column_map_integer_string");
+        int index7=cursor.getColumnIndex("column_array_char");
+        int index8=cursor.getColumnIndex("column_array_char_type");
+        int index9=cursor.getColumnIndex("column_bean");
+        int index10=cursor.getColumnIndex("column_array_byte_type");
+        int index11=cursor.getColumnIndex("value_string");
 
         do
          {
           resultBean=new Bean84A();
 
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.columnListString=Bean84ATable.parseColumnListString(cursor.getBlob(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(cursor.getBlob(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.columnArrayByteType=Bean84ATable.parseColumnArrayByteType(cursor.getBlob(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.valueString=cursor.getString(index7); }
+          if (!cursor.isNull(index1)) { resultBean.param1=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.param2=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.param3=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.param4=cursor.getString(index4); }
+          if (!cursor.isNull(index5)) { resultBean.columnListString=Bean84ATable.parseColumnListString(cursor.getBlob(index5)); }
+          if (!cursor.isNull(index6)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(cursor.getBlob(index6)); }
+          if (!cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index7)); }
+          if (!cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index8)); }
+          if (!cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index9)); }
+          if (!cursor.isNull(index10)) { resultBean.columnArrayByteType=Bean84ATable.parseColumnArrayByteType(cursor.getBlob(index10)); }
+          if (!cursor.isNull(index11)) { resultBean.valueString=cursor.getString(index11); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -104,11 +130,15 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=${id}</pre>
+   * <pre>SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>param1</dt><dd>is associated to bean's property <strong>param1</strong></dd>
+   * 	<dt>param2</dt><dd>is associated to bean's property <strong>param2</strong></dd>
+   * 	<dt>param3</dt><dd>is associated to bean's property <strong>param3</strong></dd>
+   * 	<dt>param4</dt><dd>is associated to bean's property <strong>param4</strong></dd>
    * 	<dt>column_list_string</dt><dd>is associated to bean's property <strong>columnListString</strong></dd>
    * 	<dt>column_map_integer_string</dt><dd>is associated to bean's property <strong>columnMapIntegerString</strong></dd>
    * 	<dt>column_array_char</dt><dd>is associated to bean's property <strong>columnArrayChar</strong></dd>
@@ -129,12 +159,34 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectById(long uid) {
-    // build where condition
-    String[] _args={String.valueOf(uid)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(uid));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id='%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean84A> resultList=new LinkedList<Bean84A>();
@@ -143,26 +195,34 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("column_list_string");
-        int index2=cursor.getColumnIndex("column_map_integer_string");
-        int index3=cursor.getColumnIndex("column_array_char");
-        int index4=cursor.getColumnIndex("column_array_char_type");
-        int index5=cursor.getColumnIndex("column_bean");
-        int index6=cursor.getColumnIndex("column_array_byte_type");
-        int index7=cursor.getColumnIndex("value_string");
+        int index1=cursor.getColumnIndex("param1");
+        int index2=cursor.getColumnIndex("param2");
+        int index3=cursor.getColumnIndex("param3");
+        int index4=cursor.getColumnIndex("param4");
+        int index5=cursor.getColumnIndex("column_list_string");
+        int index6=cursor.getColumnIndex("column_map_integer_string");
+        int index7=cursor.getColumnIndex("column_array_char");
+        int index8=cursor.getColumnIndex("column_array_char_type");
+        int index9=cursor.getColumnIndex("column_bean");
+        int index10=cursor.getColumnIndex("column_array_byte_type");
+        int index11=cursor.getColumnIndex("value_string");
 
         do
          {
           resultBean=new Bean84A();
 
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.columnListString=Bean84ATable.parseColumnListString(cursor.getBlob(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(cursor.getBlob(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.columnArrayByteType=Bean84ATable.parseColumnArrayByteType(cursor.getBlob(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.valueString=cursor.getString(index7); }
+          if (!cursor.isNull(index1)) { resultBean.param1=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.param2=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.param3=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.param4=cursor.getString(index4); }
+          if (!cursor.isNull(index5)) { resultBean.columnListString=Bean84ATable.parseColumnListString(cursor.getBlob(index5)); }
+          if (!cursor.isNull(index6)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(cursor.getBlob(index6)); }
+          if (!cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index7)); }
+          if (!cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index8)); }
+          if (!cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index9)); }
+          if (!cursor.isNull(index10)) { resultBean.columnArrayByteType=Bean84ATable.parseColumnArrayByteType(cursor.getBlob(index10)); }
+          if (!cursor.isNull(index11)) { resultBean.valueString=cursor.getString(index11); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -175,11 +235,15 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE columnListString=${param1} and columnMapIntegerString=${param2} and columnArrayChar=${param3}  and columnArrayCharType=${param4}</pre>
+   * <pre>SELECT param1, param2, param3, param4 FROM bean84_a WHERE column_list_string=${param1} and column_map_integer_string=${param2} and column_array_char=${param3}  and column_array_char_type=${param4}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>param1</dt><dd>is associated to bean's property <strong>param1</strong></dd>
+   * 	<dt>param2</dt><dd>is associated to bean's property <strong>param2</strong></dd>
+   * 	<dt>param3</dt><dd>is associated to bean's property <strong>param3</strong></dd>
+   * 	<dt>param4</dt><dd>is associated to bean's property <strong>param4</strong></dd>
    * 	<dt>column_list_string</dt><dd>is associated to bean's property <strong>columnListString</strong></dd>
    * 	<dt>column_map_integer_string</dt><dd>is associated to bean's property <strong>columnMapIntegerString</strong></dd>
    * 	<dt>column_array_char</dt><dd>is associated to bean's property <strong>columnArrayChar</strong></dd>
@@ -209,12 +273,37 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectWhere(List<String> param1, Map<Integer, String> param2, Character[] param3, char[] param4) {
-    // build where condition
-    String[] _args={(param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)), (param2==null?"":new String(serializer2(param2),StandardCharsets.UTF_8)), (param3==null?"":new String(serializer3(param3),StandardCharsets.UTF_8)), (param4==null?"":new String(serializer4(param4),StandardCharsets.UTF_8))};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE columnListString=? and columnMapIntegerString=? and columnArrayChar=?  and columnArrayCharType=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((param2==null?"":new String(serializer2(param2),StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((param3==null?"":new String(serializer3(param3),StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((param4==null?"":new String(serializer4(param4),StandardCharsets.UTF_8)));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string='%s' and column_map_integer_string='%s' and column_array_char='%s'  and column_array_char_type='%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string=? and column_map_integer_string=? and column_array_char=?  and column_array_char_type=?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean84A> resultList=new LinkedList<Bean84A>();
@@ -223,26 +312,34 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("column_list_string");
-        int index2=cursor.getColumnIndex("column_map_integer_string");
-        int index3=cursor.getColumnIndex("column_array_char");
-        int index4=cursor.getColumnIndex("column_array_char_type");
-        int index5=cursor.getColumnIndex("column_bean");
-        int index6=cursor.getColumnIndex("column_array_byte_type");
-        int index7=cursor.getColumnIndex("value_string");
+        int index1=cursor.getColumnIndex("param1");
+        int index2=cursor.getColumnIndex("param2");
+        int index3=cursor.getColumnIndex("param3");
+        int index4=cursor.getColumnIndex("param4");
+        int index5=cursor.getColumnIndex("column_list_string");
+        int index6=cursor.getColumnIndex("column_map_integer_string");
+        int index7=cursor.getColumnIndex("column_array_char");
+        int index8=cursor.getColumnIndex("column_array_char_type");
+        int index9=cursor.getColumnIndex("column_bean");
+        int index10=cursor.getColumnIndex("column_array_byte_type");
+        int index11=cursor.getColumnIndex("value_string");
 
         do
          {
           resultBean=new Bean84A();
 
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.columnListString=Bean84ATable.parseColumnListString(cursor.getBlob(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(cursor.getBlob(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.columnArrayByteType=Bean84ATable.parseColumnArrayByteType(cursor.getBlob(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.valueString=cursor.getString(index7); }
+          if (!cursor.isNull(index1)) { resultBean.param1=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.param2=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.param3=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.param4=cursor.getString(index4); }
+          if (!cursor.isNull(index5)) { resultBean.columnListString=Bean84ATable.parseColumnListString(cursor.getBlob(index5)); }
+          if (!cursor.isNull(index6)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(cursor.getBlob(index6)); }
+          if (!cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index7)); }
+          if (!cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index8)); }
+          if (!cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index9)); }
+          if (!cursor.isNull(index10)) { resultBean.columnArrayByteType=Bean84ATable.parseColumnArrayByteType(cursor.getBlob(index10)); }
+          if (!cursor.isNull(index11)) { resultBean.valueString=cursor.getString(index11); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -254,12 +351,16 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean84_a (column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string) VALUES (${bean.columnListString}, ${bean.columnMapIntegerString}, ${bean.columnArrayChar}, ${bean.columnArrayCharType}, ${bean.columnBean}, ${bean.columnArrayByteType}, ${bean.valueString})</pre>
+   * <pre>INSERT INTO bean84_a (param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string) VALUES (${bean.param1}, ${bean.param2}, ${bean.param3}, ${bean.param4}, ${bean.columnListString}, ${bean.columnMapIntegerString}, ${bean.columnArrayChar}, ${bean.columnArrayCharType}, ${bean.columnBean}, ${bean.columnArrayByteType}, ${bean.valueString})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>param1</dt><dd>is mapped to <strong>${bean.param1}</strong></dd>
+   * 	<dt>param2</dt><dd>is mapped to <strong>${bean.param2}</strong></dd>
+   * 	<dt>param3</dt><dd>is mapped to <strong>${bean.param3}</strong></dd>
+   * 	<dt>param4</dt><dd>is mapped to <strong>${bean.param4}</strong></dd>
    * 	<dt>column_list_string</dt><dd>is mapped to <strong>${bean.columnListString}</strong></dd>
    * 	<dt>column_map_integer_string</dt><dd>is mapped to <strong>${bean.columnMapIntegerString}</strong></dd>
    * 	<dt>column_array_char</dt><dd>is mapped to <strong>${bean.columnArrayChar}</strong></dd>
@@ -278,6 +379,30 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   public boolean insertAll(Bean84A bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
+
+    if (bean.param1!=null) {
+      contentValues.put("param1", bean.param1);
+    } else {
+      contentValues.putNull("param1");
+    }
+
+    if (bean.param2!=null) {
+      contentValues.put("param2", bean.param2);
+    } else {
+      contentValues.putNull("param2");
+    }
+
+    if (bean.param3!=null) {
+      contentValues.put("param3", bean.param3);
+    } else {
+      contentValues.putNull("param3");
+    }
+
+    if (bean.param4!=null) {
+      contentValues.put("param4", bean.param4);
+    } else {
+      contentValues.putNull("param4");
+    }
 
     if (bean.columnListString!=null) {
       contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
@@ -322,7 +447,30 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT INTO bean84_a (column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string) VALUES ('"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', '"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', '"+StringUtils.checkSize(contentValues.get("column_bean"))+"', '"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', '"+StringUtils.checkSize(contentValues.get("value_string"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean84_a (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     long result = database().insert("bean84_a", null, contentValues);
     bean.id=result;
 
@@ -354,19 +502,44 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       contentValues.putNull("column_list_string");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
-    // log
-    Logger.info(SqlUtils.formatSQL("INSERT INTO bean84_a (column_list_string) VALUES ('"+StringUtils.checkSize(contentValues.get("column_list_string"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean84_a (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     long result = database().insert("bean84_a", null, contentValues);
     return result!=-1;
   }
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean84_a SET column_list_string=${bean.columnListString}, column_map_integer_string=${bean.columnMapIntegerString}, column_array_char=${bean.columnArrayChar}, column_array_char_type=${bean.columnArrayCharType}, column_bean=${bean.columnBean}, column_array_byte_type=${bean.columnArrayByteType}, value_string=${bean.valueString} WHERE </pre>
+   * <pre>UPDATE bean84_a SET param1=${bean.param1}, param2=${bean.param2}, param3=${bean.param3}, param4=${bean.param4}, column_list_string=${bean.columnListString}, column_map_integer_string=${bean.columnMapIntegerString}, column_array_char=${bean.columnArrayChar}, column_array_char_type=${bean.columnArrayCharType}, column_bean=${bean.columnBean}, column_array_byte_type=${bean.columnArrayByteType}, value_string=${bean.valueString} WHERE </pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
+   * 	<dt>param1</dt><dd>is mapped to <strong>${bean.param1}</strong></dd>
+   * 	<dt>param2</dt><dd>is mapped to <strong>${bean.param2}</strong></dd>
+   * 	<dt>param3</dt><dd>is mapped to <strong>${bean.param3}</strong></dd>
+   * 	<dt>param4</dt><dd>is mapped to <strong>${bean.param4}</strong></dd>
    * 	<dt>column_list_string</dt><dd>is mapped to <strong>${bean.columnListString}</strong></dd>
    * 	<dt>column_map_integer_string</dt><dd>is mapped to <strong>${bean.columnMapIntegerString}</strong></dd>
    * 	<dt>column_array_char</dt><dd>is mapped to <strong>${bean.columnArrayChar}</strong></dd>
@@ -385,6 +558,30 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   public boolean updateAll(Bean84A bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
+
+    if (bean.param1!=null) {
+      contentValues.put("param1", bean.param1);
+    } else {
+      contentValues.putNull("param1");
+    }
+
+    if (bean.param2!=null) {
+      contentValues.put("param2", bean.param2);
+    } else {
+      contentValues.putNull("param2");
+    }
+
+    if (bean.param3!=null) {
+      contentValues.put("param3", bean.param3);
+    } else {
+      contentValues.putNull("param3");
+    }
+
+    if (bean.param4!=null) {
+      contentValues.put("param4", bean.param4);
+    } else {
+      contentValues.putNull("param4");
+    }
 
     if (bean.columnListString!=null) {
       contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
@@ -428,11 +625,36 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       contentValues.putNull("value_string");
     }
 
-    String[] whereConditionsArray={};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sqlWhereStatement="";
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE bean84_a SET column_list_string='"+StringUtils.checkSize(contentValues.get("column_list_string"))+"', column_map_integer_string='"+StringUtils.checkSize(contentValues.get("column_map_integer_string"))+"', column_array_char='"+StringUtils.checkSize(contentValues.get("column_array_char"))+"', column_array_char_type='"+StringUtils.checkSize(contentValues.get("column_array_char_type"))+"', column_bean='"+StringUtils.checkSize(contentValues.get("column_bean"))+"', column_array_byte_type='"+StringUtils.checkSize(contentValues.get("column_array_byte_type"))+"', value_string='"+StringUtils.checkSize(contentValues.get("value_string"))+"' WHERE ", (Object[]) whereConditionsArray));
-    int result = database().update("bean84_a", contentValues, "", whereConditionsArray);
+
+    // display log
+    Logger.info("UPDATE bean84_a SET param1=:param1, param2=:param2, param3=:param3, param4=:param4, columnListString=:column_list_string, columnMapIntegerString=:column_map_integer_string, columnArrayChar=:column_array_char, columnArrayCharType=:column_array_char_type, columnBean=:column_bean, columnArrayByteType=:column_array_byte_type, valueString=:value_string");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().update("bean84_a", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result!=0;
   }
 
@@ -447,12 +669,168 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public boolean deleteAll(Bean84A bean) {
-    String[] whereConditionsArray={};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" 1=1";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("DELETE bean84_a WHERE 1=1 ", (Object[]) whereConditionsArray));
-    int result = database().delete("bean84_a", "1=1", whereConditionsArray);
+
+    // display log
+    Logger.info("DELETE FROM bean84_a WHERE 1=1");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().delete("bean84_a", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result!=0;
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer4(char[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.length;
+        char item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private char[] parser4(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      char[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer3(Character[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.length;
+        Character item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private Character[] parser3(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Character[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
   }
 
   /**
@@ -597,142 +975,6 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
           jacksonParser.nextToken();
         }
         result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
-  private byte[] serializer3(Character[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        Character item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeNumber(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private Character[] parser3(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Character[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Character> collection=new ArrayList<>();
-        Character item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=Character.valueOf((char)jacksonParser.getIntValue());
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asCharacterArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
-  private byte[] serializer4(char[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        char item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          jacksonSerializer.writeNumber(item);
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private char[] parser4(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      char[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Character> collection=new ArrayList<>();
-        Character item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=Character.valueOf((char)jacksonParser.getIntValue());
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asCharacterTypeArray(collection);
       }
       return result;
     } catch(Exception e) {

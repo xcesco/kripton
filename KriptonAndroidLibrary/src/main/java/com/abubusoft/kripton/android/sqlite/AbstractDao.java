@@ -22,56 +22,54 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * This class become the parent class for every Dao generated. Every Dao have to be defined by an interface with {@link BindDao} annotation.
+ * This class become the parent class for every Dao generated. Every Dao have to
+ * be defined by an interface with {@link BindDao} annotation.
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
 public abstract class AbstractDao implements AutoCloseable {
-	
-	public AbstractDao(AbstractDataSource dataSource)
-	{
-		this.dataSource=dataSource;
+
+	public AbstractDao(AbstractDataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
 	protected AbstractDataSource dataSource;
-	
+
 	/**
 	 * Retrieve SQLite database instance
+	 * 
 	 * @return
 	 */
-	protected SQLiteDatabase database()
-	{
-		SQLiteDatabase database=dataSource.database;
-		if (database==null) throw(new KriptonRuntimeException("No database connection is opened before use "+this.getClass().getCanonicalName()));
+	protected SQLiteDatabase database() {
+		SQLiteDatabase database = dataSource.database;
+		if (database == null)
+			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
 		return database;
 	}
-	
+
 	@Override
 	public void close() {
-		// for the moment, we do nothing here. 
-		
+		// for the moment, we do nothing here.
+
 	}
 
-	protected ContentValues contentValues()
-	{
+	protected ContentValues contentValues() {
 		return contentValues.get();
 	}
 
 	/**
+	 * <p>
 	 * ContentValues used to fill query parameters. Thread safe
+	 * </p>
 	 */
 	private static final ThreadLocal<ContentValues> contentValues = new ThreadLocal<ContentValues>() {
 
-		/* (non-Javadoc)
-		 * @see java.lang.ThreadLocal#initialValue()
-		 */
 		@Override
 		protected ContentValues initialValue() {
 			return new ContentValues();
 		}
-		
+
 	};
-	
 
 }

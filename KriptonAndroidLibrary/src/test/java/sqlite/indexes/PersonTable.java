@@ -20,9 +20,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day); CREATE INDEX IF NOT EXISTS idx_person_0 (surname);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day); CREATE INDEX IF NOT EXISTS idx_person_0 (surname);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day); CREATE INDEX IF NOT EXISTS idx_person_0 (surname);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day); CREATE INDEX IF NOT EXISTS idx_person_0 (surname);";
 
   /**
    * <p>
@@ -39,6 +39,27 @@ public class PersonTable {
    *  @see Person#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Entity's property <code>typeName</code> is associated to table column <code>type_name</code>. This costant represents column typeName.
+   *
+   *  @see Person#typeName
+   */
+  public static final String COLUMN_TYPE_NAME = "type_name";
+
+  /**
+   * Entity's property <code>nameTemp</code> is associated to table column <code>name_temp</code>. This costant represents column typeName.
+   *
+   *  @see Person#nameTemp
+   */
+  public static final String COLUMN_NAME_TEMP = "name_temp";
+
+  /**
+   * Entity's property <code>date</code> is associated to table column <code>date</code>. This costant represents column typeName.
+   *
+   *  @see Person#date
+   */
+  public static final String COLUMN_DATE = "date";
 
   /**
    * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.

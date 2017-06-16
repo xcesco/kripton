@@ -20,9 +20,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT, type_name TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT, type_name TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name);";
 
   /**
    * <p>
@@ -67,4 +67,11 @@ public class PersonTable {
    *  @see Person#birthDay
    */
   public static final String COLUMN_BIRTH_DAY = "birth_day";
+
+  /**
+   * Entity's property <code>typeName</code> is associated to table column <code>type_name</code>. This costant represents column typeName.
+   *
+   *  @see Person#typeName
+   */
+  public static final String COLUMN_TYPE_NAME = "type_name";
 }

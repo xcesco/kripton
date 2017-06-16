@@ -27,6 +27,12 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Person {
   public long id;
   
+  public String typeName;
+  
+  public String nameTemp;
+  
+  public String date;
+  
   
   @BindColumn(columnType=ColumnType.INDEXED)
   public String name;

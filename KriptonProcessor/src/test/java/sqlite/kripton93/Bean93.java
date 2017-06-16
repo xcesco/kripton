@@ -26,4 +26,6 @@ public class Bean93 {
 	
 	public String surname;
 	
+	public String typeName;
+	
 }

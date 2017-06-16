@@ -24,14 +24,22 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.Version;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPart;
 import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPartType;
 import com.abubusoft.kripton.processor.sqlite.PropertyList;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -52,11 +60,32 @@ public abstract class JavadocUtility {
 		}
 	}
 
-	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, String sql, List<String> sqlParams, SQLiteModelMethod method, ModelAnnotation annotation, PropertyList fieldList,
+	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, List<String> sqlParams, final SQLiteModelMethod method, ModelAnnotation annotation, PropertyList fieldList,
 			SelectType selectResultType, JavadocPart... javadocParts) {
-		SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
 
+		String sql=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+			
+			@Override
+			public String onTableName(String tableName) {
+				return schema.getEntityBySimpleName(tableName).getTableName();
+							
+			}
+			
+			@Override
+			public String onColumnName(String columnName) {
+				JQLParameterName name=JQLParameterName.parse(columnName);
+				if (daoDefinition.getEntity().contains(name.getValue()))				
+					return daoDefinition.getEntity().get(columnName).columnName;
+				
+				AssertKripton.fail("In JQL definition of method '%s.%s', was found a column '%s' that does not exists in entity '%s'", daoDefinition.getName(), method.getName(), columnName, daoDefinition.getEntity().getName());
+				return null;
+			}
+			
+		});
+		
 		methodBuilder.addJavadoc("<h2>Select SQL:</h2>\n\n", annotation.getSimpleName());
 		methodBuilder.addJavadoc("<pre>$L</pre>", sql);
 		methodBuilder.addJavadoc("\n\n");
@@ -86,16 +115,16 @@ public abstract class JavadocUtility {
 
 		// dynamic parts
 		if (method.hasDynamicOrderByConditions() || method.hasDynamicWhereConditions() || method.hasDynamicPageSizeConditions()) {
-			methodBuilder.addJavadoc("<h2>Dynamic parts:</h2>\n");
+			methodBuilder.addJavadoc("<h2>Method's parameters and associated dynamic parts:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("<dt>#{$L}</dt><dd>is part of where conditions resolved at runtime.</dd>", method.dynamicWhereParameterName);
+				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
 			if (method.hasDynamicOrderByConditions()) {
-				methodBuilder.addJavadoc("<dt>#{$L}</dt>is part of order statement resolved at runtime.</dd>", method.dynamicOrderByParameterName);
+				methodBuilder.addJavadoc("<dt>$L</dt>is part of order statement resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicOrderByParameterName, JQLDynamicStatementType.DYNAMIC_ORDER_BY);
 			}
 			if (method.hasDynamicPageSizeConditions()) {
-				methodBuilder.addJavadoc("<dt>#{$L}</dt>is part of limit statement resolved at runtime.</dd>", method.dynamicPageSizeName);
+				methodBuilder.addJavadoc("<dt>$L</dt>is part of limit statement resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicPageSizeName, JQLDynamicStatementType.DYNAMIC_PAGE_SIZE);
 			}
 
 			methodBuilder.addJavadoc("\n</dl>");

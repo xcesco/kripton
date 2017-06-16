@@ -285,7 +285,7 @@ public abstract class SqlBuilderHelper {
 	 * @param method
 	 * @param methodBuilder
 	 */
-	static void generateLogForMethodBeginning(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+	static void generateLogForContentProviderBeginning(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		if (method.getParent().isLogEnabled()) {
 			methodBuilder.addStatement("$T.info($S, uri.toString())", Logger.class, "Execute " + method.jql.operationType + " for URI %s");
 		}
@@ -353,6 +353,11 @@ public abstract class SqlBuilderHelper {
 		final JQL jql=method.jql;
 		final JQLChecker jqlChecker=JQLChecker.getInstance(); 
 		
+		// we need always this
+		if (!sqlWhereParamsAlreadyDefined) {
+			methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<>()", ArrayList.class, ArrayList.class);
+		}
+		
 		if (jql.isWhereConditions()) {
 			// parameters extracted from query
 			final One<String> whereStatement = new One<>();
@@ -369,11 +374,7 @@ public abstract class SqlBuilderHelper {
 			});
 			
 			
-			methodBuilder.addCode("\n// manage WHERE arguments -- BEGIN\n");
-			if (!sqlWhereParamsAlreadyDefined) {
-				methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<>()", ArrayList.class, ArrayList.class);
-			}
-
+			methodBuilder.addCode("\n// manage WHERE arguments -- BEGIN\n");			
 			String sqlWhere = jqlChecker.replaceFromVariableStatement(whereStatement.value0, new JQLReplacerListenerImpl() {
 
 				@Override
@@ -401,7 +402,7 @@ public abstract class SqlBuilderHelper {
 					methodBuilder.addStatement("String _sqlWhereStatement=$S+$T.ifNotEmptyAppend($L,\" $L \")", value.replace(valueToReplace, ""), StringUtils.class, "_sqlDynamicWhere",
 							method.dynamicWherePrepend);
 				} else if (!jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
-					methodBuilder.addStatement("String _sqlWhereStatement=$T.ifNotEmptyAppend($L, \" $L \")", StringUtils.class, "selection", JQLKeywords.WHERE_KEYWORD);
+					methodBuilder.addStatement("String _sqlWhereStatement=$T.ifNotEmptyAppend($L, \" $L \")", StringUtils.class, "_sqlDynamicWhere", JQLKeywords.WHERE_KEYWORD);
 				}
 			} else {
 				// we DON'T have to include WHERE keywords
@@ -413,18 +414,20 @@ public abstract class SqlBuilderHelper {
 					methodBuilder.addStatement("String _sqlWhereStatement=$S+$T.ifNotEmptyAppend($L,\" $L \")", value.replace(valueToReplace, ""), StringUtils.class, "_sqlDynamicWhere",
 							method.dynamicWherePrepend);
 				} else if (!jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
-					methodBuilder.addStatement("String _sqlWhereStatement=$T.ifNotEmptyAppend($L, \" \")", StringUtils.class, "selection");
+					methodBuilder.addStatement("String _sqlWhereStatement=$T.ifNotEmptyAppend($L, \" \")", StringUtils.class, "_sqlDynamicWhere");
 				}
 
 			}
 
-			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlWhereStatement");
-			
+			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlWhereStatement");			
 			methodBuilder.addCode("\n// manage WHERE arguments -- END\n");
+		} else {
+			// in every situation we need it
+			methodBuilder.addStatement("String _sqlWhereStatement=\"\"");
 		}
 
 		// manage where arguments
-		if (method.hasDynamicWhereConditions()) {
+		if (method.hasDynamicWhereConditions() && method.hasDynamicWhereArgs()) {
 			// ASSERT: only with dynamic where conditions
 			methodBuilder.beginControlFlow("if ($T.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null)", StringUtils.class);
 

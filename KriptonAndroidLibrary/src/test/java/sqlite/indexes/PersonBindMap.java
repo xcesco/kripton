@@ -40,6 +40,12 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("birthDay", DateUtils.write(object.birthDay));
     }
 
+    // field date (mapped with "date")
+    if (object.date!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("date", object.date);
+    }
+
     // field id (mapped with "id")
     fieldCount++;
     jacksonSerializer.writeNumberField("id", object.id);
@@ -50,10 +56,22 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("name", object.name);
     }
 
+    // field nameTemp (mapped with "nameTemp")
+    if (object.nameTemp!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("nameTemp", object.nameTemp);
+    }
+
     // field surname (mapped with "surname")
     if (object.surname!=null)  {
       fieldCount++;
       jacksonSerializer.writeStringField("surname", object.surname);
+    }
+
+    // field typeName (mapped with "typeName")
+    if (object.typeName!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("typeName", object.typeName);
     }
 
     jacksonSerializer.writeEndObject();
@@ -79,6 +97,12 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("birthDay", DateUtils.write(object.birthDay));
     }
 
+    // field date (mapped with "date")
+    if (object.date!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("date", object.date);
+    }
+
     // field id (mapped with "id")
     jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
@@ -88,10 +112,22 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("name", object.name);
     }
 
+    // field nameTemp (mapped with "nameTemp")
+    if (object.nameTemp!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("nameTemp", object.nameTemp);
+    }
+
     // field surname (mapped with "surname")
     if (object.surname!=null)  {
       fieldCount++;
       jacksonSerializer.writeStringField("surname", object.surname);
+    }
+
+    // field typeName (mapped with "typeName")
+    if (object.typeName!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("typeName", object.typeName);
     }
 
     jacksonSerializer.writeEndObject();
@@ -123,6 +159,13 @@ public class PersonBindMap extends AbstractMapper<Person> {
       xmlSerializer.writeEndElement();
     }
 
+    // field date (mapped with "date")
+    if (object.date!=null) {
+      xmlSerializer.writeStartElement("date");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.date));
+      xmlSerializer.writeEndElement();
+    }
+
     // field id (mapped with "id")
     xmlSerializer.writeStartElement("id");
     xmlSerializer.writeLong(object.id);
@@ -135,10 +178,24 @@ public class PersonBindMap extends AbstractMapper<Person> {
       xmlSerializer.writeEndElement();
     }
 
+    // field nameTemp (mapped with "nameTemp")
+    if (object.nameTemp!=null) {
+      xmlSerializer.writeStartElement("nameTemp");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.nameTemp));
+      xmlSerializer.writeEndElement();
+    }
+
     // field surname (mapped with "surname")
     if (object.surname!=null) {
       xmlSerializer.writeStartElement("surname");
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.surname));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field typeName (mapped with "typeName")
+    if (object.typeName!=null) {
+      xmlSerializer.writeStartElement("typeName");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.typeName));
       xmlSerializer.writeEndElement();
     }
 
@@ -179,6 +236,12 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.birthDay=DateUtils.read(jacksonParser.getText());
             }
           break;
+          case "date":
+            // field date (mapped with "date")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.date=jacksonParser.getText();
+            }
+          break;
           case "id":
             // field id (mapped with "id")
             instance.id=jacksonParser.getLongValue();
@@ -189,10 +252,22 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.name=jacksonParser.getText();
             }
           break;
+          case "nameTemp":
+            // field nameTemp (mapped with "nameTemp")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.nameTemp=jacksonParser.getText();
+            }
+          break;
           case "surname":
             // field surname (mapped with "surname")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.surname=jacksonParser.getText();
+            }
+          break;
+          case "typeName":
+            // field typeName (mapped with "typeName")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.typeName=jacksonParser.getText();
             }
           break;
           default:
@@ -234,6 +309,12 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.birthDay=DateUtils.read(jacksonParser.getText());
             }
           break;
+          case "date":
+            // field date (mapped with "date")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.date=jacksonParser.getText();
+            }
+          break;
           case "id":
             // field id (mapped with "id")
             instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
@@ -244,10 +325,22 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.name=jacksonParser.getText();
             }
           break;
+          case "nameTemp":
+            // field nameTemp (mapped with "nameTemp")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.nameTemp=jacksonParser.getText();
+            }
+          break;
           case "surname":
             // field surname (mapped with "surname")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.surname=jacksonParser.getText();
+            }
+          break;
+          case "typeName":
+            // field typeName (mapped with "typeName")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.typeName=jacksonParser.getText();
             }
           break;
           default:
@@ -295,6 +388,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
                   // property birthDay (mapped on "birthDay")
                   instance.birthDay=DateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
+                case "date":
+                  // property date (mapped on "date")
+                  instance.date=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
                 case "id":
                   // property id (mapped on "id")
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
@@ -303,9 +400,17 @@ public class PersonBindMap extends AbstractMapper<Person> {
                   // property name (mapped on "name")
                   instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
+                case "nameTemp":
+                  // property nameTemp (mapped on "nameTemp")
+                  instance.nameTemp=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
                 case "surname":
                   // property surname (mapped on "surname")
                   instance.surname=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "typeName":
+                  // property typeName (mapped on "typeName")
+                  instance.typeName=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
                 break;

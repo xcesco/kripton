@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,11 +42,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean</pre>
+   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
    * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
    * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
@@ -62,12 +64,26 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOne() {
-    // build where condition
-    String[] _args={};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    String _sqlWhereStatement="";
 
+    // build where condition
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean resultBean=null;
@@ -75,30 +91,32 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("value_byte_set");
-        int index2=cursor.getColumnIndex("value_short_set");
-        int index3=cursor.getColumnIndex("value_integer_set");
-        int index4=cursor.getColumnIndex("value_string_set");
-        int index5=cursor.getColumnIndex("value_character_set");
-        int index6=cursor.getColumnIndex("value_float_set");
-        int index7=cursor.getColumnIndex("value_double_set");
-        int index8=cursor.getColumnIndex("value_big_decimal_set");
-        int index9=cursor.getColumnIndex("value_bean_set");
-        int index10=cursor.getColumnIndex("value_enum_type_set");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value_byte_set");
+        int index3=cursor.getColumnIndex("value_short_set");
+        int index4=cursor.getColumnIndex("value_integer_set");
+        int index5=cursor.getColumnIndex("value_string_set");
+        int index6=cursor.getColumnIndex("value_character_set");
+        int index7=cursor.getColumnIndex("value_float_set");
+        int index8=cursor.getColumnIndex("value_double_set");
+        int index9=cursor.getColumnIndex("value_big_decimal_set");
+        int index10=cursor.getColumnIndex("value_bean_set");
+        int index11=cursor.getColumnIndex("value_enum_type_set");
 
         resultBean=new Bean();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index4)); }
-        if (!cursor.isNull(index5)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index5)); }
-        if (!cursor.isNull(index6)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index6)); }
-        if (!cursor.isNull(index7)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index7)); }
-        if (!cursor.isNull(index8)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index8)); }
-        if (!cursor.isNull(index9)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index9)); }
-        if (!cursor.isNull(index10)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index10)); }
+        if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index2)); }
+        if (!cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index3)); }
+        if (!cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index4)); }
+        if (!cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index5)); }
+        if (!cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index6)); }
+        if (!cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index7)); }
+        if (!cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index8)); }
+        if (!cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index9)); }
+        if (!cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index10)); }
+        if (!cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index11)); }
 
       }
       return resultBean;
@@ -108,11 +126,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
    * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
    * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
@@ -137,33 +156,57 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean> listener) {
-    // build where condition
-    String[] _args={String.valueOf(id)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE id = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(id));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = '%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Bean resultBean=new Bean();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("value_byte_set");
-        int index2=cursor.getColumnIndex("value_short_set");
-        int index3=cursor.getColumnIndex("value_integer_set");
-        int index4=cursor.getColumnIndex("value_string_set");
-        int index5=cursor.getColumnIndex("value_character_set");
-        int index6=cursor.getColumnIndex("value_float_set");
-        int index7=cursor.getColumnIndex("value_double_set");
-        int index8=cursor.getColumnIndex("value_big_decimal_set");
-        int index9=cursor.getColumnIndex("value_bean_set");
-        int index10=cursor.getColumnIndex("value_enum_type_set");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value_byte_set");
+        int index3=cursor.getColumnIndex("value_short_set");
+        int index4=cursor.getColumnIndex("value_integer_set");
+        int index5=cursor.getColumnIndex("value_string_set");
+        int index6=cursor.getColumnIndex("value_character_set");
+        int index7=cursor.getColumnIndex("value_float_set");
+        int index8=cursor.getColumnIndex("value_double_set");
+        int index9=cursor.getColumnIndex("value_big_decimal_set");
+        int index10=cursor.getColumnIndex("value_bean_set");
+        int index11=cursor.getColumnIndex("value_enum_type_set");
 
         int rowCount=cursor.getCount();
         do
          {
           // reset mapping
           resultBean.id=0L;
+          resultBean.value=null;
           resultBean.valueByteSet=null;
           resultBean.valueShortSet=null;
           resultBean.valueIntegerSet=null;
@@ -177,16 +220,17 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index10)); }
+          if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index2)); }
+          if (!cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index3)); }
+          if (!cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index4)); }
+          if (!cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index5)); }
+          if (!cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index6)); }
+          if (!cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index7)); }
+          if (!cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index8)); }
+          if (!cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index9)); }
+          if (!cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index10)); }
+          if (!cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index11)); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -197,11 +241,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value</dt><dd>no bean's property is associated</dd>
    * 	<dt>value_byte_set</dt><dd>no bean's property is associated</dd>
    * 	<dt>value_short_set</dt><dd>no bean's property is associated</dd>
    * 	<dt>value_integer_set</dt><dd>no bean's property is associated</dd>
@@ -226,12 +271,34 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
-    // build where condition
-    String[] _args={String.valueOf(id)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE id = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(id));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = '%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       if (cursor.moveToFirst()) {
@@ -247,11 +314,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
    * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
    * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
@@ -275,12 +343,34 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public List<Bean> selectList(long id) {
-    // build where condition
-    String[] _args={String.valueOf(id)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE id = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(id));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = '%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean> resultList=new LinkedList<Bean>();
@@ -289,32 +379,34 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("value_byte_set");
-        int index2=cursor.getColumnIndex("value_short_set");
-        int index3=cursor.getColumnIndex("value_integer_set");
-        int index4=cursor.getColumnIndex("value_string_set");
-        int index5=cursor.getColumnIndex("value_character_set");
-        int index6=cursor.getColumnIndex("value_float_set");
-        int index7=cursor.getColumnIndex("value_double_set");
-        int index8=cursor.getColumnIndex("value_big_decimal_set");
-        int index9=cursor.getColumnIndex("value_bean_set");
-        int index10=cursor.getColumnIndex("value_enum_type_set");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value_byte_set");
+        int index3=cursor.getColumnIndex("value_short_set");
+        int index4=cursor.getColumnIndex("value_integer_set");
+        int index5=cursor.getColumnIndex("value_string_set");
+        int index6=cursor.getColumnIndex("value_character_set");
+        int index7=cursor.getColumnIndex("value_float_set");
+        int index8=cursor.getColumnIndex("value_double_set");
+        int index9=cursor.getColumnIndex("value_big_decimal_set");
+        int index10=cursor.getColumnIndex("value_bean_set");
+        int index11=cursor.getColumnIndex("value_enum_type_set");
 
         do
          {
           resultBean=new Bean();
 
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index10)); }
+          if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index2)); }
+          if (!cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index3)); }
+          if (!cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index4)); }
+          if (!cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index5)); }
+          if (!cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index6)); }
+          if (!cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index7)); }
+          if (!cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index8)); }
+          if (!cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index9)); }
+          if (!cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index10)); }
+          if (!cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index11)); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -326,10 +418,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean SET value_byte_set=${value.valueByteSet}, value_short_set=${value.valueShortSet}, value_integer_set=${value.valueIntegerSet}, value_string_set=${value.valueStringSet}, value_character_set=${value.valueCharacterSet}, value_float_set=${value.valueFloatSet}, value_double_set=${value.valueDoubleSet}, value_big_decimal_set=${value.valueBigDecimalSet}, value_bean_set=${value.valueBeanSet}, value_enum_type_set=${value.valueEnumTypeSet} WHERE id=${value.id}</pre>
+   * <pre>UPDATE bean SET value=${value.value}, value_byte_set=${value.valueByteSet}, value_short_set=${value.valueShortSet}, value_integer_set=${value.valueIntegerSet}, value_string_set=${value.valueStringSet}, value_character_set=${value.valueCharacterSet}, value_float_set=${value.valueFloatSet}, value_double_set=${value.valueDoubleSet}, value_big_decimal_set=${value.valueBigDecimalSet}, value_bean_set=${value.valueBeanSet}, value_enum_type_set=${value.valueEnumTypeSet} WHERE id=${value.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
+   * 	<dt>value</dt><dd>is mapped to <strong>${value.value}</strong></dd>
    * 	<dt>value_byte_set</dt><dd>is mapped to <strong>${value.valueByteSet}</strong></dd>
    * 	<dt>value_short_set</dt><dd>is mapped to <strong>${value.valueShortSet}</strong></dd>
    * 	<dt>value_integer_set</dt><dd>is mapped to <strong>${value.valueIntegerSet}</strong></dd>
@@ -356,6 +449,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long updateOne(Bean value) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
+
+    if (value.value!=null) {
+      contentValues.put("value", value.value);
+    } else {
+      contentValues.putNull("value");
+    }
 
     if (value.valueByteSet!=null) {
       contentValues.put("value_byte_set", BeanTable.serializeValueByteSet(value.valueByteSet));
@@ -417,22 +516,56 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       contentValues.putNull("value_enum_type_set");
     }
 
-    String[] whereConditionsArray={String.valueOf(value.id)};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add(String.valueOf(value.id));
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE bean SET value_byte_set='"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', value_short_set='"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', value_integer_set='"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', value_string_set='"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', value_character_set='"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', value_float_set='"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', value_double_set='"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', value_big_decimal_set='"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', value_bean_set='"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', value_enum_type_set='"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"' WHERE id='%s'", (Object[]) whereConditionsArray));
-    int result = database().update("bean", contentValues, "id=?", whereConditionsArray);
+
+    // display log
+    Logger.info("UPDATE bean SET value=:value, valueByteSet=:value_byte_set, valueShortSet=:value_short_set, valueIntegerSet=:value_integer_set, valueStringSet=:value_string_set, valueCharacterSet=:value_character_set, valueFloatSet=:value_float_set, valueDoubleSet=:value_double_set, valueBigDecimalSet=:value_big_decimal_set, valueBeanSet=:value_bean_set, valueEnumTypeSet=:value_enum_type_set WHERE id=?");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES (${bean.valueByteSet}, ${bean.valueShortSet}, ${bean.valueIntegerSet}, ${bean.valueStringSet}, ${bean.valueCharacterSet}, ${bean.valueFloatSet}, ${bean.valueDoubleSet}, ${bean.valueBigDecimalSet}, ${bean.valueBeanSet}, ${bean.valueEnumTypeSet})</pre>
+   * <pre>INSERT INTO bean (value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES (${bean.value}, ${bean.valueByteSet}, ${bean.valueShortSet}, ${bean.valueIntegerSet}, ${bean.valueStringSet}, ${bean.valueCharacterSet}, ${bean.valueFloatSet}, ${bean.valueDoubleSet}, ${bean.valueBigDecimalSet}, ${bean.valueBeanSet}, ${bean.valueEnumTypeSet})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
    * 	<dt>value_byte_set</dt><dd>is mapped to <strong>${bean.valueByteSet}</strong></dd>
    * 	<dt>value_short_set</dt><dd>is mapped to <strong>${bean.valueShortSet}</strong></dd>
    * 	<dt>value_integer_set</dt><dd>is mapped to <strong>${bean.valueIntegerSet}</strong></dd>
@@ -454,6 +587,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   public long insert(Bean bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
+
+    if (bean.value!=null) {
+      contentValues.put("value", bean.value);
+    } else {
+      contentValues.putNull("value");
+    }
 
     if (bean.valueByteSet!=null) {
       contentValues.put("value_byte_set", BeanTable.serializeValueByteSet(bean.valueByteSet));
@@ -516,7 +655,30 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT INTO bean (value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES ('"+StringUtils.checkSize(contentValues.get("value_byte_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_short_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_integer_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_string_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_character_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_float_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_double_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_bean_set"))+"', '"+StringUtils.checkSize(contentValues.get("value_enum_type_set"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     long result = database().insert("bean", null, contentValues);
     bean.id=result;
 
@@ -548,9 +710,30 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       contentValues.putNull("value_big_decimal_set");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
-    // log
-    Logger.info(SqlUtils.formatSQL("INSERT INTO bean (value_big_decimal_set) VALUES ('"+StringUtils.checkSize(contentValues.get("value_big_decimal_set"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     long result = database().insert("bean", null, contentValues);
     return result;
   }
@@ -558,11 +741,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value=${valueBigDecimalSet}</pre>
+   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value=${valueBigDecimalSet}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
    * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
    * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
@@ -586,12 +770,34 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOne(HashSet<BigDecimal> valueBigDecimalSet) {
-    // build where condition
-    String[] _args={(valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE value=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value='%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value=?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean resultBean=null;
@@ -599,30 +805,32 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("value_byte_set");
-        int index2=cursor.getColumnIndex("value_short_set");
-        int index3=cursor.getColumnIndex("value_integer_set");
-        int index4=cursor.getColumnIndex("value_string_set");
-        int index5=cursor.getColumnIndex("value_character_set");
-        int index6=cursor.getColumnIndex("value_float_set");
-        int index7=cursor.getColumnIndex("value_double_set");
-        int index8=cursor.getColumnIndex("value_big_decimal_set");
-        int index9=cursor.getColumnIndex("value_bean_set");
-        int index10=cursor.getColumnIndex("value_enum_type_set");
+        int index1=cursor.getColumnIndex("value");
+        int index2=cursor.getColumnIndex("value_byte_set");
+        int index3=cursor.getColumnIndex("value_short_set");
+        int index4=cursor.getColumnIndex("value_integer_set");
+        int index5=cursor.getColumnIndex("value_string_set");
+        int index6=cursor.getColumnIndex("value_character_set");
+        int index7=cursor.getColumnIndex("value_float_set");
+        int index8=cursor.getColumnIndex("value_double_set");
+        int index9=cursor.getColumnIndex("value_big_decimal_set");
+        int index10=cursor.getColumnIndex("value_bean_set");
+        int index11=cursor.getColumnIndex("value_enum_type_set");
 
         resultBean=new Bean();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index4)); }
-        if (!cursor.isNull(index5)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index5)); }
-        if (!cursor.isNull(index6)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index6)); }
-        if (!cursor.isNull(index7)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index7)); }
-        if (!cursor.isNull(index8)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index8)); }
-        if (!cursor.isNull(index9)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index9)); }
-        if (!cursor.isNull(index10)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index10)); }
+        if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index2)); }
+        if (!cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index3)); }
+        if (!cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index4)); }
+        if (!cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index5)); }
+        if (!cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index6)); }
+        if (!cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index7)); }
+        if (!cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index8)); }
+        if (!cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index9)); }
+        if (!cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index10)); }
+        if (!cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index11)); }
 
       }
       return resultBean;
@@ -645,11 +853,32 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(HashSet<BigDecimal> valueBigDecimalSet) {
-    String[] whereConditionsArray={(valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" value=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("DELETE bean WHERE value=%s", (Object[])whereConditionsArray));
-    int result = database().delete("bean", "value=?", whereConditionsArray);
+
+    // display log
+    Logger.info("DELETE FROM bean WHERE value=?");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 
@@ -680,11 +909,44 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    String[] whereConditionsArray={(valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8))};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" value=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE bean SET id='"+StringUtils.checkSize(contentValues.get("id"))+"' WHERE value=%s", (Object[])whereConditionsArray));
-    int result = database().update("bean", contentValues, "value=?", whereConditionsArray);
+
+    // display log
+    Logger.info("UPDATE bean SET id=:id WHERE value=?");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 

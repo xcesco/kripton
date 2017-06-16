@@ -33,6 +33,8 @@ public class Person {
 	public String surname;
 	public String birthCity;
 	public Date birthDay;
+	
+	public String typeName;
 
 	@Override
 	public String toString() {

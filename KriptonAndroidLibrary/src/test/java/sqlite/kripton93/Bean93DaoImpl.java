@@ -7,6 +7,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,13 +28,14 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname FROM bean93 WHERE typeName like ${name} || \'%\'</pre>
+   * <pre>SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ${name} || '%'</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>type_name</dt><dd>is associated to bean's property <strong>typeName</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -47,12 +49,34 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public Bean93 selectByBean(String name) {
-    // build where condition
-    String[] _args={(name==null?"":name)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE typeName like ? || '%'";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((name==null?"":name));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean93 WHERE typeName like '%s' || \'%%'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93 WHERE typeName like ? || \'%\'", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Bean93 resultBean=null;
@@ -62,12 +86,14 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
         int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("name");
         int index2=cursor.getColumnIndex("surname");
+        int index3=cursor.getColumnIndex("type_name");
 
         resultBean=new Bean93();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
         if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
         if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+        if (!cursor.isNull(index3)) { resultBean.typeName=cursor.getString(index3); }
 
       }
       return resultBean;
@@ -77,25 +103,40 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname FROM bean93</pre>
+   * <pre>SELECT id, name, surname, type_name FROM bean93</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>type_name</dt><dd>is associated to bean's property <strong>typeName</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
    */
   @Override
   public List<Bean93> selectAll() {
-    // build where condition
-    String[] _args={};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    String _sqlWhereStatement="";
 
+    // build where condition
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname FROM bean93",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname FROM bean93", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Bean93> resultList=new LinkedList<Bean93>();
@@ -106,6 +147,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
         int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("name");
         int index2=cursor.getColumnIndex("surname");
+        int index3=cursor.getColumnIndex("type_name");
 
         do
          {
@@ -114,6 +156,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
           if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.typeName=cursor.getString(index3); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -125,7 +168,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean93 (name, surname) VALUES (${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT INTO bean93 (name, surname, type_name) VALUES (${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -133,6 +176,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -157,8 +201,37 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    if (bean.typeName!=null) {
+      contentValues.put("type_name", bean.typeName);
+    } else {
+      contentValues.putNull("type_name");
+    }
+
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT INTO bean93 (name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     long result = database().insert("bean93", null, contentValues);
     bean.id=result;
 
@@ -167,7 +240,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR ABORT INTO bean93 (id, name, surname) VALUES (${bean.id}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR ABORT INTO bean93 (id, name, surname, type_name) VALUES (${bean.id}, ${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -176,6 +249,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -202,8 +276,37 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    if (bean.typeName!=null) {
+      contentValues.put("type_name", bean.typeName);
+    } else {
+      contentValues.putNull("type_name");
+    }
+
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT OR ABORT INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT OR ABORT INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_ABORT);
     bean.id=result;
@@ -213,7 +316,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR FAIL INTO bean93 (id, name, surname) VALUES (${bean.id}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR FAIL INTO bean93 (id, name, surname, type_name) VALUES (${bean.id}, ${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -222,6 +325,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -248,8 +352,37 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    if (bean.typeName!=null) {
+      contentValues.put("type_name", bean.typeName);
+    } else {
+      contentValues.putNull("type_name");
+    }
+
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT OR FAIL INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT OR FAIL INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_FAIL);
     bean.id=result;
@@ -259,7 +392,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR IGNORE INTO bean93 (id, name, surname) VALUES (${bean.id}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR IGNORE INTO bean93 (id, name, surname, type_name) VALUES (${bean.id}, ${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -268,6 +401,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -294,8 +428,37 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    if (bean.typeName!=null) {
+      contentValues.put("type_name", bean.typeName);
+    } else {
+      contentValues.putNull("type_name");
+    }
+
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT OR IGNORE INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT OR IGNORE INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
     bean.id=result;
@@ -305,7 +468,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO bean93 (id, name, surname) VALUES (${bean.id}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR REPLACE INTO bean93 (id, name, surname, type_name) VALUES (${bean.id}, ${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -314,6 +477,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -340,8 +504,37 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    if (bean.typeName!=null) {
+      contentValues.put("type_name", bean.typeName);
+    } else {
+      contentValues.putNull("type_name");
+    }
+
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT OR REPLACE INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT OR REPLACE INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
     bean.id=result;
@@ -351,7 +544,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR ROLLBACK INTO bean93 (id, name, surname) VALUES (${bean.id}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR ROLLBACK INTO bean93 (id, name, surname, type_name) VALUES (${bean.id}, ${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -360,6 +553,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -386,8 +580,37 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       contentValues.putNull("surname");
     }
 
+    if (bean.typeName!=null) {
+      contentValues.put("type_name", bean.typeName);
+    } else {
+      contentValues.putNull("type_name");
+    }
+
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("INSERT OR ROLLBACK INTO bean93 (id, name, surname) VALUES ('"+StringUtils.checkSize(contentValues.get("id"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT OR ROLLBACK INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_ROLLBACK);
     bean.id=result;

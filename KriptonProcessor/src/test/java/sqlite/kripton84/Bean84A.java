@@ -26,6 +26,14 @@ public class Bean84A {
 	
 	public long id;
 	
+	public String param1;
+	
+	public String param2;
+	
+	public String param3;
+	
+	public String param4;
+	
 	public List<String> columnListString;
 	
 	public Map<Integer, String> columnMapIntegerString;

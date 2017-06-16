@@ -33,7 +33,7 @@ public interface DaoBean05 {
 	Bean05 selectOne(Long id);
 	
 	
-	@BindSqlSelect(where="pk=${bean.pk} and prova=${bean.text}")
+	@BindSqlSelect(where="pk=${bean.pk} and text=${bean.text}")
 	Bean05 selectOne(Bean05 bean);
 	
 	@BindSqlSelect(where="pk=${id}")

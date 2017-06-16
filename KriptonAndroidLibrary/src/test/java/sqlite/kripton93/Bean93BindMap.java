@@ -43,6 +43,12 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
       jacksonSerializer.writeStringField("surname", object.surname);
     }
 
+    // field typeName (mapped with "typeName")
+    if (object.typeName!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("typeName", object.typeName);
+    }
+
     jacksonSerializer.writeEndObject();
     return fieldCount;
   }
@@ -67,6 +73,12 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
     if (object.surname!=null)  {
       fieldCount++;
       jacksonSerializer.writeStringField("surname", object.surname);
+    }
+
+    // field typeName (mapped with "typeName")
+    if (object.typeName!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("typeName", object.typeName);
     }
 
     jacksonSerializer.writeEndObject();
@@ -100,6 +112,13 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
     if (object.surname!=null) {
       xmlSerializer.writeStartElement("surname");
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.surname));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field typeName (mapped with "typeName")
+    if (object.typeName!=null) {
+      xmlSerializer.writeStartElement("typeName");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.typeName));
       xmlSerializer.writeEndElement();
     }
 
@@ -144,6 +163,12 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
               instance.surname=jacksonParser.getText();
             }
           break;
+          case "typeName":
+            // field typeName (mapped with "typeName")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.typeName=jacksonParser.getText();
+            }
+          break;
           default:
             jacksonParser.skipChildren();
           break;}
@@ -185,6 +210,12 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
             // field surname (mapped with "surname")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.surname=jacksonParser.getText();
+            }
+          break;
+          case "typeName":
+            // field typeName (mapped with "typeName")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.typeName=jacksonParser.getText();
             }
           break;
           default:
@@ -235,6 +266,10 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
                 case "surname":
                   // property surname (mapped on "surname")
                   instance.surname=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "typeName":
+                  // property typeName (mapped on "typeName")
+                  instance.typeName=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
                 break;

@@ -38,10 +38,11 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.sqlite.core.GenerationPartMarks;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
@@ -205,7 +206,6 @@ public abstract class SqlModifyBuilder {
 	 * @param updateResultType
 	 */
 	private static void generateModifierForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, ModifyType updateResultType) {
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
@@ -272,11 +272,11 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "selectionArgs").build());
 		methodBuilder.returns(Integer.TYPE);
 
-		SqlBuilderHelper.generateLogForMethodBeginning(method, methodBuilder);
+		SqlBuilderHelper.generateLogForContentProviderBeginning(method, methodBuilder);
 		
 		// query builder
 		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);	
-		initializeDynamicWhereVariables(method, methodBuilder);		
+		generateInitForDynamicWhereVariables(method, methodBuilder, "selection", "selectionArgs");		
 		
 		
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, false);
@@ -301,7 +301,7 @@ public abstract class SqlModifyBuilder {
 			i++;
 		}
 
-		if (method.hasDynamicWhereConditions()) {
+		if (method.hasDynamicWhereConditions() && method.hasDynamicWhereArgs()) {
 			// ASSERT: only with dynamic where conditions
 			methodBuilder.beginControlFlow("if ($T.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null)", StringUtils.class);
 
@@ -374,15 +374,19 @@ public abstract class SqlModifyBuilder {
 	 * @param method
 	 * @param methodBuilder
 	 */
-	static void initializeDynamicWhereVariables(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-			
+	static void generateInitForDynamicWhereVariables(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, String dynamiWhereName, String dynamicWhereArgsName) {			
+		GenerationPartMarks.begin(methodBuilder, GenerationPartMarks.CODE_001);
 		// where _sqlDynamicWhere and _sqlDynamicWhereArgs
 		if (method.hasDynamicWhereConditions()) {
-			methodBuilder.addStatement("String _sqlDynamicWhere=$L", "selection");
+			methodBuilder.addCode("// initialize dynamic where\n");
+			methodBuilder.addStatement("String _sqlDynamicWhere=$L", dynamiWhereName);
 		}
 		if (method.hasDynamicWhereArgs()) {
-			methodBuilder.addStatement("String[] _sqlDynamicWhereArgs=$L", "selectionArgs");
+			methodBuilder.addCode("// initialize dynamic where args\n");
+			methodBuilder.addStatement("String[] _sqlDynamicWhereArgs=$L", dynamicWhereArgsName);
 		}
+		GenerationPartMarks.end(methodBuilder, GenerationPartMarks.CODE_001);
+		
 	}
 
 	/**
@@ -401,21 +405,18 @@ public abstract class SqlModifyBuilder {
 			final SQLEntity entity=method.getParent().getEntity();
 			JQLChecker jqlChecker=JQLChecker.getInstance();
 			
-			final One<Boolean> useIt = new One<Boolean>(true);
-			final List<String> paramsLog = new ArrayList<String>();
+			final One<Boolean> usedInWhere = new One<Boolean>(false);
+			//final List<String> paramsLog = new ArrayList<String>();
 
 			methodBuilder.addCode("\n// display log\n");
 
 			String sqlForLog = jqlChecker.replace(method.jql, new JQLReplacerListenerImpl() {
 
 				@Override
-				public String onBindParameter(String bindParameterName) {
-					JQLParameterName pName=JQLParameterName.parse(bindParameterName);
-					String columnName=entity.get(method.findParameterNameByAlias(pName.getValue())).columnName;
-					
-					paramsLog.add("StringUtils.checkSize(contentValues.get(\"" + columnName  + "\"))");
-
-					if (useIt.value0) {					
+				public String onBindParameter(String bindParameterName) {					
+					if (!usedInWhere.value0) {					
+						JQLParameterName pName=JQLParameterName.parse(bindParameterName);
+						String columnName=entity.get(pName.getValue()).columnName;
 						return ":" + columnName;
 					} else {
 						return "?";
@@ -429,11 +430,11 @@ public abstract class SqlModifyBuilder {
 
 				@Override
 				public void onWhereStatementBegin(Where_stmtContext ctx) {
-					useIt.value0 = false;
+					usedInWhere.value0 = true;
 				}
 
 				public void onWhereStatementEnd(Where_stmtContext ctx) {
-					useIt.value0 = true;
+					usedInWhere.value0 = false;
 				};
 
 			});

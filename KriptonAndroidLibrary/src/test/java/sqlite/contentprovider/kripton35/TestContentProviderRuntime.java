@@ -46,11 +46,6 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 
 	@Before
 	public void setupContentProvider() {
-		// BindPersonContentProvider mProvider = new
-		// BindPersonContentProvider();
-		// ShadowContentResolver.registerProvider(BindPersonContentProvider.AUTHORITY,
-		// mProvider);
-		//
 		ProviderInfo info = new ProviderInfo();
 		info.authority = BindPersonContentProvider.AUTHORITY;
 

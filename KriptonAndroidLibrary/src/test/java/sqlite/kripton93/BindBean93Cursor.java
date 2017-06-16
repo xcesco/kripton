@@ -31,6 +31,11 @@ public class BindBean93Cursor {
   protected int index2;
 
   /**
+   * Index for column "typeName"
+   */
+  protected int index3;
+
+  /**
    * <p>Constructor</p>
    *
    * @param cursor cursor used to read from database
@@ -50,6 +55,7 @@ public class BindBean93Cursor {
     index0=cursor.getColumnIndex("id");
     index1=cursor.getColumnIndex("name");
     index2=cursor.getColumnIndex("surname");
+    index3=cursor.getColumnIndex("type_name");
 
     return this;
   }
@@ -72,6 +78,7 @@ public class BindBean93Cursor {
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2);}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.typeName=cursor.getString(index3);}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -95,10 +102,12 @@ public class BindBean93Cursor {
         if (index0>=0) { resultBean.id=0L;}
         if (index1>=0) { resultBean.name=null;}
         if (index2>=0) { resultBean.surname=null;}
+        if (index3>=0) { resultBean.typeName=null;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2);}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.typeName=cursor.getString(index3);}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

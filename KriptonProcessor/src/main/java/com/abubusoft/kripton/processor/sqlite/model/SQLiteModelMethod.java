@@ -29,12 +29,12 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere.PrependType;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere.PrependType;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -43,6 +43,7 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLBuilder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
@@ -230,6 +231,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (StringUtils.hasText(annotation.path())) {
 				methodPath = annotation.path();
 			}
+			
+			AssertKripton.assertTrue(!this.hasDynamicPageSizeConditions(), "Method %s.%s can not be marked with @%s annotation and contains parameter with @%s annotation", getParent().getName(), getName(), BindContentProviderEntry.class.getSimpleName(), BindSqlPageSize.class.getSimpleName(), IncompatibleAnnotationException.class);			
 
 			this.contentProviderEntryPathEnabled = true;
 			this.contentProviderEntryPath = methodPath;
@@ -289,6 +292,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			this.contentProviderUriVariables = uriParams;
 			this.contentProviderUriTemplate = uriTemplate;
+						
 
 			// if we have a path, we have to remove the initial /
 			this.contentProviderEntryPathTemplate = uriTemplate

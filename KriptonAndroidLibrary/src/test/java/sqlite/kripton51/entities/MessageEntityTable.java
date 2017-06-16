@@ -20,9 +20,9 @@ public class MessageEntityTable {
    * DDL to create table message
    * </p>
    *
-   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER, type TEXT);</pre>
+   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, uid TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER, type TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER, type TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, uid TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER, type TEXT);";
 
   /**
    * <p>
@@ -53,6 +53,13 @@ public class MessageEntityTable {
    *  @see MessageEntity#ownerType
    */
   public static final String COLUMN_OWNER_TYPE = "owner_type";
+
+  /**
+   * Entity's property <code>uid</code> is associated to table column <code>uid</code>. This costant represents column typeName.
+   *
+   *  @see MessageEntity#uid
+   */
+  public static final String COLUMN_UID = "uid";
 
   /**
    * Entity's property <code>faceUid</code> is associated to table column <code>face_uid</code>. This costant represents column typeName.

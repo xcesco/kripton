@@ -32,34 +32,39 @@ public class BindMessageEntityCursor {
   protected int index2;
 
   /**
-   * Index for column "faceUid"
+   * Index for column "uid"
    */
   protected int index3;
 
   /**
-   * Index for column "text"
+   * Index for column "faceUid"
    */
   protected int index4;
 
   /**
-   * Index for column "ownerUid"
+   * Index for column "text"
    */
   protected int index5;
 
   /**
-   * Index for column "channelUid"
+   * Index for column "ownerUid"
    */
   protected int index6;
 
   /**
-   * Index for column "updateTime"
+   * Index for column "channelUid"
    */
   protected int index7;
 
   /**
-   * Index for column "type"
+   * Index for column "updateTime"
    */
   protected int index8;
+
+  /**
+   * Index for column "type"
+   */
+  protected int index9;
 
   /**
    * <p>Constructor</p>
@@ -81,12 +86,13 @@ public class BindMessageEntityCursor {
     index0=cursor.getColumnIndex("id");
     index1=cursor.getColumnIndex("channel_id");
     index2=cursor.getColumnIndex("owner_type");
-    index3=cursor.getColumnIndex("face_uid");
-    index4=cursor.getColumnIndex("text");
-    index5=cursor.getColumnIndex("owner_uid");
-    index6=cursor.getColumnIndex("channel_uid");
-    index7=cursor.getColumnIndex("update_time");
-    index8=cursor.getColumnIndex("type");
+    index3=cursor.getColumnIndex("uid");
+    index4=cursor.getColumnIndex("face_uid");
+    index5=cursor.getColumnIndex("text");
+    index6=cursor.getColumnIndex("owner_uid");
+    index7=cursor.getColumnIndex("channel_uid");
+    index8=cursor.getColumnIndex("update_time");
+    index9=cursor.getColumnIndex("type");
 
     return this;
   }
@@ -109,12 +115,13 @@ public class BindMessageEntityCursor {
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.channelId=cursor.getLong(index1);}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.ownerType=OwnerType.valueOf(cursor.getString(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.faceUid=cursor.getString(index3);}
-        if (index4>=0 && !cursor.isNull(index4)) { resultBean.text=cursor.getString(index4);}
-        if (index5>=0 && !cursor.isNull(index5)) { resultBean.ownerUid=cursor.getString(index5);}
-        if (index6>=0 && !cursor.isNull(index6)) { resultBean.channelUid=cursor.getString(index6);}
-        if (index7>=0 && !cursor.isNull(index7)) { resultBean.updateTime=cursor.getLong(index7);}
-        if (index8>=0 && !cursor.isNull(index8)) { resultBean.type=MessageType.valueOf(cursor.getString(index8));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.uid=cursor.getString(index3);}
+        if (index4>=0 && !cursor.isNull(index4)) { resultBean.faceUid=cursor.getString(index4);}
+        if (index5>=0 && !cursor.isNull(index5)) { resultBean.text=cursor.getString(index5);}
+        if (index6>=0 && !cursor.isNull(index6)) { resultBean.ownerUid=cursor.getString(index6);}
+        if (index7>=0 && !cursor.isNull(index7)) { resultBean.channelUid=cursor.getString(index7);}
+        if (index8>=0 && !cursor.isNull(index8)) { resultBean.updateTime=cursor.getLong(index8);}
+        if (index9>=0 && !cursor.isNull(index9)) { resultBean.type=MessageType.valueOf(cursor.getString(index9));}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -138,22 +145,24 @@ public class BindMessageEntityCursor {
         if (index0>=0) { resultBean.id=0L;}
         if (index1>=0) { resultBean.channelId=0L;}
         if (index2>=0) { resultBean.ownerType=null;}
-        if (index3>=0) { resultBean.faceUid=null;}
-        if (index4>=0) { resultBean.text=null;}
-        if (index5>=0) { resultBean.ownerUid=null;}
-        if (index6>=0) { resultBean.channelUid=null;}
-        if (index7>=0) { resultBean.updateTime=0L;}
-        if (index8>=0) { resultBean.type=null;}
+        if (index3>=0) { resultBean.uid=null;}
+        if (index4>=0) { resultBean.faceUid=null;}
+        if (index5>=0) { resultBean.text=null;}
+        if (index6>=0) { resultBean.ownerUid=null;}
+        if (index7>=0) { resultBean.channelUid=null;}
+        if (index8>=0) { resultBean.updateTime=0L;}
+        if (index9>=0) { resultBean.type=null;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.channelId=cursor.getLong(index1);}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.ownerType=OwnerType.valueOf(cursor.getString(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.faceUid=cursor.getString(index3);}
-        if (index4>=0 && !cursor.isNull(index4)) { resultBean.text=cursor.getString(index4);}
-        if (index5>=0 && !cursor.isNull(index5)) { resultBean.ownerUid=cursor.getString(index5);}
-        if (index6>=0 && !cursor.isNull(index6)) { resultBean.channelUid=cursor.getString(index6);}
-        if (index7>=0 && !cursor.isNull(index7)) { resultBean.updateTime=cursor.getLong(index7);}
-        if (index8>=0 && !cursor.isNull(index8)) { resultBean.type=MessageType.valueOf(cursor.getString(index8));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.uid=cursor.getString(index3);}
+        if (index4>=0 && !cursor.isNull(index4)) { resultBean.faceUid=cursor.getString(index4);}
+        if (index5>=0 && !cursor.isNull(index5)) { resultBean.text=cursor.getString(index5);}
+        if (index6>=0 && !cursor.isNull(index6)) { resultBean.ownerUid=cursor.getString(index6);}
+        if (index7>=0 && !cursor.isNull(index7)) { resultBean.channelUid=cursor.getString(index7);}
+        if (index8>=0 && !cursor.isNull(index8)) { resultBean.updateTime=cursor.getLong(index8);}
+        if (index9>=0 && !cursor.isNull(index9)) { resultBean.type=MessageType.valueOf(cursor.getString(index9));}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

@@ -38,9 +38,9 @@ public class Bean84ATable {
    * DDL to create table bean84_a
    * </p>
    *
-   * <pre>CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);</pre>
+   * <pre>CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, param1 TEXT, param2 TEXT, param3 TEXT, param4 TEXT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, param1 TEXT, param2 TEXT, param3 TEXT, param4 TEXT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);";
 
   /**
    * <p>
@@ -57,6 +57,34 @@ public class Bean84ATable {
    *  @see Bean84A#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Entity's property <code>param1</code> is associated to table column <code>param1</code>. This costant represents column typeName.
+   *
+   *  @see Bean84A#param1
+   */
+  public static final String COLUMN_PARAM1 = "param1";
+
+  /**
+   * Entity's property <code>param2</code> is associated to table column <code>param2</code>. This costant represents column typeName.
+   *
+   *  @see Bean84A#param2
+   */
+  public static final String COLUMN_PARAM2 = "param2";
+
+  /**
+   * Entity's property <code>param3</code> is associated to table column <code>param3</code>. This costant represents column typeName.
+   *
+   *  @see Bean84A#param3
+   */
+  public static final String COLUMN_PARAM3 = "param3";
+
+  /**
+   * Entity's property <code>param4</code> is associated to table column <code>param4</code>. This costant represents column typeName.
+   *
+   *  @see Bean84A#param4
+   */
+  public static final String COLUMN_PARAM4 = "param4";
 
   /**
    * Entity's property <code>columnListString</code> is associated to table column <code>column_list_string</code>. This costant represents column typeName.

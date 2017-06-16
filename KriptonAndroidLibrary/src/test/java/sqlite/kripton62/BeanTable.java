@@ -43,9 +43,9 @@ public class BeanTable {
    * DDL to create table bean
    * </p>
    *
-   * <pre>CREATE TABLE bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);</pre>
+   * <pre>CREATE TABLE bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);";
 
   /**
    * <p>
@@ -62,6 +62,13 @@ public class BeanTable {
    *  @see Bean#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column typeName.
+   *
+   *  @see Bean#value
+   */
+  public static final String COLUMN_VALUE = "value";
 
   /**
    * Entity's property <code>valueByteSet</code> is associated to table column <code>value_byte_set</code>. This costant represents column typeName.

@@ -8,6 +8,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -78,20 +79,44 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("birth_day");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
-    // log
-    Logger.info(SqlUtils.formatSQL("INSERT INTO person (name, surname, birth_city, birth_day) VALUES ('"+StringUtils.checkSize(contentValues.get("name"))+"', '"+StringUtils.checkSize(contentValues.get("surname"))+"', '"+StringUtils.checkSize(contentValues.get("birth_city"))+"', '"+StringUtils.checkSize(contentValues.get("birth_day"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info(SqlUtils.formatSQL("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString()));
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("value :%s = <null>", _contentKey);
+      } else {
+        Logger.info("value :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     database().insert("person", null, contentValues);
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName</pre>
+   * <pre>SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person ORDER BY type_name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>type_name</dt><dd>is associated to bean's property <strong>typeName</strong></dd>
+   * 	<dt>name_temp</dt><dd>is associated to bean's property <strong>nameTemp</strong></dd>
+   * 	<dt>date</dt><dd>is associated to bean's property <strong>date</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
@@ -102,12 +127,31 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectAll() {
-    // build where condition
-    String[] _args={};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    String _sqlWhereStatement="";
 
+    // build where condition
+
+    // manage order by statement
+    String _sqlOrderByStatement=" ORDER BY type_name";
+    _sqlBuilder.append(_sqlOrderByStatement);
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -116,20 +160,26 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
-        int index3=cursor.getColumnIndex("birth_city");
-        int index4=cursor.getColumnIndex("birth_day");
+        int index1=cursor.getColumnIndex("type_name");
+        int index2=cursor.getColumnIndex("name_temp");
+        int index3=cursor.getColumnIndex("date");
+        int index4=cursor.getColumnIndex("name");
+        int index5=cursor.getColumnIndex("surname");
+        int index6=cursor.getColumnIndex("birth_city");
+        int index7=cursor.getColumnIndex("birth_day");
 
         do
          {
           resultBean=new Person();
 
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+          if (!cursor.isNull(index1)) { resultBean.typeName=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.nameTemp=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.date=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.name=cursor.getString(index4); }
+          if (!cursor.isNull(index5)) { resultBean.surname=cursor.getString(index5); }
+          if (!cursor.isNull(index6)) { resultBean.birthCity=cursor.getString(index6); }
+          if (!cursor.isNull(index7)) { resultBean.birthDay=DateUtils.read(cursor.getString(index7)); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -142,20 +192,23 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE typeName like ${nameTemp} || \'%\' and birthDay < ${date} #{where} ORDER BY #{orderBy}</pre>
+   * <pre>SELECT name_temp, date FROM person WHERE type_name like ${nameTemp} || '%' and birth_day < ${date} AND #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>type_name</dt><dd>is associated to bean's property <strong>typeName</strong></dd>
+   * 	<dt>name_temp</dt><dd>is associated to bean's property <strong>nameTemp</strong></dd>
+   * 	<dt>date</dt><dd>is associated to bean's property <strong>date</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
    *
-   * <h2>Dynamic parts:</h2>
+   * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>#{where}</dt><dd>is part of where conditions resolved at runtime.</dd><dt>#{orderBy}</dt>is part of order statement resolved at runtime.</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd><dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -176,12 +229,42 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectOne(String nameValue, String where, String orderBy, Date date) {
-    // build where condition
-    String[] _args={(nameValue==null?"":nameValue), (date==null?"":DateUtils.write(date))};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // initialize dynamic where
+    String _sqlDynamicWhere=where;
+    // generation CODE_001 -- END
+    String _sortOrder=orderBy;
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE typeName like ? || '%' and birthDay < ?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((nameValue==null?"":nameValue));
+    _sqlWhereParams.add((date==null?"":DateUtils.write(date)));
+
+    // manage order by statement
+    String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
+    _sqlBuilder.append(_sqlOrderByStatement);
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE typeName like '%s' || \'%%' and birth_day < '%s' "+SqlUtils.appendForLog(where)+" ORDER BY "+SqlUtils.appendForLog(orderBy),(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE typeName like ? || \'%\' and birth_day < ? "+SqlUtils.appendForSQL(where)+" ORDER BY "+SqlUtils.appendForSQL(orderBy), _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Person> resultList=new LinkedList<Person>();
@@ -190,20 +273,26 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
-        int index3=cursor.getColumnIndex("birth_city");
-        int index4=cursor.getColumnIndex("birth_day");
+        int index1=cursor.getColumnIndex("type_name");
+        int index2=cursor.getColumnIndex("name_temp");
+        int index3=cursor.getColumnIndex("date");
+        int index4=cursor.getColumnIndex("name");
+        int index5=cursor.getColumnIndex("surname");
+        int index6=cursor.getColumnIndex("birth_city");
+        int index7=cursor.getColumnIndex("birth_day");
 
         do
          {
           resultBean=new Person();
 
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+          if (!cursor.isNull(index1)) { resultBean.typeName=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.nameTemp=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.date=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.name=cursor.getString(index4); }
+          if (!cursor.isNull(index5)) { resultBean.surname=cursor.getString(index5); }
+          if (!cursor.isNull(index6)) { resultBean.birthCity=cursor.getString(index6); }
+          if (!cursor.isNull(index7)) { resultBean.birthDay=DateUtils.read(cursor.getString(index7)); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -216,20 +305,23 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName#{orderBy}</pre>
+   * <pre>SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person ORDER BY type_name,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>type_name</dt><dd>is associated to bean's property <strong>typeName</strong></dd>
+   * 	<dt>name_temp</dt><dd>is associated to bean's property <strong>nameTemp</strong></dd>
+   * 	<dt>date</dt><dd>is associated to bean's property <strong>date</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
    *
-   * <h2>Dynamic parts:</h2>
+   * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>#{orderBy}</dt>is part of order statement resolved at runtime.</dd>
+   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * @param beanListener
@@ -239,27 +331,52 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void selectBeanListener(OnReadBeanListener<Person> beanListener, String orderBy) {
-    // build where condition
-    String[] _args={};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _projectionBuffer=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=orderBy;
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    String _sqlWhereStatement="";
 
+    // build where condition
+
+    // manage order by statement
+    String _sqlOrderByStatement=" ORDER BY type_name"+StringUtils.ifNotEmptyAppend(_sortOrder, ", ");
+    _sqlBuilder.append(_sqlOrderByStatement);
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName"+SqlUtils.appendForLog(orderBy),(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY typeName"+SqlUtils.appendForSQL(orderBy), _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql,(Object[])_sqlArgs);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
       Person resultBean=new Person();
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
-        int index3=cursor.getColumnIndex("birth_city");
-        int index4=cursor.getColumnIndex("birth_day");
+        int index1=cursor.getColumnIndex("type_name");
+        int index2=cursor.getColumnIndex("name_temp");
+        int index3=cursor.getColumnIndex("date");
+        int index4=cursor.getColumnIndex("name");
+        int index5=cursor.getColumnIndex("surname");
+        int index6=cursor.getColumnIndex("birth_city");
+        int index7=cursor.getColumnIndex("birth_day");
 
         int rowCount=cursor.getCount();
         do
          {
           // reset mapping
           resultBean.id=0L;
+          resultBean.typeName=null;
+          resultBean.nameTemp=null;
+          resultBean.date=null;
           resultBean.name=null;
           resultBean.surname=null;
           resultBean.birthCity=null;
@@ -267,10 +384,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+          if (!cursor.isNull(index1)) { resultBean.typeName=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.nameTemp=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.date=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.name=cursor.getString(index4); }
+          if (!cursor.isNull(index5)) { resultBean.surname=cursor.getString(index5); }
+          if (!cursor.isNull(index6)) { resultBean.birthCity=cursor.getString(index6); }
+          if (!cursor.isNull(index7)) { resultBean.birthDay=DateUtils.read(cursor.getString(index7)); }
 
           beanListener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());

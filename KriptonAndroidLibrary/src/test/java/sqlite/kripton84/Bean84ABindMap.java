@@ -134,6 +134,30 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
     fieldCount++;
     jacksonSerializer.writeNumberField("id", object.id);
 
+    // field param1 (mapped with "param1")
+    if (object.param1!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("param1", object.param1);
+    }
+
+    // field param2 (mapped with "param2")
+    if (object.param2!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("param2", object.param2);
+    }
+
+    // field param3 (mapped with "param3")
+    if (object.param3!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("param3", object.param3);
+    }
+
+    // field param4 (mapped with "param4")
+    if (object.param4!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("param4", object.param4);
+    }
+
     // field valueString (mapped with "valueString")
     if (object.valueString!=null)  {
       fieldCount++;
@@ -257,6 +281,30 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
     // field id (mapped with "id")
     jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
+    // field param1 (mapped with "param1")
+    if (object.param1!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("param1", object.param1);
+    }
+
+    // field param2 (mapped with "param2")
+    if (object.param2!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("param2", object.param2);
+    }
+
+    // field param3 (mapped with "param3")
+    if (object.param3!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("param3", object.param3);
+    }
+
+    // field param4 (mapped with "param4")
+    if (object.param4!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("param4", object.param4);
+    }
+
     // field valueString (mapped with "valueString")
     if (object.valueString!=null)  {
       fieldCount++;
@@ -379,6 +427,34 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
     xmlSerializer.writeLong(object.id);
     xmlSerializer.writeEndElement();
 
+    // field param1 (mapped with "param1")
+    if (object.param1!=null) {
+      xmlSerializer.writeStartElement("param1");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.param1));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field param2 (mapped with "param2")
+    if (object.param2!=null) {
+      xmlSerializer.writeStartElement("param2");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.param2));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field param3 (mapped with "param3")
+    if (object.param3!=null) {
+      xmlSerializer.writeStartElement("param3");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.param3));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field param4 (mapped with "param4")
+    if (object.param4!=null) {
+      xmlSerializer.writeStartElement("param4");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.param4));
+      xmlSerializer.writeEndElement();
+    }
+
     // field valueString (mapped with "valueString")
     if (object.valueString!=null) {
       xmlSerializer.writeStartElement("valueString");
@@ -495,6 +571,30 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
           case "id":
             // field id (mapped with "id")
             instance.id=jacksonParser.getLongValue();
+          break;
+          case "param1":
+            // field param1 (mapped with "param1")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.param1=jacksonParser.getText();
+            }
+          break;
+          case "param2":
+            // field param2 (mapped with "param2")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.param2=jacksonParser.getText();
+            }
+          break;
+          case "param3":
+            // field param3 (mapped with "param3")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.param3=jacksonParser.getText();
+            }
+          break;
+          case "param4":
+            // field param4 (mapped with "param4")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.param4=jacksonParser.getText();
+            }
           break;
           case "valueString":
             // field valueString (mapped with "valueString")
@@ -648,6 +748,30 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
           case "id":
             // field id (mapped with "id")
             instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          break;
+          case "param1":
+            // field param1 (mapped with "param1")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.param1=jacksonParser.getText();
+            }
+          break;
+          case "param2":
+            // field param2 (mapped with "param2")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.param2=jacksonParser.getText();
+            }
+          break;
+          case "param3":
+            // field param3 (mapped with "param3")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.param3=jacksonParser.getText();
+            }
+          break;
+          case "param4":
+            // field param4 (mapped with "param4")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.param4=jacksonParser.getText();
+            }
           break;
           case "valueString":
             // field valueString (mapped with "valueString")
@@ -828,6 +952,22 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                 case "id":
                   // property id (mapped on "id")
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                break;
+                case "param1":
+                  // property param1 (mapped on "param1")
+                  instance.param1=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "param2":
+                  // property param2 (mapped on "param2")
+                  instance.param2=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "param3":
+                  // property param3 (mapped on "param3")
+                  instance.param3=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "param4":
+                  // property param4 (mapped on "param4")
+                  instance.param4=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 case "valueString":
                   // property valueString (mapped on "valueString")

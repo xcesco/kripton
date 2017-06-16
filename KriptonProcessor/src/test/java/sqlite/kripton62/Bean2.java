@@ -29,6 +29,8 @@ public class Bean2 {
 	
 	public long id;
 	
+	public String value;
+	
 	Set<Byte> valueByteSet;
 	
 

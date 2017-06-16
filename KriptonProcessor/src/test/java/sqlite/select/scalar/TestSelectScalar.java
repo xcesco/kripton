@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.select.Person;

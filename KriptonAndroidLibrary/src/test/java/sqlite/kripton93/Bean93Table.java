@@ -20,9 +20,9 @@ public class Bean93Table {
    * DDL to create table bean93
    * </p>
    *
-   * <pre>CREATE TABLE bean93 (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT);</pre>
+   * <pre>CREATE TABLE bean93 (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, type_name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean93 (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean93 (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, type_name TEXT);";
 
   /**
    * <p>
@@ -53,4 +53,11 @@ public class Bean93Table {
    *  @see Bean93#surname
    */
   public static final String COLUMN_SURNAME = "surname";
+
+  /**
+   * Entity's property <code>typeName</code> is associated to table column <code>type_name</code>. This costant represents column typeName.
+   *
+   *  @see Bean93#typeName
+   */
+  public static final String COLUMN_TYPE_NAME = "type_name";
 }

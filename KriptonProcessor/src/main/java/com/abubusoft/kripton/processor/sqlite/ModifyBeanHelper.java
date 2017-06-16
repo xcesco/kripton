@@ -37,6 +37,7 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
@@ -104,14 +105,10 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		String tableName=daoDefinition.getEntity().getTableName();			
 		
 		// query builder
-		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);		
-		// where _sqlDynamicWhere and _sqlDynamicWhereArgs
-		if (method.hasDynamicWhereConditions()) {
-			methodBuilder.addStatement("String _sqlDynamicWhere=$L", method.dynamicWhereParameterName);
-		}
-		if (method.hasDynamicWhereArgs()) {
-			methodBuilder.addStatement("String[] _sqlDynamicWhereArgs=$L", method.dynamicWhereArgsParameterName);
-		}		
+		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
+		
+		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder,method.dynamicWhereParameterName, method.dynamicWhereArgsParameterName);
+		
 		
 		// generate where condition
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, true);
@@ -297,14 +294,15 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		// dynamic conditions
 		if (method.hasDynamicWhereConditions()) {
-			methodBuilder.addJavadoc("<h2>Dynamic parts:</h2>\n");
+			methodBuilder.addJavadoc("<h2>Method's parameters and associated dynamic parts:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("\t<dt>#{$L}</dt><dd>is part of where conditions resolved at runtime.</dd>\n", method.dynamicWhereParameterName);
+				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
 
-			methodBuilder.addJavadoc("</dl>");
+			methodBuilder.addJavadoc("\n</dl>");
 			methodBuilder.addJavadoc("\n\n");
+
 		}
 
 		// method parameters

@@ -27,7 +27,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
-import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -166,6 +165,16 @@ public abstract class SqlSelectBuilder {
 			generateSelectForContentProvider(elementUtils, builder, method, selectResultType);
 		}
 	}
+	
+	public static class SplittedSql {
+		public String sqlWhereStatement;
+		public String sqlOrderByStatement;
+		public String sqlOffsetStatement;
+		public String sqlLimitStatement;
+		public String sqlHavingStatement;
+		public String sqlGroupStatement;
+		public String sqlBasic;
+	}
 
 	/**
 	 * <p>
@@ -178,99 +187,27 @@ public abstract class SqlSelectBuilder {
 	 * @param selectResultType
 	 */
 	private static void generateSelectForContentProvider(Elements elementUtils, Builder builder, final SQLiteModelMethod method, SelectType selectResultType) {
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();
-		final JQL jql = method.jql;
+		final SQLEntity entity = daoDefinition.getEntity();		
 		final Set<String> columns = new LinkedHashSet<>();
+		
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
 
-		JQLChecker jqlChecker = JQLChecker.getInstance();
+		// params
+		methodBuilder.addParameter(ParameterSpec.builder(Uri.class, "uri").build());
+		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "projection").build());
+		methodBuilder.addParameter(ParameterSpec.builder(String.class, "selection").build());
+		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "selectionArgs").build());
+		methodBuilder.addParameter(ParameterSpec.builder(String.class, "sortOrder").build());
 
-		final One<String> sqlWhereStatement = new One<>();
-		final One<String> sqlOrderByStatement = new One<>();
-		final One<String> sqlOffsetStatement = new One<>();
-		final One<String> sqlLimitStatement = new One<>();
-		final One<String> sqlHavingStatement = new One<>();
-		final One<String> sqlGroupStatement = new One<>();
+		methodBuilder.returns(Cursor.class);
+		
+		SqlBuilderHelper.generateLogForContentProviderBeginning(method, methodBuilder);
+		
+		JQLChecker jqlChecker=JQLChecker.getInstance();
+		SplittedSql splittedSql=generateSQL(method, methodBuilder);
 
-		// convert jql to sql
-		String sql = jqlChecker.replace(method.jql, new JQLReplacerListener() {
-
-			@Override
-			public String onTableName(String tableName) {
-				return schema.getEntityBySimpleName(tableName).getTableName();
-			}
-
-			@Override
-			public String onBindParameter(String bindParameterName) {
-				return "${" + bindParameterName + "}";
-			}
-
-			@Override
-			public String onColumnName(String columnName) {
-				return entity.get(columnName).columnName;
-			}
-
-			@Override
-			public void onWhereStatementBegin(Where_stmtContext ctx) {
-			}
-
-			@Override
-			public void onWhereStatementEnd(Where_stmtContext ctx) {
-			}
-
-			@Override
-			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
-				return null;
-			}
-		});
-
-		// parameters extracted from JQL converted in SQL
-		String basicSQl = jqlChecker.replaceVariableStatements(sql, new JQLReplaceVariableStatementListenerImpl() {
-
-			@Override
-			public String onWhere(String statement) {
-				sqlWhereStatement.value0 = statement;
-				return "";
-			}
-
-			@Override
-			public String onOrderBy(String statement) {
-				sqlOrderByStatement.value0 = statement;
-				return "";
-			}
-
-			@Override
-			public String onOffset(String statement) {
-				sqlOffsetStatement.value0 = statement;
-				return "";
-			}
-
-			@Override
-			public String onLimit(String statement) {
-				sqlLimitStatement.value0 = statement;
-				return "";
-			}
-
-			@Override
-			public String onHaving(String statement) {
-				sqlHavingStatement.value0 = statement;
-				return "";
-			}
-
-			@Override
-			public String onGroup(String statement) {
-				sqlGroupStatement.value0 = statement;
-				return "";
-			}
-
-			@Override
-			public String onProjectedColumns(String statement) {
-				return "%s";
-			}
-		});
-
-		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(sqlWhereStatement.value0);
+		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(splittedSql.sqlWhereStatement);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = SqlBuilderHelper.removeDynamicPlaceHolder(placeHolders);
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
@@ -285,64 +222,19 @@ public abstract class SqlSelectBuilder {
 			}
 		}
 
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
-
-		// params
-		methodBuilder.addParameter(ParameterSpec.builder(Uri.class, "uri").build());
-		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "projection").build());
-		methodBuilder.addParameter(ParameterSpec.builder(String.class, "selection").build());
-		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "selectionArgs").build());
-		methodBuilder.addParameter(ParameterSpec.builder(String.class, "sortOrder").build());
-
-		methodBuilder.returns(Cursor.class);
-
-		SqlBuilderHelper.generateLogForMethodBeginning(method, methodBuilder);
-
 		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
-		methodBuilder.addStatement("$T _projectionBuffer=new $T()", StringBuilder.class, StringBuilder.class);
-
-		methodBuilder.addStatement("_sqlBuilder.append($S)", basicSQl);
+		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, "selection", "selectionArgs");
+		
+		methodBuilder.addStatement("$T _projectionBuffer=new $T()", StringBuilder.class, StringBuilder.class);		
+		if (method.jql.isOrderBy()) {
+			methodBuilder.addStatement("String _sortOrder=sortOrder");
+		}
+		
+		methodBuilder.addStatement("_sqlBuilder.append($S)", splittedSql.sqlBasic);
 
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, false);
 
-		if (StringUtils.hasText(sqlGroupStatement.value0)) {
-			methodBuilder.addCode("\n// manage GROUP BY statement\n");
-			methodBuilder.addStatement("String _sqlGroupByStatement=$S", sqlGroupStatement.value0);
-			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlGroupByStatement");
-		}
-
-		if (StringUtils.hasText(sqlHavingStatement.value0)) {
-			methodBuilder.addCode("\n// manage HAVING statement\n");
-			methodBuilder.addStatement("String _sqlHavingStatement=$S", sqlHavingStatement.value0);
-			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlHavingStatement");
-		}
-
-		if (jql.isOrderBy()) {
-			methodBuilder.addCode("\n// manage order by statement\n");
-			String value = sqlOrderByStatement.value0;
-			String valueToReplace = jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_ORDER_BY);
-
-			if (jql.isStaticOrderBy() && !jql.isDynamicOrderBy()) {
-				// case static statement and NO dynamic
-
-				methodBuilder.addStatement("String _sqlOrderByStatement=$S", value);
-			} else if (jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
-				methodBuilder.addStatement("String _sqlOrderByStatement=$S+$T.ifNotEmptyAppend($L, \", \")", value.replace(valueToReplace, ""), StringUtils.class, "sortOrder");
-			} else if (!jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
-				methodBuilder.addStatement("String _sqlOrderByStatement=$T.ifNotEmptyAppend($L,\" $L \")", StringUtils.class, "sortOrder", JQLKeywords.ORDER_BY_KEYWORD);
-			}
-
-			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOrderByStatement");
-
-		}
-
-		if (StringUtils.hasText(sqlLimitStatement.value0)) {
-			methodBuilder.addStatement("String _sqlLimitStatement=$S", sqlLimitStatement.value0);
-		}
-
-		if (StringUtils.hasText(sqlOffsetStatement.value0)) {
-			methodBuilder.addStatement("String _sqlOffsetStatement=$S", sqlOffsetStatement.value0);
-		}
+		generateDynamicPartOfQuery(method, methodBuilder, splittedSql);
 
 		// generate and check columns
 		{
@@ -412,6 +304,140 @@ public abstract class SqlSelectBuilder {
 		methodBuilder.addJavadoc("@return number of effected rows\n");
 
 		builder.addMethod(methodBuilder.build());
+	}
+
+	/**
+	 * @param method
+	 * @param methodBuilder
+	 * @param splittedSql
+	 */
+	public static void generateDynamicPartOfQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, SplittedSql splittedSql) {
+		final JQL jql = method.jql;
+		if (StringUtils.hasText(splittedSql.sqlGroupStatement)) {
+			methodBuilder.addCode("\n// manage GROUP BY statement\n");
+			methodBuilder.addStatement("String _sqlGroupByStatement=$S", splittedSql.sqlGroupStatement);
+			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlGroupByStatement");
+		}
+
+		if (StringUtils.hasText(splittedSql.sqlHavingStatement)) {
+			methodBuilder.addCode("\n// manage HAVING statement\n");
+			methodBuilder.addStatement("String _sqlHavingStatement=$S", splittedSql.sqlHavingStatement);
+			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlHavingStatement");
+		}
+
+		if (jql.isOrderBy()) {
+			methodBuilder.addCode("\n// manage order by statement\n");
+			String value = splittedSql.sqlOrderByStatement;
+			String valueToReplace = jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_ORDER_BY);
+
+			if (jql.isStaticOrderBy() && !jql.isDynamicOrderBy()) {
+				// case static statement and NO dynamic
+
+				methodBuilder.addStatement("String _sqlOrderByStatement=$S", value);
+			} else if (jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
+				methodBuilder.addStatement("String _sqlOrderByStatement=$S+$T.ifNotEmptyAppend($L, \", \")", value.replace(valueToReplace, ""), StringUtils.class, "_sortOrder");
+			} else if (!jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
+				methodBuilder.addStatement("String _sqlOrderByStatement=$T.ifNotEmptyAppend($L,\" $L \")", StringUtils.class, "_sortOrder", JQLKeywords.ORDER_BY_KEYWORD);
+			}
+
+			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOrderByStatement");
+
+		}
+
+		if (StringUtils.hasText(splittedSql.sqlLimitStatement)) {
+			methodBuilder.addStatement("String _sqlLimitStatement=$S", splittedSql.sqlLimitStatement);
+		}
+
+		if (StringUtils.hasText(splittedSql.sqlOffsetStatement)) {
+			methodBuilder.addStatement("String _sqlOffsetStatement=$S", splittedSql.sqlOffsetStatement);
+		}
+	}
+
+	static SplittedSql generateSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		JQLChecker jqlChecker = JQLChecker.getInstance();
+		final SQLEntity entity=method.getParent().getEntity();
+		final SQLiteDatabaseSchema schema=method.getParent().getParent();
+
+		final SplittedSql splittedSql=new SplittedSql();
+		
+		// convert jql to sql
+		String sql = jqlChecker.replace(method.jql, new JQLReplacerListener() {
+
+			@Override
+			public String onTableName(String tableName) {
+				return schema.getEntityBySimpleName(tableName).getTableName();
+			}
+
+			@Override
+			public String onBindParameter(String bindParameterName) {
+				return "${" + bindParameterName + "}";
+			}
+
+			@Override
+			public String onColumnName(String columnName) {
+				return entity.get(columnName).columnName;
+			}
+
+			@Override
+			public void onWhereStatementBegin(Where_stmtContext ctx) {
+			}
+
+			@Override
+			public void onWhereStatementEnd(Where_stmtContext ctx) {
+			}
+
+			@Override
+			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+				return null;
+			}
+		});
+
+		// parameters extracted from JQL converted in SQL
+		splittedSql.sqlBasic = jqlChecker.replaceVariableStatements(sql, new JQLReplaceVariableStatementListenerImpl() {
+
+			@Override
+			public String onWhere(String statement) {
+				splittedSql.sqlWhereStatement = statement;
+				return "";
+			}
+
+			@Override
+			public String onOrderBy(String statement) {
+				splittedSql.sqlOrderByStatement = statement;
+				return "";
+			}
+
+			@Override
+			public String onOffset(String statement) {
+				splittedSql.sqlOffsetStatement = statement;
+				return "";
+			}
+
+			@Override
+			public String onLimit(String statement) {
+				splittedSql.sqlLimitStatement = statement;
+				return "";
+			}
+
+			@Override
+			public String onHaving(String statement) {
+				splittedSql.sqlHavingStatement = statement;
+				return "";
+			}
+
+			@Override
+			public String onGroup(String statement) {
+				splittedSql.sqlGroupStatement = statement;
+				return "";
+			}
+
+			@Override
+			public String onProjectedColumns(String statement) {
+				return "%s";
+			}
+		});
+		
+		return splittedSql;
 	}
 
 }

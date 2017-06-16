@@ -73,6 +73,12 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
       jacksonSerializer.writeStringField("type", object.type.toString());
     }
 
+    // field uid (mapped with "uid")
+    if (object.uid!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("uid", object.uid);
+    }
+
     // field updateTime (mapped with "updateTime")
     fieldCount++;
     jacksonSerializer.writeNumberField("updateTime", object.updateTime);
@@ -128,6 +134,12 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
     if (object.type!=null)  {
       fieldCount++;
       jacksonSerializer.writeStringField("type", object.type.toString());
+    }
+
+    // field uid (mapped with "uid")
+    if (object.uid!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("uid", object.uid);
     }
 
     // field updateTime (mapped with "updateTime")
@@ -197,6 +209,13 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
     if (object.type!=null)  {
       xmlSerializer.writeStartElement("type");
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.type.toString()));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field uid (mapped with "uid")
+    if (object.uid!=null) {
+      xmlSerializer.writeStartElement("uid");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.uid));
       xmlSerializer.writeEndElement();
     }
 
@@ -276,6 +295,12 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
               instance.type=StringUtils.hasText(tempEnum)?MessageType.valueOf(tempEnum):null;
             }
           break;
+          case "uid":
+            // field uid (mapped with "uid")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.uid=jacksonParser.getText();
+            }
+          break;
           case "updateTime":
             // field updateTime (mapped with "updateTime")
             instance.updateTime=jacksonParser.getLongValue();
@@ -353,6 +378,12 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
               instance.type=StringUtils.hasText(tempEnum)?MessageType.valueOf(tempEnum):null;
             }
           break;
+          case "uid":
+            // field uid (mapped with "uid")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.uid=jacksonParser.getText();
+            }
+          break;
           case "updateTime":
             // field updateTime (mapped with "updateTime")
             instance.updateTime=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
@@ -425,6 +456,10 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
                 case "type":
                   // property type (mapped on "type")
                   instance.type=MessageType.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
+                case "uid":
+                  // property uid (mapped on "uid")
+                  instance.uid=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 case "updateTime":
                   // property updateTime (mapped on "updateTime")

@@ -81,6 +81,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   public Bean read() {
     Bean bean=new Bean();
     bean.id=prefs.getLong("id", bean.id);
+    bean.value=prefs.getString("value", bean.value);
      {
       String temp=prefs.getString("valueByteSet", null);
       bean.valueByteSet=StringUtils.hasText(temp) ? parseValueByteSet(temp): null;
@@ -143,6 +144,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   public void write(Bean bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putLong("id",bean.id);
+
+    editor.putString("value",bean.value);
 
     if (bean.valueByteSet!=null)  {
       String temp=serializeValueByteSet(bean.valueByteSet);
@@ -225,6 +228,15 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public long id() {
     return prefs.getLong("id", defaultBean.id);
+  }
+
+  /**
+   * read property value
+   *
+   * @return property value value
+   */
+  public String value() {
+    return prefs.getString("value", defaultBean.value);
   }
 
   /**
@@ -1042,6 +1054,15 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putId(long value) {
       editor.putLong("id",value);
+
+      return this;
+    }
+
+    /**
+     * modifier for property value
+     */
+    public BindEditor putValue(String value) {
+      editor.putString("value",value);
 
       return this;
     }

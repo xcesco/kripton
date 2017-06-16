@@ -34,6 +34,8 @@ public class MessageEntity {
 
     public OwnerType ownerType;
     
+    public String uid;
+    
     public String faceUid;
     public String text;
     public String ownerUid;

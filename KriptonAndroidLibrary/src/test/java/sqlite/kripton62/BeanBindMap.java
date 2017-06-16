@@ -48,6 +48,12 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     fieldCount++;
     jacksonSerializer.writeNumberField("id", object.id);
 
+    // field value (mapped with "value")
+    if (object.value!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("value", object.value);
+    }
+
     // field valueBeanSet (mapped with "valueBeanSet")
     if (object.valueBeanSet!=null)  {
       fieldCount++;
@@ -221,6 +227,12 @@ public class BeanBindMap extends AbstractMapper<Bean> {
 
     // field id (mapped with "id")
     jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
+
+    // field value (mapped with "value")
+    if (object.value!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("value", object.value);
+    }
 
     // field valueBeanSet (mapped with "valueBeanSet")
     if (object.valueBeanSet!=null)  {
@@ -454,6 +466,13 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     xmlSerializer.writeLong(object.id);
     xmlSerializer.writeEndElement();
 
+    // field value (mapped with "value")
+    if (object.value!=null) {
+      xmlSerializer.writeStartElement("value");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.value));
+      xmlSerializer.writeEndElement();
+    }
+
     // field valueBeanSet (mapped with "valueBeanSet")
     if (object.valueBeanSet!=null)  {
       int n=object.valueBeanSet.size();
@@ -683,6 +702,12 @@ public class BeanBindMap extends AbstractMapper<Bean> {
             // field id (mapped with "id")
             instance.id=jacksonParser.getLongValue();
           break;
+          case "value":
+            // field value (mapped with "value")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.value=jacksonParser.getText();
+            }
+          break;
           case "valueBeanSet":
             // field valueBeanSet (mapped with "valueBeanSet")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
@@ -876,6 +901,12 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           case "id":
             // field id (mapped with "id")
             instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          break;
+          case "value":
+            // field value (mapped with "value")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.value=jacksonParser.getText();
+            }
           break;
           case "valueBeanSet":
             // field valueBeanSet (mapped with "valueBeanSet")
@@ -1132,6 +1163,10 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "id":
                   // property id (mapped on "id")
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                break;
+                case "value":
+                  // property value (mapped on "value")
+                  instance.value=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 case "valueBeanSet":
                   // property valueBeanSet (mapped on "valueBeanSet")

@@ -60,7 +60,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		String pagedResultName = buildSpecializedPagedResultClass(builder, method);
 
 		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectType.isMapFields(), null);
-		// generate offical method
+		// generate official method
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 			// create PaginatedResult

@@ -21,6 +21,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.InvalidTypeForAnnotationException;
@@ -47,6 +48,25 @@ public abstract class AssertKripton {
 	public static void assertTrue(boolean expression, String messageFormat, Object... args) {
 		if (!expression)
 			throw (new KriptonProcessorException(String.format(messageFormat, args)));
+
+	}
+	
+	/**
+	 * Assertion which generate an exception if expression is not true
+	 * @param <T>
+	 * 
+	 * @param <E>
+	 * 
+	 * @param expression
+	 * @param message
+	 */
+	public static <T extends KriptonProcessorException> void assertTrue(Class<T> exceptionClazz, boolean expression, String messageFormat, Object... args) {
+		if (!expression)
+			try {
+				throw (exceptionClazz.getConstructor(String.class).newInstance(String.format(messageFormat, args)));
+			} catch (Throwable e) {
+				throw (new KriptonRuntimeException("Unknwon exception!"));
+			}
 
 	}
 
