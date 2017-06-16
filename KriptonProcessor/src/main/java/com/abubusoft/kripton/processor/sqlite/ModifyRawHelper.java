@@ -58,7 +58,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		// analyze whereCondition
 		String whereCondition = extractWhereConditions(updateMode, method);
 
-		Pair<String, List<Pair<String, TypeName>>> where = SqlUtility.extractParametersFromString(whereCondition, method, daoDefinition.getColumnNameConverter(), entity);
+		Pair<String, List<Pair<String, TypeName>>> where = SqlUtility.extractParametersFromString(whereCondition, method, entity);
 
 		// defines which parameter is used like update field and which is used
 		// in where condition.
@@ -112,7 +112,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				}
 
 				// here it needed raw parameter typeName
-				methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
+				methodBuilder.addCode("contentValues.put($S, ", property.columnName);
 
 				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(property.getElement()), item.value0);
 
@@ -120,7 +120,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 				if (TypeUtility.isNullable(method, item, property)) {
 					methodBuilder.nextControlFlow("else");
-					methodBuilder.addCode("contentValues.putNull($S);\n", daoDefinition.getColumnNameConverter().convert(property.getName()));
+					methodBuilder.addCode("contentValues.putNull($S);\n", property.columnName);
 					methodBuilder.endControlFlow();
 				}
 			}
@@ -213,16 +213,16 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 */
 	public String generateJavaDoc(SQLDaoDefinition daoDefinition, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition,
 			Pair<String, List<Pair<String, TypeName>>> where, List<Pair<String, TypeName>> methodParams, List<Pair<String, TypeName>> updateableParams) {
+		SQLEntity entity = daoDefinition.getEntity();
 		String sqlResult;
 		StringBuilder buffer = new StringBuilder();
 		StringBuilder bufferQuestion = new StringBuilder();
-		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
 
 		String separator = "";
 		for (Pair<String, TypeName> param : updateableParams) {
 			String resolvedName = method.findParameterAliasByName(param.value0);
 			buffer.append(separator + resolvedName + "=${" + resolvedName + "}");
-			bufferQuestion.append(separator + resolvedName + "='\"+StringUtils.checkSize(contentValues.get(\"" + daoDefinition.getColumnNameConverter().convert(resolvedName) + "\"))+\"'");
+			bufferQuestion.append(separator + resolvedName + "='\"+StringUtils.checkSize(contentValues.get(\"" +  entity.findByName(resolvedName).columnName + "\"))+\"'");
 
 			separator = ", ";
 		}
@@ -250,7 +250,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeName> property : updateableParams) {
 				String resolvedName = method.findParameterAliasByName(property.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", nc.convert(resolvedName));
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", entity.findByName(resolvedName).columnName);
 				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + resolvedName + "}", property.value0);
 			}
 			methodBuilder.addJavadoc("</dl>");

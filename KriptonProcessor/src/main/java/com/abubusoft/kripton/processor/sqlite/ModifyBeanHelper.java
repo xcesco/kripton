@@ -24,23 +24,17 @@ import java.util.List;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
-import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -219,7 +213,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	public String buildJavadoc(MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, String beanNameParameter, String whereCondition, List<SQLProperty> listUsedProperty,
 			List<String> attributesUsedInWhereConditions) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
+		SQLEntity entity = daoDefinition.getEntity();
 
 		// in this case, only one parameter can exists for method
 		Pair<String, TypeName> beanParameter = method.getParameters().get(0);
@@ -235,7 +229,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			buffer.append(String.format("%s%s=${%s.%s}", separator, property.columnName, method.findParameterAliasByName(beanNameParameter), property.getName()));
 
 			bufferQuestion.append(separator);
-			bufferQuestion.append(nc.convert(property.getName()) + "=");
+			bufferQuestion.append(property.columnName + "=");
 			bufferQuestion.append("'\"+StringUtils.checkSize(contentValues.get(\"" + property.columnName + "\"))+\"'");
 
 			separator = ", ";
@@ -261,7 +255,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
 				String resolvedName = method.findParameterAliasByName(beanParameter.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is mapped to <strong>$L</strong></dd>\n", nc.convert(property.getName()), "${" + resolvedName + "." + property.getName() + "}");
+				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is mapped to <strong>$L</strong></dd>\n", entity.get(resolvedName).columnName, "${" + resolvedName + "." + property.getName() + "}");
 			}
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");

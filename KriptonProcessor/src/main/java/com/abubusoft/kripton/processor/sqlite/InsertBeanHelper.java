@@ -24,7 +24,6 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
-import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -116,7 +115,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
+		SQLEntity entity=daoDefinition.getEntity();
 
 		String sqlInsert;
 		// generate javadoc and result
@@ -127,10 +126,10 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			StringBuilder bufferQuestion = new StringBuilder();
 			String separator = "";
 			for (SQLProperty property : listUsedProperty) {
-				bufferName.append(separator + nc.convert(property.getName()));
+				bufferName.append(separator + property.columnName);
 				bufferValue.append(separator + "${" + beanNameParameter + "." + property.getName() + "}");
 
-				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + nc.convert(property.getName()) + "\"))+\"'");
+				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + property.columnName + "\"))+\"'");
 
 				separator = ", ";
 			}
@@ -150,7 +149,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", daoDefinition.getColumnNameConverter().convert(property.getName()));
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", property.columnName);
 				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L</strong></dd>\n",
 						"${" + method.findParameterAliasByName(method.getParameters().get(0).value0) + "." + method.findParameterNameByAlias(property.getName()) + "}");
 			}

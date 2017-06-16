@@ -17,19 +17,15 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
-import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
@@ -55,7 +51,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		methodBuilder.addCode("contentValues.clear();\n\n");
 		for (Pair<String, TypeName> item : method.getParameters()) {
 			String propertyName = method.findParameterAliasByName(item.value0);
-			ModelProperty property = entity.get(propertyName);
+			 SQLProperty property = entity.get(propertyName);
 			if (property == null)
 				throw (new PropertyNotFoundException(method, propertyName, item.value1));
 
@@ -68,7 +64,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				// it use raw method param's typeName
 				methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 			}
-			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(property.getName()));
+			methodBuilder.addCode("contentValues.put($S, ", property.columnName);
 			// it does not need to be converted in string
 
 			SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, item.value1, item.value0);
@@ -77,7 +73,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addCode(");\n");
 			if (nullable) {
 				methodBuilder.nextControlFlow("else");
-				methodBuilder.addCode("contentValues.putNull($S);\n", daoDefinition.getColumnNameConverter().convert(propertyName));
+				methodBuilder.addCode("contentValues.putNull($S);\n", property.columnName);
 				methodBuilder.endControlFlow();
 			}
 			methodBuilder.addCode("\n");
@@ -123,8 +119,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		Converter<String, String> nc = daoDefinition.getColumnNameConverter();
-
+		SQLEntity entity=daoDefinition.getEntity();
 		String sqlInsert;
 		{
 			StringBuilder bufferName = new StringBuilder();
@@ -135,11 +130,11 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				String separator = "";
 				for (Pair<String, TypeName> item : method.getParameters()) {
 					String resolvedParamName = method.findParameterAliasByName(item.value0);
-					bufferName.append(separator + nc.convert(resolvedParamName));
+					bufferName.append(separator + entity.get(resolvedParamName).columnName);
 					bufferValue.append(separator + "${" + resolvedParamName + "}");
 
 					// here it needed raw parameter typeName
-					bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + nc.convert(resolvedParamName) + "\"))+\"'");
+					bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + entity.get(resolvedParamName).columnName + "\"))+\"'");
 					separator = ", ";
 				}
 			}
@@ -156,7 +151,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeName> property : method.getParameters()) {
 				String resolvedName = method.findParameterAliasByName(property.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", nc.convert(resolvedName));
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", entity.get(resolvedName).columnName);
 				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + resolvedName + "}", property.value0);
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
@@ -164,7 +159,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			{
 				for (Pair<String, TypeName> param : method.getParameters()) {
 					methodBuilder.addJavadoc("@param $L\n", param.value0);
-					methodBuilder.addJavadoc("\tis binded to column <strong>$L</strong>\n", nc.convert(method.findParameterAliasByName(param.value0)));
+					methodBuilder.addJavadoc("\tis binded to column <strong>$L</strong>\n", entity.get(method.findParameterAliasByName(param.value0)).columnName);
 				}
 			}
 

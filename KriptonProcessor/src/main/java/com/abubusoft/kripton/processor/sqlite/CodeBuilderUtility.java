@@ -111,7 +111,7 @@ public abstract class CodeBuilderUtility {
 				if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
 					continue;
 
-				buffer.append(separator + daoDefinition.getColumnNameConverter().convert(item.getName()));
+				buffer.append(separator + item.columnName);
 				result.value1.add(item);
 				separator = ", ";
 			}
@@ -127,7 +127,7 @@ public abstract class CodeBuilderUtility {
 			}
 
 			for (String item : includedFields) {
-				buffer.append(separator + daoDefinition.getColumnNameConverter().convert(item));
+				buffer.append(separator + daoDefinition.getEntity().findByName(item).columnName);
 				result.value1.add(null);
 				separator = ", ";
 			}
@@ -253,13 +253,13 @@ public abstract class CodeBuilderUtility {
 			}
 
 			// add property to list of used properties
-			methodBuilder.addCode("contentValues.put($S, ", daoDefinition.getColumnNameConverter().convert(item.getName()));
+			methodBuilder.addCode("contentValues.put($S, ", item.columnName);
 			SQLTransformer.java2ContentValues(methodBuilder, entityClassName, entityName, item);
 			methodBuilder.addCode(");\n");
 
 			if (TypeUtility.isNullable(item)) {
 				methodBuilder.nextControlFlow("else");
-				methodBuilder.addCode("contentValues.putNull($S);\n", daoDefinition.getColumnNameConverter().convert(item.getName()));
+				methodBuilder.addCode("contentValues.putNull($S);\n", item.columnName);
 				methodBuilder.endControlFlow();
 			}
 			methodBuilder.addCode("\n");

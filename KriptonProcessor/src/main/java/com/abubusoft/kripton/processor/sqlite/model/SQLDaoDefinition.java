@@ -21,7 +21,6 @@ import java.util.Map;
 
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelBucket;
 import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
@@ -107,14 +106,6 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 
 	public SQLEntity getEntity() {
 		 return getParent().getEntity(getEntityClassName());
-	}
-
-	public Converter<String, String> getColumnNameConverter() {
-		return getParent().columnNameConverter;
-	}
-
-	public Converter<String, String> getClassNameConverter() {
-		return getParent().classNameConverter;
 	}
 
 	/**

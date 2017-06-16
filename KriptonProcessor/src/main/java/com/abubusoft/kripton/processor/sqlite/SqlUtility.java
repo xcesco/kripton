@@ -47,7 +47,7 @@ public class SqlUtility {
 	 * @param entity
 	 * @return Pair<String, List<String>>
 	 */
-	public static Pair<String, List<Pair<String, TypeName>>> extractParametersFromString(String value, SQLiteModelMethod method, Converter<String, String> columnNameConverter, SQLEntity entity) {
+	public static Pair<String, List<Pair<String, TypeName>>> extractParametersFromString(String value, SQLiteModelMethod method, SQLEntity entity) {
 		String whereStatement = value;
 		Pair<String, List< Pair<String, TypeName>>> result = new Pair<String, List< Pair<String, TypeName>>>();
 		result.value1 = new ArrayList< Pair<String, TypeName>>();
@@ -83,7 +83,7 @@ public class SqlUtility {
 			while (matcher.find()) {
 				ModelProperty property = entity.findByName(matcher.group(1));
 				if (property != null) {
-					matcher.appendReplacement(buffer, columnNameConverter.convert(matcher.group(1)));
+					matcher.appendReplacement(buffer, entity.findByName(matcher.group(1)).columnName);
 				}
 
 			}
