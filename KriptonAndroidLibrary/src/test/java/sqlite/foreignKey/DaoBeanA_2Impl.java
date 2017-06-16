@@ -31,7 +31,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value_string2</dt><dd>is associated to bean's property <strong>valueString2</strong></dd>
    * </dl>
    *
@@ -91,7 +91,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value_string2</dt><dd>is associated to bean's property <strong>valueString2</strong></dd>
    * </dl>
    *
@@ -166,7 +166,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>

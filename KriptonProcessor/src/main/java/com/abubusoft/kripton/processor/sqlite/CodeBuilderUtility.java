@@ -127,7 +127,13 @@ public abstract class CodeBuilderUtility {
 			}
 
 			for (String item : includedFields) {
-				buffer.append(separator + daoDefinition.getEntity().findByName(item).columnName);
+				if (entity.contains(item))
+				{
+					buffer.append(separator + daoDefinition.getEntity().findByName(item).columnName);
+				} else {
+					buffer.append(separator + item);	
+				}
+				
 				result.value1.add(null);
 				separator = ", ";
 			}

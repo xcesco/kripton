@@ -213,7 +213,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	public String buildJavadoc(MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, String beanNameParameter, String whereCondition, List<SQLProperty> listUsedProperty,
 			List<String> attributesUsedInWhereConditions) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
+		//SQLEntity entity = daoDefinition.getEntity();
 
 		// in this case, only one parameter can exists for method
 		Pair<String, TypeName> beanParameter = method.getParameters().get(0);
@@ -255,7 +255,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
 				String resolvedName = method.findParameterAliasByName(beanParameter.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is mapped to <strong>$L</strong></dd>\n", entity.get(resolvedName).columnName, "${" + resolvedName + "." + property.getName() + "}");
+				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is mapped to <strong>$L</strong></dd>\n", property.columnName, "${" + resolvedName + "." + property.getName() + "}");
 			}
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");

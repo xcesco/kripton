@@ -54,13 +54,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR FAIL INTO person (parent_id, birth_city, birth_day, value, name, surname) VALUES (${bean.parentId}, ${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR FAIL INTO person (alias_parent_id, birth_city, birth_day, value, name, surname) VALUES (${bean.parentId}, ${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>parent_id</dt><dd>is mapped to <strong>${bean.parentId}</strong></dd>
+   * 	<dt>alias_parent_id</dt><dd>is mapped to <strong>${bean.parentId}</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
    * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
@@ -78,7 +78,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    contentValues.put("parent_id", bean.parentId);
+    contentValues.put("alias_parent_id", bean.parentId);
 
     if (bean.birthCity!=null) {
       contentValues.put("birth_city", bean.birthCity);
@@ -1119,7 +1119,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>parent_id</dt><dd>is mapped to <strong>${person.parentId}</strong></dd>
+   * 	<dt>alias_parent_id</dt><dd>is mapped to <strong>${person.parentId}</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>${person.birthCity}</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${person.birthDay}</strong></dd>
    * 	<dt>value</dt><dd>is mapped to <strong>${person.value}</strong></dd>
@@ -1142,7 +1142,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    contentValues.put("parent_id", person.parentId);
+    contentValues.put("alias_parent_id", person.parentId);
 
     if (person.birthCity!=null) {
       contentValues.put("birth_city", person.birthCity);
@@ -1293,7 +1293,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * 	<dt>alias_parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -1492,7 +1492,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * 	<dt>alias_parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -1680,7 +1680,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * 	<dt>alias_parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -1863,7 +1863,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * 	<dt>alias_parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -2000,7 +2000,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>no bean's property is associated</dd>
-   * 	<dt>parent_id</dt><dd>no bean's property is associated</dd>
+   * 	<dt>alias_parent_id</dt><dd>no bean's property is associated</dd>
    * 	<dt>birth_city</dt><dd>no bean's property is associated</dd>
    * 	<dt>birth_day</dt><dd>no bean's property is associated</dd>
    * 	<dt>value</dt><dd>no bean's property is associated</dd>
