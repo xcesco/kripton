@@ -4,6 +4,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+
+import java.io.File;
 import java.lang.Override;
 import java.lang.Throwable;
 
@@ -32,6 +34,9 @@ public class BindExample01DataSource extends AbstractDataSource implements BindE
 
   protected BindExample01DataSource() {
     super("example.db", 1);
+    
+    
+        
   }
 
   @Override

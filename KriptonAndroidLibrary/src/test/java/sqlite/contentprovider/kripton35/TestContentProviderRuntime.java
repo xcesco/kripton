@@ -17,6 +17,7 @@ package sqlite.contentprovider.kripton35;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.Date;
 
 import org.junit.Assert;
@@ -56,6 +57,7 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 	@Test
 	public void testRunInsert() {
 		insertRows(10);
+		
 	}
 
 	private void insertRows(int rows) {
