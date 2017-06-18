@@ -20,18 +20,18 @@ public class PhoneNumberTable {
    * DDL to create table phone_number
    * </p>
    *
-   * <pre>CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action TEXT, number TEXT, country_code TEXT, contact_name TEXT, contact_id TEXT);</pre>
+   * <pre>CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, number TEXT, country_code TEXT, contact_name TEXT, contact_id TEXT); CREATE INDEX IF NOT EXISTS idx_phone_number_0 (action_type);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action TEXT, number TEXT, country_code TEXT, contact_name TEXT, contact_id TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, number TEXT, country_code TEXT, contact_name TEXT, contact_id TEXT); CREATE INDEX IF NOT EXISTS idx_phone_number_0 (action_type);";
 
   /**
    * <p>
    * DDL to drop table phone_number
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS phone_number;</pre>
+   * <pre> DROP INDEX  IF EXISTS idx_phone_number_0;DROP TABLE IF EXISTS phone_number;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS phone_number;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX  IF EXISTS idx_phone_number_0;DROP TABLE IF EXISTS phone_number;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
@@ -41,11 +41,11 @@ public class PhoneNumberTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>action</code> is associated to table column <code>action</code>. This costant represents column typeName.
+   * Entity's property <code>actionType</code> is associated to table column <code>action_type</code>. This costant represents column typeName.
    *
-   *  @see PhoneNumber#action
+   *  @see PhoneNumber#actionType
    */
-  public static final String COLUMN_ACTION = "action";
+  public static final String COLUMN_ACTION_TYPE = "action_type";
 
   /**
    * Entity's property <code>number</code> is associated to table column <code>number</code>. This costant represents column typeName.

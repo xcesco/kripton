@@ -7,6 +7,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.kripton111.model.ActionType;
@@ -28,13 +29,13 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO phone_number (action, number, country_code, contact_name, contact_id) VALUES (${bean.action}, ${bean.number}, ${bean.countryCode}, ${bean.contactName}, ${bean.contactId})</pre>
+   * <pre>INSERT OR REPLACE INTO phone_number (action_type, number, country_code, contact_name, contact_id) VALUES (${bean.actionType}, ${bean.number}, ${bean.countryCode}, ${bean.contactName}, ${bean.contactId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>action</dt><dd>is mapped to <strong>${bean.action}</strong></dd>
+   * 	<dt>action_type</dt><dd>is mapped to <strong>${bean.actionType}</strong></dd>
    * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
    * 	<dt>country_code</dt><dd>is mapped to <strong>${bean.countryCode}</strong></dd>
    * 	<dt>contact_name</dt><dd>is mapped to <strong>${bean.contactName}</strong></dd>
@@ -51,10 +52,10 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    if (bean.action!=null) {
-      contentValues.put("action", bean.action.toString());
+    if (bean.actionType!=null) {
+      contentValues.put("action_type", bean.actionType.toString());
     } else {
-      contentValues.putNull("action");
+      contentValues.putNull("action_type");
     }
 
     if (bean.number!=null) {
@@ -82,8 +83,30 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
-    Logger.info(SqlUtils.formatSQL("INSERT OR REPLACE INTO phone_number (action, number, country_code, contact_name, contact_id) VALUES ('"+StringUtils.checkSize(contentValues.get("action"))+"', '"+StringUtils.checkSize(contentValues.get("number"))+"', '"+StringUtils.checkSize(contentValues.get("country_code"))+"', '"+StringUtils.checkSize(contentValues.get("contact_name"))+"', '"+StringUtils.checkSize(contentValues.get("contact_id"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info("INSERT OR REPLACE INTO phone_number (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("phone_number", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
     bean.id=result;
@@ -94,12 +117,12 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ${id}</pre>
+   * <pre>SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>action</dt><dd>is associated to bean's property <strong>action</strong></dd>
+   * 	<dt>action_type</dt><dd>is associated to bean's property <strong>actionType</strong></dd>
    * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * 	<dt>country_code</dt><dd>is associated to bean's property <strong>countryCode</strong></dd>
    * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
@@ -117,12 +140,34 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public PhoneNumber selectById(long id) {
-    // build where condition
-    String[] _args={String.valueOf(id)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    _sqlBuilder.append("SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number ");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE id = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(id));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE id = '%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       PhoneNumber resultBean=null;
@@ -130,7 +175,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("action");
+        int index1=cursor.getColumnIndex("action_type");
         int index2=cursor.getColumnIndex("number");
         int index3=cursor.getColumnIndex("country_code");
         int index4=cursor.getColumnIndex("contact_name");
@@ -139,7 +184,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
         resultBean=new PhoneNumber();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(cursor.getString(index1)); }
+        if (!cursor.isNull(index1)) { resultBean.actionType=ActionType.valueOf(cursor.getString(index1)); }
         if (!cursor.isNull(index2)) { resultBean.number=cursor.getString(index2); }
         if (!cursor.isNull(index3)) { resultBean.countryCode=cursor.getString(index3); }
         if (!cursor.isNull(index4)) { resultBean.contactName=cursor.getString(index4); }
@@ -166,23 +211,44 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public boolean deleteById(long id) {
-    String[] whereConditionsArray={String.valueOf(id)};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add(String.valueOf(id));
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("DELETE phone_number WHERE id = %s", (Object[])whereConditionsArray));
-    int result = database().delete("phone_number", "id = ?", whereConditionsArray);
+
+    // display log
+    Logger.info("DELETE FROM phone_number WHERE id = ?");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().delete("phone_number", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result!=0;
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE number = ${number}</pre>
+   * <pre>SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number WHERE number = ${number}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>action</dt><dd>is associated to bean's property <strong>action</strong></dd>
+   * 	<dt>action_type</dt><dd>is associated to bean's property <strong>actionType</strong></dd>
    * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * 	<dt>country_code</dt><dd>is associated to bean's property <strong>countryCode</strong></dd>
    * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
@@ -200,12 +266,34 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public PhoneNumber selectByNumber(String number) {
-    // build where condition
-    String[] _args={(number==null?"":number)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    _sqlBuilder.append("SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number ");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE number = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((number==null?"":number));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE number = '%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE number = ?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       PhoneNumber resultBean=null;
@@ -213,7 +301,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("action");
+        int index1=cursor.getColumnIndex("action_type");
         int index2=cursor.getColumnIndex("number");
         int index3=cursor.getColumnIndex("country_code");
         int index4=cursor.getColumnIndex("contact_name");
@@ -222,7 +310,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
         resultBean=new PhoneNumber();
 
         if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(cursor.getString(index1)); }
+        if (!cursor.isNull(index1)) { resultBean.actionType=ActionType.valueOf(cursor.getString(index1)); }
         if (!cursor.isNull(index2)) { resultBean.number=cursor.getString(index2); }
         if (!cursor.isNull(index3)) { resultBean.countryCode=cursor.getString(index3); }
         if (!cursor.isNull(index4)) { resultBean.contactName=cursor.getString(index4); }
@@ -236,12 +324,12 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contactName, number</pre>
+   * <pre>SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>action</dt><dd>is associated to bean's property <strong>action</strong></dd>
+   * 	<dt>action_type</dt><dd>is associated to bean's property <strong>actionType</strong></dd>
    * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * 	<dt>country_code</dt><dd>is associated to bean's property <strong>countryCode</strong></dd>
    * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
@@ -252,12 +340,31 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public List<PhoneNumber> selectAll() {
-    // build where condition
-    String[] _args={};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    _sqlBuilder.append("SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number ");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    String _sqlWhereStatement="";
 
+    // build where condition
+
+    // manage order by statement
+    String _sqlOrderByStatement=" ORDER BY contact_name, number";
+    _sqlBuilder.append(_sqlOrderByStatement);
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<PhoneNumber> resultList=new LinkedList<PhoneNumber>();
@@ -266,7 +373,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("action");
+        int index1=cursor.getColumnIndex("action_type");
         int index2=cursor.getColumnIndex("number");
         int index3=cursor.getColumnIndex("country_code");
         int index4=cursor.getColumnIndex("contact_name");
@@ -277,7 +384,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
           resultBean=new PhoneNumber();
 
           if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(cursor.getString(index1)); }
+          if (!cursor.isNull(index1)) { resultBean.actionType=ActionType.valueOf(cursor.getString(index1)); }
           if (!cursor.isNull(index2)) { resultBean.number=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.countryCode=cursor.getString(index3); }
           if (!cursor.isNull(index4)) { resultBean.contactName=cursor.getString(index4); }

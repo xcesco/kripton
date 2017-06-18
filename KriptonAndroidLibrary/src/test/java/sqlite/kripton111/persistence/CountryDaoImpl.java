@@ -7,6 +7,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.kripton111.model.Country;
@@ -77,8 +78,30 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     }
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
-    Logger.info(SqlUtils.formatSQL("INSERT OR REPLACE INTO country (area, code, calling_code, region, name) VALUES ('"+StringUtils.checkSize(contentValues.get("area"))+"', '"+StringUtils.checkSize(contentValues.get("code"))+"', '"+StringUtils.checkSize(contentValues.get("calling_code"))+"', '"+StringUtils.checkSize(contentValues.get("region"))+"', '"+StringUtils.checkSize(contentValues.get("name"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info("INSERT OR REPLACE INTO country (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("country", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
     bean.id=result;
@@ -112,12 +135,34 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public Country selectById(long id) {
-    // build where condition
-    String[] _args={String.valueOf(id)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country ");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE id = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(id));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, area, code, calling_code, region, name FROM country WHERE id = '%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, area, code, calling_code, region, name FROM country WHERE id = ?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Country resultBean=null;
@@ -161,11 +206,32 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public boolean deleteById(long id) {
-    String[] whereConditionsArray={String.valueOf(id)};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add(String.valueOf(id));
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("DELETE country WHERE id = %s", (Object[])whereConditionsArray));
-    int result = database().delete("country", "id = ?", whereConditionsArray);
+
+    // display log
+    Logger.info("DELETE FROM country WHERE id = ?");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().delete("country", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result!=0;
   }
 
@@ -188,12 +254,31 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public List<Country> selectAll() {
-    // build where condition
-    String[] _args={};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country ");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    String _sqlWhereStatement="";
 
+    // build where condition
+
+    // manage order by statement
+    String _sqlOrderByStatement=" ORDER BY name asc";
+    _sqlBuilder.append(_sqlOrderByStatement);
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, area, code, calling_code, region, name FROM country ORDER BY name asc",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, area, code, calling_code, region, name FROM country ORDER BY name asc", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       LinkedList<Country> resultList=new LinkedList<Country>();
@@ -230,7 +315,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, area, code, calling_code, region, name FROM country WHERE callingCode = ${callingCode}</pre>
+   * <pre>SELECT id, area, code, calling_code, region, name FROM country WHERE calling_code = ${callingCode}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -253,12 +338,34 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public Country selectByCallingCode(String callingCode) {
-    // build where condition
-    String[] _args={(callingCode==null?"":callingCode)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country ");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE callingCode = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((callingCode==null?"":callingCode));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, area, code, calling_code, region, name FROM country WHERE calling_code = '%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, area, code, calling_code, region, name FROM country WHERE calling_code = ?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Country resultBean=null;
@@ -312,12 +419,34 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public Country selectByCountry(String code) {
-    // build where condition
-    String[] _args={(code==null?"":code)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country ");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE code = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add((code==null?"":code));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, area, code, calling_code, region, name FROM country WHERE code = '%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, area, code, calling_code, region, name FROM country WHERE code = ?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       Country resultBean=null;

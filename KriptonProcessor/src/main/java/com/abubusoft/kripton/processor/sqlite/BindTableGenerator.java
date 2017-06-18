@@ -71,7 +71,6 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	public static final String SUFFIX = "Table";
 
 	private Converter<String, String> columnNameToUpperCaseConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);
-	//private Converter<String, String> columnNameToLowerCaseConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	public BindTableGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
@@ -82,13 +81,13 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	 * 
 	 * @param elementUtils
 	 * @param filer
-	 * @param model
+	 * @param schema
 	 * @throws Exception
 	 */
-	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) throws Exception {
-		BindTableGenerator visitor = new BindTableGenerator(elementUtils, filer, model);
+	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+		BindTableGenerator visitor = new BindTableGenerator(elementUtils, filer, schema);
 
-		for (SQLEntity item : model.getEntities()) {
+		for (SQLEntity item : schema.getEntities()) {
 			visitor.visit(item);
 		}
 	}
@@ -134,9 +133,98 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			//@formatter:on
 		}
 
+		StringBuilder bufferTable = new StringBuilder();
+		StringBuilder bufferForeignKey = new StringBuilder();
 		// shared between create table and drop table
 		StringBuilder bufferIndexesCreate = new StringBuilder();
 		StringBuilder bufferIndexesDrop = new StringBuilder();
+		StringBuilder bufferDropTable = new StringBuilder();
+
+		bufferTable.append("CREATE TABLE " + entity.getTableName());
+		// define column typeName set
+
+		String separator = "";
+		// primary key can be column id or that marked as PRIMARY_KEY
+		ModelProperty primaryKey = entity.getPrimaryKey();
+		ModelAnnotation annotationBindColumn;
+
+		bufferTable.append(" (");
+		for (SQLProperty item : entity.getCollection()) {
+			bufferTable.append(separator);
+			bufferTable.append(item.columnName);
+			bufferTable.append(" " + SQLTransformer.columnTypeAsString(item));
+
+			annotationBindColumn = item.getAnnotation(BindColumn.class);
+
+			if (annotationBindColumn != null) {
+				ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
+				switch (columnType) {
+				case PRIMARY_KEY:
+					bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
+					break;
+				case UNIQUE:
+					bufferTable.append(" UNIQUE");
+					break;
+				case INDEXED:
+					bufferIndexesCreate.append(String.format(" CREATE INDEX IF NOT EXISTS idx_%s_%s ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
+					bufferIndexesDrop.append(String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
+					break;
+				case STANDARD:
+					break;
+				}
+
+				boolean nullable = Boolean.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.NULLABLE));
+				if (!nullable) {
+					bufferTable.append(" NOT NULL");
+				}
+
+				// foreign key
+				String foreignClassName = annotationBindColumn.getAttributeAsClassName(AnnotationAttributeType.FOREIGN_KEY);
+				if (!foreignClassName.equals(NoForeignKey.class.getName())) {
+					SQLEntity reference = model.getEntity(foreignClassName);
+
+					if (reference == null) {
+						throw new InvalidBeanTypeException(item, foreignClassName);
+					}
+
+					// foreign key can ben used only with column type
+					// long/Long
+					if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getTypeName(), Long.class, Long.TYPE)) {
+						throw new InvalidForeignKeyTypeException(item);
+					}
+
+					bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.buildTableName(elementUtils, model) + "(" + reference.getPrimaryKey().columnName + ")");
+
+					// INSERT as dependency only if reference is another entity.
+					// Same entity can not be own dependency.
+					if (!entity.equals(reference)) {
+						entity.referedEntities.add(reference);
+					}
+
+				}
+
+			} else if (primaryKey.equals(item)) {
+				bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
+			}
+
+			separator = ", ";
+		}
+
+		// add foreign key
+		bufferTable.append(bufferForeignKey.toString());
+		bufferTable.append(");");
+
+		// add indexes creation one table
+		if (bufferIndexesCreate.length() > 0) {
+			bufferTable.append(bufferIndexesCreate.toString());
+		}
+
+		// add multicolumn indexes
+		Pair<String, String> multiIndexes = buldIndexes(entity);
+		if (!StringUtils.isEmpty(multiIndexes.value0)) {
+			bufferTable.append(multiIndexes.value0 + ";");
+			bufferIndexesDrop.append(multiIndexes.value1 + ";");
+		}
 
 		{
 			// create table SQL
@@ -144,94 +232,6 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
  			FieldSpec.Builder fieldSpec = FieldSpec.builder(String.class, "CREATE_TABLE_SQL")
  					.addModifiers(Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC);
  			//@formatter:on
-
-			StringBuilder bufferTable = new StringBuilder();
-			StringBuilder bufferForeignKey = new StringBuilder();
-			bufferTable.append("CREATE TABLE " + entity.getTableName());
-			// define column typeName set
-
-			String separator = "";
-			// primary key can be column id or that marked as PRIMARY_KEY
-			ModelProperty primaryKey = entity.getPrimaryKey();
-			ModelAnnotation annotationBindColumn;
-
-			bufferTable.append(" (");
-			for (SQLProperty item : entity.getCollection()) {
-				bufferTable.append(separator);
-				bufferTable.append(item.columnName);
-				bufferTable.append(" " + SQLTransformer.columnTypeAsString(item));
-
-				annotationBindColumn = item.getAnnotation(BindColumn.class);
-
-				if (annotationBindColumn != null) {
-					ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
-					switch (columnType) {
-					case PRIMARY_KEY:
-						bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
-						break;
-					case UNIQUE:
-						bufferTable.append(" UNIQUE");
-						break;
-					case INDEXED:
-						bufferIndexesCreate.append(String.format(" CREATE INDEX IF NOT EXISTS idx_%s_%s ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
-						bufferIndexesDrop.append(String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
-						break;
-					case STANDARD:
-						break;
-					}
-
-					boolean nullable = Boolean.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.NULLABLE));
-					if (!nullable) {
-						bufferTable.append(" NOT NULL");
-					}
-
-					// foreign key
-					String foreignClassName = annotationBindColumn.getAttributeAsClassName(AnnotationAttributeType.FOREIGN_KEY);
-					if (!foreignClassName.equals(NoForeignKey.class.getName())) {
-						SQLEntity reference = model.getEntity(foreignClassName);
-
-						if (reference == null) {
-							throw new InvalidBeanTypeException(item, foreignClassName);
-						}
-
-						// foreign key can ben used only with column type
-						// long/Long
-						if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getTypeName(), Long.class, Long.TYPE)) {
-							throw new InvalidForeignKeyTypeException(item);
-						}
-
-						bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.buildTableName(elementUtils, model) + "("
-								+ reference.getPrimaryKey().columnName + ")");
-
-						// INSERT as dependency only if reference is another entity. Same entity can not be own dependency.
-						if (!entity.equals(reference)) {
-							entity.referedEntities.add(reference);	
-						}
-						
-					}
-
-				} else if (primaryKey.equals(item)) {
-					bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
-				}
-
-				separator = ", ";
-			}
-
-			// add foreign key
-			bufferTable.append(bufferForeignKey.toString());
-			bufferTable.append(");");
-
-			// add indexes creation one table
-			if (bufferIndexesCreate.length() > 0) {
-				bufferTable.append(bufferIndexesCreate.toString());
-			}
-
-			// add multicolumn indexes
-			Pair<String, String> multiIndexes = buldIndexes(entity);
-			if (!StringUtils.isEmpty(multiIndexes.value0)) {
-				bufferTable.append(multiIndexes.value0 + ";");
-				bufferIndexesDrop.append(multiIndexes.value1 + ";");
-			}
 
 			//@formatter:off
  			fieldSpec.addJavadoc("<p>\nDDL to create table $L\n</p>\n",entity.getTableName());
@@ -241,11 +241,17 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			classBuilder.addField(fieldSpec.initializer("$S", bufferTable.toString()).build());
 		}
 
-		{
-			// drop table SQL
-			StringBuilder bufferDropTable = new StringBuilder();
-			bufferDropTable.append("DROP TABLE IF EXISTS " + entity.getTableName() + ";");
+		System.out.println("CREATE " + bufferTable.toString());
 
+		// drop table SQL
+		// add indexes creation one table
+		if (bufferIndexesDrop.length() > 0) {
+			bufferDropTable.append(bufferIndexesDrop.toString());
+		}
+		
+		bufferDropTable.append("DROP TABLE IF EXISTS " + entity.getTableName() + ";");
+
+		{
 			//@formatter:off
 			FieldSpec fieldSpec = FieldSpec.builder(String.class, "DROP_TABLE_SQL")
 					.addModifiers(Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC)
@@ -263,9 +269,13 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		}
 
 		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.BYTE, true, Modifier.STATIC, Modifier.PUBLIC);
+		
+		model.sqlForCreate.add(bufferTable.toString());
+		model.sqlForDrop.add(bufferDropTable.toString());
 
 		TypeSpec typeSpec = classBuilder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+
 	}
 
 	public static Pair<String, String> buldIndexes(SQLEntity entity) {
@@ -314,8 +324,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	static Pattern wordPattern = Pattern.compile("(\\w+)");
 
 	/**
-	 * Look in the string and try to convert first (and unique) field typeName in
-	 * its associated column typeName
+	 * Look in the string and try to convert first (and unique) field typeName
+	 * in its associated column typeName
 	 * 
 	 * @param entity
 	 */
@@ -329,7 +339,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			// process
 			for (SQLProperty item : entity.getCollection()) {
 				if (text.equals(item.getName())) {
-					found++;					
+					found++;
 					m.appendReplacement(sb, item.columnName);
 				}
 			}

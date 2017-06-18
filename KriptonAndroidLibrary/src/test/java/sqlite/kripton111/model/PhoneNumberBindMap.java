@@ -28,10 +28,10 @@ public class PhoneNumberBindMap extends AbstractMapper<PhoneNumber> {
 
     // Serialized Field:
 
-    // field action (mapped with "action")
-    if (object.action!=null)  {
+    // field actionType (mapped with "actionType")
+    if (object.actionType!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("action", object.action.toString());
+      jacksonSerializer.writeStringField("actionType", object.actionType.toString());
     }
 
     // field contactId (mapped with "contactId")
@@ -73,10 +73,10 @@ public class PhoneNumberBindMap extends AbstractMapper<PhoneNumber> {
 
     // Serialized Field:
 
-    // field action (mapped with "action")
-    if (object.action!=null)  {
+    // field actionType (mapped with "actionType")
+    if (object.actionType!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("action", object.action.toString());
+      jacksonSerializer.writeStringField("actionType", object.actionType.toString());
     }
 
     // field contactId (mapped with "contactId")
@@ -121,10 +121,10 @@ public class PhoneNumberBindMap extends AbstractMapper<PhoneNumber> {
 
     // Persisted fields:
 
-    // field action (mapped with "action")
-    if (object.action!=null)  {
-      xmlSerializer.writeStartElement("action");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.action.toString()));
+    // field actionType (mapped with "actionType")
+    if (object.actionType!=null)  {
+      xmlSerializer.writeStartElement("actionType");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.actionType.toString()));
       xmlSerializer.writeEndElement();
     }
 
@@ -186,11 +186,11 @@ public class PhoneNumberBindMap extends AbstractMapper<PhoneNumber> {
 
       // Parse fields:
       switch (fieldName) {
-          case "action":
-            // field action (mapped with "action")
+          case "actionType":
+            // field actionType (mapped with "actionType")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               String tempEnum=jacksonParser.getText();
-              instance.action=StringUtils.hasText(tempEnum)?ActionType.valueOf(tempEnum):null;
+              instance.actionType=StringUtils.hasText(tempEnum)?ActionType.valueOf(tempEnum):null;
             }
           break;
           case "contactId":
@@ -248,11 +248,11 @@ public class PhoneNumberBindMap extends AbstractMapper<PhoneNumber> {
 
       // Parse fields:
       switch (fieldName) {
-          case "action":
-            // field action (mapped with "action")
+          case "actionType":
+            // field actionType (mapped with "actionType")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               String tempEnum=jacksonParser.getText();
-              instance.action=StringUtils.hasText(tempEnum)?ActionType.valueOf(tempEnum):null;
+              instance.actionType=StringUtils.hasText(tempEnum)?ActionType.valueOf(tempEnum):null;
             }
           break;
           case "contactId":
@@ -320,9 +320,9 @@ public class PhoneNumberBindMap extends AbstractMapper<PhoneNumber> {
           case XmlPullParser.START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
-                case "action":
-                  // property action (mapped on "action")
-                  instance.action=ActionType.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                case "actionType":
+                  // property actionType (mapped on "actionType")
+                  instance.actionType=ActionType.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 case "contactId":
                   // property contactId (mapped on "contactId")

@@ -21,7 +21,7 @@ public class BindPhoneNumberCursor {
   protected int index0;
 
   /**
-   * Index for column "action"
+   * Index for column "actionType"
    */
   protected int index1;
 
@@ -63,7 +63,7 @@ public class BindPhoneNumberCursor {
     this.cursor=cursor;
 
     index0=cursor.getColumnIndex("id");
-    index1=cursor.getColumnIndex("action");
+    index1=cursor.getColumnIndex("action_type");
     index2=cursor.getColumnIndex("number");
     index3=cursor.getColumnIndex("country_code");
     index4=cursor.getColumnIndex("contact_name");
@@ -88,7 +88,7 @@ public class BindPhoneNumberCursor {
         resultBean=new PhoneNumber();
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
-        if (index1>=0 && !cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(cursor.getString(index1));}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.actionType=ActionType.valueOf(cursor.getString(index1));}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.number=cursor.getString(index2);}
         if (index3>=0 && !cursor.isNull(index3)) { resultBean.countryCode=cursor.getString(index3);}
         if (index4>=0 && !cursor.isNull(index4)) { resultBean.contactName=cursor.getString(index4);}
@@ -114,14 +114,14 @@ public class BindPhoneNumberCursor {
       do
        {
         if (index0>=0) { resultBean.id=0L;}
-        if (index1>=0) { resultBean.action=null;}
+        if (index1>=0) { resultBean.actionType=null;}
         if (index2>=0) { resultBean.number=null;}
         if (index3>=0) { resultBean.countryCode=null;}
         if (index4>=0) { resultBean.contactName=null;}
         if (index5>=0) { resultBean.contactId=null;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
-        if (index1>=0 && !cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(cursor.getString(index1));}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.actionType=ActionType.valueOf(cursor.getString(index1));}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.number=cursor.getString(index2);}
         if (index3>=0 && !cursor.isNull(index3)) { resultBean.countryCode=cursor.getString(index3);}
         if (index4>=0 && !cursor.isNull(index4)) { resultBean.contactName=cursor.getString(index4);}

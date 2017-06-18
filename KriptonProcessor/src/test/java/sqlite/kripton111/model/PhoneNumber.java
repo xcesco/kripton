@@ -15,14 +15,16 @@
  *******************************************************************************/
 package sqlite.kripton111.model;
 
+import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
+@BindTable(indexes={"actionType"})
 public class PhoneNumber {
 
     public long id;
 
-    public ActionType action;
+    public ActionType actionType;
 
     public String number;
 

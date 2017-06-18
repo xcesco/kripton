@@ -36,6 +36,10 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	protected Map<String, SQLEntity> entities = new HashMap<String, SQLEntity>();
 	
 	protected Map<String, SQLEntity> entitiesBySimpleName = new HashMap<String, SQLEntity>();
+	
+	public List<String> sqlForCreate=new ArrayList<String>();
+	
+	public List<String> sqlForDrop=new ArrayList<String>();
 
 	public String fileName;
 

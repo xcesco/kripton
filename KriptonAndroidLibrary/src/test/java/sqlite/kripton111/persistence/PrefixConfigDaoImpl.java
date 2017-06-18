@@ -7,6 +7,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import java.util.ArrayList;
 import sqlite.kripton111.model.PrefixConfig;
 
 /**
@@ -64,8 +65,30 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     contentValues.put("dialog_timeout", bean.dialogTimeout);
 
     //StringUtils and SqlUtils will be used to format SQL
-    // log
-    Logger.info(SqlUtils.formatSQL("INSERT OR REPLACE INTO prefix_config (default_country, dual_billing_prefix, enabled, dialog_timeout) VALUES ('"+StringUtils.checkSize(contentValues.get("default_country"))+"', '"+StringUtils.checkSize(contentValues.get("dual_billing_prefix"))+"', '"+StringUtils.checkSize(contentValues.get("enabled"))+"', '"+StringUtils.checkSize(contentValues.get("dialog_timeout"))+"')"));
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info("INSERT OR REPLACE INTO prefix_config (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
     // use SQLiteDatabase conflicts algorithm
     long result = database().insertWithOnConflict("prefix_config", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
     bean.id=result;
@@ -98,12 +121,34 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public PrefixConfig selectById(long id) {
-    // build where condition
-    String[] _args={String.valueOf(id)};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    _sqlBuilder.append("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config ");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
 
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE id = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(id));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config WHERE id = '%s'",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config WHERE id = ?", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       PrefixConfig resultBean=null;
@@ -145,11 +190,32 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public boolean deleteById(long id) {
-    String[] whereConditionsArray={String.valueOf(id)};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add(String.valueOf(id));
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("DELETE prefix_config WHERE id = %s", (Object[])whereConditionsArray));
-    int result = database().delete("prefix_config", "id = ?", whereConditionsArray);
+
+    // display log
+    Logger.info("DELETE FROM prefix_config WHERE id = ?");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().delete("prefix_config", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result!=0;
   }
 
@@ -171,12 +237,26 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public PrefixConfig selectOne() {
-    // build where condition
-    String[] _args={};
+    StringBuilder _sqlBuilder=new StringBuilder();
+    _sqlBuilder.append("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    String _sqlWhereStatement="";
 
+    // build where condition
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
-    Logger.info(SqlUtils.formatSQL("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config",(Object[])_args));
-    try (Cursor cursor = database().rawQuery("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config", _args)) {
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
       PrefixConfig resultBean=null;
@@ -245,11 +325,44 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
     contentValues.put("dialog_timeout", bean.dialogTimeout);
 
-    String[] whereConditionsArray={String.valueOf(bean.id)};
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add(String.valueOf(bean.id));
 
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id = ?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
     //StringUtils and SqlUtils will be used to format SQL
-    Logger.info(SqlUtils.formatSQL("UPDATE prefix_config SET default_country='"+StringUtils.checkSize(contentValues.get("default_country"))+"', dual_billing_prefix='"+StringUtils.checkSize(contentValues.get("dual_billing_prefix"))+"', enabled='"+StringUtils.checkSize(contentValues.get("enabled"))+"', dialog_timeout='"+StringUtils.checkSize(contentValues.get("dialog_timeout"))+"' WHERE id = '%s'", (Object[]) whereConditionsArray));
-    int result = database().update("prefix_config", contentValues, "id = ?", whereConditionsArray);
+
+    // display log
+    Logger.info("UPDATE prefix_config SET defaultCountry=:default_country, dualBillingPrefix=:dual_billing_prefix, enabled=:enabled, dialogTimeout=:dialog_timeout WHERE id = ? ");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().update("prefix_config", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 }
