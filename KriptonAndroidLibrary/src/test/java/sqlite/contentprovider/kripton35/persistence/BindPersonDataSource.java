@@ -155,7 +155,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
 		if (options.databaseLifecycleHandler != null) {
 			options.databaseLifecycleHandler.onCreate(database);
 		}
-		
+				
 		Cursor c=database.rawQuery("SELECT * FROM sqlite_master",null);
 		while (c.moveToNext()) {
 			
