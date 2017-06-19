@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -241,14 +242,14 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			classBuilder.addField(fieldSpec.initializer("$S", bufferTable.toString()).build());
 		}
 
-		System.out.println("CREATE " + bufferTable.toString());
+		System.out.println("CREATE " + new File("").getAbsolutePath());
 
 		// drop table SQL
 		// add indexes creation one table
 		if (bufferIndexesDrop.length() > 0) {
 			bufferDropTable.append(bufferIndexesDrop.toString());
 		}
-		
+
 		bufferDropTable.append("DROP TABLE IF EXISTS " + entity.getTableName() + ";");
 
 		{
@@ -269,7 +270,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		}
 
 		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.BYTE, true, Modifier.STATIC, Modifier.PUBLIC);
-		
+
 		model.sqlForCreate.add(bufferTable.toString());
 		model.sqlForDrop.add(bufferDropTable.toString());
 
