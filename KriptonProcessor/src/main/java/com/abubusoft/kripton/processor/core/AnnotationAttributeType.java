@@ -45,7 +45,8 @@ public enum AnnotationAttributeType {
 	
 	GENERATE_ASYNC_TASK("generateAsyncTask"),
 	GENERATE_CURSOR_WRAPPER("generateCursorWrapper"),	
-	GENERATE_LOG("generateLog"),	
+	GENERATE_LOG("generateLog"),
+	GENERATE_SCHEMA("generateSchema"),
 	GROUP_BY("groupBy"),
 	
 	
@@ -82,7 +83,7 @@ public enum AnnotationAttributeType {
 	XML_ELEMENT_TAG("elementTag"), 
 	XML_TYPE("xmlType"),
 	
-	MULTIPLICITY_RESULT("multiplicityResult")
+	MULTIPLICITY_RESULT("multiplicityResult"),	
 	;
 	
 	

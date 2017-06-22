@@ -69,7 +69,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	/**
 	 * if true we are in a test
 	 */
-	public static boolean TEST_MODE = false;
+	public static boolean JUNIT_TEST_MODE = false;
 
 	/**
 	 * if we want to display debug info

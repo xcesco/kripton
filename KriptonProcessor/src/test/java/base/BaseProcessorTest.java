@@ -103,7 +103,7 @@ public class BaseProcessorTest {
 		}
 
 		// when we run junit test, AnnotationProcessor is always in TEST_MODE
-		BaseProcessor.TEST_MODE = true;
+		BaseProcessor.JUNIT_TEST_MODE = true;
 		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
 	}
 

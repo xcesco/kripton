@@ -37,7 +37,7 @@ public class KriptonProcessorException extends RuntimeException {
 	}
 
 	public String getErrorCode() {
-		if (BaseProcessor.TEST_MODE)
+		if (BaseProcessor.JUNIT_TEST_MODE)
 			return getClass().getSimpleName() + ": ";
 
 		return "";

@@ -241,9 +241,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			classBuilder.addField(fieldSpec.initializer("$S", bufferTable.toString()).build());
 		}
-
-		System.out.println("CREATE " + new File("").getAbsolutePath());
-
+			
 		// drop table SQL
 		// add indexes creation one table
 		if (bufferIndexesDrop.length() > 0) {

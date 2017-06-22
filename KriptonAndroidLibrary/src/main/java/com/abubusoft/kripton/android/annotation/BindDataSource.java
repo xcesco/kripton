@@ -65,6 +65,25 @@ public @interface BindDataSource {
 	boolean generateLog() default true;
 	
 	/**
+	 * <p>if true, generate schema sql file, in <code>schema/</code> folder.</p>
+	 * 
+	 * <p>The name of file will be:</p>
+	 * 
+	 * <pre>
+	 * {name of datasource}.schema.{version}.sql
+	 * </pre>
+	 * 
+	 * Example:
+	 * 
+	 * <pre>
+	 * xeno.schema.1.sql
+	 * </pre>
+	 * 
+	 * @return
+	 */
+	boolean generateSchema() default true;
+	
+	/**
 	 * TODO
 	 * options.tablePrefix("TD_");
 	 * @return
