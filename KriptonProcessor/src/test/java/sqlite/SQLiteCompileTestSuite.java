@@ -22,6 +22,7 @@ import sqlite.contentprovider.kripton35.TestContentProviderSuite;
 import sqlite.dynamic.TestDynamicSuite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
+import sqlite.featJQL.TestJQLFeatureSuite;
 import sqlite.foreignKey.TestForeignKeySuite;
 import sqlite.generichierarchy.TestCompileGenericHierarchySuite;
 import sqlite.grammars.contenturi.TestUriCheckerSuite;
@@ -96,7 +97,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestSelectSuite.class,
 			IncludeFieldsTestSuite.class,
 			TestCompileMultithreadSuite.class,
-			TestCompileGenericHierarchySuite.class
+			TestCompileGenericHierarchySuite.class,
+			TestJQLFeatureSuite.class
 			})
 //@formatter:on
 public class SQLiteCompileTestSuite {

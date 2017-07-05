@@ -127,11 +127,6 @@ public class SqlUtility {
 	/**
 	 * Convert java property typeName in sql column typeName.
 	 */
-	static Converter<String, String> field2ColumnConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
-
-	/**
-	 * Convert java property typeName in sql column typeName.
-	 */
 	static Converter<String, String> field2ColumnNameFromTableConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);
 
 	/**
@@ -140,17 +135,8 @@ public class SqlUtility {
 	 * @param property
 	 * @return column typeName
 	 */
-	public static String getColumnName(ModelProperty property) {
-		return getColumnName(property.getName());
-	}
-
-	/**
-	 * Obtain column typeName for property
-	 * 
-	 * @return column typeName
-	 */
-	public static String getColumnName(String propertyName) {
-		return field2ColumnConverter.convert(propertyName);
+	public static String getColumnName(SQLProperty property) {
+		return property.columnName;		
 	}
 
 	public static String nameFromTable(SQLEntity entity, SQLProperty property) {

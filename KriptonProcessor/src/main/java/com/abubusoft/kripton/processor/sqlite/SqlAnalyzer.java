@@ -33,6 +33,7 @@ import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundEx
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
@@ -132,9 +133,9 @@ public class SqlAnalyzer {
 
 			StringBuffer buffer = new StringBuffer();
 			while (matcher.find()) {
-				ModelProperty property = entity.findByName(matcher.group(1));
+				SQLProperty property = entity.findByName(matcher.group(1));
 				if (property != null) {
-					matcher.appendReplacement(buffer, SqlUtility.getColumnName(matcher.group(1)));
+					matcher.appendReplacement(buffer, property.columnName);
 				}
 
 			}

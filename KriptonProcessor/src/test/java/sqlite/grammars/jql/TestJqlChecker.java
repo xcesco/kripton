@@ -39,6 +39,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerIm
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
 
 import base.BaseProcessorTest;
 
@@ -70,6 +71,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 			@Override
 			public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
 				TestJqlChecker.this.log("xx dynamic %s", ctx.bind_parameter_name().getText());
+			}
+			
+			@Override
+			public void enterColumn_name(Column_nameContext ctx) {					
+				super.enterColumn_name(ctx);
+				log("column "+ctx.getText());
 			}
 
 		});

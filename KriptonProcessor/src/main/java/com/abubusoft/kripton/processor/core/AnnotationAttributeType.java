@@ -83,7 +83,8 @@ public enum AnnotationAttributeType {
 	XML_ELEMENT_TAG("elementTag"), 
 	XML_TYPE("xmlType"),
 	
-	MULTIPLICITY_RESULT("multiplicityResult"),	
+	MULTIPLICITY_RESULT("multiplicityResult"),
+	JQL("jql"),	
 	;
 	
 	

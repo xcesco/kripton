@@ -34,7 +34,6 @@ public class ModelAnnotation {
 
 	protected Map<String, String> attributes;
 
-
 	public ModelAnnotation(String name, Map<String, String> attributes) {
 		this.name = name;
 		this.attributes = attributes;
@@ -44,37 +43,39 @@ public class ModelAnnotation {
 		return attributes.get(attribute.getValue());
 	}
 
+	public int getAttributeCount() {
+		return attributes.size();
+	}
 
 	public String getSimpleName() {
-		return name.substring(name.lastIndexOf(".")+1);
+		return name.substring(name.lastIndexOf(".") + 1);
 	}
 
 	public String getAttributeAsClassName(AnnotationAttributeType attribute) {
-		String temp=attributes.get(attribute.getValue());
-		
-		if (StringUtils.hasText(temp))
-		{
-			temp=temp.replace(".class", "");
+		String temp = attributes.get(attribute.getValue());
+
+		if (StringUtils.hasText(temp)) {
+			temp = temp.replace(".class", "");
 		}
-		
+
 		return temp;
 	}
 
 	public boolean getAttributeAsBoolean(AnnotationAttributeType attribute) {
-		String temp=attributes.get(attribute.getValue());
-		
+		String temp = attributes.get(attribute.getValue());
+
 		return Boolean.parseBoolean(temp);
 	}
 
-	public List<String> getAttributeAsArray(AnnotationAttributeType attribute) {		
-		String temp=attributes.get(attribute.getValue());
-		
+	public List<String> getAttributeAsArray(AnnotationAttributeType attribute) {
+		String temp = attributes.get(attribute.getValue());
+
 		return AnnotationUtility.extractAsArrayOfString(temp);
 	}
 
 	public int getAttributeAsInt(AnnotationAttributeType attribute) {
-		String temp=attributes.get(attribute.getValue());
-		
+		String temp = attributes.get(attribute.getValue());
+
 		return Integer.parseInt(temp);
 	}
 

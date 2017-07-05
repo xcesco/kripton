@@ -29,9 +29,9 @@ public class PersonTable {
    * DDL to drop table person
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS person;</pre>
+   * <pre> DROP INDEX IF EXISTS idx_person_name; DROP INDEX  IF EXISTS idx_person_0; DROP INDEX  IF EXISTS idx_person_0;DROP TABLE IF EXISTS person;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS person;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_person_name; DROP INDEX  IF EXISTS idx_person_0; DROP INDEX  IF EXISTS idx_person_0;DROP TABLE IF EXISTS person;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.

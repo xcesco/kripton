@@ -28,7 +28,7 @@ import sqlite.SQLiteCompileTestSuite;
 	BindCompileTestSuite.class, 
 	SharedCompileTestSuite.class, 	
 	SQLiteCompileTestSuite.class,
-	CommonsCompileSuite.class
+	CommonsCompileSuite.class	
 	})
 public class KriptonProcessorTestSuite {
 

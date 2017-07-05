@@ -34,8 +34,10 @@ import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -52,6 +54,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.Uri
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.TypeName;
+
+import android.database.sqlite.SQLiteBindOrColumnIndexOutOfRangeException;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
 
@@ -221,8 +225,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 				});
 
-		// build after others initilizations
-		this.jql = JQLBuilder.buildJQL(this);
+		// check if we have jql annotation attribute
+		String preparedJql = getJQLDeclared();
+
+		this.jql = JQLBuilder.buildJQL(this, preparedJql);
+		//
 
 		BindContentProviderEntry annotation = element.getAnnotation(BindContentProviderEntry.class);
 		if (annotation != null) {
@@ -231,8 +238,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (StringUtils.hasText(annotation.path())) {
 				methodPath = annotation.path();
 			}
-			
-			AssertKripton.assertTrue(!this.hasDynamicPageSizeConditions(), "Method %s.%s can not be marked with @%s annotation and contains parameter with @%s annotation", getParent().getName(), getName(), BindContentProviderEntry.class.getSimpleName(), BindSqlPageSize.class.getSimpleName(), IncompatibleAnnotationException.class);			
+
+			AssertKripton.assertTrue(!this.hasDynamicPageSizeConditions(),
+					"Method %s.%s can not be marked with @%s annotation and contains parameter with @%s annotation",
+					getParent().getName(), getName(), BindContentProviderEntry.class.getSimpleName(),
+					BindSqlPageSize.class.getSimpleName(), IncompatibleAnnotationException.class);
 
 			this.contentProviderEntryPathEnabled = true;
 			this.contentProviderEntryPath = methodPath;
@@ -248,10 +258,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 						@Override
 						public String onParameterName(int pathSegmentIndex, String name) {
-							JQLParameterName pName=JQLParameterName.parse(name);
-							
-							String propertyName=pName.getValue();
-							
+							JQLParameterName pName = JQLParameterName.parse(name);
+
+							String propertyName = pName.getValue();
+
 							SQLProperty entityProperty = entity.get(propertyName);
 							TypeName methodParamTypeName = SQLiteModelMethod.this.findParameterTypeByAliasOrName(name);
 
@@ -280,9 +290,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 											getParent().getName(), getName(), name, methodParamTypeName,
 											contentProviderUri());
 								}
-								
+
 							} else {
-								AssertKripton.fail("Invalid parameter '%s' is used in content provider path '%s' associated to method '%s.%s'",
+								AssertKripton.fail(
+										"Invalid parameter '%s' is used in content provider path '%s' associated to method '%s.%s'",
 										name, contentProviderUri(), getParent().getName(), getName());
 							}
 							return null;
@@ -292,7 +303,6 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			this.contentProviderUriVariables = uriParams;
 			this.contentProviderUriTemplate = uriTemplate;
-						
 
 			// if we have a path, we have to remove the initial /
 			this.contentProviderEntryPathTemplate = uriTemplate
@@ -300,6 +310,66 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (this.contentProviderEntryPathTemplate.startsWith("/"))
 				contentProviderEntryPathTemplate = this.contentProviderEntryPathTemplate.substring(1);
 		}
+
+	}
+
+	private String getJQLDeclared() {
+		ModelAnnotation inserAnnotation = this.getAnnotation(BindSqlInsert.class);
+		ModelAnnotation updateAnnotation = this.getAnnotation(BindSqlUpdate.class);
+		ModelAnnotation selectAnnotation = this.getAnnotation(BindSqlSelect.class);
+		ModelAnnotation deleteAnnotation = this.getAnnotation(BindSqlDelete.class);
+
+		String jql = null;
+		int counter = 0;
+
+		if (selectAnnotation != null) {
+			jql = selectAnnotation.getAttribute(AnnotationAttributeType.JQL);
+			if (StringUtils.hasText(jql)) {
+				counter++;
+
+				AssertKripton.assertTrue(selectAnnotation.getAttributeCount() > 1,
+						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
+						selectAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
+			}
+		}
+
+		if (inserAnnotation != null) {
+			jql = inserAnnotation.getAttribute(AnnotationAttributeType.JQL);
+			if (StringUtils.hasText(jql)) {
+				counter++;
+
+				AssertKripton.assertTrue(inserAnnotation.getAttributeCount() > 1,
+						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
+						selectAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
+			}
+		}
+
+		if (updateAnnotation != null) {
+			jql = updateAnnotation.getAttribute(AnnotationAttributeType.JQL);
+			if (StringUtils.hasText(jql)) {
+				counter++;
+
+				AssertKripton.assertTrue(updateAnnotation.getAttributeCount() > 1,
+						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
+						selectAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
+			}
+		}
+
+		if (deleteAnnotation != null) {
+			jql = deleteAnnotation.getAttribute(AnnotationAttributeType.JQL);
+			if (StringUtils.hasText(jql)) {
+				counter++;
+
+				AssertKripton.assertTrue(deleteAnnotation.getAttributeCount() > 1,
+						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
+						selectAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
+			}
+		}
+
+		AssertKripton.assertTrue(counter <= 1, "Method %s.%s have more than one annotation with JQL attribute",
+				this.getParent().getName(), this.getName());
+
+		return jql;
 
 	}
 

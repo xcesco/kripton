@@ -61,9 +61,9 @@ public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 		methodBuilder.addCode("\n");
 		{
 			int i = 0;
-			for (ModelProperty item : fields) {
+			for (SQLProperty item : fields) {
 				methodBuilder.addCode("int index" + (i++) + "=");
-				methodBuilder.addCode("cursor.getColumnIndex($S)", SqlUtility.getColumnName(item));
+				methodBuilder.addCode("cursor.getColumnIndex($S)", item.columnName);
 				methodBuilder.addCode(";\n");
 			}
 		}

@@ -121,8 +121,8 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		//@formatter:on
 		counter=0;
 		wrapMethodBuilder.addCode("\n");
-		for (ModelProperty item : entity.getCollection()) {
-			wrapMethodBuilder.addCode("index$L=cursor.getColumnIndex($S);\n", counter, SqlUtility.getColumnName(item));
+		for (SQLProperty item : entity.getCollection()) {
+			wrapMethodBuilder.addCode("index$L=cursor.getColumnIndex($S);\n", counter, item.columnName);
 			counter++;
 		}
 		wrapMethodBuilder.addCode("\n");

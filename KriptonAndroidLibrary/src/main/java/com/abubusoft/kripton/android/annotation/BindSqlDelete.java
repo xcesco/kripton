@@ -102,4 +102,25 @@ import java.lang.annotation.Target;
 public @interface BindSqlDelete {
 
 	String where() default "1=1";
+	
+	/**
+	 * 
+	 * <p>
+	 * JQL value. With this attribute, it is possibile to specify directly the JQL code. JQL means that you can write SQL using field's names and class name indeed
+	 * of column and table names. Moreover, it is possibile to specify where to use the dynamic parts of query through dynamic statements like DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE, DYNAMIC_PAGE_OFFSET, encapsulated
+	 * in <code>#{ <dynamic-part-name> }</code>
+	 * </p>
+	 * 
+	 * <p>For example, for a <code>select</code> statement, you can write:</p>
+	 * 
+	 * <pre>
+	 * SELECT * FROM media WHERE mediaId IN (SELECT mediaId FROM fav WHERE #{DYNAMIC_WHERE}) ORDER BY indx DESC LIMIT 0, 100 
+	 * </pre>
+	 * 
+	 * <strong>If you use this attribute, no other attributes can be defined for the annotation</strong>.
+	 * 
+	 * @return
+	 * 	JQL code specified by user
+	 */
+	String jql() default "";
 }
