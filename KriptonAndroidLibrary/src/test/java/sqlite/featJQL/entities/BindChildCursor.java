@@ -21,9 +21,14 @@ public class BindChildCursor {
   protected int index0;
 
   /**
-   * Index for column "parentId"
+   * Index for column "name"
    */
   protected int index1;
+
+  /**
+   * Index for column "parentId"
+   */
+  protected int index2;
 
   /**
    * <p>Constructor</p>
@@ -43,7 +48,8 @@ public class BindChildCursor {
     this.cursor=cursor;
 
     index0=cursor.getColumnIndex("_id");
-    index1=cursor.getColumnIndex("parent_id");
+    index1=cursor.getColumnIndex("name");
+    index2=cursor.getColumnIndex("parent_id");
 
     return this;
   }
@@ -64,7 +70,8 @@ public class BindChildCursor {
         resultBean=new Child();
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
-        if (index1>=0 && !cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1);}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.parentId=cursor.getLong(index2);}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -86,10 +93,12 @@ public class BindChildCursor {
       do
        {
         if (index0>=0) { resultBean.id=0L;}
-        if (index1>=0) { resultBean.parentId=0L;}
+        if (index1>=0) { resultBean.name=null;}
+        if (index2>=0) { resultBean.parentId=0L;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
-        if (index1>=0 && !cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1);}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.parentId=cursor.getLong(index2);}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

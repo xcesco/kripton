@@ -50,7 +50,7 @@ public class JQL {
 	public boolean annotatedGroupBy;
 
 	/**
-	 * <code>true</code> if method's annotation contains <code>where</code>
+	 * <code>true</code> if method's annotation contains <code>having</code>
 	 * attribute
 	 */
 	public boolean annotatedHaving;
@@ -62,7 +62,7 @@ public class JQL {
 	public boolean annotatedOrderBy;
 
 	/**
-	 * <code>true</code> if method's annotation contains <code>where</code>
+	 * <code>true</code> if method's annotation contains <code>page</code>
 	 * attribute
 	 */
 	public boolean annotatedPageSize;
@@ -82,8 +82,6 @@ public class JQL {
 
 	public Map<JQLDynamicStatementType, String> dynamicReplace;
 
-	public boolean annotatedHavingBy;
-
 	boolean staticOrderBy;
 
 	public boolean isStaticOrderBy() {
@@ -91,6 +89,10 @@ public class JQL {
 	}
 
 	boolean staticWhereConditions;
+
+	public boolean annotatedOffset;
+
+	public boolean annotatedLimit;
 
 	/**
 	 * if <code>true</code> states that JQL has a static WHERE statement.
@@ -101,11 +103,11 @@ public class JQL {
 	public boolean isStaticWhereConditions() {
 		return staticWhereConditions;
 	}
-	
+
 	public boolean isDynamicOrderBy() {
 		return dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_ORDER_BY);
 	}
-	
+
 	public boolean isOrderBy() {
 		return isStaticOrderBy() || isDynamicOrderBy();
 	}
@@ -119,11 +121,13 @@ public class JQL {
 	public boolean isDynamicWhereConditions() {
 		return dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_WHERE);
 	}
-	
+
 	/**
-	 * if <code>true</code> states that JQL has a WHERE statement, static or dynamic.
+	 * if <code>true</code> states that JQL has a WHERE statement, static or
+	 * dynamic.
 	 * 
-	 * @return if <code>true</code> states that JQL has a WHERE statement, static or dynamic.
+	 * @return if <code>true</code> states that JQL has a WHERE statement,
+	 *         static or dynamic.
 	 */
 	public boolean isWhereConditions() {
 		return isStaticWhereConditions() || isDynamicWhereConditions();

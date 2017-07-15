@@ -20,9 +20,9 @@ public class ChildTable {
    * DDL to create table child
    * </p>
    *
-   * <pre>CREATE TABLE child (_id INTEGER, parent_id INTEGER, FOREIGN KEY(parent_id) REFERENCES person(_id));</pre>
+   * <pre>CREATE TABLE child (_id INTEGER, name TEXT NOT NULL, parent_id INTEGER, FOREIGN KEY(parent_id) REFERENCES person(_id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE child (_id INTEGER, parent_id INTEGER, FOREIGN KEY(parent_id) REFERENCES person(_id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE child (_id INTEGER, name TEXT NOT NULL, parent_id INTEGER, FOREIGN KEY(parent_id) REFERENCES person(_id));";
 
   /**
    * <p>
@@ -39,6 +39,13 @@ public class ChildTable {
    *  @see Child#id
    */
   public static final String COLUMN_ID = "_id";
+
+  /**
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
+   *
+   *  @see Child#name
+   */
+  public static final String COLUMN_NAME = "name";
 
   /**
    * Entity's property <code>parentId</code> is associated to table column <code>parent_id</code>. This costant represents column typeName.

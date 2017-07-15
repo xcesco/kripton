@@ -6,6 +6,7 @@ import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.Base64Utils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
@@ -64,6 +65,12 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeEndArray();
     }
 
+    // field name (mapped with "name")
+    if (object.name!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("name", object.name);
+    }
+
     jacksonSerializer.writeEndObject();
     return fieldCount;
   }
@@ -107,6 +114,12 @@ public class PersonBindMap extends AbstractMapper<Person> {
       } else {
         jacksonSerializer.writeString("");
       }
+    }
+
+    // field name (mapped with "name")
+    if (object.name!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("name", object.name);
     }
 
     jacksonSerializer.writeEndObject();
@@ -158,6 +171,13 @@ public class PersonBindMap extends AbstractMapper<Person> {
       }
     }
 
+    // field name (mapped with "name")
+    if (object.name!=null) {
+      xmlSerializer.writeStartElement("name");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.name));
+      xmlSerializer.writeEndElement();
+    }
+
     if (currentEventType == 0) {
       xmlSerializer.writeEndElement();
     }
@@ -207,6 +227,12 @@ public class PersonBindMap extends AbstractMapper<Person> {
                 collection.add(item);
               }
               instance.listChild=collection;
+            }
+          break;
+          case "name":
+            // field name (mapped with "name")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.name=jacksonParser.getText();
             }
           break;
           default:
@@ -265,6 +291,12 @@ public class PersonBindMap extends AbstractMapper<Person> {
             } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
               ArrayList<Child> collection=new ArrayList<>();
               instance.listChild=collection;
+            }
+          break;
+          case "name":
+            // field name (mapped with "name")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.name=jacksonParser.getText();
             }
           break;
           default:
@@ -341,6 +373,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
                     instance.listChild=collection;
                     read=false;
                   }
+                break;
+                case "name":
+                  // property name (mapped on "name")
+                  instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
                 break;

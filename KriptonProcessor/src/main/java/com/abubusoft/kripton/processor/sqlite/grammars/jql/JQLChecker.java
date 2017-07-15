@@ -57,6 +57,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Offset_stm
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Order_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Result_columnContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_coreContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_or_valuesContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 
@@ -108,7 +110,9 @@ public class JQLChecker {
 	}
 
 	/**
-	 * <p>Parse the variable parts of a SQL: </p>
+	 * <p>
+	 * Parse the variable parts of a SQL:
+	 * </p>
 	 * 
 	 * <ul>
 	 * <li>where_stmt</li>
@@ -185,73 +189,75 @@ public class JQLChecker {
 	 * @return string obtained by replacements
 	 */
 	public String replaceFromVariableStatement(String jql, final JQLReplacerListener listener) {
-		rewriterListener.init(listener);	
+		rewriterListener.init(listener);
 
 		return replaceFromVariableStatementInternal(jql, replace, rewriterListener);
 	}
-	
+
 	List<Triple<Token, Token, String>> replace = new ArrayList<>();
-	
+
 	/**
 	 * 
 	 * @author Francesco Benincasa (abubusoft@gmail.com)
 	 *
 	 */
 	public class JQLRewriterListener extends JqlBaseListener {
-		
+
 		private JQLReplacerListener listener;
 
 		public void init(JQLReplacerListener listener) {
-			this.listener=listener;
-			replace.clear();			
+			this.listener = listener;
+			replace.clear();
 		}
-		
+
 		@Override
 		public void enterTable_name(Table_nameContext ctx) {
 			String value = listener.onTableName(ctx.getText());
-			
+
 			// skip without replace
-			if (value==null) return;
-			
+			if (value == null)
+				return;
+
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
-		}		
+		}
 
 		@Override
 		public void enterBind_parameter(Bind_parameterContext ctx) {
 			String value;
-			if (ctx.bind_parameter_name()!=null) {
+			if (ctx.bind_parameter_name() != null) {
 				value = listener.onBindParameter(ctx.bind_parameter_name().getText());
 			} else {
 				value = listener.onBindParameter(ctx.getText());
 			}
-			
+
 			// skip without replace
-			if (value==null) return;
-			
+			if (value == null)
+				return;
+
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
 
 		@Override
 		public void enterColumn_name(Column_nameContext ctx) {
 			String value = listener.onColumnName(ctx.getText());
-			
+
 			// skip without replace
-			if (value==null) return;
-			
+			if (value == null)
+				return;
+
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
-		
+
 		@Override
 		public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
 			String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
-			
+
 			// skip without replace
-			if (value==null) return;
-			
+			if (value == null)
+				return;
+
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
-		
-		
 
 		@Override
 		public void enterWhere_stmt(Where_stmtContext ctx) {
@@ -263,9 +269,8 @@ public class JQLChecker {
 			listener.onWhereStatementEnd(ctx);
 		}
 	}
-	
-	JQLRewriterListener rewriterListener = new JQLRewriterListener();
 
+	JQLRewriterListener rewriterListener = new JQLRewriterListener();
 
 	/**
 	 * Replace place holder with element passed by listener
@@ -275,8 +280,8 @@ public class JQLChecker {
 	 * @return string obtained by replacements
 	 */
 	public String replace(JQL jql, final JQLReplacerListener listener) {
-		rewriterListener.init(listener);	
-		
+		rewriterListener.init(listener);
+
 		return replaceInternal(jql.value, replace, rewriterListener);
 
 	}
@@ -317,16 +322,16 @@ public class JQLChecker {
 		public String getValue() {
 			return values[values.length - 1];
 		}
-		
+
 		public String getBeanName() {
 			if (isNested())
-			return values[0];
-			
+				return values[0];
+
 			return "";
 		}
-		
+
 		public boolean isNested() {
-			return values.length>1;
+			return values.length > 1;
 		}
 
 		public static JQLParameterName parse(String value) {
@@ -395,7 +400,7 @@ public class JQLChecker {
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
 				String value;
-				if (ctx.bind_parameter_name()!=null) {
+				if (ctx.bind_parameter_name() != null) {
 					value = ctx.bind_parameter_name().getText();
 				} else {
 					value = ctx.getText();
@@ -414,9 +419,10 @@ public class JQLChecker {
 
 	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromVariableStatement(String jql, final L result) {
 		final One<Boolean> valid = new One<>();
-		
-		if (!StringUtils.hasText(jql)) return result;		
-		
+
+		if (!StringUtils.hasText(jql))
+			return result;
+
 		valid.value0 = false;
 
 		analyzeVariableStatementInternal(jql, new JqlBaseListener() {
@@ -424,11 +430,10 @@ public class JQLChecker {
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
 				String parameter;
-				if (ctx.bind_parameter_name()!=null)
-				{
-					parameter=ctx.bind_parameter_name().getText();
+				if (ctx.bind_parameter_name() != null) {
+					parameter = ctx.bind_parameter_name().getText();
 				} else {
-					parameter=ctx.getText();
+					parameter = ctx.getText();
 				}
 				result.add(new JQLPlaceHolder(JQLPlaceHolderType.PARAMETER, parameter));
 			}
@@ -443,25 +448,56 @@ public class JQLChecker {
 	}
 
 	/**
+	 * <p>
 	 * Given a sql, replace som component like where, order by, etc..
+	 * 
+	 * <p>
+	 * Note that only first instance of variable statements will be replaced.
+	 * 
 	 * @param jql
 	 * @param listener
 	 * @return
 	 */
 	public String replaceVariableStatements(final String jql, final JQLReplaceVariableStatementListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
+		final One<Integer> currentSelectLevel = new One<Integer>(-1);
 
 		JqlBaseListener rewriterListener = new JqlBaseListener() {
-			
+
+			@Override
+			public void enterSelect_core(Select_coreContext ctx) {
+				currentSelectLevel.value0++;
+			}
+
+			@Override
+			public void enterSelect_or_values(Select_or_valuesContext ctx) {
+				currentSelectLevel.value0++;
+			}
+
+			@Override
+			public void exitSelect_core(Select_coreContext ctx) {
+				currentSelectLevel.value0--;
+			}
+
+			@Override
+			public void exitSelect_or_values(Select_or_valuesContext ctx) {
+				currentSelectLevel.value0--;
+			}
+
 			@Override
 			public void enterProjected_columns(Projected_columnsContext ctx) {
+				// we work on level 0
+				if (currentSelectLevel.value0 > 0)
+					return;
+
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				
-				if (start==stop) return;
-				
+
+				if (start == stop)
+					return;
+
 				String statement = jql.substring(start, stop);
-				
+
 				String value = listener.onProjectedColumns(statement);
 
 				if (value != null) {
@@ -471,134 +507,172 @@ public class JQLChecker {
 
 			@Override
 			public void enterWhere_stmt(Where_stmtContext ctx) {
+				// we work on level 0
+				if (currentSelectLevel.value0 > 0)
+					return;
+
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				
-				if (start==stop) return;
-				
+
+				if (start == stop)
+					return;
+
 				String statement = jql.substring(start, stop);
-				
+
 				String value = listener.onWhere(statement);
 
 				if (value != null) {
 					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 				}
 			}
-			
+
 			@Override
 			public void enterOrder_stmt(Order_stmtContext ctx) {
+				// we work on level 0
+				if (currentSelectLevel.value0 > 0)
+					return;
+
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				
-				if (start==stop) return;
-				
+
+				if (start == stop)
+					return;
+
 				String statement = jql.substring(start, stop);
-				
+
 				String value = listener.onOrderBy(statement);
 
 				if (value != null) {
 					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 				}
 			}
-			
+
 			@Override
 			public void enterGroup_stmt(Group_stmtContext ctx) {
+				// we work on level 0
+				if (currentSelectLevel.value0 > 0)
+					return;
+
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				
-				if (start==stop) return;
-				
+
+				if (start == stop)
+					return;
+
 				String statement = jql.substring(start, stop);
-				
+
 				String value = listener.onGroup(statement);
 
 				if (value != null) {
 					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 				}
 			}
-			
+
 			@Override
 			public void enterHaving_stmt(Having_stmtContext ctx) {
+				// we work on level 0
+				if (currentSelectLevel.value0 > 0)
+					return;
+
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				
-				if (start==stop) return;
-				
+
+				if (start == stop)
+					return;
+
 				String statement = jql.substring(start, stop);
-				
+
 				String value = listener.onHaving(statement);
 
 				if (value != null) {
 					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 				}
 			}
-			
-			
+
 			@Override
 			public void enterOffset_stmt(Offset_stmtContext ctx) {
+				// we work on level 0
+				if (currentSelectLevel.value0 > 0)
+					return;
+
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				
-				if (start==stop) return;
-				
+
+				if (start == stop)
+					return;
+
 				String statement = jql.substring(start, stop);
-				
+
 				String value = listener.onOffset(statement);
 
 				if (value != null) {
 					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 				}
 			}
-			
+
 			@Override
 			public void enterLimit_stmt(Limit_stmtContext ctx) {
+				// we work on level 0
+				if (currentSelectLevel.value0 > 0)
+					return;
+
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				
-				if (start==stop) return;
-				
+
+				if (start == stop)
+					return;
+
 				String statement = jql.substring(start, stop);
-				
+
 				String value = listener.onLimit(statement);
 
 				if (value != null) {
 					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 				}
 			}
-			
+
 			@Override
 			public void enterColumn_name_set(Column_name_setContext ctx) {
+				// we work on level 0
+				if (currentSelectLevel.value0 > 0)
+					return;
+
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				
-				if (start==stop) return;
-				
+
+				if (start == stop)
+					return;
+
 				String statement = jql.substring(start, stop);
-				
+
 				String value = listener.onColumnNameSet(statement);
 
 				if (value != null) {
 					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 				}
 			}
-			
+
 			@Override
 			public void enterColumn_value_set(Column_value_setContext ctx) {
+				// we work on level 0
+				if (currentSelectLevel.value0 > 0)
+					return;
+
 				int start = ctx.getStart().getStartIndex() - 1;
 				int stop = ctx.getStop().getStopIndex() + 1;
-				
-				if (start==stop) return;
-				
+
+				if (start == stop)
+					return;
+
 				String statement = jql.substring(start, stop);
-				
+
 				String value = listener.onColumnValueSet(statement);
 
 				if (value != null) {
 					replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 				}
 			}
-			
-			
+
 		};
 
 		return replaceInternal(jql, replace, rewriterListener);

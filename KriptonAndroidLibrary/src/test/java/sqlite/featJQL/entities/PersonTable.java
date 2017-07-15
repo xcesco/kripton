@@ -33,9 +33,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (_id INTEGER, list_child BLOB, image BLOB);</pre>
+   * <pre>CREATE TABLE person (_id INTEGER, name TEXT NOT NULL, list_child BLOB, image BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (_id INTEGER, list_child BLOB, image BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (_id INTEGER, name TEXT NOT NULL, list_child BLOB, image BLOB);";
 
   /**
    * <p>
@@ -52,6 +52,13 @@ public class PersonTable {
    *  @see Person#id
    */
   public static final String COLUMN_ID = "_id";
+
+  /**
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
+   *
+   *  @see Person#name
+   */
+  public static final String COLUMN_NAME = "name";
 
   /**
    * Entity's property <code>listChild</code> is associated to table column <code>list_child</code>. This costant represents column typeName.

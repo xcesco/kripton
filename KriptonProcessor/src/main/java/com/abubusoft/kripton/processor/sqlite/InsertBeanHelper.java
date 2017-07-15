@@ -95,6 +95,9 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
 			methodBuilder.addCode("\n");
 			methodBuilder.addCode("return (int)result;\n");
+		} else if (TypeUtility.isEquals(returnType, entity)) {
+			methodBuilder.addCode("\n");
+			methodBuilder.addCode("return $L;\n", method.getParameters().get(0).value0);
 		} else {
 			// more than one listener found
 			throw (new InvalidMethodSignException(method, "invalid return type"));
@@ -102,8 +105,6 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 		return sqlInsert;
 	}
-
-
 
 	/**
 	 * @param methodBuilder

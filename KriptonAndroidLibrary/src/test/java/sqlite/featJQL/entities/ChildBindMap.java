@@ -3,6 +3,7 @@ package sqlite.featJQL.entities;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlPullParser;
@@ -30,6 +31,12 @@ public class ChildBindMap extends AbstractMapper<Child> {
     fieldCount++;
     jacksonSerializer.writeNumberField("id", object.id);
 
+    // field name (mapped with "name")
+    if (object.name!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("name", object.name);
+    }
+
     // field parentId (mapped with "parentId")
     fieldCount++;
     jacksonSerializer.writeNumberField("parentId", object.parentId);
@@ -47,6 +54,12 @@ public class ChildBindMap extends AbstractMapper<Child> {
 
     // field id (mapped with "id")
     jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
+
+    // field name (mapped with "name")
+    if (object.name!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("name", object.name);
+    }
 
     // field parentId (mapped with "parentId")
     jacksonSerializer.writeStringField("parentId", PrimitiveUtils.writeLong(object.parentId));
@@ -70,6 +83,13 @@ public class ChildBindMap extends AbstractMapper<Child> {
     xmlSerializer.writeStartElement("id");
     xmlSerializer.writeLong(object.id);
     xmlSerializer.writeEndElement();
+
+    // field name (mapped with "name")
+    if (object.name!=null) {
+      xmlSerializer.writeStartElement("name");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.name));
+      xmlSerializer.writeEndElement();
+    }
 
     // field parentId (mapped with "parentId")
     xmlSerializer.writeStartElement("parentId");
@@ -105,6 +125,12 @@ public class ChildBindMap extends AbstractMapper<Child> {
             // field id (mapped with "id")
             instance.id=jacksonParser.getLongValue();
           break;
+          case "name":
+            // field name (mapped with "name")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.name=jacksonParser.getText();
+            }
+          break;
           case "parentId":
             // field parentId (mapped with "parentId")
             instance.parentId=jacksonParser.getLongValue();
@@ -139,6 +165,12 @@ public class ChildBindMap extends AbstractMapper<Child> {
           case "id":
             // field id (mapped with "id")
             instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          break;
+          case "name":
+            // field name (mapped with "name")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.name=jacksonParser.getText();
+            }
           break;
           case "parentId":
             // field parentId (mapped with "parentId")
@@ -184,6 +216,10 @@ public class ChildBindMap extends AbstractMapper<Child> {
                 case "id":
                   // property id (mapped on "id")
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                break;
+                case "name":
+                  // property name (mapped on "name")
+                  instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 case "parentId":
                   // property parentId (mapped on "parentId")

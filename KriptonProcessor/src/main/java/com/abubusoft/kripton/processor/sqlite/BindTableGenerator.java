@@ -92,7 +92,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		}
 	}
 
-	public static String tableName(SQLEntity entity) {
+	public static String getTableClassName(SQLEntity entity) {
 		return entity.getSimpleName() + SUFFIX;
 	}
 
@@ -102,9 +102,10 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 	@Override
 	public void visit(SQLEntity entity) throws Exception {
-		entity.buildTableName(elementUtils, model);
+		// entity.buildTableName(elementUtils, model);
 
-		String classTableName = tableName(entity);
+		// generate the class name that represents the table
+		String classTableName = getTableClassName(entity);
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
@@ -240,7 +241,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			classBuilder.addField(fieldSpec.initializer("$S", bufferTable.toString()).build());
 		}
-			
+
 		// drop table SQL
 		// add indexes creation one table
 		if (bufferIndexesDrop.length() > 0) {

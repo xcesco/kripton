@@ -25,7 +25,8 @@ import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 
 /**
  * <p>
- * Allow to define specific behaviour of a field treated like a SQLite table column.
+ * Allow to define specific behaviour of a field treated like a SQLite table
+ * column.
  * </p>
  * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -36,16 +37,16 @@ import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 public @interface BindColumn {
 
 	static boolean NULLABLE_DEFAULT = true;
-	
+
 	/**
 	 * 
-	 * @return
-	 * 		if true, means field must bind persist model
+	 * @return if true, means field must bind persist model
 	 */
 	boolean enabled() default true;
 
 	/**
-	 * Name of the column. If not present, the column name is same of field. It must be specified in java style naming conventions.
+	 * Name of the column. If not present, the column name is same of field. It
+	 * must be specified in java style naming conventions.
 	 * 
 	 * @return name of the column
 	 */
@@ -64,13 +65,13 @@ public @interface BindColumn {
 	 * @return if true, column can be set to null
 	 */
 	public boolean nullable() default NULLABLE_DEFAULT;
-	
+
 	/**
-	 * Rapresents foreign key to another entity/table. It can be used only on long/Long column type
-	 *  
-	 * @return
-	 * 		foreign entity class to reference
+	 * Represents foreign key to another entity/table. It can be used only on
+	 * long/Long column type
+	 * 
+	 * @return foreign entity class to reference
 	 */
 	public Class<?> foreignKey() default NoForeignKey.class;
-	
+
 }
