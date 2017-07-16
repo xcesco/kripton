@@ -98,7 +98,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
         resultBean=new Bean84B();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.columnBean=Bean84BTable.parseColumnBean(cursor.getBlob(index1)); }
 
       }
@@ -137,7 +137,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE cast(columnBean as TEXT) = ?";
+    String _sqlWhereStatement=" WHERE cast(column_bean as TEXT) = ?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -167,7 +167,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
         resultBean=new Bean84B();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.columnBean=Bean84BTable.parseColumnBean(cursor.getBlob(index1)); }
 
       }

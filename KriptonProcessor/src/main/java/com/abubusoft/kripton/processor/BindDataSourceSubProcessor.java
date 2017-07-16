@@ -42,6 +42,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
@@ -50,6 +51,7 @@ import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -60,6 +62,7 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.exceptions.DaoDefinitionWithoutAnnotatedMethodException;
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
@@ -248,7 +251,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.build(null, elementUtils, beanElement);
 		// assert: bean is present
-		final SQLEntity currentEntity = new SQLEntity((TypeElement) beanElement);
+		final SQLEntity currentEntity = new SQLEntity(elementUtils, currentSchema, (TypeElement) beanElement);
 		if (currentSchema.contains(currentEntity.getName())) {
 			// bean already defined in datasource
 			return;
@@ -289,12 +292,20 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindColumn, AnnotationAttributeType.NULLABLE));
 						ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
 
+						property.columnType = columnType;
 						property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
-
+						
+						String foreignClassName=annotationBindColumn.getAttributeAsClassName(AnnotationAttributeType.FOREIGN_KEY);
+						property.foreignClassName=foreignClassName;
+						if (property.hasForeignKeyClassName() && property.columnType==ColumnType.PRIMARY_KEY) {
+							AssertKripton.failIncompatibleAttributesInAnnotationException("In class '%s' property '%s' can not be defined as PRIMARY KEY and FOREIGN KEY", bindEntity.getElement().asType(), property.getName());
+						}
+											
 					} else {
 						// primary key is set in other places
 						property.setNullable(true);
 						// ColumnType columnType = ColumnType.STANDARD;
+						property.columnType = ColumnType.STANDARD;
 					}
 
 					if (bindEntity.contains(property.getName())) {
@@ -307,10 +318,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 								String.format("In class '%s' property '%s' has a wrong definition for create SQLite DataSource", bindEntity.getElement().asType(), property.getName())));
 					}
 
-					String columnName = null;
-					ModelAnnotation columnAnnotation = property.getAnnotation(BindColumn.class);
-					if (columnAnnotation != null) {
-						columnName = columnAnnotation.getAttribute(AnnotationAttributeType.VALUE);
+					String columnName = null;					
+					if (annotationBindColumn != null) {
+						columnName = annotationBindColumn.getAttribute(AnnotationAttributeType.VALUE);
 					}
 
 					if (!StringUtils.hasText(columnName)) {
@@ -332,8 +342,11 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// annotation.
 		// this operation force primary key flag for property
 		SQLProperty primaryKey = currentEntity.getPrimaryKey();
-		if (primaryKey != null)
+		if (primaryKey != null) {
 			primaryKey.setPrimaryKey(true);
+			primaryKey.columnType=ColumnType.PRIMARY_KEY;
+			primaryKey.setNullable(false);
+		}
 
 		if (currentEntity.getCollection().size() == 0) {
 			String msg = String.format("Class '%s', used in %s database definition, has no property!", currentEntity.getName(), dataSource.getSimpleName().toString());

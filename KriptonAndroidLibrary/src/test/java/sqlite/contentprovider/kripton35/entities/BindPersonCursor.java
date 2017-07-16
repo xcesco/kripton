@@ -69,7 +69,7 @@ public class BindPersonCursor {
     this.cursor=cursor;
 
     index0=cursor.getColumnIndex("id");
-    index1=cursor.getColumnIndex("parent_id");
+    index1=cursor.getColumnIndex("alias_parent_id");
     index2=cursor.getColumnIndex("birth_city");
     index3=cursor.getColumnIndex("birth_day");
     index4=cursor.getColumnIndex("value");

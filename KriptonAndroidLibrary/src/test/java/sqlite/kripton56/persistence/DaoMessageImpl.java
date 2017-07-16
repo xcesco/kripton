@@ -24,7 +24,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE message SET ownerType=${ownerType} WHERE  id = ${id}</pre>
+   * <pre>UPDATE message_entity SET ownerType=${ownerType} WHERE  id = ${id}</pre>
    *
    * <h2>Updated columns:</strong></h2>
    * <dl>
@@ -70,7 +70,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE message SET ownerType=:owner_type WHERE id = ?");
+    Logger.info("UPDATE message_entity SET ownerType=:owner_type WHERE id = ?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -90,7 +90,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().update("message", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("message_entity", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result!=0;
   }
 }

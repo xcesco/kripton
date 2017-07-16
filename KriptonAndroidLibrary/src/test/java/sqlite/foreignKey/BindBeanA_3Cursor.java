@@ -42,7 +42,7 @@ public class BindBeanA_3Cursor {
   public BindBeanA_3Cursor wrap(Cursor cursor) {
     this.cursor=cursor;
 
-    index0=cursor.getColumnIndex("id");
+    index0=cursor.getColumnIndex("pk");
     index1=cursor.getColumnIndex("value_string2");
 
     return this;

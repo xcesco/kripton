@@ -123,7 +123,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE userId = ?";
+    String _sqlWhereStatement=" WHERE user_id = ?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -158,7 +158,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
          {
           resultBean=new Todo();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
           if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.completed=cursor.getInt(index3)==0?false:true; }
@@ -236,7 +236,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
 
         resultBean=new Todo();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
         if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
         if (!cursor.isNull(index3)) { resultBean.completed=cursor.getInt(index3)==0?false:true; }

@@ -72,7 +72,7 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
          {
           resultBean=new Bean8();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.ignore2=cursor.getString(index1); }
 
           resultList.add(resultBean);

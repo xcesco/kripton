@@ -80,7 +80,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
           if (!cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64ATable.parseValueMapStringBean(cursor.getBlob(index0)); }
           if (!cursor.isNull(index1)) { resultBean.valueSetString=Bean64ATable.parseValueSetString(cursor.getBlob(index1)); }
           if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.id=cursor.getLong(index3); }
+          resultBean.id=cursor.getLong(index3);
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -161,7 +161,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
           if (!cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64ATable.parseValueMapStringBean(cursor.getBlob(index0)); }
           if (!cursor.isNull(index1)) { resultBean.valueSetString=Bean64ATable.parseValueSetString(cursor.getBlob(index1)); }
           if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.id=cursor.getLong(index3); }
+          resultBean.id=cursor.getLong(index3);
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());

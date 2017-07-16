@@ -27,8 +27,6 @@ import javax.lang.model.util.Elements;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
@@ -43,7 +41,6 @@ import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.Per
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelElementVisitor;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidForeignKeyTypeException;
@@ -145,67 +142,57 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		// define column typeName set
 
 		String separator = "";
-		// primary key can be column id or that marked as PRIMARY_KEY
-		ModelProperty primaryKey = entity.getPrimaryKey();
-		ModelAnnotation annotationBindColumn;
-
 		bufferTable.append(" (");
+
+		// for each column, that need to be persisted on table
 		for (SQLProperty item : entity.getCollection()) {
 			bufferTable.append(separator);
 			bufferTable.append(item.columnName);
 			bufferTable.append(" " + SQLTransformer.columnTypeAsString(item));
 
-			annotationBindColumn = item.getAnnotation(BindColumn.class);
-
-			if (annotationBindColumn != null) {
-				ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
-				switch (columnType) {
-				case PRIMARY_KEY:
-					bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
-					break;
-				case UNIQUE:
-					bufferTable.append(" UNIQUE");
-					break;
-				case INDEXED:
-					bufferIndexesCreate.append(String.format(" CREATE INDEX IF NOT EXISTS idx_%s_%s ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
-					bufferIndexesDrop.append(String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
-					break;
-				case STANDARD:
-					break;
-				}
-
-				boolean nullable = Boolean.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, item, annotationBindColumn, AnnotationAttributeType.NULLABLE));
-				if (!nullable) {
-					bufferTable.append(" NOT NULL");
-				}
-
-				// foreign key
-				String foreignClassName = annotationBindColumn.getAttributeAsClassName(AnnotationAttributeType.FOREIGN_KEY);
-				if (!foreignClassName.equals(NoForeignKey.class.getName())) {
-					SQLEntity reference = model.getEntity(foreignClassName);
-
-					if (reference == null) {
-						throw new InvalidBeanTypeException(item, foreignClassName);
-					}
-
-					// foreign key can ben used only with column type
-					// long/Long
-					if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getTypeName(), Long.class, Long.TYPE)) {
-						throw new InvalidForeignKeyTypeException(item);
-					}
-
-					bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.buildTableName(elementUtils, model) + "(" + reference.getPrimaryKey().columnName + ")");
-
-					// INSERT as dependency only if reference is another entity.
-					// Same entity can not be own dependency.
-					if (!entity.equals(reference)) {
-						entity.referedEntities.add(reference);
-					}
-
-				}
-
-			} else if (primaryKey.equals(item)) {
+			switch (item.columnType) {
+			case PRIMARY_KEY:
 				bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
+				break;
+			case UNIQUE:
+				bufferTable.append(" UNIQUE");
+				break;
+			case INDEXED:
+				bufferIndexesCreate.append(String.format(" CREATE INDEX IF NOT EXISTS idx_%s_%s ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
+				bufferIndexesDrop.append(String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
+				break;
+			case STANDARD:
+				break;
+			}
+
+			boolean nullable = item.isNullable();
+			if (!nullable) {
+				bufferTable.append(" NOT NULL");
+			}
+
+			// foreign key
+			String foreignClassName = item.foreignClassName;
+			if (item.hasForeignKeyClassName()) {
+				SQLEntity reference = model.getEntity(foreignClassName);
+
+				if (reference == null) {
+					throw new InvalidBeanTypeException(item, foreignClassName);
+				}
+
+				// foreign key can ben used only with column type
+				// long/Long
+				if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getTypeName(), Long.class, Long.TYPE)) {
+					throw new InvalidForeignKeyTypeException(item);
+				}
+
+				bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.getTableName() + "(" + reference.getPrimaryKey().columnName + ")");
+
+				// INSERT as dependency only if reference is another entity.
+				// Same entity can not be own dependency.
+				if (!entity.equals(reference)) {
+					entity.referedEntities.add(reference);
+				}
+
 			}
 
 			separator = ", ";

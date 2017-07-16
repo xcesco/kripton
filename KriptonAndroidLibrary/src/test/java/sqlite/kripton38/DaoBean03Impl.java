@@ -82,7 +82,7 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
 
         resultBean=new Bean03();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        resultBean.setId(cursor.getLong(index0));
         if (!cursor.isNull(index1)) { resultBean.setText(cursor.getString(index1)); }
 
       }

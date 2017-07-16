@@ -17,6 +17,10 @@ package com.abubusoft.kripton.processor.sqlite.model;
 
 import javax.lang.model.element.Element;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 
 public class SQLProperty extends ManagedModelProperty {
@@ -62,6 +66,21 @@ public class SQLProperty extends ManagedModelProperty {
 	}
 
 	protected boolean primaryKey;
+	
+	/**
+	 * type of column
+	 */
+	public ColumnType columnType;
+
+	/**
+	 * class name of referred table
+	 */
+	public String foreignClassName;
+
+
+	public boolean hasForeignKeyClassName() {
+		return !StringUtils.isEmpty(foreignClassName) && !NoForeignKey.class.getName().equals(foreignClassName);		
+	}
 
 
 }

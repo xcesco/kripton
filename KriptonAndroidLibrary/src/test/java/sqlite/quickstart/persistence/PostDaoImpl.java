@@ -127,7 +127,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE userId = ?";
+    String _sqlWhereStatement=" WHERE user_id = ?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -163,7 +163,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
           resultBean=new Post();
 
           if (!cursor.isNull(index0)) { resultBean.userId=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
+          resultBean.id=cursor.getLong(index1);
           if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.body=cursor.getString(index3); }
 
@@ -241,7 +241,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
         resultBean=new Post();
 
         if (!cursor.isNull(index0)) { resultBean.userId=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
+        resultBean.id=cursor.getLong(index1);
         if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
         if (!cursor.isNull(index3)) { resultBean.body=cursor.getString(index3); }
 

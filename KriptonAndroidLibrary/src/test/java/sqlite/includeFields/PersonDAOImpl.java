@@ -57,7 +57,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE typeName=?";
+    String _sqlWhereStatement=" WHERE type_name=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -94,7 +94,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
 
           resultList.add(resultBean);

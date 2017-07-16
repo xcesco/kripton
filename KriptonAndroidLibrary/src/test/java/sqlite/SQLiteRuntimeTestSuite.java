@@ -21,6 +21,7 @@ import org.junit.runners.Suite;
 import sqlite.dynamic.TestDynamicRuntimeSuite;
 import sqlite.example01.TestExample01RuntimeSuite;
 import sqlite.example02.TestExample02RuntimeSuite;
+import sqlite.featJQL.persistence.TestFeatJQLRuntimeSuite;
 import sqlite.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.includeFields.TestIncludeFieldsRuntimeSuite;
 import sqlite.kripton58.list.Test58RuntimeSuite;
@@ -47,7 +48,8 @@ import sqlite.quickstart.TestQuickstartRuntimeSuite;
 	Test96RuntimeSuite.class,
 	
 	Test58RuntimeSuite.class,
-	TestQuickstartRuntimeSuite.class
+	TestQuickstartRuntimeSuite.class,
+	TestFeatJQLRuntimeSuite.class
 	 })
 // @formatter:on
 public class SQLiteRuntimeTestSuite {

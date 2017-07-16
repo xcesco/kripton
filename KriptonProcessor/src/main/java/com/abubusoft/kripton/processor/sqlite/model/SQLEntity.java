@@ -36,7 +36,7 @@ public class SQLEntity extends ModelClass<SQLProperty> {
 	 */
 	public Set<SQLEntity> referedEntities = new HashSet<>();
 
-	public SQLEntity(TypeElement element) {
+	public SQLEntity(Elements elementUtils, SQLiteDatabaseSchema model, TypeElement element) {
 		super(element);
 
 		buildTableName(elementUtils, model);
@@ -81,7 +81,7 @@ public class SQLEntity extends ModelClass<SQLProperty> {
 		return tableName;
 	}
 
-	public String buildTableName(Elements elementUtils, SQLiteDatabaseSchema model) {
+	private String buildTableName(Elements elementUtils, SQLiteDatabaseSchema model) {
 		tableName = getSimpleName();
 		if (containsAnnotation(BindTable.class)) {
 			String temp = AnnotationUtility.extractAsString(elementUtils, getElement(), BindTable.class, AnnotationAttributeType.VALUE);

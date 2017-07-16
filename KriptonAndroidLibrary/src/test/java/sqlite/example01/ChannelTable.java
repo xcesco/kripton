@@ -20,9 +20,9 @@ public class ChannelTable {
    * DDL to create table channel
    * </p>
    *
-   * <pre>CREATE TABLE channel (uid TEXT, owner_uid TEXT, update_time INTEGER, name TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   * <pre>CREATE TABLE channel (uid TEXT, owner_uid TEXT, update_time INTEGER, name TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE channel (uid TEXT, owner_uid TEXT, update_time INTEGER, name TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE channel (uid TEXT, owner_uid TEXT, update_time INTEGER, name TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL);";
 
   /**
    * <p>

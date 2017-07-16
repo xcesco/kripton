@@ -33,9 +33,9 @@ public class Bean01Table {
    * DDL to create table bean01
    * </p>
    *
-   * <pre>CREATE TABLE bean01 (lista BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, message_date INTEGER, message_text TEXT NOT NULL, bean_list BLOB, value INTEGER);</pre>
+   * <pre>CREATE TABLE bean01 (lista BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, message_date INTEGER, message_text TEXT NOT NULL, bean_list BLOB, value INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (lista BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, message_date INTEGER, message_text TEXT NOT NULL, bean_list BLOB, value INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (lista BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, message_date INTEGER, message_text TEXT NOT NULL, bean_list BLOB, value INTEGER);";
 
   /**
    * <p>

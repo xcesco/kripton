@@ -4,34 +4,34 @@ import java.lang.String;
 
 /**
  * <p>
- * Entity <code>Bean01Entity</code> is associated to table <code>bean01</code>
+ * Entity <code>Bean01Entity</code> is associated to table <code>bean01_entity</code>
  * This class represents table associated to entity.
  * </p>
  *  @see Bean01Entity
  */
 public class Bean01EntityTable {
   /**
-   * Costant represents typeName of table bean01
+   * Costant represents typeName of table bean01_entity
    */
-  public static final String TABLE_NAME = "bean01";
+  public static final String TABLE_NAME = "bean01_entity";
 
   /**
    * <p>
-   * DDL to create table bean01
+   * DDL to create table bean01_entity
    * </p>
    *
-   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT);</pre>
+   * <pre>CREATE TABLE bean01_entity (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, text TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01_entity (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, text TEXT);";
 
   /**
    * <p>
-   * DDL to drop table bean01
+   * DDL to drop table bean01_entity
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS bean01;</pre>
+   * <pre>DROP TABLE IF EXISTS bean01_entity;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean01;";
+  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean01_entity;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.

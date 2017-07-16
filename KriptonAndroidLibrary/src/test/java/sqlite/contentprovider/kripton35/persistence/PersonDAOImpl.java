@@ -1368,7 +1368,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("parent_id");
+        int index1=cursor.getColumnIndex("alias_parent_id");
         int index2=cursor.getColumnIndex("birth_city");
         int index3=cursor.getColumnIndex("birth_day");
         int index4=cursor.getColumnIndex("value");
@@ -1379,7 +1379,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
           if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
@@ -1564,7 +1564,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("parent_id");
+        int index1=cursor.getColumnIndex("alias_parent_id");
         int index2=cursor.getColumnIndex("birth_city");
         int index3=cursor.getColumnIndex("birth_day");
         int index4=cursor.getColumnIndex("value");
@@ -1575,7 +1575,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
           if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
@@ -1747,7 +1747,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("parent_id");
+        int index1=cursor.getColumnIndex("alias_parent_id");
         int index2=cursor.getColumnIndex("birth_city");
         int index3=cursor.getColumnIndex("birth_day");
         int index4=cursor.getColumnIndex("value");
@@ -1758,7 +1758,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
           if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
@@ -1903,7 +1903,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("parent_id");
+        int index1=cursor.getColumnIndex("alias_parent_id");
         int index2=cursor.getColumnIndex("birth_city");
         int index3=cursor.getColumnIndex("birth_day");
         int index4=cursor.getColumnIndex("value");
@@ -1914,7 +1914,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
           if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }

@@ -84,7 +84,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
 
         resultBean=new IntegerBean();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.value=IntegerBeanTable.parseValue(cursor.getBlob(index1)); }
         if (!cursor.isNull(index2)) { resultBean.value2=IntegerBeanTable.parseValue2(cursor.getBlob(index2)); }
 
@@ -156,7 +156,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
 
         resultBean=new IntegerBean();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.value=IntegerBeanTable.parseValue(cursor.getBlob(index1)); }
         if (!cursor.isNull(index2)) { resultBean.value2=IntegerBeanTable.parseValue2(cursor.getBlob(index2)); }
 
@@ -229,12 +229,12 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
         do
          {
           // reset mapping
-          resultBean.id=0L;
+          // id does not need reset
           resultBean.value=null;
           resultBean.value2=null;
 
           // generate mapping
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.value=IntegerBeanTable.parseValue(cursor.getBlob(index1)); }
           if (!cursor.isNull(index2)) { resultBean.value2=IntegerBeanTable.parseValue2(cursor.getBlob(index2)); }
 
@@ -374,7 +374,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
          {
           resultBean=new IntegerBean();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.value=IntegerBeanTable.parseValue(cursor.getBlob(index1)); }
           if (!cursor.isNull(index2)) { resultBean.value2=IntegerBeanTable.parseValue2(cursor.getBlob(index2)); }
 

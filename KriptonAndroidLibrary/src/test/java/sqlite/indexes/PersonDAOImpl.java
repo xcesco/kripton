@@ -172,7 +172,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.typeName=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.nameTemp=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.date=cursor.getString(index3); }
@@ -241,7 +241,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE typeName like ? || '%' and birthDay < ?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" WHERE type_name like ? || '%' and birth_day < ?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -285,7 +285,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.typeName=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.nameTemp=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.date=cursor.getString(index3); }
@@ -373,7 +373,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         do
          {
           // reset mapping
-          resultBean.id=0L;
+          // id does not need reset
           resultBean.typeName=null;
           resultBean.nameTemp=null;
           resultBean.date=null;
@@ -383,7 +383,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
           resultBean.birthDay=null;
 
           // generate mapping
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.typeName=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.nameTemp=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.date=cursor.getString(index3); }

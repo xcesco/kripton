@@ -47,11 +47,12 @@ public class TestFeatJQLRuntime extends BaseAndroidTest {
 
 				Child child = new Child();
 				child.name = "Luna";
+				child.parentId=person.id;
 
 				daoFactory.getDaoChild().insert(child);
 				daoFactory.getDaoChild().insert(child);
 
-				List<Child> list = daoFactory.getDaoChild().selectByParent();
+				List<Child> list = daoFactory.getDaoChild().selectByParent(person.id);
 
 				assertTrue(2 == list.size());
 

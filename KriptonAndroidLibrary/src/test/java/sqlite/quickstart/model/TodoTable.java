@@ -20,9 +20,9 @@ public class TodoTable {
    * DDL to create table todo
    * </p>
    *
-   * <pre>CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, title TEXT, completed INTEGER);</pre>
+   * <pre>CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER, title TEXT, completed INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, title TEXT, completed INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER, title TEXT, completed INTEGER);";
 
   /**
    * <p>

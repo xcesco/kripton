@@ -63,7 +63,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" ownerUid=?";
+    String _sqlWhereStatement=" owner_uid=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -108,7 +108,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" ownerUid=?";
+    String _sqlWhereStatement=" owner_uid=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -157,7 +157,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" ownerUid=? and id=?";
+    String _sqlWhereStatement=" owner_uid=? and id=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -206,7 +206,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" ownerUid=? and id=?";
+    String _sqlWhereStatement=" owner_uid=? and id=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1152,7 +1152,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
           if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
           if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
           if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
+          resultBean.setId(cursor.getLong(index4));
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -1196,7 +1196,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1236,7 +1236,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
           if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
           if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
           if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
+          resultBean.setId(cursor.getLong(index4));
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -1280,7 +1280,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1338,7 +1338,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1375,14 +1375,14 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
           resultBean.setOwnerUid(null);
           resultBean.setUpdateTime(0L);
           resultBean.setName(null);
-          resultBean.setId(0L);
+          // id does not need reset
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.setUid(cursor.getString(index0)); }
           if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
           if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
           if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
+          resultBean.setId(cursor.getLong(index4));
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -1425,7 +1425,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1490,7 +1490,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1530,7 +1530,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
           if (!cursor.isNull(index1)) { resultBean.setOwnerUid(cursor.getString(index1)); }
           if (!cursor.isNull(index2)) { resultBean.setUpdateTime(cursor.getLong(index2)); }
           if (!cursor.isNull(index3)) { resultBean.setName(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.setId(cursor.getLong(index4)); }
+          resultBean.setId(cursor.getLong(index4));
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -1570,7 +1570,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1632,7 +1632,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1665,7 +1665,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
           resultBean.setOwnerUid(null);
           resultBean.setUpdateTime(0L);
           resultBean.setName(null);
-          resultBean.setId(0L);
+          // id does not need reset
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.setUpdateTime(cursor.getLong(index0)); }
@@ -1707,7 +1707,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1768,7 +1768,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1821,7 +1821,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1887,7 +1887,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1959,7 +1959,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -2031,7 +2031,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE updateTime=?";
+    String _sqlWhereStatement=" WHERE update_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END

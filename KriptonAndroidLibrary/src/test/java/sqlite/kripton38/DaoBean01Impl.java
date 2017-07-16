@@ -86,7 +86,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
         resultBean=new Bean01();
 
         if (!cursor.isNull(index0)) { resultBean.temp=Bean01Table.parseTemp(cursor.getBlob(index0)); }
-        if (!cursor.isNull(index1)) { resultBean.setId(cursor.getLong(index1)); }
+        resultBean.setId(cursor.getLong(index1));
         if (!cursor.isNull(index2)) { resultBean.setText(cursor.getString(index2)); }
 
       }

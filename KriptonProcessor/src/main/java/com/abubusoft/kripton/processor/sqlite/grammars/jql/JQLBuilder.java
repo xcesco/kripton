@@ -290,20 +290,6 @@ public abstract class JQLBuilder {
 
 			});
 
-			String sql = JQLChecker.getInstance().replace(result, new JQLReplacerListenerImpl() {
-				@Override
-				public String onTableName(String tableName) {
-					return schema.getEntityBySimpleName(tableName).getTableName();
-				}
-
-				@Override
-				public String onColumnName(String columnName) {
-					return entity.get(columnName).columnName;
-				}
-			});
-
-			System.out.println(sql);
-
 		} else {
 			StringBuilder builder = new StringBuilder();
 			builder.append(SELECT_KEYWORD + " ");

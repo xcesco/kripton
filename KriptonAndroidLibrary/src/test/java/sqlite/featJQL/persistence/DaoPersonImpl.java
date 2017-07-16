@@ -79,7 +79,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           resultBean.name=cursor.getString(index1);
           if (!cursor.isNull(index2)) { resultBean.listChild=PersonTable.parseListChild(cursor.getBlob(index2)); }
           if (!cursor.isNull(index3)) { resultBean.image=PersonTable.parseImage(cursor.getBlob(index3)); }

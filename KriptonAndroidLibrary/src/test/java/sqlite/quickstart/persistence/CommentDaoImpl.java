@@ -135,7 +135,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE postId = ?";
+    String _sqlWhereStatement=" WHERE post_id = ?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -172,7 +172,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
           resultBean=new Comment();
 
           if (!cursor.isNull(index0)) { resultBean.postId=cursor.getLong(index0); }
-          if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
+          resultBean.id=cursor.getLong(index1);
           if (!cursor.isNull(index2)) { resultBean.name=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
           if (!cursor.isNull(index4)) { resultBean.body=cursor.getString(index4); }
@@ -253,7 +253,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
         resultBean=new Comment();
 
         if (!cursor.isNull(index0)) { resultBean.postId=cursor.getLong(index0); }
-        if (!cursor.isNull(index1)) { resultBean.id=cursor.getLong(index1); }
+        resultBean.id=cursor.getLong(index1);
         if (!cursor.isNull(index2)) { resultBean.name=cursor.getString(index2); }
         if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
         if (!cursor.isNull(index4)) { resultBean.body=cursor.getString(index4); }

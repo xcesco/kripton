@@ -229,7 +229,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
         resultBean=new Person();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
         if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
         if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
@@ -292,7 +292,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
         resultBean=new Person();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
         if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
         if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }

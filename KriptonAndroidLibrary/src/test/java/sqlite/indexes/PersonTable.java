@@ -20,9 +20,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day); CREATE INDEX IF NOT EXISTS idx_person_0 (surname);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day); CREATE INDEX IF NOT EXISTS idx_person_0 (surname);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day); CREATE INDEX IF NOT EXISTS idx_person_0 (surname);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day); CREATE INDEX IF NOT EXISTS idx_person_0 (surname);";
 
   /**
    * <p>

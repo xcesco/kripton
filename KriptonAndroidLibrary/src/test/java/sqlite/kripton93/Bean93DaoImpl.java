@@ -58,7 +58,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE typeName like ? || '%'";
+    String _sqlWhereStatement=" WHERE type_name like ? || '%'";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -90,7 +90,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
 
         resultBean=new Bean93();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
         if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
         if (!cursor.isNull(index3)) { resultBean.typeName=cursor.getString(index3); }
@@ -153,7 +153,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
          {
           resultBean=new Bean93();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.typeName=cursor.getString(index3); }

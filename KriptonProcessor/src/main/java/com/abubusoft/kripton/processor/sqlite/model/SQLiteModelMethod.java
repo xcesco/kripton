@@ -37,7 +37,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -54,8 +53,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.Uri
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.TypeName;
-
-import android.database.sqlite.SQLiteBindOrColumnIndexOutOfRangeException;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
 

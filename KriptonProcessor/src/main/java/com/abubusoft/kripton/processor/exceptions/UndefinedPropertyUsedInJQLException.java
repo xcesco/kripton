@@ -18,17 +18,13 @@ package com.abubusoft.kripton.processor.exceptions;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
-public class PropertyNotFoundException extends KriptonProcessorException {
+public class UndefinedPropertyUsedInJQLException extends KriptonProcessorException {
 
 	private static final long serialVersionUID = 8462705406839489618L;
 
-	public PropertyNotFoundException(String msg) {
-		super(msg);
-	}
-
-	public PropertyNotFoundException(SQLiteModelMethod method, String fieldName, TypeName typeName) {
-		super(String.format("In dao '%s' method '%s' uses field '%s' (of type '%s') that does not exists in bean '%s'", method.getParent().getName(), method.getName(), fieldName,
-				typeName, method.getParent().getEntitySimplyClassName()));
+	public UndefinedPropertyUsedInJQLException(SQLiteModelMethod method, String fieldName, TypeName typeName) {
+		super(String.format("In DAO '%s' method '%s' uses field '%s' that does not exists in bean '%s'", method.getParent().getName(), method.getName(), fieldName,
+				typeName));
 	}
 
 }

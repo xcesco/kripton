@@ -20,9 +20,9 @@ public class ChildTable {
    * DDL to create table child
    * </p>
    *
-   * <pre>CREATE TABLE child (_id INTEGER, name TEXT NOT NULL, parent_id INTEGER, FOREIGN KEY(parent_id) REFERENCES person(_id));</pre>
+   * <pre>CREATE TABLE child (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, parent_id INTEGER, FOREIGN KEY(parent_id) REFERENCES person(_id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE child (_id INTEGER, name TEXT NOT NULL, parent_id INTEGER, FOREIGN KEY(parent_id) REFERENCES person(_id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE child (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, parent_id INTEGER, FOREIGN KEY(parent_id) REFERENCES person(_id));";
 
   /**
    * <p>

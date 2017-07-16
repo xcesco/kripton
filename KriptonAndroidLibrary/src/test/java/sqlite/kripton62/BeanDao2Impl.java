@@ -105,7 +105,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
         resultBean=new Bean2();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
         if (!cursor.isNull(index2)) { resultBean.setValueByteSet(Bean2Table.parseValueByteSet(cursor.getBlob(index2))); }
         if (!cursor.isNull(index3)) { resultBean.setValueShortSet(Bean2Table.parseValueShortSet(cursor.getBlob(index3))); }
@@ -205,7 +205,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
         do
          {
           // reset mapping
-          resultBean.id=0L;
+          // id does not need reset
           resultBean.value=null;
           resultBean.setValueByteSet(null);
           resultBean.setValueShortSet(null);
@@ -219,7 +219,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
           resultBean.setValueEnumTypeSet(null);
 
           // generate mapping
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.setValueByteSet(Bean2Table.parseValueByteSet(cursor.getBlob(index2))); }
           if (!cursor.isNull(index3)) { resultBean.setValueShortSet(Bean2Table.parseValueShortSet(cursor.getBlob(index3))); }
@@ -395,7 +395,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
          {
           resultBean=new Bean2();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.setValueByteSet(Bean2Table.parseValueByteSet(cursor.getBlob(index2))); }
           if (!cursor.isNull(index3)) { resultBean.setValueShortSet(Bean2Table.parseValueShortSet(cursor.getBlob(index3))); }
@@ -819,7 +819,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
         resultBean=new Bean2();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
         if (!cursor.isNull(index2)) { resultBean.setValueByteSet(Bean2Table.parseValueByteSet(cursor.getBlob(index2))); }
         if (!cursor.isNull(index3)) { resultBean.setValueShortSet(Bean2Table.parseValueShortSet(cursor.getBlob(index3))); }

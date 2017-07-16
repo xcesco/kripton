@@ -31,9 +31,9 @@ public class UserTable {
    * DDL to create table user
    * </p>
    *
-   * <pre>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, username TEXT, email TEXT, address BLOB, phone TEXT, website TEXT, company BLOB);</pre>
+   * <pre>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, username TEXT, email TEXT, address BLOB, phone TEXT, website TEXT, company BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, username TEXT, email TEXT, address BLOB, phone TEXT, website TEXT, company BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, username TEXT, email TEXT, address BLOB, phone TEXT, website TEXT, company BLOB);";
 
   /**
    * <p>

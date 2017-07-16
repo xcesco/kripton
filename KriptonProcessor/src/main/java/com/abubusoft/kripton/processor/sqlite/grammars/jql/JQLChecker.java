@@ -452,7 +452,7 @@ public class JQLChecker {
 	 * Given a sql, replace som component like where, order by, etc..
 	 * 
 	 * <p>
-	 * Note that only first instance of variable statements will be replaced.
+	 * Note that only first level of variable statements will be replaced.
 	 * 
 	 * @param jql
 	 * @param listener

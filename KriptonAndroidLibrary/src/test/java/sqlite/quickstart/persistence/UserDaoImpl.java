@@ -193,7 +193,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
          {
           resultBean=new User();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.username=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
@@ -283,7 +283,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
         resultBean=new User();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
         if (!cursor.isNull(index2)) { resultBean.username=cursor.getString(index2); }
         if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }

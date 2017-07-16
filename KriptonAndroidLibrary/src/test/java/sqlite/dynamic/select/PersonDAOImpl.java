@@ -167,7 +167,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
@@ -267,7 +267,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
@@ -346,14 +346,14 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         do
          {
           // reset mapping
-          resultBean.id=0L;
+          // id does not need reset
           resultBean.name=null;
           resultBean.surname=null;
           resultBean.birthCity=null;
           resultBean.birthDay=null;
 
           // generate mapping
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }

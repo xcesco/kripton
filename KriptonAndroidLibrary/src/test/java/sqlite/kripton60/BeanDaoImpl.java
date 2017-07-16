@@ -86,7 +86,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueBigDecimal=?";
+    String _sqlWhereStatement=" value_big_decimal=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -131,7 +131,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueBigDecimal=?";
+    String _sqlWhereStatement=" value_big_decimal=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -176,7 +176,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueBoolType=?";
+    String _sqlWhereStatement=" value_bool_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -221,7 +221,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueBool=?";
+    String _sqlWhereStatement=" value_bool=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -266,7 +266,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueBeanArray=?";
+    String _sqlWhereStatement=" value_bean_array=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -311,7 +311,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLongArray=?";
+    String _sqlWhereStatement=" value_long_array=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -356,7 +356,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLongTypeArray=?";
+    String _sqlWhereStatement=" value_long_type_array=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -401,7 +401,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueByte=?";
+    String _sqlWhereStatement=" value_byte=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -446,7 +446,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueByteType=?";
+    String _sqlWhereStatement=" value_byte_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -491,7 +491,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueCalendar=?";
+    String _sqlWhereStatement=" value_calendar=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -536,7 +536,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueCharType=?";
+    String _sqlWhereStatement=" value_char_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -581,7 +581,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueCharType=?";
+    String _sqlWhereStatement=" value_char_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -626,7 +626,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueCurrency=?";
+    String _sqlWhereStatement=" value_currency=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -671,7 +671,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueDate=?";
+    String _sqlWhereStatement=" value_date=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -716,7 +716,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueDouble=?";
+    String _sqlWhereStatement=" value_double=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -761,7 +761,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueDoubleType=?";
+    String _sqlWhereStatement=" value_double_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -806,7 +806,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueEnumType=?";
+    String _sqlWhereStatement=" value_enum_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -851,7 +851,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueFloat=?";
+    String _sqlWhereStatement=" value_float=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -896,7 +896,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueFloatType=?";
+    String _sqlWhereStatement=" value_float_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -941,7 +941,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueInt=?";
+    String _sqlWhereStatement=" value_int=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -986,7 +986,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueIntType=?";
+    String _sqlWhereStatement=" value_int_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1031,7 +1031,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLongList=?";
+    String _sqlWhereStatement=" value_long_list=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1076,7 +1076,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLocale=?";
+    String _sqlWhereStatement=" value_locale=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1121,7 +1121,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLong=?";
+    String _sqlWhereStatement=" value_long=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1166,7 +1166,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLongType=?";
+    String _sqlWhereStatement=" value_long_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1211,7 +1211,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueShort=?";
+    String _sqlWhereStatement=" value_short=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1256,7 +1256,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueShortType=?";
+    String _sqlWhereStatement=" value_short_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1301,7 +1301,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueString=?";
+    String _sqlWhereStatement=" value_string=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1346,7 +1346,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueTime=?";
+    String _sqlWhereStatement=" value_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1391,7 +1391,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueTimeZone=?";
+    String _sqlWhereStatement=" value_time_zone=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1436,7 +1436,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueUrl=?";
+    String _sqlWhereStatement=" value_url=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -3557,7 +3557,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
           if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
           if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-          if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+          resultBean.id=cursor.getLong(index41);
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -3734,7 +3734,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -3812,7 +3812,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueBigDecimal=?";
+    String _sqlWhereStatement=" WHERE value_big_decimal=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -3923,7 +3923,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -4001,7 +4001,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueBigDecimal=?";
+    String _sqlWhereStatement=" WHERE value_big_decimal=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -4112,7 +4112,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -4190,7 +4190,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueBoolType=?";
+    String _sqlWhereStatement=" WHERE value_bool_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -4301,7 +4301,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -4379,7 +4379,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueBool=?";
+    String _sqlWhereStatement=" WHERE value_bool=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -4490,7 +4490,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -4680,7 +4680,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           resultBean.valueMapStringBean=null;
           resultBean.valueLinkedMapStringBean=null;
           resultBean.valueSetString=null;
-          resultBean.id=0L;
+          // id does not need reset
 
           // generate mapping
           if (!cursor.isNull(index0)) { resultBean.valueBoolType=cursor.getInt(index0)==0?false:true; }
@@ -4724,7 +4724,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
           if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
           if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-          if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+          resultBean.id=cursor.getLong(index41);
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
@@ -4906,7 +4906,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueBeanArray=?";
+    String _sqlWhereStatement=" WHERE value_bean_array=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -5017,7 +5017,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -5095,7 +5095,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueLongArray=?";
+    String _sqlWhereStatement=" WHERE value_long_array=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -5206,7 +5206,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -5284,7 +5284,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueLongTypeArray=?";
+    String _sqlWhereStatement=" WHERE value_long_type_array=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -5395,7 +5395,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -5473,7 +5473,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueByte=?";
+    String _sqlWhereStatement=" WHERE value_byte=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -5584,7 +5584,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -5662,7 +5662,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueByteType=?";
+    String _sqlWhereStatement=" WHERE value_byte_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -5773,7 +5773,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -5851,7 +5851,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueCalendar=?";
+    String _sqlWhereStatement=" WHERE value_calendar=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -5962,7 +5962,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -6040,7 +6040,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueCharType=?";
+    String _sqlWhereStatement=" WHERE value_char_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -6151,7 +6151,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -6229,7 +6229,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueCharType=?";
+    String _sqlWhereStatement=" WHERE value_char_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -6340,7 +6340,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -6418,7 +6418,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueCurrency=?";
+    String _sqlWhereStatement=" WHERE value_currency=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -6529,7 +6529,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -6607,7 +6607,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueDate=?";
+    String _sqlWhereStatement=" WHERE value_date=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -6718,7 +6718,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -6796,7 +6796,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueDouble=?";
+    String _sqlWhereStatement=" WHERE value_double=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -6907,7 +6907,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -6985,7 +6985,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueDoubleType=?";
+    String _sqlWhereStatement=" WHERE value_double_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -7096,7 +7096,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -7174,7 +7174,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueEnumType=?";
+    String _sqlWhereStatement=" WHERE value_enum_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -7285,7 +7285,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -7363,7 +7363,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueFloat=?";
+    String _sqlWhereStatement=" WHERE value_float=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -7474,7 +7474,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -7552,7 +7552,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueFloatType=?";
+    String _sqlWhereStatement=" WHERE value_float_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -7663,7 +7663,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -7741,7 +7741,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueInt=?";
+    String _sqlWhereStatement=" WHERE value_int=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -7852,7 +7852,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -7930,7 +7930,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueIntType=?";
+    String _sqlWhereStatement=" WHERE value_int_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -8041,7 +8041,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -8119,7 +8119,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueLongList=?";
+    String _sqlWhereStatement=" WHERE value_long_list=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -8230,7 +8230,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -8308,7 +8308,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueLocale=?";
+    String _sqlWhereStatement=" WHERE value_locale=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -8419,7 +8419,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -8497,7 +8497,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueLong=?";
+    String _sqlWhereStatement=" WHERE value_long=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -8608,7 +8608,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -8686,7 +8686,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueLongType=?";
+    String _sqlWhereStatement=" WHERE value_long_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -8797,7 +8797,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -8875,7 +8875,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueShort=?";
+    String _sqlWhereStatement=" WHERE value_short=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -8986,7 +8986,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -9064,7 +9064,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueShortType=?";
+    String _sqlWhereStatement=" WHERE value_short_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -9175,7 +9175,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -9253,7 +9253,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueString=?";
+    String _sqlWhereStatement=" WHERE value_string=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -9364,7 +9364,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -9442,7 +9442,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueTime=?";
+    String _sqlWhereStatement=" WHERE value_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -9553,7 +9553,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -9631,7 +9631,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueTimeZone=?";
+    String _sqlWhereStatement=" WHERE value_time_zone=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -9742,7 +9742,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -9820,7 +9820,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueUrl=?";
+    String _sqlWhereStatement=" WHERE value_url=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -9931,7 +9931,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index38)) { resultBean.valueMapStringBean=BeanTable.parseValueMapStringBean(cursor.getBlob(index38)); }
         if (!cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=BeanTable.parseValueLinkedMapStringBean(cursor.getBlob(index39)); }
         if (!cursor.isNull(index40)) { resultBean.valueSetString=BeanTable.parseValueSetString(cursor.getBlob(index40)); }
-        if (!cursor.isNull(index41)) { resultBean.id=cursor.getLong(index41); }
+        resultBean.id=cursor.getLong(index41);
 
       }
       return resultBean;
@@ -11076,7 +11076,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueBigDecimal=?";
+    String _sqlWhereStatement=" value_big_decimal=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11144,7 +11144,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueBigDecimal=?";
+    String _sqlWhereStatement=" value_big_decimal=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11212,7 +11212,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueBoolType=?";
+    String _sqlWhereStatement=" value_bool_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11280,7 +11280,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueBool=?";
+    String _sqlWhereStatement=" value_bool=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11420,7 +11420,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueBeanArray=?";
+    String _sqlWhereStatement=" value_bean_array=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11488,7 +11488,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLongArray=?";
+    String _sqlWhereStatement=" value_long_array=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11556,7 +11556,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLongTypeArray=?";
+    String _sqlWhereStatement=" value_long_type_array=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11624,7 +11624,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueByte=?";
+    String _sqlWhereStatement=" value_byte=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11692,7 +11692,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueByteType=?";
+    String _sqlWhereStatement=" value_byte_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11760,7 +11760,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueCalendar=?";
+    String _sqlWhereStatement=" value_calendar=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11828,7 +11828,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueCharType=?";
+    String _sqlWhereStatement=" value_char_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11896,7 +11896,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueCharType=?";
+    String _sqlWhereStatement=" value_char_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -11964,7 +11964,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueCurrency=?";
+    String _sqlWhereStatement=" value_currency=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12032,7 +12032,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueDate=?";
+    String _sqlWhereStatement=" value_date=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12100,7 +12100,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueDouble=?";
+    String _sqlWhereStatement=" value_double=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12168,7 +12168,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueDoubleType=?";
+    String _sqlWhereStatement=" value_double_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12236,7 +12236,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueEnumType=?";
+    String _sqlWhereStatement=" value_enum_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12304,7 +12304,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueFloat=?";
+    String _sqlWhereStatement=" value_float=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12372,7 +12372,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueFloatType=?";
+    String _sqlWhereStatement=" value_float_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12440,7 +12440,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueInt=?";
+    String _sqlWhereStatement=" value_int=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12508,7 +12508,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueIntType=?";
+    String _sqlWhereStatement=" value_int_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12576,7 +12576,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLongList=?";
+    String _sqlWhereStatement=" value_long_list=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12644,7 +12644,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLocale=?";
+    String _sqlWhereStatement=" value_locale=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12712,7 +12712,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLong=?";
+    String _sqlWhereStatement=" value_long=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12780,7 +12780,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueLongType=?";
+    String _sqlWhereStatement=" value_long_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12848,7 +12848,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueShort=?";
+    String _sqlWhereStatement=" value_short=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12916,7 +12916,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueShortType=?";
+    String _sqlWhereStatement=" value_short_type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -12984,7 +12984,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueString=?";
+    String _sqlWhereStatement=" value_string=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -13052,7 +13052,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueTime=?";
+    String _sqlWhereStatement=" value_time=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -13120,7 +13120,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueTimeZone=?";
+    String _sqlWhereStatement=" value_time_zone=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -13188,7 +13188,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueUrl=?";
+    String _sqlWhereStatement=" value_url=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -13362,6 +13362,73 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
+  private byte[] serializer5(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private Set<String> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
   private byte[] serializer4(LinkedList<Long> value) {
     if (value==null) {
       return null;
@@ -13488,73 +13555,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           collection.add(item);
         }
         result=CollectionUtils.asLongTypeArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
-  private byte[] serializer5(Set<String> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (String item: value) {
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeString(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private Set<String> parser5(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Set<String> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getText();
-          }
-          collection.add(item);
-        }
-        result=collection;
       }
       return result;
     } catch(Exception e) {

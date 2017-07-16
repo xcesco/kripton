@@ -85,7 +85,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
         resultBean=new LongBean();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        resultBean.setId(cursor.getLong(index0));
         if (!cursor.isNull(index1)) { resultBean.setValue(LongBeanTable.parseValue(cursor.getBlob(index1))); }
         if (!cursor.isNull(index2)) { resultBean.setValue2(LongBeanTable.parseValue2(cursor.getBlob(index2))); }
 
@@ -161,7 +161,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
         resultBean=new LongBean();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        resultBean.setId(cursor.getLong(index0));
         if (!cursor.isNull(index1)) { resultBean.setValue(LongBeanTable.parseValue(cursor.getBlob(index1))); }
         if (!cursor.isNull(index2)) { resultBean.setValue2(LongBeanTable.parseValue2(cursor.getBlob(index2))); }
 
@@ -238,12 +238,12 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
         do
          {
           // reset mapping
-          resultBean.setId(0L);
+          // id does not need reset
           resultBean.setValue(null);
           resultBean.setValue2(null);
 
           // generate mapping
-          if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+          resultBean.setId(cursor.getLong(index0));
           if (!cursor.isNull(index1)) { resultBean.setValue(LongBeanTable.parseValue(cursor.getBlob(index1))); }
           if (!cursor.isNull(index2)) { resultBean.setValue2(LongBeanTable.parseValue2(cursor.getBlob(index2))); }
 
@@ -391,7 +391,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
          {
           resultBean=new LongBean();
 
-          if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+          resultBean.setId(cursor.getLong(index0));
           if (!cursor.isNull(index1)) { resultBean.setValue(LongBeanTable.parseValue(cursor.getBlob(index1))); }
           if (!cursor.isNull(index2)) { resultBean.setValue2(LongBeanTable.parseValue2(cursor.getBlob(index2))); }
 

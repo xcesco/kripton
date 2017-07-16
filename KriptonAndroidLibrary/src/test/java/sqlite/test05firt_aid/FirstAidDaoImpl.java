@@ -118,7 +118,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
          {
           resultBean=new FirstAid();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.uid=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.description=cursor.getString(index2); }
           if (!cursor.isNull(index3)) { resultBean.info=cursor.getString(index3); }

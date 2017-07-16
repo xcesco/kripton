@@ -21,6 +21,7 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
@@ -34,6 +35,9 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableSta
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
@@ -350,7 +354,10 @@ public abstract class SqlBuilderHelper {
 	 */
 	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, boolean sqlWhereParamsAlreadyDefined) {
 		final JQL jql=method.jql;
-		final JQLChecker jqlChecker=JQLChecker.getInstance(); 
+		final JQLChecker jqlChecker=JQLChecker.getInstance();
+		final SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLEntity entity = daoDefinition.getEntity();
+		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
 		
 		// we need always this
 		if (!sqlWhereParamsAlreadyDefined) {
@@ -375,6 +382,20 @@ public abstract class SqlBuilderHelper {
 			
 			methodBuilder.addCode("\n// manage WHERE arguments -- BEGIN\n");			
 			String sqlWhere = jqlChecker.replaceFromVariableStatement(whereStatement.value0, new JQLReplacerListenerImpl() {
+				
+				@Override
+				public String onColumnName(String columnName) {
+					SQLProperty property = entity.get(columnName);
+
+					AssertKripton.failWithUndefinedProperty(property==null, method, columnName);
+					
+					return entity.get(columnName).columnName;
+				}
+				
+				@Override
+				public String onTableName(String tableName) {
+					return schema.getEntityBySimpleName(tableName).getTableName();
+				}
 
 				@Override
 				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {

@@ -85,7 +85,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
 
         resultBean=new FloatBean();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        resultBean.setId(cursor.getLong(index0));
         if (!cursor.isNull(index1)) { resultBean.setValue(FloatBeanTable.parseValue(cursor.getBlob(index1))); }
         if (!cursor.isNull(index2)) { resultBean.setValue2(FloatBeanTable.parseValue2(cursor.getBlob(index2))); }
 
@@ -161,7 +161,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
 
         resultBean=new FloatBean();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        resultBean.setId(cursor.getLong(index0));
         if (!cursor.isNull(index1)) { resultBean.setValue(FloatBeanTable.parseValue(cursor.getBlob(index1))); }
         if (!cursor.isNull(index2)) { resultBean.setValue2(FloatBeanTable.parseValue2(cursor.getBlob(index2))); }
 
@@ -238,12 +238,12 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
         do
          {
           // reset mapping
-          resultBean.setId(0L);
+          // id does not need reset
           resultBean.setValue(null);
           resultBean.setValue2(null);
 
           // generate mapping
-          if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+          resultBean.setId(cursor.getLong(index0));
           if (!cursor.isNull(index1)) { resultBean.setValue(FloatBeanTable.parseValue(cursor.getBlob(index1))); }
           if (!cursor.isNull(index2)) { resultBean.setValue2(FloatBeanTable.parseValue2(cursor.getBlob(index2))); }
 
@@ -391,7 +391,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
          {
           resultBean=new FloatBean();
 
-          if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+          resultBean.setId(cursor.getLong(index0));
           if (!cursor.isNull(index1)) { resultBean.setValue(FloatBeanTable.parseValue(cursor.getBlob(index1))); }
           if (!cursor.isNull(index2)) { resultBean.setValue2(FloatBeanTable.parseValue2(cursor.getBlob(index2))); }
 

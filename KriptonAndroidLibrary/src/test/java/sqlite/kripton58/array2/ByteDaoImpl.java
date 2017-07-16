@@ -85,7 +85,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
 
         resultBean=new ByteBean();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        resultBean.setId(cursor.getLong(index0));
         if (!cursor.isNull(index1)) { resultBean.setValue(ByteBeanTable.parseValue(cursor.getBlob(index1))); }
         if (!cursor.isNull(index2)) { resultBean.setValue2(ByteBeanTable.parseValue2(cursor.getBlob(index2))); }
 
@@ -161,7 +161,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
 
         resultBean=new ByteBean();
 
-        if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+        resultBean.setId(cursor.getLong(index0));
         if (!cursor.isNull(index1)) { resultBean.setValue(ByteBeanTable.parseValue(cursor.getBlob(index1))); }
         if (!cursor.isNull(index2)) { resultBean.setValue2(ByteBeanTable.parseValue2(cursor.getBlob(index2))); }
 
@@ -238,12 +238,12 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
         do
          {
           // reset mapping
-          resultBean.setId(0L);
+          // id does not need reset
           resultBean.setValue(null);
           resultBean.setValue2(null);
 
           // generate mapping
-          if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+          resultBean.setId(cursor.getLong(index0));
           if (!cursor.isNull(index1)) { resultBean.setValue(ByteBeanTable.parseValue(cursor.getBlob(index1))); }
           if (!cursor.isNull(index2)) { resultBean.setValue2(ByteBeanTable.parseValue2(cursor.getBlob(index2))); }
 
@@ -391,7 +391,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
          {
           resultBean=new ByteBean();
 
-          if (!cursor.isNull(index0)) { resultBean.setId(cursor.getLong(index0)); }
+          resultBean.setId(cursor.getLong(index0));
           if (!cursor.isNull(index1)) { resultBean.setValue(ByteBeanTable.parseValue(cursor.getBlob(index1))); }
           if (!cursor.isNull(index2)) { resultBean.setValue2(ByteBeanTable.parseValue2(cursor.getBlob(index2))); }
 
@@ -659,53 +659,6 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   /**
    * write
    */
-  private byte[] serializer1(byte[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        jacksonSerializer.writeBinaryField("element", value);
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private byte[] parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      byte[] result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getBinaryValue();
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
   private byte[] serializer2(Byte[] value) {
     if (value==null) {
       return null;
@@ -766,6 +719,53 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
           collection.add(item);
         }
         result=CollectionUtils.asByteArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer1(byte[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        jacksonSerializer.writeBinaryField("element", value);
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private byte[] parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      byte[] result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getBinaryValue();
       }
       return result;
     } catch(Exception e) {

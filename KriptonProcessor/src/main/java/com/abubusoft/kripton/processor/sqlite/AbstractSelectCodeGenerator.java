@@ -28,6 +28,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
+import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -39,6 +40,8 @@ import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectCodeGen
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SplittedSql;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -134,35 +137,66 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		// used method parameters
 		Set<String> usedMethodParameters = new HashSet<String>();
 
+		final One<String> whereJQL=new One<>("");
+		final One<String> havingJQL=new One<>("");
+		final One<String> groupJQL=new One<>("");
+		final One<String> orderJQL=new One<>("");
+		
+		// extract parts of jql statement
+		JQLChecker.getInstance().replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
+
+			@Override
+			public String onWhere(String statement) {				
+				whereJQL.value0=statement;
+				return null;
+			}
+
+			@Override
+			public String onOrderBy(String statement) {			
+				orderJQL.value0=statement;
+				return null;
+			}
+
+			@Override
+			public String onHaving(String statement) {			
+				havingJQL.value0=statement;
+				return null;
+			}
+
+			@Override
+			public String onGroup(String statement) {			
+				groupJQL.value0=statement;
+				return null;
+			}
+
+		});
+
+		
 		SqlAnalyzer analyzer = new SqlAnalyzer();
 
-		String whereSQL = annotation.getAttribute(AnnotationAttributeType.WHERE);
-		analyzer.execute(elementUtils, method, whereSQL);
-		//String whereStatement = analyzer.getSQLStatement();
+		//String whereSQL = annotation.getAttribute(AnnotationAttributeType.WHERE);
+		analyzer.execute(elementUtils, method, whereJQL.value0);
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
-		String havingSQL = annotation.getAttribute(AnnotationAttributeType.HAVING);
-		analyzer.execute(elementUtils, method, havingSQL);
-		//String havingStatement = analyzer.getSQLStatement();
+		//String havingSQL = annotation.getAttribute(AnnotationAttributeType.HAVING);
+		analyzer.execute(elementUtils, method, havingJQL.value0);
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
-		String groupBySQL = annotation.getAttribute(AnnotationAttributeType.GROUP_BY);
-		analyzer.execute(elementUtils, method, groupBySQL);
-		//String groupByStatement = analyzer.getSQLStatement();
+		//String groupBySQL = annotation.getAttribute(AnnotationAttributeType.GROUP_BY);
+		analyzer.execute(elementUtils, method, groupJQL.value0);
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
-		String orderBySQL = annotation.getAttribute(AnnotationAttributeType.ORDER_BY);
-		analyzer.execute(elementUtils, method, orderBySQL);
-		//String orderByStatement = analyzer.getSQLStatement();
+		//String orderBySQL = annotation.getAttribute(AnnotationAttributeType.ORDER_BY);
+		analyzer.execute(elementUtils, method, orderJQL.value0);
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());

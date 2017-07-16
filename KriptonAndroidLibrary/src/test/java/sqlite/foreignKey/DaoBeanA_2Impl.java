@@ -66,14 +66,14 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("pk");
         int index1=cursor.getColumnIndex("value_string2");
 
         do
          {
           resultBean=new BeanA_2();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.valueString2=cursor.getString(index1); }
 
           resultList.add(resultBean);
@@ -115,7 +115,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?";
+    String _sqlWhereStatement=" WHERE pk=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -141,14 +141,14 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("pk");
         int index1=cursor.getColumnIndex("value_string2");
 
         do
          {
           resultBean=new BeanA_2();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.valueString2=cursor.getString(index1); }
 
           resultList.add(resultBean);
@@ -189,7 +189,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE valueString2=?";
+    String _sqlWhereStatement=" WHERE value_string2=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -215,13 +215,13 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("pk");
 
         do
          {
           resultBean=new BeanA_2();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -329,7 +329,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" valueString2=?";
+    String _sqlWhereStatement=" value_string2=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END

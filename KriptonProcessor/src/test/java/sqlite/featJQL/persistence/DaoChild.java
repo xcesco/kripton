@@ -10,8 +10,11 @@ import sqlite.featJQL.entities.Child;
 @BindDao(Child.class)
 public interface DaoChild extends DaoBean<Child> {
 
-	@BindSqlSelect(jql = "select * from Child where parentId in (select id from Person where id=1)")
-	public List<Child> selectByParent();
+	@BindSqlSelect(jql = "select * from Child where parentId in (select id from Person where id=${parentId})")
+	public List<Child> selectByParent(long parentId);
+	
+	@BindSqlSelect(where="parentId=${parentId}")
+	public List<Child> selectByParentId(long parentId);
 
 	// @BindSqlSelect(where = "id=${id}")
 	// public List<Child> selectAll(long id);

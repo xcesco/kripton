@@ -76,7 +76,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
          {
           resultBean=new Child();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           resultBean.name=cursor.getString(index1);
           if (!cursor.isNull(index2)) { resultBean.parentId=cursor.getLong(index2); }
 
@@ -152,7 +152,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from child where parent_id in (select _id from person where _id=1)</pre>
+   * <pre>select * from child where parent_id in (select _id from person where _id=${parentId})</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -161,10 +161,17 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    * 	<dt>parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
    * </dl>
    *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${parentId}</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
+   * </dl>
+   *
+   * @param parentId
+   * 	is binded to <code>${parentId}</code>
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Child> selectByParent() {
+  public List<Child> selectByParent(long parentId) {
     StringBuilder _sqlBuilder=new StringBuilder();
     _sqlBuilder.append("select * from child ");
     // generation CODE_001 -- BEGIN
@@ -174,12 +181,13 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" where parentId in (select id from Person where id=1)";
+    String _sqlWhereStatement=" where parent_id in (select _id from person where _id=?)";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // build where condition
+    _sqlWhereParams.add(String.valueOf(parentId));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
@@ -207,7 +215,85 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
          {
           resultBean=new Child();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
+          resultBean.name=cursor.getString(index1);
+          if (!cursor.isNull(index2)) { resultBean.parentId=cursor.getLong(index2); }
+
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT _id, name, parent_id FROM child WHERE parent_id=${parentId}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>_id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${parentId}</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
+   * </dl>
+   *
+   * @param parentId
+   * 	is binded to <code>${parentId}</code>
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public List<Child> selectByParentId(long parentId) {
+    StringBuilder _sqlBuilder=new StringBuilder();
+    _sqlBuilder.append("SELECT _id, name, parent_id FROM child ");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE parent_id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(parentId));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+
+      LinkedList<Child> resultList=new LinkedList<Child>();
+      Child resultBean=null;
+
+      if (cursor.moveToFirst()) {
+
+        int index0=cursor.getColumnIndex("_id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("parent_id");
+
+        do
+         {
+          resultBean=new Child();
+
+          resultBean.id=cursor.getLong(index0);
           resultBean.name=cursor.getString(index1);
           if (!cursor.isNull(index2)) { resultBean.parentId=cursor.getLong(index2); }
 

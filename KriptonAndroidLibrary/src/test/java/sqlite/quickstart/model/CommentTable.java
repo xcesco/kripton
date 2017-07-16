@@ -20,9 +20,9 @@ public class CommentTable {
    * DDL to create table comment
    * </p>
    *
-   * <pre>CREATE TABLE comment (post_id INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, body TEXT, FOREIGN KEY(post_id) REFERENCES post(id));</pre>
+   * <pre>CREATE TABLE comment (post_id INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, email TEXT, body TEXT, FOREIGN KEY(post_id) REFERENCES post(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE comment (post_id INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, body TEXT, FOREIGN KEY(post_id) REFERENCES post(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE comment (post_id INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, email TEXT, body TEXT, FOREIGN KEY(post_id) REFERENCES post(id));";
 
   /**
    * <p>
