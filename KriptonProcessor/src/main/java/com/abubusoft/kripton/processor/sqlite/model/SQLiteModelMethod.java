@@ -337,7 +337,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 				AssertKripton.assertTrue(inserAnnotation.getAttributeCount() > 1,
 						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
-						selectAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
+						inserAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
 			}
 		}
 
@@ -348,7 +348,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 				AssertKripton.assertTrue(updateAnnotation.getAttributeCount() > 1,
 						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
-						selectAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
+						updateAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
 			}
 		}
 
@@ -359,7 +359,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 				AssertKripton.assertTrue(deleteAnnotation.getAttributeCount() > 1,
 						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
-						selectAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
+						deleteAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
 			}
 		}
 

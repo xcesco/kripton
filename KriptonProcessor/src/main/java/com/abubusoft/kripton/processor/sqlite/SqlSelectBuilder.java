@@ -44,6 +44,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -390,6 +392,24 @@ public abstract class SqlSelectBuilder {
 			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
 				return null;
 			}
+
+			@Override
+			public void onColumnNameSetBegin(Column_name_setContext ctx) {
+				
+			}
+
+			@Override
+			public void onColumnNameSetEnd(Column_name_setContext ctx) {
+			}
+
+			@Override
+			public void onColumnValueSetBegin(Column_value_setContext ctx) {
+			}
+
+			@Override
+			public void onColumnValueSetEnd(Column_value_setContext ctx) {
+			}
+		
 		});
 
 		// parameters extracted from JQL converted in SQL

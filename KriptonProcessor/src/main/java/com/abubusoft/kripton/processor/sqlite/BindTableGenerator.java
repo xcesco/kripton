@@ -29,7 +29,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;

@@ -247,7 +247,8 @@ public class JQLChecker {
 
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
-
+		
+		
 		@Override
 		public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
 			String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
@@ -267,6 +268,26 @@ public class JQLChecker {
 		@Override
 		public void exitWhere_stmt(Where_stmtContext ctx) {
 			listener.onWhereStatementEnd(ctx);
+		}
+		
+		@Override
+		public void enterColumn_name_set(Column_name_setContext ctx) {
+			listener.onColumnNameSetBegin(ctx);
+		}
+		
+		@Override
+		public void exitColumn_name_set(Column_name_setContext ctx) {
+			listener.onColumnNameSetEnd(ctx);
+		}
+		
+		@Override
+		public void enterColumn_value_set(Column_value_setContext ctx) {
+			listener.onColumnValueSetBegin(ctx);
+		}
+		
+		@Override
+		public void exitColumn_value_set(Column_value_setContext ctx) {
+			listener.onColumnValueSetEnd(ctx);
 		}
 	}
 

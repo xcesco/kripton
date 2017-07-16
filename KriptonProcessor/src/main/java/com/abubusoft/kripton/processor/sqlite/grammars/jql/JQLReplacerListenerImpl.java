@@ -1,6 +1,8 @@
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 
 public class JQLReplacerListenerImpl implements JQLReplacerListener {
@@ -33,6 +35,26 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	@Override
 	public void onWhereStatementEnd(Where_stmtContext ctx) {
 
+	}
+
+	@Override
+	public void onColumnNameSetBegin(Column_name_setContext ctx) {
+		
+	}
+
+	@Override
+	public void onColumnNameSetEnd(Column_name_setContext ctx) {
+		
+	}
+
+	@Override
+	public void onColumnValueSetBegin(Column_value_setContext ctx) {
+		
+	}
+
+	@Override
+	public void onColumnValueSetEnd(Column_value_setContext ctx) {
+		
 	}
 
 }

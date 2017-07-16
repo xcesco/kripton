@@ -95,6 +95,11 @@ public class JQL {
 	public boolean annotatedLimit;
 
 	/**
+	 * States that operation is of type INSERT ... SELECT (..). It's a particular type of INSERT that need to be managed in a specific way.
+	 */
+	protected boolean insertFromSelectOperation=false;
+
+	/**
 	 * if <code>true</code> states that JQL has a static WHERE statement.
 	 * 
 	 * @return if <code>true</code> states that JQL has a static WHERE

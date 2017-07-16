@@ -144,11 +144,23 @@ public abstract class JQLBuilder {
 	 * @param preparedJql
 	 * @return
 	 */
-	private static JQL buildJQLDelete(SQLiteModelMethod method, JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
+	private static JQL buildJQLDelete(SQLiteModelMethod method, final JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final SQLDaoDefinition dao = method.getParent();
 
 		if (StringUtils.hasText(preparedJql)) {
 			result.value = preparedJql;
+
+			JQLChecker.getInstance().replaceVariableStatements(preparedJql, new JQLReplaceVariableStatementListenerImpl() {
+
+				@Override
+				public String onWhere(String statement) {
+					result.annotatedWhere = true;
+					result.staticWhereConditions = true;
+					return null;
+				}
+
+			});
+
 		} else {
 			StringBuilder builder = new StringBuilder();
 			builder.append(DELETE_KEYWORD + " " + FROM_KEYWORD);
@@ -174,7 +186,7 @@ public abstract class JQLBuilder {
 	 * @param preparedJql
 	 * @return
 	 */
-	private static JQL buildJQLInsert(SQLiteModelMethod method, JQL result, String preparedJql) {
+	private static JQL buildJQLInsert(SQLiteModelMethod method, final JQL result, String preparedJql) {
 		final Class<? extends Annotation> annotation = BindSqlInsert.class;
 		final SQLDaoDefinition dao = method.getParent();
 		final boolean includePrimaryKey = AnnotationUtility.extractAsBoolean(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
@@ -185,6 +197,17 @@ public abstract class JQLBuilder {
 
 		if (StringUtils.hasText(preparedJql)) {
 			result.value = preparedJql;
+
+			JQLChecker.getInstance().replaceVariableStatements(preparedJql, new JQLReplaceVariableStatementListenerImpl() {
+				
+				@Override
+				public String onProjectedColumns(String statement) {
+					result.insertFromSelectOperation=true;
+					return null;
+				}
+
+			});
+
 		} else {
 			StringBuilder builder = new StringBuilder();
 			builder.append(INSERT_KEYWORD);
@@ -233,8 +256,6 @@ public abstract class JQLBuilder {
 	private static JQL buildJQLSelect(SQLiteModelMethod method, final JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final Class<? extends Annotation> annotation = BindSqlSelect.class;
 		final SQLDaoDefinition dao = method.getParent();
-		final SQLiteDatabaseSchema schema = dao.getParent();
-		final SQLEntity entity = dao.getEntity();
 
 		// extract some informaction from method and bean
 		// use annotation's attribute value and exclude and bean definition to
@@ -349,7 +370,7 @@ public abstract class JQLBuilder {
 	 * @param preparedJql
 	 * @return
 	 */
-	private static JQL buildJQLUpdate(final SQLiteModelMethod method, JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
+	private static JQL buildJQLUpdate(final SQLiteModelMethod method, final JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final Class<? extends Annotation> annotation = BindSqlUpdate.class;
 		final SQLDaoDefinition dao = method.getParent();
 
@@ -360,6 +381,18 @@ public abstract class JQLBuilder {
 
 		if (StringUtils.hasText(preparedJql)) {
 			result.value = preparedJql;
+
+			JQLChecker.getInstance().replaceVariableStatements(preparedJql, new JQLReplaceVariableStatementListenerImpl() {
+
+				@Override
+				public String onWhere(String statement) {
+					result.annotatedWhere = true;
+					result.staticWhereConditions = true;
+					return null;
+				}
+
+			});
+
 		} else {
 			StringBuilder builder = new StringBuilder();
 			builder.append(UPDATE_KEYWORD);

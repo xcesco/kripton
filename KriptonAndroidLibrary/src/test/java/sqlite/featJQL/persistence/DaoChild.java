@@ -3,6 +3,7 @@ package sqlite.featJQL.persistence;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.featJQL.entities.Child;
@@ -18,5 +19,11 @@ public interface DaoChild extends DaoBean<Child> {
 
 	// @BindSqlSelect(where = "id=${id}")
 	// public List<Child> selectAll(long id);
+	
+	@BindSqlInsert(jql="insert into Child (name, parentId) select name, parentId from Child where id=${parentId}")
+	public int insertByCopy(long parentId);
+	
+	@BindSqlInsert
+	public int insertByCopy(long parentId, String name);
 
 }
