@@ -11,6 +11,6 @@ public interface DaoBean<E> {
 	public List<E> selectAll();
 
 	@BindSqlInsert
-	public E insert(E bean);
+	public E insertBean(E bean);
 
 }

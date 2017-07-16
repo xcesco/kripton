@@ -106,7 +106,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    *
    */
   @Override
-  public Child insert(Child bean) {
+  public Child insertBean(Child bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 

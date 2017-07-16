@@ -111,7 +111,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
    *
    */
   @Override
-  public Person insert(Person bean) {
+  public Person insertBean(Person bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 

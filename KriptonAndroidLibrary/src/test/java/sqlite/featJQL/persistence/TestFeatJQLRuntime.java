@@ -43,14 +43,14 @@ public class TestFeatJQLRuntime extends BaseAndroidTest {
 				// TODO Auto-generated method stub
 				Person person = new Person();
 				person.name = "Tonj Manero";
-				daoFactory.getDaoPerson().insert(person);
+				daoFactory.getDaoPerson().insertBean(person);
 
 				Child child = new Child();
 				child.name = "Luna";
 				child.parentId=person.id;
 
-				daoFactory.getDaoChild().insert(child);
-				daoFactory.getDaoChild().insert(child);
+				daoFactory.getDaoChild().insertBean(child);
+				daoFactory.getDaoChild().insertBean(child);
 
 				List<Child> list = daoFactory.getDaoChild().selectByParent(person.id);
 
