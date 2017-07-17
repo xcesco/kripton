@@ -250,7 +250,7 @@ select_stmt
  ;
 
 select_or_values
- : K_SELECT ( K_DISTINCT | K_ALL )? result_column ( ',' result_column )*
+ : K_SELECT ( K_DISTINCT | K_ALL )? projected_columns
    ( K_FROM ( table_or_subquery ( ',' table_or_subquery )* | join_clause ) )?
    ( where_stmt )?
    ( group_stmt ( having_stmt )? )?
