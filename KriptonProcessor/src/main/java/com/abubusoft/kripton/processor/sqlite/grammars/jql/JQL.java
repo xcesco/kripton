@@ -95,11 +95,21 @@ public class JQL {
 	public boolean annotatedLimit;
 
 	/**
-	 * States that operation is of type INSERT ... SELECT (..). It's a
+	 * States that operation is of type INSERT ... SELECT (..) or UPDATE-SELECT-IN. It's a
 	 * particular type of INSERT that need to be managed in a specific way. This
 	 * kind of INSERT can not be used for content provider methods.
 	 */
-	public boolean insertFromSelectOperation = false;
+	public boolean containsSelectOperation = false;
+	
+	/**
+	 * counter of binded parameter on column value. Typically it incremented by bind parameter used on column values (INSERT SQL).
+	 */
+	public int bindParameterAsColumnValueCounter=0;
+	
+	/**
+	 * counter of binded parameter in where condition (INSERT-SELECT, SELECT, DELETE, UPDATE).
+	 */
+	public int bindParameterOnWhereStatementCounter=0;
 
 	/**
 	 * if <code>true</code> states that JQL has a static WHERE statement.

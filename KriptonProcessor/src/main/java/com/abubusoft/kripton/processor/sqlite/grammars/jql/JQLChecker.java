@@ -659,7 +659,7 @@ public class JQLChecker {
 					return;
 
 				int start = ctx.getStart().getStartIndex() - 1;
-				int stop = ctx.getStop().getStopIndex() + 1;
+				int stop = ctx.getStop().getStopIndex() + 2;
 
 				if (start == stop)
 					return;
@@ -680,7 +680,7 @@ public class JQLChecker {
 					return;
 
 				int start = ctx.getStart().getStartIndex() - 1;
-				int stop = ctx.getStop().getStopIndex() + 1;
+				int stop = ctx.getStop().getStopIndex() + 2;
 
 				if (start == stop)
 					return;

@@ -227,14 +227,6 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			usedMethodParameters.add(method.dynamicPageSizeName);
 		}
 
-		// select statement
-//		String sqlWithParameters = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereSQL).having(havingSQL).groupBy(groupBySQL)
-//				.orderBy(orderBySQL).limit(pageSize).build(method);
-//		String sql = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement)
-//				.orderBy(orderByStatement).limit(pageSize).build(method);
-//		String sqlForLog = SelectStatementBuilder.create().distinct(distinctClause).fields(fieldStatement).table(tableStatement).where(whereStatement).having(havingStatement).groupBy(groupByStatement)
-//				.orderBy(orderByStatement).limit(pageSize).buildForLog(method);
-
 		// generate method signature
 		if (generationType.generateMethodSign) {
 			generateMethodSignature(method, methodBuilder, returnTypeName);
@@ -263,11 +255,10 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			methodBuilder.addCode("\n// build where condition\n");			
 			{
 				String separator = "";
-
 				TypeName paramName;
-
 				boolean nullable;
 				int i = 0;
+				
 				for (String item : paramGetters) {
 					methodBuilder.addCode("_sqlWhereParams.add(");
 					logArgsBuffer.append(separator + "%s");

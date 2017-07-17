@@ -307,52 +307,41 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>insert into child (name, parent_id) select name, parent_id from child where _id=${parentId}</pre>
+   * <pre>insert into child (name, parent_id) select name, parent_id from child where _id=${parentId} or _id=${aliasParentId} or _id=${parent}</pre>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>parent_id</dt><dd>is binded to query's parameter <strong>${parentId}</strong> and method's parameter <strong>parentId</strong></dd>
+   * 	<dt>parentId</dt><dd>is binded to query's parameter <strong>${parentId}</strong> and method's parameter <strong>parentId</strong></dd>
+   * 	<dt>aliasParentId</dt><dd>is binded to query's parameter <strong>${aliasParentId}</strong> and method's parameter <strong>aliasParentId</strong></dd>
+   * 	<dt>parent</dt><dd>is binded to query's parameter <strong>${parent}</strong> and method's parameter <strong>parent</strong></dd>
    * </dl>
    *
    * @param parentId
    * 	is used as parameter
+   * @param aliasParentId
+   * 	is used as parameter
+   * @param parent
+   * 	is used as parameter
    *
-   * @return <strong>id</strong> of inserted record
+   *
    */
   @Override
-  public int insertByCopy(long parentId) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+  public void insertByCopy(long parentId, long aliasParentId, long parent) {
+    List<String> _sqlWhereParams=new ArrayList<String>();
 
-    contentValues.put("parent_id", parentId);
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(parentId));
+    _sqlWhereParams.add(String.valueOf(aliasParentId));
+    _sqlWhereParams.add(String.valueOf(parent));
+    Logger.info("insert into child (name, parent_id) select name, parent_id from child where _id=:0 or _id=:1 or _id=:2");
 
-    // log for insert -- BEGIN 
-    StringBuffer _columnNameBuffer=new StringBuffer();
-    StringBuffer _columnValueBuffer=new StringBuffer();
-    String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
-      _columnNameBuffer.append(_columnSeparator+columnName);
-      _columnValueBuffer.append(_columnSeparator+":"+columnName);
-      _columnSeparator=", ";
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
     }
-    Logger.info("insert into child (%s) select name, parentId from child where id=${parentId}", _columnNameBuffer.toString(), _columnValueBuffer.toString());
-
-    // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
-      } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
-      }
-    }
-    // log for content values -- END
-    // log for insert -- END 
-
-    int result = (int)database().ex .insert("child", null, contentValues);
-    
-    return result;
+    // log for where parameters -- END
+    database().execSQL("insert into child (name, parent_id) select name, parent_id from child where _id=? or _id=? or _id=?", _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]));
   }
 
   /**

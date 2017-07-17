@@ -255,8 +255,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		if (currentSchema.contains(currentEntity.getName())) {
 			// bean already defined in datasource
 			return;
-		}
-		currentSchema.addEntity(currentEntity);
+		}		
 
 		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
@@ -364,6 +363,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		if (!property.isType(Long.TYPE, Long.class))
 			throw (new SQLPrimaryKeyNotValidTypeException(currentEntity, property));
+		
+		// add entity to schema after properties definition!
+		currentSchema.addEntity(currentEntity);
 
 	}
 

@@ -292,7 +292,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			// INSERT from SELECT type SQL can not be used with content provider
 			// methods
-			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.INSERT && this.jql.insertFromSelectOperation), this,
+			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.INSERT && this.jql.containsSelectOperation), this,
 					" INSERT-FROM-SELECT sql can not be used for content provider");
 
 		}

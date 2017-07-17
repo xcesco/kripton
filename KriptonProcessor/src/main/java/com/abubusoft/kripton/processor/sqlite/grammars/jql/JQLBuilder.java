@@ -65,10 +65,14 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -148,8 +152,19 @@ public abstract class JQLBuilder {
 		final SQLDaoDefinition dao = method.getParent();
 
 		if (StringUtils.hasText(preparedJql)) {
+			// in DELETE SQL only where statement can contains bind parameter
 			result.value = preparedJql;
 
+			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
+
+				@Override
+				public void enterBind_parameter(Bind_parameterContext ctx) {
+					result.bindParameterOnWhereStatementCounter++;
+				}
+
+			});
+
+			// where management
 			JQLChecker.getInstance().replaceVariableStatements(preparedJql, new JQLReplaceVariableStatementListenerImpl() {
 
 				@Override
@@ -197,17 +212,57 @@ public abstract class JQLBuilder {
 
 		if (StringUtils.hasText(preparedJql)) {
 			result.value = preparedJql;
+			// INSERT can contains bind parameter in column values and select
+			// statement
+			final One<Boolean> inColumnValueSet = new One<Boolean>(false);
+			final One<Boolean> inWhereStatement = new One<Boolean>(false);
 
-			JQLChecker.getInstance().replaceVariableStatements(preparedJql, new JQLReplaceVariableStatementListenerImpl() {
+			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
+
+				@Override
+				public void enterProjected_columns(Projected_columnsContext ctx) {				
+					result.containsSelectOperation = true;
+				}
+
+				@Override
+				public void enterWhere_stmt(Where_stmtContext ctx) {
+					inWhereStatement.value0 = true;
+				}
 				
 				@Override
-				public String onProjectedColumns(String statement) {
-					result.insertFromSelectOperation=true;
-					return null;
+				public void exitWhere_stmt(Where_stmtContext ctx) {
+					inWhereStatement.value0 = false;
+				}
+
+				@Override
+				public void enterColumn_value_set(Column_value_setContext ctx) {
+					inColumnValueSet.value0 = true;
+				}
+
+				@Override
+				public void exitColumn_value_set(Column_value_setContext ctx) {
+					inColumnValueSet.value0 = false;
+				}
+
+				@Override
+				public void enterBind_parameter(Bind_parameterContext ctx) {
+					if (inWhereStatement.value0) {
+						result.bindParameterOnWhereStatementCounter++;
+					} else if (inColumnValueSet.value0) {
+						result.bindParameterAsColumnValueCounter++;
+					}
+
+					AssertKripton.assertTrue(inWhereStatement.value0 || inColumnValueSet.value0, "unknown situation!");
 				}
 
 			});
+			
+			if (result.containsSelectOperation) {
+				AssertKripton.assertTrueOrInvalidMethodSignException(method.getReturnClass().equals(TypeName.VOID), method, "defined JQL requires that method's return type is void");
+			}
 
+			// ASSERT: a INSERT-SELECT SQL can not contains parameters on values
+			// section.					
 		} else {
 			StringBuilder builder = new StringBuilder();
 			builder.append(INSERT_KEYWORD);
@@ -268,6 +323,15 @@ public abstract class JQLBuilder {
 
 		if (StringUtils.hasText(preparedJql)) {
 			result.value = preparedJql;
+			// in SELECT SQL only where statement can contains bind parameter
+			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
+
+				@Override
+				public void enterBind_parameter(Bind_parameterContext ctx) {
+					result.bindParameterOnWhereStatementCounter++;
+				}
+
+			});
 
 			JQLChecker.getInstance().replaceVariableStatements(preparedJql, new JQLReplaceVariableStatementListenerImpl() {
 
@@ -381,6 +445,48 @@ public abstract class JQLBuilder {
 
 		if (StringUtils.hasText(preparedJql)) {
 			result.value = preparedJql;
+			// UPDATE can contains bind parameter in column values and select
+			// statement
+			final One<Boolean> inColumnValueSet = new One<Boolean>(false);
+			final One<Boolean> inSelect = new One<Boolean>(false);
+
+			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
+
+				@Override
+				public void enterProjected_columns(Projected_columnsContext ctx) {
+					inSelect.value0 = true;
+					result.containsSelectOperation = true;
+				}
+
+				@Override
+				public void exitProjected_columns(Projected_columnsContext ctx) {
+					inSelect.value0 = false;
+				}
+
+				@Override
+				public void enterColumn_value_set(Column_value_setContext ctx) {
+					inColumnValueSet.value0 = true;
+				}
+
+				@Override
+				public void exitColumn_value_set(Column_value_setContext ctx) {
+					inColumnValueSet.value0 = false;
+				}
+
+				@Override
+				public void enterBind_parameter(Bind_parameterContext ctx) {
+					if (inSelect.value0) {
+						result.bindParameterOnWhereStatementCounter++;
+					}
+
+					if (inColumnValueSet.value0) {
+						result.bindParameterAsColumnValueCounter++;
+					}
+
+					AssertKripton.fail("unknown situation!");
+				}
+
+			});
 
 			JQLChecker.getInstance().replaceVariableStatements(preparedJql, new JQLReplaceVariableStatementListenerImpl() {
 
@@ -392,6 +498,10 @@ public abstract class JQLBuilder {
 				}
 
 			});
+			
+			if (result.containsSelectOperation) {
+				AssertKripton.assertTrueOrInvalidMethodSignException(method.getReturnClass().equals(TypeName.VOID), method, "defined JQL requires that method return's type is void");
+			}
 
 		} else {
 			StringBuilder builder = new StringBuilder();
