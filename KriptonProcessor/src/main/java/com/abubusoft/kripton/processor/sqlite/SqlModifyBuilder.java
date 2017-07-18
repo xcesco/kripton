@@ -27,6 +27,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -342,8 +343,14 @@ public abstract class SqlModifyBuilder {
 			break;
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
-			methodBuilder.addStatement("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))",
+			if (method.jql.conflictAlgorithmType==ConflictAlgorithmType.NONE) {
+				methodBuilder.addStatement("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))",
 					daoDefinition.getEntity().getTableName());
+			} else {
+				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
+				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]), $L)",
+						daoDefinition.getEntity().getTableName(), method.jql.conflictAlgorithmType.getConflictAlgorithm());
+			}
 			break;
 		}
 
@@ -423,7 +430,9 @@ public abstract class SqlModifyBuilder {
 				
 				@Override
 				public String onTableName(String tableName) {
-					return schema.getEntityBySimpleName(tableName).getTableName();
+					SQLEntity entity=schema.getEntityBySimpleName(tableName);
+					AssertKripton.assertTrueOrInvalidTableNameInJQLException(entity!=null, method, tableName);
+					return entity.getTableName();
 				}
 
 				@Override

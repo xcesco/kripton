@@ -21,8 +21,9 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
   }
 
   /**
-   * <h2>SQL delete:</h2>
-   * <pre>DELETE bean01 WHERE id=${value}</pre></pre>
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM bean01 WHERE id=${value}</pre>
+   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -58,10 +59,10 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("bean01", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("bean01", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result!=0;
   }
 }

@@ -118,7 +118,7 @@ public @interface BindSqlInsert {
 
 	/**
 	 * <p>
-	 * Type of INSERT. Default value is ABORT. See
+	 * Type of INSERT. Default value is NONE. See
 	 * <a href="https://www.sqlite.org/lang_conflict.html">here</a> for more
 	 * info.
 	 * </p>

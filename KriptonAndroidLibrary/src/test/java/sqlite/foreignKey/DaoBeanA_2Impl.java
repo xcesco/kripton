@@ -55,7 +55,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -130,7 +130,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -204,7 +204,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -291,7 +291,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean_a_2 SET value_string2=${bean.valueString2} WHERE valueString2=${bean.valueString2}</pre>
+   * <pre>UPDATE bean_a_2 SET value_string2=${bean.valueString2} WHERE WHERE valueString2=${bean.valueString2}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -353,10 +353,10 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().update("bean_a_2", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("bean_a_2", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 }

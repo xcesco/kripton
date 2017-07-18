@@ -26,6 +26,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.InvalidTableNameInJQLException;
 import com.abubusoft.kripton.processor.exceptions.InvalidTypeForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
@@ -53,9 +54,10 @@ public abstract class AssertKripton {
 			throw (new KriptonProcessorException(String.format(messageFormat, args)));
 
 	}
-	
+
 	/**
 	 * Assertion which generate an exception if expression is not true
+	 * 
 	 * @param <T>
 	 * 
 	 * @param <E>
@@ -104,11 +106,11 @@ public abstract class AssertKripton {
 	public static void failWithMethodWithoutSupportedAnnotationException(SQLiteModelMethod value) {
 		throw (new MethodWithoutSupportedAnnotationException(value.getParent(), value));
 	}
-		
+
 	public static void fail(String messageFormat, Object... args) {
 		assertTrue(false, messageFormat, args);
 	}
-	
+
 	public static void failIncompatibleAttributesInAnnotationException(String messageFormat, Object... args) {
 		throw (new IncompatibleAttributesInAnnotationException(String.format(messageFormat, args)));
 	}
@@ -135,34 +137,41 @@ public abstract class AssertKripton {
 			throw (new InvalidKindForAnnotationException(msg));
 		}
 	}
-	
+
 	/**
-	 * In case a method's parameters is of a type incompatible with specific annotation
+	 * In case a method's parameters is of a type incompatible with specific
+	 * annotation
 	 * 
 	 * @param expression
 	 * @param element
 	 * @param annotationClazz
 	 */
-	public static void assertTrueOrInvalidTypeForAnnotationMethodParameterException(boolean expression, Element classElement, ExecutableElement methodElement, VariableElement parameterElement, Class<? extends Annotation> annotationClazz) {
+	public static void assertTrueOrInvalidTypeForAnnotationMethodParameterException(boolean expression, Element classElement, ExecutableElement methodElement, VariableElement parameterElement,
+			Class<? extends Annotation> annotationClazz) {
 		if (!expression) {
-			String msg = String.format("In method '%s.%s', parameter '%s' has an invalid type '%s' for @%s annotation", classElement.getSimpleName().toString(),  methodElement.getSimpleName().toString(), parameterElement.getSimpleName().toString(), parameterElement.asType(),  annotationClazz.getSimpleName());
+			String msg = String.format("In method '%s.%s', parameter '%s' has an invalid type '%s' for @%s annotation", classElement.getSimpleName().toString(),
+					methodElement.getSimpleName().toString(), parameterElement.getSimpleName().toString(), parameterElement.asType(), annotationClazz.getSimpleName());
 			throw (new InvalidTypeForAnnotationException(msg));
 		}
 	}
 
 	public static void assertNotNull(Object value, KriptonProcessorException exception) {
-		if (value==null)
-		{
-			throw(exception);
+		if (value == null) {
+			throw (exception);
 		}
-		
+
 	}
 
 	public static void failWithUndefinedProperty(boolean expression, SQLiteModelMethod method, String columnName) {
 		if (expression) {
-			throw(new UndefinedPropertyUsedInJQLException(method, columnName, TypeUtility.typeName(method.getParent().getEntity().getElement())));
+			throw (new UndefinedPropertyUsedInJQLException(method, columnName, TypeUtility.typeName(method.getParent().getEntity().getElement())));
 		}
-		
+	}
+
+	public static void assertTrueOrInvalidTableNameInJQLException(boolean expression, SQLiteModelMethod method, String tableName) {
+		if (!expression) {
+			throw (new InvalidTableNameInJQLException(method, tableName));
+		}
 	}
 
 }

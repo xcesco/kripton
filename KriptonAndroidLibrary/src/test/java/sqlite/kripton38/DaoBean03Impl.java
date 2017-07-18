@@ -67,7 +67,7 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -91,8 +91,9 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
   }
 
   /**
-   * <h2>SQL delete:</h2>
-   * <pre>DELETE bean03 WHERE id=${id}</pre></pre>
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM bean03 WHERE id=${id}</pre>
+   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -128,10 +129,10 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("bean03", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("bean03", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 }

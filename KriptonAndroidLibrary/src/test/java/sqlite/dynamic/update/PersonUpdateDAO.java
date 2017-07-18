@@ -50,7 +50,7 @@ public interface PersonUpdateDAO {
 	@BindSqlSelect
 	List<Person> selecAll();
 	
-	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.CONFLICT_IGNORE)
+	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.IGNORE)
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 
 }

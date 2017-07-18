@@ -80,7 +80,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -150,8 +150,9 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
   }
 
   /**
-   * <h2>SQL delete:</h2>
-   * <pre>DELETE first_aid WHERE 1=1</pre></pre>
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM first_aid WHERE 1=1</pre>
+   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -183,10 +184,10 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("first_aid", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("first_aid", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 

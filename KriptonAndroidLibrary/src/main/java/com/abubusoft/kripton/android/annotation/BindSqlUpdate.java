@@ -20,9 +20,22 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface BindSqlUpdate {
+	
+	/**
+	 * <p>
+	 * Type of UPDATE. Default value is NONE. See
+	 * <a href="https://www.sqlite.org/lang_conflict.html">here</a> for more
+	 * info.
+	 * </p>
+	 * 
+	 * @return type of insert.
+	 */
+	ConflictAlgorithmType conflictAlgorithm() default ConflictAlgorithmType.NONE;
 
 	/**
 	 * properties to include into UPDATE command

@@ -43,7 +43,6 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    * @param bean
    * 	is mapped to parameter <strong>bean</strong>
    *
-   *
    */
   @Override
   public void insert(Comment bean) {
@@ -150,7 +149,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -234,7 +233,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

@@ -2,7 +2,6 @@ package sqlite.dynamic.update;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
@@ -77,7 +76,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -113,8 +112,9 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
   }
 
   /**
-   * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE id = ${nameValue}</pre> #{where}</pre>
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM person WHERE id = ${nameValue} AND #{DYNAMIC_WHERE}</pre>
+   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -160,15 +160,15 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
   }
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE id = ${bean.id} #{where}</pre>
+   * <pre>DELETE person WHERE WHERE id = ${bean.id} AND #{DYNAMIC_WHERE} #{where}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -211,15 +211,16 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
   }
 
   /**
-   * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id = ${nameValue} #{where}</pre>
+   * <h2>SQL update</h2>
+   * <pre>UPDATE person SET name=${name} WHERE id = ${nameValue} AND #{DYNAMIC_WHERE}</pre>
+   *
    *
    * <h2>Updated columns:</strong></h2>
    * <dl>
@@ -292,15 +293,15 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
   }
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname}, birth_city=${bean.birthCity}, birth_day=${bean.birthDay} WHERE id = ${bean.id} #{where}</pre>
+   * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname}, birth_city=${bean.birthCity}, birth_day=${bean.birthDay} WHERE WHERE id = ${bean.id} AND #{DYNAMIC_WHERE} #{where}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -390,10 +391,10 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
   }
 
   /**
@@ -430,7 +431,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -466,10 +467,10 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR IGNORE INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
    *
-   * <p><strong>Inserted columns:</strong></p>
+   * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
@@ -478,14 +479,13 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    * </dl>
    *
    * @param name
-   * 	is binded to column <strong>name</strong>
+   * 	is binded to column value <strong>name</strong>
    * @param surname
-   * 	is binded to column <strong>surname</strong>
+   * 	is binded to column value <strong>surname</strong>
    * @param birthCity
-   * 	is binded to column <strong>birth_city</strong>
+   * 	is binded to column value <strong>birth_city</strong>
    * @param birthDay
-   * 	is binded to column <strong>birth_day</strong>
-   *
+   * 	is binded to column value <strong>birth_day</strong>
    *
    */
   @Override
@@ -541,7 +541,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log for content values -- END
     // log for insert -- END 
 
-    // use SQLiteDatabase conflicts algorithm
-    database().insertWithOnConflict("person", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+    // conflict algorithm IGNORE
+    database().insertWithOnConflict("person", null, contentValues, 4);
   }
 }

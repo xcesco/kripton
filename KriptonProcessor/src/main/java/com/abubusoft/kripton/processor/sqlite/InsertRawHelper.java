@@ -16,10 +16,7 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
@@ -53,7 +50,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final SQLiteDatabaseSchema schema=daoDefinition.getParent();
-		final List<String> paramsList=new ArrayList<String>();
+		final List<String> paramsList=new ArrayList<String>();	
 
 		String sqlInsert;
 		boolean nullable;
@@ -81,7 +78,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 					return "?";
 				}
 			});			
-			
+						
 			final One<Integer> paramCounter=new One<Integer>(0);
 			String sqlForLog=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
 				@Override
@@ -95,8 +92,8 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				}
 				
 				@Override
-				public String onBindParameter(String bindParameterName) {
-					return ":"+(paramCounter.value0++);
+				public String onBindParameter(String bindParameterName) {										
+					return "${param"+(paramCounter.value0++)+"}";
 				}
 			});
 			
@@ -104,9 +101,8 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				
 			methodBuilder.addCode("\n// build where condition\n");			
 			{
-				String separator = "";
+				//String separator = "";
 				TypeName paramType;				
-				int i = 0;
 				String realName;
 				
 				for (String item : paramsList) {
@@ -133,20 +129,19 @@ public class InsertRawHelper implements InsertCodeGenerator {
 						methodBuilder.addCode(")");
 					}
 
-					separator = ", ";
-					i++;
-					
 					methodBuilder.addCode(");\n");
 				}				
 			}
 			
 			if (daoDefinition.isLogEnabled()) {
-			    // manage log			    
+  			   // manage log
+				methodBuilder.addCode("\n");
 				methodBuilder.addStatement("$T.info($S)", Logger.class, sqlForLog);
 			}
 			
 			// log for where parames
-			SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);			
+			SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
+			methodBuilder.addCode("\n");
 			methodBuilder.addStatement("database().execSQL($S, _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]))", sql);		    
 		} else {
 			// standard INSERT
@@ -190,8 +185,8 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 			if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
 				conflictString1 = "WithOnConflict";
-				conflictString2 = ", SQLiteDatabase." + conflictAlgorithmType;
-				methodBuilder.addCode("// use $T conflicts algorithm\n", SQLiteDatabase.class);
+				conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();				
+				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 			}
 
 			// define return value
@@ -223,13 +218,12 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();
-		String sqlInsert;
+		final SQLEntity entity = daoDefinition.getEntity();		
 		final One<Boolean> inColumnValues = new One<Boolean>(false);
 		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
 		// new
-		sqlInsert = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+		String sqlInsert = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public void onColumnValueSetBegin(Column_value_setContext ctx) {
@@ -267,13 +261,13 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 		});
 
-		methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
+		methodBuilder.addJavadoc("<h2>SQL insert</h2>\n");
 		methodBuilder.addJavadoc("<pre>$L</pre>\n", sqlInsert);
 		methodBuilder.addJavadoc("\n");
 
 		if (methodParamsUsedAsColumnValue.size() > 0) {
 			// list of inserted fields
-			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");
+			methodBuilder.addJavadoc("<h2>Inserted columns:</strong></h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeName> property : methodParamsUsedAsColumnValue) {
 				String resolvedName = method.findParameterAliasByName(property.value0);
@@ -285,12 +279,12 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 		// list of parameters
 		if (methodParamsUsedAsParameter.size() > 0) {
-			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");
+			methodBuilder.addJavadoc("<h2>Method parameters used as sql parameters</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeName> property : methodParamsUsedAsParameter) {
 				String resolvedName = method.findParameterNameByAlias(property.value0);
 				methodBuilder.addJavadoc("\t<dt>$L</dt>", resolvedName);
-				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + resolvedName + "}", property.value0);
+				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$${$L}</strong></dd>\n", property.value0);
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 		}
@@ -317,14 +311,17 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 * @param methodBuilder
 	 * @param returnType
 	 */
-	public static void generateJavaDocReturnType(MethodSpec.Builder methodBuilder, TypeName returnType) {
-		methodBuilder.addJavadoc("\n");
+	public static void generateJavaDocReturnType(MethodSpec.Builder methodBuilder, TypeName returnType) {		
 		if (returnType == TypeName.VOID) {
+			
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
+			methodBuilder.addJavadoc("\n");
 			methodBuilder.addJavadoc("@return <code>true</code> if record is inserted, <code>false</code> otherwise");
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
+			methodBuilder.addJavadoc("\n");
 			methodBuilder.addJavadoc("@return <strong>id</strong> of inserted record");
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
+			methodBuilder.addJavadoc("\n");
 			methodBuilder.addJavadoc("@return <strong>id</strong> of inserted record");
 		}
 		methodBuilder.addJavadoc("\n");

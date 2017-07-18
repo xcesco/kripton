@@ -17,6 +17,8 @@ package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
 import java.util.Map;
 
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+
 public class JQL {
 
 	public enum JQLType {
@@ -100,6 +102,11 @@ public class JQL {
 	 * kind of INSERT can not be used for content provider methods.
 	 */
 	public boolean containsSelectOperation = false;
+		
+	/**
+	 * used only for INSERT and UPDATE operation
+	 */
+	public ConflictAlgorithmType conflictAlgorithmType=ConflictAlgorithmType.NONE;
 	
 	/**
 	 * counter of binded parameter on column value. Typically it incremented by bind parameter used on column values (INSERT SQL).

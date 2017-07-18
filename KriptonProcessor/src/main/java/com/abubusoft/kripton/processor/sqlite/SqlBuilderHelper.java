@@ -241,11 +241,13 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.addCode("\n// log for where parameters -- BEGIN\n");
 			methodBuilder.addStatement("int _whereParamCounter=0");
 			methodBuilder.beginControlFlow("for (String _whereParamItem: _sqlWhereParams)");
-			methodBuilder.addStatement("$T.info(\"==> param (%s): '%s'\",(_whereParamCounter++), _whereParamItem)", Logger.class);
+			methodBuilder.addStatement("$T.info(\"==> param%s: '%s'\",(_whereParamCounter++), _whereParamItem)", Logger.class);
 			methodBuilder.endControlFlow();
 			methodBuilder.addCode("// log for where parameters -- END\n");
 		}
 	}
+	
+
 
 	/**
 	 * <p>

@@ -156,6 +156,9 @@ public abstract class SqlInsertBuilder {
 			methodBuilder.addParameter(parameterSpec);
 		}
 		methodBuilder.returns(returnType);
+		
+		// fail if we use jql to INSERT_BEAN with operation of INSERT-FOR-SELECT
+		AssertKripton.failWithInvalidMethodSignException(insertResultType == InsertType.INSERT_BEAN && method.jql.containsSelectOperation, method);		
 
 		// generate inner code
 		insertResultType.generate(elementUtils, methodBuilder, method, returnType);
@@ -243,7 +246,8 @@ public abstract class SqlInsertBuilder {
 		String conflictString2 = "";		
 		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
 			conflictString1 = "WithOnConflict";
-			conflictString2 = ", SQLiteDatabase." + conflictAlgorithmType;			
+			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();			
+			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 		}
 		methodBuilder.addStatement("long result = database().insert$L($S, null, contentValues$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 		methodBuilder.addStatement("return result");

@@ -67,8 +67,8 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
 			conflictString1 = "WithOnConflict";
-			conflictString2 = ", SQLiteDatabase." + conflictAlgorithmType;
-			methodBuilder.addCode("// use $T conflicts algorithm\n", SQLiteDatabase.class);
+			conflictString2 = ", "+conflictAlgorithmType.getConflictAlgorithm();			
+			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 		}
 		methodBuilder.addStatement("long result = database().insert$L($S, null, contentValues$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 
@@ -137,13 +137,13 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			ConflictAlgorithmType conflictAlgorithmType = getConflictAlgorithmType(method);
 
 			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
-			methodBuilder.addJavadoc("<pre>INSERT $LINTO $L ($L) VALUES ($L)</pre>\n\n", conflictAlgorithmType.getSql(), daoDefinition.getEntity().getTableName(), bufferName.toString(),
+			methodBuilder.addJavadoc("<pre>INSERT $LINTO $L ($L) VALUES ($L)</pre>\n\n", conflictAlgorithmType.getSqlForInsert(), daoDefinition.getEntity().getTableName(), bufferName.toString(),
 					bufferValue.toString());
 			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");
 
 			// generate sql query
-			sqlInsert = String.format("INSERT %sINTO %s (%s) VALUES (%s)", conflictAlgorithmType.getSql(), daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
+			sqlInsert = String.format("INSERT %sINTO %s (%s) VALUES (%s)", conflictAlgorithmType.getSqlForInsert(), daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
 
 			// list of inserted fields
 			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");

@@ -26,6 +26,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -120,9 +121,14 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 				
 		if (updateMode) {			
-			methodBuilder.addCode("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));\n", tableName);
+			if (method.jql.conflictAlgorithmType==ConflictAlgorithmType.NONE) {
+				methodBuilder.addStatement("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));", tableName);
+			} else {
+				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
+				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),$L);", tableName, method.jql.conflictAlgorithmType.getConflictAlgorithm());
+			}
 		} else {			
-			methodBuilder.addCode("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));\n", tableName);
+			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));", tableName);
 		}
 	}
 

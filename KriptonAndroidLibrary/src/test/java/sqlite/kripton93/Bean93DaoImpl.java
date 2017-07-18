@@ -2,7 +2,6 @@ package sqlite.kripton93;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
@@ -73,7 +72,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -133,7 +132,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -307,8 +306,8 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // use SQLiteDatabase conflicts algorithm
-    long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_ABORT);
+    // conflict algorithm ABORT
+    long result = database().insertWithOnConflict("bean93", null, contentValues, 2);
     bean.id=result;
 
     return result!=-1;
@@ -383,8 +382,8 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // use SQLiteDatabase conflicts algorithm
-    long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_FAIL);
+    // conflict algorithm FAIL
+    long result = database().insertWithOnConflict("bean93", null, contentValues, 3);
     bean.id=result;
 
     return result!=-1;
@@ -459,8 +458,8 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // use SQLiteDatabase conflicts algorithm
-    long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+    // conflict algorithm IGNORE
+    long result = database().insertWithOnConflict("bean93", null, contentValues, 4);
     bean.id=result;
 
     return result!=-1;
@@ -535,8 +534,8 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // use SQLiteDatabase conflicts algorithm
-    long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
+    // conflict algorithm REPLACE
+    long result = database().insertWithOnConflict("bean93", null, contentValues, 5);
     bean.id=result;
 
     return result!=-1;
@@ -611,8 +610,8 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // use SQLiteDatabase conflicts algorithm
-    long result = database().insertWithOnConflict("bean93", null, contentValues, SQLiteDatabase.CONFLICT_ROLLBACK);
+    // conflict algorithm ROLLBACK
+    long result = database().insertWithOnConflict("bean93", null, contentValues, 1);
     bean.id=result;
 
     return result!=-1;

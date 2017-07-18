@@ -100,19 +100,19 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean01 (value, message_date) VALUES (${value}, ${messageDate})</pre>
    *
-   * <p><strong>Inserted columns:</strong></p>
+   * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
    * 	<dt>message_date</dt><dd>is binded to query's parameter <strong>${messageDate}</strong> and method's parameter <strong>messageDate</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to column <strong>value</strong>
+   * 	is binded to column value <strong>value</strong>
    * @param messageDate
-   * 	is binded to column <strong>message_date</strong>
+   * 	is binded to column value <strong>message_date</strong>
    *
    * @return <strong>id</strong> of inserted record
    */
@@ -154,8 +154,9 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   }
 
   /**
-   * <h2>SQL delete:</h2>
-   * <pre>DELETE bean01 WHERE id=${id}</pre></pre>
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM bean01 WHERE id=${id}</pre>
+   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -191,16 +192,16 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("bean01", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("bean01", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE bean01 WHERE id=${bean.id}</pre>
+   * <pre>DELETE bean01 WHERE WHERE id=${bean.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -236,16 +237,17 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("bean01", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("bean01", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean01 SET value=${value} WHERE id>${id}</pre>
+   *
    *
    * <h2>Updated columns:</strong></h2>
    * <dl>
@@ -304,16 +306,16 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().update("bean01", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("bean01", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean01 SET lista=${bean.lista}, message_date=${bean.messageDate}, message_text=${bean.messageText}, bean_list=${bean.beanList}, value=${bean.value} WHERE value=${bean.value}</pre>
+   * <pre>UPDATE bean01 SET lista=${bean.lista}, message_date=${bean.messageDate}, message_text=${bean.messageText}, bean_list=${bean.beanList}, value=${bean.value} WHERE WHERE value=${bean.value}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -395,10 +397,10 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().update("bean01", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("bean01", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 }

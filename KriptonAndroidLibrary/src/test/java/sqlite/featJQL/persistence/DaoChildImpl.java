@@ -57,7 +57,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -102,7 +102,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    *
    * @param bean
    * 	is mapped to parameter <strong>bean</strong>
-   *
    *
    */
   @Override
@@ -196,7 +195,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -274,7 +273,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -306,14 +305,14 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   }
 
   /**
-   * <p>SQL insert:</p>
-   * <pre>insert into child (name, parent_id) select name, parent_id from child where _id=${parentId} or _id=${aliasParentId} or _id=${parent}</pre>
+   * <h2>SQL insert</h2>
+   * <pre>insert into child (name, parent_id) select name, parent_id from child where _id=${parentId} or _id=${parent} or _id=${aliasParentId}</pre>
    *
-   * <p><strong>Inserted columns:</strong></p>
+   * <h2>Method parameters used as sql parameters</h2>
    * <dl>
-   * 	<dt>parentId</dt><dd>is binded to query's parameter <strong>${parentId}</strong> and method's parameter <strong>parentId</strong></dd>
-   * 	<dt>aliasParentId</dt><dd>is binded to query's parameter <strong>${aliasParentId}</strong> and method's parameter <strong>aliasParentId</strong></dd>
-   * 	<dt>parent</dt><dd>is binded to query's parameter <strong>${parent}</strong> and method's parameter <strong>parent</strong></dd>
+   * 	<dt>parentId</dt><dd>is binded to query's parameter <strong>${parentId}</strong></dd>
+   * 	<dt>parent</dt><dd>is binded to query's parameter <strong>${parent}</strong></dd>
+   * 	<dt>aliasParentId</dt><dd>is binded to query's parameter <strong>${aliasParentId}</strong></dd>
    * </dl>
    *
    * @param parentId
@@ -323,7 +322,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    * @param parent
    * 	is used as parameter
    *
-   *
    */
   @Override
   public void insertByCopy(long parentId, long aliasParentId, long parent) {
@@ -331,24 +329,84 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(parentId));
-    _sqlWhereParams.add(String.valueOf(aliasParentId));
     _sqlWhereParams.add(String.valueOf(parent));
-    Logger.info("insert into child (name, parent_id) select name, parent_id from child where _id=:0 or _id=:1 or _id=:2");
+    _sqlWhereParams.add(String.valueOf(aliasParentId));
+
+    Logger.info("insert into child (name, parent_id) select name, parent_id from child where _id=${param0} or _id=${param1} or _id=${param2}");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
+
     database().execSQL("insert into child (name, parent_id) select name, parent_id from child where _id=? or _id=? or _id=?", _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]));
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO child (parent_id, name) VALUES (${parentId}, ${name})</pre>
+   * <pre>INSERT INTO child (name, parent_id) VALUES (${bean.name}, ${bean.parentId})</pre>
+   *
+   * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
+   * <dl>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>parent_id</dt><dd>is mapped to <strong>${bean.parentId}</strong></dd>
+   * </dl>
+   *
+   * @param bean
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   */
+  @Override
+  public void insertByCopy3(Child bean) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    if (bean.name!=null) {
+      contentValues.put("name", bean.name);
+    } else {
+      contentValues.putNull("name");
+    }
+
+    contentValues.put("parent_id", bean.parentId);
+
+    //StringUtils and SqlUtils will be used to format SQL
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info("insert into child (%s) values (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
+    long result = database().insert("child", null, contentValues);
+    bean.id=result;
+  }
+
+  /**
+   * <h2>SQL insert</h2>
+   * <pre>INSERT INTO child (parent_id, name) VALUES (${parentId}, ${name})</pre>
+   *
+   * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>parent_id</dt><dd>is binded to query's parameter <strong>${parentId}</strong> and method's parameter <strong>parentId</strong></dd>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
@@ -400,5 +458,148 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
     int result = (int)database().insert("child", null, contentValues);
     return result;
+  }
+
+  /**
+   * <h2>SQL update</h2>
+   * <pre>update or replace child set name=${name} where parent_id=${a}</pre>
+   *
+   *
+   * <h2>Updated columns:</strong></h2>
+   * <dl>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
+   * </dl>
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${a}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
+   * </dl>
+   *
+   * @param parentId
+   * 	is used as where parameter <strong>${a}</strong>
+   * @param name
+   * 	is used as updated field <strong>name</strong>
+   */
+  @Override
+  public void updateJQL(long parentId, String name) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+    if (name!=null) {
+      contentValues.put("name", name);
+    } else {
+      contentValues.putNull("name");
+    }
+
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add(String.valueOf(parentId));
+
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" where parent_id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    //StringUtils and SqlUtils will be used to format SQL
+
+    // display log
+    Logger.info("update or replace child set name=:name where parentId=?");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    // conflict algorithm REPLACE
+    int result = database().updateWithOnConflict("child", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),5);;
+  }
+
+  /**
+   * <h2>SQL update:</h2>
+   * <pre>UPDATE child SET name=${bean.name}, parent_id=${bean.parentId} WHERE where parentId=${bean.parentId}</pre>
+   *
+   * <h2>Updated columns:</h2>
+   * <dl>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>parent_id</dt><dd>is mapped to <strong>${bean.parentId}</strong></dd>
+   * </dl>
+   *
+   * <h2>Parameters used in where conditions:</h2>
+   * <dl>
+   * 	<dt>${bean.parentId}</dt><dd>is mapped to method's parameter <strong>bean.parentId</strong></dd>
+   * </dl>
+   *
+   * @param bean
+   * 	is used as ${bean}
+   */
+  @Override
+  public void updateJQL2(Child bean) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    if (bean.name!=null) {
+      contentValues.put("name", bean.name);
+    } else {
+      contentValues.putNull("name");
+    }
+
+    contentValues.put("parent_id", bean.parentId);
+
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    _sqlWhereParams.add(String.valueOf(bean.parentId));
+
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" where parent_id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    //StringUtils and SqlUtils will be used to format SQL
+
+    // display log
+    Logger.info("update or replace child set name=(select id from person where id=? )  where parentId=?");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    // conflict algorithm REPLACE
+    int result = database().updateWithOnConflict("child", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),5);;
   }
 }

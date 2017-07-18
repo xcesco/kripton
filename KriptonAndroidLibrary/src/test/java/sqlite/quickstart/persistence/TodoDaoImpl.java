@@ -42,7 +42,6 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
    * @param bean
    * 	is mapped to parameter <strong>bean</strong>
    *
-   *
    */
   @Override
   public void insert(Todo bean) {
@@ -138,7 +137,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -219,7 +218,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

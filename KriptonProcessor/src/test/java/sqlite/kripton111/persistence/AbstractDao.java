@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
 public interface AbstractDao<E> {
 
-    @BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.CONFLICT_REPLACE)
+    @BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
     int insert(E bean);
 
     @BindSqlSelect(where = "id = ${id}")

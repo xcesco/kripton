@@ -189,11 +189,7 @@ factored_select_stmt
 insert_stmt
  : with_clause? ( K_INSERT
                 | K_REPLACE
-                | K_INSERT K_OR K_REPLACE
-                | K_INSERT K_OR K_ROLLBACK
-                | K_INSERT K_OR K_ABORT
-                | K_INSERT K_OR K_FAIL
-                | K_INSERT K_OR K_IGNORE ) K_INTO
+                | K_INSERT K_OR conflict_algorithm) K_INTO
    ( database_name '.' )? table_name ( '(' column_name_set ')' )?
    ( K_VALUES '(' column_value_set ')' ( ',' '(' expr ( ',' expr )* ')' )*
    | select_stmt
@@ -258,12 +254,12 @@ select_or_values
  ;
 
 update_stmt
- : with_clause? K_UPDATE ( K_OR K_ROLLBACK
-                         | K_OR K_ABORT
-                         | K_OR K_REPLACE
-                         | K_OR K_FAIL
-                         | K_OR K_IGNORE )? qualified_table_name
+ : with_clause? K_UPDATE ( K_OR conflict_algorithm )? qualified_table_name
    K_SET column_name '=' expr ( ',' column_name '=' expr )* ( where_stmt )?
+ ;
+ 
+conflict_algorithm
+ : K_ROLLBACK | K_ABORT | K_REPLACE | K_FAIL | K_IGNORE 
  ;
 
 update_stmt_limited

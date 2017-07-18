@@ -68,8 +68,10 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Conflict_algorithmContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_clausesContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -218,6 +220,11 @@ public abstract class JQLBuilder {
 			final One<Boolean> inWhereStatement = new One<Boolean>(false);
 
 			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
+				
+				@Override
+				public void enterConflict_algorithm(Conflict_algorithmContext ctx) {
+					result.conflictAlgorithmType=ConflictAlgorithmType.valueOf(ctx.getText().toUpperCase());					
+				}
 
 				@Override
 				public void enterProjected_columns(Projected_columnsContext ctx) {				
@@ -263,12 +270,13 @@ public abstract class JQLBuilder {
 
 			// ASSERT: a INSERT-SELECT SQL can not contains parameters on values
 			// section.					
-		} else {
+		} else {			
+			result.conflictAlgorithmType=ConflictAlgorithmType.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));
+			
 			StringBuilder builder = new StringBuilder();
 			builder.append(INSERT_KEYWORD);
-			builder.append(" " + ConflictAlgorithmType
-					.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE))
-					.getSql());
+			builder.append(" " + 
+					result.conflictAlgorithmType.getSqlForInsert());
 
 			builder.append(INTO_KEYWORD);
 			builder.append(" " + dao.getEntitySimplyClassName());
@@ -447,43 +455,33 @@ public abstract class JQLBuilder {
 			result.value = preparedJql;
 			// UPDATE can contains bind parameter in column values and select
 			// statement
-			final One<Boolean> inColumnValueSet = new One<Boolean>(false);
-			final One<Boolean> inSelect = new One<Boolean>(false);
+			final One<Boolean> inWhereCondition = new One<Boolean>(false);			
 
 			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
-
+				
+				
 				@Override
-				public void enterProjected_columns(Projected_columnsContext ctx) {
-					inSelect.value0 = true;
-					result.containsSelectOperation = true;
+				public void enterConflict_algorithm(Conflict_algorithmContext ctx) {
+					result.conflictAlgorithmType=ConflictAlgorithmType.valueOf(ctx.getText().toUpperCase());					
 				}
 
 				@Override
-				public void exitProjected_columns(Projected_columnsContext ctx) {
-					inSelect.value0 = false;
+				public void enterWhere_stmt(Where_stmtContext ctx) {
+					inWhereCondition.value0=true;
 				}
-
+				
 				@Override
-				public void enterColumn_value_set(Column_value_setContext ctx) {
-					inColumnValueSet.value0 = true;
-				}
-
-				@Override
-				public void exitColumn_value_set(Column_value_setContext ctx) {
-					inColumnValueSet.value0 = false;
+				public void exitWhere_stmt_clauses(Where_stmt_clausesContext ctx) {
+					inWhereCondition.value0=false;
 				}
 
 				@Override
 				public void enterBind_parameter(Bind_parameterContext ctx) {
-					if (inSelect.value0) {
+					if (inWhereCondition.value0) {
 						result.bindParameterOnWhereStatementCounter++;
-					}
-
-					if (inColumnValueSet.value0) {
+					} else {
 						result.bindParameterAsColumnValueCounter++;
-					}
-
-					AssertKripton.fail("unknown situation!");
+					}					
 				}
 
 			});
@@ -499,15 +497,14 @@ public abstract class JQLBuilder {
 
 			});
 			
-			if (result.containsSelectOperation) {
-				AssertKripton.assertTrueOrInvalidMethodSignException(method.getReturnClass().equals(TypeName.VOID), method, "defined JQL requires that method return's type is void");
-			}
-
 		} else {
+			result.conflictAlgorithmType=ConflictAlgorithmType.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));
+			
 			StringBuilder builder = new StringBuilder();
 			builder.append(UPDATE_KEYWORD);
+			builder.append(" " + result.conflictAlgorithmType.getSqlForInsert());
 			// entity name
-			builder.append(" " + dao.getEntitySimplyClassName());
+			builder.append(dao.getEntitySimplyClassName());
 
 			// recreate fields
 			final One<String> prefix = new One<>("");

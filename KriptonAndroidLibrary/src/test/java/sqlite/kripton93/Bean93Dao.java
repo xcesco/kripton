@@ -34,18 +34,18 @@ public interface Bean93Dao {
 	@BindSqlInsert
 	boolean insertDefault(Bean93 bean);
 	
-	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.CONFLICT_ABORT, includePrimaryKey=true)
+	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.ABORT, includePrimaryKey=true)
 	boolean insertAbort(Bean93 bean);
 	
-	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.CONFLICT_FAIL, includePrimaryKey=true)
+	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.FAIL, includePrimaryKey=true)
 	boolean insertFail(Bean93 bean);
 	
-	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.CONFLICT_IGNORE, includePrimaryKey=true)
+	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.IGNORE, includePrimaryKey=true)
 	boolean insertIgnore(Bean93 bean);
 	
-	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.CONFLICT_REPLACE, includePrimaryKey=true)
+	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.REPLACE, includePrimaryKey=true)
 	boolean insertReplace(Bean93 bean);
 	
-	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.CONFLICT_ROLLBACK, includePrimaryKey=true)
+	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.ROLLBACK, includePrimaryKey=true)
 	boolean insertRollback(Bean93 bean);
 }

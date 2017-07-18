@@ -80,7 +80,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -180,7 +180,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -295,7 +295,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -367,7 +367,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -418,7 +418,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean2 SET value=${value.value}, value_byte_set=${value.valueByteSet}, value_short_set=${value.valueShortSet}, value_integer_set=${value.valueIntegerSet}, value_string_set=${value.valueStringSet}, value_character_set=${value.valueCharacterSet}, value_float_set=${value.valueFloatSet}, value_double_set=${value.valueDoubleSet}, value_big_decimal_set=${value.valueBigDecimalSet}, value_bean_set=${value.valueBeanSet}, value_enum_type_set=${value.valueEnumTypeSet} WHERE id=${value.id}</pre>
+   * <pre>UPDATE bean2 SET value=${value.value}, value_byte_set=${value.valueByteSet}, value_short_set=${value.valueShortSet}, value_integer_set=${value.valueIntegerSet}, value_string_set=${value.valueStringSet}, value_character_set=${value.valueCharacterSet}, value_float_set=${value.valueFloatSet}, value_double_set=${value.valueDoubleSet}, value_big_decimal_set=${value.valueBigDecimalSet}, value_bean_set=${value.valueBeanSet}, value_enum_type_set=${value.valueEnumTypeSet} WHERE WHERE id=${value.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -550,10 +550,10 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().update("bean2", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("bean2", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 
@@ -686,16 +686,26 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean2 (value_big_decimal_set) VALUES (${valueBigDecimalSet})</pre>
+   * <h2>SQL insert</h2>
+   * <pre>INSERT INTO bean2 (value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES (${value}, ${valueByteSet}, ${valueShortSet}, ${valueIntegerSet}, ${valueStringSet}, ${valueCharacterSet}, ${valueFloatSet}, ${valueDoubleSet}, ${valueBigDecimalSet}, ${valueBeanSet}, ${valueEnumTypeSet})</pre>
    *
-   * <p><strong>Inserted columns:</strong></p>
+   * <h2>Inserted columns:</strong></h2>
    * <dl>
+   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is binded to query's parameter <strong>${valueByteSet}</strong> and method's parameter <strong>valueByteSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is binded to query's parameter <strong>${valueShortSet}</strong> and method's parameter <strong>valueShortSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is binded to query's parameter <strong>${valueIntegerSet}</strong> and method's parameter <strong>valueIntegerSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is binded to query's parameter <strong>${valueStringSet}</strong> and method's parameter <strong>valueStringSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is binded to query's parameter <strong>${valueCharacterSet}</strong> and method's parameter <strong>valueCharacterSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is binded to query's parameter <strong>${valueFloatSet}</strong> and method's parameter <strong>valueFloatSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is binded to query's parameter <strong>${valueDoubleSet}</strong> and method's parameter <strong>valueDoubleSet</strong></dd>
    * 	<dt>value_big_decimal_set</dt><dd>is binded to query's parameter <strong>${valueBigDecimalSet}</strong> and method's parameter <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_bean_set</dt><dd>is binded to query's parameter <strong>${valueBeanSet}</strong> and method's parameter <strong>valueBeanSet</strong></dd>
+   * 	<dt>value_enum_type_set</dt><dd>is binded to query's parameter <strong>${valueEnumTypeSet}</strong> and method's parameter <strong>valueEnumTypeSet</strong></dd>
    * </dl>
    *
    * @param valueBigDecimalSet
-   * 	is binded to column <strong>value_big_decimal_set</strong>
+   * 	is binded to column value <strong>value_big_decimal_set</strong>
    *
    * @return <strong>id</strong> of inserted record
    */
@@ -794,7 +804,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -838,8 +848,9 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   /**
-   * <h2>SQL delete:</h2>
-   * <pre>DELETE bean2 WHERE value=${valueBigDecimalSet}</pre></pre>
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM bean2 WHERE value=${valueBigDecimalSet}</pre>
+   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -875,16 +886,17 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("bean2", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("bean2", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean2 SET id=${id} WHERE value=${valueBigDecimalSet}</pre>
+   *
    *
    * <h2>Updated columns:</strong></h2>
    * <dl>
@@ -943,10 +955,10 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().update("bean2", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("bean2", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 

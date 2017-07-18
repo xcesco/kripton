@@ -40,7 +40,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @param bean
    * 	is mapped to parameter <strong>bean</strong>
    *
-   *
    */
   @Override
   public void insertThread1(Person bean) {
@@ -116,7 +115,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * @param bean
    * 	is mapped to parameter <strong>bean</strong>
-   *
    *
    */
   @Override
@@ -211,7 +209,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -274,7 +272,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

@@ -39,7 +39,7 @@ public enum ConflictAlgorithmType {
 	 * then the ROLLBACK resolution algorithm works the same as the ABORT
 	 * algorithm.
 	 */
-	CONFLICT_ROLLBACK(SQLiteDatabase.CONFLICT_ROLLBACK, "OR ROLLBACK "),
+	ROLLBACK(SQLiteDatabase.CONFLICT_ROLLBACK, "OR ROLLBACK "),
 	/**
 	 * When an applicable constraint violation occurs, the ABORT resolution
 	 * algorithm aborts the current SQL statement with an SQLITE_CONSTRAINT
@@ -48,7 +48,7 @@ public enum ConflictAlgorithmType {
 	 * preserved and the transaction remains active. This is the default
 	 * behavior and the behavior specified by the SQL standard.
 	 */
-	CONFLICT_ABORT(SQLiteDatabase.CONFLICT_ABORT, "OR ABORT "),
+	ABORT(SQLiteDatabase.CONFLICT_ABORT, "OR ABORT "),
 	/**
 	 * When an applicable constraint violation occurs, the FAIL resolution
 	 * algorithm aborts the current SQL statement with an SQLITE_CONSTRAINT
@@ -58,7 +58,7 @@ public enum ConflictAlgorithmType {
 	 * it attempts to update, then the first 99 row changes are preserved but
 	 * changes to rows 100 and beyond never occur.
 	 */
-	CONFLICT_FAIL(SQLiteDatabase.CONFLICT_FAIL, "OR FAIL "),
+	FAIL(SQLiteDatabase.CONFLICT_FAIL, "OR FAIL "),
 	/**
 	 * When an applicable constraint violation occurs, the IGNORE resolution
 	 * algorithm skips the one row that contains the constraint violation and
@@ -67,7 +67,7 @@ public enum ConflictAlgorithmType {
 	 * constraint violation are inserted or updated normally. No error is
 	 * returned when the IGNORE conflict resolution algorithm is used.
 	 */
-	CONFLICT_IGNORE(SQLiteDatabase.CONFLICT_IGNORE, "OR IGNORE "),
+	IGNORE(SQLiteDatabase.CONFLICT_IGNORE, "OR IGNORE "),
 	/**
 	 * When a UNIQUE or PRIMARY KEY constraint violation occurs, the REPLACE
 	 * algorithm deletes pre-existing rows that are causing the constraint
@@ -87,26 +87,26 @@ public enum ConflictAlgorithmType {
 	 * counter. The exceptional behaviors defined in this paragraph might change
 	 * in a future release.
 	 */
-	CONFLICT_REPLACE(SQLiteDatabase.CONFLICT_REPLACE, "OR REPLACE ");
+	REPLACE(SQLiteDatabase.CONFLICT_REPLACE, "OR REPLACE ");
 	
 	
-	private ConflictAlgorithmType(int value, String sql)
+	private ConflictAlgorithmType(int value, String sqlForInsert)
 	{
 		this.conflictAlgorithm=value;
-		this.sql=sql;
+		this.sqlForInsert=sqlForInsert;		
 	}
 	
 	private int conflictAlgorithm;
 	
-	private String sql;
+	private String sqlForInsert;
 	
 	public int getConflictAlgorithm()
 	{
 		return conflictAlgorithm;
 	}
 	
-	public String getSql()
+	public String getSqlForInsert()
 	{
-		return sql;
+		return sqlForInsert;
 	}
 }

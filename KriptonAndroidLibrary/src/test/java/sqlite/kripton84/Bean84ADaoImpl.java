@@ -78,7 +78,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -183,7 +183,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -300,7 +300,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -478,16 +478,26 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   }
 
   /**
-   * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean84_a (column_list_string) VALUES (${columnListString})</pre>
+   * <h2>SQL insert</h2>
+   * <pre>INSERT INTO bean84_a (param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string) VALUES (${param1}, ${param2}, ${param3}, ${param4}, ${param1}, ${columnMapIntegerString}, ${columnArrayChar}, ${columnArrayCharType}, ${columnBean}, ${columnArrayByteType}, ${valueString})</pre>
    *
-   * <p><strong>Inserted columns:</strong></p>
+   * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>column_list_string</dt><dd>is binded to query's parameter <strong>${columnListString}</strong> and method's parameter <strong>param1</strong></dd>
+   * 	<dt>param2</dt><dd>is binded to query's parameter <strong>${param2}</strong> and method's parameter <strong>param2</strong></dd>
+   * 	<dt>param3</dt><dd>is binded to query's parameter <strong>${param3}</strong> and method's parameter <strong>param3</strong></dd>
+   * 	<dt>param4</dt><dd>is binded to query's parameter <strong>${param4}</strong> and method's parameter <strong>param4</strong></dd>
+   * 	<dt>column_list_string</dt><dd>is binded to query's parameter <strong>${columnListString}</strong> and method's parameter <strong>param1</strong></dd>
+   * 	<dt>column_map_integer_string</dt><dd>is binded to query's parameter <strong>${columnMapIntegerString}</strong> and method's parameter <strong>columnMapIntegerString</strong></dd>
+   * 	<dt>column_array_char</dt><dd>is binded to query's parameter <strong>${columnArrayChar}</strong> and method's parameter <strong>columnArrayChar</strong></dd>
+   * 	<dt>column_array_char_type</dt><dd>is binded to query's parameter <strong>${columnArrayCharType}</strong> and method's parameter <strong>columnArrayCharType</strong></dd>
+   * 	<dt>column_bean</dt><dd>is binded to query's parameter <strong>${columnBean}</strong> and method's parameter <strong>columnBean</strong></dd>
+   * 	<dt>column_array_byte_type</dt><dd>is binded to query's parameter <strong>${columnArrayByteType}</strong> and method's parameter <strong>columnArrayByteType</strong></dd>
+   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
    * </dl>
    *
    * @param param1
-   * 	is binded to column <strong>column_list_string</strong>
+   * 	is binded to column value <strong>column_list_string</strong>
    *
    * @return <code>true</code> if record is inserted, <code>false</code> otherwise
    */
@@ -651,16 +661,16 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().update("bean84_a", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("bean84_a", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result!=0;
   }
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE bean84_a WHERE 1=1</pre>
+   * <pre>DELETE bean84_a WHERE WHERE 1=1</pre>
    *
    * @param bean
    * 	is used as ${bean}
@@ -690,10 +700,10 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("bean84_a", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("bean84_a", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result!=0;
   }
 

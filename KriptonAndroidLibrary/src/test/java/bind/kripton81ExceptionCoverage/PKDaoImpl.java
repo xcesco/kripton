@@ -35,7 +35,6 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
    * @param bean
    * 	is mapped to parameter <strong>bean</strong>
    *
-   *
    */
   @Override
   public void insert(PKBean bean) {
