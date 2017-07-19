@@ -155,9 +155,9 @@ public abstract class SqlBuilderHelper {
 
 			@Override
 			public String onColumnName(String columnName) {
-				SQLProperty tempProperty = method.getParent().getEntity().get(columnName);				
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
-								
+				SQLProperty tempProperty = method.getParent().getEntity().get(columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
 				return tempProperty.columnName;
 			}
 
@@ -208,7 +208,7 @@ public abstract class SqlBuilderHelper {
 		methodBuilder.beginControlFlow("if (_contentValue==null)");
 		methodBuilder.addStatement("$T.info(\"==> :%s = <null>\", _contentKey)", Logger.class);
 		methodBuilder.nextControlFlow("else");
-		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' of type %s\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getCanonicalName())", Logger.class, StringUtils.class);
+		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' (%s)\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getCanonicalName())", Logger.class, StringUtils.class);
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 		methodBuilder.addCode("// log for content values -- END\n");
@@ -249,8 +249,6 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.addCode("// log for where parameters -- END\n");
 		}
 	}
-	
-
 
 	/**
 	 * <p>
@@ -358,17 +356,17 @@ public abstract class SqlBuilderHelper {
 	 * @param sqlWhereStatement
 	 */
 	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, boolean sqlWhereParamsAlreadyDefined) {
-		final JQL jql=method.jql;
-		final JQLChecker jqlChecker=JQLChecker.getInstance();
+		final JQL jql = method.jql;
+		final JQLChecker jqlChecker = JQLChecker.getInstance();
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
-		
+
 		// we need always this
 		if (!sqlWhereParamsAlreadyDefined) {
 			methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<>()", ArrayList.class, ArrayList.class);
 		}
-		
+
 		if (jql.isWhereConditions()) {
 			// parameters extracted from query
 			final One<String> whereStatement = new One<>();
@@ -383,19 +381,18 @@ public abstract class SqlBuilderHelper {
 				}
 
 			});
-			
-			
-			methodBuilder.addCode("\n// manage WHERE arguments -- BEGIN\n");			
+
+			methodBuilder.addCode("\n// manage WHERE arguments -- BEGIN\n");
 			String sqlWhere = jqlChecker.replaceFromVariableStatement(whereStatement.value0, new JQLReplacerListenerImpl() {
-				
+
 				@Override
 				public String onColumnName(String columnName) {
-					SQLProperty tempProperty = entity.get(columnName);				
-					AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
-									
-					return tempProperty.columnName;										
+					SQLProperty tempProperty = entity.get(columnName);
+					AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
+					return tempProperty.columnName;
 				}
-				
+
 				@Override
 				public String onTableName(String tableName) {
 					return schema.getEntityBySimpleName(tableName).getTableName();
@@ -443,7 +440,7 @@ public abstract class SqlBuilderHelper {
 
 			}
 
-			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlWhereStatement");			
+			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlWhereStatement");
 			methodBuilder.addCode("\n// manage WHERE arguments -- END\n");
 		} else {
 			// in every situation we need it
@@ -464,9 +461,11 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.endControlFlow();
 		}
 	}
-	
+
 	/**
-	 * <p>Generate log for INSERT operations</p>
+	 * <p>
+	 * Generate log for INSERT operations
+	 * </p>
 	 * 
 	 * @param method
 	 * @param methodBuilder
@@ -492,20 +491,20 @@ public abstract class SqlBuilderHelper {
 			});
 
 			JQLChecker checker = JQLChecker.getInstance();
-			
+
 			// replace the table name, other pieces will be removed
-			String sql=checker.replace(method.jql, new JQLReplacerListenerImpl() {
-				
+			String sql = checker.replace(method.jql, new JQLReplacerListenerImpl() {
+
 				@Override
 				public String onTableName(String tableName) {
 
 					return method.getParent().getEntity().getTableName();
 				}
-				
+
 			});
-			
-			sql = checker.replaceVariableStatements(sql, new JQLReplaceVariableStatementListenerImpl() {				
-				
+
+			sql = checker.replaceVariableStatements(sql, new JQLReplaceVariableStatementListenerImpl() {
+
 				@Override
 				public String onColumnNameSet(String statement) {
 					return "%s";
@@ -519,7 +518,7 @@ public abstract class SqlBuilderHelper {
 
 			methodBuilder.addStatement("$T.info($S, _columnNameBuffer.toString(), _columnValueBuffer.toString())", Logger.class, sql);
 			generateLogForContentValues(method, methodBuilder);
-			
+
 			methodBuilder.addCode("// log for insert -- END \n\n");
 		}
 

@@ -123,7 +123,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -178,7 +178,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -236,7 +236,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -296,7 +296,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -693,7 +693,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -765,7 +765,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -852,7 +852,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -924,7 +924,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -1020,7 +1020,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -1104,7 +1104,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -1204,7 +1204,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
@@ -1276,7 +1276,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
