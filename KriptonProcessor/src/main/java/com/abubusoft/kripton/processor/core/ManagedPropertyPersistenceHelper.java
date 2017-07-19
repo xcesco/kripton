@@ -17,7 +17,6 @@ package com.abubusoft.kripton.processor.core;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-import static org.junit.Assert.assertArrayEquals;
 
 import java.util.List;
 
@@ -37,7 +36,6 @@ import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.squareup.javapoet.ArrayTypeName;
@@ -54,7 +52,8 @@ public abstract class ManagedPropertyPersistenceHelper {
 	public static String DEFAULT_FIELD_NAME = "element";
 
 	/**
-	 * manage field's persistence for both in sharedpreference and sqlite flavours.
+	 * manage field's persistence for both in sharedpreference and sqlite
+	 * flavours.
 	 * 
 	 * @param context
 	 * @param collection
@@ -104,7 +103,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		}
 
 		// if property type is byte[], return directly the value
-		if (ArrayTypeName.of(Byte.TYPE).equals(property.getPropertyType().getTypeName()) && persistType==PersistType.BYTE) {
+		if (ArrayTypeName.of(Byte.TYPE).equals(property.getPropertyType().getTypeName()) && persistType == PersistType.BYTE) {
 			methodBuilder.addStatement("return value");
 		} else {
 
@@ -174,7 +173,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		}
 
 		// if property type is byte[], return directly the value
-		if (ArrayTypeName.of(Byte.TYPE).equals(property.getPropertyType().getTypeName()) && persistType==PersistType.BYTE) {
+		if (ArrayTypeName.of(Byte.TYPE).equals(property.getPropertyType().getTypeName()) && persistType == PersistType.BYTE) {
 			methodBuilder.addStatement("return input");
 		} else {
 
