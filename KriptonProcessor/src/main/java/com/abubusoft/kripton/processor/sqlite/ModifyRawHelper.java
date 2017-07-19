@@ -232,18 +232,24 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 			@Override
 			public String onColumnName(String columnName) {
-				String convertedColumnName = entity.get(columnName).columnName;
-				return convertedColumnName;
+				SQLProperty tempProperty = entity.get(columnName);				
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
+								
+				return tempProperty.columnName;
 			}
 
 			@Override
-			public String onTableName(String tableName) {
-				return daoDefinition.getParent().getEntityBySimpleName(tableName).getTableName();
+			public String onTableName(String className) {
+				SQLEntity tempEntity = daoDefinition.getParent().getEntityBySimpleName(className);				
+				AssertKripton.assertTrueOrUnknownClassInJQLException(tempEntity!=null, method, className);
+				
+				return tempEntity.getTableName();
 			}
 
 			@Override
 			public String onBindParameter(String bindParameterName) {
-				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
+				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);				
+				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName!=null, method, bindParameterName);
 
 				if (inColumnValues.value0) {
 					methodParamsUsedAsColumnValue.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));

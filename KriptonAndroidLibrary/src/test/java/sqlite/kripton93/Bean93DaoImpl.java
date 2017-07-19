@@ -27,7 +27,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ${name} || '%'</pre>
+   * <pre>SELECT id, name, surname, typeName FROM bean93 WHERE typeName like ${name} || '%'</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -102,7 +102,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, type_name FROM bean93</pre>
+   * <pre>SELECT id, name, surname, typeName FROM bean93</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

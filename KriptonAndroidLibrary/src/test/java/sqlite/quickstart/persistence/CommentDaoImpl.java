@@ -103,7 +103,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT post_id, id, name, email, body FROM comment WHERE post_id = ${value}</pre>
+   * <pre>SELECT postId, id, name, email, body FROM comment WHERE postId = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -187,7 +187,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT post_id, id, name, email, body FROM comment WHERE id = ${value}</pre>
+   * <pre>SELECT postId, id, name, email, body FROM comment WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

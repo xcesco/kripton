@@ -205,7 +205,7 @@ public abstract class SqlModifyBuilder {
 	 * @param method
 	 * @param updateResultType
 	 */
-	private static void generateModifierForContentProvider(Elements elementUtils, Builder builder, SQLiteModelMethod method, ModifyType updateResultType) {
+	private static void generateModifierForContentProvider(Elements elementUtils, Builder builder, final SQLiteModelMethod method, ModifyType updateResultType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
@@ -239,12 +239,14 @@ public abstract class SqlModifyBuilder {
 
 			@Override
 			public String onColumnName(String columnName) {
-				String convertedColumnName = entity.get(columnName).columnName;
-
+				SQLProperty tempProperty = entity.get(columnName);				
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
+				
 				if (useColumns.value0) {
-					columns.add(convertedColumnName);
+					columns.add(tempProperty.columnName);
 				}
-				return null;
+				
+				return null;				
 			}
 
 			@Override
@@ -431,7 +433,7 @@ public abstract class SqlModifyBuilder {
 				@Override
 				public String onTableName(String tableName) {
 					SQLEntity entity=schema.getEntityBySimpleName(tableName);
-					AssertKripton.assertTrueOrInvalidTableNameInJQLException(entity!=null, method, tableName);
+					AssertKripton.assertTrueOrUnknownClassInJQLException(entity!=null, method, tableName);
 					return entity.getTableName();
 				}
 

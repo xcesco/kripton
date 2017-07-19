@@ -1102,7 +1102,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel</pre>
+   * <pre>SELECT uid, ownerUid, updateTime, name, id FROM channel</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1171,7 +1171,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=${a}</pre>
+   * <pre>SELECT uid, ownerUid, updateTime, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1255,7 +1255,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=${a}</pre>
+   * <pre>SELECT uid, ownerUid, updateTime, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1312,7 +1312,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=${a}</pre>
+   * <pre>SELECT uid, ownerUid, updateTime, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1399,7 +1399,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=${a}</pre>
+   * <pre>SELECT uid, ownerUid, updateTime, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1465,7 +1465,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=${a}</pre>
+   * <pre>SELECT uid, ownerUid, updateTime, name, id FROM channel WHERE updateTime=${a}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1549,7 +1549,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT count(*) FROM channel WHERE update_time=${bean.updateTime}</pre>
+   * <pre>SELECT count(*) FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1610,7 +1610,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   * <pre>SELECT updateTime FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1685,7 +1685,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   * <pre>SELECT updateTime FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1747,7 +1747,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   * <pre>SELECT updateTime FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1800,7 +1800,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   * <pre>SELECT updateTime FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1866,7 +1866,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   * <pre>SELECT updateTime FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1938,7 +1938,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   * <pre>SELECT updateTime FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -2010,7 +2010,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   * <pre>SELECT updateTime FROM channel WHERE updateTime=${bean.updateTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

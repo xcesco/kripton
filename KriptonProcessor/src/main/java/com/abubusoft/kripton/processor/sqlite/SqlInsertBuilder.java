@@ -201,9 +201,13 @@ public abstract class SqlInsertBuilder {
 			
 			@Override
 			public String onColumnName(String columnName) {
-				String convertedColumnName=entity.get(columnName).columnName;
-				columns.add(convertedColumnName);
-				return convertedColumnName;				
+				SQLProperty tempProperty = entity.get(columnName);				
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
+				
+				columns.add(tempProperty.columnName);
+				
+				return tempProperty.columnName;
+				
 			}
 			
 			@Override

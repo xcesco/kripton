@@ -37,7 +37,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT type_name FROM person ORDER BY type_name</pre>
+   * <pre>SELECT typeName FROM person ORDER BY typeName</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -96,7 +96,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT birth_day FROM person ORDER BY type_name</pre>
+   * <pre>SELECT birthDay FROM person ORDER BY typeName</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

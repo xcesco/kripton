@@ -31,7 +31,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person ORDER BY name LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -53,7 +53,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person ORDER BY name LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -130,7 +130,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name LIMIT #{DYNAMIC_PAGE_SIZE} OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person ORDER BY name LIMIT #{DYNAMIC_PAGE_SIZE} OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -159,7 +159,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name LIMIT #{DYNAMIC_PAGE_SIZE} OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person ORDER BY name LIMIT #{DYNAMIC_PAGE_SIZE} OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -321,7 +321,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -395,7 +395,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || '%' AND #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person WHERE name like ${nameTemp} || '%' AND #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -495,7 +495,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person ORDER BY name,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

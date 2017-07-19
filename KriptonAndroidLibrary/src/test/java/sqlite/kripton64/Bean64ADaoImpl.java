@@ -27,7 +27,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a</pre>
+   * <pre>SELECT valueMapStringBean, valueSetString, valueString, id FROM bean64_a</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -93,7 +93,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a WHERE id=${id}</pre>
+   * <pre>SELECT valueMapStringBean, valueSetString, valueString, id FROM bean64_a WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

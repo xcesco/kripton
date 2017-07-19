@@ -26,7 +26,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1</pre>
+   * <pre>SELECT lista, id, messageDate, messageText, beanList, value FROM bean01 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

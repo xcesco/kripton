@@ -41,7 +41,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63</pre>
+   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -101,7 +101,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -184,7 +184,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -249,7 +249,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -542,7 +542,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapStringByte}</pre>
+   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE value=${valueMapStringByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -787,7 +787,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -862,7 +862,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -918,7 +918,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1001,7 +1001,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1181,7 +1181,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_map_enum_byte FROM bean63</pre>
+   * <pre>SELECT valueMapEnumByte FROM bean63</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1238,7 +1238,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_map_enum_byte FROM bean63</pre>
+   * <pre>SELECT valueMapEnumByte FROM bean63</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

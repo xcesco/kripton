@@ -26,7 +26,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE id=${id}</pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

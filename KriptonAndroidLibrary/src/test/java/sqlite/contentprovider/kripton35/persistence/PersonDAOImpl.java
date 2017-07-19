@@ -1296,7 +1296,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1495,7 +1495,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1683,7 +1683,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1866,7 +1866,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person</pre>
+   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -2003,7 +2003,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name</pre>
+   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

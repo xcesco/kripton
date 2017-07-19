@@ -96,7 +96,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT user_id, id, title, body FROM post WHERE user_id = ${value}</pre>
+   * <pre>SELECT userId, id, title, body FROM post WHERE userId = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -177,7 +177,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT user_id, id, title, body FROM post WHERE id = ${value}</pre>
+   * <pre>SELECT userId, id, title, body FROM post WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

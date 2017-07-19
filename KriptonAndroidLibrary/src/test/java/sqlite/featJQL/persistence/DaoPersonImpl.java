@@ -29,7 +29,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT _id, name, list_child, image FROM person</pre>
+   * <pre>SELECT id, name, listChild, image FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

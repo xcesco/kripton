@@ -13,28 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.example02;
+package com.abubusoft.kripton.processor.exceptions;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
-import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
-import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
+public class UnknownParamUsedInJQLException extends KriptonProcessorException {
 
-import sqlite.AbstractBindSQLiteProcessorTest;
+	private static final long serialVersionUID = 8462705406839489618L;
 
-@RunWith(JUnit4.class)
-public class Example02_1Test extends AbstractBindSQLiteProcessorTest {
-
-	/**
-	 * No @BindType is put in bean definition
-	 * @throws Throwable 
-	 */
-	@Test
-	public void test01() throws Throwable {
-		this.expectedException(UnknownPropertyInJQLException.class);
-		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
-		buildSharedPreferencesProcessorTest(SecuritySharedPreferences.class, Person.class);
+	public UnknownParamUsedInJQLException(SQLiteModelMethod method, String paramName) {
+		super(String.format("In DAO '%s' method '%s' uses param '%s' that is unknown", method.getParent().getName(), method.getName(),  paramName));		
 	}
+
 }

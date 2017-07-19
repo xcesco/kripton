@@ -155,7 +155,10 @@ public abstract class SqlBuilderHelper {
 
 			@Override
 			public String onColumnName(String columnName) {
-				return method.getParent().getEntity().get(columnName).columnName;
+				SQLProperty tempProperty = method.getParent().getEntity().get(columnName);				
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
+								
+				return tempProperty.columnName;
 			}
 
 		});
@@ -387,11 +390,10 @@ public abstract class SqlBuilderHelper {
 				
 				@Override
 				public String onColumnName(String columnName) {
-					SQLProperty property = entity.get(columnName);
-
-					AssertKripton.failWithUndefinedProperty(property==null, method, columnName);
-					
-					return entity.get(columnName).columnName;
+					SQLProperty tempProperty = entity.get(columnName);				
+					AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
+									
+					return tempProperty.columnName;										
 				}
 				
 				@Override

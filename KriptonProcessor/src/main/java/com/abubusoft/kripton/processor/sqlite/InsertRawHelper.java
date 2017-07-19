@@ -24,6 +24,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
@@ -62,8 +63,12 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			// INSERT-SELECT
 			String sql=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
 				@Override
-				public String onColumnName(String columnName) {
-					return schema.getExactPropertyBySimpleName(method, columnName);					
+				public String onColumnName(String columnName) {												
+					String resolvedName = schema.getExactPropertyBySimpleName(method, columnName);				
+					AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName!=null, method, columnName);
+									
+					return resolvedName;
+					
 				}
 				
 				@Override
@@ -82,8 +87,11 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			final One<Integer> paramCounter=new One<Integer>(0);
 			String sqlForLog=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
 				@Override
-				public String onColumnName(String columnName) {
-					return schema.getExactPropertyBySimpleName(method, columnName);					
+				public String onColumnName(String columnName) {										
+					String resolvedName = schema.getExactPropertyBySimpleName(method, columnName);				
+					AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName!=null, method, columnName);
+									
+					return resolvedName;
 				}
 				
 				@Override
@@ -237,8 +245,10 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 			@Override
 			public String onColumnName(String columnName) {
-				String convertedColumnName = entity.get(columnName).columnName;
-				return convertedColumnName;
+				SQLProperty tempProperty = entity.get(columnName);				
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
+								
+				return tempProperty.columnName;			
 			}
 
 			@Override

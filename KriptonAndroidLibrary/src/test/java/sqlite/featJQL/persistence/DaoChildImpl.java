@@ -28,7 +28,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT _id, name, parent_id FROM child</pre>
+   * <pre>SELECT id, name, parentId FROM child</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -151,7 +151,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from child where parent_id in (select _id from person where _id=${parentId})</pre>
+   * <pre>select * from child where parentId in (select id from person where id=${parentId})</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -229,7 +229,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT _id, name, parent_id FROM child WHERE parent_id=${parentId}</pre>
+   * <pre>SELECT id, name, parentId FROM child WHERE parentId=${parentId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

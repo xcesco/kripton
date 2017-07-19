@@ -40,7 +40,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, column_bean FROM bean84_b WHERE id = ${id}</pre>
+   * <pre>SELECT id, columnBean FROM bean84_b WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -109,7 +109,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ${param1}</pre>
+   * <pre>SELECT id, columnBean FROM bean84_b WHERE cast(columnBean as TEXT) = ${param1}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

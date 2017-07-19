@@ -27,7 +27,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY description</pre>
+   * <pre>SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, totalPatientCount, whiteWaitingPatients, whiteVisitingPatients, whiteAverageWaitingTime, greenWaitingPatients, greenVisitingPatients, greenAverageWaitingTime, yellowWaitingPatients, yellowVisitingPatients, yellowAverageWaitingTime, redWaitingPatients, redAverageWaitingTime FROM first_aid ORDER BY description</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

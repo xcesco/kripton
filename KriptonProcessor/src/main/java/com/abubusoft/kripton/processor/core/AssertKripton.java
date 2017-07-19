@@ -30,7 +30,9 @@ import com.abubusoft.kripton.processor.exceptions.InvalidTableNameInJQLException
 import com.abubusoft.kripton.processor.exceptions.InvalidTypeForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
-import com.abubusoft.kripton.processor.exceptions.UndefinedPropertyUsedInJQLException;
+import com.abubusoft.kripton.processor.exceptions.UnknownClassInJQLException;
+import com.abubusoft.kripton.processor.exceptions.UnknownParamUsedInJQLException;
+import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
@@ -162,15 +164,22 @@ public abstract class AssertKripton {
 
 	}
 
-	public static void failWithUndefinedProperty(boolean expression, SQLiteModelMethod method, String columnName) {
-		if (expression) {
-			throw (new UndefinedPropertyUsedInJQLException(method, columnName, TypeUtility.typeName(method.getParent().getEntity().getElement())));
+	public static void assertTrueOrUnknownPropertyInJQLException(boolean expression, SQLiteModelMethod method, String columnName) {
+		if (!expression) {
+			throw (new UnknownPropertyInJQLException(method, columnName));
+		}
+
+	}
+
+	public static void assertTrueOrUnknownClassInJQLException(boolean expression, SQLiteModelMethod method, String className) {
+		if (!expression) {
+			throw (new UnknownClassInJQLException(method, className));
 		}
 	}
 
-	public static void assertTrueOrInvalidTableNameInJQLException(boolean expression, SQLiteModelMethod method, String tableName) {
+	public static void assertTrueOrUnknownParamInJQLException(boolean expression, SQLiteModelMethod method, String paramName) {
 		if (!expression) {
-			throw (new InvalidTableNameInJQLException(method, tableName));
+			throw (new UnknownParamUsedInJQLException(method, paramName));
 		}
 	}
 

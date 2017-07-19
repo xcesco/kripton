@@ -26,10 +26,10 @@ import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 @BindDao(Err3Person.class)
 public interface Err3PersonDAO {
 	
-	@BindSqlSelect(orderBy="typeName", pageSize=20)
+	@BindSqlSelect(orderBy="name", pageSize=20)
 	PaginatedResult<Err3Person> selectPagedStatic1();
 	
-	@BindSqlSelect(orderBy="typeName", pageSize=20)
+	@BindSqlSelect(orderBy="name", pageSize=20)
 	PaginatedResult<Err3Person> selectPagedStatic2(@BindSqlPageSize int pageSize);
 	
 	

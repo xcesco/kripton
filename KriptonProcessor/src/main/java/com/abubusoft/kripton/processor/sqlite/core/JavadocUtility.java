@@ -76,12 +76,10 @@ public abstract class JavadocUtility {
 			
 			@Override
 			public String onColumnName(String columnName) {
-				JQLParameterName name=JQLParameterName.parse(columnName);
-				if (daoDefinition.getEntity().contains(name.getValue()))				
-					return daoDefinition.getEntity().get(columnName).columnName;
-				
-				AssertKripton.fail("In JQL definition of method '%s.%s', was found a column '%s' that does not exists in entity '%s'", daoDefinition.getName(), method.getName(), columnName, daoDefinition.getEntity().getName());
-				return null;
+				SQLProperty tempProperty = daoDefinition.getEntity().get(columnName);				
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
+								
+				return null;				
 			}
 			
 		});

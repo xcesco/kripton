@@ -40,7 +40,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -121,7 +121,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${bean.pk} and text=${bean.text}</pre>
+   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${bean.pk} and text=${bean.text}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -204,7 +204,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -421,7 +421,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -488,7 +488,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -579,7 +579,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -646,7 +646,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

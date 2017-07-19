@@ -4646,7 +4646,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -4841,7 +4841,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5015,7 +5015,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_big_decimal=${valueBigDecimal}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5204,7 +5204,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_big_decimal=${valueBigDecimal}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueBigDecimal=${valueBigDecimal}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5393,7 +5393,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bool_type=${valueBoolType}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueBoolType=${valueBoolType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5582,7 +5582,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bool=${valueBool}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueBool=${valueBool}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5771,7 +5771,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6006,7 +6006,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6109,7 +6109,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bean_array=${valueBeanArray}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueBeanArray=${valueBeanArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6298,7 +6298,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_array=${valueLongArray}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueLongArray=${valueLongArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6487,7 +6487,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_type_array=${valueLongTypeArray}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6676,7 +6676,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_byte=${valueByte}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueByte=${valueByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6865,7 +6865,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_byte_type=${valueByteType}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueByteType=${valueByteType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7054,7 +7054,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_calendar=${valueCalendar}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueCalendar=${valueCalendar}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7243,7 +7243,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_char_type=${valueChar}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueCharType=${valueChar}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7432,7 +7432,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_char_type=${valueCharType}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueCharType=${valueCharType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7621,7 +7621,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_currency=${valueCurrency}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueCurrency=${valueCurrency}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7810,7 +7810,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_date=${valueDate}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueDate=${valueDate}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7999,7 +7999,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_double=${valueDouble}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueDouble=${valueDouble}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8188,7 +8188,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_double_type=${valueDoubleType}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueDoubleType=${valueDoubleType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8377,7 +8377,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_enum_type=${valueEnumType}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueEnumType=${valueEnumType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8566,7 +8566,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_float=${valueFloat}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueFloat=${valueFloat}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8755,7 +8755,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_float_type=${valueFloatType}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueFloatType=${valueFloatType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8944,7 +8944,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_int=${valueInt}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueInt=${valueInt}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9133,7 +9133,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_int_type=${valueIntType}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueIntType=${valueIntType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9322,7 +9322,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_list=${valueLongList}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueLongList=${valueLongList}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9511,7 +9511,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_locale=${valueLocale}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueLocale=${valueLocale}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9700,7 +9700,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long=${valueLong}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueLong=${valueLong}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9889,7 +9889,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_type=${valueLongType}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueLongType=${valueLongType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10078,7 +10078,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_short=${valueShort}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueShort=${valueShort}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10267,7 +10267,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_short_type=${valueShortType}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueShortType=${valueShortType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10456,7 +10456,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_string=${valueString}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueString=${valueString}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10645,7 +10645,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_time=${valueTime}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueTime=${valueTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10834,7 +10834,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_time_zone=${valueTimeZone}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueTimeZone=${valueTimeZone}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11023,7 +11023,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_url=${valueUrl}</pre>
+   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean64 WHERE valueUrl=${valueUrl}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11212,7 +11212,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool FROM bean64</pre>
+   * <pre>SELECT valueBool FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11258,7 +11258,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type FROM bean64</pre>
+   * <pre>SELECT valueBoolType FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11304,7 +11304,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_byte FROM bean64</pre>
+   * <pre>SELECT valueByte FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11350,7 +11350,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_byte_type FROM bean64</pre>
+   * <pre>SELECT valueByteType FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11396,7 +11396,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_char FROM bean64</pre>
+   * <pre>SELECT valueChar FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11442,7 +11442,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_char_type FROM bean64</pre>
+   * <pre>SELECT valueCharType FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11488,7 +11488,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_double FROM bean64</pre>
+   * <pre>SELECT valueDouble FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11534,7 +11534,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_double_type FROM bean64</pre>
+   * <pre>SELECT valueDoubleType FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11580,7 +11580,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_float FROM bean64</pre>
+   * <pre>SELECT valueFloat FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11626,7 +11626,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_float_type FROM bean64</pre>
+   * <pre>SELECT valueFloatType FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11672,7 +11672,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_int FROM bean64</pre>
+   * <pre>SELECT valueInt FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11718,7 +11718,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_int_type FROM bean64</pre>
+   * <pre>SELECT valueIntType FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11764,7 +11764,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_long FROM bean64</pre>
+   * <pre>SELECT valueLong FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11810,7 +11810,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_long_type FROM bean64</pre>
+   * <pre>SELECT valueLongType FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11856,7 +11856,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_short FROM bean64</pre>
+   * <pre>SELECT valueShort FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11902,7 +11902,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_short_type FROM bean64</pre>
+   * <pre>SELECT valueShortType FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11948,7 +11948,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_string FROM bean64</pre>
+   * <pre>SELECT valueString FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

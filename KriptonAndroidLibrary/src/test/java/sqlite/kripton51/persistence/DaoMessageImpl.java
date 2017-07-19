@@ -30,7 +30,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message_entity WHERE channel_id = ${channelId}</pre>
+   * <pre>SELECT id, channelId, ownerType, uid, faceUid, text, ownerUid, channelUid, updateTime, type FROM message_entity WHERE channelId = ${channelId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -351,7 +351,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message_entity WHERE uid = ${uid}</pre>
+   * <pre>SELECT id, channelId, ownerType, uid, faceUid, text, ownerUid, channelUid, updateTime, type FROM message_entity WHERE uid = ${uid}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

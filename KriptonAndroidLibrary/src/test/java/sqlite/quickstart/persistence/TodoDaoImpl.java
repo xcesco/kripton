@@ -92,7 +92,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, user_id, title, completed FROM todo WHERE user_id = ${value}</pre>
+   * <pre>SELECT id, userId, title, completed FROM todo WHERE userId = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -173,7 +173,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, user_id, title, completed FROM todo WHERE id = ${value}</pre>
+   * <pre>SELECT id, userId, title, completed FROM todo WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

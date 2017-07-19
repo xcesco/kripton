@@ -27,7 +27,7 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, bean_a2_id, value_string FROM bean_a_1</pre>
+   * <pre>SELECT id, beanA2Id, valueString FROM bean_a_1</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -90,7 +90,7 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, bean_a2_id, value_string FROM bean_a_1 WHERE id=${id}</pre>
+   * <pre>SELECT id, beanA2Id, valueString FROM bean_a_1 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -168,7 +168,7 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id FROM bean_a_1 WHERE value_string=${dummy}</pre>
+   * <pre>SELECT id FROM bean_a_1 WHERE valueString=${dummy}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

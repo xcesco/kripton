@@ -30,7 +30,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || '%' </pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person WHERE name like ${nameTemp} || '%' </pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -400,7 +400,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person</pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

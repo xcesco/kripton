@@ -28,7 +28,7 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person WHERE #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

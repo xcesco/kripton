@@ -355,7 +355,7 @@ public abstract class SqlSelectBuilder {
 		}
 	}
 
-	static SplittedSql generateSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, final boolean replaceProjectedColumns) {
+	static SplittedSql generateSQL(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, final boolean replaceProjectedColumns) {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 		final SQLEntity entity=method.getParent().getEntity();
 		final SQLiteDatabaseSchema schema=method.getParent().getParent();
@@ -377,7 +377,10 @@ public abstract class SqlSelectBuilder {
 
 			@Override
 			public String onColumnName(String columnName) {
-				return entity.get(columnName).columnName;
+				SQLProperty tempProperty = entity.get(columnName);				
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
+								
+				return tempProperty.columnName;
 			}
 
 			@Override

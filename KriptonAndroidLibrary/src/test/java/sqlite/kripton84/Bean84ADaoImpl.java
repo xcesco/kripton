@@ -40,7 +40,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a</pre>
+   * <pre>SELECT id, param1, param2, param3, param4, columnListString, columnMapIntegerString, columnArrayChar, columnArrayCharType, columnBean, columnArrayByteType, valueString FROM bean84_a</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -130,7 +130,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=${id}</pre>
+   * <pre>SELECT id, param1, param2, param3, param4, columnListString, columnMapIntegerString, columnArrayChar, columnArrayCharType, columnBean, columnArrayByteType, valueString FROM bean84_a WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -235,7 +235,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT param1, param2, param3, param4 FROM bean84_a WHERE column_list_string=${param1} and column_map_integer_string=${param2} and column_array_char=${param3}  and column_array_char_type=${param4}</pre>
+   * <pre>SELECT param1, param2, param3, param4 FROM bean84_a WHERE columnListString=${param1} and columnMapIntegerString=${param2} and columnArrayChar=${param3}  and columnArrayCharType=${param4}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

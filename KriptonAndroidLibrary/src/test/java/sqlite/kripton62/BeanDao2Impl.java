@@ -42,7 +42,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2</pre>
+   * <pre>SELECT id, value, valueByteSet, valueShortSet, valueIntegerSet, valueStringSet, valueCharacterSet, valueFloatSet, valueDoubleSet, valueBigDecimalSet, valueBeanSet, valueEnumTypeSet FROM bean2</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -126,7 +126,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, valueByteSet, valueShortSet, valueIntegerSet, valueStringSet, valueCharacterSet, valueFloatSet, valueDoubleSet, valueBigDecimalSet, valueBeanSet, valueEnumTypeSet FROM bean2 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -241,7 +241,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, valueByteSet, valueShortSet, valueIntegerSet, valueStringSet, valueCharacterSet, valueFloatSet, valueDoubleSet, valueBigDecimalSet, valueBeanSet, valueEnumTypeSet FROM bean2 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -314,7 +314,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, valueByteSet, valueShortSet, valueIntegerSet, valueStringSet, valueCharacterSet, valueFloatSet, valueDoubleSet, valueBigDecimalSet, valueBeanSet, valueEnumTypeSet FROM bean2 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -751,7 +751,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2 WHERE value=${valueBigDecimalSet}</pre>
+   * <pre>SELECT id, value, valueByteSet, valueShortSet, valueIntegerSet, valueStringSet, valueCharacterSet, valueFloatSet, valueDoubleSet, valueBigDecimalSet, valueBeanSet, valueEnumTypeSet FROM bean2 WHERE value=${valueBigDecimalSet}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>

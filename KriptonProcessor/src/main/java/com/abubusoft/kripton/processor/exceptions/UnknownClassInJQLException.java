@@ -16,15 +16,13 @@
 package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.squareup.javapoet.TypeName;
 
-public class UndefinedPropertyUsedInJQLException extends KriptonProcessorException {
+public class UnknownClassInJQLException extends KriptonProcessorException {
 
 	private static final long serialVersionUID = 8462705406839489618L;
 
-	public UndefinedPropertyUsedInJQLException(SQLiteModelMethod method, String fieldName, TypeName typeName) {
-		super(String.format("In DAO '%s' method '%s' uses field '%s' that does not exists in bean '%s'", method.getParent().getName(), method.getName(), fieldName,
-				typeName));
+	public UnknownClassInJQLException(SQLiteModelMethod method, String fieldName) {
+		super(String.format("In DAO '%s' method '%s' uses class '%s' that is unknown", method.getParent().getName(), method.getName(),  fieldName));		
 	}
 
 }
