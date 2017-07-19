@@ -89,15 +89,20 @@ public class ContentUriChecker {
 	}
 
 	/**
-	 * <p>Extract all parameter present in path element of a content URI.</p>
+	 * <p>
+	 * Extract all parameter present in path element of a content URI.
+	 * </p>
 	 * 
-	 * <p>For example:</p>
+	 * <p>
+	 * For example:
+	 * </p>
 	 * 
 	 * <pre>
 	 * content://androi.authority/test/${input1 }/${input2}
 	 * </pre>
 	 * 
-	 * <p>Has two parameters: <code>input1</code> and <code>input2</code>. 
+	 * <p>
+	 * Has two parameters: <code>input1</code> and <code>input2</code>.
 	 * 
 	 * @param input
 	 * @return
@@ -138,21 +143,21 @@ public class ContentUriChecker {
 	public List<ContentUriPlaceHolder> extract(String input) {
 		return extractPlaceHoldersFromURI(input, new ArrayList<ContentUriPlaceHolder>());
 	}
-	
+
 	/**
 	 * Extract all parameters from URI as a map.
 	 * 
 	 * @param input
 	 * @return
 	 */
-	public Map<String, ContentUriPlaceHolder> extractAsMap(String input) {		
-		HashMap<String, ContentUriPlaceHolder> result=new HashMap<>();
+	public Map<String, ContentUriPlaceHolder> extractAsMap(String input) {
+		HashMap<String, ContentUriPlaceHolder> result = new HashMap<>();
 		ArrayList<ContentUriPlaceHolder> list = extractPlaceHoldersFromURI(input, new ArrayList<ContentUriPlaceHolder>());
-		
-		for (ContentUriPlaceHolder item: list) {
+
+		for (ContentUriPlaceHolder item : list) {
 			result.put(item.value, item);
 		}
-		
+
 		return result;
 	}
 
@@ -166,7 +171,7 @@ public class ContentUriChecker {
 		valid.value0 = false;
 
 		analyzePathInternal(input, new UriBaseListener() {
-			
+
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
 				result.add(new ContentUriPlaceHolder(pathSegmentIndex, ctx.bind_parameter_name().getText()));
@@ -183,7 +188,7 @@ public class ContentUriChecker {
 
 	private <L extends Collection<ContentUriPlaceHolder>> L extractPlaceHoldersFromURI(String uri, final L result) {
 		final One<Boolean> valid = new One<>();
-		valid.value0 = false;			
+		valid.value0 = false;
 
 		analyzeInternal(uri, new UriBaseListener() {
 
@@ -209,8 +214,7 @@ public class ContentUriChecker {
 		parser.removeErrorListeners();
 		parser.addErrorListener(new ContentUriBaseErrorListener() {
 			@Override
-			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
-					int charPositionInLine, String msg, RecognitionException e) {
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
 				AssertKripton.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, input);
 			}
 		});
@@ -227,54 +231,34 @@ public class ContentUriChecker {
 		parser.removeErrorListeners();
 		parser.addErrorListener(new ContentUriBaseErrorListener() {
 			@Override
-			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
-					int charPositionInLine, String msg, RecognitionException e) {
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
 				AssertKripton.assertTrue(false, "unespected char at pos %s of URI '%s'", charPositionInLine, input);
 			}
 
 			@Override
-			public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact,
-					BitSet ambigAlts, ATNConfigSet configs) {
+			public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact, BitSet ambigAlts, ATNConfigSet configs) {
 				AssertKripton.assertTrue(false, "ambiguity syntax at pos %s of URI '%s'", startIndex, input);
 			}
 
 			@Override
-			public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex,
-					BitSet conflictingAlts, ATNConfigSet configs) {
+			public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex, BitSet conflictingAlts, ATNConfigSet configs) {
 				AssertKripton.assertTrue(false, "error at pos %s of URI '%s'", startIndex, input);
 			}
 
 			@Override
-			public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex,
-					int prediction, ATNConfigSet configs) {
+			public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, int prediction, ATNConfigSet configs) {
 				AssertKripton.assertTrue(false, "context eror at pos %s of URI '%s'", startIndex, input);
-			}					
-			
-		});		
+			}
+
+		});
 
 		ParserRuleContext context = parser.uri();
 		return new Pair<>(context, tokens);
 	}
 
-	private String replaceInternalFromPath(String input, final List<Triple<Token, Token, String>> replace,
-			UriBaseListener rewriterListener) {
-		Pair<ParserRuleContext, CommonTokenStream> parser = preparePath(input);
-		pathSegmentIndex=-1;
-		walker.walk(rewriterListener, parser.value0);
-
-		TokenStreamRewriter rewriter = new TokenStreamRewriter(parser.value1);
-
-		for (Triple<Token, Token, String> item : replace) {
-			rewriter.replace(item.value0, item.value1, item.value2);
-		}
-
-		return rewriter.getText();
-	}
-	
-	private String replaceInternalFromUri(String input, final List<Triple<Token, Token, String>> replace,
-			UriBaseListener rewriterListener) {
+	private String replaceInternalFromUri(String input, final List<Triple<Token, Token, String>> replace, UriBaseListener rewriterListener) {
 		Pair<ParserRuleContext, CommonTokenStream> parser = prepareUri(input);
-		pathSegmentIndex=-1;
+		pathSegmentIndex = -1;
 		walker.walk(rewriterListener, parser.value0);
 
 		TokenStreamRewriter rewriter = new TokenStreamRewriter(parser.value1);
@@ -300,7 +284,7 @@ public class ContentUriChecker {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 
 		UriBaseListener rewriterListener = new UriBaseListener() {
-			
+
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
 				String value = listener.onParameterName(pathSegmentIndex, ctx.bind_parameter_name().getText());
@@ -315,41 +299,11 @@ public class ContentUriChecker {
 
 		return replaceInternalFromUri(input, replace, rewriterListener);
 	}
-	
-	
-	/**
-	 * <p>
-	 * Replace place holders from PATH string
-	 * </p>
-	 * 
-	 * @param input
-	 * @param listener
-	 * @return
-	 */
-	public String replaceFromPath(String input, final UriPlaceHolderReplacerListener listener) {
-		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
-
-		UriBaseListener rewriterListener = new UriBaseListener() {
-			
-			@Override
-			public void enterBind_parameter(Bind_parameterContext ctx) {
-				String value = listener.onParameterName(pathSegmentIndex, ctx.bind_parameter_name().getText());
-				replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
-			}
-
-			@Override
-			public void enterPath_segment(Path_segmentContext ctx) {
-				pathSegmentIndex++;
-			}
-		};
-
-		return replaceInternalFromPath(input, replace, rewriterListener);
-	}
 
 	/**
 	 * <p>
-	 * Verify content URI is syntactally correct, otherwise a KriptonProcessorException
-	 * will be thrown.
+	 * Verify content URI is syntactally correct, otherwise a
+	 * KriptonProcessorException will be thrown.
 	 * </p>
 	 * 
 	 * @param input
@@ -360,8 +314,8 @@ public class ContentUriChecker {
 
 	/**
 	 * <p>
-	 * Verify content URI path is syntactally correct, otherwise a KriptonProcessorException
-	 * will be thrown.
+	 * Verify content URI path is syntactally correct, otherwise a
+	 * KriptonProcessorException will be thrown.
 	 * </p>
 	 * 
 	 * @param input
