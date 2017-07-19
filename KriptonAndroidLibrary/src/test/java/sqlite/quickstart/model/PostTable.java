@@ -20,9 +20,9 @@ public class PostTable {
    * DDL to create table post
    * </p>
    *
-   * <pre>CREATE TABLE post (user_id INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title TEXT, body TEXT, FOREIGN KEY(user_id) REFERENCES user(id));</pre>
+   * <pre>CREATE TABLE post (user_id INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, body TEXT, FOREIGN KEY(user_id) REFERENCES user(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE post (user_id INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title TEXT, body TEXT, FOREIGN KEY(user_id) REFERENCES user(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE post (user_id INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, body TEXT, FOREIGN KEY(user_id) REFERENCES user(id));";
 
   /**
    * <p>

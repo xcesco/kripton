@@ -20,9 +20,9 @@ public class MessageEntityTable {
    * DDL to create table message_entity
    * </p>
    *
-   * <pre>CREATE TABLE message_entity (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER);</pre>
+   * <pre>CREATE TABLE message_entity (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE message_entity (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE message_entity (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER);";
 
   /**
    * <p>

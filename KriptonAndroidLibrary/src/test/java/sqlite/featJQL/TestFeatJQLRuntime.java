@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.featJQL.persistence;
+package sqlite.featJQL;
 
 import static org.junit.Assert.assertTrue;
 
@@ -24,6 +24,8 @@ import org.junit.Test;
 import base.BaseAndroidTest;
 import sqlite.featJQL.entities.Child;
 import sqlite.featJQL.entities.Person;
+import sqlite.featJQL.persistence.BindFamilyDaoFactory;
+import sqlite.featJQL.persistence.BindFamilyDataSource;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -47,7 +49,7 @@ public class TestFeatJQLRuntime extends BaseAndroidTest {
 
 				Child child = new Child();
 				child.name = "Luna";
-				child.parentId=person.id;
+				child.parentId = person.id;
 
 				daoFactory.getDaoChild().insertBean(child);
 				daoFactory.getDaoChild().insertBean(child);
@@ -55,6 +57,10 @@ public class TestFeatJQLRuntime extends BaseAndroidTest {
 				List<Child> list = daoFactory.getDaoChild().selectByParent(person.id);
 
 				assertTrue(2 == list.size());
+
+				for (int i = 0; i < list.size(); i++) {
+					assertTrue(list.get(i).name.equals("Luna"));
+				}
 
 				return true;
 			}

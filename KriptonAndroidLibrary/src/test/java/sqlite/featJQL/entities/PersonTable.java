@@ -33,9 +33,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, list_child BLOB, image BLOB);</pre>
+   * <pre>CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, list_child BLOB, image BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, list_child BLOB, image BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, list_child BLOB, image BLOB);";
 
   /**
    * <p>

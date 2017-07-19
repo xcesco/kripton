@@ -35,9 +35,9 @@ public class Bean64ATable {
    * DDL to create table bean64_a
    * </p>
    *
-   * <pre>CREATE TABLE bean64_a (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL);</pre>
+   * <pre>CREATE TABLE bean64_a (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean64_a (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean64_a (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);";
 
   /**
    * <p>

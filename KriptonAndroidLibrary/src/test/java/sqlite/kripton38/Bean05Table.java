@@ -20,9 +20,9 @@ public class Bean05Table {
    * DDL to create table bean05
    * </p>
    *
-   * <pre>CREATE TABLE bean05 (pk INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, number INTEGER, bean_type TEXT, text TEXT, content BLOB, creation_time TEXT);</pre>
+   * <pre>CREATE TABLE bean05 (pk INTEGER PRIMARY KEY AUTOINCREMENT, number INTEGER, bean_type TEXT, text TEXT, content BLOB, creation_time TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean05 (pk INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, number INTEGER, bean_type TEXT, text TEXT, content BLOB, creation_time TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean05 (pk INTEGER PRIMARY KEY AUTOINCREMENT, number INTEGER, bean_type TEXT, text TEXT, content BLOB, creation_time TEXT);";
 
   /**
    * <p>

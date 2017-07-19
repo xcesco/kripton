@@ -27,6 +27,7 @@ import javax.lang.model.util.Elements;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.common.CaseFormat;
@@ -165,7 +166,10 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			}
 
 			boolean nullable = item.isNullable();
-			if (!nullable) {
+
+			// if it is not primary key and it is not nullable, then add not
+			// null
+			if (!nullable && item.columnType != ColumnType.PRIMARY_KEY) {
 				bufferTable.append(" NOT NULL");
 			}
 

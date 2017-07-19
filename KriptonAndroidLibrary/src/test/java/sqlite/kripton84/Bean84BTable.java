@@ -31,9 +31,9 @@ public class Bean84BTable {
    * DDL to create table bean84_b
    * </p>
    *
-   * <pre>CREATE TABLE bean84_b (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, column_bean BLOB);</pre>
+   * <pre>CREATE TABLE bean84_b (id INTEGER PRIMARY KEY AUTOINCREMENT, column_bean BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_b (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, column_bean BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_b (id INTEGER PRIMARY KEY AUTOINCREMENT, column_bean BLOB);";
 
   /**
    * <p>

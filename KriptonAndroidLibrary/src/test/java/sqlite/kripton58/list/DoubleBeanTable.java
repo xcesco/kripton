@@ -34,9 +34,9 @@ public class DoubleBeanTable {
    * DDL to create table double_bean
    * </p>
    *
-   * <pre>CREATE TABLE double_bean (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, value BLOB, value2 BLOB);</pre>
+   * <pre>CREATE TABLE double_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE double_bean (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, value BLOB, value2 BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE double_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);";
 
   /**
    * <p>

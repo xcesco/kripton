@@ -20,9 +20,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT, type_name TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT, type_name TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT, type_name TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT, type_name TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE INDEX IF NOT EXISTS idx_person_0 (birth_city, birth_day);";
 
   /**
    * <p>

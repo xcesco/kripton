@@ -21,7 +21,7 @@ import org.junit.runners.Suite;
 import sqlite.dynamic.TestDynamicRuntimeSuite;
 import sqlite.example01.TestExample01RuntimeSuite;
 import sqlite.example02.TestExample02RuntimeSuite;
-import sqlite.featJQL.persistence.TestFeatJQLRuntimeSuite;
+import sqlite.featJQL.TestFeatJQLRuntimeSuite;
 import sqlite.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.includeFields.TestIncludeFieldsRuntimeSuite;
 import sqlite.kripton58.list.Test58RuntimeSuite;

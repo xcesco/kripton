@@ -43,9 +43,9 @@ public class Bean2Table {
    * DDL to create table bean2
    * </p>
    *
-   * <pre>CREATE TABLE bean2 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, value TEXT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);</pre>
+   * <pre>CREATE TABLE bean2 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean2 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, value TEXT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean2 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);";
 
   /**
    * <p>
