@@ -12,7 +12,7 @@ import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		User user = new User();
+		Person user = new Person();
 		user.email = "dummy@test.org";
 		user.name = "Tonj";
 		user.surname = "Manero";
@@ -28,7 +28,7 @@ public class Main {
 			BinderContext binderContext = KriptonBinder.jsonBind();
 			String buffer = binderContext.serialize(user);
 
-			User user2 = binderContext.parse(buffer, User.class);
+			Person user2 = binderContext.parse(buffer, Person.class);
 
 			System.out.println(buffer);
 		}
@@ -37,11 +37,26 @@ public class Main {
 			BinderContext binderContext = KriptonBinder.bind(BinderType.XML);
 			String buffer = binderContext.serialize(user);
 
-			User user2 = binderContext.parse(buffer, User.class);
+			Person user2 = binderContext.parse(buffer, Person.class);
 
 			System.out.println(buffer);
 		}
 
+		
+		{
+			
+			
+			Person person=new Person();
+			
+			person.email="tonj.manero@mail.com";
+			person.name="Tonj";
+			person.surname="Manero";
+			person.username="tonj.manero";
+									
+			String result=KriptonBinder.jsonBind().serialize(person);
+			System.out.println(result);
+		}
+		
 		{
 
 			BinderContext binderContext = KriptonBinder.bind(BinderType.CBOR);
@@ -50,7 +65,7 @@ public class Main {
 			KriptonByteArrayOutputStream buffer = new KriptonByteArrayOutputStream();
 			binderContext.serialize(user, buffer);
 
-			User user2 = binderContext.parse(buffer.getByteBuffer(), User.class);
+			Person user2 = binderContext.parse(buffer.getByteBuffer(), Person.class);
 			System.out.println(toString(buffer.getByteBufferCopy()));
 		}
 
@@ -58,7 +73,7 @@ public class Main {
 			BinderContext binderContext = KriptonBinder.bind(BinderType.PROPERTIES);
 			String buffer = binderContext.serialize(user);
 
-			User user2 = binderContext.parse(buffer, User.class);
+			Person user2 = binderContext.parse(buffer, Person.class);
 			System.out.println(buffer);
 		}
 
@@ -66,7 +81,7 @@ public class Main {
 			BinderContext binderContext = KriptonBinder.bind(BinderType.YAML);
 			String buffer = binderContext.serialize(user);
 
-			User user2 = binderContext.parse(buffer, User.class);
+			Person user2 = binderContext.parse(buffer, Person.class);
 			System.out.println(buffer);
 		}
 
