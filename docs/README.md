@@ -4,7 +4,7 @@
 [![test coverage](https://img.shields.io/codecov/c/github/xcesco/kripton/master.svg?style=flat-square)](https://codecov.io/gh/xcesco/kripton?branch=master)
 [![Project Stats](https://www.openhub.net/p/kripton-persistence-library/widgets/project_thin_badge.gif)](https://www.openhub.net/p/kripton-persistence-library)
 
-# Kripton 
+# Kripton Persistence Library
 Kripton is a java library, for Android and Java platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface. Supported persistence format are:
 
 * SQLite database (Android platform)
