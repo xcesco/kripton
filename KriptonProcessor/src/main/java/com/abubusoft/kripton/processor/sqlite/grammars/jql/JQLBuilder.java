@@ -459,6 +459,10 @@ public abstract class JQLBuilder {
 
 			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
 				
+				@Override
+				public void enterProjected_columns(Projected_columnsContext ctx) {				
+					result.containsSelectOperation = true;
+				}
 				
 				@Override
 				public void enterConflict_algorithm(Conflict_algorithmContext ctx) {
@@ -496,6 +500,10 @@ public abstract class JQLBuilder {
 				}
 
 			});
+			
+			if (result.containsSelectOperation) {
+				AssertKripton.assertTrueOrInvalidMethodSignException(method.getReturnClass().equals(TypeName.VOID), method, "defined JQL requires that method's return type is void");
+			}
 			
 		} else {
 			result.conflictAlgorithmType=ConflictAlgorithmType.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));

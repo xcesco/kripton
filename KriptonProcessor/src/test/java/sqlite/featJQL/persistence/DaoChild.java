@@ -16,6 +16,9 @@ public interface DaoChild extends DaoBean<Child> {
 	@BindSqlSelect(jql = "select * from Child where parentId in (select id from Person where id=${parentId})")
 	public List<Child> selectByParent(long parentId);
 	
+	@BindSqlSelect(jql = "select count(*) from Child where parentId in (select id from Person where id=${parentId})")
+	public int selectByParent2(long parentId);
+	
 	@BindSqlSelect(where="parentId=${parentId}")
 	public List<Child> selectByParentId(long parentId);
 
@@ -34,7 +37,7 @@ public interface DaoChild extends DaoBean<Child> {
 	@BindSqlUpdate(jql="update or replace Child set name=${name} where parentId=${a}")
 	public void updateJQL(@BindSqlParam("a") long parentId, String name);
 	
-	@BindSqlUpdate(jql="update or replace Child set name=(select id from Person where id=${parentId} )  where parentId=${bean.parentId}")
-	public void updateJQL2(Child bean);
+	@BindSqlUpdate(jql="update or replace Child set parentId=${parentId}, name=(select id from Person where id=${parentId} )  where parentId=${parentId}")
+	public void updateJQL2(long parentId);
 
 }

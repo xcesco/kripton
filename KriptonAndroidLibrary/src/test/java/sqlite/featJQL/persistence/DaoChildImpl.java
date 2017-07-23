@@ -57,7 +57,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -195,7 +195,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -273,7 +273,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -337,7 +337,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
 
@@ -464,10 +464,8 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    * <h2>SQL update</h2>
    * <pre>update or replace child set name=${name} where parent_id=${a}</pre>
    *
-   *
    * <h2>Updated columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * <h2>Where parameters:</h2>
@@ -524,7 +522,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     // conflict algorithm REPLACE
@@ -532,74 +530,37 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   }
 
   /**
-   * <h2>SQL update:</h2>
-   * <pre>UPDATE child SET name=${bean.name}, parent_id=${bean.parentId} WHERE where parentId=${bean.parentId}</pre>
+   * <h2>SQL update</h2>
+   * <pre>update or replace child set parent_id=${parentId}, name=(select _id from person where _id=${parentId} )  where parent_id=${parentId}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Parameters:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>parent_id</dt><dd>is mapped to <strong>${bean.parentId}</strong></dd>
+   * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
+   * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
+   * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
    * </dl>
    *
-   * <h2>Parameters used in where conditions:</h2>
-   * <dl>
-   * 	<dt>${bean.parentId}</dt><dd>is mapped to method's parameter <strong>bean.parentId</strong></dd>
-   * </dl>
-   *
-   * @param bean
-   * 	is used as ${bean}
+   * @param parentId
+   * 	is used as for parameter <strong>parentId</strong>
    */
   @Override
-  public void updateJQL2(Child bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+  public void updateJQL2(long parentId) {
+    List<String> _sqlWhereParams=new ArrayList<String>();
 
-    if (bean.name!=null) {
-      contentValues.put("name", bean.name);
-    } else {
-      contentValues.putNull("name");
-    }
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(parentId));
+    _sqlWhereParams.add(String.valueOf(parentId));
+    _sqlWhereParams.add(String.valueOf(parentId));
 
-    contentValues.put("parent_id", bean.parentId);
-
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
-    _sqlWhereParams.add(String.valueOf(bean.parentId));
-
-    StringBuilder _sqlBuilder=new StringBuilder();
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" where parent_id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
-
-    // display log
-    Logger.info("update or replace child set name=(select id from person where id=? )  where parentId=?");
-
-    // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
-      }
-    }
-    // log for content values -- END
+    Logger.info("update or replace child set parent_id=${param0}, name=(select _id from person where _id=${param1} )  where parent_id=${param2}");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    // conflict algorithm REPLACE
-    int result = database().updateWithOnConflict("child", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),5);;
+
+    database().execSQL("update or replace child set parent_id=?, name=(select _id from person where _id=? )  where parent_id=?", _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]));
   }
 }

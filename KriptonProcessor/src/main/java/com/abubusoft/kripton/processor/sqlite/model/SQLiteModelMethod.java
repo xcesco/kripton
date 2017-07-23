@@ -291,9 +291,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				contentProviderEntryPathTemplate = this.contentProviderEntryPathTemplate.substring(1);
 
 			// INSERT from SELECT type SQL can not be used with content provider
-			// methods
 			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.INSERT && this.jql.containsSelectOperation), this,
 					" INSERT-FROM-SELECT sql can not be used for content provider");
+			
+			// UPDATE from SELECT type SQL can not be used with content provider					
+			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.UPDATE && this.jql.containsSelectOperation), this,
+								" UPDATE-FROM-SELECT sql can not be used for content provider");
 
 		}
 

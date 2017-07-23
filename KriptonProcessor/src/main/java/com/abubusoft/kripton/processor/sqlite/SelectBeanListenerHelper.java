@@ -25,7 +25,6 @@ import java.util.List;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;

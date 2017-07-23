@@ -34,7 +34,7 @@ public interface DaoChild extends DaoBean<Child> {
 	@BindSqlUpdate(jql="update or replace Child set name=${name} where parentId=${a}")
 	public void updateJQL(@BindSqlParam("a") long parentId, String name);
 	
-	@BindSqlUpdate(jql="update or replace Child set name=(select id from Person where id=${parentId} )  where parentId=${bean.parentId}")
-	public void updateJQL2(Child bean);
+	@BindSqlUpdate(jql="update or replace Child set parentId=${parentId}, name=(select id from Person where id=${parentId} )  where parentId=${parentId}")
+	public void updateJQL2(long parentId);
 
 }

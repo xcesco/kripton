@@ -40,6 +40,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
 import android.content.ContentValues;
@@ -72,7 +73,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				// skip for dynamic where
 				continue;
 			}
-			
+
 			if (method.isThisDynamicWhereArgsName(name)) {
 				// skip for dynamic where
 				continue;
@@ -86,69 +87,178 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		}
 
-		if (updateMode) {
-			AssertKripton.assertTrueOrInvalidMethodSignException(updateableParams.size() > 0, method, "no column was selected for update");
+		if (method.jql.containsSelectOperation) {
+			generateJavaDoc(method, methodBuilder, updateMode);
 
-			// clear contentValues
-			methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
-			methodBuilder.addCode("contentValues.clear();\n");
+			GenericSQLHelper.generateGenericExecSQL(methodBuilder, method);
+		} else {
+			// generate javadoc
+			generateJavaDoc(method, methodBuilder, updateMode, whereCondition, where, methodParams);
 
-			for (Pair<String, TypeName> item : updateableParams) {
-				String resolvedParamName = method.findParameterAliasByName(item.value0);
-				SQLProperty property = entity.get(resolvedParamName);
-				if (property == null)
-					throw (new PropertyNotFoundException(method, resolvedParamName, item.value1));
+			if (updateMode) {
 
-				// check same type
-				TypeUtility.checkTypeCompatibility(method, item, property);
+				AssertKripton.assertTrueOrInvalidMethodSignException(updateableParams.size() > 0, method, "no column was selected for update");
 
-				if (TypeUtility.isNullable(method, item, property)) {
-					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
+				// clear contentValues
+				methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
+				methodBuilder.addCode("contentValues.clear();\n");
+
+				for (Pair<String, TypeName> item : updateableParams) {
+					String resolvedParamName = method.findParameterAliasByName(item.value0);
+					SQLProperty property = entity.get(resolvedParamName);
+					if (property == null)
+						throw (new PropertyNotFoundException(method, resolvedParamName, item.value1));
+
+					// check same type
+					TypeUtility.checkTypeCompatibility(method, item, property);
+
+					if (TypeUtility.isNullable(method, item, property)) {
+						methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
+					}
+
+					// here it needed raw parameter typeName
+					methodBuilder.addCode("contentValues.put($S, ", property.columnName);
+
+					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(property.getElement()), item.value0);
+
+					methodBuilder.addCode(");\n");
+
+					if (TypeUtility.isNullable(method, item, property)) {
+						methodBuilder.nextControlFlow("else");
+						methodBuilder.addCode("contentValues.putNull($S);\n", property.columnName);
+						methodBuilder.endControlFlow();
+					}
 				}
 
-				// here it needed raw parameter typeName
-				methodBuilder.addCode("contentValues.put($S, ", property.columnName);
+				methodBuilder.addCode("\n");
 
-				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(property.getElement()), item.value0);
-
-				methodBuilder.addCode(");\n");
-
-				if (TypeUtility.isNullable(method, item, property)) {
-					methodBuilder.nextControlFlow("else");
-					methodBuilder.addCode("contentValues.putNull($S);\n", property.columnName);
-					methodBuilder.endControlFlow();
+			} else {
+				if (updateableParams.size() > 0) {
+					String separator = "";
+					StringBuilder buffer = new StringBuilder();
+					for (Pair<String, TypeName> item : updateableParams) {
+						String resolvedParamName = method.findParameterAliasByName(item.value0);
+						buffer.append(separator + resolvedParamName);
+						separator = ", ";
+					}
+					// in DELETE can not be updated fields
+					if (updateableParams.size() > 1) {
+						throw (new InvalidMethodSignException(method, " parameters " + buffer.toString() + " are not used in where conditions"));
+					} else {
+						throw (new InvalidMethodSignException(method, " parameter " + buffer.toString() + " is not used in where conditions"));
+					}
 				}
 			}
 
+			// build where condition
+			generateWhereCondition(methodBuilder, method, where);
 			methodBuilder.addCode("\n");
-		} else {
-			if (updateableParams.size() > 0) {
-				String separator = "";
-				StringBuilder buffer = new StringBuilder();
-				for (Pair<String, TypeName> item : updateableParams) {
-					String resolvedParamName = method.findParameterAliasByName(item.value0);
-					buffer.append(separator + resolvedParamName);
-					separator = ", ";
-				}
-				// in DELETE can not be updated fields
-				if (updateableParams.size() > 1) {
-					throw (new InvalidMethodSignException(method, " parameters " + buffer.toString() + " are not used in where conditions"));
+
+			ModifyBeanHelper.generateModifyQueryCommonPart(method, methodBuilder);
+		}
+
+	}
+
+	private void generateJavaDoc(final SQLiteModelMethod method, Builder methodBuilder, boolean updateMode) {
+		List<Pair<String, TypeName>> methodParams = method.getParameters();
+		
+		final SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLEntity entity = daoDefinition.getEntity();
+		final One<Boolean> inColumnValues = new One<Boolean>(false);
+		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
+		// new
+		String sqlModify=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+
+			@Override
+			public void onColumnValueSetBegin(Column_value_setContext ctx) {
+				inColumnValues.value0 = true;
+			}
+
+			@Override
+			public void onColumnValueSetEnd(Column_value_setContext ctx) {
+				inColumnValues.value0 = false;
+			}
+
+			@Override
+			public String onColumnName(String columnName) {
+				SQLProperty tempProperty = entity.get(columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
+				return tempProperty.columnName;
+			}
+
+			@Override
+			public String onTableName(String className) {
+				SQLEntity tempEntity = daoDefinition.getParent().getEntityBySimpleName(className);
+				AssertKripton.assertTrueOrUnknownClassInJQLException(tempEntity != null, method, className);
+
+				return tempEntity.getTableName();
+			}
+
+			@Override
+			public String onBindParameter(String bindParameterName) {
+				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
+				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method, bindParameterName);
+
+				methodParamsUsedAsParameter.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
+
+				return "${" + bindParameterName + "}";
+			}
+
+		});
+		
+		methodBuilder.addJavadoc("<h2>SQL update</h2>\n");
+		methodBuilder.addJavadoc("<pre>$L</pre>\n", sqlModify);
+		methodBuilder.addJavadoc("\n");
+
+		// list of where parameter
+		methodBuilder.addJavadoc("<h2>Parameters:</h2>\n");
+		methodBuilder.addJavadoc("<dl>\n");
+		for (Pair<String, TypeName> property : methodParamsUsedAsParameter) {
+			String rawName = method.findParameterNameByAlias(property.value0);
+			methodBuilder.addJavadoc("\t<dt>$L</dt>", "${" + property.value0 + "}");
+			methodBuilder.addJavadoc("<dd>is mapped to method's parameter <strong>$L</strong></dd>\n", rawName);
+		}
+		methodBuilder.addJavadoc("</dl>");
+		methodBuilder.addJavadoc("\n\n");
+
+		if (method.hasDynamicWhereConditions()) {
+			methodBuilder.addJavadoc("<dl>\n");
+			methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+					JQLDynamicStatementType.DYNAMIC_WHERE);
+			methodBuilder.addJavadoc("\n</dl>");
+			methodBuilder.addJavadoc("\n\n");
+		}
+
+		// dynamic conditions
+		if (method.hasDynamicWhereConditions()) {
+			methodBuilder.addJavadoc("<h2>Method's parameters and associated dynamic parts:</h2>\n");
+			methodBuilder.addJavadoc("<dl>\n");
+
+			if (method.hasDynamicWhereConditions()) {
+				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+						JQLDynamicStatementType.DYNAMIC_WHERE);
+			}
+
+			methodBuilder.addJavadoc("</dl>");
+			methodBuilder.addJavadoc("\n\n");
+		}
+
+		// method parameters
+		if (methodParams.size() > 0) {
+			for (Pair<String, TypeName> param : methodParams) {
+				String resolvedName = method.findParameterAliasByName(param.value0);
+				methodBuilder.addJavadoc("@param $L", param.value0);
+				if (method.isThisDynamicWhereConditionsName(param.value0)) {
+					methodBuilder.addJavadoc("\n\tis used as dynamic where conditions\n");
 				} else {
-					throw (new InvalidMethodSignException(method, " parameter " + buffer.toString() + " is not used in where conditions"));
+					methodBuilder.addJavadoc("\n\tis used as for parameter <strong>$L</strong>\n", resolvedName);
 				}
 			}
 		}
-		
-		// generate javadoc
-		generateJavaDoc(method, methodBuilder, updateMode, whereCondition, where, methodParams, updateableParams);
 
-		// build where condition
-		generateWhereCondition(methodBuilder, method, where);
-		methodBuilder.addCode("\n");		
-		
-		ModifyBeanHelper.generateModifyQueryCommonPart(method, methodBuilder);
-			
-
+		// if true, field must be associate to ben attributes
+		TypeName returnType = method.getReturnClass();
 		// define return value
 		if (returnType == TypeName.VOID) {
 
@@ -175,8 +285,8 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			}
 			methodBuilder.addJavadoc("\n");
 		}
-	}
 
+	}
 
 	/**
 	 * @param updateMode
@@ -184,18 +294,17 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 * @return
 	 */
 	static String extractWhereConditions(boolean updateMode, SQLiteModelMethod method) {
-		final One<String> whereCondition=new One<String>("");
+		final One<String> whereCondition = new One<String>("");
 		JQLChecker.getInstance().replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
 			@Override
 			public String onWhere(String statement) {
-				whereCondition.value0=statement;
+				whereCondition.value0 = statement;
 				return null;
 			}
 		});
-		
+
 		return whereCondition.value0;
 	}
-
 
 	/**
 	 * @param daoDefinition
@@ -209,11 +318,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 * 
 	 * @return sql generated
 	 */
-	public String generateJavaDoc(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition,
-			Pair<String, List<Pair<String, TypeName>>> where, List<Pair<String, TypeName>> methodParams, List<Pair<String, TypeName>> updateableParams) {
-		
+	public void generateJavaDoc(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition, Pair<String, List<Pair<String, TypeName>>> where,
+			List<Pair<String, TypeName>> methodParams) {
+
 		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();		
+		final SQLEntity entity = daoDefinition.getEntity();
 		final One<Boolean> inColumnValues = new One<Boolean>(false);
 		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
@@ -232,24 +341,24 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 			@Override
 			public String onColumnName(String columnName) {
-				SQLProperty tempProperty = entity.get(columnName);				
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
-								
+				SQLProperty tempProperty = entity.get(columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
 				return tempProperty.columnName;
 			}
 
 			@Override
 			public String onTableName(String className) {
-				SQLEntity tempEntity = daoDefinition.getParent().getEntityBySimpleName(className);				
-				AssertKripton.assertTrueOrUnknownClassInJQLException(tempEntity!=null, method, className);
-				
+				SQLEntity tempEntity = daoDefinition.getParent().getEntityBySimpleName(className);
+				AssertKripton.assertTrueOrUnknownClassInJQLException(tempEntity != null, method, className);
+
 				return tempEntity.getTableName();
 			}
 
 			@Override
 			public String onBindParameter(String bindParameterName) {
-				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);				
-				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName!=null, method, bindParameterName);
+				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
+				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method, bindParameterName);
 
 				if (inColumnValues.value0) {
 					methodParamsUsedAsColumnValue.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
@@ -261,16 +370,16 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			}
 
 		});
-		
+
 		if (updateMode) {
 			methodBuilder.addJavadoc("<h2>SQL update</h2>\n");
-			methodBuilder.addJavadoc("<pre>$L</pre>\n", sqlModify);									
-			methodBuilder.addJavadoc("\n\n");
+			methodBuilder.addJavadoc("<pre>$L</pre>\n", sqlModify);
+			methodBuilder.addJavadoc("\n");
 
 			// list of updated fields
 			methodBuilder.addJavadoc("<h2>Updated columns:</strong></h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
-			for (Pair<String, TypeName> property : updateableParams) {
+			for (Pair<String, TypeName> property : methodParamsUsedAsColumnValue) {
 				String resolvedName = method.findParameterAliasByName(property.value0);
 				methodBuilder.addJavadoc("\t<dt>$L</dt>", entity.findByName(resolvedName).columnName);
 				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + resolvedName + "}", property.value0);
@@ -294,10 +403,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		}
 		methodBuilder.addJavadoc("</dl>");
 		methodBuilder.addJavadoc("\n\n");
-		
+
 		if (method.hasDynamicWhereConditions()) {
 			methodBuilder.addJavadoc("<dl>\n");
-			methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
+			methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+					JQLDynamicStatementType.DYNAMIC_WHERE);
 			methodBuilder.addJavadoc("\n</dl>");
 			methodBuilder.addJavadoc("\n\n");
 		}
@@ -306,11 +416,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		if (method.hasDynamicWhereConditions()) {
 			methodBuilder.addJavadoc("<h2>Method's parameters and associated dynamic parts:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
-			
+
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
+				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+						JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
-			
+
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");
 		}
@@ -330,7 +441,35 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			}
 		}
 
-		return sqlModify;
+		// if true, field must be associate to ben attributes
+		TypeName returnType = method.getReturnClass();
+		// define return value
+		if (returnType == TypeName.VOID) {
+
+		} else {
+			methodBuilder.addJavadoc("\n");
+			if (isIn(returnType, Boolean.TYPE, Boolean.class)) {
+				if (updateMode) {
+					methodBuilder.addJavadoc("@return <code>true</code> if record is updated, <code>false</code> otherwise");
+				} else {
+					methodBuilder.addJavadoc("@return <code>true</code> if record is deleted, <code>false</code> otherwise");
+				}
+				methodBuilder.addCode("return result!=0;\n");
+			} else if (isIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
+				if (updateMode) {
+					methodBuilder.addJavadoc("@return number of updated records");
+				} else {
+					methodBuilder.addJavadoc("@return number of deleted records");
+				}
+
+				methodBuilder.addCode("return result;\n");
+			} else {
+				// more than one listener found
+				throw (new InvalidMethodSignException(method, "invalid return type"));
+			}
+			methodBuilder.addJavadoc("\n");
+		}
+
 	}
 
 	/**
@@ -340,12 +479,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 */
 	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeName>>> where) {
 		boolean nullable;
-		
-		methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<String>()", ArrayList.class, ArrayList.class);		
+
+		methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<String>()", ArrayList.class, ArrayList.class);
 		for (Pair<String, TypeName> item : where.value1) {
 			String resolvedParamName = method.findParameterNameByAlias(item.value0);
 			methodBuilder.addCode("_sqlWhereParams.add(");
-			
 
 			nullable = isNullable(item.value1);
 
@@ -364,9 +502,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			if (nullable) {
 				methodBuilder.addCode(")");
 			}
-			
+
 			methodBuilder.addCode(");\n");
-		}		
+		}
 	}
 
 	static boolean isIn(TypeName value, Class<?>... classes) {
