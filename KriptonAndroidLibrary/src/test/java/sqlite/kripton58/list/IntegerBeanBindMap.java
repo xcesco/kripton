@@ -25,7 +25,8 @@ import java.util.LinkedList;
 @BindMap(IntegerBean.class)
 public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
   @Override
-  public int serializeOnJackson(IntegerBean object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(IntegerBean object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -78,7 +79,8 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(IntegerBean object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(IntegerBean object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -141,7 +143,8 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(IntegerBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(IntegerBean object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("integerBean");
     }

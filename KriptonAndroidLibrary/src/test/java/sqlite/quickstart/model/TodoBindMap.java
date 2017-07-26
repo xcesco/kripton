@@ -50,7 +50,8 @@ public class TodoBindMap extends AbstractMapper<Todo> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Todo object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Todo object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -79,7 +80,8 @@ public class TodoBindMap extends AbstractMapper<Todo> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Todo object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Todo object, XMLSerializer xmlSerializer, int currentEventType) throws
+      Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("todo");
     }

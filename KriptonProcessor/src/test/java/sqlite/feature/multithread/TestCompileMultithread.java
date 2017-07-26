@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package sqlite.feature.multithread;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,9 +21,9 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feat.generichierarchy.BaseDAO;
-import sqlite.feat.multithread.Person;
-import sqlite.feat.multithread.PersonDAO;
-import sqlite.feat.multithread.PersonDataSource;
+import sqlite.feature.multithread.Person;
+import sqlite.feature.multithread.PersonDAO;
+import sqlite.feature.multithread.PersonDataSource;
 
 @RunWith(JUnit4.class)
 public class TestCompileMultithread extends AbstractBindSQLiteProcessorTest {

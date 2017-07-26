@@ -29,7 +29,8 @@ public class Security47BindMap extends AbstractMapper<Security47> {
   private UserIdentityBindMap userIdentityBindMap = BinderUtils.mapperFor(UserIdentity.class);
 
   @Override
-  public int serializeOnJackson(Security47 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(Security47 object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -66,7 +67,8 @@ public class Security47BindMap extends AbstractMapper<Security47> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Security47 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Security47 object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -110,7 +112,8 @@ public class Security47BindMap extends AbstractMapper<Security47> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Security47 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Security47 object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("security47");
     }

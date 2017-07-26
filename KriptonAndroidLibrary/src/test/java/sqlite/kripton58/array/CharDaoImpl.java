@@ -121,7 +121,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
   @Override
   public CharBean selectOne(char[] value, Character[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM char_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM char_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -198,7 +198,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
   @Override
   public void selectOne(char[] value, Character[] value2, OnReadBeanListener<CharBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM char_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM char_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -281,7 +281,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
   @Override
   public void selectOne(char[] value, Character[] value2, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM char_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM char_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -348,7 +348,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
   @Override
   public List<CharBean> selectList(char[] value, Character[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM char_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM char_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

@@ -121,7 +121,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public FloatBean selectOne(float[] value, Float[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM float_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM float_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -198,7 +198,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public void selectOne(float[] value, Float[] value2, OnReadBeanListener<FloatBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM float_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM float_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -281,7 +281,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public void selectOne(float[] value, Float[] value2, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM float_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM float_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -348,7 +348,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public List<FloatBean> selectList(float[] value, Float[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM float_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM float_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

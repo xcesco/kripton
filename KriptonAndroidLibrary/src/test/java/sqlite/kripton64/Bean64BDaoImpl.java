@@ -115,7 +115,7 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
   @Override
   public List<Bean64B> selectList(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b ");
+    _sqlBuilder.append("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

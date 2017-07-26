@@ -58,7 +58,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   @Override
   public List<MessageEntity> selectByChannel(long channelId) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message_entity ");
+    _sqlBuilder.append("SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message_entity");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -379,7 +379,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   @Override
   public MessageEntity selectByUid(String uid) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message_entity ");
+    _sqlBuilder.append("SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message_entity");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

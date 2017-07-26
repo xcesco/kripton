@@ -48,7 +48,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectIncludeOne(Person bean) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT name, id FROM person  ");
+    _sqlBuilder.append("SELECT name, id FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=null;
@@ -64,10 +64,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // build where condition
     _sqlWhereParams.add((bean.name==null?"":bean.name));
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name";
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
@@ -123,7 +124,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectExcludeOne() {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT surname, birth_city, birth_day, type_name FROM person ");
+    _sqlBuilder.append("SELECT surname, birth_city, birth_day, type_name FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=null;
@@ -131,10 +132,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String _sqlWhereStatement="";
 
     // build where condition
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name";
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);

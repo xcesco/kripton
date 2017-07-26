@@ -30,7 +30,8 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
   private ChannelBindMap channelBindMap = BinderUtils.mapperFor(Channel.class);
 
   @Override
-  public int serializeOnJackson(ChannelListResponse object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(ChannelListResponse object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -103,7 +104,8 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
   }
 
   @Override
-  public int serializeOnJacksonAsString(ChannelListResponse object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(ChannelListResponse object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -189,7 +191,8 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(ChannelListResponse object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(ChannelListResponse object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("channelListResponse");
     }
@@ -458,7 +461,8 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
    * parse xml
    */
   @Override
-  public ChannelListResponse parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public ChannelListResponse parseOnXml(XMLParser xmlParser, int currentEventType) throws
+      Exception {
     ChannelListResponse instance = new ChannelListResponse();
     int eventType = currentEventType;
     boolean read=true;

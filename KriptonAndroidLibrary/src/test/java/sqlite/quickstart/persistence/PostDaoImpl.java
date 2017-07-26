@@ -118,7 +118,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
   @Override
   public List<Post> selectByUserId(long userId) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT user_id, id, title, body FROM post ");
+    _sqlBuilder.append("SELECT user_id, id, title, body FROM post");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -199,7 +199,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
   @Override
   public Post selectOneByUserId(long userId) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT user_id, id, title, body FROM post ");
+    _sqlBuilder.append("SELECT user_id, id, title, body FROM post");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

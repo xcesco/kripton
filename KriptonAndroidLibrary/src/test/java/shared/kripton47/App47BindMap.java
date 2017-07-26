@@ -49,7 +49,8 @@ public class App47BindMap extends AbstractMapper<App47> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(App47 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(App47 object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -78,7 +79,8 @@ public class App47BindMap extends AbstractMapper<App47> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(App47 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(App47 object, XMLSerializer xmlSerializer, int currentEventType) throws
+      Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("app47");
     }

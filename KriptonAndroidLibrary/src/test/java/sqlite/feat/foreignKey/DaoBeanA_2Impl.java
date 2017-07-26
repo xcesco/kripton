@@ -107,7 +107,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   @Override
   public List<BeanA_2> selectById(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT pk, value_string2 FROM bean_a_2 ");
+    _sqlBuilder.append("SELECT pk, value_string2 FROM bean_a_2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -181,7 +181,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   @Override
   public List<BeanA_2> selectByString(String value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT pk FROM bean_a_2 ");
+    _sqlBuilder.append("SELECT pk FROM bean_a_2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

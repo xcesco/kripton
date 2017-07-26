@@ -20,7 +20,8 @@ import java.lang.Override;
 @BindMap(BeanInner.class)
 public class BeanInnerBindMap extends AbstractMapper<BeanInner> {
   @Override
-  public int serializeOnJackson(BeanInner object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(BeanInner object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -35,7 +36,8 @@ public class BeanInnerBindMap extends AbstractMapper<BeanInner> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(BeanInner object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(BeanInner object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -52,7 +54,8 @@ public class BeanInnerBindMap extends AbstractMapper<BeanInner> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(BeanInner object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(BeanInner object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("beanInner");
     }

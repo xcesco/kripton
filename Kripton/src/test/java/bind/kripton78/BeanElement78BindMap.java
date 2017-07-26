@@ -27,7 +27,8 @@ import java.util.Map;
 @BindMap(BeanElement78.class)
 public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
   @Override
-  public int serializeOnJackson(BeanElement78 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(BeanElement78 object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -80,7 +81,8 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(BeanElement78 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(BeanElement78 object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -140,7 +142,8 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(BeanElement78 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(BeanElement78 object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("beanElement78");
     }

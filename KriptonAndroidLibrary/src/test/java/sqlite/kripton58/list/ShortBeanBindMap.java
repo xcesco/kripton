@@ -25,7 +25,8 @@ import java.util.LinkedList;
 @BindMap(ShortBean.class)
 public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
   @Override
-  public int serializeOnJackson(ShortBean object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(ShortBean object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -78,7 +79,8 @@ public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(ShortBean object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(ShortBean object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -141,7 +143,8 @@ public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(ShortBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(ShortBean object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("shortBean");
     }

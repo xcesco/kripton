@@ -43,7 +43,8 @@ public class GeoBindMap extends AbstractMapper<Geo> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Geo object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Geo object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -69,7 +70,8 @@ public class GeoBindMap extends AbstractMapper<Geo> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Geo object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Geo object, XMLSerializer xmlSerializer, int currentEventType) throws
+      Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("geo");
     }

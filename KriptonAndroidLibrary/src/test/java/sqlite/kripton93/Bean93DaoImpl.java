@@ -49,7 +49,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   @Override
   public Bean93 selectByBean(String name) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, name, surname, type_name FROM bean93 ");
+    _sqlBuilder.append("SELECT id, name, surname, type_name FROM bean93");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

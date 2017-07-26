@@ -69,7 +69,8 @@ public class ResponseBindMap extends AbstractMapper<Response> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Response object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Response object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -117,7 +118,8 @@ public class ResponseBindMap extends AbstractMapper<Response> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Response object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Response object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("response");
     }

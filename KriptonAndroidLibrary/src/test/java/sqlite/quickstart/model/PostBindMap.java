@@ -52,7 +52,8 @@ public class PostBindMap extends AbstractMapper<Post> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Post object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Post object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -84,7 +85,8 @@ public class PostBindMap extends AbstractMapper<Post> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Post object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Post object, XMLSerializer xmlSerializer, int currentEventType) throws
+      Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("post");
     }

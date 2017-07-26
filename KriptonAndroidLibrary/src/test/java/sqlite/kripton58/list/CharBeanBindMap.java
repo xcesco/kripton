@@ -78,7 +78,8 @@ public class CharBeanBindMap extends AbstractMapper<CharBean> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(CharBean object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(CharBean object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -141,7 +142,8 @@ public class CharBeanBindMap extends AbstractMapper<CharBean> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(CharBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(CharBean object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("charBean");
     }

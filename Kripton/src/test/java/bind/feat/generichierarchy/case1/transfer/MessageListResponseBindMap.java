@@ -30,7 +30,8 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
   private MessageBindMap messageBindMap = BinderUtils.mapperFor(Message.class);
 
   @Override
-  public int serializeOnJackson(MessageListResponse object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(MessageListResponse object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -72,7 +73,8 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
   }
 
   @Override
-  public int serializeOnJacksonAsString(MessageListResponse object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(MessageListResponse object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -123,7 +125,8 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(MessageListResponse object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(MessageListResponse object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("messageListResponse");
     }
@@ -292,7 +295,8 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
    * parse xml
    */
   @Override
-  public MessageListResponse parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public MessageListResponse parseOnXml(XMLParser xmlParser, int currentEventType) throws
+      Exception {
     MessageListResponse instance = new MessageListResponse();
     int eventType = currentEventType;
     boolean read=true;

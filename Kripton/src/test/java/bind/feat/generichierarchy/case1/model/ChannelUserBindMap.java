@@ -21,7 +21,8 @@ import java.lang.Override;
 @BindMap(ChannelUser.class)
 public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
   @Override
-  public int serializeOnJackson(ChannelUser object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(ChannelUser object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -52,7 +53,8 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(ChannelUser object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(ChannelUser object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -84,7 +86,8 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(ChannelUser object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(ChannelUser object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("channelUser");
     }

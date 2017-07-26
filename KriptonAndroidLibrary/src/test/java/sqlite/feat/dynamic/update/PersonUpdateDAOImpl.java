@@ -53,7 +53,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
   @Override
   public List<Person> selectOne(String nameValue) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person  ");
+    _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

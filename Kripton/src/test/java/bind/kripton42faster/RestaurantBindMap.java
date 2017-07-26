@@ -21,7 +21,8 @@ import java.lang.Override;
 @BindMap(Restaurant.class)
 public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   @Override
-  public int serializeOnJackson(Restaurant object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(Restaurant object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -60,7 +61,8 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Restaurant object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Restaurant object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -99,7 +101,8 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Restaurant object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Restaurant object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("restaurant");
     }

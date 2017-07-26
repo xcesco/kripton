@@ -23,7 +23,8 @@ import sqlite.kripton56.internal.MessageType;
 @BindMap(MessageEntity.class)
 public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
   @Override
-  public int serializeOnJackson(MessageEntity object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(MessageEntity object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -82,7 +83,8 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(MessageEntity object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(MessageEntity object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -141,7 +143,8 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(MessageEntity object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(MessageEntity object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("messageEntity");
     }

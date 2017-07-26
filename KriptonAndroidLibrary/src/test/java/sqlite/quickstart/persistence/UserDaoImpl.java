@@ -148,7 +148,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
   @Override
   public List<User> selectAll() {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, name, username, email, address, phone, website, company FROM user ");
+    _sqlBuilder.append("SELECT id, name, username, email, address, phone, website, company FROM user");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=null;
@@ -156,10 +156,11 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     String _sqlWhereStatement="";
 
     // build where condition
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY username asc";
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
@@ -238,7 +239,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
   @Override
   public User selectById(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, name, username, email, address, phone, website, company FROM user ");
+    _sqlBuilder.append("SELECT id, name, username, email, address, phone, website, company FROM user");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

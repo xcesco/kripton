@@ -43,7 +43,8 @@ public class PapBindMap extends AbstractMapper<Pap> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Pap object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Pap object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -69,7 +70,8 @@ public class PapBindMap extends AbstractMapper<Pap> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Pap object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Pap object, XMLSerializer xmlSerializer, int currentEventType) throws
+      Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("pap");
     }

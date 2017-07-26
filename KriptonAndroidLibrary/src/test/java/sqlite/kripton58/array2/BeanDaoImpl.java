@@ -128,7 +128,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public BeanBean selectOne(BeanInner[] value, BeanInner[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -203,9 +203,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	is the BeanBean listener
    */
   @Override
-  public void selectOne(BeanInner[] value, BeanInner[] value2, OnReadBeanListener<BeanBean> listener) {
+  public void selectOne(BeanInner[] value, BeanInner[] value2,
+      OnReadBeanListener<BeanBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -288,7 +289,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectOne(BeanInner[] value, BeanInner[] value2, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -355,7 +356,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public List<BeanBean> selectList(BeanInner[] value, BeanInner[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

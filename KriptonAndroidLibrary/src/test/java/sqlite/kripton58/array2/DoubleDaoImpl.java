@@ -121,7 +121,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public DoubleBean selectOne(double[] value, Double[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM double_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -198,7 +198,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public void selectOne(double[] value, Double[] value2, OnReadBeanListener<DoubleBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM double_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -281,7 +281,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public void selectOne(double[] value, Double[] value2, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM double_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -348,7 +348,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public List<DoubleBean> selectList(double[] value, Double[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM double_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

@@ -121,7 +121,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public ByteBean selectOne(byte[] value, Byte[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -198,7 +198,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public void selectOne(byte[] value, Byte[] value2, OnReadBeanListener<ByteBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -281,7 +281,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public void selectOne(byte[] value, Byte[] value2, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -348,7 +348,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public List<ByteBean> selectList(byte[] value, Byte[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM byte_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

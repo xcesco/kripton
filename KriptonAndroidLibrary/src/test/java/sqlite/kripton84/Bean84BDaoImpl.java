@@ -60,7 +60,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   @Override
   public Bean84B selectById(long param1) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, column_bean FROM bean84_b ");
+    _sqlBuilder.append("SELECT id, column_bean FROM bean84_b");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -129,7 +129,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   @Override
   public Bean84B selectByBean(Bean84B2 param1) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, column_bean FROM bean84_b ");
+    _sqlBuilder.append("SELECT id, column_bean FROM bean84_b");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

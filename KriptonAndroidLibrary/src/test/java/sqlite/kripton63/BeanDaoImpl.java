@@ -124,7 +124,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean63> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 ");
+    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -207,7 +207,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 ");
+    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -271,7 +271,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public List<Bean63> selectList(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 ");
+    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -564,7 +564,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean63 selectOne(Map<String, Byte> valueMapStringByte) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 ");
+    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -807,7 +807,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Bean63 selectOne(HashMap<EnumType, Byte> valueMapEnumByte) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 ");
+    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -882,7 +882,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public Cursor selectCursorOne(HashMap<EnumType, Byte> valueMapEnumByte) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 ");
+    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -937,9 +937,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	is the Bean63 listener
    */
   @Override
-  public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, OnReadBeanListener<Bean63> listener) {
+  public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte,
+      OnReadBeanListener<Bean63> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 ");
+    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1020,9 +1021,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * 	is the cursor listener
    */
   @Override
-  public void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte, OnReadCursorListener listener) {
+  public void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte,
+      OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 ");
+    _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

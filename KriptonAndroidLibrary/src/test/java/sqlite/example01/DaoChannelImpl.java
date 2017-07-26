@@ -1186,7 +1186,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public List<Channel> selectRaw1(long updateTimeA) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel ");
+    _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1270,7 +1270,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public Cursor selectRaw2(long updateTimeA) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel ");
+    _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1328,7 +1328,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public void selectRaw3(long updateTimeA, OnReadBeanListener<Channel> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel ");
+    _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1415,7 +1415,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public void selectRaw4(long updateTimeA, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel ");
+    _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1480,7 +1480,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public Set<Channel> selectRaw5(long updateTimeA) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel ");
+    _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1560,7 +1560,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public long selectBean1(Channel value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT count(*) FROM channel ");
+    _sqlBuilder.append("SELECT count(*) FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1622,7 +1622,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public void selectBean2(Channel value, OnReadBeanListener<Channel> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT update_time FROM channel ");
+    _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1697,7 +1697,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public void selectBean3(Channel value, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT update_time FROM channel ");
+    _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1758,7 +1758,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public Cursor selectBean4(Channel value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT update_time FROM channel ");
+    _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1811,7 +1811,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public Channel selectBean5(Channel value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT update_time FROM channel ");
+    _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1877,7 +1877,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public ArrayList<Channel> selectBean6(Channel value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT update_time FROM channel ");
+    _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1949,7 +1949,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public Set<Channel> selectBean7(Channel value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT update_time FROM channel ");
+    _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -2021,7 +2021,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public List<Long> selectBean8(Channel value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT update_time FROM channel ");
+    _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

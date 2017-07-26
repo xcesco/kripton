@@ -51,7 +51,8 @@ public class Class3BindMap extends AbstractMapper<Class3> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Class3 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Class3 object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -82,7 +83,8 @@ public class Class3BindMap extends AbstractMapper<Class3> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Class3 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Class3 object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("class3");
     }

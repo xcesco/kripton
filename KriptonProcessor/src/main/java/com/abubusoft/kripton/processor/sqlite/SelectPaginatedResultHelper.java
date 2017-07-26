@@ -64,8 +64,6 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		
 		Set<JQLProjection> fieldList=JQLChecker.getInstance().extractProjections(method.jql, daoDefinition.getEntity());
 		
-		//PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectType.isMapFields(), null);
-		// generate official method
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 			// create PaginatedResult
@@ -78,13 +76,10 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 				separator = ", ";
 			}
 			methodBuilder.addCode(");\n");
-			// methodBuilder.addStatement("paginatedResult.execute()");
 
 			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_CONTENT);
 			methodBuilder.addStatement("return paginatedResult");
 
-			// generateSpecializedPart(elementUtils, method, methodBuilder,
-			// fieldList, selectType.isMapFields());
 			builder.addMethod(methodBuilder.build());
 		}
 

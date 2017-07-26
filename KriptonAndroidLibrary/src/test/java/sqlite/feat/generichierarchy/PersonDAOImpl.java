@@ -49,7 +49,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public Person selectById(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person ");
+    _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

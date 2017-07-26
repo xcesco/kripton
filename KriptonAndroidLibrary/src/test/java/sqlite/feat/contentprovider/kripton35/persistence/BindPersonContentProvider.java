@@ -155,7 +155,8 @@ public class BindPersonContentProvider extends ContentProvider {
    * uri test3/${person.id}
    */
   @Override
-  public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+  public int update(Uri uri, ContentValues contentValues, String selection,
+      String[] selectionArgs) {
     int returnRowUpdated=1;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_4_INDEX: {
@@ -203,7 +204,8 @@ public class BindPersonContentProvider extends ContentProvider {
    * uri test3
    */
   @Override
-  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+      String sortOrder) {
     Cursor returnCursor=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {

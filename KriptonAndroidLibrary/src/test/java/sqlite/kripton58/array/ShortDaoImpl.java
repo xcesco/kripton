@@ -121,7 +121,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public ShortBean selectOne(short[] value, Short[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM short_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM short_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -198,7 +198,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public void selectOne(short[] value, Short[] value2, OnReadBeanListener<ShortBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM short_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM short_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -281,7 +281,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public void selectOne(short[] value, Short[] value2, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM short_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM short_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -348,7 +348,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
   @Override
   public List<ShortBean> selectList(short[] value, Short[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM short_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM short_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

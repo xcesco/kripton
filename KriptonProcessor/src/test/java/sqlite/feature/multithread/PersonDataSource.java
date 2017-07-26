@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package sqlite.feature.multithread;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import sqlite.feat.multithread.PersonDAO;
+import sqlite.feature.multithread.PersonDAO;
 
 @BindDataSource(dao = { PersonDAO.class }, fileName = "person.db", generateLog=true)
 public interface PersonDataSource {

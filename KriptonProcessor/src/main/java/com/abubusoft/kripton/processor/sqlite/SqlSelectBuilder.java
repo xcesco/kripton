@@ -27,6 +27,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -328,7 +329,7 @@ public abstract class SqlSelectBuilder {
 		}
 
 		if (jql.isOrderBy()) {
-			methodBuilder.addCode("\n// manage order by statement\n");
+			methodBuilder.addComment("generation order - BEGIN");
 			String value = splittedSql.sqlOrderByStatement;
 			String valueToReplace = jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_ORDER_BY);
 
@@ -343,15 +344,33 @@ public abstract class SqlSelectBuilder {
 			}
 
 			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOrderByStatement");
-
+			methodBuilder.addComment("generation order - END");
+			methodBuilder.addCode("\n");
 		}
 
-		if (StringUtils.hasText(splittedSql.sqlLimitStatement)) {
-			methodBuilder.addStatement("String _sqlLimitStatement=$S", splittedSql.sqlLimitStatement);
+		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_SIZE)) {
+			methodBuilder.addComment("generation limit - BEGIN");
+			if (jql.annotatedPageSize) {
+				methodBuilder.addStatement("String _sqlLimitStatement=$S", splittedSql.sqlLimitStatement);
+			} else if (jql.hasParamPageSize()){
+				methodBuilder.addStatement("String _sqlLimitStatement=$T.printIf($L>0, \" LIMIT \"+pageSize)", SqlUtils.class, jql.paramPageSize);
+			}
+			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlLimitStatement");
+			methodBuilder.addComment("generation limit - END");
+			methodBuilder.addCode("\n");
 		}
 
-		if (StringUtils.hasText(splittedSql.sqlOffsetStatement)) {
-			methodBuilder.addStatement("String _sqlOffsetStatement=$S", splittedSql.sqlOffsetStatement);
+		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET)) {
+			methodBuilder.addComment("generation offset - BEGIN");
+			if (jql.annotatedPageSize) {
+				methodBuilder.addStatement("String _sqlOffsetStatement=\" OFFSET \"+paginatedResult.firstRow()", SqlUtils.class);
+			} else if (jql.hasParamPageSize()){
+				methodBuilder.addStatement("String _sqlOffsetStatement=$T.printIf($L>0 && paginatedResult.firstRow()>0, \" OFFSET \"+paginatedResult.firstRow())", SqlUtils.class, jql.paramPageSize);
+			}
+			
+			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOffsetStatement");
+			methodBuilder.addComment("generation offset - END");
+			methodBuilder.addCode("\n");
 		}
 	}
 

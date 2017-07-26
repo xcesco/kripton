@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package sqlite.feature.multithread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,7 +27,6 @@ import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
 
 import base.BaseAndroidTest;
-import sqlite.feat.multithread.BindPersonDataSource.Transaction;
 
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)

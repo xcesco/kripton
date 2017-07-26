@@ -44,7 +44,7 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
   @Override
   public Bean03 selectOne(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, text FROM bean03 ");
+    _sqlBuilder.append("SELECT id, text FROM bean03");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

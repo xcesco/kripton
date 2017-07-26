@@ -1322,7 +1322,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectOne(String nameValue, String orderBy) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person    ");
+    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=orderBy;
@@ -1346,10 +1346,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // manage HAVING statement
     String _sqlHavingStatement=" HAVING id=2";
     _sqlBuilder.append(_sqlHavingStatement);
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY id"+StringUtils.ifNotEmptyAppend(_sortOrder, ", ");
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
@@ -1421,7 +1422,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectOne9(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+  Cursor selectOne9(Uri uri, String[] projection, String selection, String[] selectionArgs,
+      String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1446,10 +1448,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // manage HAVING statement
     String _sqlHavingStatement=" HAVING id=2";
     _sqlBuilder.append(_sqlHavingStatement);
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY id"+StringUtils.ifNotEmptyAppend(_sortOrder, ", ");
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
 
     // manage projected columns
     String _columnSeparator="";
@@ -1518,7 +1521,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectAll(String where, String[] args, String order) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person  ");
+    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -1542,10 +1545,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
 
     // build where condition
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name asc"+StringUtils.ifNotEmptyAppend(_sortOrder, ", ");
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
@@ -1610,7 +1614,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  Cursor selectAll10(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+  Cursor selectAll10(Uri uri, String[] projection, String selection, String[] selectionArgs,
+      String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1636,10 +1641,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         _sqlWhereParams.add(_arg);
       }
     }
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name asc"+StringUtils.ifNotEmptyAppend(_sortOrder, ", ");
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
 
     // manage projected columns
     String _columnSeparator="";
@@ -1709,7 +1715,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectOne(Person bean, String orderBy) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person  ");
+    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=orderBy;
@@ -1725,10 +1731,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // build where condition
     _sqlWhereParams.add((bean.getName()==null?"":bean.getName()));
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
@@ -1800,7 +1807,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectOne11(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+  Cursor selectOne11(Uri uri, String[] projection, String selection, String[] selectionArgs,
+      String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1817,10 +1825,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
 
     // manage projected columns
     String _columnSeparator="";
@@ -1951,7 +1960,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectBean12(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+  Cursor selectBean12(Uri uri, String[] projection, String selection, String[] selectionArgs,
+      String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
@@ -2023,7 +2033,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void selectCursorListener(OnReadCursorListener cursorListener, String where) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person  ");
+    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -2040,10 +2050,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // manage WHERE arguments -- END
 
     // build where condition
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name";
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);

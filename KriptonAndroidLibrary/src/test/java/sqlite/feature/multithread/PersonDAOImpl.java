@@ -1,4 +1,4 @@
-package sqlite.feat.multithread;
+package sqlite.feature.multithread;
 
 import android.content.ContentValues;
 import android.database.Cursor;

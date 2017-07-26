@@ -73,7 +73,8 @@ public class MessageBindMap extends AbstractMapper<Message> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Message object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Message object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -126,7 +127,8 @@ public class MessageBindMap extends AbstractMapper<Message> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Message object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Message object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("message");
     }

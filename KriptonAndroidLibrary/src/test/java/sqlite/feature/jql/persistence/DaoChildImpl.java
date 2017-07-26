@@ -172,7 +172,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   @Override
   public List<Child> selectByParent(long parentId) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("select * from child ");
+    _sqlBuilder.append("select * from child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -248,7 +248,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   @Override
   public int selectByParent2(long parentId) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("select count(*) from child ");
+    _sqlBuilder.append("select count(*) from child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -311,7 +311,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   @Override
   public List<Child> selectByParentId(long parentId) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT _id, name, parent_id FROM child ");
+    _sqlBuilder.append("SELECT _id, name, parent_id FROM child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

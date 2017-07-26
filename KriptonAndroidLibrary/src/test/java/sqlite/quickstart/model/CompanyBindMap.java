@@ -49,7 +49,8 @@ public class CompanyBindMap extends AbstractMapper<Company> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Company object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Company object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -81,7 +82,8 @@ public class CompanyBindMap extends AbstractMapper<Company> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Company object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Company object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("company");
     }

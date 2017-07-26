@@ -22,7 +22,8 @@ import java.lang.Override;
 @BindMap(Bean87A_1.class)
 public class Bean87A_1BindMap extends AbstractMapper<Bean87A_1> {
   @Override
-  public int serializeOnJackson(Bean87A_1 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(Bean87A_1 object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -47,7 +48,8 @@ public class Bean87A_1BindMap extends AbstractMapper<Bean87A_1> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Bean87A_1 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Bean87A_1 object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -74,7 +76,8 @@ public class Bean87A_1BindMap extends AbstractMapper<Bean87A_1> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Bean87A_1 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Bean87A_1 object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("bean87A_1");
     }

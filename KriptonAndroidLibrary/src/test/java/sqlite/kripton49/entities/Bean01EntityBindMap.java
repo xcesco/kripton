@@ -21,7 +21,8 @@ import java.lang.Override;
 @BindMap(Bean01Entity.class)
 public class Bean01EntityBindMap extends AbstractMapper<Bean01Entity> {
   @Override
-  public int serializeOnJackson(Bean01Entity object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(Bean01Entity object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -44,7 +45,8 @@ public class Bean01EntityBindMap extends AbstractMapper<Bean01Entity> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Bean01Entity object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Bean01Entity object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -69,7 +71,8 @@ public class Bean01EntityBindMap extends AbstractMapper<Bean01Entity> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Bean01Entity object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Bean01Entity object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("bean01Entity");
     }

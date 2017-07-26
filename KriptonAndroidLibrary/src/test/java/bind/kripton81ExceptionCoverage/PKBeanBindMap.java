@@ -42,7 +42,8 @@ public class PKBeanBindMap extends AbstractMapper<PKBean> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(PKBean object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(PKBean object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -65,7 +66,8 @@ public class PKBeanBindMap extends AbstractMapper<PKBean> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(PKBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(PKBean object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("pKBean");
     }

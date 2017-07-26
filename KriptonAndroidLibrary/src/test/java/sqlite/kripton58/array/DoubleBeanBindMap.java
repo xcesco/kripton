@@ -25,7 +25,8 @@ import java.util.ArrayList;
 @BindMap(DoubleBean.class)
 public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
   @Override
-  public int serializeOnJackson(DoubleBean object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(DoubleBean object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -74,7 +75,8 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(DoubleBean object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(DoubleBean object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -133,7 +135,8 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(DoubleBean object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(DoubleBean object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("doubleBean");
     }

@@ -121,7 +121,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public StringBean selectOne(String[] value, String[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM string_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM string_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -198,7 +198,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public void selectOne(String[] value, String[] value2, OnReadBeanListener<StringBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM string_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM string_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -281,7 +281,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public void selectOne(String[] value, String[] value2, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM string_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM string_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -348,7 +348,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public List<StringBean> selectList(String[] value, String[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM string_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM string_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

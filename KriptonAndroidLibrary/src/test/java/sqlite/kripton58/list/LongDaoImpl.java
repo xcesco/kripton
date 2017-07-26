@@ -117,7 +117,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public LongBean selectOne(List<Long> value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM long_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -190,7 +190,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public void selectOne(List<Long> value, OnReadBeanListener<LongBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM long_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -269,7 +269,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public void selectOne(List<Long> value, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM long_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -332,7 +332,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public List<LongBean> selectList(List<Long> value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM long_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

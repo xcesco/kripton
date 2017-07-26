@@ -1,4 +1,4 @@
-package sqlite.feat.multithread;
+package sqlite.feature.multithread;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;

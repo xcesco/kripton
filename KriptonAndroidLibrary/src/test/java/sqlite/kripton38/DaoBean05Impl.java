@@ -64,7 +64,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public Bean05 selectOne(Long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05 ");
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -146,7 +146,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public Bean05 selectOne(Bean05 bean) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05 ");
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -228,7 +228,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public List<Bean05> selectAll(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05 ");
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -310,7 +310,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public List<Long> selectPK(String text) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT pk FROM bean05 ");
+    _sqlBuilder.append("SELECT pk FROM bean05");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -379,7 +379,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public Long selectCount(String text) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT count(*) FROM bean05 ");
+    _sqlBuilder.append("SELECT count(*) FROM bean05");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -446,7 +446,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectCursorListener(Long id, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05 ");
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -513,7 +513,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05 ");
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -604,7 +604,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectOne(Long id, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05 ");
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -671,7 +671,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void selectOne(long id, OnReadBeanListener<Bean05> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05 ");
+    _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM bean05");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -1287,7 +1287,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public byte[] getOne(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT content FROM bean05 ");
+    _sqlBuilder.append("SELECT content FROM bean05");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();

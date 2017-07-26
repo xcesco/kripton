@@ -58,7 +58,8 @@ public class CommentBindMap extends AbstractMapper<Comment> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Comment object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Comment object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -96,7 +97,8 @@ public class CommentBindMap extends AbstractMapper<Comment> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Comment object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Comment object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("comment");
     }

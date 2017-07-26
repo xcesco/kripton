@@ -117,7 +117,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
   @Override
   public IntegerBean selectOne(List<Integer> value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM integer_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM integer_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -190,7 +190,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
   @Override
   public void selectOne(List<Integer> value, OnReadBeanListener<IntegerBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM integer_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM integer_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -269,7 +269,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
   @Override
   public void selectOne(List<Integer> value, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM integer_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM integer_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -332,7 +332,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
   @Override
   public List<IntegerBean> selectList(List<Integer> value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value, value2 FROM integer_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM integer_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
