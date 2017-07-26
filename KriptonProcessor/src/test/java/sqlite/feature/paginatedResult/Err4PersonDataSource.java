@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.paginatedResult;
+package sqlite.feature.paginatedResult;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import sqlite.feat.paginatedResult.PersonDAO;
-
-@BindDataSource(dao = { PersonDAO.class }, fileName = "person.db", generateLog=true)
-public interface PersonDataSource {
+@BindDataSource(dao = { Err4PersonDAO.class }, fileName = "person.db", generateLog=true)
+public interface Err4PersonDataSource {
 
 }

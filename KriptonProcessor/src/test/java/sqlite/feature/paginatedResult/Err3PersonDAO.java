@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.paginatedResult;
+package sqlite.feature.paginatedResult;
 
 import java.util.Date;
 
@@ -23,14 +23,14 @@ import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
-@BindDao(Err2Person.class)
-public interface Err2PersonDAO {
+@BindDao(Err3Person.class)
+public interface Err3PersonDAO {
 	
-	@BindSqlSelect(orderBy="typeName", pageSize=20)
-	PaginatedResult<Err2Person> selectPagedStatic1();
+	@BindSqlSelect(orderBy="name", pageSize=20)
+	PaginatedResult<Err3Person> selectPagedStatic1();
 	
-	@BindSqlSelect(orderBy="typeName")
-	PaginatedResult<Err2Person> selectPagedStatic2(@BindSqlPageSize long pageSize, @BindSqlPageSize int pageSize2);
+	@BindSqlSelect(orderBy="name", pageSize=20)
+	PaginatedResult<Err3Person> selectPagedStatic2(@BindSqlPageSize int pageSize);
 	
 	
 	@BindSqlInsert

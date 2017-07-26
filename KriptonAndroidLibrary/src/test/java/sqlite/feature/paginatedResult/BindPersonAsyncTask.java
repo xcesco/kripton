@@ -1,4 +1,4 @@
-package sqlite.feat.paginatedResult;
+package sqlite.feature.paginatedResult;
 
 import android.os.AsyncTask;
 import com.abubusoft.kripton.android.BindAsyncTaskType;

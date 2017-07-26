@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.paginatedResult;
+package sqlite.feature.paginatedResult;
 
 import static org.junit.Assert.assertTrue;
 

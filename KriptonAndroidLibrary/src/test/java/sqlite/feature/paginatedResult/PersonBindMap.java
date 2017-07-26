@@ -1,4 +1,4 @@
-package sqlite.feat.paginatedResult;
+package sqlite.feature.paginatedResult;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
@@ -61,7 +61,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Person object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Person object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -102,7 +103,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Person object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Person object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("person");
     }

@@ -1,4 +1,4 @@
-package sqlite.feat.paginatedResult;
+package sqlite.feature.paginatedResult;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;

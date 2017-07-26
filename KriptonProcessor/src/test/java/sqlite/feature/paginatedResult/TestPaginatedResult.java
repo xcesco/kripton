@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.paginatedResult;
+package sqlite.feature.paginatedResult;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,9 +22,9 @@ import org.junit.runners.JUnit4;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feat.paginatedResult.Person;
-import sqlite.feat.paginatedResult.PersonDAO;
-import sqlite.feat.paginatedResult.PersonDataSource;
+import sqlite.feature.paginatedResult.Person;
+import sqlite.feature.paginatedResult.PersonDAO;
+import sqlite.feature.paginatedResult.PersonDataSource;
 
 @RunWith(JUnit4.class)
 public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {

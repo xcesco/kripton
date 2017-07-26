@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.paginatedResult;
+package sqlite.feature.paginatedResult;
 
 import java.util.Date;
 
@@ -24,7 +24,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 @BindTable
-public class Err4Person {
+public class Err3Person {
 	public long id;
 
 	@BindColumn(columnType = ColumnType.INDEXED)

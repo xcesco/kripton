@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.paginatedResult;
+package sqlite.feature.paginatedResult;
 
 import java.util.Date;
 
@@ -24,7 +24,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 @BindTable
-public class Person {
+public class Err4Person {
 	public long id;
 
 	@BindColumn(columnType = ColumnType.INDEXED)
@@ -39,14 +39,26 @@ public class Person {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Person [id=");
 		builder.append(id);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", surname=");
-		builder.append(surname);
-		builder.append(", birthCity=");
-		builder.append(birthCity);
-		builder.append(", birthDay=");
-		builder.append(birthDay);
+		builder.append(", ");
+		if (name != null) {
+			builder.append("typeName=");
+			builder.append(name);
+			builder.append(", ");
+		}
+		if (surname != null) {
+			builder.append("surname=");
+			builder.append(surname);
+			builder.append(", ");
+		}
+		if (birthCity != null) {
+			builder.append("birthCity=");
+			builder.append(birthCity);
+			builder.append(", ");
+		}
+		if (birthDay != null) {
+			builder.append("birthDay=");
+			builder.append(birthDay);
+		}
 		builder.append("]");
 		return builder.toString();
 	}

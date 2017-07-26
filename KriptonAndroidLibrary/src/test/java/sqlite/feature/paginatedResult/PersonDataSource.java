@@ -13,20 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.paginatedResult;
+package sqlite.feature.paginatedResult;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import base.BaseProcessorTest;
+import sqlite.feature.paginatedResult.PersonDAO;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestPaginatedResult.class
-		 })
-//@formatter:on
-public class TestPaginatedResultSuite extends BaseProcessorTest {
+@BindDataSource(dao = { PersonDAO.class }, fileName = "person.db", generateLog=true)
+public interface PersonDataSource {
 
 }
