@@ -26,11 +26,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT typeName FROM person ORDER BY typeName</pre>
+   * <pre>SELECT type_name FROM person ORDER BY type_name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>type_name</dt><dd>no bean's property is associated</dd>
+   * 	<dt>type_name</dt><dd>is associated to bean's property <strong>typeName</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -58,7 +58,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -77,11 +77,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT birthDay FROM person ORDER BY typeName</pre>
+   * <pre>SELECT birth_day FROM person ORDER BY type_name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>birth_day</dt><dd>no bean's property is associated</dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -109,7 +109,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

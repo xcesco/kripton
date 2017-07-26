@@ -27,6 +27,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.common.One;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
@@ -40,6 +41,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
 import base.BaseProcessorTest;
 
@@ -100,11 +103,32 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 	@Test
 	public void testProjectColumn() {
+		//SQLEntity entity=new SQLEntity(elementUtils, model, element);
+		
 		String sql = "select count(*) as pippo ,fieldName1, composed.fieldName2 from table where id = ${bean.id}";
 		JQL jql=new JQL();
 		jql.value=sql;
 
-		JQLChecker.getInstance().extractProjections(jql);
+		JQLChecker.getInstance().extractProjections(jql, new Finder<SQLProperty>() {
+			
+			@Override
+			public String getSimpleName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public List<SQLProperty> getCollection() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public SQLProperty findByName(String name) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		} );
 	}
 
 	@Test
@@ -154,8 +178,28 @@ public class TestJqlChecker extends BaseProcessorTest {
 		// verify sql
 		checker.verify(jql);
 
+		Finder<SQLProperty> entityMock=new Finder<SQLProperty>() {
+			
+			@Override
+			public String getSimpleName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public List<SQLProperty> getCollection() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public SQLProperty findByName(String name) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
 		// check projections
-		Set<JQLProjection> projections = checker.extractProjections(jql);
+		Set<JQLProjection> projections = checker.extractProjections(jql, entityMock);
 		{
 			LinkedHashSet<JQLProjection> aspected = new LinkedHashSet<>();
 			aspected.add(JQLProjection.ProjectionBuilder.create().type(ProjectionType.COMPLEX).expression("count(*)")

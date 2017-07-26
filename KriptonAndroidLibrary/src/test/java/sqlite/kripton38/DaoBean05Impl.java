@@ -40,7 +40,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -87,7 +87,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -121,7 +121,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${bean.pk} and text=${bean.text}</pre>
+   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${bean.pk} and text=${bean.text}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -170,7 +170,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -204,7 +204,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -251,7 +251,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -295,7 +295,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>pk</dt><dd>no bean's property is associated</dd>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -333,7 +333,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -402,7 +402,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -421,16 +421,16 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>pk</dt><dd>no bean's property is associated</dd>
-   * 	<dt>number</dt><dd>no bean's property is associated</dd>
-   * 	<dt>bean_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>text</dt><dd>no bean's property is associated</dd>
-   * 	<dt>content</dt><dd>no bean's property is associated</dd>
-   * 	<dt>creation_time</dt><dd>no bean's property is associated</dd>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
+   * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
+   * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -469,7 +469,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -488,7 +488,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -536,7 +536,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -579,16 +579,16 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>pk</dt><dd>no bean's property is associated</dd>
-   * 	<dt>number</dt><dd>no bean's property is associated</dd>
-   * 	<dt>bean_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>text</dt><dd>no bean's property is associated</dd>
-   * 	<dt>content</dt><dd>no bean's property is associated</dd>
-   * 	<dt>creation_time</dt><dd>no bean's property is associated</dd>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
+   * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
+   * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -627,7 +627,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -646,7 +646,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, beanType, text, content, creationTime FROM bean05 WHERE pk=${id}</pre>
+   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM bean05 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -694,7 +694,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -736,10 +736,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean05 (text, content, creation_time) VALUES (${text}, ${content}, ${creationTime})</pre>
+   * <pre>INSERT INTO bean05 (number, bean_type, text, content, creation_time) VALUES (${number}, ${beanType}, ${text}, ${content}, ${creationTime})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
+   * 	<dt>number</dt><dd>is binded to query's parameter <strong>${number}</strong> and method's parameter <strong>number</strong></dd>
+   * 	<dt>bean_type</dt><dd>is binded to query's parameter <strong>${beanType}</strong> and method's parameter <strong>beanType</strong></dd>
    * 	<dt>text</dt><dd>is binded to query's parameter <strong>${text}</strong> and method's parameter <strong>text</strong></dd>
    * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is binded to query's parameter <strong>${creationTime}</strong> and method's parameter <strong>creationTime</strong></dd>
@@ -959,7 +961,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE bean05 SET number=:number, beanType=:bean_type, text=:text, content=:content, creationTime=:creation_time WHERE pk=? and text=? and creationTime=?");
+    Logger.info("UPDATE bean05 SET number=:bean.number, beanType=:bean.beanType, text=:bean.text, content=:bean.content, creationTime=:bean.creationTime WHERE pk=? and text=? and creationTime=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -976,7 +978,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean05", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -987,12 +989,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean05 SET content=${content}, text=${text} WHERE pk=${uid} and creation_time=${valido} and creation_time=${validoIn}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
-   * 	<dt>text</dt><dd>is binded to query's parameter <strong>${text}</strong> and method's parameter <strong>text</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1065,7 +1064,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean05", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1114,7 +1113,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean05", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1168,7 +1167,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean05", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1214,7 +1213,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean05", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1259,7 +1258,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean05", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1273,7 +1272,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>content</dt><dd>no bean's property is associated</dd>
+   * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -1311,7 +1310,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1324,53 +1323,6 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
         result=parser2(cursor.getBlob(0));
       }
       return result;
-    }
-  }
-
-  /**
-   * write
-   */
-  private byte[] serializer1(Long value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        jacksonSerializer.writeNumberField("element", value);
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private Long parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Long result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getLongValue();
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
 
@@ -1414,6 +1366,53 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       byte[] result=null;
       if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
         result=jacksonParser.getBinaryValue();
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer1(Long value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        jacksonSerializer.writeNumberField("element", value);
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private Long parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Long result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getLongValue();
       }
       return result;
     } catch(Exception e) {

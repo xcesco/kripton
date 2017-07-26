@@ -22,8 +22,6 @@ import shared.kripton45.Test45Suite;
 import shared.kripton46.Test46Compile;
 import shared.kripton47.Test47Suite;
 import shared.kripton50.TestKripton50;
-import sqlite.kripton62.Test62Compile;
-import sqlite.kripton63.Test63Compile;
 
 @RunWith(Suite.class)
 // @formatter:off
@@ -32,8 +30,6 @@ import sqlite.kripton63.Test63Compile;
 	Test46Compile.class,
 	Test47Suite.class, 
 	TestKripton50.class, 
-	Test62Compile.class, 
-	Test63Compile.class 
 	 })
 // @formatter:on
 public class SharedCompileTestSuite {

@@ -45,8 +45,9 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
 public class ModifyBeanHelper implements ModifyCodeGenerator {
-	
-	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
+
+	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode,
+			SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 
 		String beanNameParameter = method.getParameters().get(0).value0;
@@ -62,18 +63,22 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		List<SQLProperty> listUsedProperty;
 		if (updateMode) {
-			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method,
+					BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 
-			AssertKripton.assertTrueOrInvalidMethodSignException(listUsedProperty.size() > 0, method, "no column was selected for update");
+			AssertKripton.assertTrueOrInvalidMethodSignException(listUsedProperty.size() > 0, method,
+					"no column was selected for update");
 
-			CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+			CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlUpdate.class,
+					methodBuilder, analyzer.getUsedBeanPropertyNames());
 		} else {
-			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlDelete.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+			listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(elementUtils, daoDefinition, method,
+					BindSqlDelete.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 		}
 		// build javadoc
-		buildJavadoc(methodBuilder, updateMode, method, beanNameParameter, whereCondition, listUsedProperty, analyzer.getUsedBeanPropertyNames());
-		
-		
+		buildJavadoc(methodBuilder, updateMode, method, beanNameParameter, whereCondition, listUsedProperty,
+				analyzer.getUsedBeanPropertyNames());
+
 		// build where condition
 		generateWhereCondition(methodBuilder, method, analyzer);
 		methodBuilder.addCode("\n");
@@ -93,43 +98,50 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	 * @param analyzer
 	 * @param sqlModify
 	 */
-	static void generateModifyQueryCommonPart(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {		
-		boolean updateMode=(method.jql.operationType==JQLType.UPDATE);
-		
-		SQLDaoDefinition daoDefinition=method.getParent();
-		String tableName=daoDefinition.getEntity().getTableName();			
-		
+	static void generateModifyQueryCommonPart(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		boolean updateMode = (method.jql.operationType == JQLType.UPDATE);
+
+		SQLDaoDefinition daoDefinition = method.getParent();
+		String tableName = daoDefinition.getEntity().getTableName();
+
 		// query builder
 		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
-		
-		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder,method.dynamicWhereParameterName, method.dynamicWhereArgsParameterName);
-		
-		
+
+		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, method.dynamicWhereParameterName,
+				method.dynamicWhereArgsParameterName);
+
 		// generate where condition
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, true);
 
 		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
 
 		SqlModifyBuilder.generateLogForModifiers(method, methodBuilder);
-		
-		if (method.jql.operationType==JQLType.UPDATE) {
+
+		if (method.jql.operationType == JQLType.UPDATE) {
 			// generate log for content values
 			SqlBuilderHelper.generateLogForContentValues(method, methodBuilder);
 		}
-		
+
 		// log for where parames
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
-				
-		if (updateMode) {			
-			if (method.jql.conflictAlgorithmType==ConflictAlgorithmType.NONE) {
-				methodBuilder.addStatement("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));", tableName);
+
+		if (updateMode) {
+			if (method.jql.conflictAlgorithmType == ConflictAlgorithmType.NONE) {
+				methodBuilder.addStatement(
+						"int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));",
+						tableName);
 			} else {
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),$L);", tableName, method.jql.conflictAlgorithmType.getConflictAlgorithm());
+				methodBuilder.addStatement(
+						"int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),$L);",
+						tableName, method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}
-		} else {			
-			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));", tableName);
+		} else {
+			methodBuilder.addStatement(
+					"int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));",
+					tableName);
 		}
+
 	}
 
 	/**
@@ -137,7 +149,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	 * @param method
 	 * @param analyzer
 	 */
-	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, SqlAnalyzer analyzer) {
+	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method,
+			SqlAnalyzer analyzer) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -147,7 +160,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		TypeName beanClass = typeName(entity.getElement());
 
 		methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<String>()", ArrayList.class, ArrayList.class);
-		
+
 		for (String item : analyzer.getUsedBeanPropertyNames()) {
 			property = entity.findByName(item);
 			methodBuilder.addCode("_sqlWhereParams.add(");
@@ -167,10 +180,10 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			if (nullable) {
 				methodBuilder.addCode(")");
 			}
-			
+
 			methodBuilder.addCode(");\n");
-			
-		}		
+
+		}
 	}
 
 	/**
@@ -179,19 +192,23 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	 * @param method
 	 * @param returnType
 	 */
-	public void buildReturnCode(MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
+	public void buildReturnCode(MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method,
+			TypeName returnType) {
 		if (returnType == TypeName.VOID) {
 
 		} else if (isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
 			methodBuilder.addJavadoc("\n");
 			if (updateMode)
-				methodBuilder.addJavadoc("@return <code>true</code> if record is updated, <code>false</code> otherwise");
+				methodBuilder
+						.addJavadoc("@return <code>true</code> if record is updated, <code>false</code> otherwise");
 			else
-				methodBuilder.addJavadoc("@return <code>true</code> if record is deleted, <code>false</code> otherwise");
+				methodBuilder
+						.addJavadoc("@return <code>true</code> if record is deleted, <code>false</code> otherwise");
 			methodBuilder.addJavadoc("\n");
 
 			methodBuilder.addCode("return result!=0;\n");
-		} else if (isTypeIncludedIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
+		} else if (isTypeIncludedIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE,
+				Short.class)) {
 			methodBuilder.addJavadoc("\n");
 			if (updateMode) {
 				methodBuilder.addJavadoc("@return number of updated records");
@@ -216,10 +233,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	 * @param listUsedProperty
 	 * @param attributesUsedInWhereConditions
 	 */
-	public String buildJavadoc(MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, String beanNameParameter, String whereCondition, List<SQLProperty> listUsedProperty,
+	public String buildJavadoc(MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method,
+			String beanNameParameter, String whereCondition, List<SQLProperty> listUsedProperty,
 			List<String> attributesUsedInWhereConditions) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		//SQLEntity entity = daoDefinition.getEntity();
+		// SQLEntity entity = daoDefinition.getEntity();
 
 		// in this case, only one parameter can exists for method
 		Pair<String, TypeName> beanParameter = method.getParameters().get(0);
@@ -232,7 +250,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		String separator = "";
 		for (SQLProperty property : listUsedProperty) {
-			buffer.append(String.format("%s%s=${%s.%s}", separator, property.columnName, method.findParameterAliasByName(beanNameParameter), property.getName()));
+			buffer.append(String.format("%s%s=${%s.%s}", separator, property.columnName,
+					method.findParameterAliasByName(beanNameParameter), property.getName()));
 
 			bufferQuestion.append(separator);
 			bufferQuestion.append(property.columnName + "=");
@@ -243,12 +262,14 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		if (updateMode) {
 			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "'%s'");
-			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(), bufferQuestion.toString(), where);			
+			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(),
+					bufferQuestion.toString(), where);
 
 			// query
 			methodBuilder.addJavadoc("<h2>SQL update:</h2>\n");
 			methodBuilder.addJavadoc("<pre>");
-			methodBuilder.addJavadoc("UPDATE $L SET $L WHERE $L", daoDefinition.getEntity().getTableName(), buffer.toString(), whereCondition);
+			methodBuilder.addJavadoc("UPDATE $L SET $L WHERE $L", daoDefinition.getEntity().getTableName(),
+					buffer.toString(), whereCondition);
 			if (method.hasDynamicWhereConditions()) {
 				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
 				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
@@ -261,7 +282,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
 				String resolvedName = method.findParameterAliasByName(beanParameter.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is mapped to <strong>$L</strong></dd>\n", property.columnName, "${" + resolvedName + "." + property.getName() + "}");
+				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is mapped to <strong>$L</strong></dd>\n",
+						property.columnName, "${" + resolvedName + "." + property.getName() + "}");
 			}
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");
@@ -285,8 +307,10 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<h2>Parameters used in where conditions:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (String attribute : attributesUsedInWhereConditions) {
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", "${" + method.findParameterAliasByName(beanParameter.value0) + "." + method.findParameterAliasByName(attribute) + "}");
-				methodBuilder.addJavadoc("<dd>is mapped to method's parameter <strong>$L.$L</strong></dd>\n", beanParameter.value0, attribute);
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", "${" + method.findParameterAliasByName(beanParameter.value0)
+						+ "." + method.findParameterAliasByName(attribute) + "}");
+				methodBuilder.addJavadoc("<dd>is mapped to method's parameter <strong>$L.$L</strong></dd>\n",
+						beanParameter.value0, attribute);
 			}
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");
@@ -297,7 +321,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<h2>Method's parameters and associated dynamic parts:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
+				methodBuilder.addJavadoc(
+						"<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>",
+						method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
 
 			methodBuilder.addJavadoc("\n</dl>");
@@ -313,7 +339,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			if (method.isThisDynamicWhereConditionsName(param.value0)) {
 				methodBuilder.addJavadoc("\n\tis used as dynamic where conditions\n");
 			} else {
-				methodBuilder.addJavadoc("\n\tis used as $L\n", "${" + method.findParameterAliasByName(param.value0) + "}");
+				methodBuilder.addJavadoc("\n\tis used as $L\n",
+						"${" + method.findParameterAliasByName(param.value0) + "}");
 			}
 		}
 

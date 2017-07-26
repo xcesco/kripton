@@ -216,7 +216,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			}
 
 		});
-
+		
+		
 		// check if we have jql annotation attribute
 		String preparedJql = getJQLDeclared();
 

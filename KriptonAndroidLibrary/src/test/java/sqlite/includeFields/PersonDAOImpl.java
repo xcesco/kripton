@@ -28,12 +28,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT name, id FROM person WHERE typeName=${bean.name} ORDER BY name</pre>
+   * <pre>SELECT name, id FROM person WHERE type_name=${bean.name} ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -76,7 +76,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -87,15 +87,15 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
+        int index0=cursor.getColumnIndex("name");
+        int index1=cursor.getColumnIndex("id");
 
         do
          {
           resultBean=new Person();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+          if (!cursor.isNull(index0)) { resultBean.name=cursor.getString(index0); }
+          resultBean.id=cursor.getLong(index1);
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -108,7 +108,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT surname, birthCity, birthDay, typeName FROM person ORDER BY name</pre>
+   * <pre>SELECT surname, birth_city, birth_day, type_name FROM person ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -143,7 +143,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -339,7 +339,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE person SET name=:name, id=:id");
+    Logger.info("UPDATE person SET name=:bean.name, id=:bean.id");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -356,7 +356,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -415,7 +415,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE person SET surname=:surname, birthCity=:birth_city, birthDay=:birth_day, typeName=:type_name");
+    Logger.info("UPDATE person SET surname=:bean.surname, birthCity=:bean.birthCity, birthDay=:bean.birthDay, typeName=:bean.typeName");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -432,7 +432,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -468,7 +468,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -504,7 +504,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;

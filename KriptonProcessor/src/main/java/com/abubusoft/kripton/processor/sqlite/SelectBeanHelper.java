@@ -21,9 +21,11 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -41,11 +43,11 @@ import com.squareup.javapoet.TypeName;
 public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 
 	@Override
-	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder,  PropertyList fieldList, boolean mapFields) {
+	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder,  Set<JQLProjection> fieldList, boolean mapFields) {
 		SQLDaoDefinition daoDefinition=method.getParent();
 		SQLEntity entity=daoDefinition.getEntity();
 		
-		List<SQLProperty> fields = fieldList.value1;
+		//List<SQLProperty> fields = fieldList.value1;
 
 		//TypeName collectionClass;
 		TypeName entityClass = typeName(entity.getElement());
@@ -60,7 +62,8 @@ public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 		methodBuilder.addCode("\n");
 		{
 			int i = 0;
-			for (SQLProperty item : fields) {
+			for (JQLProjection a : fieldList) {
+				SQLProperty item=a.property;
 				methodBuilder.addCode("int index" + (i++) + "=");
 				methodBuilder.addCode("cursor.getColumnIndex($S)", item.columnName);
 				methodBuilder.addCode(";\n");
@@ -72,8 +75,8 @@ public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 
 		// generate mapping
 		int i = 0;
-		for (SQLProperty item : fields) {
-			
+		for (JQLProjection a : fieldList) {
+			SQLProperty item=a.property;
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 			}

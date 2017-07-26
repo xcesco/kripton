@@ -23,10 +23,11 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 
-public class SQLEntity extends ModelClass<SQLProperty> {
+public class SQLEntity extends ModelClass<SQLProperty> implements Finder<SQLProperty> {
 
 	private String tableName;
 

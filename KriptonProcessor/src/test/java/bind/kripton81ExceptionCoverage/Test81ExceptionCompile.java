@@ -29,6 +29,7 @@ import com.abubusoft.kripton.processor.exceptions.NoDaoElementsFound;
 import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
+import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
@@ -185,7 +186,7 @@ public class Test81ExceptionCompile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * PropertyNotFoundException in select(value)
+	 * UnknownPropertyInJQLException in select(value)
 	 * 
 	 * @throws IOException
 	 * @throws InstantiationException
@@ -193,12 +194,12 @@ public class Test81ExceptionCompile extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testErr11() throws IOException, InstantiationException, IllegalAccessException {
-		this.expectedException(PropertyInAnnotationNotFoundException.class);
+		this.expectedException(UnknownPropertyInJQLException.class);
 		buildDataSourceProcessorTest(Error11Dao.class, Error11Bean.class, Error11DataSource.class);
 	}
 
 	/**
-	 * PropertyNotFoundException in select(excludedFields)
+	 * UnknownPropertyInJQLException: in select(excludedFields)
 	 * 
 	 * @throws IOException
 	 * @throws InstantiationException
@@ -206,7 +207,7 @@ public class Test81ExceptionCompile extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testErr16() throws IOException, InstantiationException, IllegalAccessException {
-		this.expectedException(PropertyInAnnotationNotFoundException.class);
+		this.expectedException(UnknownPropertyInJQLException.class);
 		buildDataSourceProcessorTest(Error16Dao.class, Error16Bean.class, Error16DataSource.class);
 	}
 

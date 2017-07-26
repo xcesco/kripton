@@ -29,7 +29,7 @@ public class IncompatibleAttributesInAnnotationException extends KriptonProcesso
 	
 	public IncompatibleAttributesInAnnotationException(SQLDaoDefinition daoDefinition, ModelMethod method, ModelAnnotation annotation, AnnotationAttributeType attribute1, AnnotationAttributeType attribute2)
 	{
-		super("In class '"+daoDefinition.getElement().getQualifiedName().toString()+"' method '"+method.getName()+"' has annotation @"+annotation.getName()+" with incompatible attributes '"+attribute1.getValue()+ "' and '"+attribute2.getValue()+"'. Remove one of those.");
+		super("In class '"+daoDefinition.getElement().getQualifiedName().toString()+"' method '"+method.getName()+"' has annotation @"+annotation.getSimpleName()+" with incompatible attributes '"+attribute1.getValue()+ "' and '"+attribute2.getValue()+"'. Remove one of those.");
 	}
 	
 	private static final long serialVersionUID = -8862365033337349246L;

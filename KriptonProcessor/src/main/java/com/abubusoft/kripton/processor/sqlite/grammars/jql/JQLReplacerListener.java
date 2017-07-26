@@ -44,6 +44,15 @@ public interface JQLReplacerListener {
 	 */
 	String onColumnName(String columnName);
 	
+	/**
+	 * If event return null, replacement will no executed.
+	 * 
+	 * @param statement
+	 * @return
+	 * 		<code>null</code> to avoid replacement.
+	 */
+	String onColumnNameToUpdate(String columnName);
+	
 	void onWhereStatementBegin(Where_stmtContext ctx);
 
 	void onWhereStatementEnd(Where_stmtContext ctx);

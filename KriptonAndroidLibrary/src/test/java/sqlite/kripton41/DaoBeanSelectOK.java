@@ -21,7 +21,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 @BindDao(Bean01.class)
 public interface DaoBeanSelectOK  {
 	
-	@BindSqlSelect(fields="count(*)>1", where="id=${id} and value=${value}")
+	@BindSqlSelect(fields="count(*)", where="id=${id} and value=${value}")
 	Boolean selectDistance(long id, double value);
 	
 	/*

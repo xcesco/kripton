@@ -29,10 +29,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
+   * <pre>INSERT INTO person (type_name, name_temp, date, name, surname, birth_city, birth_day) VALUES (${typeName}, ${nameTemp}, ${date}, ${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
+   * 	<dt>type_name</dt><dd>is binded to query's parameter <strong>${typeName}</strong> and method's parameter <strong>typeName</strong></dd>
+   * 	<dt>name_temp</dt><dd>is binded to query's parameter <strong>${nameTemp}</strong> and method's parameter <strong>nameTemp</strong></dd>
+   * 	<dt>date</dt><dd>is binded to query's parameter <strong>${date}</strong> and method's parameter <strong>date</strong></dd>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>birthCity</strong></dd>
@@ -108,7 +111,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, typeName, nameTemp, date, name, surname, birthCity, birthDay FROM person ORDER BY typeName</pre>
+   * <pre>SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person ORDER BY type_name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -147,7 +150,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -191,7 +194,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT nameTemp, date FROM person WHERE typeName like ${nameTemp} || '%' and birthDay < ${date} AND #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person WHERE type_name like ${nameTemp} || '%' and birth_day < ${date} AND #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -229,7 +232,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectOne(String nameValue, String where, String orderBy, Date date) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT name_temp, date FROM person  ");
+    _sqlBuilder.append("SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person  ");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -260,7 +263,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -304,7 +307,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, typeName, nameTemp, date, name, surname, birthCity, birthDay FROM person ORDER BY typeName,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person ORDER BY type_name,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -351,7 +354,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

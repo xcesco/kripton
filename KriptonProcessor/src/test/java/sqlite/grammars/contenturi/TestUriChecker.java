@@ -28,12 +28,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.android.sqlite.ContentProviderURIParamsExtractor;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
 import base.BaseProcessorTest;
 
@@ -189,8 +191,33 @@ public class TestUriChecker extends BaseProcessorTest {
 		String sql = "select count(*) as pippo ,fieldName1, composed.fieldName2 from table where id = ${bean.id}";
 		JQL jql = new JQL();
 		jql.value = sql;
+		
+		
+		
+		Finder<SQLProperty> finder=new Finder<SQLProperty>() {
+			
+			
+			@Override
+			public SQLProperty findByName(String name) {
+				SQLProperty properties=new SQLProperty(null, null);
+				properties.columnName=name;
+				return properties;
+			}
 
-		JQLChecker.getInstance().extractProjections(jql);
+			@Override
+			public List<SQLProperty> getCollection() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getSimpleName() {
+				return "table";
+			}
+			
+		};
+
+		JQLChecker.getInstance().extractProjections(jql, finder);
 	}
 
 	@Test

@@ -15,11 +15,14 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+
 public class JQLProjection  {
 
 	public enum ProjectionType {
 		COMPLEX,
-		COLUMN
+		COLUMN,
+		STAR
 	}
 	
 	public static class ProjectionBuilder {
@@ -33,6 +36,8 @@ public class JQLProjection  {
 		String table;
 		
 		String expression;
+		
+		SQLProperty property;
 		
 		public static ProjectionBuilder create() {
 			return new ProjectionBuilder();
@@ -64,54 +69,30 @@ public class JQLProjection  {
 			return this;			
 		}
 		
+		public ProjectionBuilder property(SQLProperty property) {
+			this.property=property;	
+			return this;			
+		}
+		
 		public JQLProjection build()
 		{
-			return new JQLProjection(type, table, column, alias, expression);
+			return new JQLProjection(type, table, column, alias, expression, property);
 		}
 
 		
 	}
+
+	public SQLProperty property;
 	
-	public JQLProjection(ProjectionType type,  String table, String column, String alias, String expression) {
+	public JQLProjection(ProjectionType type,  String table, String column, String alias, String expression, SQLProperty property) {
 		this.type=type;
 		this.table=table;
 		this.column=column;
 		this.alias=alias;
 		this.expression=expression;
+		this.property=property;
 	}
 	
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Projection [");
-		if (type != null) {
-			builder.append("type=");
-			builder.append(type);
-			builder.append(", ");
-		}
-		if (alias != null) {
-			builder.append("alias=");
-			builder.append(alias);
-			builder.append(", ");
-		}
-		if (column != null) {
-			builder.append("column=");
-			builder.append(column);
-			builder.append(", ");
-		}
-		if (table != null) {
-			builder.append("table=");
-			builder.append(table);
-			builder.append(", ");
-		}
-		if (expression != null) {
-			builder.append("expression=");
-			builder.append(expression);
-		}
-		builder.append("]");
-		return builder.toString();
-	}
-
 	public ProjectionType type;
 	
 	public String alias;
@@ -125,6 +106,7 @@ public class JQLProjection  {
 		result = prime * result + ((alias == null) ? 0 : alias.hashCode());
 		result = prime * result + ((column == null) ? 0 : column.hashCode());
 		result = prime * result + ((expression == null) ? 0 : expression.hashCode());
+		result = prime * result + ((property == null) ? 0 : property.hashCode());
 		result = prime * result + ((table == null) ? 0 : table.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
@@ -153,6 +135,11 @@ public class JQLProjection  {
 			if (other.expression != null)
 				return false;
 		} else if (!expression.equals(other.expression))
+			return false;
+		if (property == null) {
+			if (other.property != null)
+				return false;
+		} else if (!property.equals(other.property))
 			return false;
 		if (table == null) {
 			if (other.table != null)

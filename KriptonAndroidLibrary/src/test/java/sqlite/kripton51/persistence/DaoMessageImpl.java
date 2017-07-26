@@ -30,7 +30,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, channelId, ownerType, uid, faceUid, text, ownerUid, channelUid, updateTime, type FROM message_entity WHERE channelId = ${channelId}</pre>
+   * <pre>SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message_entity WHERE channel_id = ${channelId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -81,7 +81,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -221,7 +221,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE message_entity SET channelId=:channel_id, ownerType=:owner_type, uid=:uid, faceUid=:face_uid, text=:text, ownerUid=:owner_uid, channelUid=:channel_uid, updateTime=:update_time, type=:type WHERE id = ?");
+    Logger.info("UPDATE message_entity SET channelId=:bean.channelId, ownerType=:bean.ownerType, uid=:bean.uid, faceUid=:bean.faceUid, text=:bean.text, ownerUid=:bean.ownerUid, channelUid=:bean.channelUid, updateTime=:bean.updateTime, type=:bean.type WHERE id = ?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -238,7 +238,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("message_entity", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -351,7 +351,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, channelId, ownerType, uid, faceUid, text, ownerUid, channelUid, updateTime, type FROM message_entity WHERE uid = ${uid}</pre>
+   * <pre>SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message_entity WHERE uid = ${uid}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -402,7 +402,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

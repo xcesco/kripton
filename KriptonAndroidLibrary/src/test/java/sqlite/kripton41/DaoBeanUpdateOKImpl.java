@@ -25,12 +25,9 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
    * <h2>SQL update</h2>
    * <pre>UPDATE bean01 SET id=${id}, value=${value} WHERE id=${test}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -91,7 +88,7 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean01", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;

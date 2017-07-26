@@ -99,7 +99,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -145,7 +145,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -191,7 +191,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -237,7 +237,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -283,7 +283,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -329,7 +329,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -375,7 +375,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -421,7 +421,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -467,7 +467,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -513,7 +513,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -559,7 +559,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -605,7 +605,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -651,7 +651,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -697,7 +697,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -743,7 +743,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -789,7 +789,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -835,7 +835,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -881,7 +881,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -927,7 +927,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -973,7 +973,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1019,7 +1019,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1065,7 +1065,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1111,7 +1111,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1157,7 +1157,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1203,7 +1203,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1249,7 +1249,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1295,7 +1295,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1341,7 +1341,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1387,7 +1387,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1433,7 +1433,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1479,7 +1479,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -4646,7 +4646,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -4729,7 +4729,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -4841,7 +4841,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -4909,7 +4909,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -5015,7 +5015,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueBigDecimal=${valueBigDecimal}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal=${valueBigDecimal}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5098,7 +5098,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -5204,7 +5204,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueBigDecimal=${valueBigDecimal}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal=${valueBigDecimal}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5287,7 +5287,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -5393,7 +5393,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueBoolType=${valueBoolType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool_type=${valueBoolType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5476,7 +5476,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -5582,7 +5582,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueBool=${valueBool}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool=${valueBool}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5665,7 +5665,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -5771,7 +5771,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5855,7 +5855,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6006,52 +6006,52 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_bool</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_byte_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_byte</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_short_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_short</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_int_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_int</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_string</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_char_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_char</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_float_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_float</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_big_integer</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_big_decimal</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_enum_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_long_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_long</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_double_type</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_double</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_locale</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_calendar</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_date</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_url</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_time</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_currency</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_time_zone</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_time_list</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_strin_list</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_long_list</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_byte_array</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_long_type_array</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_long_array</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_bean_array</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_string_array</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_char_list</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_char_type_array</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_char_array</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_map_string_bean</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_set_string</dt><dd>no bean's property is associated</dd>
-   * 	<dt>id</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -6090,7 +6090,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6109,7 +6109,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueBeanArray=${valueBeanArray}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bean_array=${valueBeanArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6192,7 +6192,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6298,7 +6298,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueLongArray=${valueLongArray}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_array=${valueLongArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6381,7 +6381,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6487,7 +6487,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueLongTypeArray=${valueLongTypeArray}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type_array=${valueLongTypeArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6570,7 +6570,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6676,7 +6676,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueByte=${valueByte}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte=${valueByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6759,7 +6759,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6865,7 +6865,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueByteType=${valueByteType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte_type=${valueByteType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6948,7 +6948,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7054,7 +7054,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueCalendar=${valueCalendar}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_calendar=${valueCalendar}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7137,7 +7137,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7243,7 +7243,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueCharType=${valueChar}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type=${valueChar}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7326,7 +7326,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7432,7 +7432,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueCharType=${valueCharType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type=${valueCharType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7515,7 +7515,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7621,7 +7621,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueCurrency=${valueCurrency}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_currency=${valueCurrency}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7704,7 +7704,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7810,7 +7810,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueDate=${valueDate}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_date=${valueDate}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7893,7 +7893,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7999,7 +7999,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueDouble=${valueDouble}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double=${valueDouble}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8082,7 +8082,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8188,7 +8188,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueDoubleType=${valueDoubleType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double_type=${valueDoubleType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8271,7 +8271,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8377,7 +8377,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueEnumType=${valueEnumType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_enum_type=${valueEnumType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8460,7 +8460,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8566,7 +8566,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueFloat=${valueFloat}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float=${valueFloat}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8649,7 +8649,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8755,7 +8755,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueFloatType=${valueFloatType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float_type=${valueFloatType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8838,7 +8838,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8944,7 +8944,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueInt=${valueInt}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int=${valueInt}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9027,7 +9027,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -9133,7 +9133,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueIntType=${valueIntType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int_type=${valueIntType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9216,7 +9216,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -9322,7 +9322,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueLongList=${valueLongList}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_list=${valueLongList}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9405,7 +9405,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -9511,7 +9511,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueLocale=${valueLocale}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_locale=${valueLocale}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9594,7 +9594,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -9700,7 +9700,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueLong=${valueLong}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long=${valueLong}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9783,7 +9783,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -9889,7 +9889,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueLongType=${valueLongType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type=${valueLongType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9972,7 +9972,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -10078,7 +10078,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueShort=${valueShort}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short=${valueShort}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10161,7 +10161,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -10267,7 +10267,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueShortType=${valueShortType}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short_type=${valueShortType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10350,7 +10350,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -10456,7 +10456,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueString=${valueString}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_string=${valueString}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10539,7 +10539,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -10645,7 +10645,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueTime=${valueTime}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time=${valueTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10728,7 +10728,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -10834,7 +10834,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueTimeZone=${valueTimeZone}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time_zone=${valueTimeZone}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10917,7 +10917,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11023,7 +11023,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType, valueBool, valueByteType, valueByte, valueShortType, valueShort, valueIntType, valueInt, valueString, valueCharType, valueChar, valueFloatType, valueFloat, valueBigInteger, valueBigDecimal, valueEnumType, valueLongType, valueLong, valueDoubleType, valueDouble, valueLocale, valueCalendar, valueDate, valueUrl, valueTime, valueCurrency, valueTimeZone, valueTimeList, valueStrinList, valueLongList, valueByteArray, valueLongTypeArray, valueLongArray, valueBeanArray, valueStringArray, valueCharList, valueCharTypeArray, valueCharArray, valueMapStringBean, valueLinkedMapStringBean, valueSetString, id FROM bean WHERE valueUrl=${valueUrl}</pre>
+   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_url=${valueUrl}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11106,7 +11106,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11212,11 +11212,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBool FROM bean</pre>
+   * <pre>SELECT value_bool FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11239,7 +11239,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11258,11 +11258,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueBoolType FROM bean</pre>
+   * <pre>SELECT value_bool_type FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11285,7 +11285,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11304,11 +11304,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueByte FROM bean</pre>
+   * <pre>SELECT value_byte FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_byte</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11331,7 +11331,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11350,11 +11350,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueByteType FROM bean</pre>
+   * <pre>SELECT value_byte_type FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_byte_type</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11377,7 +11377,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11396,11 +11396,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueChar FROM bean</pre>
+   * <pre>SELECT value_char FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_char</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11423,7 +11423,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11442,11 +11442,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueCharType FROM bean</pre>
+   * <pre>SELECT value_char_type FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_char_type</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11469,7 +11469,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11488,11 +11488,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueDouble FROM bean</pre>
+   * <pre>SELECT value_double FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_double</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11515,7 +11515,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11534,11 +11534,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueDoubleType FROM bean</pre>
+   * <pre>SELECT value_double_type FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_double_type</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11561,7 +11561,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11580,11 +11580,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueFloat FROM bean</pre>
+   * <pre>SELECT value_float FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_float</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11607,7 +11607,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11626,11 +11626,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueFloatType FROM bean</pre>
+   * <pre>SELECT value_float_type FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_float_type</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11653,7 +11653,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11672,11 +11672,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueInt FROM bean</pre>
+   * <pre>SELECT value_int FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_int</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11699,7 +11699,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11718,11 +11718,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueIntType FROM bean</pre>
+   * <pre>SELECT value_int_type FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_int_type</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11745,7 +11745,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11764,11 +11764,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueLong FROM bean</pre>
+   * <pre>SELECT value_long FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_long</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11791,7 +11791,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11810,11 +11810,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueLongType FROM bean</pre>
+   * <pre>SELECT value_long_type FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_long_type</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11837,7 +11837,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11856,11 +11856,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueShort FROM bean</pre>
+   * <pre>SELECT value_short FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_short</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11883,7 +11883,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11902,11 +11902,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueShortType FROM bean</pre>
+   * <pre>SELECT value_short_type FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_short_type</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11929,7 +11929,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11948,11 +11948,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueString FROM bean</pre>
+   * <pre>SELECT value_string FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_string</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
    * </dl>
    *
    * @return single value extracted by query.
@@ -11975,7 +11975,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -12286,7 +12286,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE bean SET valueBoolType=:value_bool_type, valueBool=:value_bool, valueByteType=:value_byte_type, valueByte=:value_byte, valueShortType=:value_short_type, valueShort=:value_short, valueIntType=:value_int_type, valueInt=:value_int, valueString=:value_string, valueCharType=:value_char_type, valueChar=:value_char, valueFloatType=:value_float_type, valueFloat=:value_float, valueBigInteger=:value_big_integer, valueBigDecimal=:value_big_decimal, valueEnumType=:value_enum_type, valueLongType=:value_long_type, valueLong=:value_long, valueDoubleType=:value_double_type, valueDouble=:value_double, valueLocale=:value_locale, valueCalendar=:value_calendar, valueDate=:value_date, valueUrl=:value_url, valueTime=:value_time, valueCurrency=:value_currency, valueTimeZone=:value_time_zone, valueTimeList=:value_time_list, valueStrinList=:value_strin_list, valueLongList=:value_long_list, valueByteArray=:value_byte_array, valueLongTypeArray=:value_long_type_array, valueLongArray=:value_long_array, valueBeanArray=:value_bean_array, valueStringArray=:value_string_array, valueCharList=:value_char_list, valueCharTypeArray=:value_char_type_array, valueCharArray=:value_char_array, valueMapStringBean=:value_map_string_bean, valueLinkedMapStringBean=:value_linked_map_string_bean, valueSetString=:value_set_string WHERE id=?");
+    Logger.info("UPDATE bean SET valueBoolType=:value.valueBoolType, valueBool=:value.valueBool, valueByteType=:value.valueByteType, valueByte=:value.valueByte, valueShortType=:value.valueShortType, valueShort=:value.valueShort, valueIntType=:value.valueIntType, valueInt=:value.valueInt, valueString=:value.valueString, valueCharType=:value.valueCharType, valueChar=:value.valueChar, valueFloatType=:value.valueFloatType, valueFloat=:value.valueFloat, valueBigInteger=:value.valueBigInteger, valueBigDecimal=:value.valueBigDecimal, valueEnumType=:value.valueEnumType, valueLongType=:value.valueLongType, valueLong=:value.valueLong, valueDoubleType=:value.valueDoubleType, valueDouble=:value.valueDouble, valueLocale=:value.valueLocale, valueCalendar=:value.valueCalendar, valueDate=:value.valueDate, valueUrl=:value.valueUrl, valueTime=:value.valueTime, valueCurrency=:value.valueCurrency, valueTimeZone=:value.valueTimeZone, valueTimeList=:value.valueTimeList, valueStrinList=:value.valueStrinList, valueLongList=:value.valueLongList, valueByteArray=:value.valueByteArray, valueLongTypeArray=:value.valueLongTypeArray, valueLongArray=:value.valueLongArray, valueBeanArray=:value.valueBeanArray, valueStringArray=:value.valueStringArray, valueCharList=:value.valueCharList, valueCharTypeArray=:value.valueCharTypeArray, valueCharArray=:value.valueCharArray, valueMapStringBean=:value.valueMapStringBean, valueLinkedMapStringBean=:value.valueLinkedMapStringBean, valueSetString=:value.valueSetString WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12303,7 +12303,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12314,11 +12314,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_big_decimal=${valueBigDecimal}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -12372,7 +12370,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12383,11 +12381,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_big_decimal=${valueBigDecimal}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -12441,7 +12437,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12452,11 +12448,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_bool_type=${valueBoolType}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -12510,7 +12504,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12521,11 +12515,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_bool=${valueBool}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -12579,7 +12571,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12588,13 +12580,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET value_set_string=${valueSetString} WHERE id=${id}</pre>
+   * <pre>UPDATE bean SET valueSetString=${valueSetString} WHERE id=${id}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -12635,7 +12625,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE bean SET valueSetString=:value_set_string WHERE id=?");
+    Logger.info("UPDATE bean SET valueSetString=:valueSetString WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12652,7 +12642,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12663,11 +12653,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_bean_array=${valueBeanArray}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -12721,7 +12709,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12732,11 +12720,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_long_array=${valueLongArray}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -12790,7 +12776,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12801,11 +12787,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_long_type_array=${valueLongTypeArray}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -12859,7 +12843,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12870,11 +12854,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_byte=${valueByte}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -12928,7 +12910,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12939,11 +12921,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_byte_type=${valueByteType}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -12997,7 +12977,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13008,11 +12988,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_calendar=${valueCalendar}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13066,7 +13044,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13077,11 +13055,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_char_type=${valueChar}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13135,7 +13111,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13146,11 +13122,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_char_type=${valueCharType}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13204,7 +13178,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13215,11 +13189,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_currency=${valueCurrency}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13273,7 +13245,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13284,11 +13256,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_date=${valueDate}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13342,7 +13312,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13353,11 +13323,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_double=${valueDouble}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13411,7 +13379,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13422,11 +13390,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_double_type=${valueDoubleType}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13480,7 +13446,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13491,11 +13457,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_enum_type=${valueEnumType}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13549,7 +13513,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13560,11 +13524,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_float=${valueFloat}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13618,7 +13580,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13629,11 +13591,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_float_type=${valueFloatType}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13687,7 +13647,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13698,11 +13658,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_int=${valueInt}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13756,7 +13714,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13767,11 +13725,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_int_type=${valueIntType}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13825,7 +13781,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13836,11 +13792,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_long_list=${valueLongList}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13894,7 +13848,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13905,11 +13859,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_locale=${valueLocale}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -13963,7 +13915,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13974,11 +13926,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_long=${valueLong}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -14032,7 +13982,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14043,11 +13993,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_long_type=${valueLongType}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -14101,7 +14049,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14112,11 +14060,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_short=${valueShort}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -14170,7 +14116,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14181,11 +14127,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_short_type=${valueShortType}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -14239,7 +14183,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14250,11 +14194,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_string=${valueString}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -14308,7 +14250,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14319,11 +14261,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_time=${valueTime}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -14377,7 +14317,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14388,11 +14328,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_time_zone=${valueTimeZone}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -14446,7 +14384,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14457,11 +14395,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=${id} WHERE value_url=${valueUrl}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -14515,7 +14451,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14665,73 +14601,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  private byte[] serializer5(Set<String> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (String item: value) {
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeString(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private Set<String> parser5(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Set<String> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getText();
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
   private byte[] serializer4(LinkedList<Long> value) {
     if (value==null) {
       return null;
@@ -14858,6 +14727,73 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           collection.add(item);
         }
         result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer5(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private Set<String> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
       }
       return result;
     } catch(Exception e) {

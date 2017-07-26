@@ -96,7 +96,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT userId, id, title, body FROM post WHERE userId = ${value}</pre>
+   * <pre>SELECT user_id, id, title, body FROM post WHERE user_id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -141,7 +141,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -177,7 +177,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT userId, id, title, body FROM post WHERE id = ${value}</pre>
+   * <pre>SELECT user_id, id, title, body FROM post WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -222,7 +222,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

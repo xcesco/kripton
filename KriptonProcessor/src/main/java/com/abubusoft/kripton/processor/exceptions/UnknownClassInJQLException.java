@@ -21,8 +21,8 @@ public class UnknownClassInJQLException extends KriptonProcessorException {
 
 	private static final long serialVersionUID = 8462705406839489618L;
 
-	public UnknownClassInJQLException(SQLiteModelMethod method, String fieldName) {
-		super(String.format("In DAO '%s' method '%s' uses class '%s' that is unknown", method.getParent().getName(), method.getName(),  fieldName));		
+	public UnknownClassInJQLException(SQLiteModelMethod method, String className) {
+		super(String.format("In DAO '%s' method '%s' uses class '%s' that is unknown", method.getParent().getName(), method.getName(),  className));		
 	}
 
 }

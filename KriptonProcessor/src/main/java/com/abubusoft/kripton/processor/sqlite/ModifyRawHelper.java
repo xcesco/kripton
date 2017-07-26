@@ -34,6 +34,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -47,7 +48,8 @@ import android.content.ContentValues;
 
 public class ModifyRawHelper implements ModifyCodeGenerator {
 
-	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode,
+			SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -56,7 +58,8 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		// analyze whereCondition
 		String whereCondition = extractWhereConditions(updateMode, method);
 
-		Pair<String, List<Pair<String, TypeName>>> where = SqlUtility.extractParametersFromString(whereCondition, method, entity);
+		Pair<String, List<Pair<String, TypeName>>> where = SqlUtility.extractParametersFromString(whereCondition,
+				method, entity);
 
 		// defines which parameter is used like update field and which is used
 		// in where condition.
@@ -97,7 +100,8 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 			if (updateMode) {
 
-				AssertKripton.assertTrueOrInvalidMethodSignException(updateableParams.size() > 0, method, "no column was selected for update");
+				AssertKripton.assertTrueOrInvalidMethodSignException(updateableParams.size() > 0, method,
+						"no column was selected for update");
 
 				// clear contentValues
 				methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
@@ -119,7 +123,8 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					// here it needed raw parameter typeName
 					methodBuilder.addCode("contentValues.put($S, ", property.columnName);
 
-					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(property.getElement()), item.value0);
+					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition,
+							TypeUtility.typeName(property.getElement()), item.value0);
 
 					methodBuilder.addCode(");\n");
 
@@ -143,9 +148,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					}
 					// in DELETE can not be updated fields
 					if (updateableParams.size() > 1) {
-						throw (new InvalidMethodSignException(method, " parameters " + buffer.toString() + " are not used in where conditions"));
+						throw (new InvalidMethodSignException(method,
+								" parameters " + buffer.toString() + " are not used in where conditions"));
 					} else {
-						throw (new InvalidMethodSignException(method, " parameter " + buffer.toString() + " is not used in where conditions"));
+						throw (new InvalidMethodSignException(method,
+								" parameter " + buffer.toString() + " is not used in where conditions"));
 					}
 				}
 			}
@@ -155,28 +162,46 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addCode("\n");
 
 			ModifyBeanHelper.generateModifyQueryCommonPart(method, methodBuilder);
+
+			// return management
+			// if true, field must be associate to ben attributes
+			if (returnType == TypeName.VOID) {
+
+			} else {
+				if (isIn(returnType, Boolean.TYPE, Boolean.class)) {
+					methodBuilder.addStatement("return result!=0");
+				} else if (isIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE,
+						Short.class)) {
+					methodBuilder.addStatement("return result");
+				} else {
+					// more than one listener found
+					throw (new InvalidMethodSignException(method, "invalid return type"));
+				}
+			}
+
 		}
 
 	}
 
 	private void generateJavaDoc(final SQLiteModelMethod method, Builder methodBuilder, boolean updateMode) {
 		List<Pair<String, TypeName>> methodParams = method.getParameters();
-		
+
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
-		final One<Boolean> inColumnValues = new One<Boolean>(false);
+		final List<SQLProperty> updatedProperties = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
+
 		// new
-		String sqlModify=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
-
+		String sqlModify = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+			
 			@Override
-			public void onColumnValueSetBegin(Column_value_setContext ctx) {
-				inColumnValues.value0 = true;
-			}
+			public String onColumnNameToUpdate(String columnName) {
+				SQLProperty tempProperty = entity.get(columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
 
-			@Override
-			public void onColumnValueSetEnd(Column_value_setContext ctx) {
-				inColumnValues.value0 = false;
+				updatedProperties.add(tempProperty);
+
+				return tempProperty.columnName;
 			}
 
 			@Override
@@ -198,18 +223,36 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			@Override
 			public String onBindParameter(String bindParameterName) {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
-				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method, bindParameterName);
+				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method,
+						bindParameterName);
 
-				methodParamsUsedAsParameter.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
+				methodParamsUsedAsParameter
+						.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
 
 				return "${" + bindParameterName + "}";
 			}
 
 		});
-		
-		methodBuilder.addJavadoc("<h2>SQL update</h2>\n");
-		methodBuilder.addJavadoc("<pre>$L</pre>\n", sqlModify);
-		methodBuilder.addJavadoc("\n");
+
+		if (updateMode) {
+			methodBuilder.addJavadoc("<h2>SQL update</h2>\n");
+			methodBuilder.addJavadoc("<pre>$L</pre>\n", sqlModify);
+			methodBuilder.addJavadoc("\n");
+
+			// list of updated fields
+			methodBuilder.addJavadoc("<h2>Updated columns:</h2>\n");
+			methodBuilder.addJavadoc("<ul>\n");
+			for (SQLProperty property : updatedProperties) {
+				methodBuilder.addJavadoc("\t<li>$L</li>\n", property.columnName);
+			}
+			methodBuilder.addJavadoc("</ul>");
+			methodBuilder.addJavadoc("\n\n");
+
+		} else {
+			methodBuilder.addJavadoc("<h2>SQL delete</h2>\n");
+			methodBuilder.addJavadoc("<pre>$L</pre>\n", sqlModify);
+			methodBuilder.addJavadoc("\n\n");
+		}
 
 		// list of where parameter
 		methodBuilder.addJavadoc("<h2>Parameters:</h2>\n");
@@ -224,8 +267,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		if (method.hasDynamicWhereConditions()) {
 			methodBuilder.addJavadoc("<dl>\n");
-			methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
-					JQLDynamicStatementType.DYNAMIC_WHERE);
+			methodBuilder.addJavadoc(
+					"<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>",
+					method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
 			methodBuilder.addJavadoc("\n</dl>");
 			methodBuilder.addJavadoc("\n\n");
 		}
@@ -236,8 +280,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
-						JQLDynamicStatementType.DYNAMIC_WHERE);
+				methodBuilder.addJavadoc(
+						"<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>",
+						method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
 
 			methodBuilder.addJavadoc("</dl>");
@@ -266,9 +311,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("\n");
 			if (isIn(returnType, Boolean.TYPE, Boolean.class)) {
 				if (updateMode) {
-					methodBuilder.addJavadoc("@return <code>true</code> if record is updated, <code>false</code> otherwise");
+					methodBuilder
+							.addJavadoc("@return <code>true</code> if record is updated, <code>false</code> otherwise");
 				} else {
-					methodBuilder.addJavadoc("@return <code>true</code> if record is deleted, <code>false</code> otherwise");
+					methodBuilder
+							.addJavadoc("@return <code>true</code> if record is deleted, <code>false</code> otherwise");
 				}
 				methodBuilder.addCode("return result!=0;\n");
 			} else if (isIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
@@ -295,13 +342,14 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 */
 	static String extractWhereConditions(boolean updateMode, SQLiteModelMethod method) {
 		final One<String> whereCondition = new One<String>("");
-		JQLChecker.getInstance().replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
-			@Override
-			public String onWhere(String statement) {
-				whereCondition.value0 = statement;
-				return null;
-			}
-		});
+		JQLChecker.getInstance().replaceVariableStatements(method.jql.value,
+				new JQLReplaceVariableStatementListenerImpl() {
+					@Override
+					public String onWhere(String statement) {
+						whereCondition.value0 = statement;
+						return null;
+					}
+				});
 
 		return whereCondition.value0;
 	}
@@ -318,16 +366,30 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 * 
 	 * @return sql generated
 	 */
-	public void generateJavaDoc(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition, Pair<String, List<Pair<String, TypeName>>> where,
+	public void generateJavaDoc(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode,
+			String whereCondition, Pair<String, List<Pair<String, TypeName>>> where,
 			List<Pair<String, TypeName>> methodParams) {
 
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final One<Boolean> inColumnValues = new One<Boolean>(false);
+		final List<SQLProperty> updatedProperties = new ArrayList<>();
+		final One<Boolean> onWhereStatement = new One<Boolean>(null);
+
 		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
 		// new
 		String sqlModify = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+
+			@Override
+			public void onWhereStatementBegin(Where_stmtContext ctx) {
+				onWhereStatement.value0 = true;
+			}
+
+			@Override
+			public void onWhereStatementEnd(Where_stmtContext ctx) {
+				onWhereStatement.value0 = false;
+			}
 
 			@Override
 			public void onColumnValueSetBegin(Column_value_setContext ctx) {
@@ -342,7 +404,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			@Override
 			public String onColumnName(String columnName) {
 				SQLProperty tempProperty = entity.get(columnName);
+
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
+				if (onWhereStatement.value0 == null) {
+					updatedProperties.add(tempProperty);
+				}
 
 				return tempProperty.columnName;
 			}
@@ -358,12 +425,15 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			@Override
 			public String onBindParameter(String bindParameterName) {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
-				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method, bindParameterName);
+				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method,
+						bindParameterName);
 
 				if (inColumnValues.value0) {
-					methodParamsUsedAsColumnValue.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
+					methodParamsUsedAsColumnValue
+							.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
 				} else {
-					methodParamsUsedAsParameter.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
+					methodParamsUsedAsParameter
+							.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
 				}
 
 				return "${" + bindParameterName + "}";
@@ -377,14 +447,16 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("\n");
 
 			// list of updated fields
-			methodBuilder.addJavadoc("<h2>Updated columns:</strong></h2>\n");
-			methodBuilder.addJavadoc("<dl>\n");
-			for (Pair<String, TypeName> property : methodParamsUsedAsColumnValue) {
-				String resolvedName = method.findParameterAliasByName(property.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", entity.findByName(resolvedName).columnName);
-				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + resolvedName + "}", property.value0);
+			methodBuilder.addJavadoc("<h2>Updated columns:</h2>\n");
+			methodBuilder.addJavadoc("<ul>\n");
+			for (SQLProperty property : updatedProperties) {
+				methodBuilder.addJavadoc("\t<li>$L</li>\n", property.columnName);
+				// methodBuilder.addJavadoc("<dd>is binded to query's parameter
+				// <strong>$L</strong> and method's parameter
+				// <strong>$L</strong></dd>\n", "${" + resolvedName + "}",
+				// property.value0);
 			}
-			methodBuilder.addJavadoc("</dl>");
+			methodBuilder.addJavadoc("</ul>");
 			methodBuilder.addJavadoc("\n\n");
 
 		} else {
@@ -406,8 +478,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		if (method.hasDynamicWhereConditions()) {
 			methodBuilder.addJavadoc("<dl>\n");
-			methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
-					JQLDynamicStatementType.DYNAMIC_WHERE);
+			methodBuilder.addJavadoc(
+					"<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>",
+					method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
 			methodBuilder.addJavadoc("\n</dl>");
 			methodBuilder.addJavadoc("\n\n");
 		}
@@ -418,8 +491,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
-						JQLDynamicStatementType.DYNAMIC_WHERE);
+				methodBuilder.addJavadoc(
+						"<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>",
+						method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
 
 			methodBuilder.addJavadoc("</dl>");
@@ -434,7 +508,8 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				if (method.isThisDynamicWhereConditionsName(param.value0)) {
 					methodBuilder.addJavadoc("\n\tis used as dynamic where conditions\n");
 				} else if (where.value1.contains(new Pair<>(resolvedName, param.value1))) {
-					methodBuilder.addJavadoc("\n\tis used as where parameter <strong>$L</strong>\n", "${" + resolvedName + "}");
+					methodBuilder.addJavadoc("\n\tis used as where parameter <strong>$L</strong>\n",
+							"${" + resolvedName + "}");
 				} else {
 					methodBuilder.addJavadoc("\n\tis used as updated field <strong>$L</strong>\n", resolvedName);
 				}
@@ -450,11 +525,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("\n");
 			if (isIn(returnType, Boolean.TYPE, Boolean.class)) {
 				if (updateMode) {
-					methodBuilder.addJavadoc("@return <code>true</code> if record is updated, <code>false</code> otherwise");
+					methodBuilder
+							.addJavadoc("@return <code>true</code> if record is updated, <code>false</code> otherwise");
 				} else {
-					methodBuilder.addJavadoc("@return <code>true</code> if record is deleted, <code>false</code> otherwise");
+					methodBuilder
+							.addJavadoc("@return <code>true</code> if record is deleted, <code>false</code> otherwise");
 				}
-				methodBuilder.addCode("return result!=0;\n");
+				// methodBuilder.addCode("return result!=0;\n");
 			} else if (isIn(returnType, Long.TYPE, Long.class, Integer.TYPE, Integer.class, Short.TYPE, Short.class)) {
 				if (updateMode) {
 					methodBuilder.addJavadoc("@return number of updated records");
@@ -462,7 +539,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					methodBuilder.addJavadoc("@return number of deleted records");
 				}
 
-				methodBuilder.addCode("return result;\n");
+				// methodBuilder.addCode("return result;\n");
 			} else {
 				// more than one listener found
 				throw (new InvalidMethodSignException(method, "invalid return type"));
@@ -477,7 +554,8 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 * @param method
 	 * @param where
 	 */
-	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeName>>> where) {
+	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method,
+			Pair<String, List<Pair<String, TypeName>>> where) {
 		boolean nullable;
 
 		methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<String>()", ArrayList.class, ArrayList.class);

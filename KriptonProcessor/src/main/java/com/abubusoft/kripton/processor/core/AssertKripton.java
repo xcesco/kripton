@@ -21,6 +21,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
@@ -181,6 +182,12 @@ public abstract class AssertKripton {
 		if (!expression) {
 			throw (new UnknownParamUsedInJQLException(method, paramName));
 		}
+	}
+
+	public static void failUnknownPropertyInJQLException(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
+			AnnotationAttributeType attribute, String fieldName) {
+		throw(new UnknownPropertyInJQLException(method,annotationClazz, attribute, fieldName));
+		
 	}
 
 }

@@ -40,7 +40,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, param1, param2, param3, param4, columnListString, columnMapIntegerString, columnArrayChar, columnArrayCharType, columnBean, columnArrayByteType, valueString FROM bean84_a</pre>
+   * <pre>SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -78,7 +78,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -130,7 +130,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, param1, param2, param3, param4, columnListString, columnMapIntegerString, columnArrayChar, columnArrayCharType, columnBean, columnArrayByteType, valueString FROM bean84_a WHERE id=${id}</pre>
+   * <pre>SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -183,7 +183,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -235,7 +235,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT param1, param2, param3, param4 FROM bean84_a WHERE columnListString=${param1} and columnMapIntegerString=${param2} and columnArrayChar=${param3}  and columnArrayCharType=${param4}</pre>
+   * <pre>SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string=${param1} and column_map_integer_string=${param2} and column_array_char=${param3}  and column_array_char_type=${param4}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -274,7 +274,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   @Override
   public List<Bean84A> selectWhere(List<String> param1, Map<Integer, String> param2, Character[] param3, char[] param4) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT param1, param2, param3, param4 FROM bean84_a ");
+    _sqlBuilder.append("SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -300,7 +300,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -644,7 +644,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE bean84_a SET param1=:param1, param2=:param2, param3=:param3, param4=:param4, columnListString=:column_list_string, columnMapIntegerString=:column_map_integer_string, columnArrayChar=:column_array_char, columnArrayCharType=:column_array_char_type, columnBean=:column_bean, columnArrayByteType=:column_array_byte_type, valueString=:value_string");
+    Logger.info("UPDATE bean84_a SET param1=:bean.param1, param2=:bean.param2, param3=:bean.param3, param4=:bean.param4, columnListString=:bean.columnListString, columnMapIntegerString=:bean.columnMapIntegerString, columnArrayChar=:bean.columnArrayChar, columnArrayCharType=:bean.columnArrayCharType, columnBean=:bean.columnBean, columnArrayByteType=:bean.columnArrayByteType, valueString=:bean.valueString");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -661,7 +661,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean84_a", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -700,147 +700,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean84_a", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result!=0;
-  }
-
-  /**
-   * write
-   */
-  private byte[] serializer4(char[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        char item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          jacksonSerializer.writeNumber(item);
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private char[] parser4(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      char[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Character> collection=new ArrayList<>();
-        Character item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=Character.valueOf((char)jacksonParser.getIntValue());
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asCharacterTypeArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
-  private byte[] serializer3(Character[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        Character item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeNumber(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private Character[] parser3(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Character[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Character> collection=new ArrayList<>();
-        Character item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=Character.valueOf((char)jacksonParser.getIntValue());
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asCharacterArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
   }
 
   /**
@@ -985,6 +849,142 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
           jacksonParser.nextToken();
         }
         result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer3(Character[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.length;
+        Character item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private Character[] parser3(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Character[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer4(char[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.length;
+        char item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private char[] parser4(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      char[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterTypeArray(collection);
       }
       return result;
     } catch(Exception e) {

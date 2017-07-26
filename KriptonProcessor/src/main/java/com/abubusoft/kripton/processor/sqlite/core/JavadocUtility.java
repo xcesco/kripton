@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.core;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
@@ -29,13 +30,13 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPart;
 import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPartType;
-import com.abubusoft.kripton.processor.sqlite.PropertyList;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -60,9 +61,10 @@ public abstract class JavadocUtility {
 	
 	
 
-	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, List<String> sqlParams, final SQLiteModelMethod method, ModelAnnotation annotation, PropertyList fieldList,
+	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, List<String> sqlParams, final SQLiteModelMethod method, ModelAnnotation annotation, Set<JQLProjection> fieldList,
 			SelectType selectResultType, JavadocPart... javadocParts) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLEntity entity=daoDefinition.getEntity();
 		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
 
@@ -79,10 +81,12 @@ public abstract class JavadocUtility {
 				SQLProperty tempProperty = daoDefinition.getEntity().get(columnName);				
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
 								
-				return null;				
+				return tempProperty.columnName;				
 			}
 			
 		});
+		
+		Set<JQLProjection> projectedColumns=JQLChecker.getInstance().extractProjections(method.jql, entity);
 		
 		methodBuilder.addJavadoc("<h2>Select SQL:</h2>\n\n", annotation.getSimpleName());
 		methodBuilder.addJavadoc("<pre>$L</pre>", sql);
@@ -92,20 +96,17 @@ public abstract class JavadocUtility {
 		{
 			methodBuilder.addJavadoc("<h2>Projected columns:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
-			int i = 0;
-			String[] columnList = fieldList.value0.split(",");
-			for (String column : columnList) {
+			for (JQLProjection column : projectedColumns) {
 				// KRIPTON_DEBUG field info only it exists
-				if (fieldList.value1.get(i) != null) {
-					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.trim());
-					SQLProperty attribute = fieldList.value1.get(i);
-					methodBuilder.addJavadoc("<dd>is associated to bean's property <strong>$L</strong></dd>", attribute.getName());
+				if (column.column != null) {
+					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.property.columnName);
+					//SQLProperty attribute = fieldList.value1.get(i);
+					methodBuilder.addJavadoc("<dd>is associated to bean's property <strong>$L</strong></dd>", column.column);
 				} else {
-					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.trim());
+					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.expression);
 					methodBuilder.addJavadoc("<dd>no bean's property is associated</dd>");
 				}
 				methodBuilder.addJavadoc("\n");
-				i++;
 			}
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");

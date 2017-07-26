@@ -41,7 +41,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63</pre>
+   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -71,7 +71,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -101,7 +101,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -147,7 +147,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -184,14 +184,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_map_string_byte</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_map_enum_byte</dt><dd>no bean's property is associated</dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -230,7 +230,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -249,7 +249,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -294,7 +294,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -388,7 +388,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE bean63 SET value=:value, valueMapStringByte=:value_map_string_byte, valueMapEnumByte=:value_map_enum_byte WHERE id=?");
+    Logger.info("UPDATE bean63 SET value=:value.value, valueMapStringByte=:value.valueMapStringByte, valueMapEnumByte=:value.valueMapEnumByte WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -405,7 +405,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean63", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -542,7 +542,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE value=${valueMapStringByte}</pre>
+   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapStringByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -587,7 +587,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -653,7 +653,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean63", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -664,11 +664,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean63 SET id=${id} WHERE value=${valueMapStringByte}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -722,7 +720,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean63", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -787,7 +785,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -832,7 +830,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -862,14 +860,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_map_string_byte</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_map_enum_byte</dt><dd>no bean's property is associated</dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -907,7 +905,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     Cursor cursor = database().rawQuery(_sql, _sqlArgs);
@@ -918,7 +916,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -964,7 +962,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1001,14 +999,14 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, valueMapStringByte, valueMapEnumByte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_map_string_byte</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value_map_enum_byte</dt><dd>no bean's property is associated</dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -1047,7 +1045,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1102,7 +1100,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("bean63", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1113,11 +1111,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE bean63 SET id=${id} WHERE value=${valueMapEnumByte}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1171,7 +1167,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("bean63", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1181,7 +1177,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueMapEnumByte FROM bean63</pre>
+   * <pre>SELECT value_map_enum_byte FROM bean63</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1208,7 +1204,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1238,11 +1234,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT valueMapEnumByte FROM bean63</pre>
+   * <pre>SELECT value_map_enum_byte FROM bean63</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_map_enum_byte</dt><dd>no bean's property is associated</dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @return collection of single value extracted by query.
@@ -1265,7 +1261,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1292,7 +1288,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  private byte[] serializer3(String value) {
+  private byte[] serializer1(Map<String, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -1302,7 +1298,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
-        jacksonSerializer.writeStringField("element", value);
+        // write wrapper tag
+        if (value.size()>0) {
+          jacksonSerializer.writeFieldName("element");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Byte> item: value.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField(null, item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField(null);
+            } else {
+              jacksonSerializer.writeNumberField(null, item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeNullField("element");
+        }
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
@@ -1315,7 +1328,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  private String parser3(byte[] input) {
+  private Map<String, Byte> parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -1326,9 +1339,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      String result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getText();
+      Map<String, Byte> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashMap<String, Byte> collection=new HashMap<>();
+        String key=null;
+        Byte value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+          key=jacksonParser.getText();
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+            value=jacksonParser.getByteValue();
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
       }
       return result;
     } catch(Exception e) {
@@ -1421,7 +1449,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * write
    */
-  private byte[] serializer1(Map<String, Byte> value) {
+  private byte[] serializer3(String value) {
     if (value==null) {
       return null;
     }
@@ -1431,24 +1459,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
-        // write wrapper tag
-        if (value.size()>0) {
-          jacksonSerializer.writeFieldName("element");
-          jacksonSerializer.writeStartArray();
-          for (Map.Entry<String, Byte> item: value.entrySet()) {
-            jacksonSerializer.writeStartObject();
-            jacksonSerializer.writeStringField(null, item.getKey());
-            if (item.getValue()==null) {
-              jacksonSerializer.writeNullField(null);
-            } else {
-              jacksonSerializer.writeNumberField(null, item.getValue());
-            }
-            jacksonSerializer.writeEndObject();
-          }
-          jacksonSerializer.writeEndArray();
-        } else {
-          jacksonSerializer.writeNullField("element");
-        }
+        jacksonSerializer.writeStringField("element", value);
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
@@ -1461,7 +1472,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   /**
    * parse
    */
-  private Map<String, Byte> parser1(byte[] input) {
+  private String parser3(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -1472,24 +1483,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      Map<String, Byte> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashMap<String, Byte> collection=new HashMap<>();
-        String key=null;
-        Byte value=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          jacksonParser.nextValue();
-          key=jacksonParser.getText();
-          jacksonParser.nextValue();
-          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-            value=jacksonParser.getByteValue();
-          }
-          collection.put(key, value);
-          key=null;
-          value=null;
-          jacksonParser.nextToken();
-        }
-        result=collection;
+      String result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getText();
       }
       return result;
     } catch(Exception e) {

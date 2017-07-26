@@ -69,7 +69,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -97,7 +97,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value, value2 FROM int_bean WHERE value=${value} and value2=${value2}</pre>
+   * <pre>SELECT id, value, value2 FROM int_bean WHERE value=${value} and value2=${value2}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -121,7 +121,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   @Override
   public IntBean selectOne(int[] value, Integer[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT value, value2 FROM int_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM int_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -145,7 +145,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -173,7 +173,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value, value2 FROM int_bean WHERE value=${value} and value2=${value2}</pre>
+   * <pre>SELECT id, value, value2 FROM int_bean WHERE value=${value} and value2=${value2}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -198,7 +198,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   @Override
   public void selectOne(int[] value, Integer[] value2, OnReadBeanListener<IntBean> listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT value, value2 FROM int_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM int_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -222,7 +222,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -256,13 +256,13 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value, value2 FROM int_bean WHERE value=${value} and value2=${value2}</pre>
+   * <pre>SELECT id, value, value2 FROM int_bean WHERE value=${value} and value2=${value2}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value</dt><dd>no bean's property is associated</dd>
-   * 	<dt>value2</dt><dd>no bean's property is associated</dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
+   * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -281,7 +281,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   @Override
   public void selectOne(int[] value, Integer[] value2, OnReadCursorListener listener) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT value, value2 FROM int_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM int_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -305,7 +305,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -324,7 +324,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value, value2 FROM int_bean WHERE value=${value} and value2=${value2}</pre>
+   * <pre>SELECT id, value, value2 FROM int_bean WHERE value=${value} and value2=${value2}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -348,7 +348,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
   @Override
   public List<IntBean> selectList(int[] value, Integer[] value2) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT value, value2 FROM int_bean ");
+    _sqlBuilder.append("SELECT id, value, value2 FROM int_bean ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -372,7 +372,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -407,11 +407,9 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
    * <h2>SQL update</h2>
    * <pre>UPDATE int_bean SET id=${id} WHERE value=${value} and value2=${value2}</pre>
    *
-   *
-   * <h2>Updated columns:</strong></h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -469,7 +467,7 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().update("int_bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -478,17 +476,14 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO int_bean (id, value, value2) VALUES (${id}, ${value}, ${value2})</pre>
+   * <pre>INSERT INTO int_bean (value, value2) VALUES (${value}, ${value2})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is binded to query's parameter <strong>${value2}</strong> and method's parameter <strong>value2</strong></dd>
    * </dl>
    *
-   * @param id
-   * 	is binded to column value <strong>id</strong>
    * @param value
    * 	is binded to column value <strong>value</strong>
    * @param value2
@@ -651,77 +646,11 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     int result = database().delete("int_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
-  }
-
-  /**
-   * write
-   */
-  private byte[] serializer1(int[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        int item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          jacksonSerializer.writeNumber(item);
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private int[] parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      int[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Integer> collection=new ArrayList<>();
-        Integer item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getIntValue();
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asIntegerTypeArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
   }
 
   /**
@@ -787,6 +716,72 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
           collection.add(item);
         }
         result=CollectionUtils.asIntegerArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer1(int[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.length;
+        int item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private int[] parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      int[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Integer> collection=new ArrayList<>();
+        Integer item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getIntValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asIntegerTypeArray(collection);
       }
       return result;
     } catch(Exception e) {

@@ -18,11 +18,11 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import sqlite.dynamic.TestDynamicRuntimeSuite;
 import sqlite.example01.TestExample01RuntimeSuite;
 import sqlite.example02.TestExample02RuntimeSuite;
-import sqlite.featJQL.TestFeatJQLRuntimeSuite;
-import sqlite.foreignKey.TestForeignKeyRuntimeSuite;
+import sqlite.feat.JQL.TestFeatJQLRuntimeSuite;
+import sqlite.feat.dynamic.TestDynamicRuntimeSuite;
+import sqlite.feat.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.includeFields.TestIncludeFieldsRuntimeSuite;
 import sqlite.kripton58.list.Test58RuntimeSuite;
 import sqlite.kripton64.Test64RuntimeSuite;

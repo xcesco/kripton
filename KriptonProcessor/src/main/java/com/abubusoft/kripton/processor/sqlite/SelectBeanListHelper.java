@@ -29,6 +29,7 @@ import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -55,14 +56,14 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {		
+	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {		
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 		TypeName returnTypeName = method.getReturnClass();
 
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnTypeName;
 		// String fieldStatement = fieldList.value0;
-		List<SQLProperty> fields = fieldList.value1;
+		//List<SQLProperty> fields = fieldList.value1;
 
 		TypeName collectionClass;
 		TypeName entityClass = typeName(entity.getElement());
@@ -80,7 +81,8 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		methodBuilder.addCode("\n");
 		{
 			int i = 0;
-			for (SQLProperty item : fields) {
+			for (JQLProjection a : fieldList) {
+				SQLProperty item=a.property;
 				methodBuilder.addCode("int index" + (i++) + "=");
 				methodBuilder.addCode("cursor.getColumnIndex($S)", item.columnName);
 				methodBuilder.addCode(";\n");
@@ -93,8 +95,8 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 
 		// generate mapping
 		int i = 0;
-		for (SQLProperty item : fields) {
-
+		for (JQLProjection a : fieldList) {
+			SQLProperty item=a.property;
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 			}

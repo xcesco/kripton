@@ -18,17 +18,19 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import sqlite.contentprovider.kripton35.TestContentProviderSuite;
-import sqlite.dynamic.TestDynamicSuite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
-import sqlite.featJQL.TestJQLFeatureSuite;
-import sqlite.foreignKey.TestForeignKeySuite;
-import sqlite.generichierarchy.TestCompileGenericHierarchySuite;
+import sqlite.feat.JQL.TestJQLFeatureSuite;
+import sqlite.feat.contentprovider.kripton35.TestContentProviderSuite;
+import sqlite.feat.dynamic.TestDynamicSuite;
+import sqlite.feat.foreignKey.TestForeignKeySuite;
+import sqlite.feat.generichierarchy.TestCompileGenericHierarchySuite;
+import sqlite.feat.indexes.IndexTestSuite;
+import sqlite.feat.multithread.TestCompileMultithreadSuite;
+import sqlite.feat.paginatedResult.TestPaginatedResultSuite;
 import sqlite.grammars.contenturi.TestUriCheckerSuite;
 import sqlite.grammars.jql.TestJqlCheckerSuite;
 import sqlite.includeFields.IncludeFieldsTestSuite;
-import sqlite.indexes.IndexTestSuite;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
 import sqlite.kripton40.Test40Suite;
@@ -45,8 +47,6 @@ import sqlite.kripton64.Test64Suite;
 import sqlite.kripton84.Test84Suite;
 import sqlite.kripton93.Test93Suite;
 import sqlite.kripton96.Test96Suite;
-import sqlite.multithread.TestCompileMultithreadSuite;
-import sqlite.paginatedResult.TestPaginatedResultSuite;
 import sqlite.quickstart.TestQuickstartSuite;
 import sqlite.select.TestSelectSuite;
 import sqlite.test01.Test01Suite;
@@ -56,6 +56,9 @@ import sqlite.test03.Test03;
 import sqlite.test03.Test03Suite;
 import sqlite.test05firt_aid.Test05Suite;
 import sqlite.test05firt_aid.TestFirstAid;
+import sqlite.kripton62.Test62Compile;
+import sqlite.kripton63.Test63Compile;
+
 
 @RunWith(Suite.class)
 //@formatter:off
@@ -98,7 +101,9 @@ import sqlite.test05firt_aid.TestFirstAid;
 			IncludeFieldsTestSuite.class,
 			TestCompileMultithreadSuite.class,
 			TestCompileGenericHierarchySuite.class,
-			TestJQLFeatureSuite.class
+			TestJQLFeatureSuite.class,
+			Test62Compile.class,
+			Test63Compile.class
 			})
 //@formatter:on
 public class SQLiteCompileTestSuite {

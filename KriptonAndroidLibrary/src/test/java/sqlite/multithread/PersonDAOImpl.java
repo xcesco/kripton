@@ -178,7 +178,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -209,7 +209,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -241,7 +241,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birthCity, birthDay FROM person</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -272,7 +272,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

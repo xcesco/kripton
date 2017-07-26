@@ -147,9 +147,9 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		if (value.getAnnotation(BindSqlInsert.class) != null) {
 			SqlInsertBuilder.generate(elementUtils, builder, value);
 		} else if (value.getAnnotation(BindSqlUpdate.class) != null) {
-			SqlModifyBuilder.generate(elementUtils, builder, value, true);
+			SqlModifyBuilder.generate(elementUtils, builder, value);
 		} else if (value.getAnnotation(BindSqlDelete.class) != null) {
-			SqlModifyBuilder.generate(elementUtils, builder, value, false);
+			SqlModifyBuilder.generate(elementUtils, builder, value);
 		} else if (value.getAnnotation(BindSqlSelect.class) != null) {
 			SqlSelectBuilder.generateSelect(elementUtils, builder, value);
 		} else {

@@ -27,7 +27,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, typeName FROM bean93 WHERE typeName like ${name} || '%'</pre>
+   * <pre>SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ${name} || '%'</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -72,7 +72,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -102,7 +102,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, typeName FROM bean93</pre>
+   * <pre>SELECT id, name, surname, type_name FROM bean93</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -132,7 +132,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

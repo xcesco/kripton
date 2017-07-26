@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,10 +41,7 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Bind_parameterContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Bind_parameter_numberContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Bind_parameter_textContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Path_segmentContext;
 
 /**
@@ -86,52 +82,6 @@ public class ContentUriChecker {
 	private <L extends UriBaseListener> void analyzePathInternal(final String input, L listener) {
 		pathSegmentIndex = -1;
 		walker.walk(listener, preparePath(input).value0);
-	}
-
-	/**
-	 * <p>
-	 * Extract all parameter present in path element of a content URI.
-	 * </p>
-	 * 
-	 * <p>
-	 * For example:
-	 * </p>
-	 * 
-	 * <pre>
-	 * content://androi.authority/test/${input1 }/${input2}
-	 * </pre>
-	 * 
-	 * <p>
-	 * Has two parameters: <code>input1</code> and <code>input2</code>.
-	 * 
-	 * @param input
-	 * @return
-	 */
-	public List<String> extractParams(final String input) {
-		final List<String> result = new LinkedList<>();
-
-		final One<Boolean> valid = new One<>();
-		valid.value0 = false;
-
-		analyzeInternal(input, new UriBaseListener() {
-
-			@Override
-			public void enterBind_parameter(Bind_parameterContext ctx) {
-				result.add(ctx.bind_parameter_name().getText());
-			}
-
-			@Override
-			public void enterBind_parameter_number(Bind_parameter_numberContext ctx) {
-				throw (new KriptonProcessorException(String.format("can not be # in uri %s", input)));
-			}
-
-			@Override
-			public void enterBind_parameter_text(Bind_parameter_textContext ctx) {
-				throw (new KriptonProcessorException(String.format("can not be * in uri %s", input)));
-			}
-
-		});
-		return result;
 	}
 
 	/**
@@ -312,17 +262,5 @@ public class ContentUriChecker {
 		this.analyzeInternal(input, new UriBaseListener());
 	}
 
-	/**
-	 * <p>
-	 * Verify content URI path is syntactally correct, otherwise a
-	 * KriptonProcessorException will be thrown.
-	 * </p>
-	 * 
-	 * @param input
-	 */
-	public void verifyPath(String input) {
-		this.analyzePathInternal(input, new UriBaseListener());
-
-	}
 
 }

@@ -40,8 +40,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
-import android.database.sqlite.SQLiteDatabase;
-
 public class InsertBeanHelper implements InsertCodeGenerator {
 
 	@Override

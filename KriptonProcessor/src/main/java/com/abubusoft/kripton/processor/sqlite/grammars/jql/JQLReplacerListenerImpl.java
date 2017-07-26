@@ -26,6 +26,11 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	public String onColumnName(String columnName) {
 		return null;
 	}
+	
+	@Override
+	public String onColumnNameToUpdate(String columnName) {
+		return null;
+	}
 
 	@Override
 	public void onWhereStatementBegin(Where_stmtContext ctx) {

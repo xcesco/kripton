@@ -15,9 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 public class JQLKeywords {
 
 	public static final String DELETE_KEYWORD = "DELETE";

@@ -215,7 +215,7 @@ public abstract class SqlSelectBuilder {
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
 				daoDefinition.getName(), method.getName());
 
-		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method.jql);
+		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method.jql, entity);
 		for (JQLProjection item : projectedColumns) {
 			if (item.type == ProjectionType.COLUMN) {
 				columns.add(entity.get(item.column.trim()).columnName);
@@ -411,6 +411,11 @@ public abstract class SqlSelectBuilder {
 
 			@Override
 			public void onColumnValueSetEnd(Column_value_setContext ctx) {
+			}
+			
+			@Override
+			public String onColumnNameToUpdate(String columnName) {
+				return null;
 			}
 		
 		});

@@ -18,9 +18,12 @@
  */
 package com.abubusoft.kripton.processor.sqlite;
 
+import java.util.Set;
+
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -44,11 +47,11 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
+	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		//ASSERT: returnType is a supported type
 		
 		// no column or too many columns
-		AssertKripton.assertTrueOrInvalidMethodSignException(fieldList.value1.size() == 1, method, "only one field can be defined as result for this method");				
+		AssertKripton.assertTrueOrInvalidMethodSignException(fieldList.size() == 1, method, "only one field can be defined as result for this method");				
 
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) method.getReturnClass();;
 

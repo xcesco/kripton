@@ -18,8 +18,11 @@
  */
 package com.abubusoft.kripton.processor.sqlite;
 
+import java.util.Set;
+
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -32,7 +35,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
  */
 public class SelectRawHelper extends AbstractSelectCodeGenerator {
 
-	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
+	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		generateCommonPart(elementUtils, method, methodBuilder, fieldList, mapFields, GenerationType.NO_CLOSE_CURSOR);
 	}
 	
@@ -42,7 +45,7 @@ public class SelectRawHelper extends AbstractSelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, PropertyList fieldList, boolean mapFields) {		
+	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {		
 		methodBuilder.addCode("return cursor;\n");
 	}
 

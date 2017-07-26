@@ -92,7 +92,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, userId, title, completed FROM todo WHERE userId = ${value}</pre>
+   * <pre>SELECT id, user_id, title, completed FROM todo WHERE user_id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -137,7 +137,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -173,7 +173,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, userId, title, completed FROM todo WHERE id = ${value}</pre>
+   * <pre>SELECT id, user_id, title, completed FROM todo WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -218,7 +218,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

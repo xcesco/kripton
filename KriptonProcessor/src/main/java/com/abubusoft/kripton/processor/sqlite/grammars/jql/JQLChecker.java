@@ -38,6 +38,7 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionBuilder;
@@ -49,6 +50,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynam
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_to_updateContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Group_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Having_stmtContext;
@@ -61,6 +63,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_cor
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_or_valuesContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
 public class JQLChecker {
 
@@ -100,7 +103,8 @@ public class JQLChecker {
 		parser.removeErrorListeners();
 		parser.addErrorListener(new JQLBaseErrorListener() {
 			@Override
-			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
+					int charPositionInLine, String msg, RecognitionException e) {
 				AssertKripton.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, jql);
 			}
 		});
@@ -134,7 +138,8 @@ public class JQLChecker {
 		parser.removeErrorListeners();
 		parser.addErrorListener(new JQLBaseErrorListener() {
 			@Override
-			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
+					int charPositionInLine, String msg, RecognitionException e) {
 				AssertKripton.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, jql);
 			}
 		});
@@ -149,18 +154,42 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public Set<JQLProjection> extractProjections(JQL jql) {
+	public Set<JQLProjection> extractProjections(JQL jql, final Finder<SQLProperty> entity) {
 		final Set<JQLProjection> result = new LinkedHashSet<JQLProjection>();
 
+		final One<Boolean> projection = new One<Boolean>(null);
+
 		analyzeInternal(jql.value, new JqlBaseListener() {
+
+			@Override
+			public void enterProjected_columns(Projected_columnsContext ctx) {
+				if (projection.value0 == null) {
+					projection.value0 = true;
+				}
+			}
+
+			@Override
+			public void exitProjected_columns(Projected_columnsContext ctx) {
+				projection.value0 = false;
+			}
+
 			@Override
 			public void enterResult_column(Result_columnContext ctx) {
+				if (projection.value0 != true)
+					return;
 				ProjectionBuilder builder = ProjectionBuilder.create();
-				if (ctx.expr().column_name() != null) {
+
+				if (ctx.getText().endsWith("*")) {
+					builder.type(ProjectionType.STAR);
+				} else if (ctx.expr().column_name() != null) {
 					if (ctx.expr().table_name() != null) {
 						builder.table(ctx.expr().table_name().getText());
 					}
-					builder.column(ctx.expr().column_name().getText());
+
+					String jqlColumnName = ctx.expr().column_name().getText();
+					builder.column(jqlColumnName);
+					builder.property(entity.findByName(jqlColumnName));
+
 					builder.type(ProjectionType.COLUMN);
 				} else {
 					builder.type(ProjectionType.COMPLEX);
@@ -178,6 +207,21 @@ public class JQLChecker {
 			public void exitResult_column(Result_columnContext ctx) {
 			}
 		});
+
+		if (result.size() == 1 && result.toArray(new JQLProjection[1])[0].type == ProjectionType.STAR) {
+			// the projected columns are full
+			result.clear();
+
+			if (entity != null) {
+
+				for (SQLProperty item : entity.getCollection()) {
+					JQLProjection col = new JQLProjection(ProjectionType.COLUMN, entity.getSimpleName(), item.getName(),
+							null, null, item);
+					result.add(col);
+				}
+			}
+		}
+
 		return result;
 	}
 
@@ -236,6 +280,17 @@ public class JQLChecker {
 
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
+		
+		@Override
+		public void enterColumn_name_to_update(Column_name_to_updateContext ctx) {
+			String value = listener.onColumnNameToUpdate(ctx.getText());
+
+			// skip without replace
+			if (value == null)
+				return;
+
+			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+		}
 
 		@Override
 		public void enterColumn_name(Column_nameContext ctx) {
@@ -247,8 +302,7 @@ public class JQLChecker {
 
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
-		
-		
+
 		@Override
 		public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
 			String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
@@ -269,22 +323,22 @@ public class JQLChecker {
 		public void exitWhere_stmt(Where_stmtContext ctx) {
 			listener.onWhereStatementEnd(ctx);
 		}
-		
+
 		@Override
 		public void enterColumn_name_set(Column_name_setContext ctx) {
 			listener.onColumnNameSetBegin(ctx);
 		}
-		
+
 		@Override
 		public void exitColumn_name_set(Column_name_setContext ctx) {
 			listener.onColumnNameSetEnd(ctx);
 		}
-		
+
 		@Override
 		public void enterColumn_value_set(Column_value_setContext ctx) {
 			listener.onColumnValueSetBegin(ctx);
 		}
-		
+
 		@Override
 		public void exitColumn_value_set(Column_value_setContext ctx) {
 			listener.onColumnValueSetEnd(ctx);
@@ -307,7 +361,8 @@ public class JQLChecker {
 
 	}
 
-	private String replaceInternal(String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
+	private String replaceInternal(String jql, final List<Triple<Token, Token, String>> replace,
+			JqlBaseListener rewriterListener) {
 		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jql);
 		walker.walk(rewriterListener, parser.value0);
 
@@ -320,7 +375,8 @@ public class JQLChecker {
 		return rewriter.getText();
 	}
 
-	private String replaceFromVariableStatementInternal(String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
+	private String replaceFromVariableStatementInternal(String jql, final List<Triple<Token, Token, String>> replace,
+			JqlBaseListener rewriterListener) {
 		Pair<ParserRuleContext, CommonTokenStream> parser = prepareVariableStatement(jql);
 		walker.walk(rewriterListener, parser.value0);
 
@@ -438,7 +494,8 @@ public class JQLChecker {
 		return result;
 	}
 
-	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromVariableStatement(String jql, final L result) {
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromVariableStatement(String jql,
+			final L result) {
 		final One<Boolean> valid = new One<>();
 
 		if (!StringUtils.hasText(jql))

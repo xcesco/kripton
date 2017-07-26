@@ -24,22 +24,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelBucket;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -51,66 +44,6 @@ import com.squareup.javapoet.TypeName;
 import android.content.ContentValues;
 
 public abstract class CodeBuilderUtility {
-
-	/**
-	 * Generate code necessary to put bean properties in content values map.
-	 * Returns the primary key
-	 * 
-	 * @param elementUtils
-	 * @param daoDefinition
-	 * @param method
-	 *            used to code generation
-	 * @param checkProperty
-	 *            if true, check if property used in query is present as
-	 *            attribute in bean
-	 * @param alreadyUsedBeanPropertiesNames
-	 *            optional
-	 * @return primary key.
-	 */
-	public static PropertyList generatePropertyList(Elements elementUtils, SQLDaoDefinition daoDefinition, final SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
-			final boolean checkProperty, Set<String> alreadyUsedBeanPropertiesNames) {
-		final SQLEntity entity = daoDefinition.getEntity();
-		final PropertyList result = new PropertyList();
-		result.value0 = "";
-		result.value1 = new ArrayList<>();
-		final One<Boolean> first = new One<Boolean>(null);
-
-		JQLChecker.getInstance().analyze(method.jql, new JqlBaseListener() {
-			@Override
-			public void enterProjected_columns(Projected_columnsContext ctx) {
-				if (first.value0 == null) {
-					first.value0 = true;
-					result.value0 = ctx.getText();
-				}
-			}
-
-			@Override
-			public void enterColumn_name(Column_nameContext ctx) {
-				if (true != first.value0)
-					return;
-				String columnName = ctx.getText();
-				SQLProperty property = entity.findByName(columnName);
-
-				if (checkProperty) {
-					if (property == null) {
-						throw (new PropertyInAnnotationNotFoundException(method, columnName));
-					}
-					result.value1.add(property);
-				} else {
-					// add even if null
-					result.value1.add(property);
-				}
-			}
-
-			@Override
-			public void exitProjected_columns(Projected_columnsContext ctx) {
-				first.value0 = false;
-
-			}
-		});
-
-		return result;
-	}
 
 	/**
 	 * Generate code necessary to put bean properties in content values map.
@@ -148,7 +81,7 @@ public abstract class CodeBuilderUtility {
 		excludedFields.addAll(temp);
 
 		if (includedFields.size() > 0 && excludedFields.size() > 0) {
-			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.VALUE, AnnotationAttributeType.EXCLUDED_FIELDS));
+			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.FIELDS, AnnotationAttributeType.EXCLUDED_FIELDS));
 		}
 		// check included
 		for (String item : includedFields) {

@@ -22,7 +22,7 @@ public class UnknownParamUsedInJQLException extends KriptonProcessorException {
 	private static final long serialVersionUID = 8462705406839489618L;
 
 	public UnknownParamUsedInJQLException(SQLiteModelMethod method, String paramName) {
-		super(String.format("In DAO '%s' method '%s' uses param '%s' that is unknown", method.getParent().getName(), method.getName(),  paramName));		
+		super(String.format("In DAO '%s', method '%s' uses param '%s' that is unknown", method.getParent().getName(), method.getName(),  paramName));		
 	}
 
 }

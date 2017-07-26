@@ -24,11 +24,11 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value FROM bean01 WHERE id=${id} and value=${value}</pre>
+   * <pre>SELECT count(*) FROM bean01 WHERE id=${id} and value=${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>count(*)>1</dt><dd>no bean's property is associated</dd>
+   * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -46,7 +46,7 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
   @Override
   public Boolean selectDistance(long id, double value) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, value FROM bean01 ");
+    _sqlBuilder.append("SELECT count(*) FROM bean01 ");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -70,7 +70,7 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

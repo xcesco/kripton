@@ -41,6 +41,7 @@ import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.SqlSelectBuilder.SplittedSql;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -97,7 +98,10 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	@Override
 	public void generate(Elements elementUtils, TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectType.isMapFields(), null);
+		//PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectType.isMapFields(), null);
+		
+		Set<JQLProjection> fieldList=JQLChecker.getInstance().extractProjections(method.jql, daoDefinition.getEntity());
+		
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
@@ -107,11 +111,11 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		builder.addMethod(methodBuilder.build());
 	}
 
-	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields) {
+	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		generateCommonPart(elementUtils, method, methodBuilder, fieldList, mapFields, GenerationType.ALL);
 	}
 
-	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields, GenerationType generationType,
+	public void generateCommonPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields, GenerationType generationType,
 			JavadocPart... javadocParts) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
@@ -355,7 +359,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		methodBuilder.returns(returnTypeName);
 	}
 
-	public abstract void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, PropertyList fieldList, boolean mapFields);
+	public abstract void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields);
 
 	@Override
 	public void setSelectResultTye(SelectType value) {
