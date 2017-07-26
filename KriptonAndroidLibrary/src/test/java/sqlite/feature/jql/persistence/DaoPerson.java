@@ -1,8 +1,8 @@
-package sqlite.feature.JQL.persistence;
+package sqlite.feature.jql.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 
-import sqlite.feature.JQL.entities.Person;
+import sqlite.feature.jql.entities.Person;
 
 @BindDao(Person.class)
 public interface DaoPerson extends DaoBean<Person> {

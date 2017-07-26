@@ -1,4 +1,4 @@
-package sqlite.feature.JQL.persistence;
+package sqlite.feature.jql.persistence;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-import sqlite.feature.JQL.entities.Child;
+import sqlite.feature.jql.entities.Child;
 
 
 @BindDao(Child.class)

@@ -30,7 +30,7 @@ import sqlite.feat.includeFields.IncludeFieldsTestSuite;
 import sqlite.feat.indexes.IndexTestSuite;
 import sqlite.feat.multithread.TestCompileMultithreadSuite;
 import sqlite.feat.paginatedResult.TestPaginatedResultSuite;
-import sqlite.feature.JQL.TestJQLFeatureSuite;
+import sqlite.feature.jql.TestJQLFeatureSuite;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
 import sqlite.kripton40.Test40Suite;

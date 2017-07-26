@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.JQL;
+package sqlite.feature.jql;
 
 import static org.junit.Assert.assertTrue;
 
@@ -22,10 +22,10 @@ import java.util.List;
 import org.junit.Test;
 
 import base.BaseAndroidTest;
-import sqlite.feature.JQL.entities.Child;
-import sqlite.feature.JQL.entities.Person;
-import sqlite.feature.JQL.persistence.BindFamilyDaoFactory;
-import sqlite.feature.JQL.persistence.BindFamilyDataSource;
+import sqlite.feature.jql.entities.Child;
+import sqlite.feature.jql.entities.Person;
+import sqlite.feature.jql.persistence.BindFamilyDaoFactory;
+import sqlite.feature.jql.persistence.BindFamilyDataSource;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)

@@ -1,4 +1,4 @@
-package sqlite.feature.JQL.entities;
+package sqlite.feature.jql.entities;
 
 import com.abubusoft.kripton.android.annotation.BindColumn;
 

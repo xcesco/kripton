@@ -1,4 +1,4 @@
-package sqlite.feature.JQL.persistence;
+package sqlite.feature.jql.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 

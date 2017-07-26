@@ -13,20 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.JQL;
+package sqlite.feature.jql;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.jql.entities.Bean;
+import sqlite.feature.jql.entities.Child;
+import sqlite.feature.jql.entities.Person;
+import sqlite.feature.jql.persistence.DaoBean;
+import sqlite.feature.jql.persistence.DaoChild;
+import sqlite.feature.jql.persistence.DaoPerson;
+import sqlite.feature.jql.persistence.FamilyDataSource;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestJQL.class		
-		 })
-//@formatter:on
-public class TestJQLFeatureSuite extends BaseProcessorTest {
+@RunWith(JUnit4.class)
+public class TestJQL extends AbstractBindSQLiteProcessorTest {
+
+	@Test 
+	public void testCompile01() throws Throwable {
+		buildDataSourceProcessorTest( Bean.class, Child.class, Person.class,FamilyDataSource.class, DaoChild.class, DaoPerson.class,  DaoBean.class);
+	}
 
 }

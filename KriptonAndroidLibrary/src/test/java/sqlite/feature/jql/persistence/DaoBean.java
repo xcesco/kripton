@@ -1,4 +1,4 @@
-package sqlite.feature.JQL.persistence;
+package sqlite.feature.jql.persistence;
 
 import java.util.List;
 
