@@ -33,7 +33,8 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
   private TextureKeyFrameBindMap textureKeyFrameBindMap = BinderUtils.mapperFor(TextureKeyFrame.class);
 
   @Override
-  public int serializeOnJackson(TiledMapAnimation object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(TiledMapAnimation object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -96,7 +97,8 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
   }
 
   @Override
-  public int serializeOnJacksonAsString(TiledMapAnimation object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(TiledMapAnimation object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -172,7 +174,8 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(TiledMapAnimation object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(TiledMapAnimation object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("tiledMapAnimation");
     }

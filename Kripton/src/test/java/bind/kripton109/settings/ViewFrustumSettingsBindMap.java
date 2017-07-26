@@ -22,7 +22,8 @@ import java.lang.Override;
 @BindMap(ViewFrustumSettings.class)
 public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettings> {
   @Override
-  public int serializeOnJackson(ViewFrustumSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(ViewFrustumSettings object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -61,7 +62,8 @@ public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettin
   }
 
   @Override
-  public int serializeOnJacksonAsString(ViewFrustumSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(ViewFrustumSettings object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -99,7 +101,8 @@ public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettin
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(ViewFrustumSettings object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(ViewFrustumSettings object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("viewFrustumSettings");
     }
@@ -263,7 +266,8 @@ public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettin
    * parse xml
    */
   @Override
-  public ViewFrustumSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public ViewFrustumSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws
+      Exception {
     ViewFrustumSettings instance = new ViewFrustumSettings();
     int eventType = currentEventType;
     boolean read=true;

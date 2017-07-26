@@ -20,11 +20,11 @@ import org.junit.runners.Suite;
 
 import sqlite.example01.TestExample01RuntimeSuite;
 import sqlite.example02.TestExample02RuntimeSuite;
-import sqlite.feat.JQL.TestFeatJQLRuntimeSuite;
 import sqlite.feat.dynamic.TestDynamicRuntimeSuite;
 import sqlite.feat.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.feat.includeFields.TestIncludeFieldsRuntimeSuite;
 import sqlite.feat.multithread.TestRuntimeMultithreadSuite;
+import sqlite.feature.JQL.TestFeatJQLRuntimeSuite;
 import sqlite.kripton58.list.Test58RuntimeSuite;
 import sqlite.kripton64.Test64RuntimeSuite;
 import sqlite.kripton84.Test84RuntimeSuite;

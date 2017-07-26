@@ -37,7 +37,8 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
   private ViewFrustumSettingsBindMap viewFrustumSettingsBindMap = BinderUtils.mapperFor(ViewFrustumSettings.class);
 
   @Override
-  public int serializeOnJackson(ArgonSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(ArgonSettings object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -82,7 +83,8 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(ArgonSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(ArgonSettings object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -138,7 +140,8 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(ArgonSettings object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(ArgonSettings object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("settings");
     }

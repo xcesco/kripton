@@ -29,7 +29,8 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
   private LoggerAppenderSettingsBindMap loggerAppenderSettingsBindMap = BinderUtils.mapperFor(LoggerAppenderSettings.class);
 
   @Override
-  public int serializeOnJackson(LoggerSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(LoggerSettings object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -65,7 +66,8 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(LoggerSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(LoggerSettings object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -110,7 +112,8 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(LoggerSettings object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(LoggerSettings object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("loggerSettings");
     }

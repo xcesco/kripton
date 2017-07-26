@@ -28,7 +28,8 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
   private MockKeyFrameBindMap mockKeyFrameBindMap = BinderUtils.mapperFor(MockKeyFrame.class);
 
   @Override
-  public int serializeOnJackson(MockAnimation object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(MockAnimation object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -72,7 +73,8 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(MockAnimation object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(MockAnimation object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -123,7 +125,8 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(MockAnimation object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(MockAnimation object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("mockAnimation");
     }

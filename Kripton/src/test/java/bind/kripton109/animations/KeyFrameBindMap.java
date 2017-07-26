@@ -42,7 +42,8 @@ public class KeyFrameBindMap extends AbstractMapper<KeyFrame> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(KeyFrame object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(KeyFrame object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -65,7 +66,8 @@ public class KeyFrameBindMap extends AbstractMapper<KeyFrame> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(KeyFrame object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(KeyFrame object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("keyFrame");
     }

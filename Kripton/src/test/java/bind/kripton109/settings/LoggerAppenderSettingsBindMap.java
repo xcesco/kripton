@@ -22,7 +22,8 @@ import java.lang.Override;
 @BindMap(LoggerAppenderSettings.class)
 public class LoggerAppenderSettingsBindMap extends AbstractMapper<LoggerAppenderSettings> {
   @Override
-  public int serializeOnJackson(LoggerAppenderSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(LoggerAppenderSettings object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -45,7 +46,8 @@ public class LoggerAppenderSettingsBindMap extends AbstractMapper<LoggerAppender
   }
 
   @Override
-  public int serializeOnJacksonAsString(LoggerAppenderSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(LoggerAppenderSettings object,
+      JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -71,7 +73,8 @@ public class LoggerAppenderSettingsBindMap extends AbstractMapper<LoggerAppender
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(LoggerAppenderSettings object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(LoggerAppenderSettings object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("loggerAppenderSettings");
     }
@@ -177,7 +180,8 @@ public class LoggerAppenderSettingsBindMap extends AbstractMapper<LoggerAppender
    * parse xml
    */
   @Override
-  public LoggerAppenderSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public LoggerAppenderSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws
+      Exception {
     LoggerAppenderSettings instance = new LoggerAppenderSettings();
     int eventType = currentEventType;
     boolean read=true;

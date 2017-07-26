@@ -28,7 +28,8 @@ public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
   private TextureKeyFrameBindMap textureKeyFrameBindMap = BinderUtils.mapperFor(TextureKeyFrame.class);
 
   @Override
-  public int serializeOnJackson(TextureAnimation object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(TextureAnimation object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -72,7 +73,8 @@ public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(TextureAnimation object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(TextureAnimation object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -123,7 +125,8 @@ public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(TextureAnimation object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(TextureAnimation object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("textureAnimation");
     }

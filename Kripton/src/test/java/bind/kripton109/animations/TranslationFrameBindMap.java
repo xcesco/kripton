@@ -28,7 +28,8 @@ public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
   private Vector3BindMap vector3BindMap = BinderUtils.mapperFor(Vector3.class);
 
   @Override
-  public int serializeOnJackson(TranslationFrame object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(TranslationFrame object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -56,7 +57,8 @@ public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(TranslationFrame object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(TranslationFrame object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -88,7 +90,8 @@ public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(TranslationFrame object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(TranslationFrame object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("translationFrame");
     }

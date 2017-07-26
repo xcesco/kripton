@@ -22,7 +22,8 @@ import java.lang.Override;
 @BindMap(ApplicationSettings.class)
 public class ApplicationSettingsBindMap extends AbstractMapper<ApplicationSettings> {
   @Override
-  public int serializeOnJackson(ApplicationSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(ApplicationSettings object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -85,7 +86,8 @@ public class ApplicationSettingsBindMap extends AbstractMapper<ApplicationSettin
   }
 
   @Override
-  public int serializeOnJacksonAsString(ApplicationSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(ApplicationSettings object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -149,7 +151,8 @@ public class ApplicationSettingsBindMap extends AbstractMapper<ApplicationSettin
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(ApplicationSettings object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(ApplicationSettings object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("applicationSettings");
     }
@@ -386,7 +389,8 @@ public class ApplicationSettingsBindMap extends AbstractMapper<ApplicationSettin
    * parse xml
    */
   @Override
-  public ApplicationSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public ApplicationSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws
+      Exception {
     ApplicationSettings instance = new ApplicationSettings();
     int eventType = currentEventType;
     boolean read=true;

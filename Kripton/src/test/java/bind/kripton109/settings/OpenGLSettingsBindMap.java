@@ -20,7 +20,8 @@ import java.lang.Override;
 @BindMap(OpenGLSettings.class)
 public class OpenGLSettingsBindMap extends AbstractMapper<OpenGLSettings> {
   @Override
-  public int serializeOnJackson(OpenGLSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(OpenGLSettings object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -51,7 +52,8 @@ public class OpenGLSettingsBindMap extends AbstractMapper<OpenGLSettings> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(OpenGLSettings object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(OpenGLSettings object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -80,7 +82,8 @@ public class OpenGLSettingsBindMap extends AbstractMapper<OpenGLSettings> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(OpenGLSettings object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(OpenGLSettings object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("openGLSettings");
     }

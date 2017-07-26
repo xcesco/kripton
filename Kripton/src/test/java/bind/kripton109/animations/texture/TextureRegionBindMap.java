@@ -20,7 +20,8 @@ import java.lang.Override;
 @BindMap(TextureRegion.class)
 public class TextureRegionBindMap extends AbstractMapper<TextureRegion> {
   @Override
-  public int serializeOnJackson(TextureRegion object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(TextureRegion object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -47,7 +48,8 @@ public class TextureRegionBindMap extends AbstractMapper<TextureRegion> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(TextureRegion object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(TextureRegion object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -73,7 +75,8 @@ public class TextureRegionBindMap extends AbstractMapper<TextureRegion> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(TextureRegion object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(TextureRegion object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("textureRegion");
     }

@@ -43,7 +43,8 @@ public class Vector3BindMap extends AbstractMapper<Vector3> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Vector3 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Vector3 object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -66,7 +67,8 @@ public class Vector3BindMap extends AbstractMapper<Vector3> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Vector3 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Vector3 object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("vector3");
     }

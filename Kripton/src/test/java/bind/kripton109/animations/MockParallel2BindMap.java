@@ -29,7 +29,8 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
   private MockKeyFrameBindMap mockKeyFrameBindMap = BinderUtils.mapperFor(MockKeyFrame.class);
 
   @Override
-  public int serializeOnJackson(MockParallel2 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(MockParallel2 object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -92,7 +93,8 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(MockParallel2 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(MockParallel2 object, JsonGenerator jacksonSerializer)
+      throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -168,7 +170,8 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(MockParallel2 object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(MockParallel2 object, XMLSerializer xmlSerializer,
+      int currentEventType) throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("mockParallel2");
     }

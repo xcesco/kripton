@@ -21,7 +21,8 @@ import java.lang.Override;
 @BindMap(MockKeyFrame.class)
 public class MockKeyFrameBindMap extends AbstractMapper<MockKeyFrame> {
   @Override
-  public int serializeOnJackson(MockKeyFrame object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(MockKeyFrame object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -46,7 +47,8 @@ public class MockKeyFrameBindMap extends AbstractMapper<MockKeyFrame> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(MockKeyFrame object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(MockKeyFrame object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -72,7 +74,8 @@ public class MockKeyFrameBindMap extends AbstractMapper<MockKeyFrame> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(MockKeyFrame object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(MockKeyFrame object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("mockKeyFrame");
     }
