@@ -1,6 +1,5 @@
-package sqlite.feat.JQL.entities;
+package sqlite.feature.JQL.entities;
 
-import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 
 public class Bean {

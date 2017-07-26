@@ -20,7 +20,6 @@ import org.junit.runners.Suite;
 
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
-import sqlite.feat.JQL.TestJQLFeatureSuite;
 import sqlite.feat.contentprovider.kripton35.TestContentProviderSuite;
 import sqlite.feat.dynamic.TestDynamicSuite;
 import sqlite.feat.foreignKey.TestForeignKeySuite;
@@ -31,6 +30,7 @@ import sqlite.feat.includeFields.IncludeFieldsTestSuite;
 import sqlite.feat.indexes.IndexTestSuite;
 import sqlite.feat.multithread.TestCompileMultithreadSuite;
 import sqlite.feat.paginatedResult.TestPaginatedResultSuite;
+import sqlite.feature.JQL.TestJQLFeatureSuite;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
 import sqlite.kripton40.Test40Suite;

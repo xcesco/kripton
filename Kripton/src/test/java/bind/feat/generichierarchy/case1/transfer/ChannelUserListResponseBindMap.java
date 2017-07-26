@@ -1,5 +1,7 @@
 package bind.feat.generichierarchy.case1.transfer;
 
+import bind.feat.generichierarchy.case1.model.ChannelUser;
+import bind.feat.generichierarchy.case1.model.ChannelUserBindMap;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
@@ -12,10 +14,6 @@ import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-
-import bind.feat.generichierarchy.case1.model.ChannelUser;
-import bind.feat.generichierarchy.case1.model.ChannelUserBindMap;
-
 import java.lang.Exception;
 import java.lang.Override;
 import java.util.ArrayList;

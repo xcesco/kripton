@@ -1,4 +1,4 @@
-package sqlite.feat.JQL.persistence;
+package sqlite.feature.JQL.persistence;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-import sqlite.feat.JQL.entities.Child;
-import sqlite.feat.JQL.persistence.DaoBean;
+import sqlite.feature.JQL.entities.Child;
+
 
 @BindDao(Child.class)
 public interface DaoChild extends DaoBean<Child> {
