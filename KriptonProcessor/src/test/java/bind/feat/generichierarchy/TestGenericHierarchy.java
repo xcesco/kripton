@@ -13,29 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package bind.feat.generichierarchy;
+
+import java.io.IOException;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
-import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feat.generichierarchy.BaseDAO;
-import sqlite.feat.multithread.Person;
-import sqlite.feat.multithread.PersonDAO;
-import sqlite.feat.multithread.PersonDataSource;
+import bind.AbstractBindTypeProcessorTest;
+import bind.generichierarchy.Channel;
+import bind.generichierarchy.ChannelListResponse;
+import bind.generichierarchy.RestListEntity;
+import bind.generichierarchy.RestResponse;
+import bind.generichierarchy.ServiceStatusType;
+import bind.generichierarchy.UIDObject;
 
-@RunWith(JUnit4.class)
-public class TestCompileMultithread extends AbstractBindSQLiteProcessorTest {
+/**
+ * Test bean field
+ * 
+ * @author Francesco Benincasa (abubusoft@gmail.com)
+ *
+ */
+public class TestGenericHierarchy extends AbstractBindTypeProcessorTest {
 
-	/**
-	 * OK
-	 * 
-	 * @throws Throwable
-	 */
 	@Test
-	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class, BaseDAO.class);
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildBindProcessorTest(Channel.class, ChannelListResponse.class, RestListEntity.class, RestResponse.class, ServiceStatusType.class, UIDObject.class);
 	}
+	
 
 }

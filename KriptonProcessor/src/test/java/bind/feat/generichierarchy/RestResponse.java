@@ -13,26 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package bind.feat.generichierarchy;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import java.io.Serializable;
 
-import sqlite.feat.multithread.Person;
+import bind.generichierarchy.ServiceStatusType;
 
-@BindDao(Person.class)
-public interface PersonDAO {
+public abstract class RestResponse  implements Serializable {
 
-	@BindSqlInsert
-	public void insertThread1(Person bean);
+	private static final long serialVersionUID = -1707936337366965471L;
+
+	protected ServiceStatusType status;
 	
-	@BindSqlInsert
-	public void insertThread2(Person bean);
+	protected String detailMessage;
+
+	public String getDetailMessage() {
+		return detailMessage;
+	}
+
+	public void setDetailMessage(String detailMessage) {
+		this.detailMessage = detailMessage;
+	}
+
+
+	public void setStatus(ServiceStatusType status) {
+		this.status = status;
+	}
 	
-	@BindSqlSelect
-	public Person selectThread1();
+
+	public ServiceStatusType getStatus() {
+		return status;
+	}
 	
-	@BindSqlSelect
-	public Person selectThread2();
+	public boolean isSuccessfull()
+	{
+		return status.isSuccessfull();
+	}
+
+	@Override
+	public String toString() {
+		return "RestResponse [status=" + status + "]";
+	}
+
 }

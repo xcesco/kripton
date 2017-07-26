@@ -13,26 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+/**
+ * 
+ */
+package bind.feat.generichierarchy;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.annotation.BindType;
 
-import sqlite.feat.multithread.Person;
+import bind.generichierarchy.Channel;
+import bind.generichierarchy.RestListEntity;
 
-@BindDao(Person.class)
-public interface PersonDAO {
-
-	@BindSqlInsert
-	public void insertThread1(Person bean);
+@BindType
+public class ChannelListResponse  extends RestListEntity<Channel> {
 	
-	@BindSqlInsert
-	public void insertThread2(Person bean);
+	private static final long serialVersionUID = -9115932446572777269L;
 	
-	@BindSqlSelect
-	public Person selectThread1();
-	
-	@BindSqlSelect
-	public Person selectThread2();
+
 }

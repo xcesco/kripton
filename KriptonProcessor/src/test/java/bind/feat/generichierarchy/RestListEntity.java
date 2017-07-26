@@ -13,26 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package bind.feat.generichierarchy;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import java.util.List;
+import java.util.Map;
 
-import sqlite.feat.multithread.Person;
+import com.abubusoft.kripton.annotation.BindXml;
 
-@BindDao(Person.class)
-public interface PersonDAO {
+import bind.generichierarchy.RestResponse;
+import bind.generichierarchy.UIDObject;
 
-	@BindSqlInsert
-	public void insertThread1(Person bean);
+public abstract class RestListEntity<E extends UIDObject> extends RestResponse {
+
+	private static final long serialVersionUID = -7911782943679996559L;
 	
-	@BindSqlInsert
-	public void insertThread2(Person bean);
+	public E bean;
 	
-	@BindSqlSelect
-	public Person selectThread1();
+	@BindXml(elementTag="item")
+	protected List<E> list;
 	
-	@BindSqlSelect
-	public Person selectThread2();
+	public Map<String, E> map;
+
+	public List<E> getList() {
+		return list;
+	}
+
+	public void setList(List<E> list) {
+		this.list = list;
+	}
+
+	
+
 }

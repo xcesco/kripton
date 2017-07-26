@@ -17,7 +17,7 @@ package sqlite.feat.multithread;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import sqlite.multithread.PersonDAO;
+import sqlite.feat.multithread.PersonDAO;
 
 @BindDataSource(dao = { PersonDAO.class }, fileName = "person.db", generateLog=true)
 public interface PersonDataSource {

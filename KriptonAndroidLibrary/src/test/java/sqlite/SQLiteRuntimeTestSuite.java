@@ -23,13 +23,13 @@ import sqlite.example02.TestExample02RuntimeSuite;
 import sqlite.feat.JQL.TestFeatJQLRuntimeSuite;
 import sqlite.feat.dynamic.TestDynamicRuntimeSuite;
 import sqlite.feat.foreignKey.TestForeignKeyRuntimeSuite;
-import sqlite.includeFields.TestIncludeFieldsRuntimeSuite;
+import sqlite.feat.includeFields.TestIncludeFieldsRuntimeSuite;
+import sqlite.feat.multithread.TestRuntimeMultithreadSuite;
 import sqlite.kripton58.list.Test58RuntimeSuite;
 import sqlite.kripton64.Test64RuntimeSuite;
 import sqlite.kripton84.Test84RuntimeSuite;
 import sqlite.kripton93.Test93RuntimeSuite;
 import sqlite.kripton96.Test96RuntimeSuite;
-import sqlite.multithread.TestRuntimeMultithreadSuite;
 import sqlite.quickstart.TestQuickstartRuntimeSuite;
 
 @RunWith(Suite.class)

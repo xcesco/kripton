@@ -13,26 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package bind.feat.generichierarchy.case1.model;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.annotation.BindType;
 
-import sqlite.feat.multithread.Person;
+import bind.generichierarchy.case1.model.UIDObject;
 
-@BindDao(Person.class)
-public interface PersonDAO {
+@BindType
+public class ChannelUser extends UIDObject {
 
-	@BindSqlInsert
-	public void insertThread1(Person bean);
+	private static final long serialVersionUID = 8393678197733870803L;
+
+	protected boolean administrator;
 	
-	@BindSqlInsert
-	public void insertThread2(Person bean);
-	
-	@BindSqlSelect
-	public Person selectThread1();
-	
-	@BindSqlSelect
-	public Person selectThread2();
+	protected String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isAdministrator() {
+		return administrator;
+	}
+
+	public void setAdministrator(boolean administrator) {
+		this.administrator = administrator;
+	}
 }

@@ -13,26 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package bind.feat.generichierarchy.case1.model;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-
-import sqlite.feat.multithread.Person;
-
-@BindDao(Person.class)
-public interface PersonDAO {
-
-	@BindSqlInsert
-	public void insertThread1(Person bean);
-	
-	@BindSqlInsert
-	public void insertThread2(Person bean);
-	
-	@BindSqlSelect
-	public Person selectThread1();
-	
-	@BindSqlSelect
-	public Person selectThread2();
+public enum MessageType {
+	SYSTEM_CHANNEL_CREATED,
+	SYSTEM_USER_ADDED,
+	SYSTEM_USER_EXITS,
+	SYSTEM_USER_BANNED,
+	SYSTEM_CHANNEL_DESTROYED,
+	MESSAGE,
+	ACTION;
 }

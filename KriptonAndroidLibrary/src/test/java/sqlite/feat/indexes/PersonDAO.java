@@ -13,26 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package sqlite.feat.indexes;
+
+import java.util.Date;
+import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-
-import sqlite.feat.multithread.Person;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
 @BindDao(Person.class)
 public interface PersonDAO {
+	
+	@BindSqlInsert
+	void insertOne(String name, String surname, String birthCity, Date birthDay);
 
-	@BindSqlInsert
-	public void insertThread1(Person bean);
+	@BindSqlSelect(orderBy="typeName")
+	List<Person> selectAll();
 	
-	@BindSqlInsert
-	public void insertThread2(Person bean);
+	@BindSqlSelect(where="typeName like ${nameTemp} || '%' and birthDay < ${date}")
+	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlDynamicWhere String where, @BindSqlDynamicOrderBy String orderBy, Date date );
 	
-	@BindSqlSelect
-	public Person selectThread1();
+	@BindSqlSelect(orderBy="typeName")
+	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlDynamicOrderBy String orderBy);
 	
-	@BindSqlSelect
-	public Person selectThread2();
+//	@BindSqlSelect(orderBy="typeName")
+//	void selectCursorListener(OnReadCursorListener cursorListener);
 }

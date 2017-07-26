@@ -13,26 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package sqlite.feat.includeFields;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import sqlite.feat.multithread.Person;
+import sqlite.feat.includeFields.PersonDAO;
 
-@BindDao(Person.class)
-public interface PersonDAO {
+@BindDataSource(dao = { PersonDAO.class }, fileName = "person.db", generateLog=true)
+public interface PersonDataSource {
 
-	@BindSqlInsert
-	public void insertThread1(Person bean);
-	
-	@BindSqlInsert
-	public void insertThread2(Person bean);
-	
-	@BindSqlSelect
-	public Person selectThread1();
-	
-	@BindSqlSelect
-	public Person selectThread2();
 }

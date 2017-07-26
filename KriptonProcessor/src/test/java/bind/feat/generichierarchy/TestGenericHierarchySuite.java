@@ -13,26 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package bind.feat.generichierarchy;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import sqlite.feat.multithread.Person;
+import bind.feat.generichierarchy.case1.TestGenericHierarchyCase1;
 
-@BindDao(Person.class)
-public interface PersonDAO {
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{
+			TestGenericHierarchy.class,
+			TestGenericHierarchyCase1.class
+		 })
+//@formatter:on
+public class TestGenericHierarchySuite {
 
-	@BindSqlInsert
-	public void insertThread1(Person bean);
-	
-	@BindSqlInsert
-	public void insertThread2(Person bean);
-	
-	@BindSqlSelect
-	public Person selectThread1();
-	
-	@BindSqlSelect
-	public Person selectThread2();
 }

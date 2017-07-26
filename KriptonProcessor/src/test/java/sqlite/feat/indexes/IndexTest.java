@@ -22,9 +22,9 @@ import org.junit.runners.JUnit4;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.indexes.Person;
-import sqlite.indexes.PersonDAO;
-import sqlite.indexes.PersonDataSource;
+import sqlite.feat.indexes.Person;
+import sqlite.feat.indexes.PersonDAO;
+import sqlite.feat.indexes.PersonDataSource;
 
 @RunWith(JUnit4.class)
 public class IndexTest extends AbstractBindSQLiteProcessorTest {

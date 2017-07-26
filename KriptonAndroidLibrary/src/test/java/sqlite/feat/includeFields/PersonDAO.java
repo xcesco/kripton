@@ -13,26 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.multithread;
+package sqlite.feat.includeFields;
+
+import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-
-import sqlite.feat.multithread.Person;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 @BindDao(Person.class)
 public interface PersonDAO {
+	@BindSqlSelect(fields={"name", "id"}, where="typeName=${bean.name}",orderBy="name")
+	List<Person> selectIncludeOne(Person bean);
+	
+	@BindSqlSelect(excludedFields={"name", "id"}, orderBy="name")
+	List<Person> selectExcludeOne();
+	
+	@BindSqlInsert(fields={"name", "id"})
+	void insertIncludeOne(Person bean);
+	
+	@BindSqlInsert(excludedFields={"name", "id"})
+	void insertExcludeOne(Person bean);	
+	
+	@BindSqlUpdate(fields={"name", "id"})
+	void updateIncludeOne(Person bean);
+	
+	@BindSqlUpdate(excludedFields={"name", "id"})
+	void updateExcludeOne(Person bean);
+	
+	@BindSqlDelete
+	void deleteIncludeOne(Person bean);
+	
+	@BindSqlDelete
+	void deleteExcludeOne(Person bean);
+	
+	
 
-	@BindSqlInsert
-	public void insertThread1(Person bean);
-	
-	@BindSqlInsert
-	public void insertThread2(Person bean);
-	
-	@BindSqlSelect
-	public Person selectThread1();
-	
-	@BindSqlSelect
-	public Person selectThread2();
 }
