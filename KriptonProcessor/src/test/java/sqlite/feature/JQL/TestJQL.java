@@ -20,9 +20,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.JQL.entities.Bean;
+import sqlite.feature.JQL.entities.Child;
 import sqlite.feature.JQL.entities.Person;
+import sqlite.feature.JQL.persistence.DaoBean;
 import sqlite.feature.JQL.persistence.DaoChild;
 import sqlite.feature.JQL.persistence.DaoPerson;
+import sqlite.feature.JQL.persistence.FamilyDataSource;
 
 @RunWith(JUnit4.class)
 public class TestJQL extends AbstractBindSQLiteProcessorTest {
