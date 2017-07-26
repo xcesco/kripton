@@ -13,24 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.generichierarchy.case1.transfer;
+package bind.feat.generichierarchy.case1.model;
 
-import java.util.List;
+import com.abubusoft.kripton.annotation.BindType;
 
-import bind.generichierarchy.case1.model.UIDObject;
+@BindType
+public class ChannelUser extends UIDObject {
 
-public abstract class RestListEntity<E extends UIDObject> extends RestResponse {
+	private static final long serialVersionUID = 8393678197733870803L;
 
-	private static final long serialVersionUID = -7911782943679996559L;
+	protected boolean administrator;
 	
-	protected List<E> list;
+	protected String name;
 
-	public List<E> getList() {
-		return list;
+	public String getName() {
+		return name;
 	}
 
-	public void setList(List<E> list) {
-		this.list = list;
+	public void setName(String name) {
+		this.name = name;
 	}
 
+	public boolean isAdministrator() {
+		return administrator;
+	}
+
+	public void setAdministrator(boolean administrator) {
+		this.administrator = administrator;
+	}
 }

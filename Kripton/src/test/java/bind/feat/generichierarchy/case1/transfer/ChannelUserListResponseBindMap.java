@@ -1,7 +1,5 @@
-package bind.generichierarchy.case1.transfer;
+package bind.feat.generichierarchy.case1.transfer;
 
-import bind.generichierarchy.case1.model.Message;
-import bind.generichierarchy.case1.model.MessageBindMap;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
@@ -14,23 +12,27 @@ import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+
+import bind.feat.generichierarchy.case1.model.ChannelUser;
+import bind.feat.generichierarchy.case1.model.ChannelUserBindMap;
+
 import java.lang.Exception;
 import java.lang.Override;
 import java.util.ArrayList;
 
 /**
- * This class is binder map for MessageListResponse
+ * This class is binder map for ChannelUserListResponse
  *
- * @see MessageListResponse
+ * @see ChannelUserListResponse
  */
-@BindMap(MessageListResponse.class)
-public class MessageListResponseBindMap extends AbstractMapper<MessageListResponse> {
+@BindMap(ChannelUserListResponse.class)
+public class ChannelUserListResponseBindMap extends AbstractMapper<ChannelUserListResponse> {
   /**
-   * MessageBindMap */
-  private MessageBindMap messageBindMap = BinderUtils.mapperFor(Message.class);
+   * ChannelUserBindMap */
+  private ChannelUserBindMap channelUserBindMap = BinderUtils.mapperFor(ChannelUser.class);
 
   @Override
-  public int serializeOnJackson(MessageListResponse object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(ChannelUserListResponse object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -46,7 +48,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
     if (object.getList()!=null)  {
       fieldCount++;
       int n=object.getList().size();
-      Message item;
+      ChannelUser item;
       // write wrapper tag
       jacksonSerializer.writeFieldName("list");
       jacksonSerializer.writeStartArray();
@@ -55,7 +57,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          messageBindMap.serializeOnJackson(item, jacksonSerializer);
+          channelUserBindMap.serializeOnJackson(item, jacksonSerializer);
         }
       }
       jacksonSerializer.writeEndArray();
@@ -72,7 +74,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
   }
 
   @Override
-  public int serializeOnJacksonAsString(MessageListResponse object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(ChannelUserListResponse object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -88,7 +90,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
     if (object.getList()!=null)  {
       fieldCount++;
       int n=object.getList().size();
-      Message item;
+      ChannelUser item;
       // write wrapper tag
       jacksonSerializer.writeFieldName("list");
       if (n>0) {
@@ -98,7 +100,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            if (messageBindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
+            if (channelUserBindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
               jacksonSerializer.writeNullField("list");
             }
           }
@@ -123,9 +125,9 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(MessageListResponse object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(ChannelUserListResponse object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
     if (currentEventType == 0) {
-      xmlSerializer.writeStartElement("messageListResponse");
+      xmlSerializer.writeStartElement("channelUserListResponse");
     }
 
     // Persisted fields:
@@ -140,14 +142,14 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
     // field list (mapped with "list")
     if (object.getList()!=null)  {
       int n=object.getList().size();
-      Message item;
+      ChannelUser item;
       for (int i=0; i<n; i++) {
         item=object.getList().get(i);
         if (item==null) {
           xmlSerializer.writeEmptyElement("list");
         } else {
           xmlSerializer.writeStartElement("list");
-          messageBindMap.serializeOnXml(item, xmlSerializer, 2);
+          channelUserBindMap.serializeOnXml(item, xmlSerializer, 2);
           xmlSerializer.writeEndElement();
         }
       }
@@ -175,8 +177,8 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
    * parse with jackson
    */
   @Override
-  public MessageListResponse parseOnJackson(JsonParser jacksonParser) throws Exception {
-    MessageListResponse instance = new MessageListResponse();
+  public ChannelUserListResponse parseOnJackson(JsonParser jacksonParser) throws Exception {
+    ChannelUserListResponse instance = new ChannelUserListResponse();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -200,13 +202,13 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
           case "list":
             // field list (mapped with "list")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-              ArrayList<Message> collection=new ArrayList<>();
-              Message item=null;
+              ArrayList<ChannelUser> collection=new ArrayList<>();
+              ChannelUser item=null;
               while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=messageBindMap.parseOnJackson(jacksonParser);
+                  item=channelUserBindMap.parseOnJackson(jacksonParser);
                 }
                 collection.add(item);
               }
@@ -231,8 +233,8 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
    * parse with jackson
    */
   @Override
-  public MessageListResponse parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    MessageListResponse instance = new MessageListResponse();
+  public ChannelUserListResponse parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    ChannelUserListResponse instance = new ChannelUserListResponse();
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -256,21 +258,21 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
           case "list":
             // field list (mapped with "list")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-              ArrayList<Message> collection=new ArrayList<>();
-              Message item=null;
+              ArrayList<ChannelUser> collection=new ArrayList<>();
+              ChannelUser item=null;
               String tempValue=null;
               while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                 tempValue=jacksonParser.getValueAsString();
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=messageBindMap.parseOnJacksonAsString(jacksonParser);
+                  item=channelUserBindMap.parseOnJacksonAsString(jacksonParser);
                 }
                 collection.add(item);
               }
               instance.setList(collection);
             } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
-              ArrayList<Message> collection=new ArrayList<>();
+              ArrayList<ChannelUser> collection=new ArrayList<>();
               instance.setList(collection);
             }
           break;
@@ -292,8 +294,8 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
    * parse xml
    */
   @Override
-  public MessageListResponse parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    MessageListResponse instance = new MessageListResponse();
+  public ChannelUserListResponse parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    ChannelUserListResponse instance = new ChannelUserListResponse();
     int eventType = currentEventType;
     boolean read=true;
 
@@ -325,8 +327,8 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
                 case "list":
                   // property list (mapped on "list")
                    {
-                    ArrayList<Message> collection=new ArrayList<>();
-                    Message item;
+                    ArrayList<ChannelUser> collection=new ArrayList<>();
+                    ChannelUser item;
                     // add first element
                     item=null;
                     if (xmlParser.isEmptyElement()) {
@@ -336,7 +338,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=messageBindMap.parseOnXml(xmlParser, eventType);
+                      item=channelUserBindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("list")) {
@@ -344,7 +346,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=messageBindMap.parseOnXml(xmlParser, eventType);
+                        item=channelUserBindMap.parseOnXml(xmlParser, eventType);
                       }
                       collection.add(item);
                     }

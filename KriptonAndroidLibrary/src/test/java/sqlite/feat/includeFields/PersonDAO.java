@@ -23,6 +23,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+import sqlite.feat.includeFields.Person;
+
 @BindDao(Person.class)
 public interface PersonDAO {
 	@BindSqlSelect(fields={"name", "id"}, where="typeName=${bean.name}",orderBy="name")

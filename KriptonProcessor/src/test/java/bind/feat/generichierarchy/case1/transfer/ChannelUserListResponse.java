@@ -21,7 +21,6 @@ package bind.feat.generichierarchy.case1.transfer;
 import com.abubusoft.kripton.annotation.BindType;
 
 import bind.feat.generichierarchy.case1.model.ChannelUser;
-import bind.generichierarchy.case1.transfer.RestListEntity;
 
 @BindType
 public class ChannelUserListResponse extends RestListEntity<ChannelUser> {

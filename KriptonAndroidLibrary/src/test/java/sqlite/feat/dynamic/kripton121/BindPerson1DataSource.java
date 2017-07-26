@@ -1,13 +1,12 @@
 package sqlite.feat.dynamic.kripton121;
 
 import android.database.sqlite.SQLiteDatabase;
-import sqlite.feat.dynamic.PersonTable;
-
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
+import sqlite.feat.dynamic.PersonTable;
 
 /**
  * <p>

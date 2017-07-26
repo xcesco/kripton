@@ -16,15 +16,14 @@
 /**
  * 
  */
-package bind.generichierarchy.case1.transfer;
+package bind.feat.generichierarchy;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-import bind.generichierarchy.case1.model.ChannelUser;
-
 @BindType
-public class ChannelUserListResponse extends RestListEntity<ChannelUser> {
-
-	private static final long serialVersionUID = -8852991429584656779L;
+public class ChannelListResponse  extends RestListEntity<Channel> {
+	
+	private static final long serialVersionUID = -9115932446572777269L;
+	
 
 }

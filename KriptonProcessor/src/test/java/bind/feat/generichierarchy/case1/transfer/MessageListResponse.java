@@ -21,7 +21,6 @@ package bind.feat.generichierarchy.case1.transfer;
 import com.abubusoft.kripton.annotation.BindType;
 
 import bind.feat.generichierarchy.case1.model.Message;
-import bind.generichierarchy.case1.transfer.RestListEntity;
 
 @BindType
 public class MessageListResponse extends RestListEntity<Message> {

@@ -1,10 +1,8 @@
 package sqlite.feat.paginatedResult;
 
-import java.util.LinkedList;
-
-import com.abubusoft.kripton.common.DateUtils;
-
 import android.database.Cursor;
+import com.abubusoft.kripton.common.DateUtils;
+import java.util.LinkedList;
 
 /**
  * <p>

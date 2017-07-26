@@ -1,4 +1,4 @@
-package bind.generichierarchy;
+package bind.feat.generichierarchy;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;

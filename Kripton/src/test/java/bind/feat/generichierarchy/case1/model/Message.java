@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.generichierarchy.case1.model;
+package bind.feat.generichierarchy.case1.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 

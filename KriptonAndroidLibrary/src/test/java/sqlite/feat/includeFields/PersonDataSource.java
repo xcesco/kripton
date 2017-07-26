@@ -17,6 +17,8 @@ package sqlite.feat.includeFields;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+import sqlite.feat.includeFields.PersonDAO;
+
 @BindDataSource(dao = { PersonDAO.class }, fileName = "person.db", generateLog=true)
 public interface PersonDataSource {
 

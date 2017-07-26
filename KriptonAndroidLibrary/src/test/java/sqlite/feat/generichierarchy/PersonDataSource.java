@@ -17,6 +17,8 @@ package sqlite.feat.generichierarchy;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+import sqlite.feat.generichierarchy.PersonDAO;
+
 @BindDataSource(dao = { PersonDAO.class }, fileName = "person.db", generateLog=true)
 public interface PersonDataSource {
 

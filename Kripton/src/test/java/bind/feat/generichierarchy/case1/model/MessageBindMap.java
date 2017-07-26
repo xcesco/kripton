@@ -1,4 +1,4 @@
-package bind.generichierarchy.case1.model;
+package bind.feat.generichierarchy.case1.model;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;

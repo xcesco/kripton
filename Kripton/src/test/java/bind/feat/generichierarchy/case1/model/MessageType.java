@@ -1,4 +1,4 @@
-package bind.generichierarchy.case1.model;
+package bind.feat.generichierarchy.case1.model;
 
 public enum MessageType {
 	SYSTEM_CHANNEL_CREATED,

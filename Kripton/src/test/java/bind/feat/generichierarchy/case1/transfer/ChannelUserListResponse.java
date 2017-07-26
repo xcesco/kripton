@@ -13,44 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.generichierarchy;
+/**
+ * 
+ */
+package bind.feat.generichierarchy.case1.transfer;
 
-import java.io.Serializable;
+import com.abubusoft.kripton.annotation.BindType;
 
-public abstract class RestResponse  implements Serializable {
+import bind.feat.generichierarchy.case1.model.ChannelUser;
 
-	private static final long serialVersionUID = -1707936337366965471L;
+@BindType
+public class ChannelUserListResponse extends RestListEntity<ChannelUser> {
 
-	protected ServiceStatusType status;
-	
-	protected String detailMessage;
-
-	public String getDetailMessage() {
-		return detailMessage;
-	}
-
-	public void setDetailMessage(String detailMessage) {
-		this.detailMessage = detailMessage;
-	}
-
-
-	public void setStatus(ServiceStatusType status) {
-		this.status = status;
-	}
-	
-
-	public ServiceStatusType getStatus() {
-		return status;
-	}
-	
-	public boolean isSuccessfull()
-	{
-		return status.isSuccessfull();
-	}
-
-	@Override
-	public String toString() {
-		return "RestResponse [status=" + status + "]";
-	}
+	private static final long serialVersionUID = -8852991429584656779L;
 
 }

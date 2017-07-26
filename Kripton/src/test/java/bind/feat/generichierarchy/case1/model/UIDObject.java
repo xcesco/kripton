@@ -1,4 +1,4 @@
-package bind.generichierarchy.case1.model;
+package bind.feat.generichierarchy.case1.model;
 
 import java.io.Serializable;
 

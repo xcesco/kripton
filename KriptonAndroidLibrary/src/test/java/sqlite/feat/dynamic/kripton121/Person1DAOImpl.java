@@ -1,8 +1,6 @@
 package sqlite.feat.dynamic.kripton121;
 
 import android.database.Cursor;
-import sqlite.feat.dynamic.Person;
-
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
@@ -11,6 +9,7 @@ import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import sqlite.feat.dynamic.Person;
 
 /**
  * <p>

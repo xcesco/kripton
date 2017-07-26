@@ -20,12 +20,6 @@ import java.io.IOException;
 import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
-import bind.generichierarchy.Channel;
-import bind.generichierarchy.ChannelListResponse;
-import bind.generichierarchy.RestListEntity;
-import bind.generichierarchy.RestResponse;
-import bind.generichierarchy.ServiceStatusType;
-import bind.generichierarchy.UIDObject;
 
 /**
  * Test bean field

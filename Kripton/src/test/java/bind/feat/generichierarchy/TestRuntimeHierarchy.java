@@ -1,4 +1,4 @@
-package bind.generichierarchy;
+package bind.feat.generichierarchy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

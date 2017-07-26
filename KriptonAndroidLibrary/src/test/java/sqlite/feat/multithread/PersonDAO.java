@@ -19,6 +19,8 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+import sqlite.feat.multithread.Person;
+
 @BindDao(Person.class)
 public interface PersonDAO {
 

@@ -23,6 +23,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+import sqlite.feat.foreignKey.BeanA_3;
+
 @BindDao(BeanA_3.class)
 public interface DaoBeanA_3 {
 	@BindSqlSelect

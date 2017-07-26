@@ -13,44 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.generichierarchy.case1.transfer;
+package bind.feat.generichierarchy;
 
-import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
-public abstract class RestResponse  implements Serializable {
+import com.abubusoft.kripton.annotation.BindXml;
 
-	private static final long serialVersionUID = -1707936337366965471L;
+public abstract class RestListEntity<E extends UIDObject> extends RestResponse {
 
-	protected ServiceStatusType status;
+	private static final long serialVersionUID = -7911782943679996559L;
 	
-	protected String detailMessage;
-
-	public String getDetailMessage() {
-		return detailMessage;
-	}
-
-	public void setDetailMessage(String detailMessage) {
-		this.detailMessage = detailMessage;
-	}
-
-
-	public void setStatus(ServiceStatusType status) {
-		this.status = status;
-	}
+	public E bean;
 	
-
-	public ServiceStatusType getStatus() {
-		return status;
-	}
+	@BindXml(elementTag="item")
+	protected List<E> list;
 	
-	public boolean isSuccessfull()
-	{
-		return status.isSuccessfull();
+	public Map<String, E> map;
+
+	public List<E> getList() {
+		return list;
 	}
 
-	@Override
-	public String toString() {
-		return "RestResponse [status=" + status + "]";
+	public void setList(List<E> list) {
+		this.list = list;
 	}
+
+	
 
 }

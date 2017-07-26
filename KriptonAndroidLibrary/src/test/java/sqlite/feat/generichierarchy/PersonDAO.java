@@ -20,6 +20,9 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.annotation.BindTypeVariables;
 
+import sqlite.feat.generichierarchy.BaseDAO;
+import sqlite.feat.generichierarchy.Person;
+
 @BindTypeVariables(value="E", typeParameters=Person.class)
 @BindDao(Person.class)
 public interface PersonDAO extends BaseDAO<Person> {

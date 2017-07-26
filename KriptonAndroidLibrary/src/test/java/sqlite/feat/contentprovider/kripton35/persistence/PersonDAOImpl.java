@@ -3,8 +3,6 @@ package sqlite.feat.contentprovider.kripton35.persistence;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
-import sqlite.feat.contentprovider.kripton35.entities.Person;
-
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
@@ -17,6 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import sqlite.feat.contentprovider.kripton35.entities.Person;
 
 /**
  * <p>

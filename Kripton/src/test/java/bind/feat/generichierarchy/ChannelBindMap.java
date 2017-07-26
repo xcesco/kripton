@@ -1,4 +1,4 @@
-package bind.generichierarchy.case1.model;
+package bind.feat.generichierarchy;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
@@ -14,22 +14,28 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is binder map for ChannelUser
+ * This class is binder map for Channel
  *
- * @see ChannelUser
+ * @see Channel
  */
-@BindMap(ChannelUser.class)
-public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
+@BindMap(Channel.class)
+public class ChannelBindMap extends AbstractMapper<Channel> {
   @Override
-  public int serializeOnJackson(ChannelUser object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(Channel object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
-    // field administrator (mapped with "administrator")
+    // field imageSize (mapped with "imageSize")
     fieldCount++;
-    jacksonSerializer.writeBooleanField("administrator", object.isAdministrator());
+    jacksonSerializer.writeNumberField("imageSize", object.getImageSize());
+
+    // field imageType (mapped with "imageType")
+    if (object.getImageType()!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("imageType", object.getImageType());
+    }
 
     // field name (mapped with "name")
     if (object.getName()!=null)  {
@@ -52,14 +58,20 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(ChannelUser object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Channel object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
-    // field administrator (mapped with "administrator")
-    jacksonSerializer.writeStringField("administrator", PrimitiveUtils.writeBoolean(object.isAdministrator()));
+    // field imageSize (mapped with "imageSize")
+    jacksonSerializer.writeStringField("imageSize", PrimitiveUtils.writeLong(object.getImageSize()));
+
+    // field imageType (mapped with "imageType")
+    if (object.getImageType()!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("imageType", object.getImageType());
+    }
 
     // field name (mapped with "name")
     if (object.getName()!=null)  {
@@ -84,17 +96,24 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(ChannelUser object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Channel object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
     if (currentEventType == 0) {
-      xmlSerializer.writeStartElement("channelUser");
+      xmlSerializer.writeStartElement("channel");
     }
 
     // Persisted fields:
 
-    // field administrator (mapped with "administrator")
-    xmlSerializer.writeStartElement("administrator");
-    xmlSerializer.writeBoolean(object.isAdministrator());
+    // field imageSize (mapped with "imageSize")
+    xmlSerializer.writeStartElement("imageSize");
+    xmlSerializer.writeLong(object.getImageSize());
     xmlSerializer.writeEndElement();
+
+    // field imageType (mapped with "imageType")
+    if (object.getImageType()!=null) {
+      xmlSerializer.writeStartElement("imageType");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getImageType()));
+      xmlSerializer.writeEndElement();
+    }
 
     // field name (mapped with "name")
     if (object.getName()!=null) {
@@ -124,8 +143,8 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
    * parse with jackson
    */
   @Override
-  public ChannelUser parseOnJackson(JsonParser jacksonParser) throws Exception {
-    ChannelUser instance = new ChannelUser();
+  public Channel parseOnJackson(JsonParser jacksonParser) throws Exception {
+    Channel instance = new Channel();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -140,9 +159,15 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
 
       // Parse fields:
       switch (fieldName) {
-          case "administrator":
-            // field administrator (mapped with "administrator")
-            instance.setAdministrator(jacksonParser.getBooleanValue());
+          case "imageSize":
+            // field imageSize (mapped with "imageSize")
+            instance.setImageSize(jacksonParser.getLongValue());
+          break;
+          case "imageType":
+            // field imageType (mapped with "imageType")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.setImageType(jacksonParser.getText());
+            }
           break;
           case "name":
             // field name (mapped with "name")
@@ -171,8 +196,8 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
    * parse with jackson
    */
   @Override
-  public ChannelUser parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    ChannelUser instance = new ChannelUser();
+  public Channel parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    Channel instance = new Channel();
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -187,9 +212,15 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
 
       // Parse fields:
       switch (fieldName) {
-          case "administrator":
-            // field administrator (mapped with "administrator")
-            instance.setAdministrator(PrimitiveUtils.readBoolean(jacksonParser.getText(), (boolean)false));
+          case "imageSize":
+            // field imageSize (mapped with "imageSize")
+            instance.setImageSize(PrimitiveUtils.readLong(jacksonParser.getText(), 0L));
+          break;
+          case "imageType":
+            // field imageType (mapped with "imageType")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.setImageType(jacksonParser.getText());
+            }
           break;
           case "name":
             // field name (mapped with "name")
@@ -218,8 +249,8 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
    * parse xml
    */
   @Override
-  public ChannelUser parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    ChannelUser instance = new ChannelUser();
+  public Channel parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    Channel instance = new Channel();
     int eventType = currentEventType;
     boolean read=true;
 
@@ -244,9 +275,13 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
           case XmlPullParser.START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
-                case "administrator":
-                  // property administrator (mapped on "administrator")
-                  instance.setAdministrator(PrimitiveUtils.readBoolean(xmlParser.getElementAsBoolean(), (boolean)false));
+                case "imageSize":
+                  // property imageSize (mapped on "imageSize")
+                  instance.setImageSize(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
+                break;
+                case "imageType":
+                  // property imageType (mapped on "imageType")
+                  instance.setImageType(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 case "name":
                   // property name (mapped on "name")

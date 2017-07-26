@@ -17,8 +17,6 @@ package bind.feat.generichierarchy;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-import bind.generichierarchy.UIDObject;
-
 @BindType
 public class Channel extends UIDObject {	
 

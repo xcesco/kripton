@@ -2,8 +2,6 @@ package sqlite.feat.dynamic.update;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import sqlite.feat.dynamic.Person;
-
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
@@ -13,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import sqlite.feat.dynamic.Person;
 
 /**
  * <p>

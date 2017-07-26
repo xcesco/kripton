@@ -18,6 +18,8 @@ package sqlite.feat.foreignKey;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
+import sqlite.feat.foreignKey.BeanA_2;
+
 @BindType
 public class BeanA_1 {
 

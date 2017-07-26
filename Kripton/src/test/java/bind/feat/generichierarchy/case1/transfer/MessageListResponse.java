@@ -16,11 +16,11 @@
 /**
  * 
  */
-package bind.generichierarchy.case1.transfer;
+package bind.feat.generichierarchy.case1.transfer;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-import bind.generichierarchy.case1.model.Message;
+import bind.feat.generichierarchy.case1.model.Message;
 
 @BindType
 public class MessageListResponse extends RestListEntity<Message> {

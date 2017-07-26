@@ -26,6 +26,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
+import sqlite.feat.indexes.Person;
+
 @BindDao(Person.class)
 public interface PersonDAO {
 	
