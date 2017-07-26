@@ -17,8 +17,6 @@ package bind.feat.generichierarchy;
 
 import java.io.Serializable;
 
-import bind.generichierarchy.UIDObject;
-
 /**
  * Classe che rappresenta un oggetto identificabile da un UID.
  * 

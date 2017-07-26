@@ -17,7 +17,6 @@ package bind.feat.generichierarchy;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-import bind.generichierarchy.Channel;
 import bind.generichierarchy.UIDObject;
 
 @BindType

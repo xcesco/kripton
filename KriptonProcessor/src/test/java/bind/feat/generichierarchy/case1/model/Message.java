@@ -17,7 +17,6 @@ package bind.feat.generichierarchy.case1.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-import bind.generichierarchy.case1.model.Message;
 import bind.generichierarchy.case1.model.MessageType;
 import bind.generichierarchy.case1.model.UIDObject;
 
