@@ -27,7 +27,7 @@ import sqlite.feature.contentprovider.kripton35.entities.Person;
  *  @see sqlite.feature.contentprovider.kripton35.entities.PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
-  private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "birth_city", "birth_day", "value", "name", "surname");
 
   private static final Set<String> insertName1ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
 
@@ -53,13 +53,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR FAIL INTO person (alias_parent_id, birth_city, birth_day, value, name, surname) VALUES (${bean.parentId}, ${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>alias_parent_id</dt><dd>is mapped to <strong>${bean.parentId}</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
    * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
@@ -75,8 +74,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   public void insertBean(Person bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
-    contentValues.put("alias_parent_id", bean.parentId);
 
     if (bean.birthCity!=null) {
       contentValues.put("birth_city", bean.birthCity);
@@ -139,10 +136,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR FAIL INTO Person (parentId, birthCity, birthDay, value, name, surname) VALUES (${bean.parentId}, ${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR FAIL INTO Person (birthCity, birthDay, value, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR FAIL INTO person (alias_parent_id, birth_city, birth_day, value, name, surname) VALUES (${bean.parentId}, ${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *

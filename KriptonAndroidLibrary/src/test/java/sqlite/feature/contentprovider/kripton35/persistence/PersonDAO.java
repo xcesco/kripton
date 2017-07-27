@@ -38,7 +38,7 @@ import sqlite.feature.contentprovider.kripton35.entities.Person;
 public interface PersonDAO {
 
 	@BindContentProviderEntry
-	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.FAIL)
+	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.FAIL, excludedFields="parentId")
 	void insertBean(Person bean);
 	
 	@BindContentProviderEntry(path = "${name}")

@@ -108,6 +108,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	public boolean contentProviderEntryPathEnabled;
 
+	/**
+	 * it's the path defined in @ContentProviderEntry.path 
+	 */
 	public String contentProviderEntryPath;
 
 	/**

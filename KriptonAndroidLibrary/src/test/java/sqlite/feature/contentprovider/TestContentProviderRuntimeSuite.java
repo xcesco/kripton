@@ -18,13 +18,17 @@ package sqlite.feature.contentprovider;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import sqlite.feature.contentprovider.kripton35.TestContentProviderInsert;
 import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
+import sqlite.feature.contentprovider.kripton35.TestContentProviderWrong;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestContentProviderRuntime.class		
+		TestContentProviderRuntime.class, 
+		TestContentProviderInsert.class,
+		TestContentProviderWrong.class
 		 })
 //@formatter:on
 public class TestContentProviderRuntimeSuite  {

@@ -19,7 +19,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,11 +28,9 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ContentProviderController;
 
 import com.abubusoft.kripton.common.DateUtils;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.ContentValues;
 import android.content.pm.ProviderInfo;
-import android.database.Cursor;
 import android.net.Uri;
 import base.BaseAndroidTest;
 import sqlite.feature.contentprovider.kripton35.entities.PersonTable;
@@ -45,7 +42,7 @@ import sqlite.feature.contentprovider.kripton35.persistence.BindPersonContentPro
  */
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
-public class TestContentProviderRuntime extends BaseAndroidTest {
+public class TestContentProviderInsert extends BaseAndroidTest {
 
 	@Before
 	public void setupContentProvider() {
@@ -54,6 +51,12 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 
 		ContentProviderController<BindPersonContentProvider> controller = Robolectric.buildContentProvider(BindPersonContentProvider.class);
 		controller.create(info);
+	}
+
+	@Test
+	public void testRunInsert() {
+		insertRows(10);
+		
 	}
 
 	private void insertRows(int rows) {
@@ -67,33 +70,6 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 			assertTrue(Long.parseLong(resultURI.toString().replace("content://sqlite.feature.contentprovider.kripton35/persons/",""))>0);
 		}
 	}
-
-	@Test
-	public void testRunSelectAfterInsert() {
-		int rows = 10;
-		insertRows(rows);
-
-		{
-			Uri uri = Uri.parse(BindPersonContentProvider.URI + "/persons");
-			String[] args = { "New York" };
-			Cursor cursor = getApplicationContext().getContentResolver().query(uri, null, PersonTable.COLUMN_BIRTH_CITY + "=?", args, null);
-
-			System.out.println(cursor.getColumnCount() + " " + cursor.getCount());
-			Assert.assertEquals(rows, cursor.getCount());
-			Assert.assertEquals(7, cursor.getColumnCount());
-		}
-
-		{
-			Uri uriUpdate = Uri.parse(BindPersonContentProvider.URI + "/persons/#");
-			String temp=uriUpdate.toString().replace("#", "8");
-			uriUpdate=Uri.parse(temp);
-			ContentValues contentValues=new ContentValues();
-			contentValues.put(PersonTable.COLUMN_NAME, "London");
-			getApplicationContext().getContentResolver().update(uriUpdate, contentValues, null, null);
-		}
-
-	}
-
 
 
 }
