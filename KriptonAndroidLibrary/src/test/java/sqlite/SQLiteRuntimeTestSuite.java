@@ -20,9 +20,10 @@ import org.junit.runners.Suite;
 
 import sqlite.example01.TestExample01RuntimeSuite;
 import sqlite.example02.TestExample02RuntimeSuite;
-import sqlite.feat.dynamic.TestDynamicRuntimeSuite;
 import sqlite.feat.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.feat.includeFields.TestIncludeFieldsRuntimeSuite;
+import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
+import sqlite.feature.dynamic.TestDynamicRuntimeSuite;
 import sqlite.feature.jql.TestFeatJQLRuntimeSuite;
 import sqlite.feature.multithread.TestRuntimeMultithreadSuite;
 import sqlite.feature.paginatedResult.TestPaginatedResultRuntimeSuite;
@@ -39,14 +40,14 @@ import sqlite.quickstart.TestQuickstartRuntimeSuite;
 	// verified results
 	TestPaginatedResultRuntimeSuite.class,
 	TestRuntimeMultithreadSuite.class,
-	
-	// unverified results
 	TestDynamicRuntimeSuite.class,
+	TestContentProviderRuntime.class,
+	
+	// unverified results	
 	TestExample01RuntimeSuite.class,
 	TestExample02RuntimeSuite.class,
 	TestForeignKeyRuntimeSuite.class,
 	TestIncludeFieldsRuntimeSuite.class,
-	
 	
 	Test64RuntimeSuite.class,
 	Test84RuntimeSuite.class,

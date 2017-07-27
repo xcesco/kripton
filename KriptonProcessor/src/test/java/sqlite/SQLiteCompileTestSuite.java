@@ -20,14 +20,14 @@ import org.junit.runners.Suite;
 
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
-import sqlite.feat.contentprovider.kripton35.TestContentProviderSuite;
-import sqlite.feat.dynamic.TestDynamicSuite;
 import sqlite.feat.foreignKey.TestForeignKeySuite;
 import sqlite.feat.generichierarchy.TestCompileGenericHierarchySuite;
 import sqlite.feat.grammars.contenturi.TestUriCheckerSuite;
 import sqlite.feat.grammars.jql.TestJqlCheckerSuite;
 import sqlite.feat.includeFields.IncludeFieldsTestSuite;
 import sqlite.feat.indexes.IndexTestSuite;
+import sqlite.feature.contentprovider.TestContentProviderSuite;
+import sqlite.feature.dynamic.TestDynamicSuite;
 import sqlite.feature.jql.TestJQLFeatureSuite;
 import sqlite.feature.multithread.TestCompileMultithreadSuite;
 import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
@@ -63,7 +63,14 @@ import sqlite.kripton63.Test63Compile;
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
-		{ 
+		{
+			// features			
+			TestContentProviderSuite.class,
+			TestPaginatedResultSuite.class,
+			TestCompileMultithreadSuite.class,
+			TestDynamicSuite.class,
+			
+			// bug-fix			
 			Example01Suite.class,
 			Example02Suite.class,
 			Test01Suite.class, 
@@ -91,15 +98,13 @@ import sqlite.kripton63.Test63Compile;
 			Test03.class, 
 			TestFirstAid.class,			
 			TestForeignKeySuite.class,
-			TestContentProviderSuite.class,
 			TestUriCheckerSuite.class,
 			TestJqlCheckerSuite.class,
-			TestDynamicSuite.class,
-			TestPaginatedResultSuite.class,
+			
+
 			IndexTestSuite.class,
 			TestSelectSuite.class,
-			IncludeFieldsTestSuite.class,
-			TestCompileMultithreadSuite.class,
+			IncludeFieldsTestSuite.class,			
 			TestCompileGenericHierarchySuite.class,
 			TestJQLFeatureSuite.class,
 			Test62Compile.class,
