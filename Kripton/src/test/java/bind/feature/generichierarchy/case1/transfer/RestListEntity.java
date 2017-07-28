@@ -17,7 +17,8 @@ package bind.feature.generichierarchy.case1.transfer;
 
 import java.util.List;
 
-import bind.feature.generichierarchy.case1.model.UIDObject;
+import bind.feature.generichierarchy.UIDObject;
+
 
 public abstract class RestListEntity<E extends UIDObject> extends RestResponse {
 

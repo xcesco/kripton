@@ -17,6 +17,7 @@ package bind.feature.generichierarchy.case1.transfer;
 
 import java.io.Serializable;
 
+
 public abstract class RestResponse  implements Serializable {
 
 	private static final long serialVersionUID = -1707936337366965471L;

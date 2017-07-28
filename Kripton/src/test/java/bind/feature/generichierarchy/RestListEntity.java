@@ -20,6 +20,7 @@ import java.util.Map;
 
 import com.abubusoft.kripton.annotation.BindXml;
 
+
 public abstract class RestListEntity<E extends UIDObject> extends RestResponse {
 
 	private static final long serialVersionUID = -7911782943679996559L;

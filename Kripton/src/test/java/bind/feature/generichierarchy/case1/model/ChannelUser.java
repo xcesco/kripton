@@ -17,6 +17,8 @@ package bind.feature.generichierarchy.case1.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+import bind.feature.generichierarchy.UIDObject;
+
 @BindType
 public class ChannelUser extends UIDObject {
 

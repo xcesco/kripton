@@ -22,6 +22,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import bind.feature.generichierarchy.case1.model.Message;
 
+
 @BindType
 public class MessageListResponse extends RestListEntity<Message> {
 

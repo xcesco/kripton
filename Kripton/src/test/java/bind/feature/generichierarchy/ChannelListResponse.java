@@ -20,6 +20,7 @@ package bind.feature.generichierarchy;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+
 @BindType
 public class ChannelListResponse  extends RestListEntity<Channel> {
 	

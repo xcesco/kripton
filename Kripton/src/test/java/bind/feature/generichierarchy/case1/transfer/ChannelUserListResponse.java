@@ -22,7 +22,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import bind.feature.generichierarchy.case1.model.ChannelUser;
 
-@BindType
+@BindType 
 public class ChannelUserListResponse extends RestListEntity<ChannelUser> {
 
 	private static final long serialVersionUID = -8852991429584656779L;

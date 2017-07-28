@@ -17,6 +17,8 @@ package bind.feature.generichierarchy;
 
 import java.io.Serializable;
 
+import bind.feature.generichierarchy.ServiceStatusType;
+
 public abstract class RestResponse  implements Serializable {
 
 	private static final long serialVersionUID = -1707936337366965471L;
