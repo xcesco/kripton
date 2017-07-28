@@ -26,14 +26,9 @@ public class BindPersonCursor {
   protected int index1;
 
   /**
-   * Index for column "listChild"
-   */
-  protected int index2;
-
-  /**
    * Index for column "image"
    */
-  protected int index3;
+  protected int index2;
 
   /**
    * <p>Constructor</p>
@@ -54,8 +49,7 @@ public class BindPersonCursor {
 
     index0=cursor.getColumnIndex("_id");
     index1=cursor.getColumnIndex("name");
-    index2=cursor.getColumnIndex("list_child");
-    index3=cursor.getColumnIndex("image");
+    index2=cursor.getColumnIndex("image");
 
     return this;
   }
@@ -77,8 +71,7 @@ public class BindPersonCursor {
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.listChild=PersonTable.parseListChild(cursor.getBlob(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.image=PersonTable.parseImage(cursor.getBlob(index3));}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.image=PersonTable.parseImage(cursor.getBlob(index2));}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -101,13 +94,11 @@ public class BindPersonCursor {
        {
         if (index0>=0) { resultBean.id=0L;}
         if (index1>=0) { resultBean.name=null;}
-        if (index2>=0) { resultBean.listChild=null;}
-        if (index3>=0) { resultBean.image=null;}
+        if (index2>=0) { resultBean.image=null;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.listChild=PersonTable.parseListChild(cursor.getBlob(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.image=PersonTable.parseImage(cursor.getBlob(index3));}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.image=PersonTable.parseImage(cursor.getBlob(index2));}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

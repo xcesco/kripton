@@ -1,19 +1,6 @@
 package sqlite.feature.jql.entities;
 
-import com.abubusoft.kripton.BinderUtils;
-import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.KriptonJsonContext;
-import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-import java.lang.Exception;
 import java.lang.String;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>
@@ -33,9 +20,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, list_child BLOB, image BLOB);</pre>
+   * <pre>CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, image BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, list_child BLOB, image BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, image BLOB);";
 
   /**
    * <p>
@@ -61,93 +48,11 @@ public class PersonTable {
   public static final String COLUMN_NAME = "name";
 
   /**
-   * Entity's property <code>listChild</code> is associated to table column <code>list_child</code>. This costant represents column typeName.
-   *
-   *  @see Person#listChild
-   */
-  public static final String COLUMN_LIST_CHILD = "list_child";
-
-  /**
    * Entity's property <code>image</code> is associated to table column <code>image</code>. This costant represents column typeName.
    *
    *  @see Person#image
    */
   public static final String COLUMN_IMAGE = "image";
-
-  /**
-   * ChildBindMap */
-  private static ChildBindMap childBindMap = BinderUtils.mapperFor(Child.class);
-
-  /**
-   * write
-   */
-  public static byte[] serializeListChild(List<Child> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        int n=value.size();
-        Child item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value.get(i);
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            childBindMap.serializeOnJackson(item, jacksonSerializer);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  public static List<Child> parseListChild(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      List<Child> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Child> collection=new ArrayList<>();
-        Child item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=childBindMap.parseOnJackson(jacksonParser);
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
 
   /**
    * write

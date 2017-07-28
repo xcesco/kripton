@@ -29,13 +29,12 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT _id, name, list_child, image FROM person</pre>
+   * <pre>SELECT _id, name, image FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>_id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>list_child</dt><dd>is associated to bean's property <strong>listChild</strong></dd>
    * 	<dt>image</dt><dd>is associated to bean's property <strong>image</strong></dd>
    * </dl>
    *
@@ -44,7 +43,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
   @Override
   public List<Person> selectAll() {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT _id, name, list_child, image FROM person");
+    _sqlBuilder.append("SELECT _id, name, image FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -72,8 +71,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
 
         int index0=cursor.getColumnIndex("_id");
         int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("list_child");
-        int index3=cursor.getColumnIndex("image");
+        int index2=cursor.getColumnIndex("image");
 
         do
          {
@@ -81,8 +79,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
 
           resultBean.id=cursor.getLong(index0);
           resultBean.name=cursor.getString(index1);
-          if (!cursor.isNull(index2)) { resultBean.listChild=PersonTable.parseListChild(cursor.getBlob(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.image=PersonTable.parseImage(cursor.getBlob(index3)); }
+          if (!cursor.isNull(index2)) { resultBean.image=PersonTable.parseImage(cursor.getBlob(index2)); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -94,14 +91,13 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, list_child, image) VALUES (${bean.name}, ${bean.listChild}, ${bean.image})</pre>
+   * <pre>INSERT INTO person (name, image) VALUES (${bean.name}, ${bean.image})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>list_child</dt><dd>is mapped to <strong>${bean.listChild}</strong></dd>
    * 	<dt>image</dt><dd>is mapped to <strong>${bean.image}</strong></dd>
    * </dl>
    *
@@ -118,12 +114,6 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
       contentValues.put("name", bean.name);
     } else {
       contentValues.putNull("name");
-    }
-
-    if (bean.listChild!=null) {
-      contentValues.put("list_child", PersonTable.serializeListChild(bean.listChild));
-    } else {
-      contentValues.putNull("list_child");
     }
 
     if (bean.image!=null) {
