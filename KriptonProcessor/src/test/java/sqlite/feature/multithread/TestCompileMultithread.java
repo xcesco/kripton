@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feat.generichierarchy.BaseDAO;
+import sqlite.feature.generichierarchy.BaseDAO;
 import sqlite.feature.multithread.Person;
 import sqlite.feature.multithread.PersonDAO;
 import sqlite.feature.multithread.PersonDataSource;

@@ -1,4 +1,4 @@
-package sqlite.feat.generichierarchy;
+package sqlite.feature.generichierarchy;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.common.DateUtils;

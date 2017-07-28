@@ -13,25 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.generichierarchy;
+package sqlite.feature.generichierarchy;
 
-import java.util.Date;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.annotation.BindType;
+import base.BaseProcessorTest;
 
-@BindType
-@BindTable()
-public class Person {
-  public long id;
-  
-  
-  @BindColumn(columnType=ColumnType.INDEXED)
-  public String name;
-  
-  public String surname;
-  public String birthCity;
-  public Date birthDay;
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestCompileGenericHierarchy.class
+		 })
+//@formatter:on
+public class TestGenericHierarchySuite extends BaseProcessorTest {
+
 }

@@ -13,20 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.generichierarchy;
+package sqlite.feature.generichierarchy;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.generichierarchy.BaseDAO;
+import sqlite.feature.generichierarchy.Person;
+import sqlite.feature.generichierarchy.PersonDAO;
+import sqlite.feature.generichierarchy.PersonDataSource;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestCompileGenericHierarchy.class
-		 })
-//@formatter:on
-public class TestCompileGenericHierarchySuite extends BaseProcessorTest {
+@RunWith(JUnit4.class)
+public class TestCompileGenericHierarchy extends AbstractBindSQLiteProcessorTest {
+
+	/**
+	 * OK
+	 * 
+	 * @throws Throwable
+	 */
+	@Test
+	public void testOK() throws Throwable {
+		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class, BaseDAO.class);
+	}
 
 }

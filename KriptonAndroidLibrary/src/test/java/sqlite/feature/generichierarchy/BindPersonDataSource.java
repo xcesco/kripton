@@ -1,4 +1,4 @@
-package sqlite.feat.generichierarchy;
+package sqlite.feature.generichierarchy;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;

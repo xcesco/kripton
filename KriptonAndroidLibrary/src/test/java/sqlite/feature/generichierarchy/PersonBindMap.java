@@ -1,4 +1,4 @@
-package sqlite.feat.generichierarchy;
+package sqlite.feature.generichierarchy;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;

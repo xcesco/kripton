@@ -13,29 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.generichierarchy;
+package sqlite.feature.generichierarchy;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feat.generichierarchy.BaseDAO;
-import sqlite.feat.generichierarchy.Person;
-import sqlite.feat.generichierarchy.PersonDAO;
-import sqlite.feat.generichierarchy.PersonDataSource;
+import sqlite.feature.generichierarchy.PersonDAO;
 
-@RunWith(JUnit4.class)
-public class TestCompileGenericHierarchy extends AbstractBindSQLiteProcessorTest {
-
-	/**
-	 * OK
-	 * 
-	 * @throws Throwable
-	 */
-	@Test
-	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class, BaseDAO.class);
-	}
+@BindDataSource(dao = { PersonDAO.class }, fileName = "person.db", generateLog=true)
+public interface PersonDataSource {
 
 }

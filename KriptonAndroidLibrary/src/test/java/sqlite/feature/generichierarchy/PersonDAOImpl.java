@@ -1,4 +1,4 @@
-package sqlite.feat.generichierarchy;
+package sqlite.feature.generichierarchy;
 
 import android.content.ContentValues;
 import android.database.Cursor;

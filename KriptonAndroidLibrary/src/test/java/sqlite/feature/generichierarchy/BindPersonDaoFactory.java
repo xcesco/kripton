@@ -1,4 +1,4 @@
-package sqlite.feat.generichierarchy;
+package sqlite.feature.generichierarchy;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 

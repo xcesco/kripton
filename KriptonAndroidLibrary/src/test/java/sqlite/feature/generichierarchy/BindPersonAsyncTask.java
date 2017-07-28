@@ -1,4 +1,4 @@
-package sqlite.feat.generichierarchy;
+package sqlite.feature.generichierarchy;
 
 import android.os.AsyncTask;
 import com.abubusoft.kripton.android.BindAsyncTaskType;

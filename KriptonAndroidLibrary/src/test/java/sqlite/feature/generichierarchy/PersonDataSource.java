@@ -13,28 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.generichierarchy;
+package sqlite.feature.generichierarchy;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.annotation.BindTypeVariables;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import sqlite.feat.generichierarchy.BaseDAO;
-import sqlite.feat.generichierarchy.Person;
+import sqlite.feature.generichierarchy.PersonDAO;
 
-@BindTypeVariables(value="E", typeParameters=Person.class)
-@BindDao(Person.class)
-public interface PersonDAO extends BaseDAO<Person> {
-//
+@BindDataSource(dao = { PersonDAO.class }, fileName = "person.db", generateLog=true)
+public interface PersonDataSource {
 
-//	
-//	@BindSqlInsert
-//	public void insertThread2(Person bean);
-//	
-//	@BindSqlSelect
-//	public Person selectThread1();
-//	
-//	@BindSqlSelect
-//	public Person selectThread2();
 }

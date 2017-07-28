@@ -21,13 +21,13 @@ import org.junit.runners.Suite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
 import sqlite.feat.foreignKey.TestForeignKeySuite;
-import sqlite.feat.generichierarchy.TestCompileGenericHierarchySuite;
 import sqlite.feat.grammars.contenturi.TestUriCheckerSuite;
 import sqlite.feat.grammars.jql.TestJqlCheckerSuite;
 import sqlite.feat.includeFields.IncludeFieldsTestSuite;
 import sqlite.feat.indexes.IndexTestSuite;
 import sqlite.feature.contentprovider.TestContentProviderSuite;
 import sqlite.feature.dynamic.TestDynamicSuite;
+import sqlite.feature.generichierarchy.TestGenericHierarchySuite;
 import sqlite.feature.jql.TestJQLFeatureSuite;
 import sqlite.feature.multithread.TestCompileMultithreadSuite;
 import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
@@ -68,6 +68,7 @@ import sqlite.kripton63.Test63Compile;
 			TestContentProviderSuite.class,
 			TestPaginatedResultSuite.class,
 			TestCompileMultithreadSuite.class,
+			TestGenericHierarchySuite.class,
 			TestDynamicSuite.class,
 			
 			// bug-fix			
@@ -104,8 +105,7 @@ import sqlite.kripton63.Test63Compile;
 
 			IndexTestSuite.class,
 			TestSelectSuite.class,
-			IncludeFieldsTestSuite.class,			
-			TestCompileGenericHierarchySuite.class,
+			IncludeFieldsTestSuite.class,						
 			TestJQLFeatureSuite.class,
 			Test62Compile.class,
 			Test63Compile.class
