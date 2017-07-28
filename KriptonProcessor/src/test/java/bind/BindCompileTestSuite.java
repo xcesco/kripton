@@ -20,7 +20,7 @@ import org.junit.runners.Suite;
 
 import bind.bindenum.TestEnumSuite;
 import bind.directmap.TestDirectMapSuite;
-import bind.feat.generichierarchy.TestGenericHierarchySuite;
+import bind.feature.generichierarchy.TestGenericHierarchySuite;
 import bind.kripton109.Test109CompileSuite;
 import bind.kripton110.TestCompile110;
 import bind.kripton42faster.Test42CompileSuite;

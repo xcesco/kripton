@@ -1,0 +1,11 @@
+package bind.feature.generichierarchy.case1.model;
+
+public enum MessageType {
+	SYSTEM_CHANNEL_CREATED,
+	SYSTEM_USER_ADDED,
+	SYSTEM_USER_EXITS,
+	SYSTEM_USER_BANNED,
+	SYSTEM_CHANNEL_DESTROYED,
+	MESSAGE,
+	ACTION;
+}
