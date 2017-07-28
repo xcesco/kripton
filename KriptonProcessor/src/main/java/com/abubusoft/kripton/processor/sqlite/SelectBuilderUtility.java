@@ -36,14 +36,9 @@ public abstract class SelectBuilderUtility {
 	}
 
 	public enum SelectType {
-			BEAN(SelectBeanHelper.class, true),
-			CURSOR(SelectRawHelper.class, false),
-			LIST_BEAN(SelectBeanListHelper.class, true),
-			LIST_SCALAR(SelectScalarListHelper.class, false),
-			LISTENER_BEAN(SelectBeanListenerHelper.class, true),
-			LISTENER_CURSOR(SelectRawListenerHelper.class, false),
-			PAGED_RESULT(SelectPaginatedResultHelper.class, true),
-			SCALAR(SelectScalarHelper.class, false);
+		BEAN(SelectBeanHelper.class, true), CURSOR(SelectRawHelper.class, false), LIST_BEAN(SelectBeanListHelper.class, true), LIST_SCALAR(SelectScalarListHelper.class, false), LISTENER_BEAN(
+				SelectBeanListenerHelper.class,
+				true), LISTENER_CURSOR(SelectRawListenerHelper.class, false), PAGED_RESULT(SelectPaginatedResultHelper.class, true), SCALAR(SelectScalarHelper.class, false);
 
 		private SelectCodeGenerator codeGenerator;
 
@@ -54,9 +49,7 @@ public abstract class SelectBuilderUtility {
 				this.mapFields = mapFields;
 				this.codeGenerator = codeGenerator.newInstance();
 				this.codeGenerator.setSelectResultTye(this);
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
+			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
 		}

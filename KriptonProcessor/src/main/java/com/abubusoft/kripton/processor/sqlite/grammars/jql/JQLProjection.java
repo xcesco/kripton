@@ -99,58 +99,6 @@ public class JQLProjection  {
 	
 	public String column;
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((alias == null) ? 0 : alias.hashCode());
-		result = prime * result + ((column == null) ? 0 : column.hashCode());
-		result = prime * result + ((expression == null) ? 0 : expression.hashCode());
-		result = prime * result + ((property == null) ? 0 : property.hashCode());
-		result = prime * result + ((table == null) ? 0 : table.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		JQLProjection other = (JQLProjection) obj;
-		if (alias == null) {
-			if (other.alias != null)
-				return false;
-		} else if (!alias.equals(other.alias))
-			return false;
-		if (column == null) {
-			if (other.column != null)
-				return false;
-		} else if (!column.equals(other.column))
-			return false;
-		if (expression == null) {
-			if (other.expression != null)
-				return false;
-		} else if (!expression.equals(other.expression))
-			return false;
-		if (property == null) {
-			if (other.property != null)
-				return false;
-		} else if (!property.equals(other.property))
-			return false;
-		if (table == null) {
-			if (other.table != null)
-				return false;
-		} else if (!table.equals(other.table))
-			return false;
-		if (type != other.type)
-			return false;
-		return true;
-	}
-
 	public String table;
 	
 	public String expression;

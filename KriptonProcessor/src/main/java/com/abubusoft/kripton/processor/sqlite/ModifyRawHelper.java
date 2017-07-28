@@ -33,7 +33,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStateme
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -372,12 +371,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
-		final One<Boolean> inColumnValues = new One<Boolean>(false);
 		final List<SQLProperty> updatedProperties = new ArrayList<>();
 		final One<Boolean> onWhereStatement = new One<Boolean>(null);
 
-		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
-		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
+		//final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
+		//final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
 		// new
 		String sqlModify = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
 
@@ -389,16 +387,6 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			@Override
 			public void onWhereStatementEnd(Where_stmtContext ctx) {
 				onWhereStatement.value0 = false;
-			}
-
-			@Override
-			public void onColumnValueSetBegin(Column_value_setContext ctx) {
-				inColumnValues.value0 = true;
-			}
-
-			@Override
-			public void onColumnValueSetEnd(Column_value_setContext ctx) {
-				inColumnValues.value0 = false;
 			}
 
 			@Override
@@ -428,13 +416,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method,
 						bindParameterName);
 
-				if (inColumnValues.value0) {
+				/*if (inColumnValues.value0) {
 					methodParamsUsedAsColumnValue
 							.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
 				} else {
 					methodParamsUsedAsParameter
 							.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
-				}
+				}*/
 
 				return "${" + bindParameterName + "}";
 			}
