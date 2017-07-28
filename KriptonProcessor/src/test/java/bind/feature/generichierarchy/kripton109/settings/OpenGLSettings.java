@@ -13,23 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.generichierarchy;
+package bind.feature.generichierarchy.kripton109.settings;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.annotation.BindTypeVariables;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
-@BindTypeVariables(value="E", typeParameters=Person.class)
-@BindDao(Person.class)
-public interface PersonDAO extends BaseDAO<Person> {
-//
+@BindType
+public class OpenGLSettings {
 
-//	
-//	@BindSqlInsert
-//	public void insertThread2(Person bean);
-//	
-//	@BindSqlSelect
-//	public Person selectThread1();
-//	
-//	@BindSqlSelect
-//	public Person selectThread2();
+	@Bind("openGLVersion")
+	public int version = 2;
+
+	@Bind("openGLDebug")
+	public boolean debug = false;
+
+	@Bind("openGLMaxFPS")
+	public int maxFPS = 0;
+
+	@Bind("openGLSafeMode")
+	public boolean safeMode = true;
+	
+	@Bind("openGLAsyncMode")
+	public boolean asyncMode = true;
+	
 }

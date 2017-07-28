@@ -13,23 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.generichierarchy;
+package bind.feature.generichierarchy.kripton109.animations;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.annotation.BindTypeVariables;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
-@BindTypeVariables(value="E", typeParameters=Person.class)
-@BindDao(Person.class)
-public interface PersonDAO extends BaseDAO<Person> {
-//
+import bind.feature.generichierarchy.kripton109.animations.texture.TextureRegion;
 
-//	
-//	@BindSqlInsert
-//	public void insertThread2(Person bean);
-//	
-//	@BindSqlSelect
-//	public Person selectThread1();
-//	
-//	@BindSqlSelect
-//	public Person selectThread2();
+@BindType
+public class TextureKeyFrame extends KeyFrame {
+
+	public TextureKeyFrame() {
+	}
+
+	@Bind
+	public TextureRegion textureRegion;
+
 }

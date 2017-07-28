@@ -13,23 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.generichierarchy;
+package bind.feature.generichierarchy.kripton109.settings;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.annotation.BindTypeVariables;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
 
-@BindTypeVariables(value="E", typeParameters=Person.class)
-@BindDao(Person.class)
-public interface PersonDAO extends BaseDAO<Person> {
-//
 
-//	
-//	@BindSqlInsert
-//	public void insertThread2(Person bean);
-//	
-//	@BindSqlSelect
-//	public Person selectThread1();
-//	
-//	@BindSqlSelect
-//	public Person selectThread2();
+@BindType
+public class ViewFrustumSettings {
+	@Bind("viewFrustumAlign")
+	public ViewFrustumAlignType align = ViewFrustumAlignType.HEIGHT_ALIGN;
+
+	@Bind("viewFrustumFieldOfView")
+	public float fieldOfView = 30f;
+
+	@Bind("viewFrustumProjection")
+	public ProjectionType projection = ProjectionType.PERSPECTIVE;
+
+	@Bind("viewFrustumZNear")
+	public float zNear = 1.0f;
+
+	@Bind("viewFrustumZFar")
+	public float zFar = 1000f;
+
+	@Bind("viewFrustumSize")
+	public float size = 1000f;
 }

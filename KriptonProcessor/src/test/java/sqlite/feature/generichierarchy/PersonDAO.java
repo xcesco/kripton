@@ -16,12 +16,7 @@
 package sqlite.feature.generichierarchy;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.annotation.BindTypeVariables;
-
-import sqlite.feature.generichierarchy.BaseDAO;
-import sqlite.feature.generichierarchy.Person;
 
 @BindTypeVariables(value="E", typeParameters=Person.class)
 @BindDao(Person.class)

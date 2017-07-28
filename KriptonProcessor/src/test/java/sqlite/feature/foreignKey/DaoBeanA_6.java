@@ -13,23 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.generichierarchy;
+package sqlite.feature.foreignKey;
+
+import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.annotation.BindTypeVariables;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-@BindTypeVariables(value="E", typeParameters=Person.class)
-@BindDao(Person.class)
-public interface PersonDAO extends BaseDAO<Person> {
-//
+@BindDao(BeanA_6.class)
+public interface DaoBeanA_6 {
 
-//	
-//	@BindSqlInsert
-//	public void insertThread2(Person bean);
-//	
-//	@BindSqlSelect
-//	public Person selectThread1();
-//	
-//	@BindSqlSelect
-//	public Person selectThread2();
+	@BindSqlSelect
+	List<BeanA_6> selectAll();
+	
+	@BindSqlSelect(where="id=${id}")
+	List<BeanA_6> selectById(long id);
+	
+	@BindSqlSelect(fields="id",where="valueString2=${dummy}")
+	List<BeanA_6> selectByString(@BindSqlParam("dummy") String value);
+	
+	@BindSqlInsert
+	int insert(BeanA_6 bean);
+	
+	@BindSqlUpdate(where="valueString2=${bean.valueString2}")
+	int update(BeanA_6 bean);
 }

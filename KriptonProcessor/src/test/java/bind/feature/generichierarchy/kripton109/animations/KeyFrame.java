@@ -13,23 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.generichierarchy;
+package bind.feature.generichierarchy.kripton109.animations;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.annotation.BindTypeVariables;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindDisabled;
+import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.xml.XmlType;
 
-@BindTypeVariables(value="E", typeParameters=Person.class)
-@BindDao(Person.class)
-public interface PersonDAO extends BaseDAO<Person> {
-//
+import bind.feature.generichierarchy.kripton109.animations.interpolations.Interpolation;
+import bind.feature.generichierarchy.kripton109.animations.interpolations.InterpolationLinear;
 
-//	
-//	@BindSqlInsert
-//	public void insertThread2(Person bean);
-//	
-//	@BindSqlSelect
-//	public Person selectThread1();
-//	
-//	@BindSqlSelect
-//	public Person selectThread2();
+@BindType
+public class KeyFrame {
+
+	@Bind(order = 0)
+	@BindXml(xmlType = XmlType.ATTRIBUTE)
+	public String name;
+
+	@Bind(order = 1)
+	@BindXml(xmlType = XmlType.ATTRIBUTE)
+	public long duration;
+
+	@BindDisabled
+	protected Interpolation interpolation = InterpolationLinear.instance();
+
 }

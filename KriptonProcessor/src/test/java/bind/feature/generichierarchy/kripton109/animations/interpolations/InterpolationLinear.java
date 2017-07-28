@@ -13,23 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.generichierarchy;
+package bind.feature.generichierarchy.kripton109.animations.interpolations;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.annotation.BindTypeVariables;
+public class InterpolationLinear implements Interpolation {
+	private static InterpolationLinear instance;
 
-@BindTypeVariables(value="E", typeParameters=Person.class)
-@BindDao(Person.class)
-public interface PersonDAO extends BaseDAO<Person> {
-//
+	private InterpolationLinear() {
 
-//	
-//	@BindSqlInsert
-//	public void insertThread2(Person bean);
-//	
-//	@BindSqlSelect
-//	public Person selectThread1();
-//	
-//	@BindSqlSelect
-//	public Person selectThread2();
+	}
+
+	public static InterpolationLinear instance() {
+		if (instance == null) {
+			instance = new InterpolationLinear();
+		}
+		return instance;
+	}
+
+	@Override
+	public float getPercentage(final float pSecondsElapsed, final float pDuration) {
+		return pSecondsElapsed / pDuration;
+	}
+
 }

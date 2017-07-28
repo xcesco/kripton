@@ -13,23 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.generichierarchy;
+package bind.feature.generichierarchy.kripton109.settings;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.annotation.BindTypeVariables;
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.xml.XmlType;
 
-@BindTypeVariables(value="E", typeParameters=Person.class)
-@BindDao(Person.class)
-public interface PersonDAO extends BaseDAO<Person> {
-//
+import bind.feature.generichierarchy.kripton109.settings.logger.ElioLoggerLevelType;
 
-//	
-//	@BindSqlInsert
-//	public void insertThread2(Person bean);
-//	
-//	@BindSqlSelect
-//	public Person selectThread1();
-//	
-//	@BindSqlSelect
-//	public Person selectThread2();
+/**
+ * Configurazione di un appender di log
+ * 
+ * @author Francesco Benincasa
+ * 
+ */
+@BindType
+public class LoggerAppenderSettings {
+
+	@Bind
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
+	public String tag = "";
+
+	@Bind
+	@BindXml(xmlType=XmlType.ATTRIBUTE)
+	public ElioLoggerLevelType level;
+
 }
