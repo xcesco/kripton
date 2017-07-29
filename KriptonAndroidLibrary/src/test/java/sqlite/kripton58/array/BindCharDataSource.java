@@ -3,6 +3,7 @@ package sqlite.kripton58.array;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   /**
    * <p>datasource singleton</p>
    */
-  private static BindCharDataSource instance = new BindCharDataSource();
+  private static BindCharDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   protected CharDaoImpl charDao = new CharDaoImpl(this);
 
   protected BindCharDataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindCharDataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    * instance
    */
   public static BindCharDataSource instance() {
+    if (instance==null) {
+      instance=new BindCharDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    * @return opened dataSource instance.
    */
   public static BindCharDataSource open() {
+    if (instance==null) {
+      instance=new BindCharDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    * @return opened dataSource instance.
    */
   public static BindCharDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindCharDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static CharDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindCharDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

@@ -4,34 +4,34 @@ import java.lang.String;
 
 /**
  * <p>
- * Entity <code>MessageEntity</code> is associated to table <code>message_entity</code>
+ * Entity <code>MessageEntity</code> is associated to table <code>message</code>
  * This class represents table associated to entity.
  * </p>
  *  @see MessageEntity
  */
 public class MessageEntityTable {
   /**
-   * Costant represents typeName of table message_entity
+   * Costant represents typeName of table message
    */
-  public static final String TABLE_NAME = "message_entity";
+  public static final String TABLE_NAME = "message";
 
   /**
    * <p>
-   * DDL to create table message_entity
+   * DDL to create table message
    * </p>
    *
-   * <pre>CREATE TABLE message_entity (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, uid TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER, type TEXT);</pre>
+   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, uid TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER, type TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE message_entity (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, uid TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER, type TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, uid TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER, type TEXT);";
 
   /**
    * <p>
-   * DDL to drop table message_entity
+   * DDL to drop table message
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS message_entity;</pre>
+   * <pre>DROP TABLE IF EXISTS message;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS message_entity;";
+  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS message;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.

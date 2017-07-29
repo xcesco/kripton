@@ -18,7 +18,7 @@ package sqlite.test02;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
-@BindDataSource(dao=Bean01.class, fileName = "dummy" , version=1)
+@BindDataSource(daoSet=Bean01.class, fileName = "dummy" , version=1)
 public interface Dummy01DataSource {
 
 }

@@ -3,6 +3,7 @@ package sqlite.kripton58.array;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   /**
    * <p>datasource singleton</p>
    */
-  private static BindIntDataSource instance = new BindIntDataSource();
+  private static BindIntDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   protected IntDaoImpl intDao = new IntDaoImpl(this);
 
   protected BindIntDataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindIntDataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
    * instance
    */
   public static BindIntDataSource instance() {
+    if (instance==null) {
+      instance=new BindIntDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
    * @return opened dataSource instance.
    */
   public static BindIntDataSource open() {
+    if (instance==null) {
+      instance=new BindIntDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
    * @return opened dataSource instance.
    */
   public static BindIntDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindIntDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static IntDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindIntDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

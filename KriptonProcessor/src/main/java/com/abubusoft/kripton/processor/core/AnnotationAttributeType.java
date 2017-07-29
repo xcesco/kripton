@@ -32,7 +32,7 @@ public enum AnnotationAttributeType {
 	COLUMN_TYPE("columnType"),	
 	CONFLICT_ALGORITHM_TYPE("conflictAlgorithm"),
 	
-	DAO("dao"),	
+	DAO_SET("daoSet"),	
 	DATA_TYPE("dataType"),	
 	DISTINCT("distinct"),
 	
@@ -71,6 +71,8 @@ public enum AnnotationAttributeType {
 	
 	RAW_FIELDS("rawFields"),	
 	RESULT_TYPE("resultType"),
+	
+	NAME("name"),
 	
 	TYPE_PARAMETERS("typeParameters"),		
 	TYPE_VARIABLES("typeVariables"),

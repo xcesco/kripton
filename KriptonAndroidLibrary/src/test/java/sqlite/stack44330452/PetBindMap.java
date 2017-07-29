@@ -46,7 +46,8 @@ public class PetBindMap extends AbstractMapper<Pet> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Pet object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(Pet object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -72,7 +73,8 @@ public class PetBindMap extends AbstractMapper<Pet> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Pet object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Pet object, XMLSerializer xmlSerializer, int currentEventType) throws
+      Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("pet");
     }

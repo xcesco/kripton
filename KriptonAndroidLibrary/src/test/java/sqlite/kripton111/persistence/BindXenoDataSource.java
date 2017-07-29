@@ -3,6 +3,7 @@ package sqlite.kripton111.persistence;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -32,7 +33,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * <p>datasource singleton</p>
    */
-  private static BindXenoDataSource instance = new BindXenoDataSource();
+  private static BindXenoDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -50,7 +51,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   protected CountryDaoImpl countryDao = new CountryDaoImpl(this);
 
   protected BindXenoDataSource() {
-    super("xeno.db", 1);
+    this(null);
+  }
+
+  protected BindXenoDataSource(DataSourceOptions options) {
+    super("xeno.db", 1, null);
   }
 
   @Override
@@ -99,6 +104,9 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * instance
    */
   public static BindXenoDataSource instance() {
+    if (instance==null) {
+      instance=new BindXenoDataSource();
+    }
     return instance;
   }
 
@@ -107,6 +115,9 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @return opened dataSource instance.
    */
   public static BindXenoDataSource open() {
+    if (instance==null) {
+      instance=new BindXenoDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -116,6 +127,9 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @return opened dataSource instance.
    */
   public static BindXenoDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindXenoDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -172,6 +186,18 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static XenoDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindXenoDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

@@ -2,7 +2,6 @@ package sqlite.kripton111.persistence;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
@@ -96,14 +95,14 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
-        Logger.info("==> :%s = '%s' of type %s", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    // use SQLiteDatabase conflicts algorithm
-    long result = database().insertWithOnConflict("country", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
+    // conflict algorithm REPLACE
+    long result = database().insertWithOnConflict("country", null, contentValues, 5);
     bean.id=result;
 
     return (int)result;
@@ -136,7 +135,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public Country selectById(long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country ");
+    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -159,7 +158,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -178,7 +177,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
 
         resultBean=new Country();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.area=cursor.getLong(index1); }
         resultBean.code=cursor.getString(index2);
         resultBean.callingCode=cursor.getString(index3);
@@ -191,8 +190,9 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   }
 
   /**
-   * <h2>SQL delete:</h2>
-   * <pre>DELETE country WHERE id = ${id}</pre></pre>
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM country WHERE id = ${id}</pre>
+   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -228,10 +228,10 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("country", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("country", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result!=0;
   }
 
@@ -255,7 +255,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public List<Country> selectAll() {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country ");
+    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=null;
@@ -263,10 +263,11 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     String _sqlWhereStatement="";
 
     // build where condition
-
-    // manage order by statement
+    // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name asc";
     _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
@@ -275,7 +276,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -297,7 +298,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
          {
           resultBean=new Country();
 
-          if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+          resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.area=cursor.getLong(index1); }
           resultBean.code=cursor.getString(index2);
           resultBean.callingCode=cursor.getString(index3);
@@ -339,7 +340,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public Country selectByCallingCode(String callingCode) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country ");
+    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -347,7 +348,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE callingCode = ?";
+    String _sqlWhereStatement=" WHERE calling_code = ?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -362,7 +363,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -381,7 +382,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
 
         resultBean=new Country();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.area=cursor.getLong(index1); }
         resultBean.code=cursor.getString(index2);
         resultBean.callingCode=cursor.getString(index3);
@@ -420,7 +421,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public Country selectByCountry(String code) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country ");
+    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -443,7 +444,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param (%s): '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -462,7 +463,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
 
         resultBean=new Country();
 
-        if (!cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0); }
+        resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.area=cursor.getLong(index1); }
         resultBean.code=cursor.getString(index2);
         resultBean.callingCode=cursor.getString(index3);

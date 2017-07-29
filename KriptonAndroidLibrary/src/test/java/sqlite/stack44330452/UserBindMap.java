@@ -62,7 +62,8 @@ public class UserBindMap extends AbstractMapper<User> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(User object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(User object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -104,7 +105,8 @@ public class UserBindMap extends AbstractMapper<User> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(User object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(User object, XMLSerializer xmlSerializer, int currentEventType) throws
+      Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("user");
     }

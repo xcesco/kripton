@@ -21,6 +21,6 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
  * Created by xcesco on 27/09/2016.
  */
 
-@BindDataSource(dao={DaoMessage.class}, fileName = "whisper", version = 1)
+@BindDataSource(daoSet={DaoMessage.class}, fileName = "whisper", version = 1)
 public interface WhisperDataSource {
 }

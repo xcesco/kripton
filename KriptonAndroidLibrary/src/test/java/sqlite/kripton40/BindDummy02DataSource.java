@@ -3,6 +3,7 @@ package sqlite.kripton40;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>datasource singleton</p>
    */
-  private static BindDummy02DataSource instance = new BindDummy02DataSource();
+  private static BindDummy02DataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
   protected DaoBean02Impl daoBean02 = new DaoBean02Impl(this);
 
   protected BindDummy02DataSource() {
-    super("dummy2", 1);
+    this(null);
+  }
+
+  protected BindDummy02DataSource(DataSourceOptions options) {
+    super("dummy2", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
    * instance
    */
   public static BindDummy02DataSource instance() {
+    if (instance==null) {
+      instance=new BindDummy02DataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
    * @return opened dataSource instance.
    */
   public static BindDummy02DataSource open() {
+    if (instance==null) {
+      instance=new BindDummy02DataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
    * @return opened dataSource instance.
    */
   public static BindDummy02DataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindDummy02DataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static Dummy02DataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindDummy02DataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

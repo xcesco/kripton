@@ -180,7 +180,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				createDataSource(dataSource);
 
 				// get all dao used within SQLDatabaseSchema annotation
-				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource, BindDataSource.class, AnnotationAttributeType.DAO);
+				List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, dataSource, BindDataSource.class, AnnotationAttributeType.DAO_SET);
 
 				// Analyze beans BEFORE daos, because beans are needed for DAO
 				// definition

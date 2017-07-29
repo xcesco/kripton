@@ -17,7 +17,7 @@ package commons.benchmark.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-@BindDataSource(fileName = "benchmark.db", dao = { UserDao.class })
+@BindDataSource(fileName = "benchmark.db", daoSet = { UserDao.class })
 public interface BenchmarkDataSource {
 
 }

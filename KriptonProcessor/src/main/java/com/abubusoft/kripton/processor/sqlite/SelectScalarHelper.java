@@ -18,7 +18,6 @@
  */
 package com.abubusoft.kripton.processor.sqlite;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.util.Elements;

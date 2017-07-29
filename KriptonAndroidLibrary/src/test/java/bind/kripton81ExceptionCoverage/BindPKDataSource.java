@@ -3,6 +3,7 @@ package bind.kripton81ExceptionCoverage;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
   /**
    * <p>datasource singleton</p>
    */
-  private static BindPKDataSource instance = new BindPKDataSource();
+  private static BindPKDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
   protected PKDaoImpl pKDao = new PKDaoImpl(this);
 
   protected BindPKDataSource() {
-    super("", 1);
+    this(null);
+  }
+
+  protected BindPKDataSource(DataSourceOptions options) {
+    super("", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    * instance
    */
   public static BindPKDataSource instance() {
+    if (instance==null) {
+      instance=new BindPKDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    * @return opened dataSource instance.
    */
   public static BindPKDataSource open() {
+    if (instance==null) {
+      instance=new BindPKDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    * @return opened dataSource instance.
    */
   public static BindPKDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindPKDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static PKDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindPKDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

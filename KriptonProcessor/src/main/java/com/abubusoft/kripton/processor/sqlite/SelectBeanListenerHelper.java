@@ -20,7 +20,6 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.util.Elements;

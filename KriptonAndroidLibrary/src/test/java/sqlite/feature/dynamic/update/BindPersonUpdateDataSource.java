@@ -3,6 +3,7 @@ package sqlite.feature.dynamic.update;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -24,7 +25,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
   /**
    * <p>datasource singleton</p>
    */
-  private static BindPersonUpdateDataSource instance = new BindPersonUpdateDataSource();
+  private static BindPersonUpdateDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -32,7 +33,11 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
   protected PersonUpdateDAOImpl personUpdateDAO = new PersonUpdateDAOImpl(this);
 
   protected BindPersonUpdateDataSource() {
-    super("person.db", 1);
+    this(null);
+  }
+
+  protected BindPersonUpdateDataSource(DataSourceOptions options) {
+    super("person.db", 1, null);
   }
 
   @Override
@@ -71,6 +76,9 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    * instance
    */
   public static BindPersonUpdateDataSource instance() {
+    if (instance==null) {
+      instance=new BindPersonUpdateDataSource();
+    }
     return instance;
   }
 
@@ -79,6 +87,9 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    * @return opened dataSource instance.
    */
   public static BindPersonUpdateDataSource open() {
+    if (instance==null) {
+      instance=new BindPersonUpdateDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -88,6 +99,9 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    * @return opened dataSource instance.
    */
   public static BindPersonUpdateDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindPersonUpdateDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -132,6 +146,18 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static PersonUpdateDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindPersonUpdateDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

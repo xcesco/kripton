@@ -3,6 +3,7 @@ package sqlite.kripton58.array;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
   /**
    * <p>datasource singleton</p>
    */
-  private static BindDoubleDataSource instance = new BindDoubleDataSource();
+  private static BindDoubleDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
   protected DoubleDaoImpl doubleDao = new DoubleDaoImpl(this);
 
   protected BindDoubleDataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindDoubleDataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    * instance
    */
   public static BindDoubleDataSource instance() {
+    if (instance==null) {
+      instance=new BindDoubleDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    * @return opened dataSource instance.
    */
   public static BindDoubleDataSource open() {
+    if (instance==null) {
+      instance=new BindDoubleDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    * @return opened dataSource instance.
    */
   public static BindDoubleDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindDoubleDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static DoubleDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindDoubleDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

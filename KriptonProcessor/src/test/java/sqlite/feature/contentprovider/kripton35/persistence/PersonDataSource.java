@@ -25,6 +25,6 @@ import sqlite.feature.contentprovider.kripton35.persistence.PersonDAO;
  */
 
 @BindContentProvider(authority="sqlite.feature.contentprovider.kripton35")
-@BindDataSource(dao={PersonDAO.class}, fileName = "person", version = 1, generateLog=true)
+@BindDataSource(daoSet={PersonDAO.class}, fileName = "person", version = 1, generateLog=true)
 public interface PersonDataSource {
 }

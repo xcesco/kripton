@@ -25,7 +25,7 @@ import sqlite.kripton51.internal.MessageType;
  */
 
 @BindType
-@BindTable("message")
+@BindTable(name="message")
 public class MessageEntity {
 
     public long id;

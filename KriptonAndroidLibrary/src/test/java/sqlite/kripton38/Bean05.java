@@ -24,7 +24,7 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindTable("WsBean")
+@BindTable(name="ws_bean")
 public class Bean05 {
 
 	@Bind

@@ -3,6 +3,7 @@ package sqlite.kripton64;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
   /**
    * <p>datasource singleton</p>
    */
-  private static BindBean64ADataSource instance = new BindBean64ADataSource();
+  private static BindBean64ADataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
   protected Bean64ADaoImpl bean64ADao = new Bean64ADaoImpl(this);
 
   protected BindBean64ADataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindBean64ADataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    * instance
    */
   public static BindBean64ADataSource instance() {
+    if (instance==null) {
+      instance=new BindBean64ADataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    * @return opened dataSource instance.
    */
   public static BindBean64ADataSource open() {
+    if (instance==null) {
+      instance=new BindBean64ADataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    * @return opened dataSource instance.
    */
   public static BindBean64ADataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindBean64ADataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static Bean64ADataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindBean64ADataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

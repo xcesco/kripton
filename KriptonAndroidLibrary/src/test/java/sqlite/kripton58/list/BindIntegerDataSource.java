@@ -3,6 +3,7 @@ package sqlite.kripton58.list;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   /**
    * <p>datasource singleton</p>
    */
-  private static BindIntegerDataSource instance = new BindIntegerDataSource();
+  private static BindIntegerDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   protected IntegerDaoImpl integerDao = new IntegerDaoImpl(this);
 
   protected BindIntegerDataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindIntegerDataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * instance
    */
   public static BindIntegerDataSource instance() {
+    if (instance==null) {
+      instance=new BindIntegerDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * @return opened dataSource instance.
    */
   public static BindIntegerDataSource open() {
+    if (instance==null) {
+      instance=new BindIntegerDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * @return opened dataSource instance.
    */
   public static BindIntegerDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindIntegerDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static IntegerDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindIntegerDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

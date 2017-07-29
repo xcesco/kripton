@@ -21,7 +21,8 @@ import java.lang.Override;
 @BindMap(PrefixConfig.class)
 public class PrefixConfigBindMap extends AbstractMapper<PrefixConfig> {
   @Override
-  public int serializeOnJackson(PrefixConfig object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(PrefixConfig object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -56,7 +57,8 @@ public class PrefixConfigBindMap extends AbstractMapper<PrefixConfig> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(PrefixConfig object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(PrefixConfig object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -91,7 +93,8 @@ public class PrefixConfigBindMap extends AbstractMapper<PrefixConfig> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(PrefixConfig object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(PrefixConfig object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("prefixConfig");
     }

@@ -19,7 +19,7 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindTable("Channel")
+@BindTable(name="channel")
 public class ChannelEntity {	
 	
 	protected String ownerUid;

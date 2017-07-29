@@ -3,6 +3,7 @@ package sqlite.kripton58.array2;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   /**
    * <p>datasource singleton</p>
    */
-  private static BindStringDataSource instance = new BindStringDataSource();
+  private static BindStringDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   protected StringDaoImpl stringDao = new StringDaoImpl(this);
 
   protected BindStringDataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindStringDataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * instance
    */
   public static BindStringDataSource instance() {
+    if (instance==null) {
+      instance=new BindStringDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * @return opened dataSource instance.
    */
   public static BindStringDataSource open() {
+    if (instance==null) {
+      instance=new BindStringDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * @return opened dataSource instance.
    */
   public static BindStringDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindStringDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static StringDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindStringDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

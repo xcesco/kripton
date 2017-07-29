@@ -22,7 +22,8 @@ import java.lang.Override;
 @BindMap(PhoneNumber.class)
 public class PhoneNumberBindMap extends AbstractMapper<PhoneNumber> {
   @Override
-  public int serializeOnJackson(PhoneNumber object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(PhoneNumber object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -67,7 +68,8 @@ public class PhoneNumberBindMap extends AbstractMapper<PhoneNumber> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(PhoneNumber object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJacksonAsString(PhoneNumber object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -114,7 +116,8 @@ public class PhoneNumberBindMap extends AbstractMapper<PhoneNumber> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(PhoneNumber object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(PhoneNumber object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("phoneNumber");
     }

@@ -39,7 +39,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * 
  */
 public abstract class AbstractDataSource implements AutoCloseable {
-
+	
 	/**
 	 * Interface for database transactions.
 	 * 
@@ -87,8 +87,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	private AtomicInteger openCounter = new AtomicInteger();
 
-	protected DataSourceOptions options = DataSourceOptions.build();
-
+	protected DataSourceOptions options;
+		
 	protected SQLiteOpenHelper sqliteHelper;
 
 	protected ThreadLocal<TypeStatus> status = new ThreadLocal<TypeStatus>() {
@@ -111,9 +111,10 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 */
 	public final int version;
 
-	protected AbstractDataSource(String name, int version) {
+	protected AbstractDataSource(String name, int version, DataSourceOptions options) {
 		this.name = name;
-		this.version = version;
+		this.version = version;		
+		this.options=options==null ? DataSourceOptions.builder().build(): options;
 	}
 
 	/*
@@ -165,10 +166,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			}
 
 			@Override
-			public void onCreate(SQLiteDatabase database) {
-				
+			public void onCreate(SQLiteDatabase database) {				
 				AbstractDataSource.this.onCreate(database);
-
 			}
 
 			@Override

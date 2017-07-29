@@ -26,7 +26,7 @@ public class PetDaoImpl extends AbstractDao implements PetDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, userId, name FROM pet</pre>
+   * <pre>SELECT id, user_id, name FROM pet</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -55,7 +55,7 @@ public class PetDaoImpl extends AbstractDao implements PetDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param %s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

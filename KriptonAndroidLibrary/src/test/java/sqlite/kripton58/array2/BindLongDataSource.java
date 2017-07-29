@@ -3,6 +3,7 @@ package sqlite.kripton58.array2;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   /**
    * <p>datasource singleton</p>
    */
-  private static BindLongDataSource instance = new BindLongDataSource();
+  private static BindLongDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   protected LongDaoImpl longDao = new LongDaoImpl(this);
 
   protected BindLongDataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindLongDataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    * instance
    */
   public static BindLongDataSource instance() {
+    if (instance==null) {
+      instance=new BindLongDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    * @return opened dataSource instance.
    */
   public static BindLongDataSource open() {
+    if (instance==null) {
+      instance=new BindLongDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    * @return opened dataSource instance.
    */
   public static BindLongDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindLongDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static LongDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindLongDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

@@ -10,31 +10,45 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
  *
  */
 public class DataSourceOptions {
-	public CursorFactory factory;
-	public DatabaseErrorHandler errorHandler;
-	public DatabaseLifecycleHandler databaseLifecycleHandler;
 
-	private DataSourceOptions() {
-
+	public final CursorFactory factory;
+	public final  DatabaseErrorHandler errorHandler;
+	public final  DatabaseLifecycleHandler databaseLifecycleHandler;
+	
+	public static Builder builder() {
+		return new Builder();
 	}
 
-	public DataSourceOptions cursorFactory(CursorFactory value) {
-		this.factory = value;
-		return this;
+	public static class Builder {
+
+		private CursorFactory factory;
+		private DatabaseErrorHandler errorHandler;
+		private DatabaseLifecycleHandler databaseLifecycleHandler;
+
+		public Builder cursorFactory(CursorFactory value) {
+			this.factory = value;
+			return this;
+		}
+
+		public Builder errorHandler(DatabaseErrorHandler value) {
+			this.errorHandler = value;
+			return this;
+		}
+
+		public Builder databaseLifecycleHandler(DatabaseLifecycleHandler value) {
+			this.databaseLifecycleHandler = value;
+			return this;
+		}
+				
+		public DataSourceOptions build() {
+			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler);
+		}
 	}
 
-	public DataSourceOptions errorHandler(DatabaseErrorHandler value) {
-		this.errorHandler = value;
-		return this;
-	}
-
-	public DataSourceOptions databaseLifecycleHandler(DatabaseLifecycleHandler value) {
-		this.databaseLifecycleHandler = value;
-		return this;
-	}
-
-	public static DataSourceOptions build() {
-		return new DataSourceOptions();
+	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler) {
+		this.factory = factory;
+		this.errorHandler = errorHandler;
+		this.databaseLifecycleHandler = databaseLifecycleHandler;
 	}
 
 }

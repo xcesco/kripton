@@ -38,23 +38,22 @@ import com.squareup.javapoet.TypeSpec;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class BindDaoFactoryBuilder extends AbstractBuilder  {
+public class BindDaoFactoryBuilder extends AbstractBuilder {
 
 	public static final String PREFIX = "Bind";
-	
+
 	public static final String SUFFIX = "DaoFactory";
 
 	public BindDaoFactoryBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
-	
-	public static String generateDaoFactoryName(SQLiteDatabaseSchema schema)
-	{
+
+	public static String generateDaoFactoryName(SQLiteDatabaseSchema schema) {
 		String schemaName = schema.getName();
-		schemaName=PREFIX+schemaName;		
-		
-		schemaName=schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
-		
+		schemaName = PREFIX + schemaName;
+
+		schemaName = schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
+
 		return schemaName;
 	}
 
@@ -65,25 +64,24 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 	 * @param filer
 	 * @param schema
 	 * 
-	 * @return
-	 * 		schema typeName
+	 * @return schema typeName
 	 * 
 	 * @throws Exception
 	 */
 	public String buildDaoFactoryInterface(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
-		String schemaName =  generateDaoFactoryName(schema);
-		
+		String schemaName = generateDaoFactoryName(schema);
+
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
-		
+
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, schemaName);
-		classBuilder=buildDaoFactoryInterfaceInternal(elementUtils, filer, schema);
+		classBuilder = buildDaoFactoryInterfaceInternal(elementUtils, filer, schema);
 		TypeSpec typeSpec = classBuilder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
-		
+
 		return schemaName;
 	}
-	
+
 	/**
 	 * Build dao factory interface
 	 * 
@@ -91,47 +89,46 @@ public class BindDaoFactoryBuilder extends AbstractBuilder  {
 	 * @param filer
 	 * @param schema
 	 * 
-	 * @return
-	 * 		schema typeName
+	 * @return schema typeName
 	 * 
 	 * @throws Exception
 	 */
 	public TypeSpec.Builder buildDaoFactoryInterfaceInternal(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
-		String schemaName =  schema.getName();
-		schemaName=PREFIX+schemaName;		
-		
-		schemaName=schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
-		
+		String schemaName = schema.getName();
+		schemaName = PREFIX + schemaName;
+
+		schemaName = schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
+
 		classBuilder = TypeSpec.interfaceBuilder(schemaName).addModifiers(Modifier.PUBLIC).addSuperinterface(BindDaoFactory.class);
-		
+
 		classBuilder.addJavadoc("<p>\n");
-		classBuilder.addJavadoc("Represents dao factory interface for $L.\n",schema.getName());
-		classBuilder.addJavadoc("This class expose database interface through Dao attribute.\n",schema.getName());
+		classBuilder.addJavadoc("Represents dao factory interface for $L.\n", schema.getName());
+		classBuilder.addJavadoc("This class expose database interface through Dao attribute.\n", schema.getName());
 		classBuilder.addJavadoc("</p>\n\n");
-		
+
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
 		classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(schema.getElement()));
+
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			TypeName daoName = BindDaoBuilder.daoInterfaceTypeName(dao);
-			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao); 
+			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
+			
 			classBuilder.addJavadoc("@see $T\n", daoName);
 			classBuilder.addJavadoc("@see $T\n", daoImplName);
 			classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(dao.getEntity().getElement()));
 		}
-						
+
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			TypeName daoImplName =  BindDaoBuilder.daoTypeName(dao);
-			
+			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
+
 			// dao with external connections
 			{
-				MethodSpec.Builder methodBuilder=MethodSpec.methodBuilder("get"+dao.getName())
-						.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
-						.addJavadoc("\nretrieve dao $L\n", dao.getName())
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get" + dao.getName()).addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).addJavadoc("\nretrieve dao $L\n", dao.getName())
 						.returns(daoImplName);
 				classBuilder.addMethod(methodBuilder.build());
 			}
-		}		
-		
+		}
+
 		return classBuilder;
 	}
 

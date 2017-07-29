@@ -3,6 +3,7 @@ package sqlite.stack44330452;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -26,7 +27,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   /**
    * <p>datasource singleton</p>
    */
-  private static BindPetUserDataSource instance = new BindPetUserDataSource();
+  private static BindPetUserDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -39,7 +40,11 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   protected PetDaoImpl petDao = new PetDaoImpl(this);
 
   protected BindPetUserDataSource() {
-    super("pet.db", 1);
+    this(null);
+  }
+
+  protected BindPetUserDataSource(DataSourceOptions options) {
+    super("pet.db", 1, null);
   }
 
   @Override
@@ -83,6 +88,9 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * instance
    */
   public static BindPetUserDataSource instance() {
+    if (instance==null) {
+      instance=new BindPetUserDataSource();
+    }
     return instance;
   }
 
@@ -91,6 +99,9 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * @return opened dataSource instance.
    */
   public static BindPetUserDataSource open() {
+    if (instance==null) {
+      instance=new BindPetUserDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -100,6 +111,9 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * @return opened dataSource instance.
    */
   public static BindPetUserDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindPetUserDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -151,6 +165,18 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static PetUserDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindPetUserDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

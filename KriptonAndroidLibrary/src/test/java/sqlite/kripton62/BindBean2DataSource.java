@@ -3,6 +3,7 @@ package sqlite.kripton62;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   /**
    * <p>datasource singleton</p>
    */
-  private static BindBean2DataSource instance = new BindBean2DataSource();
+  private static BindBean2DataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   protected BeanDao2Impl beanDao2 = new BeanDao2Impl(this);
 
   protected BindBean2DataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindBean2DataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
    * instance
    */
   public static BindBean2DataSource instance() {
+    if (instance==null) {
+      instance=new BindBean2DataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
    * @return opened dataSource instance.
    */
   public static BindBean2DataSource open() {
+    if (instance==null) {
+      instance=new BindBean2DataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
    * @return opened dataSource instance.
    */
   public static BindBean2DataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindBean2DataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static Bean2DataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindBean2DataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

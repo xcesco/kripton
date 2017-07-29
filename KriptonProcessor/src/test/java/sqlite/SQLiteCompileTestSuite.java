@@ -31,6 +31,8 @@ import sqlite.feature.generichierarchy.TestGenericHierarchySuite;
 import sqlite.feature.jql.TestJQLFeatureSuite;
 import sqlite.feature.multithread.TestCompileMultithreadSuite;
 import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
+import sqlite.feature.schema.TestSchemaSuite;
+import sqlite.kripton111.TestCompile111;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
 import sqlite.kripton40.Test40Suite;
@@ -49,6 +51,7 @@ import sqlite.kripton93.Test93Suite;
 import sqlite.kripton96.Test96Suite;
 import sqlite.quickstart.TestQuickstartSuite;
 import sqlite.select.TestSelectSuite;
+import sqlite.stack44330452.TestStack44330452Suite;
 import sqlite.test01.Test01Suite;
 import sqlite.test02.Test02Suite;
 import sqlite.test02.TestDao01;
@@ -70,10 +73,13 @@ import sqlite.kripton63.Test63Compile;
 			TestCompileMultithreadSuite.class,
 			TestGenericHierarchySuite.class,
 			TestDynamicSuite.class,
+			TestSchemaSuite.class,
 			
 			// bug-fix			
 			Example01Suite.class,
 			Example02Suite.class,
+			TestCompile111.class,
+			TestStack44330452Suite.class,
 			Test01Suite.class, 
 			Test02Suite.class,
 			Test03Suite.class, 

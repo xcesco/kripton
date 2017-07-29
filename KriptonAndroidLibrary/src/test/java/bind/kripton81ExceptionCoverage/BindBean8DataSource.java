@@ -3,6 +3,7 @@ package bind.kripton81ExceptionCoverage;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   /**
    * <p>datasource singleton</p>
    */
-  private static BindBean8DataSource instance = new BindBean8DataSource();
+  private static BindBean8DataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   protected Bean8DaoImpl bean8Dao = new Bean8DaoImpl(this);
 
   protected BindBean8DataSource() {
-    super("", 1);
+    this(null);
+  }
+
+  protected BindBean8DataSource(DataSourceOptions options) {
+    super("", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * instance
    */
   public static BindBean8DataSource instance() {
+    if (instance==null) {
+      instance=new BindBean8DataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * @return opened dataSource instance.
    */
   public static BindBean8DataSource open() {
+    if (instance==null) {
+      instance=new BindBean8DataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * @return opened dataSource instance.
    */
   public static BindBean8DataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindBean8DataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static Bean8DataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindBean8DataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

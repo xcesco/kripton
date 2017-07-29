@@ -33,7 +33,6 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
-import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -443,7 +442,7 @@ public abstract class SqlModifyBuilder {
 		// display log
 		if (schema.generateLog) {
 
-			final SQLEntity entity = method.getParent().getEntity();
+			//final SQLEntity entity = method.getParent().getEntity();
 			JQLChecker jqlChecker = JQLChecker.getInstance();
 
 			final One<Boolean> usedInWhere = new One<Boolean>(false);

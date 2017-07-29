@@ -19,7 +19,7 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindTable("Bean01")
+@BindTable(name="bean01")
 public class Bean01Entity {
 
 	protected Long id;

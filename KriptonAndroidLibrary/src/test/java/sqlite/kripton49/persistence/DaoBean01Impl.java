@@ -28,7 +28,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, text FROM bean01_entity WHERE id=${id}</pre>
+   * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -48,7 +48,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   @Override
   public Bean01Entity selectOne(Long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, text FROM bean01_entity");
+    _sqlBuilder.append("SELECT id, text FROM bean01");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -97,7 +97,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, text FROM bean01_entity WHERE id=${id}</pre>
+   * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -117,7 +117,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
   @Override
   public List<Bean01Entity> selectById(Long id) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, text FROM bean01_entity");
+    _sqlBuilder.append("SELECT id, text FROM bean01");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=new ArrayList<>();
@@ -171,7 +171,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean01_entity SET text=${text} WHERE id=${id}</pre>
+   * <pre>UPDATE bean01 SET text=${text} WHERE id=${id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -216,7 +216,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE bean01_entity SET text=:text WHERE id=?");
+    Logger.info("UPDATE bean01 SET text=:text WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -236,13 +236,13 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().update("bean01_entity", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("bean01", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM bean01_entity WHERE id=${id}</pre>
+   * <pre>DELETE FROM bean01 WHERE id=${id}</pre>
    *
    *
    * <h2>Where parameters:</h2>
@@ -274,7 +274,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("DELETE FROM bean01_entity WHERE id=?");
+    Logger.info("DELETE FROM bean01 WHERE id=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -282,13 +282,13 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
     }
     // log for where parameters -- END
-    int result = database().delete("bean01_entity", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().delete("bean01", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean01_entity (text) VALUES (${text})</pre>
+   * <pre>INSERT INTO bean01 (text) VALUES (${text})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
@@ -318,7 +318,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info("INSERT INTO bean01_entity (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+    Logger.info("INSERT INTO bean01 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -333,13 +333,13 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean01_entity", null, contentValues);
+    long result = database().insert("bean01", null, contentValues);
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean01_entity (text) VALUES (${bean.text})</pre>
+   * <pre>INSERT INTO bean01 (text) VALUES (${bean.text})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -374,7 +374,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info("INSERT INTO bean01_entity (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+    Logger.info("INSERT INTO bean01 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -389,7 +389,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean01_entity", null, contentValues);
+    long result = database().insert("bean01", null, contentValues);
     bean.setId(result);
 
     return result;

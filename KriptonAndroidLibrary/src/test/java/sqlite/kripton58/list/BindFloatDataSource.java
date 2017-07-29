@@ -3,6 +3,7 @@ package sqlite.kripton58.list;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   /**
    * <p>datasource singleton</p>
    */
-  private static BindFloatDataSource instance = new BindFloatDataSource();
+  private static BindFloatDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   protected FloatDaoImpl floatDao = new FloatDaoImpl(this);
 
   protected BindFloatDataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindFloatDataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    * instance
    */
   public static BindFloatDataSource instance() {
+    if (instance==null) {
+      instance=new BindFloatDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    * @return opened dataSource instance.
    */
   public static BindFloatDataSource open() {
+    if (instance==null) {
+      instance=new BindFloatDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    * @return opened dataSource instance.
    */
   public static BindFloatDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindFloatDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static FloatDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindFloatDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

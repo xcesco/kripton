@@ -38,7 +38,7 @@ public @interface BindDataSource {
 	 * @return
 	 * 		class to include in the database schema
 	 */
-	Class<?>[] dao();
+	Class<?>[] daoSet();
 	
 	/**
 	 * Name of database file
@@ -81,15 +81,7 @@ public @interface BindDataSource {
 	 * 
 	 * @return
 	 */
-	boolean generateSchema() default true;
-	
-	/**
-	 * TODO
-	 * options.tablePrefix("TD_");
-	 * @return
-	 * 		prefix table
-	 */
-	String tableNamePrefix() default "";
+	boolean generateSchema() default false;
 	
 	/**
 	 * if true, generate async task

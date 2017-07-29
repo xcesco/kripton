@@ -3,6 +3,7 @@ package sqlite.kripton58.array;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   /**
    * <p>datasource singleton</p>
    */
-  private static BindShortDataSource instance = new BindShortDataSource();
+  private static BindShortDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   protected ShortDaoImpl shortDao = new ShortDaoImpl(this);
 
   protected BindShortDataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindShortDataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    * instance
    */
   public static BindShortDataSource instance() {
+    if (instance==null) {
+      instance=new BindShortDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    * @return opened dataSource instance.
    */
   public static BindShortDataSource open() {
+    if (instance==null) {
+      instance=new BindShortDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    * @return opened dataSource instance.
    */
   public static BindShortDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindShortDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static ShortDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindShortDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

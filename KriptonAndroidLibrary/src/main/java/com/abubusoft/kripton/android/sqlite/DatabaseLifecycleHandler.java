@@ -14,7 +14,7 @@ public interface DatabaseLifecycleHandler {
 	 * <p>
 	 * Method for DDL or DML
 	 * 
-	 * @param db
+	 * @param database
 	 *            database
 	 * @param oldVersion
 	 *            current version of database
@@ -24,7 +24,7 @@ public interface DatabaseLifecycleHandler {
 	 *            if true is an upgrade operation, otherwise it's a
 	 *            downgrade operation.
 	 */
-	void onUpdate(SQLiteDatabase db, int oldVersion, int newVersion, boolean upgrade);
+	void onUpdate(SQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade);
 
 	/**
 	 * Invoked after execution of DDL necessary to create database.

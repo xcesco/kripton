@@ -3,6 +3,7 @@ package sqlite.test05firt_aid;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   /**
    * <p>datasource singleton</p>
    */
-  private static BindFirstAidDataSource instance = new BindFirstAidDataSource();
+  private static BindFirstAidDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   protected FirstAidDaoImpl firstAidDao = new FirstAidDaoImpl(this);
 
   protected BindFirstAidDataSource() {
-    super("firstaid.db", 1);
+    this(null);
+  }
+
+  protected BindFirstAidDataSource(DataSourceOptions options) {
+    super("firstaid.db", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    * instance
    */
   public static BindFirstAidDataSource instance() {
+    if (instance==null) {
+      instance=new BindFirstAidDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    * @return opened dataSource instance.
    */
   public static BindFirstAidDataSource open() {
+    if (instance==null) {
+      instance=new BindFirstAidDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    * @return opened dataSource instance.
    */
   public static BindFirstAidDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindFirstAidDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static FirstAidDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindFirstAidDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

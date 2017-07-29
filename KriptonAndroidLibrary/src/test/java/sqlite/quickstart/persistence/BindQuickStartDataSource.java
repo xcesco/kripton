@@ -3,6 +3,7 @@ package sqlite.quickstart.persistence;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -36,7 +37,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * <p>datasource singleton</p>
    */
-  private static BindQuickStartDataSource instance = new BindQuickStartDataSource();
+  private static BindQuickStartDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -59,7 +60,11 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   protected TodoDaoImpl todoDao = new TodoDaoImpl(this);
 
   protected BindQuickStartDataSource() {
-    super("kripton.quickstart.db", 1);
+    this(null);
+  }
+
+  protected BindQuickStartDataSource(DataSourceOptions options) {
+    super("kripton.quickstart.db", 1, null);
   }
 
   @Override
@@ -113,6 +118,9 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * instance
    */
   public static BindQuickStartDataSource instance() {
+    if (instance==null) {
+      instance=new BindQuickStartDataSource();
+    }
     return instance;
   }
 
@@ -121,6 +129,9 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @return opened dataSource instance.
    */
   public static BindQuickStartDataSource open() {
+    if (instance==null) {
+      instance=new BindQuickStartDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -130,6 +141,9 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @return opened dataSource instance.
    */
   public static BindQuickStartDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindQuickStartDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -193,6 +207,18 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static QuickStartDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindQuickStartDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

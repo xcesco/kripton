@@ -3,6 +3,7 @@ package sqlite.feat.includeFields;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * <p>datasource singleton</p>
    */
-  private static BindPersonDataSource instance = new BindPersonDataSource();
+  private static BindPersonDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   protected PersonDAOImpl personDAO = new PersonDAOImpl(this);
 
   protected BindPersonDataSource() {
-    super("person.db", 1);
+    this(null);
+  }
+
+  protected BindPersonDataSource(DataSourceOptions options) {
+    super("person.db", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * instance
    */
   public static BindPersonDataSource instance() {
+    if (instance==null) {
+      instance=new BindPersonDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * @return opened dataSource instance.
    */
   public static BindPersonDataSource open() {
+    if (instance==null) {
+      instance=new BindPersonDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * @return opened dataSource instance.
    */
   public static BindPersonDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindPersonDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static PersonDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindPersonDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

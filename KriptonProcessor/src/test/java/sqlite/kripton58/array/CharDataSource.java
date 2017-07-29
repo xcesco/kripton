@@ -18,7 +18,7 @@ package sqlite.kripton58.array;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
-@BindDataSource(dao=CharDao.class, fileName = "dummy" , version=1, generateAsyncTask=false, generateCursorWrapper=false)
+@BindDataSource(daoSet=CharDao.class, fileName = "dummy" , version=1, generateAsyncTask=false, generateCursorWrapper=false)
 public interface CharDataSource {
 
 }

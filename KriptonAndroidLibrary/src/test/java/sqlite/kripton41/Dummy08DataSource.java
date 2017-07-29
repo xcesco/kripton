@@ -18,7 +18,7 @@ package sqlite.kripton41;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
-@BindDataSource(dao=DaoBeanDeleteOK.class, fileName = "dummy1" , version=1)
+@BindDataSource(daoSet=DaoBeanDeleteOK.class, fileName = "dummy1" , version=1)
 public interface Dummy08DataSource {
 
 }

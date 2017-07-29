@@ -3,6 +3,7 @@ package sqlite.kripton56.persistence;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -24,7 +25,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   /**
    * <p>datasource singleton</p>
    */
-  private static BindWhisperDataSource instance = new BindWhisperDataSource();
+  private static BindWhisperDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -32,7 +33,11 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   protected DaoMessageImpl daoMessage = new DaoMessageImpl(this);
 
   protected BindWhisperDataSource() {
-    super("whisper", 1);
+    this(null);
+  }
+
+  protected BindWhisperDataSource(DataSourceOptions options) {
+    super("whisper", 1, null);
   }
 
   @Override
@@ -71,6 +76,9 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * instance
    */
   public static BindWhisperDataSource instance() {
+    if (instance==null) {
+      instance=new BindWhisperDataSource();
+    }
     return instance;
   }
 
@@ -79,6 +87,9 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * @return opened dataSource instance.
    */
   public static BindWhisperDataSource open() {
+    if (instance==null) {
+      instance=new BindWhisperDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -88,6 +99,9 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * @return opened dataSource instance.
    */
   public static BindWhisperDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindWhisperDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -132,6 +146,18 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static WhisperDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindWhisperDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

@@ -17,7 +17,7 @@ package sqlite.feat.indexes;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-@BindDataSource(dao = { Err1PersonDAO.class }, fileName = "person.db", generateLog=true)
+@BindDataSource(daoSet= { Err1PersonDAO.class }, fileName = "person.db", generateLog=true)
 public interface Err1PersonDataSource {
 
 }

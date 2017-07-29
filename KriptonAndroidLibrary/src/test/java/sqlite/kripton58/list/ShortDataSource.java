@@ -18,7 +18,7 @@ package sqlite.kripton58.list;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
-@BindDataSource(dao=ShortDao.class, fileName = "dummy" , version=1, generateAsyncTask=false, generateCursorWrapper=false)
+@BindDataSource(daoSet=ShortDao.class, fileName = "dummy" , version=1, generateAsyncTask=false, generateCursorWrapper=false)
 public interface ShortDataSource {
 
 }

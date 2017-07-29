@@ -3,6 +3,7 @@ package sqlite.feature.jql.persistence;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -28,7 +29,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * <p>datasource singleton</p>
    */
-  private static BindFamilyDataSource instance = new BindFamilyDataSource();
+  private static BindFamilyDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -41,7 +42,11 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
 
   protected BindFamilyDataSource() {
-    super("familiy", 1);
+    this(null);
+  }
+
+  protected BindFamilyDataSource(DataSourceOptions options) {
+    super("familiy", 1, null);
   }
 
   @Override
@@ -85,6 +90,9 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * instance
    */
   public static BindFamilyDataSource instance() {
+    if (instance==null) {
+      instance=new BindFamilyDataSource();
+    }
     return instance;
   }
 
@@ -93,6 +101,9 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * @return opened dataSource instance.
    */
   public static BindFamilyDataSource open() {
+    if (instance==null) {
+      instance=new BindFamilyDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -102,6 +113,9 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * @return opened dataSource instance.
    */
   public static BindFamilyDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindFamilyDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -153,6 +167,18 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static FamilyDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindFamilyDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

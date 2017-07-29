@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 /**
  * Created by xcesco on 09/06/2016.
  */
-@BindDataSource(dao={FirstAidDao.class}, fileName = "firstaid.db")
+@BindDataSource(daoSet={FirstAidDao.class}, fileName = "firstaid.db")
 public interface FirstAidDataSource {
 }
 	

@@ -3,6 +3,7 @@ package sqlite.kripton58.array2;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   /**
    * <p>datasource singleton</p>
    */
-  private static BindBeanDataSource instance = new BindBeanDataSource();
+  private static BindBeanDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   protected BeanDaoImpl beanDao = new BeanDaoImpl(this);
 
   protected BindBeanDataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindBeanDataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
    * instance
    */
   public static BindBeanDataSource instance() {
+    if (instance==null) {
+      instance=new BindBeanDataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
    * @return opened dataSource instance.
    */
   public static BindBeanDataSource open() {
+    if (instance==null) {
+      instance=new BindBeanDataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
    * @return opened dataSource instance.
    */
   public static BindBeanDataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindBeanDataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static BeanDataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindBeanDataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

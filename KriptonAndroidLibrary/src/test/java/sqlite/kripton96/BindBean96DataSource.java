@@ -3,6 +3,7 @@ package sqlite.kripton96;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -23,7 +24,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
   /**
    * <p>datasource singleton</p>
    */
-  private static BindBean96DataSource instance = new BindBean96DataSource();
+  private static BindBean96DataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -31,7 +32,11 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
   protected Bean96DaoImpl bean96Dao = new Bean96DaoImpl(this);
 
   protected BindBean96DataSource() {
-    super("dummy", 1);
+    this(null);
+  }
+
+  protected BindBean96DataSource(DataSourceOptions options) {
+    super("dummy", 1, null);
   }
 
   @Override
@@ -70,6 +75,9 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
    * instance
    */
   public static BindBean96DataSource instance() {
+    if (instance==null) {
+      instance=new BindBean96DataSource();
+    }
     return instance;
   }
 
@@ -78,6 +86,9 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
    * @return opened dataSource instance.
    */
   public static BindBean96DataSource open() {
+    if (instance==null) {
+      instance=new BindBean96DataSource();
+    }
     instance.openWritableDatabase();
     return instance;
   }
@@ -87,6 +98,9 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
    * @return opened dataSource instance.
    */
   public static BindBean96DataSource openReadOnly() {
+    if (instance==null) {
+      instance=new BindBean96DataSource();
+    }
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -131,6 +145,18 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  /**
+   * Build instance.
+   * @return dataSource instance.
+   */
+  public static Bean96DataSource build(DataSourceOptions options) {
+    if (instance==null) {
+      instance=new BindBean96DataSource(options);
+    }
+    instance.openWritableDatabase();
+    return instance;
   }
 
   /**

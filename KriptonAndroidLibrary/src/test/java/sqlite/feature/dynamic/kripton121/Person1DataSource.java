@@ -19,7 +19,7 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 import sqlite.feature.dynamic.kripton121.Person1DAO;
 
-@BindDataSource(dao = { Person1DAO.class }, fileName = "person.db", generateLog=true)
+@BindDataSource(daoSet= { Person1DAO.class }, fileName = "person.db", generateLog=true)
 public interface Person1DataSource {
 
 }

@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 import sqlite.example01.DaoChannelMessage;
 
 
-@BindDataSource(dao=DaoChannelMessage.class, fileName = "dummy" , version=1)
+@BindDataSource(daoSet=DaoChannelMessage.class, fileName = "dummy" , version=1)
 public interface Dummy01DataSource {
 
 }

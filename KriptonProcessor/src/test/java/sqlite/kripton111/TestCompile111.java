@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import bind.AbstractBindTypeProcessorTest;
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.kripton111.model.ActionType;
 import sqlite.kripton111.model.Country;

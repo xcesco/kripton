@@ -30,6 +30,6 @@ public class Example01Test extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void test01() throws Throwable {
-		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoChannel.class, Channel.class);
+		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoChannel.class, Channel.class, UidEntity.class, Entity.class);
 	}
 }
