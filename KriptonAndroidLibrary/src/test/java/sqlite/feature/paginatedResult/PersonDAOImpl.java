@@ -285,19 +285,16 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     } else {
       contentValues.putNull("name");
     }
-
     if (surname!=null) {
       contentValues.put("surname", surname);
     } else {
       contentValues.putNull("surname");
     }
-
     if (birthCity!=null) {
       contentValues.put("birth_city", birthCity);
     } else {
       contentValues.putNull("birth_city");
     }
-
     if (birthDay!=null) {
       contentValues.put("birth_day", DateUtils.write(birthDay));
     } else {

@@ -50,12 +50,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    */
   protected CountryDaoImpl countryDao = new CountryDaoImpl(this);
 
-  protected BindXenoDataSource() {
-    this(null);
-  }
-
   protected BindXenoDataSource(DataSourceOptions options) {
-    super("xeno.db", 1, null);
+    super("xeno.db", 1, options);
   }
 
   @Override
@@ -105,7 +101,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    */
   public static BindXenoDataSource instance() {
     if (instance==null) {
-      instance=new BindXenoDataSource();
+      instance=new BindXenoDataSource(null);
     }
     return instance;
   }
@@ -116,7 +112,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    */
   public static BindXenoDataSource open() {
     if (instance==null) {
-      instance=new BindXenoDataSource();
+      instance=new BindXenoDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -128,7 +124,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    */
   public static BindXenoDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindXenoDataSource();
+      instance=new BindXenoDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

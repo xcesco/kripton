@@ -193,13 +193,11 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.surname!=null) {
       contentValues.put("surname", bean.surname);
     } else {
       contentValues.putNull("surname");
     }
-
     if (bean.typeName!=null) {
       contentValues.put("type_name", bean.typeName);
     } else {
@@ -262,19 +260,16 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     contentValues.clear();
 
     contentValues.put("id", bean.id);
-
     if (bean.name!=null) {
       contentValues.put("name", bean.name);
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.surname!=null) {
       contentValues.put("surname", bean.surname);
     } else {
       contentValues.putNull("surname");
     }
-
     if (bean.typeName!=null) {
       contentValues.put("type_name", bean.typeName);
     } else {
@@ -338,19 +333,16 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     contentValues.clear();
 
     contentValues.put("id", bean.id);
-
     if (bean.name!=null) {
       contentValues.put("name", bean.name);
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.surname!=null) {
       contentValues.put("surname", bean.surname);
     } else {
       contentValues.putNull("surname");
     }
-
     if (bean.typeName!=null) {
       contentValues.put("type_name", bean.typeName);
     } else {
@@ -414,19 +406,16 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     contentValues.clear();
 
     contentValues.put("id", bean.id);
-
     if (bean.name!=null) {
       contentValues.put("name", bean.name);
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.surname!=null) {
       contentValues.put("surname", bean.surname);
     } else {
       contentValues.putNull("surname");
     }
-
     if (bean.typeName!=null) {
       contentValues.put("type_name", bean.typeName);
     } else {
@@ -490,19 +479,16 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     contentValues.clear();
 
     contentValues.put("id", bean.id);
-
     if (bean.name!=null) {
       contentValues.put("name", bean.name);
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.surname!=null) {
       contentValues.put("surname", bean.surname);
     } else {
       contentValues.putNull("surname");
     }
-
     if (bean.typeName!=null) {
       contentValues.put("type_name", bean.typeName);
     } else {
@@ -566,19 +552,16 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     contentValues.clear();
 
     contentValues.put("id", bean.id);
-
     if (bean.name!=null) {
       contentValues.put("name", bean.name);
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.surname!=null) {
       contentValues.put("surname", bean.surname);
     } else {
       contentValues.putNull("surname");
     }
-
     if (bean.typeName!=null) {
       contentValues.put("type_name", bean.typeName);
     } else {

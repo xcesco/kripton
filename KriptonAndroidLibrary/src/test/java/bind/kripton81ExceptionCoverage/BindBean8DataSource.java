@@ -31,12 +31,8 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    */
   protected Bean8DaoImpl bean8Dao = new Bean8DaoImpl(this);
 
-  protected BindBean8DataSource() {
-    this(null);
-  }
-
   protected BindBean8DataSource(DataSourceOptions options) {
-    super("", 1, null);
+    super("", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    */
   public static BindBean8DataSource instance() {
     if (instance==null) {
-      instance=new BindBean8DataSource();
+      instance=new BindBean8DataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    */
   public static BindBean8DataSource open() {
     if (instance==null) {
-      instance=new BindBean8DataSource();
+      instance=new BindBean8DataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    */
   public static BindBean8DataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindBean8DataSource();
+      instance=new BindBean8DataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

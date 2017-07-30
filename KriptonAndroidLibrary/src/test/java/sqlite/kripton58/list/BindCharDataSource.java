@@ -31,12 +31,8 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    */
   protected CharDaoImpl charDao = new CharDaoImpl(this);
 
-  protected BindCharDataSource() {
-    this(null);
-  }
-
   protected BindCharDataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    */
   public static BindCharDataSource instance() {
     if (instance==null) {
-      instance=new BindCharDataSource();
+      instance=new BindCharDataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    */
   public static BindCharDataSource open() {
     if (instance==null) {
-      instance=new BindCharDataSource();
+      instance=new BindCharDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    */
   public static BindCharDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindCharDataSource();
+      instance=new BindCharDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

@@ -31,12 +31,8 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
    */
   protected DaoBeanUpdateOKImpl daoBeanUpdateOK = new DaoBeanUpdateOKImpl(this);
 
-  protected BindDummy06DataSource() {
-    this(null);
-  }
-
   protected BindDummy06DataSource(DataSourceOptions options) {
-    super("dummy1", 1, null);
+    super("dummy1", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
    */
   public static BindDummy06DataSource instance() {
     if (instance==null) {
-      instance=new BindDummy06DataSource();
+      instance=new BindDummy06DataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
    */
   public static BindDummy06DataSource open() {
     if (instance==null) {
-      instance=new BindDummy06DataSource();
+      instance=new BindDummy06DataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
    */
   public static BindDummy06DataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindDummy06DataSource();
+      instance=new BindDummy06DataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

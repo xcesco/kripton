@@ -31,12 +31,8 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    */
   protected IntegerDaoImpl integerDao = new IntegerDaoImpl(this);
 
-  protected BindIntegerDataSource() {
-    this(null);
-  }
-
   protected BindIntegerDataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    */
   public static BindIntegerDataSource instance() {
     if (instance==null) {
-      instance=new BindIntegerDataSource();
+      instance=new BindIntegerDataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    */
   public static BindIntegerDataSource open() {
     if (instance==null) {
-      instance=new BindIntegerDataSource();
+      instance=new BindIntegerDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    */
   public static BindIntegerDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindIntegerDataSource();
+      instance=new BindIntegerDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

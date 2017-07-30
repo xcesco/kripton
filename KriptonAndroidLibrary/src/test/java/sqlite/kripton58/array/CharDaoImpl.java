@@ -497,13 +497,11 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
     contentValues.clear();
 
     contentValues.put("id", id);
-
     if (value!=null) {
       contentValues.put("value", serializer1(value));
     } else {
       contentValues.putNull("value");
     }
-
     if (value2!=null) {
       contentValues.put("value2", serializer2(value2));
     } else {
@@ -565,7 +563,6 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
     } else {
       contentValues.putNull("value");
     }
-
     if (bean.value2!=null) {
       contentValues.put("value2", CharBeanTable.serializeValue2(bean.value2));
     } else {

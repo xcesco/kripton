@@ -114,7 +114,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     } else {
       contentValues.putNull("name");
     }
-
     contentValues.put("parent_id", bean.parentId);
 
     //StringUtils and SqlUtils will be used to format SQL
@@ -431,7 +430,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     } else {
       contentValues.putNull("name");
     }
-
     contentValues.put("parent_id", bean.parentId);
 
     //StringUtils and SqlUtils will be used to format SQL
@@ -486,7 +484,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     contentValues.clear();
 
     contentValues.put("parent_id", parentId);
-
     if (name!=null) {
       contentValues.put("name", name);
     } else {

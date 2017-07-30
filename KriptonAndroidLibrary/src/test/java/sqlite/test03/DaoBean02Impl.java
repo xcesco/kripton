@@ -51,21 +51,17 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     } else {
       contentValues.putNull("lista");
     }
-
     contentValues.put("message_date", bean.getMessageDate());
-
     if (bean.getMessageText()!=null) {
       contentValues.put("message_text", bean.getMessageText());
     } else {
       contentValues.putNull("message_text");
     }
-
     if (bean.getBeanList()!=null) {
       contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
     } else {
       contentValues.putNull("bean_list");
     }
-
     contentValues.put("value", bean.getValue());
 
     //StringUtils and SqlUtils will be used to format SQL
@@ -125,7 +121,6 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     contentValues.clear();
 
     contentValues.put("value", value);
-
     contentValues.put("message_date", messageDate);
 
     // log for insert -- BEGIN 
@@ -347,21 +342,17 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     } else {
       contentValues.putNull("lista");
     }
-
     contentValues.put("message_date", bean.getMessageDate());
-
     if (bean.getMessageText()!=null) {
       contentValues.put("message_text", bean.getMessageText());
     } else {
       contentValues.putNull("message_text");
     }
-
     if (bean.getBeanList()!=null) {
       contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
     } else {
       contentValues.putNull("bean_list");
     }
-
     contentValues.put("value", bean.getValue());
 
     ArrayList<String> _sqlWhereParams=new ArrayList<String>();

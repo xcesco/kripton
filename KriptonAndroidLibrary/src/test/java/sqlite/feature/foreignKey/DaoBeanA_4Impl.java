@@ -260,7 +260,6 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     contentValues.clear();
 
     contentValues.put("bean_a2_id", bean.beanA2Id);
-
     if (bean.valueString!=null) {
       contentValues.put("value_string", bean.valueString);
     } else {
@@ -324,7 +323,6 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     contentValues.clear();
 
     contentValues.put("bean_a2_id", bean.beanA2Id);
-
     if (bean.valueString!=null) {
       contentValues.put("value_string", bean.valueString);
     } else {

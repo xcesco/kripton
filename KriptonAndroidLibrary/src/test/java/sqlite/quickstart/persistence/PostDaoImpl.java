@@ -49,15 +49,12 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
     contentValues.clear();
 
     contentValues.put("user_id", bean.userId);
-
     contentValues.put("id", bean.id);
-
     if (bean.title!=null) {
       contentValues.put("title", bean.title);
     } else {
       contentValues.putNull("title");
     }
-
     if (bean.body!=null) {
       contentValues.put("body", bean.body);
     } else {

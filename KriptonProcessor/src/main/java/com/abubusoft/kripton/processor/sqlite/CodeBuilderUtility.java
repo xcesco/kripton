@@ -167,10 +167,9 @@ public abstract class CodeBuilderUtility {
 				methodBuilder.nextControlFlow("else");
 				methodBuilder.addCode("contentValues.putNull($S);\n", item.columnName);
 				methodBuilder.endControlFlow();
-			}
-			methodBuilder.addCode("\n");
-
+			}			
 		}
+		methodBuilder.addCode("\n");
 
 	}
 

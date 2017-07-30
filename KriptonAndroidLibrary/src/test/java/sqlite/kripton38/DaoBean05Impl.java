@@ -766,13 +766,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     } else {
       contentValues.putNull("text");
     }
-
     if (content!=null) {
       contentValues.put("content", serializer2(content));
     } else {
       contentValues.putNull("content");
     }
-
     if (creationTime!=null) {
       contentValues.put("creation_time", DateUtils.write(creationTime));
     } else {
@@ -832,25 +830,21 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     contentValues.clear();
 
     contentValues.put("number", bean.getNumber());
-
     if (bean.getBeanType()!=null) {
       contentValues.put("bean_type", bean.getBeanType().toString());
     } else {
       contentValues.putNull("bean_type");
     }
-
     if (bean.getText()!=null) {
       contentValues.put("text", bean.getText());
     } else {
       contentValues.putNull("text");
     }
-
     if (bean.getContent()!=null) {
       contentValues.put("content", Bean05Table.serializeContent(bean.getContent()));
     } else {
       contentValues.putNull("content");
     }
-
     if (bean.getCreationTime()!=null) {
       contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
     } else {
@@ -917,25 +911,21 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     contentValues.clear();
 
     contentValues.put("number", bean.getNumber());
-
     if (bean.getBeanType()!=null) {
       contentValues.put("bean_type", bean.getBeanType().toString());
     } else {
       contentValues.putNull("bean_type");
     }
-
     if (bean.getText()!=null) {
       contentValues.put("text", bean.getText());
     } else {
       contentValues.putNull("text");
     }
-
     if (bean.getContent()!=null) {
       contentValues.put("content", Bean05Table.serializeContent(bean.getContent()));
     } else {
       contentValues.putNull("content");
     }
-
     if (bean.getCreationTime()!=null) {
       contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
     } else {

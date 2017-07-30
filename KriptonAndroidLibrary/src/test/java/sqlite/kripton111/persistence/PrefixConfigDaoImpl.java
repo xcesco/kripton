@@ -52,15 +52,12 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     } else {
       contentValues.putNull("default_country");
     }
-
     if (bean.dualBillingPrefix!=null) {
       contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
     } else {
       contentValues.putNull("dual_billing_prefix");
     }
-
     contentValues.put("enabled", bean.enabled);
-
     contentValues.put("dialog_timeout", bean.dialogTimeout);
 
     //StringUtils and SqlUtils will be used to format SQL
@@ -314,15 +311,12 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     } else {
       contentValues.putNull("default_country");
     }
-
     if (bean.dualBillingPrefix!=null) {
       contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
     } else {
       contentValues.putNull("dual_billing_prefix");
     }
-
     contentValues.put("enabled", bean.enabled);
-
     contentValues.put("dialog_timeout", bean.dialogTimeout);
 
     ArrayList<String> _sqlWhereParams=new ArrayList<String>();

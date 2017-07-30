@@ -39,12 +39,8 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    */
   protected PetDaoImpl petDao = new PetDaoImpl(this);
 
-  protected BindPetUserDataSource() {
-    this(null);
-  }
-
   protected BindPetUserDataSource(DataSourceOptions options) {
-    super("pet.db", 1, null);
+    super("pet.db", 1, options);
   }
 
   @Override
@@ -89,7 +85,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    */
   public static BindPetUserDataSource instance() {
     if (instance==null) {
-      instance=new BindPetUserDataSource();
+      instance=new BindPetUserDataSource(null);
     }
     return instance;
   }
@@ -100,7 +96,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    */
   public static BindPetUserDataSource open() {
     if (instance==null) {
-      instance=new BindPetUserDataSource();
+      instance=new BindPetUserDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -112,7 +108,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    */
   public static BindPetUserDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindPetUserDataSource();
+      instance=new BindPetUserDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

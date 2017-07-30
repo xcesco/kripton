@@ -50,21 +50,17 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     contentValues.clear();
 
     contentValues.put("post_id", bean.postId);
-
     contentValues.put("id", bean.id);
-
     if (bean.name!=null) {
       contentValues.put("name", bean.name);
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.email!=null) {
       contentValues.put("email", bean.email);
     } else {
       contentValues.putNull("email");
     }
-
     if (bean.body!=null) {
       contentValues.put("body", bean.body);
     } else {

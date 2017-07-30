@@ -497,13 +497,11 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     contentValues.clear();
 
     contentValues.put("id", id);
-
     if (value!=null) {
       contentValues.put("value", serializer1(value));
     } else {
       contentValues.putNull("value");
     }
-
     if (value2!=null) {
       contentValues.put("value2", serializer2(value2));
     } else {
@@ -565,7 +563,6 @@ public class IntDaoImpl extends AbstractDao implements IntDao {
     } else {
       contentValues.putNull("value");
     }
-
     if (bean.value2!=null) {
       contentValues.put("value2", IntBeanTable.serializeValue2(bean.value2));
     } else {

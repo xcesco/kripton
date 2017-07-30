@@ -159,45 +159,37 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     contentValues.clear();
 
     contentValues.put("channel_id", bean.channelId);
-
     if (bean.ownerType!=null) {
       contentValues.put("owner_type", bean.ownerType.toString());
     } else {
       contentValues.putNull("owner_type");
     }
-
     if (bean.uid!=null) {
       contentValues.put("uid", bean.uid);
     } else {
       contentValues.putNull("uid");
     }
-
     if (bean.faceUid!=null) {
       contentValues.put("face_uid", bean.faceUid);
     } else {
       contentValues.putNull("face_uid");
     }
-
     if (bean.text!=null) {
       contentValues.put("text", bean.text);
     } else {
       contentValues.putNull("text");
     }
-
     if (bean.ownerUid!=null) {
       contentValues.put("owner_uid", bean.ownerUid);
     } else {
       contentValues.putNull("owner_uid");
     }
-
     if (bean.channelUid!=null) {
       contentValues.put("channel_uid", bean.channelUid);
     } else {
       contentValues.putNull("channel_uid");
     }
-
     contentValues.put("update_time", bean.updateTime);
-
     if (bean.type!=null) {
       contentValues.put("type", bean.type.toString());
     } else {
@@ -274,45 +266,37 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     contentValues.clear();
 
     contentValues.put("channel_id", bean.channelId);
-
     if (bean.ownerType!=null) {
       contentValues.put("owner_type", bean.ownerType.toString());
     } else {
       contentValues.putNull("owner_type");
     }
-
     if (bean.uid!=null) {
       contentValues.put("uid", bean.uid);
     } else {
       contentValues.putNull("uid");
     }
-
     if (bean.faceUid!=null) {
       contentValues.put("face_uid", bean.faceUid);
     } else {
       contentValues.putNull("face_uid");
     }
-
     if (bean.text!=null) {
       contentValues.put("text", bean.text);
     } else {
       contentValues.putNull("text");
     }
-
     if (bean.ownerUid!=null) {
       contentValues.put("owner_uid", bean.ownerUid);
     } else {
       contentValues.putNull("owner_uid");
     }
-
     if (bean.channelUid!=null) {
       contentValues.put("channel_uid", bean.channelUid);
     } else {
       contentValues.putNull("channel_uid");
     }
-
     contentValues.put("update_time", bean.updateTime);
-
     if (bean.type!=null) {
       contentValues.put("type", bean.type.toString());
     } else {

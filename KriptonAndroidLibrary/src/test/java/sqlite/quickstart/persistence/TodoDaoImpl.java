@@ -49,15 +49,12 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     contentValues.clear();
 
     contentValues.put("id", bean.id);
-
     contentValues.put("user_id", bean.userId);
-
     if (bean.title!=null) {
       contentValues.put("title", bean.title);
     } else {
       contentValues.putNull("title");
     }
-
     contentValues.put("completed", bean.completed);
 
     //StringUtils and SqlUtils will be used to format SQL

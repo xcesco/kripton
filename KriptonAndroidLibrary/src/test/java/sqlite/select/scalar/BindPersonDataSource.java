@@ -32,12 +32,8 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    */
   protected PersonDAOImpl personDAO = new PersonDAOImpl(this);
 
-  protected BindPersonDataSource() {
-    this(null);
-  }
-
   protected BindPersonDataSource(DataSourceOptions options) {
-    super("person.db", 1, null);
+    super("person.db", 1, options);
   }
 
   @Override
@@ -77,7 +73,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    */
   public static BindPersonDataSource instance() {
     if (instance==null) {
-      instance=new BindPersonDataSource();
+      instance=new BindPersonDataSource(null);
     }
     return instance;
   }
@@ -88,7 +84,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    */
   public static BindPersonDataSource open() {
     if (instance==null) {
-      instance=new BindPersonDataSource();
+      instance=new BindPersonDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -100,7 +96,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    */
   public static BindPersonDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindPersonDataSource();
+      instance=new BindPersonDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

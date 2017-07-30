@@ -54,8 +54,6 @@
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 
-		<kripton.debug>false</kripton.debug>
-
 		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
 	</properties>
 
@@ -352,14 +350,7 @@
 				</plugins>
 			</build>
 		</profile>
-
-		<profile>
-			<id>build-grammar</id>
-
-			<build>
-
-			</build>
-		</profile>
+		
 	</profiles>
 
 	<build>

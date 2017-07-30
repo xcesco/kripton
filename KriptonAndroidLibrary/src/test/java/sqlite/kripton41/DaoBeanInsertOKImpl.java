@@ -40,7 +40,6 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
     contentValues.clear();
 
     contentValues.put("id", id);
-
     if (value!=null) {
       contentValues.put("value", value);
     } else {

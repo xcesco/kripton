@@ -31,12 +31,8 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    */
   protected Bean64ADaoImpl bean64ADao = new Bean64ADaoImpl(this);
 
-  protected BindBean64ADataSource() {
-    this(null);
-  }
-
   protected BindBean64ADataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    */
   public static BindBean64ADataSource instance() {
     if (instance==null) {
-      instance=new BindBean64ADataSource();
+      instance=new BindBean64ADataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    */
   public static BindBean64ADataSource open() {
     if (instance==null) {
-      instance=new BindBean64ADataSource();
+      instance=new BindBean64ADataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    */
   public static BindBean64ADataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindBean64ADataSource();
+      instance=new BindBean64ADataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

@@ -493,7 +493,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     contentValues.put("id", id);
-
     if (value!=null) {
       contentValues.put("value", serializer2(value));
     } else {
@@ -555,7 +554,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     } else {
       contentValues.putNull("value");
     }
-
     if (bean.value2!=null) {
       contentValues.put("value2", BeanBeanTable.serializeValue2(bean.value2));
     } else {

@@ -121,7 +121,6 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.surname!=null) {
       contentValues.put("surname", bean.surname);
     } else {

@@ -199,13 +199,11 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
     } else {
       contentValues.putNull("value_map_string_bean");
     }
-
     if (bean.valueSetString!=null) {
       contentValues.put("value_set_string", Bean64BTable.serializeValueSetString(bean.valueSetString));
     } else {
       contentValues.putNull("value_set_string");
     }
-
     if (bean.valueString!=null) {
       contentValues.put("value_string", bean.valueString);
     } else {

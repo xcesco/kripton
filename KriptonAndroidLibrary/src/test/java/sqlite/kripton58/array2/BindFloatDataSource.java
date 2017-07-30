@@ -31,12 +31,8 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    */
   protected FloatDaoImpl floatDao = new FloatDaoImpl(this);
 
-  protected BindFloatDataSource() {
-    this(null);
-  }
-
   protected BindFloatDataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    */
   public static BindFloatDataSource instance() {
     if (instance==null) {
-      instance=new BindFloatDataSource();
+      instance=new BindFloatDataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    */
   public static BindFloatDataSource open() {
     if (instance==null) {
-      instance=new BindFloatDataSource();
+      instance=new BindFloatDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    */
   public static BindFloatDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindFloatDataSource();
+      instance=new BindFloatDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

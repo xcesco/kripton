@@ -56,25 +56,21 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     } else {
       contentValues.putNull("action_type");
     }
-
     if (bean.number!=null) {
       contentValues.put("number", bean.number);
     } else {
       contentValues.putNull("number");
     }
-
     if (bean.countryCode!=null) {
       contentValues.put("country_code", bean.countryCode);
     } else {
       contentValues.putNull("country_code");
     }
-
     if (bean.contactName!=null) {
       contentValues.put("contact_name", bean.contactName);
     } else {
       contentValues.putNull("contact_name");
     }
-
     if (bean.contactId!=null) {
       contentValues.put("contact_id", bean.contactId);
     } else {

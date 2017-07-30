@@ -41,12 +41,8 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    */
   protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
 
-  protected BindFamilyDataSource() {
-    this(null);
-  }
-
   protected BindFamilyDataSource(DataSourceOptions options) {
-    super("familiy", 1, null);
+    super("familiy", 1, options);
   }
 
   @Override
@@ -91,7 +87,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    */
   public static BindFamilyDataSource instance() {
     if (instance==null) {
-      instance=new BindFamilyDataSource();
+      instance=new BindFamilyDataSource(null);
     }
     return instance;
   }
@@ -102,7 +98,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    */
   public static BindFamilyDataSource open() {
     if (instance==null) {
-      instance=new BindFamilyDataSource();
+      instance=new BindFamilyDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -114,7 +110,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    */
   public static BindFamilyDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindFamilyDataSource();
+      instance=new BindFamilyDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

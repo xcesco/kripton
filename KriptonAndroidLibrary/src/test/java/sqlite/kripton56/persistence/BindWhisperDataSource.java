@@ -32,12 +32,8 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    */
   protected DaoMessageImpl daoMessage = new DaoMessageImpl(this);
 
-  protected BindWhisperDataSource() {
-    this(null);
-  }
-
   protected BindWhisperDataSource(DataSourceOptions options) {
-    super("whisper", 1, null);
+    super("whisper", 1, options);
   }
 
   @Override
@@ -77,7 +73,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    */
   public static BindWhisperDataSource instance() {
     if (instance==null) {
-      instance=new BindWhisperDataSource();
+      instance=new BindWhisperDataSource(null);
     }
     return instance;
   }
@@ -88,7 +84,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    */
   public static BindWhisperDataSource open() {
     if (instance==null) {
-      instance=new BindWhisperDataSource();
+      instance=new BindWhisperDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -100,7 +96,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    */
   public static BindWhisperDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindWhisperDataSource();
+      instance=new BindWhisperDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

@@ -31,12 +31,8 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    */
   protected StringDaoImpl stringDao = new StringDaoImpl(this);
 
-  protected BindStringDataSource() {
-    this(null);
-  }
-
   protected BindStringDataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    */
   public static BindStringDataSource instance() {
     if (instance==null) {
-      instance=new BindStringDataSource();
+      instance=new BindStringDataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    */
   public static BindStringDataSource open() {
     if (instance==null) {
-      instance=new BindStringDataSource();
+      instance=new BindStringDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    */
   public static BindStringDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindStringDataSource();
+      instance=new BindStringDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

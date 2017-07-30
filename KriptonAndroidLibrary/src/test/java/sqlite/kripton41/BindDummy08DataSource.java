@@ -31,12 +31,8 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
    */
   protected DaoBeanDeleteOKImpl daoBeanDeleteOK = new DaoBeanDeleteOKImpl(this);
 
-  protected BindDummy08DataSource() {
-    this(null);
-  }
-
   protected BindDummy08DataSource(DataSourceOptions options) {
-    super("dummy1", 1, null);
+    super("dummy1", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
    */
   public static BindDummy08DataSource instance() {
     if (instance==null) {
-      instance=new BindDummy08DataSource();
+      instance=new BindDummy08DataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
    */
   public static BindDummy08DataSource open() {
     if (instance==null) {
-      instance=new BindDummy08DataSource();
+      instance=new BindDummy08DataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
    */
   public static BindDummy08DataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindDummy08DataSource();
+      instance=new BindDummy08DataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

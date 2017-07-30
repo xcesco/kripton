@@ -386,61 +386,51 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     } else {
       contentValues.putNull("param1");
     }
-
     if (bean.param2!=null) {
       contentValues.put("param2", bean.param2);
     } else {
       contentValues.putNull("param2");
     }
-
     if (bean.param3!=null) {
       contentValues.put("param3", bean.param3);
     } else {
       contentValues.putNull("param3");
     }
-
     if (bean.param4!=null) {
       contentValues.put("param4", bean.param4);
     } else {
       contentValues.putNull("param4");
     }
-
     if (bean.columnListString!=null) {
       contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
     } else {
       contentValues.putNull("column_list_string");
     }
-
     if (bean.columnMapIntegerString!=null) {
       contentValues.put("column_map_integer_string", Bean84ATable.serializeColumnMapIntegerString(bean.columnMapIntegerString));
     } else {
       contentValues.putNull("column_map_integer_string");
     }
-
     if (bean.columnArrayChar!=null) {
       contentValues.put("column_array_char", Bean84ATable.serializeColumnArrayChar(bean.columnArrayChar));
     } else {
       contentValues.putNull("column_array_char");
     }
-
     if (bean.columnArrayCharType!=null) {
       contentValues.put("column_array_char_type", Bean84ATable.serializeColumnArrayCharType(bean.columnArrayCharType));
     } else {
       contentValues.putNull("column_array_char_type");
     }
-
     if (bean.columnBean!=null) {
       contentValues.put("column_bean", Bean84ATable.serializeColumnBean(bean.columnBean));
     } else {
       contentValues.putNull("column_bean");
     }
-
     if (bean.columnArrayByteType!=null) {
       contentValues.put("column_array_byte_type", Bean84ATable.serializeColumnArrayByteType(bean.columnArrayByteType));
     } else {
       contentValues.putNull("column_array_byte_type");
     }
-
     if (bean.valueString!=null) {
       contentValues.put("value_string", bean.valueString);
     } else {
@@ -575,61 +565,51 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     } else {
       contentValues.putNull("param1");
     }
-
     if (bean.param2!=null) {
       contentValues.put("param2", bean.param2);
     } else {
       contentValues.putNull("param2");
     }
-
     if (bean.param3!=null) {
       contentValues.put("param3", bean.param3);
     } else {
       contentValues.putNull("param3");
     }
-
     if (bean.param4!=null) {
       contentValues.put("param4", bean.param4);
     } else {
       contentValues.putNull("param4");
     }
-
     if (bean.columnListString!=null) {
       contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
     } else {
       contentValues.putNull("column_list_string");
     }
-
     if (bean.columnMapIntegerString!=null) {
       contentValues.put("column_map_integer_string", Bean84ATable.serializeColumnMapIntegerString(bean.columnMapIntegerString));
     } else {
       contentValues.putNull("column_map_integer_string");
     }
-
     if (bean.columnArrayChar!=null) {
       contentValues.put("column_array_char", Bean84ATable.serializeColumnArrayChar(bean.columnArrayChar));
     } else {
       contentValues.putNull("column_array_char");
     }
-
     if (bean.columnArrayCharType!=null) {
       contentValues.put("column_array_char_type", Bean84ATable.serializeColumnArrayCharType(bean.columnArrayCharType));
     } else {
       contentValues.putNull("column_array_char_type");
     }
-
     if (bean.columnBean!=null) {
       contentValues.put("column_bean", Bean84ATable.serializeColumnBean(bean.columnBean));
     } else {
       contentValues.putNull("column_bean");
     }
-
     if (bean.columnArrayByteType!=null) {
       contentValues.put("column_array_byte_type", Bean84ATable.serializeColumnArrayByteType(bean.columnArrayByteType));
     } else {
       contentValues.putNull("column_array_byte_type");
     }
-
     if (bean.valueString!=null) {
       contentValues.put("value_string", bean.valueString);
     } else {

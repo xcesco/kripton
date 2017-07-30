@@ -59,12 +59,8 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    */
   protected TodoDaoImpl todoDao = new TodoDaoImpl(this);
 
-  protected BindQuickStartDataSource() {
-    this(null);
-  }
-
   protected BindQuickStartDataSource(DataSourceOptions options) {
-    super("kripton.quickstart.db", 1, null);
+    super("kripton.quickstart.db", 1, options);
   }
 
   @Override
@@ -119,7 +115,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    */
   public static BindQuickStartDataSource instance() {
     if (instance==null) {
-      instance=new BindQuickStartDataSource();
+      instance=new BindQuickStartDataSource(null);
     }
     return instance;
   }
@@ -130,7 +126,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    */
   public static BindQuickStartDataSource open() {
     if (instance==null) {
-      instance=new BindQuickStartDataSource();
+      instance=new BindQuickStartDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -142,7 +138,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    */
   public static BindQuickStartDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindQuickStartDataSource();
+      instance=new BindQuickStartDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

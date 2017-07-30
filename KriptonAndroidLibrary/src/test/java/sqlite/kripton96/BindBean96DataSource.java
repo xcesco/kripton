@@ -31,12 +31,8 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
    */
   protected Bean96DaoImpl bean96Dao = new Bean96DaoImpl(this);
 
-  protected BindBean96DataSource() {
-    this(null);
-  }
-
   protected BindBean96DataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
    */
   public static BindBean96DataSource instance() {
     if (instance==null) {
-      instance=new BindBean96DataSource();
+      instance=new BindBean96DataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
    */
   public static BindBean96DataSource open() {
     if (instance==null) {
-      instance=new BindBean96DataSource();
+      instance=new BindBean96DataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
    */
   public static BindBean96DataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindBean96DataSource();
+      instance=new BindBean96DataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

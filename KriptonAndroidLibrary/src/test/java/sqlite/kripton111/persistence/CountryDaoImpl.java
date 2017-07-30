@@ -51,25 +51,21 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     contentValues.clear();
 
     contentValues.put("area", bean.area);
-
     if (bean.code!=null) {
       contentValues.put("code", bean.code);
     } else {
       contentValues.putNull("code");
     }
-
     if (bean.callingCode!=null) {
       contentValues.put("calling_code", bean.callingCode);
     } else {
       contentValues.putNull("calling_code");
     }
-
     if (bean.region!=null) {
       contentValues.put("region", bean.region);
     } else {
       contentValues.putNull("region");
     }
-
     if (bean.name!=null) {
       contentValues.put("name", bean.name);
     } else {

@@ -42,7 +42,6 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
     contentValues.clear();
 
     contentValues.put("id", bean.id);
-
     if (bean.description!=null) {
       contentValues.put("description", bean.description);
     } else {

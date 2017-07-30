@@ -31,12 +31,8 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    */
   protected DaoChannelImpl daoChannel = new DaoChannelImpl(this);
 
-  protected BindDummy01DataSource() {
-    this(null);
-  }
-
   protected BindDummy01DataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    */
   public static BindDummy01DataSource instance() {
     if (instance==null) {
-      instance=new BindDummy01DataSource();
+      instance=new BindDummy01DataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    */
   public static BindDummy01DataSource open() {
     if (instance==null) {
-      instance=new BindDummy01DataSource();
+      instance=new BindDummy01DataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    */
   public static BindDummy01DataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindDummy01DataSource();
+      instance=new BindDummy01DataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

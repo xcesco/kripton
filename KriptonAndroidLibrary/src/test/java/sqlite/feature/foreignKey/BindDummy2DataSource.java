@@ -39,12 +39,8 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    */
   protected DaoBeanA_4Impl daoBeanA_4 = new DaoBeanA_4Impl(this);
 
-  protected BindDummy2DataSource() {
-    this(null);
-  }
-
   protected BindDummy2DataSource(DataSourceOptions options) {
-    super("test.db", 1, null);
+    super("test.db", 1, options);
   }
 
   @Override
@@ -89,7 +85,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    */
   public static BindDummy2DataSource instance() {
     if (instance==null) {
-      instance=new BindDummy2DataSource();
+      instance=new BindDummy2DataSource(null);
     }
     return instance;
   }
@@ -100,7 +96,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    */
   public static BindDummy2DataSource open() {
     if (instance==null) {
-      instance=new BindDummy2DataSource();
+      instance=new BindDummy2DataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -112,7 +108,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    */
   public static BindDummy2DataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindDummy2DataSource();
+      instance=new BindDummy2DataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

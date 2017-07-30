@@ -8,20 +8,24 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MigrationDatabase extends SQLiteOpenHelper {
 
-	public MigrationDatabase(Context context, String name, CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
+	private MigrationDatabaseListener listener;
+
+	public MigrationDatabase(Context context, String name, CursorFactory factory, int version, DatabaseErrorHandler errorHandler, MigrationDatabaseListener listener) {
 		super(context, name, factory, version, errorHandler);
+		this.listener=listener;
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
+		listener.onCreate(db);
 		
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-		
+		listener.onUpgrade(db, oldVersion, newVersion);		
 	}
+	
+	
 
 }

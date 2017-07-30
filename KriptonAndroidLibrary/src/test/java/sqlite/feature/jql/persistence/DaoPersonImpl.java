@@ -115,7 +115,6 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.image!=null) {
       contentValues.put("image", PersonTable.serializeImage(bean.image));
     } else {

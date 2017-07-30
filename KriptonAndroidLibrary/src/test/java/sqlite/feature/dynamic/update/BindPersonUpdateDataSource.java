@@ -32,12 +32,8 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    */
   protected PersonUpdateDAOImpl personUpdateDAO = new PersonUpdateDAOImpl(this);
 
-  protected BindPersonUpdateDataSource() {
-    this(null);
-  }
-
   protected BindPersonUpdateDataSource(DataSourceOptions options) {
-    super("person.db", 1, null);
+    super("person.db", 1, options);
   }
 
   @Override
@@ -77,7 +73,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    */
   public static BindPersonUpdateDataSource instance() {
     if (instance==null) {
-      instance=new BindPersonUpdateDataSource();
+      instance=new BindPersonUpdateDataSource(null);
     }
     return instance;
   }
@@ -88,7 +84,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    */
   public static BindPersonUpdateDataSource open() {
     if (instance==null) {
-      instance=new BindPersonUpdateDataSource();
+      instance=new BindPersonUpdateDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -100,7 +96,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    */
   public static BindPersonUpdateDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindPersonUpdateDataSource();
+      instance=new BindPersonUpdateDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

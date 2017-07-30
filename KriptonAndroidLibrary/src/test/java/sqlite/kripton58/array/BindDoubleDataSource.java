@@ -31,12 +31,8 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    */
   protected DoubleDaoImpl doubleDao = new DoubleDaoImpl(this);
 
-  protected BindDoubleDataSource() {
-    this(null);
-  }
-
   protected BindDoubleDataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    */
   public static BindDoubleDataSource instance() {
     if (instance==null) {
-      instance=new BindDoubleDataSource();
+      instance=new BindDoubleDataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    */
   public static BindDoubleDataSource open() {
     if (instance==null) {
-      instance=new BindDoubleDataSource();
+      instance=new BindDoubleDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    */
   public static BindDoubleDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindDoubleDataSource();
+      instance=new BindDoubleDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

@@ -238,89 +238,69 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     } else {
       contentValues.putNull("uid");
     }
-
     if (bean.description!=null) {
       contentValues.put("description", bean.description);
     } else {
       contentValues.putNull("description");
     }
-
     if (bean.info!=null) {
       contentValues.put("info", bean.info);
     } else {
       contentValues.putNull("info");
     }
-
     if (bean.longitude!=null) {
       contentValues.put("longitude", bean.longitude);
     } else {
       contentValues.putNull("longitude");
     }
-
     if (bean.latitude!=null) {
       contentValues.put("latitude", bean.latitude);
     } else {
       contentValues.putNull("latitude");
     }
-
     if (bean.address!=null) {
       contentValues.put("address", bean.address);
     } else {
       contentValues.putNull("address");
     }
-
     if (bean.address2!=null) {
       contentValues.put("address2", bean.address2);
     } else {
       contentValues.putNull("address2");
     }
-
     if (bean.city!=null) {
       contentValues.put("city", bean.city);
     } else {
       contentValues.putNull("city");
     }
-
     if (bean.phone!=null) {
       contentValues.put("phone", bean.phone);
     } else {
       contentValues.putNull("phone");
     }
-
     contentValues.put("total_patient_count", bean.totalPatientCount);
-
     contentValues.put("white_waiting_patients", bean.whiteWaitingPatients);
-
     contentValues.put("white_visiting_patients", bean.whiteVisitingPatients);
-
     if (bean.whiteAverageWaitingTime!=null) {
       contentValues.put("white_average_waiting_time", bean.whiteAverageWaitingTime);
     } else {
       contentValues.putNull("white_average_waiting_time");
     }
-
     contentValues.put("green_waiting_patients", bean.greenWaitingPatients);
-
     contentValues.put("green_visiting_patients", bean.greenVisitingPatients);
-
     if (bean.greenAverageWaitingTime!=null) {
       contentValues.put("green_average_waiting_time", bean.greenAverageWaitingTime);
     } else {
       contentValues.putNull("green_average_waiting_time");
     }
-
     contentValues.put("yellow_waiting_patients", bean.yellowWaitingPatients);
-
     contentValues.put("yellow_visiting_patients", bean.yellowVisitingPatients);
-
     if (bean.yellowAverageWaitingTime!=null) {
       contentValues.put("yellow_average_waiting_time", bean.yellowAverageWaitingTime);
     } else {
       contentValues.putNull("yellow_average_waiting_time");
     }
-
     contentValues.put("red_waiting_patients", bean.redWaitingPatients);
-
     if (bean.redAverageWaitingTime!=null) {
       contentValues.put("red_average_waiting_time", bean.redAverageWaitingTime);
     } else {

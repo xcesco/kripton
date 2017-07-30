@@ -254,7 +254,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     } else {
       contentValues.putNull("owner_uid");
     }
-
     contentValues.put("id", azz);
 
     // log for insert -- BEGIN 
@@ -312,7 +311,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     } else {
       contentValues.putNull("owner_uid");
     }
-
     contentValues.put("id", id);
 
     // log for insert -- BEGIN 
@@ -370,7 +368,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     } else {
       contentValues.putNull("owner_uid");
     }
-
     contentValues.put("id", id);
 
     // log for insert -- BEGIN 
@@ -430,15 +427,12 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     } else {
       contentValues.putNull("uid");
     }
-
     if (bean.getOwnerUid()!=null) {
       contentValues.put("owner_uid", bean.getOwnerUid());
     } else {
       contentValues.putNull("owner_uid");
     }
-
     contentValues.put("update_time", bean.getUpdateTime());
-
     if (bean.getName()!=null) {
       contentValues.put("name", bean.getName());
     } else {
@@ -505,15 +499,12 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     } else {
       contentValues.putNull("uid");
     }
-
     if (bean.getOwnerUid()!=null) {
       contentValues.put("owner_uid", bean.getOwnerUid());
     } else {
       contentValues.putNull("owner_uid");
     }
-
     contentValues.put("update_time", bean.getUpdateTime());
-
     if (bean.getName()!=null) {
       contentValues.put("name", bean.getName());
     } else {
@@ -859,15 +850,12 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     } else {
       contentValues.putNull("uid");
     }
-
     if (value.getOwnerUid()!=null) {
       contentValues.put("owner_uid", value.getOwnerUid());
     } else {
       contentValues.putNull("owner_uid");
     }
-
     contentValues.put("update_time", value.getUpdateTime());
-
     if (value.getName()!=null) {
       contentValues.put("name", value.getName());
     } else {
@@ -947,15 +935,12 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     } else {
       contentValues.putNull("uid");
     }
-
     if (bean.getOwnerUid()!=null) {
       contentValues.put("owner_uid", bean.getOwnerUid());
     } else {
       contentValues.putNull("owner_uid");
     }
-
     contentValues.put("update_time", bean.getUpdateTime());
-
     if (bean.getName()!=null) {
       contentValues.put("name", bean.getName());
     } else {
@@ -1035,15 +1020,12 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     } else {
       contentValues.putNull("uid");
     }
-
     if (bean.getOwnerUid()!=null) {
       contentValues.put("owner_uid", bean.getOwnerUid());
     } else {
       contentValues.putNull("owner_uid");
     }
-
     contentValues.put("update_time", bean.getUpdateTime());
-
     if (bean.getName()!=null) {
       contentValues.put("name", bean.getName());
     } else {

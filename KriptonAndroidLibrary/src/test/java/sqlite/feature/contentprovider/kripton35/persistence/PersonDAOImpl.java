@@ -80,21 +80,17 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     } else {
       contentValues.putNull("birth_city");
     }
-
     if (bean.birthDay!=null) {
       contentValues.put("birth_day", DateUtils.write(bean.birthDay));
     } else {
       contentValues.putNull("birth_day");
     }
-
     contentValues.put("value", bean.value);
-
     if (bean.getName()!=null) {
       contentValues.put("name", bean.getName());
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.getSurname()!=null) {
       contentValues.put("surname", bean.getSurname());
     } else {
@@ -1142,27 +1138,22 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     contentValues.clear();
 
     contentValues.put("alias_parent_id", person.parentId);
-
     if (person.birthCity!=null) {
       contentValues.put("birth_city", person.birthCity);
     } else {
       contentValues.putNull("birth_city");
     }
-
     if (person.birthDay!=null) {
       contentValues.put("birth_day", DateUtils.write(person.birthDay));
     } else {
       contentValues.putNull("birth_day");
     }
-
     contentValues.put("value", person.value);
-
     if (person.getName()!=null) {
       contentValues.put("name", person.getName());
     } else {
       contentValues.putNull("name");
     }
-
     if (person.getSurname()!=null) {
       contentValues.put("surname", person.getSurname());
     } else {

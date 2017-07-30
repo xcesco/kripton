@@ -31,12 +31,8 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    */
   protected FirstAidDaoImpl firstAidDao = new FirstAidDaoImpl(this);
 
-  protected BindFirstAidDataSource() {
-    this(null);
-  }
-
   protected BindFirstAidDataSource(DataSourceOptions options) {
-    super("firstaid.db", 1, null);
+    super("firstaid.db", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    */
   public static BindFirstAidDataSource instance() {
     if (instance==null) {
-      instance=new BindFirstAidDataSource();
+      instance=new BindFirstAidDataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    */
   public static BindFirstAidDataSource open() {
     if (instance==null) {
-      instance=new BindFirstAidDataSource();
+      instance=new BindFirstAidDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    */
   public static BindFirstAidDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindFirstAidDataSource();
+      instance=new BindFirstAidDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

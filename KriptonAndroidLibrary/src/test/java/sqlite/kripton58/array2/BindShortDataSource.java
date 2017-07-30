@@ -31,12 +31,8 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    */
   protected ShortDaoImpl shortDao = new ShortDaoImpl(this);
 
-  protected BindShortDataSource() {
-    this(null);
-  }
-
   protected BindShortDataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    */
   public static BindShortDataSource instance() {
     if (instance==null) {
-      instance=new BindShortDataSource();
+      instance=new BindShortDataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    */
   public static BindShortDataSource open() {
     if (instance==null) {
-      instance=new BindShortDataSource();
+      instance=new BindShortDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    */
   public static BindShortDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindShortDataSource();
+      instance=new BindShortDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

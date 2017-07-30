@@ -358,13 +358,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     } else {
       contentValues.putNull("value");
     }
-
     if (value.valueMapStringByte!=null) {
       contentValues.put("value_map_string_byte", Bean63Table.serializeValueMapStringByte(value.valueMapStringByte));
     } else {
       contentValues.putNull("value_map_string_byte");
     }
-
     if (value.valueMapEnumByte!=null) {
       contentValues.put("value_map_enum_byte", Bean63Table.serializeValueMapEnumByte(value.valueMapEnumByte));
     } else {
@@ -440,13 +438,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     } else {
       contentValues.putNull("value");
     }
-
     if (bean.valueMapStringByte!=null) {
       contentValues.put("value_map_string_byte", Bean63Table.serializeValueMapStringByte(bean.valueMapStringByte));
     } else {
       contentValues.putNull("value_map_string_byte");
     }
-
     if (bean.valueMapEnumByte!=null) {
       contentValues.put("value_map_enum_byte", Bean63Table.serializeValueMapEnumByte(bean.valueMapEnumByte));
     } else {

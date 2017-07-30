@@ -31,12 +31,8 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    */
   protected PKDaoImpl pKDao = new PKDaoImpl(this);
 
-  protected BindPKDataSource() {
-    this(null);
-  }
-
   protected BindPKDataSource(DataSourceOptions options) {
-    super("", 1, null);
+    super("", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    */
   public static BindPKDataSource instance() {
     if (instance==null) {
-      instance=new BindPKDataSource();
+      instance=new BindPKDataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    */
   public static BindPKDataSource open() {
     if (instance==null) {
-      instance=new BindPKDataSource();
+      instance=new BindPKDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    */
   public static BindPKDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindPKDataSource();
+      instance=new BindPKDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

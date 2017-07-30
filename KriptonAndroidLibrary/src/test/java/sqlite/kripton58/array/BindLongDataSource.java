@@ -31,12 +31,8 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    */
   protected LongDaoImpl longDao = new LongDaoImpl(this);
 
-  protected BindLongDataSource() {
-    this(null);
-  }
-
   protected BindLongDataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    */
   public static BindLongDataSource instance() {
     if (instance==null) {
-      instance=new BindLongDataSource();
+      instance=new BindLongDataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    */
   public static BindLongDataSource open() {
     if (instance==null) {
-      instance=new BindLongDataSource();
+      instance=new BindLongDataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    */
   public static BindLongDataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindLongDataSource();
+      instance=new BindLongDataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

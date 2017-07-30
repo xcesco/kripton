@@ -1548,213 +1548,173 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     contentValues.put("value_bool_type", bean.valueBoolType);
-
     if (bean.valueBool!=null) {
       contentValues.put("value_bool", bean.valueBool);
     } else {
       contentValues.putNull("value_bool");
     }
-
     contentValues.put("value_byte_type", bean.valueByteType);
-
     if (bean.valueByte!=null) {
       contentValues.put("value_byte", bean.valueByte);
     } else {
       contentValues.putNull("value_byte");
     }
-
     contentValues.put("value_short_type", (int)bean.valueShortType);
-
     if (bean.valueShort!=null) {
       contentValues.put("value_short", (int)bean.valueShort);
     } else {
       contentValues.putNull("value_short");
     }
-
     contentValues.put("value_int_type", bean.valueIntType);
-
     if (bean.valueInt!=null) {
       contentValues.put("value_int", bean.valueInt);
     } else {
       contentValues.putNull("value_int");
     }
-
     if (bean.valueString!=null) {
       contentValues.put("value_string", bean.valueString);
     } else {
       contentValues.putNull("value_string");
     }
-
     contentValues.put("value_char_type", (int)bean.valueCharType);
-
     if (bean.valueChar!=null) {
       contentValues.put("value_char", (int)bean.valueChar);
     } else {
       contentValues.putNull("value_char");
     }
-
     contentValues.put("value_float_type", bean.valueFloatType);
-
     if (bean.valueFloat!=null) {
       contentValues.put("value_float", bean.valueFloat);
     } else {
       contentValues.putNull("value_float");
     }
-
     if (bean.valueBigInteger!=null) {
       contentValues.put("value_big_integer", bean.valueBigInteger.toString());
     } else {
       contentValues.putNull("value_big_integer");
     }
-
     if (bean.valueBigDecimal!=null) {
       contentValues.put("value_big_decimal", bean.valueBigDecimal.toPlainString());
     } else {
       contentValues.putNull("value_big_decimal");
     }
-
     if (bean.valueEnumType!=null) {
       contentValues.put("value_enum_type", bean.valueEnumType.toString());
     } else {
       contentValues.putNull("value_enum_type");
     }
-
     contentValues.put("value_long_type", bean.valueLongType);
-
     if (bean.valueLong!=null) {
       contentValues.put("value_long", bean.valueLong);
     } else {
       contentValues.putNull("value_long");
     }
-
     contentValues.put("value_double_type", bean.valueDoubleType);
-
     if (bean.valueDouble!=null) {
       contentValues.put("value_double", bean.valueDouble);
     } else {
       contentValues.putNull("value_double");
     }
-
     if (bean.valueLocale!=null) {
       contentValues.put("value_locale", LocaleUtils.write(bean.valueLocale));
     } else {
       contentValues.putNull("value_locale");
     }
-
     if (bean.valueCalendar!=null) {
       contentValues.put("value_calendar", CalendarUtils.write(bean.valueCalendar));
     } else {
       contentValues.putNull("value_calendar");
     }
-
     if (bean.valueDate!=null) {
       contentValues.put("value_date", DateUtils.write(bean.valueDate));
     } else {
       contentValues.putNull("value_date");
     }
-
     if (bean.valueUrl!=null) {
       contentValues.put("value_url", UrlUtils.write(bean.valueUrl));
     } else {
       contentValues.putNull("value_url");
     }
-
     if (bean.valueTime!=null) {
       contentValues.put("value_time", TimeUtils.write(bean.valueTime));
     } else {
       contentValues.putNull("value_time");
     }
-
     if (bean.valueCurrency!=null) {
       contentValues.put("value_currency", CurrencyUtils.write(bean.valueCurrency));
     } else {
       contentValues.putNull("value_currency");
     }
-
     if (bean.valueTimeZone!=null) {
       contentValues.put("value_time_zone", TimeZoneUtils.write(bean.valueTimeZone));
     } else {
       contentValues.putNull("value_time_zone");
     }
-
     if (bean.valueTimeList!=null) {
       contentValues.put("value_time_list", BeanTable.serializeValueTimeList(bean.valueTimeList));
     } else {
       contentValues.putNull("value_time_list");
     }
-
     if (bean.valueStrinList!=null) {
       contentValues.put("value_strin_list", BeanTable.serializeValueStrinList(bean.valueStrinList));
     } else {
       contentValues.putNull("value_strin_list");
     }
-
     if (bean.valueLongList!=null) {
       contentValues.put("value_long_list", BeanTable.serializeValueLongList(bean.valueLongList));
     } else {
       contentValues.putNull("value_long_list");
     }
-
     if (bean.valueByteArray!=null) {
       contentValues.put("value_byte_array", BeanTable.serializeValueByteArray(bean.valueByteArray));
     } else {
       contentValues.putNull("value_byte_array");
     }
-
     if (bean.valueLongTypeArray!=null) {
       contentValues.put("value_long_type_array", BeanTable.serializeValueLongTypeArray(bean.valueLongTypeArray));
     } else {
       contentValues.putNull("value_long_type_array");
     }
-
     if (bean.valueLongArray!=null) {
       contentValues.put("value_long_array", BeanTable.serializeValueLongArray(bean.valueLongArray));
     } else {
       contentValues.putNull("value_long_array");
     }
-
     if (bean.valueBeanArray!=null) {
       contentValues.put("value_bean_array", BeanTable.serializeValueBeanArray(bean.valueBeanArray));
     } else {
       contentValues.putNull("value_bean_array");
     }
-
     if (bean.valueStringArray!=null) {
       contentValues.put("value_string_array", BeanTable.serializeValueStringArray(bean.valueStringArray));
     } else {
       contentValues.putNull("value_string_array");
     }
-
     if (bean.valueCharList!=null) {
       contentValues.put("value_char_list", BeanTable.serializeValueCharList(bean.valueCharList));
     } else {
       contentValues.putNull("value_char_list");
     }
-
     if (bean.valueCharTypeArray!=null) {
       contentValues.put("value_char_type_array", BeanTable.serializeValueCharTypeArray(bean.valueCharTypeArray));
     } else {
       contentValues.putNull("value_char_type_array");
     }
-
     if (bean.valueCharArray!=null) {
       contentValues.put("value_char_array", BeanTable.serializeValueCharArray(bean.valueCharArray));
     } else {
       contentValues.putNull("value_char_array");
     }
-
     if (bean.valueMapStringBean!=null) {
       contentValues.put("value_map_string_bean", BeanTable.serializeValueMapStringBean(bean.valueMapStringBean));
     } else {
       contentValues.putNull("value_map_string_bean");
     }
-
     if (bean.valueLinkedMapStringBean!=null) {
       contentValues.put("value_linked_map_string_bean", BeanTable.serializeValueLinkedMapStringBean(bean.valueLinkedMapStringBean));
     } else {
       contentValues.putNull("value_linked_map_string_bean");
     }
-
     if (bean.valueSetString!=null) {
       contentValues.put("value_set_string", BeanTable.serializeValueSetString(bean.valueSetString));
     } else {
@@ -12056,213 +12016,173 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     contentValues.put("value_bool_type", value.valueBoolType);
-
     if (value.valueBool!=null) {
       contentValues.put("value_bool", value.valueBool);
     } else {
       contentValues.putNull("value_bool");
     }
-
     contentValues.put("value_byte_type", value.valueByteType);
-
     if (value.valueByte!=null) {
       contentValues.put("value_byte", value.valueByte);
     } else {
       contentValues.putNull("value_byte");
     }
-
     contentValues.put("value_short_type", (int)value.valueShortType);
-
     if (value.valueShort!=null) {
       contentValues.put("value_short", (int)value.valueShort);
     } else {
       contentValues.putNull("value_short");
     }
-
     contentValues.put("value_int_type", value.valueIntType);
-
     if (value.valueInt!=null) {
       contentValues.put("value_int", value.valueInt);
     } else {
       contentValues.putNull("value_int");
     }
-
     if (value.valueString!=null) {
       contentValues.put("value_string", value.valueString);
     } else {
       contentValues.putNull("value_string");
     }
-
     contentValues.put("value_char_type", (int)value.valueCharType);
-
     if (value.valueChar!=null) {
       contentValues.put("value_char", (int)value.valueChar);
     } else {
       contentValues.putNull("value_char");
     }
-
     contentValues.put("value_float_type", value.valueFloatType);
-
     if (value.valueFloat!=null) {
       contentValues.put("value_float", value.valueFloat);
     } else {
       contentValues.putNull("value_float");
     }
-
     if (value.valueBigInteger!=null) {
       contentValues.put("value_big_integer", value.valueBigInteger.toString());
     } else {
       contentValues.putNull("value_big_integer");
     }
-
     if (value.valueBigDecimal!=null) {
       contentValues.put("value_big_decimal", value.valueBigDecimal.toPlainString());
     } else {
       contentValues.putNull("value_big_decimal");
     }
-
     if (value.valueEnumType!=null) {
       contentValues.put("value_enum_type", value.valueEnumType.toString());
     } else {
       contentValues.putNull("value_enum_type");
     }
-
     contentValues.put("value_long_type", value.valueLongType);
-
     if (value.valueLong!=null) {
       contentValues.put("value_long", value.valueLong);
     } else {
       contentValues.putNull("value_long");
     }
-
     contentValues.put("value_double_type", value.valueDoubleType);
-
     if (value.valueDouble!=null) {
       contentValues.put("value_double", value.valueDouble);
     } else {
       contentValues.putNull("value_double");
     }
-
     if (value.valueLocale!=null) {
       contentValues.put("value_locale", LocaleUtils.write(value.valueLocale));
     } else {
       contentValues.putNull("value_locale");
     }
-
     if (value.valueCalendar!=null) {
       contentValues.put("value_calendar", CalendarUtils.write(value.valueCalendar));
     } else {
       contentValues.putNull("value_calendar");
     }
-
     if (value.valueDate!=null) {
       contentValues.put("value_date", DateUtils.write(value.valueDate));
     } else {
       contentValues.putNull("value_date");
     }
-
     if (value.valueUrl!=null) {
       contentValues.put("value_url", UrlUtils.write(value.valueUrl));
     } else {
       contentValues.putNull("value_url");
     }
-
     if (value.valueTime!=null) {
       contentValues.put("value_time", TimeUtils.write(value.valueTime));
     } else {
       contentValues.putNull("value_time");
     }
-
     if (value.valueCurrency!=null) {
       contentValues.put("value_currency", CurrencyUtils.write(value.valueCurrency));
     } else {
       contentValues.putNull("value_currency");
     }
-
     if (value.valueTimeZone!=null) {
       contentValues.put("value_time_zone", TimeZoneUtils.write(value.valueTimeZone));
     } else {
       contentValues.putNull("value_time_zone");
     }
-
     if (value.valueTimeList!=null) {
       contentValues.put("value_time_list", BeanTable.serializeValueTimeList(value.valueTimeList));
     } else {
       contentValues.putNull("value_time_list");
     }
-
     if (value.valueStrinList!=null) {
       contentValues.put("value_strin_list", BeanTable.serializeValueStrinList(value.valueStrinList));
     } else {
       contentValues.putNull("value_strin_list");
     }
-
     if (value.valueLongList!=null) {
       contentValues.put("value_long_list", BeanTable.serializeValueLongList(value.valueLongList));
     } else {
       contentValues.putNull("value_long_list");
     }
-
     if (value.valueByteArray!=null) {
       contentValues.put("value_byte_array", BeanTable.serializeValueByteArray(value.valueByteArray));
     } else {
       contentValues.putNull("value_byte_array");
     }
-
     if (value.valueLongTypeArray!=null) {
       contentValues.put("value_long_type_array", BeanTable.serializeValueLongTypeArray(value.valueLongTypeArray));
     } else {
       contentValues.putNull("value_long_type_array");
     }
-
     if (value.valueLongArray!=null) {
       contentValues.put("value_long_array", BeanTable.serializeValueLongArray(value.valueLongArray));
     } else {
       contentValues.putNull("value_long_array");
     }
-
     if (value.valueBeanArray!=null) {
       contentValues.put("value_bean_array", BeanTable.serializeValueBeanArray(value.valueBeanArray));
     } else {
       contentValues.putNull("value_bean_array");
     }
-
     if (value.valueStringArray!=null) {
       contentValues.put("value_string_array", BeanTable.serializeValueStringArray(value.valueStringArray));
     } else {
       contentValues.putNull("value_string_array");
     }
-
     if (value.valueCharList!=null) {
       contentValues.put("value_char_list", BeanTable.serializeValueCharList(value.valueCharList));
     } else {
       contentValues.putNull("value_char_list");
     }
-
     if (value.valueCharTypeArray!=null) {
       contentValues.put("value_char_type_array", BeanTable.serializeValueCharTypeArray(value.valueCharTypeArray));
     } else {
       contentValues.putNull("value_char_type_array");
     }
-
     if (value.valueCharArray!=null) {
       contentValues.put("value_char_array", BeanTable.serializeValueCharArray(value.valueCharArray));
     } else {
       contentValues.putNull("value_char_array");
     }
-
     if (value.valueMapStringBean!=null) {
       contentValues.put("value_map_string_bean", BeanTable.serializeValueMapStringBean(value.valueMapStringBean));
     } else {
       contentValues.putNull("value_map_string_bean");
     }
-
     if (value.valueLinkedMapStringBean!=null) {
       contentValues.put("value_linked_map_string_bean", BeanTable.serializeValueLinkedMapStringBean(value.valueLinkedMapStringBean));
     } else {
       contentValues.putNull("value_linked_map_string_bean");
     }
-
     if (value.valueSetString!=null) {
       contentValues.put("value_set_string", BeanTable.serializeValueSetString(value.valueSetString));
     } else {

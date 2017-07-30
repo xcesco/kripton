@@ -54,43 +54,36 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     contentValues.clear();
 
     contentValues.put("id", bean.id);
-
     if (bean.name!=null) {
       contentValues.put("name", bean.name);
     } else {
       contentValues.putNull("name");
     }
-
     if (bean.username!=null) {
       contentValues.put("username", bean.username);
     } else {
       contentValues.putNull("username");
     }
-
     if (bean.email!=null) {
       contentValues.put("email", bean.email);
     } else {
       contentValues.putNull("email");
     }
-
     if (bean.address!=null) {
       contentValues.put("address", UserTable.serializeAddress(bean.address));
     } else {
       contentValues.putNull("address");
     }
-
     if (bean.phone!=null) {
       contentValues.put("phone", bean.phone);
     } else {
       contentValues.putNull("phone");
     }
-
     if (bean.website!=null) {
       contentValues.put("website", bean.website);
     } else {
       contentValues.putNull("website");
     }
-
     if (bean.company!=null) {
       contentValues.put("company", UserTable.serializeCompany(bean.company));
     } else {

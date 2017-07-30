@@ -88,8 +88,9 @@ public class InsertRawHelper implements InsertCodeGenerator {
 					methodBuilder.addCode("contentValues.putNull($S);\n", property.columnName);
 					methodBuilder.endControlFlow();
 				}
-				methodBuilder.addCode("\n");
+				
 			}
+			methodBuilder.addCode("\n");
 
 			SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
 

@@ -31,12 +31,8 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
    */
   protected BeanDao2Impl beanDao2 = new BeanDao2Impl(this);
 
-  protected BindBean2DataSource() {
-    this(null);
-  }
-
   protected BindBean2DataSource(DataSourceOptions options) {
-    super("dummy", 1, null);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -76,7 +72,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
    */
   public static BindBean2DataSource instance() {
     if (instance==null) {
-      instance=new BindBean2DataSource();
+      instance=new BindBean2DataSource(null);
     }
     return instance;
   }
@@ -87,7 +83,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
    */
   public static BindBean2DataSource open() {
     if (instance==null) {
-      instance=new BindBean2DataSource();
+      instance=new BindBean2DataSource(null);
     }
     instance.openWritableDatabase();
     return instance;
@@ -99,7 +95,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
    */
   public static BindBean2DataSource openReadOnly() {
     if (instance==null) {
-      instance=new BindBean2DataSource();
+      instance=new BindBean2DataSource(null);
     }
     instance.openReadOnlyDatabase();
     return instance;

@@ -482,7 +482,6 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
     contentValues.clear();
 
     contentValues.put("id", id);
-
     if (value!=null) {
       contentValues.put("value", serializer1(value));
     } else {
@@ -544,7 +543,6 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
     } else {
       contentValues.putNull("value");
     }
-
     if (bean.value2!=null) {
       contentValues.put("value2", StringBeanTable.serializeValue2(bean.value2));
     } else {

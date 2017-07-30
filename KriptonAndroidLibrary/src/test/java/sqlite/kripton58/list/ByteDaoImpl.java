@@ -482,7 +482,6 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     contentValues.clear();
 
     contentValues.put("id", id);
-
     if (value!=null) {
       contentValues.put("value", serializer2(value));
     } else {
@@ -544,7 +543,6 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     } else {
       contentValues.putNull("value");
     }
-
     if (bean.value2!=null) {
       contentValues.put("value2", ByteBeanTable.serializeValue2(bean.value2));
     } else {
