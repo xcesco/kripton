@@ -32,6 +32,11 @@ public class BindProfessorCursor {
   protected int index2;
 
   /**
+   * Index for column "surname"
+   */
+  protected int index3;
+
+  /**
    * <p>Constructor</p>
    *
    * @param cursor cursor used to read from database
@@ -51,6 +56,7 @@ public class BindProfessorCursor {
     index0=cursor.getColumnIndex("id");
     index1=cursor.getColumnIndex("name");
     index2=cursor.getColumnIndex("birth_date");
+    index3=cursor.getColumnIndex("surname");
 
     return this;
   }
@@ -73,6 +79,7 @@ public class BindProfessorCursor {
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.birthDate=DateUtils.read(cursor.getString(index2));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.surname=cursor.getString(index3);}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -96,10 +103,12 @@ public class BindProfessorCursor {
         if (index0>=0) { resultBean.id=0L;}
         if (index1>=0) { resultBean.name=null;}
         if (index2>=0) { resultBean.birthDate=null;}
+        if (index3>=0) { resultBean.surname=null;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
         if (index2>=0 && !cursor.isNull(index2)) { resultBean.birthDate=DateUtils.read(cursor.getString(index2));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.surname=cursor.getString(index3);}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

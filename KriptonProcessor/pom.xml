@@ -168,7 +168,6 @@
 			<version>${antlr.version}</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.robolectric/android-all -->
 		<dependency>
 			<groupId>org.robolectric</groupId>

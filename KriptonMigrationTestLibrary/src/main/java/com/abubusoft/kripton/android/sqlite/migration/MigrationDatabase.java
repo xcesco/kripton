@@ -10,8 +10,8 @@ public class MigrationDatabase extends SQLiteOpenHelper {
 
 	private MigrationDatabaseListener listener;
 
-	public MigrationDatabase(Context context, String name, CursorFactory factory, int version, DatabaseErrorHandler errorHandler, MigrationDatabaseListener listener) {
-		super(context, name, factory, version, errorHandler);
+	public MigrationDatabase(Context context, CursorFactory factory, int version, DatabaseErrorHandler errorHandler, MigrationDatabaseListener listener) {
+		super(context, "migration-test", factory, version, errorHandler);
 		this.listener=listener;
 	}
 

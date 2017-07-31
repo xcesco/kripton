@@ -20,18 +20,18 @@ public class ProfessorTable {
    * DDL to create table professor
    * </p>
    *
-   * <pre>CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_date TEXT);</pre>
+   * <pre>CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_date TEXT, surname TEXT NOT NULL); CREATE INDEX IF NOT EXISTS idx_professor_0 on professor (surname);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_date TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_date TEXT, surname TEXT NOT NULL); CREATE INDEX IF NOT EXISTS idx_professor_0 on professor (surname);";
 
   /**
    * <p>
    * DDL to drop table professor
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS professor;</pre>
+   * <pre> DROP INDEX IF EXISTS idx_professor_1;DROP TABLE IF EXISTS professor;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS professor;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_professor_1;DROP TABLE IF EXISTS professor;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
@@ -53,4 +53,11 @@ public class ProfessorTable {
    *  @see Professor#birthDate
    */
   public static final String COLUMN_BIRTH_DATE = "birth_date";
+
+  /**
+   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column typeName.
+   *
+   *  @see Professor#surname
+   */
+  public static final String COLUMN_SURNAME = "surname";
 }

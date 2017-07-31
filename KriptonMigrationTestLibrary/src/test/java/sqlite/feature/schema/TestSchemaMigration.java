@@ -19,8 +19,8 @@ public class TestSchemaMigration extends BaseAndroidTest {
 		SQLiteDatabase database = MigrationHelper.createDatabase(1, "schemas/school.schema.1.sql");						
 		database.close();
 		
-		database = MigrationHelper.createDatabase(2, "schemas/school.schema.1.sql");						
-		database.close();
+		//database = MigrationHelper.createDatabase(2, "schemas/school.schema.1.sql");						
+		//database.close();
 		
 		
 	}
