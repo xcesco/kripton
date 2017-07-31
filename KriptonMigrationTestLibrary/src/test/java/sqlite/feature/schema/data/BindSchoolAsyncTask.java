@@ -1,4 +1,4 @@
-package sqlite.feature.schema;
+package sqlite.feature.schema.data;
 
 import android.os.AsyncTask;
 import com.abubusoft.kripton.android.BindAsyncTaskType;

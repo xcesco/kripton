@@ -1,8 +1,10 @@
-package sqlite.feature.schema;
+package sqlite.feature.schema.data;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlPullParser;
@@ -13,52 +15,62 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is binder map for Seminar2Student
+ * This class is binder map for Professor
  *
- * @see Seminar2Student
+ * @see Professor
  */
-@BindMap(Seminar2Student.class)
-public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
+@BindMap(Professor.class)
+public class ProfessorBindMap extends AbstractMapper<Professor> {
   @Override
-  public int serializeOnJackson(Seminar2Student object, JsonGenerator jacksonSerializer) throws
+  public int serializeOnJackson(Professor object, JsonGenerator jacksonSerializer) throws
       Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
+    // field birthDate (mapped with "birthDate")
+    if (object.birthDate!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("birthDate", DateUtils.write(object.birthDate));
+    }
+
     // field id (mapped with "id")
     fieldCount++;
     jacksonSerializer.writeNumberField("id", object.id);
 
-    // field seminarId (mapped with "seminarId")
-    fieldCount++;
-    jacksonSerializer.writeNumberField("seminarId", object.seminarId);
-
-    // field studentId (mapped with "studentId")
-    fieldCount++;
-    jacksonSerializer.writeNumberField("studentId", object.studentId);
+    // field name (mapped with "name")
+    if (object.name!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("name", object.name);
+    }
 
     jacksonSerializer.writeEndObject();
     return fieldCount;
   }
 
   @Override
-  public int serializeOnJacksonAsString(Seminar2Student object, JsonGenerator jacksonSerializer)
-      throws Exception {
+  public int serializeOnJacksonAsString(Professor object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
+    // field birthDate (mapped with "birthDate")
+    if (object.birthDate!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("birthDate", DateUtils.write(object.birthDate));
+    }
+
     // field id (mapped with "id")
     jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
-    // field seminarId (mapped with "seminarId")
-    jacksonSerializer.writeStringField("seminarId", PrimitiveUtils.writeLong(object.seminarId));
-
-    // field studentId (mapped with "studentId")
-    jacksonSerializer.writeStringField("studentId", PrimitiveUtils.writeLong(object.studentId));
+    // field name (mapped with "name")
+    if (object.name!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("name", object.name);
+    }
 
     jacksonSerializer.writeEndObject();
     return fieldCount;
@@ -68,28 +80,32 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Seminar2Student object, XMLSerializer xmlSerializer,
-      int currentEventType) throws Exception {
+  public void serializeOnXml(Professor object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
-      xmlSerializer.writeStartElement("seminar2Student");
+      xmlSerializer.writeStartElement("professor");
     }
 
     // Persisted fields:
+
+    // field birthDate (mapped with "birthDate")
+    if (object.birthDate!=null)  {
+      xmlSerializer.writeStartElement("birthDate");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(DateUtils.write(object.birthDate)));
+      xmlSerializer.writeEndElement();
+    }
 
     // field id (mapped with "id")
     xmlSerializer.writeStartElement("id");
     xmlSerializer.writeLong(object.id);
     xmlSerializer.writeEndElement();
 
-    // field seminarId (mapped with "seminarId")
-    xmlSerializer.writeStartElement("seminarId");
-    xmlSerializer.writeLong(object.seminarId);
-    xmlSerializer.writeEndElement();
-
-    // field studentId (mapped with "studentId")
-    xmlSerializer.writeStartElement("studentId");
-    xmlSerializer.writeLong(object.studentId);
-    xmlSerializer.writeEndElement();
+    // field name (mapped with "name")
+    if (object.name!=null) {
+      xmlSerializer.writeStartElement("name");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.name));
+      xmlSerializer.writeEndElement();
+    }
 
     if (currentEventType == 0) {
       xmlSerializer.writeEndElement();
@@ -100,8 +116,8 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
    * parse with jackson
    */
   @Override
-  public Seminar2Student parseOnJackson(JsonParser jacksonParser) throws Exception {
-    Seminar2Student instance = new Seminar2Student();
+  public Professor parseOnJackson(JsonParser jacksonParser) throws Exception {
+    Professor instance = new Professor();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -116,17 +132,21 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
 
       // Parse fields:
       switch (fieldName) {
+          case "birthDate":
+            // field birthDate (mapped with "birthDate")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.birthDate=DateUtils.read(jacksonParser.getText());
+            }
+          break;
           case "id":
             // field id (mapped with "id")
             instance.id=jacksonParser.getLongValue();
           break;
-          case "seminarId":
-            // field seminarId (mapped with "seminarId")
-            instance.seminarId=jacksonParser.getLongValue();
-          break;
-          case "studentId":
-            // field studentId (mapped with "studentId")
-            instance.studentId=jacksonParser.getLongValue();
+          case "name":
+            // field name (mapped with "name")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.name=jacksonParser.getText();
+            }
           break;
           default:
             jacksonParser.skipChildren();
@@ -139,8 +159,8 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
    * parse with jackson
    */
   @Override
-  public Seminar2Student parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    Seminar2Student instance = new Seminar2Student();
+  public Professor parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    Professor instance = new Professor();
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -155,17 +175,21 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
 
       // Parse fields:
       switch (fieldName) {
+          case "birthDate":
+            // field birthDate (mapped with "birthDate")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.birthDate=DateUtils.read(jacksonParser.getText());
+            }
+          break;
           case "id":
             // field id (mapped with "id")
             instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
           break;
-          case "seminarId":
-            // field seminarId (mapped with "seminarId")
-            instance.seminarId=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
-          break;
-          case "studentId":
-            // field studentId (mapped with "studentId")
-            instance.studentId=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          case "name":
+            // field name (mapped with "name")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.name=jacksonParser.getText();
+            }
           break;
           default:
             jacksonParser.skipChildren();
@@ -178,8 +202,8 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
    * parse xml
    */
   @Override
-  public Seminar2Student parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    Seminar2Student instance = new Seminar2Student();
+  public Professor parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    Professor instance = new Professor();
     int eventType = currentEventType;
     boolean read=true;
 
@@ -204,17 +228,17 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
           case XmlPullParser.START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
+                case "birthDate":
+                  // property birthDate (mapped on "birthDate")
+                  instance.birthDate=DateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
                 case "id":
                   // property id (mapped on "id")
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                 break;
-                case "seminarId":
-                  // property seminarId (mapped on "seminarId")
-                  instance.seminarId=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
-                break;
-                case "studentId":
-                  // property studentId (mapped on "studentId")
-                  instance.studentId=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                case "name":
+                  // property name (mapped on "name")
+                  instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
                 break;

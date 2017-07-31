@@ -1,4 +1,4 @@
-package sqlite.feature.schema;
+package sqlite.feature.schema.data;
 
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
@@ -8,28 +8,28 @@ import com.abubusoft.kripton.common.StringUtils;
 
 /**
  * <p>
- * DAO implementation for entity <code>Seminar2Student</code>, based on interface <code>DaoSeminar2Student</code>
+ * DAO implementation for entity <code>Student</code>, based on interface <code>DaoStudent</code>
  * </p>
  *
- *  @see Seminar2Student
- *  @see DaoSeminar2Student
- *  @see Seminar2StudentTable
+ *  @see Student
+ *  @see DaoStudent
+ *  @see StudentTable
  */
-public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2Student {
-  public DaoSeminar2StudentImpl(BindSchoolDataSource dataSet) {
+public class DaoStudentImpl extends AbstractDao implements DaoStudent {
+  public DaoStudentImpl(BindSchoolDataSource dataSet) {
     super(dataSet);
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO seminar_2_student (student_id, seminar_id) VALUES (${bean.studentId}, ${bean.seminarId})</pre>
+   * <pre>INSERT INTO student (name, location) VALUES (${bean.name}, ${bean.location})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>student_id</dt><dd>is mapped to <strong>${bean.studentId}</strong></dd>
-   * 	<dt>seminar_id</dt><dd>is mapped to <strong>${bean.seminarId}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>location</dt><dd>is mapped to <strong>${bean.location}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -38,12 +38,20 @@ public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2St
    * @return <strong>id</strong> of inserted record
    */
   @Override
-  public long insert(Seminar2Student bean) {
+  public long insert(Student bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    contentValues.put("student_id", bean.studentId);
-    contentValues.put("seminar_id", bean.seminarId);
+    if (bean.name!=null) {
+      contentValues.put("name", bean.name);
+    } else {
+      contentValues.putNull("name");
+    }
+    if (bean.location!=null) {
+      contentValues.put("location", bean.location);
+    } else {
+      contentValues.putNull("location");
+    }
 
     //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
@@ -55,7 +63,7 @@ public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2St
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info("INSERT INTO seminar_2_student (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+    Logger.info("INSERT INTO student (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -70,7 +78,7 @@ public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2St
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("seminar_2_student", null, contentValues);
+    long result = database().insert("student", null, contentValues);
     bean.id=result;
 
     return result;

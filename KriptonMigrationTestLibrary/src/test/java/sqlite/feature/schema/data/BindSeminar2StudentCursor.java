@@ -1,15 +1,15 @@
-package sqlite.feature.schema;
+package sqlite.feature.schema.data;
 
 import android.database.Cursor;
 import java.util.LinkedList;
 
 /**
  * <p>
- * Cursor implementation for entity <code>Student</code>
+ * Cursor implementation for entity <code>Seminar2Student</code>
  * </p>
- *  @see Student
+ *  @see Seminar2Student
  */
-public class BindStudentCursor {
+public class BindSeminar2StudentCursor {
   /**
    * Cursor used to read database
    */
@@ -21,12 +21,12 @@ public class BindStudentCursor {
   protected int index0;
 
   /**
-   * Index for column "name"
+   * Index for column "studentId"
    */
   protected int index1;
 
   /**
-   * Index for column "location"
+   * Index for column "seminarId"
    */
   protected int index2;
 
@@ -35,7 +35,7 @@ public class BindStudentCursor {
    *
    * @param cursor cursor used to read from database
    */
-  BindStudentCursor(Cursor cursor) {
+  BindSeminar2StudentCursor(Cursor cursor) {
     wrap(cursor);
   }
 
@@ -44,12 +44,12 @@ public class BindStudentCursor {
    *
    * @param cursor cursor to include
    */
-  public BindStudentCursor wrap(Cursor cursor) {
+  public BindSeminar2StudentCursor wrap(Cursor cursor) {
     this.cursor=cursor;
 
     index0=cursor.getColumnIndex("id");
-    index1=cursor.getColumnIndex("name");
-    index2=cursor.getColumnIndex("location");
+    index1=cursor.getColumnIndex("student_id");
+    index2=cursor.getColumnIndex("seminar_id");
 
     return this;
   }
@@ -59,19 +59,19 @@ public class BindStudentCursor {
    *
    * @return list of beans
    */
-  public LinkedList<Student> execute() {
+  public LinkedList<Seminar2Student> execute() {
 
-    LinkedList<Student> resultList=new LinkedList<Student>();
-    Student resultBean=new Student();
+    LinkedList<Seminar2Student> resultList=new LinkedList<Seminar2Student>();
+    Seminar2Student resultBean=new Seminar2Student();
 
     if (cursor.moveToFirst()) {
       do
        {
-        resultBean=new Student();
+        resultBean=new Seminar2Student();
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
-        if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.location=cursor.getString(index2);}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.studentId=cursor.getLong(index1);}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.seminarId=cursor.getLong(index2);}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -86,19 +86,19 @@ public class BindStudentCursor {
    *
    * @param listener listener to invoke for each row
    */
-  public void executeListener(OnStudentListener listener) {
-    Student resultBean=new Student();
+  public void executeListener(OnSeminar2StudentListener listener) {
+    Seminar2Student resultBean=new Seminar2Student();
 
     if (cursor.moveToFirst()) {
       do
        {
         if (index0>=0) { resultBean.id=0L;}
-        if (index1>=0) { resultBean.name=null;}
-        if (index2>=0) { resultBean.location=null;}
+        if (index1>=0) { resultBean.studentId=0L;}
+        if (index2>=0) { resultBean.seminarId=0L;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
-        if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.location=cursor.getString(index2);}
+        if (index1>=0 && !cursor.isNull(index1)) { resultBean.studentId=cursor.getLong(index1);}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.seminarId=cursor.getLong(index2);}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());
@@ -111,14 +111,14 @@ public class BindStudentCursor {
    *
    * @param cursor to wrap
    */
-  public static BindStudentCursor create(Cursor cursor) {
-    return new BindStudentCursor(cursor);
+  public static BindSeminar2StudentCursor create(Cursor cursor) {
+    return new BindSeminar2StudentCursor(cursor);
   }
 
   /**
    * <p>Listener for row read from database.</p>
    */
-  public interface OnStudentListener {
+  public interface OnSeminar2StudentListener {
     /**
      * Method executed for each row extracted from database
      *
@@ -126,6 +126,6 @@ public class BindStudentCursor {
      * @param rowPosition position of row
      * @param rowCount total number of rows
      */
-    void onRow(Student bean, int rowPosition, int rowCount);
+    void onRow(Seminar2Student bean, int rowPosition, int rowCount);
   }
 }

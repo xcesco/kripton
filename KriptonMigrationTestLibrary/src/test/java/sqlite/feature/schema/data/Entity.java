@@ -1,4 +1,4 @@
-package sqlite.feature.schema;
+package sqlite.feature.schema.data;
 
 public class Entity {
 

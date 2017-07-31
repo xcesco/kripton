@@ -75,11 +75,20 @@ public @interface BindTable {
 
 	/**
 	 * <p>
-	 * Allow to crete (multicolumn or single column) index for this table. 
+	 * Allow to crete (multicolumn or single column) indexes for this table. 
 	 * </p>
 	 * 
 	 * @return indexes definition
 	 */
-	String[] indexes() default {};	
+	String[] indexes() default {};
+	
+	/**
+	 * <p>
+	 * Allow to crete unique (multicolumn or single column) indexes for this table. 
+	 * </p>
+	 * 
+	 * @return indexes definition
+	 */
+	String[] uniqueIndexes() default {};
 	
 }

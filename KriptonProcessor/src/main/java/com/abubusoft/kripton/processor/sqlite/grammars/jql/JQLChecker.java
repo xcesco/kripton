@@ -355,9 +355,20 @@ public class JQLChecker {
 	 * @return string obtained by replacements
 	 */
 	public String replace(JQL jql, final JQLReplacerListener listener) {
+		return replace(jql.value, listener);
+	}
+	
+	/**
+	 * Replace place holder with element passed by listener
+	 * 
+	 * @param jql string
+	 * @param listener
+	 * @return string obtained by replacements
+	 */
+	public String replace(String jql, final JQLReplacerListener listener) {
 		rewriterListener.init(listener);
 
-		return replaceInternal(jql.value, replace, rewriterListener);
+		return replaceInternal(jql, replace, rewriterListener);
 
 	}
 

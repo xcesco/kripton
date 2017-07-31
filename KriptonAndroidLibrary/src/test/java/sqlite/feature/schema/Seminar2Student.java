@@ -12,7 +12,7 @@ import com.abubusoft.kripton.annotation.BindType;
  *
  */
 @BindType
-@BindTable(name="seminar_2_student")
+@BindTable(name="seminar_2_student", uniqueIndexes={"studentId asc, seminarId desc"})
 public class Seminar2Student  {
 
 	public long id;

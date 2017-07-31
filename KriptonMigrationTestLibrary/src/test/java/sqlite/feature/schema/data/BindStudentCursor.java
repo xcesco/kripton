@@ -1,16 +1,15 @@
-package sqlite.feature.schema;
+package sqlite.feature.schema.data;
 
 import android.database.Cursor;
-import com.abubusoft.kripton.common.DateUtils;
 import java.util.LinkedList;
 
 /**
  * <p>
- * Cursor implementation for entity <code>Professor</code>
+ * Cursor implementation for entity <code>Student</code>
  * </p>
- *  @see Professor
+ *  @see Student
  */
-public class BindProfessorCursor {
+public class BindStudentCursor {
   /**
    * Cursor used to read database
    */
@@ -27,7 +26,7 @@ public class BindProfessorCursor {
   protected int index1;
 
   /**
-   * Index for column "birthDate"
+   * Index for column "location"
    */
   protected int index2;
 
@@ -36,7 +35,7 @@ public class BindProfessorCursor {
    *
    * @param cursor cursor used to read from database
    */
-  BindProfessorCursor(Cursor cursor) {
+  BindStudentCursor(Cursor cursor) {
     wrap(cursor);
   }
 
@@ -45,12 +44,12 @@ public class BindProfessorCursor {
    *
    * @param cursor cursor to include
    */
-  public BindProfessorCursor wrap(Cursor cursor) {
+  public BindStudentCursor wrap(Cursor cursor) {
     this.cursor=cursor;
 
     index0=cursor.getColumnIndex("id");
     index1=cursor.getColumnIndex("name");
-    index2=cursor.getColumnIndex("birth_date");
+    index2=cursor.getColumnIndex("location");
 
     return this;
   }
@@ -60,19 +59,19 @@ public class BindProfessorCursor {
    *
    * @return list of beans
    */
-  public LinkedList<Professor> execute() {
+  public LinkedList<Student> execute() {
 
-    LinkedList<Professor> resultList=new LinkedList<Professor>();
-    Professor resultBean=new Professor();
+    LinkedList<Student> resultList=new LinkedList<Student>();
+    Student resultBean=new Student();
 
     if (cursor.moveToFirst()) {
       do
        {
-        resultBean=new Professor();
+        resultBean=new Student();
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.birthDate=DateUtils.read(cursor.getString(index2));}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.location=cursor.getString(index2);}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -87,19 +86,19 @@ public class BindProfessorCursor {
    *
    * @param listener listener to invoke for each row
    */
-  public void executeListener(OnProfessorListener listener) {
-    Professor resultBean=new Professor();
+  public void executeListener(OnStudentListener listener) {
+    Student resultBean=new Student();
 
     if (cursor.moveToFirst()) {
       do
        {
         if (index0>=0) { resultBean.id=0L;}
         if (index1>=0) { resultBean.name=null;}
-        if (index2>=0) { resultBean.birthDate=null;}
+        if (index2>=0) { resultBean.location=null;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.name=cursor.getString(index1);}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.birthDate=DateUtils.read(cursor.getString(index2));}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.location=cursor.getString(index2);}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());
@@ -112,14 +111,14 @@ public class BindProfessorCursor {
    *
    * @param cursor to wrap
    */
-  public static BindProfessorCursor create(Cursor cursor) {
-    return new BindProfessorCursor(cursor);
+  public static BindStudentCursor create(Cursor cursor) {
+    return new BindStudentCursor(cursor);
   }
 
   /**
    * <p>Listener for row read from database.</p>
    */
-  public interface OnProfessorListener {
+  public interface OnStudentListener {
     /**
      * Method executed for each row extracted from database
      *
@@ -127,6 +126,6 @@ public class BindProfessorCursor {
      * @param rowPosition position of row
      * @param rowCount total number of rows
      */
-    void onRow(Professor bean, int rowPosition, int rowCount);
+    void onRow(Student bean, int rowPosition, int rowCount);
   }
 }

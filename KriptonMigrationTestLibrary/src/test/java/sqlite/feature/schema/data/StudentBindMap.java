@@ -1,8 +1,7 @@
-package sqlite.feature.schema;
+package sqlite.feature.schema.data;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -15,29 +14,28 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is binder map for Professor
+ * This class is binder map for Student
  *
- * @see Professor
+ * @see Student
  */
-@BindMap(Professor.class)
-public class ProfessorBindMap extends AbstractMapper<Professor> {
+@BindMap(Student.class)
+public class StudentBindMap extends AbstractMapper<Student> {
   @Override
-  public int serializeOnJackson(Professor object, JsonGenerator jacksonSerializer) throws
-      Exception {
+  public int serializeOnJackson(Student object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
-    // field birthDate (mapped with "birthDate")
-    if (object.birthDate!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("birthDate", DateUtils.write(object.birthDate));
-    }
-
     // field id (mapped with "id")
     fieldCount++;
     jacksonSerializer.writeNumberField("id", object.id);
+
+    // field location (mapped with "location")
+    if (object.location!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("location", object.location);
+    }
 
     // field name (mapped with "name")
     if (object.name!=null)  {
@@ -50,21 +48,21 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Professor object, JsonGenerator jacksonSerializer) throws
+  public int serializeOnJacksonAsString(Student object, JsonGenerator jacksonSerializer) throws
       Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
-    // field birthDate (mapped with "birthDate")
-    if (object.birthDate!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("birthDate", DateUtils.write(object.birthDate));
-    }
-
     // field id (mapped with "id")
     jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
+
+    // field location (mapped with "location")
+    if (object.location!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("location", object.location);
+    }
 
     // field name (mapped with "name")
     if (object.name!=null)  {
@@ -80,25 +78,25 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Professor object, XMLSerializer xmlSerializer, int currentEventType)
+  public void serializeOnXml(Student object, XMLSerializer xmlSerializer, int currentEventType)
       throws Exception {
     if (currentEventType == 0) {
-      xmlSerializer.writeStartElement("professor");
+      xmlSerializer.writeStartElement("student");
     }
 
     // Persisted fields:
-
-    // field birthDate (mapped with "birthDate")
-    if (object.birthDate!=null)  {
-      xmlSerializer.writeStartElement("birthDate");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(DateUtils.write(object.birthDate)));
-      xmlSerializer.writeEndElement();
-    }
 
     // field id (mapped with "id")
     xmlSerializer.writeStartElement("id");
     xmlSerializer.writeLong(object.id);
     xmlSerializer.writeEndElement();
+
+    // field location (mapped with "location")
+    if (object.location!=null) {
+      xmlSerializer.writeStartElement("location");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.location));
+      xmlSerializer.writeEndElement();
+    }
 
     // field name (mapped with "name")
     if (object.name!=null) {
@@ -116,8 +114,8 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
    * parse with jackson
    */
   @Override
-  public Professor parseOnJackson(JsonParser jacksonParser) throws Exception {
-    Professor instance = new Professor();
+  public Student parseOnJackson(JsonParser jacksonParser) throws Exception {
+    Student instance = new Student();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -132,15 +130,15 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
 
       // Parse fields:
       switch (fieldName) {
-          case "birthDate":
-            // field birthDate (mapped with "birthDate")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.birthDate=DateUtils.read(jacksonParser.getText());
-            }
-          break;
           case "id":
             // field id (mapped with "id")
             instance.id=jacksonParser.getLongValue();
+          break;
+          case "location":
+            // field location (mapped with "location")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.location=jacksonParser.getText();
+            }
           break;
           case "name":
             // field name (mapped with "name")
@@ -159,8 +157,8 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
    * parse with jackson
    */
   @Override
-  public Professor parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    Professor instance = new Professor();
+  public Student parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    Student instance = new Student();
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -175,15 +173,15 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
 
       // Parse fields:
       switch (fieldName) {
-          case "birthDate":
-            // field birthDate (mapped with "birthDate")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.birthDate=DateUtils.read(jacksonParser.getText());
-            }
-          break;
           case "id":
             // field id (mapped with "id")
             instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          break;
+          case "location":
+            // field location (mapped with "location")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.location=jacksonParser.getText();
+            }
           break;
           case "name":
             // field name (mapped with "name")
@@ -202,8 +200,8 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
    * parse xml
    */
   @Override
-  public Professor parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    Professor instance = new Professor();
+  public Student parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    Student instance = new Student();
     int eventType = currentEventType;
     boolean read=true;
 
@@ -228,13 +226,13 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
           case XmlPullParser.START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
-                case "birthDate":
-                  // property birthDate (mapped on "birthDate")
-                  instance.birthDate=DateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
-                break;
                 case "id":
                   // property id (mapped on "id")
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                break;
+                case "location":
+                  // property location (mapped on "location")
+                  instance.location=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 case "name":
                   // property name (mapped on "name")

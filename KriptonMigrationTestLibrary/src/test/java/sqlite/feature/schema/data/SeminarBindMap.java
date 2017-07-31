@@ -1,4 +1,4 @@
-package sqlite.feature.schema;
+package sqlite.feature.schema.data;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
@@ -14,14 +14,14 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is binder map for Student
+ * This class is binder map for Seminar
  *
- * @see Student
+ * @see Seminar
  */
-@BindMap(Student.class)
-public class StudentBindMap extends AbstractMapper<Student> {
+@BindMap(Seminar.class)
+public class SeminarBindMap extends AbstractMapper<Seminar> {
   @Override
-  public int serializeOnJackson(Student object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(Seminar object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -48,7 +48,7 @@ public class StudentBindMap extends AbstractMapper<Student> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Student object, JsonGenerator jacksonSerializer) throws
+  public int serializeOnJacksonAsString(Seminar object, JsonGenerator jacksonSerializer) throws
       Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
@@ -78,10 +78,10 @@ public class StudentBindMap extends AbstractMapper<Student> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Student object, XMLSerializer xmlSerializer, int currentEventType)
+  public void serializeOnXml(Seminar object, XMLSerializer xmlSerializer, int currentEventType)
       throws Exception {
     if (currentEventType == 0) {
-      xmlSerializer.writeStartElement("student");
+      xmlSerializer.writeStartElement("seminar");
     }
 
     // Persisted fields:
@@ -114,8 +114,8 @@ public class StudentBindMap extends AbstractMapper<Student> {
    * parse with jackson
    */
   @Override
-  public Student parseOnJackson(JsonParser jacksonParser) throws Exception {
-    Student instance = new Student();
+  public Seminar parseOnJackson(JsonParser jacksonParser) throws Exception {
+    Seminar instance = new Seminar();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -157,8 +157,8 @@ public class StudentBindMap extends AbstractMapper<Student> {
    * parse with jackson
    */
   @Override
-  public Student parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    Student instance = new Student();
+  public Seminar parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    Seminar instance = new Seminar();
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -200,8 +200,8 @@ public class StudentBindMap extends AbstractMapper<Student> {
    * parse xml
    */
   @Override
-  public Student parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    Student instance = new Student();
+  public Seminar parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    Seminar instance = new Seminar();
     int eventType = currentEventType;
     boolean read=true;
 

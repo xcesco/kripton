@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
-@BindTable(indexes={"birthCity, birthDay", "surname"})
+@BindTable(indexes={"birthCity, birthDay", "surname"}, uniqueIndexes={"typeName, date"})
 public class Person {
   public long id;
   

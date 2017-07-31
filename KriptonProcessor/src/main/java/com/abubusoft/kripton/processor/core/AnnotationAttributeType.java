@@ -82,11 +82,13 @@ public enum AnnotationAttributeType {
 	
 	WHERE("where"),
 	
+	UNIQUE_INDEXES("uniqueIndexes"),
+	
 	XML_ELEMENT_TAG("elementTag"), 
 	XML_TYPE("xmlType"),
 	
 	MULTIPLICITY_RESULT("multiplicityResult"),
-	JQL("jql"),	
+	JQL("jql"), 	
 	;
 	
 	

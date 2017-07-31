@@ -1,4 +1,4 @@
-package sqlite.feature.schema;
+package sqlite.feature.schema.data;
 
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
@@ -8,21 +8,21 @@ import com.abubusoft.kripton.common.StringUtils;
 
 /**
  * <p>
- * DAO implementation for entity <code>Student</code>, based on interface <code>DaoStudent</code>
+ * DAO implementation for entity <code>Seminar</code>, based on interface <code>DaoSeminar</code>
  * </p>
  *
- *  @see Student
- *  @see DaoStudent
- *  @see StudentTable
+ *  @see Seminar
+ *  @see DaoSeminar
+ *  @see SeminarTable
  */
-public class DaoStudentImpl extends AbstractDao implements DaoStudent {
-  public DaoStudentImpl(BindSchoolDataSource dataSet) {
+public class DaoSeminarImpl extends AbstractDao implements DaoSeminar {
+  public DaoSeminarImpl(BindSchoolDataSource dataSet) {
     super(dataSet);
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO student (name, location) VALUES (${bean.name}, ${bean.location})</pre>
+   * <pre>INSERT INTO seminar (name, location) VALUES (${bean.name}, ${bean.location})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -38,7 +38,7 @@ public class DaoStudentImpl extends AbstractDao implements DaoStudent {
    * @return <strong>id</strong> of inserted record
    */
   @Override
-  public long insert(Student bean) {
+  public long insert(Seminar bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
@@ -63,7 +63,7 @@ public class DaoStudentImpl extends AbstractDao implements DaoStudent {
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info("INSERT INTO student (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+    Logger.info("INSERT INTO seminar (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -78,7 +78,7 @@ public class DaoStudentImpl extends AbstractDao implements DaoStudent {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("student", null, contentValues);
+    long result = database().insert("seminar", null, contentValues);
     bean.id=result;
 
     return result;
