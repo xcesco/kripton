@@ -2,7 +2,6 @@ package sqlite.feature.indexes;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;

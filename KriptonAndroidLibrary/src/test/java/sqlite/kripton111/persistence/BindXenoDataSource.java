@@ -136,12 +136,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -156,20 +156,20 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true);
     } else {
       // drop tables
+      Logger.info("DDL: %s",PrefixConfigTable.DROP_TABLE_SQL);
+      database.execSQL(PrefixConfigTable.DROP_TABLE_SQL);
       Logger.info("DDL: %s",PhoneNumberTable.DROP_TABLE_SQL);
       database.execSQL(PhoneNumberTable.DROP_TABLE_SQL);
       Logger.info("DDL: %s",CountryTable.DROP_TABLE_SQL);
       database.execSQL(CountryTable.DROP_TABLE_SQL);
-      Logger.info("DDL: %s",PrefixConfigTable.DROP_TABLE_SQL);
-      database.execSQL(PrefixConfigTable.DROP_TABLE_SQL);
 
       // generate tables
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     }
   }
 

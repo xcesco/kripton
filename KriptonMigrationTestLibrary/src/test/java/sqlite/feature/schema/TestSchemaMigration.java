@@ -22,6 +22,8 @@ public class TestSchemaMigration extends BaseAndroidTest {
 		//database = MigrationHelper.createDatabase(2, "schemas/school.schema.1.sql");						
 		//database.close();
 		
+		//SchemaCrawlerUtility.
+		
 		
 	}
 }

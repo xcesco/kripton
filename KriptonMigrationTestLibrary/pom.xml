@@ -94,6 +94,13 @@
 			<scope>provided</scope>
 		</dependency>
 		
+				<!-- https://mvnrepository.com/artifact/us.fatehi/schemacrawler -->
+		<dependency>
+		    <groupId>us.fatehi</groupId>
+		    <artifactId>schemacrawler</artifactId>
+		    <version>14.16.03</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

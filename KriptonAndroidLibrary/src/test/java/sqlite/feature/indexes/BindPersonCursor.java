@@ -1,7 +1,6 @@
 package sqlite.feature.indexes;
 
 import android.database.Cursor;
-
 import com.abubusoft.kripton.common.DateUtils;
 import java.util.LinkedList;
 
