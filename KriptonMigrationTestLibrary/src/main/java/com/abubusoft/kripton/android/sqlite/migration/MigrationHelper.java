@@ -40,7 +40,7 @@ public abstract class MigrationHelper {
 		clear(db, "index");				
 	}
 
-	public static SQLiteDatabase createDatabase(int version, final String schemaDefinitionFile) {
+	public static MigrationDatabase createDatabase(int version, final String schemaDefinitionFile) {
 		final List<String> executionList=new ArrayList<>();		
 		MigrationDatabaseListener listener = new MigrationDatabaseListener() {
 
@@ -122,7 +122,7 @@ public abstract class MigrationHelper {
 
 		MigrationDatabase helper = new MigrationDatabase(KriptonLibrary.context(), null, version, null, listener);
 
-		return helper.getWritableDatabase();
+		return helper;
 	}
 
 }
