@@ -3,7 +3,7 @@ jdk: oraclejdk8
 sudo: false # faster builds
 
 script:
-  -  travis_wait 30 mvn -Dkripton.debug=false cobertura:cobertura
+  -  mvn -Dkripton.debug=false cobertura:cobertura
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

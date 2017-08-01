@@ -41,7 +41,7 @@ public abstract class MigrationHelper {
 	}
 
 	public static SQLiteDatabase createDatabase(int version, final String schemaDefinitionFile) {
-		final List<String> executionList=new ArrayList<>();
+		final List<String> executionList=new ArrayList<>();		
 		MigrationDatabaseListener listener = new MigrationDatabaseListener() {
 
 			@Override
@@ -125,7 +125,4 @@ public abstract class MigrationHelper {
 		return helper.getWritableDatabase();
 	}
 
-	public static void migration(Migration migration) {
-
-	}
 }
