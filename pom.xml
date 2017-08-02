@@ -26,6 +26,7 @@
     <module>KriptonAndroidLibrary</module>
 	<module>KriptonProcessor</module>
 	<module>KriptonRetrofitConverter</module>
+	<module>KriptonSQLiteTestLibrary</module>
   </modules>
 
 	<!-- common part - BEGIN -->
