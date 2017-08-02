@@ -96,13 +96,6 @@
 			<scope>provided</scope>
 		</dependency>
 		
-				<!-- https://mvnrepository.com/artifact/us.fatehi/schemacrawler -->
-		<dependency>
-		    <groupId>us.fatehi</groupId>
-		    <artifactId>schemacrawler</artifactId>
-		    <version>14.16.03</version>
-		</dependency>
-		
 	</dependencies>
 
 	<build>
@@ -113,14 +106,7 @@
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>com.abubusoft</groupId>
-							<artifactId>kripton-processor</artifactId>
-							<version>${kripton.version}</version>
-						</path>
-					</annotationProcessorPaths>
+					<target>${java.version}</target>					
 				</configuration>
 			</plugin>
 			

@@ -22,7 +22,7 @@ import org.junit.runners.Suite;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestSchemaRuntime.class
+		TestSchemaMigration.class
 		 })
 //@formatter:on
 public class TestSchemaRuntimeSuite {
