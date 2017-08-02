@@ -45,9 +45,10 @@ public class Test93Runtime extends BaseAndroidTest {
 			@Override
 			public boolean onExecute(BindBean93DaoFactory daoFactory) throws Throwable {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
+
 				dao.insertDefault(bean);
 				assertTrue(dao.selectAll().size() == 1);
-				return true;
+				return false;
 			}
 		});
 	}
@@ -66,7 +67,7 @@ public class Test93Runtime extends BaseAndroidTest {
 				dao.insertDefault(bean);
 				dao.insertAbort(bean);
 				assertTrue(dao.selectAll().size() == 1);
-				return true;
+				return false;
 			}
 		});
 	}
@@ -85,7 +86,7 @@ public class Test93Runtime extends BaseAndroidTest {
 				dao.insertDefault(bean);
 				dao.insertFail(bean);
 				assertTrue(dao.selectAll().size() == 1);
-				return true;
+				return false;
 			}
 		});
 	}
@@ -103,7 +104,7 @@ public class Test93Runtime extends BaseAndroidTest {
 				dao.insertDefault(bean);
 				dao.insertIgnore(bean);
 				assertTrue(dao.selectAll().size() == 1);
-				return true;
+				return false;
 			}
 		});
 	}
@@ -121,7 +122,7 @@ public class Test93Runtime extends BaseAndroidTest {
 				dao.insertDefault(bean);
 				dao.insertReplace(bean);
 				assertTrue(dao.selectAll().size() == 1);
-				return true;
+				return false;
 			}
 		});
 	}
