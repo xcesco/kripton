@@ -4,6 +4,8 @@
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-sqlite-test-library</artifactId>
 	<version>2.0.0-SNAPSHOT</version>
+	
+	<name>Kripton SQLite Test Library</name>
 
 	<!-- Property version 1.6.2-SNAPSHOT -->
 	<properties>
