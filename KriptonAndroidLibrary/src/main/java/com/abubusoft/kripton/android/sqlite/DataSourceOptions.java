@@ -39,6 +39,14 @@ public class DataSourceOptions {
 			this.databaseLifecycleHandler = value;
 			return this;
 		}
+		
+		public Builder versionUpdateTask(DatabaseVersionUpdateTask databaseVersionUpdateTask) {			
+			return this;
+		}
+
+		public Builder versionUpdateTask(int oldVersion, int newVersion, String updateSqlFileName) {
+			return this;	
+		}
 				
 		public DataSourceOptions build() {
 			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler);

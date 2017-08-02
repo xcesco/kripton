@@ -160,8 +160,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				bufferTable.append(" UNIQUE");
 				break;
 			case INDEXED:
-				bufferIndexesCreate.append(String.format(" CREATE INDEX IF NOT EXISTS idx_%s_%s ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
-				bufferIndexesDrop.append(String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
+				bufferIndexesCreate.append(String.format(" CREATE INDEX idx_%s_%s ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
+				bufferIndexesDrop.append(String.format(" DROP INDEX idx_%s_%s;", entity.getTableName(), item.columnName));
 				break;
 			case STANDARD:
 				break;
@@ -309,8 +309,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		List<String> listCreateIndex = new ArrayList<>();
 		List<String> listDropIndex = new ArrayList<>();
 		for (String index : indexes) {
-			String createIndex = String.format(" CREATE %sINDEX IF NOT EXISTS idx_%s_%s on %s (%s)", uniqueString, entity.getTableName(), counter++, entity.getTableName(), index);
-			String dropIndex = String.format(" DROP INDEX IF EXISTS idx_%s_%s", entity.getTableName(), counter);
+			String createIndex = String.format(" CREATE %sINDEX idx_%s_%s on %s (%s)", uniqueString, entity.getTableName(), counter++, entity.getTableName(), index);
+			String dropIndex = String.format(" DROP INDEX idx_%s_%s", entity.getTableName(), counter);
 
 			final One<Integer> fieldCounter = new One<Integer>(0);
 			createIndex = JQLChecker.getInstance().replace(createIndex, new JQLReplacerListenerImpl() {

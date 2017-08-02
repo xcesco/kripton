@@ -45,6 +45,12 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
       jacksonSerializer.writeStringField("name", object.name);
     }
 
+    // field surname (mapped with "surname")
+    if (object.surname!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("surname", object.surname);
+    }
+
     jacksonSerializer.writeEndObject();
     return fieldCount;
   }
@@ -70,6 +76,12 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
     if (object.name!=null)  {
       fieldCount++;
       jacksonSerializer.writeStringField("name", object.name);
+    }
+
+    // field surname (mapped with "surname")
+    if (object.surname!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("surname", object.surname);
     }
 
     jacksonSerializer.writeEndObject();
@@ -104,6 +116,13 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
     if (object.name!=null) {
       xmlSerializer.writeStartElement("name");
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.name));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field surname (mapped with "surname")
+    if (object.surname!=null) {
+      xmlSerializer.writeStartElement("surname");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.surname));
       xmlSerializer.writeEndElement();
     }
 
@@ -148,6 +167,12 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
               instance.name=jacksonParser.getText();
             }
           break;
+          case "surname":
+            // field surname (mapped with "surname")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.surname=jacksonParser.getText();
+            }
+          break;
           default:
             jacksonParser.skipChildren();
           break;}
@@ -189,6 +214,12 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
             // field name (mapped with "name")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.name=jacksonParser.getText();
+            }
+          break;
+          case "surname":
+            // field surname (mapped with "surname")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.surname=jacksonParser.getText();
             }
           break;
           default:
@@ -239,6 +270,10 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
                 case "name":
                   // property name (mapped on "name")
                   instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "surname":
+                  // property surname (mapped on "surname")
+                  instance.surname=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
                 break;

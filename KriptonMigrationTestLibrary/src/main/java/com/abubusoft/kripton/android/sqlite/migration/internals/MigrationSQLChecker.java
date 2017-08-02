@@ -16,47 +16,20 @@
 /**
  * 
  */
-package com.abubusoft.kripton.android.sqlite.migration;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+package com.abubusoft.kripton.android.sqlite.migration.internals;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.TokenStreamRewriter;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import com.abubusoft.kripton.common.One;
+import com.abubusoft.kripton.android.sqlite.migration.AssertKripton;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlLexer;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_to_updateContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Group_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Having_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Limit_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Offset_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Order_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Result_columnContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_coreContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_or_valuesContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_nameContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 
 public class MigrationSQLChecker {
 

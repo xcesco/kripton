@@ -20,18 +20,18 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE UNIQUE INDEX IF NOT EXISTS idx_person_0 on person (type_name, date); CREATE INDEX IF NOT EXISTS idx_person_0 on person (birth_city, birth_day); CREATE INDEX IF NOT EXISTS idx_person_1 on person (surname);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX idx_person_name ON person(name); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX IF NOT EXISTS idx_person_name ON person(name); CREATE UNIQUE INDEX IF NOT EXISTS idx_person_0 on person (type_name, date); CREATE INDEX IF NOT EXISTS idx_person_0 on person (birth_city, birth_day); CREATE INDEX IF NOT EXISTS idx_person_1 on person (surname);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX idx_person_name ON person(name); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);";
 
   /**
    * <p>
    * DDL to drop table person
    * </p>
    *
-   * <pre> DROP INDEX IF EXISTS idx_person_name; DROP INDEX IF EXISTS idx_person_1; DROP INDEX IF EXISTS idx_person_1; DROP INDEX IF EXISTS idx_person_2;DROP TABLE IF EXISTS person;</pre>
+   * <pre> DROP INDEX idx_person_name; DROP INDEX idx_person_1; DROP INDEX idx_person_1; DROP INDEX idx_person_2;DROP TABLE IF EXISTS person;</pre>
    */
-  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_person_name; DROP INDEX IF EXISTS idx_person_1; DROP INDEX IF EXISTS idx_person_1; DROP INDEX IF EXISTS idx_person_2;DROP TABLE IF EXISTS person;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX idx_person_name; DROP INDEX idx_person_1; DROP INDEX idx_person_1; DROP INDEX idx_person_2;DROP TABLE IF EXISTS person;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.

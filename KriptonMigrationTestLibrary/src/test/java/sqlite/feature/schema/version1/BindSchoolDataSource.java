@@ -56,7 +56,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   protected DaoStudentImpl daoStudent = new DaoStudentImpl(this);
 
   protected BindSchoolDataSource(DataSourceOptions options) {
-    super("school", 1, options);
+    super("school", 2, options);
   }
 
   @Override

@@ -23,7 +23,7 @@ public class DaoProfessorImpl extends AbstractDao implements DaoProfessor {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO professor (name, birth_date) VALUES (${bean.name}, ${bean.birthDate})</pre>
+   * <pre>INSERT INTO professor (name, birth_date, surname) VALUES (${bean.name}, ${bean.birthDate}, ${bean.surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -31,6 +31,7 @@ public class DaoProfessorImpl extends AbstractDao implements DaoProfessor {
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -52,6 +53,11 @@ public class DaoProfessorImpl extends AbstractDao implements DaoProfessor {
       contentValues.put("birth_date", DateUtils.write(bean.birthDate));
     } else {
       contentValues.putNull("birth_date");
+    }
+    if (bean.surname!=null) {
+      contentValues.put("surname", bean.surname);
+    } else {
+      contentValues.putNull("surname");
     }
 
     //StringUtils and SqlUtils will be used to format SQL

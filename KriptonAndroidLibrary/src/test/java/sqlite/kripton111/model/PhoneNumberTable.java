@@ -20,18 +20,18 @@ public class PhoneNumberTable {
    * DDL to create table phone_number
    * </p>
    *
-   * <pre>CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, number TEXT, country_code TEXT, contact_name TEXT, contact_id TEXT); CREATE INDEX IF NOT EXISTS idx_phone_number_0 on phone_number (action_type);</pre>
+   * <pre>CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, number TEXT, country_code TEXT, contact_name TEXT, contact_id TEXT); CREATE INDEX idx_phone_number_0 on phone_number (action_type);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, number TEXT, country_code TEXT, contact_name TEXT, contact_id TEXT); CREATE INDEX IF NOT EXISTS idx_phone_number_0 on phone_number (action_type);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, number TEXT, country_code TEXT, contact_name TEXT, contact_id TEXT); CREATE INDEX idx_phone_number_0 on phone_number (action_type);";
 
   /**
    * <p>
    * DDL to drop table phone_number
    * </p>
    *
-   * <pre> DROP INDEX IF EXISTS idx_phone_number_1;DROP TABLE IF EXISTS phone_number;</pre>
+   * <pre> DROP INDEX idx_phone_number_1;DROP TABLE IF EXISTS phone_number;</pre>
    */
-  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_phone_number_1;DROP TABLE IF EXISTS phone_number;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX idx_phone_number_1;DROP TABLE IF EXISTS phone_number;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
