@@ -41,6 +41,9 @@ public class TestPaginatedResultRuntime extends BaseAndroidTest {
 	public void testCycle() {
 		try (BindPersonDataSource dataSource = BindPersonDataSource.open(); PersonDAOImpl dao = dataSource.getPersonDAO()) {
 			// dataSource.execute(transaction);
+			
+			dao.deleteAll();
+			
 			for (int i = 0; i < 100; i++) {
 				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
@@ -69,6 +72,9 @@ public class TestPaginatedResultRuntime extends BaseAndroidTest {
 	public void testGotoPage() {
 		try (BindPersonDataSource dataSource = BindPersonDataSource.open(); PersonDAOImpl dao = dataSource.getPersonDAO()) {
 			// dataSource.execute(transaction);
+			
+			dao.deleteAll();
+			
 			for (int i = 0; i < 100; i++) {
 				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}

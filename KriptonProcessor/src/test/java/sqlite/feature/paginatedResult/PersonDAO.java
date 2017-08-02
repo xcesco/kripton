@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
@@ -44,6 +45,9 @@ public interface PersonDAO {
 
 	@BindSqlSelect(orderBy="name")
 	List<Person> selectAll();
+	
+	@BindSqlDelete
+	int deleteAll();
 	
 	@BindSqlSelect(where="name like ${nameTemp} || '%'")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlDynamicWhere String where, @BindSqlDynamicOrderBy String orderBy);

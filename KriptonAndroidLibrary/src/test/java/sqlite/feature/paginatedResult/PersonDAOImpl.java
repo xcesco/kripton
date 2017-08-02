@@ -404,6 +404,48 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   }
 
   /**
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM person WHERE 1=1</pre>
+   *
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * </dl>
+   *
+   *
+   * @return number of deleted records
+   */
+  @Override
+  public int deleteAll() {
+    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+
+    StringBuilder _sqlBuilder=new StringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" 1=1";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    //StringUtils and SqlUtils will be used to format SQL
+
+    // display log
+    Logger.info("DELETE FROM person WHERE 1=1");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+    }
+    // log for where parameters -- END
+    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    return result;
+  }
+
+  /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || '%' AND #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
