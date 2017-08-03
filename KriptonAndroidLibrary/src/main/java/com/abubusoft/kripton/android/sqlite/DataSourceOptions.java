@@ -77,10 +77,14 @@ public class DataSourceOptions {
 
 				@Override
 				public void execute(SQLiteDatabase database) {
-					sqlList.forEach(item -> {
+					for(String item: sqlList) {
 						Logger.info(item);
 						database.execSQL(item);
-					});
+					}
+//					sqlList.forEach(item -> {
+//						Logger.info(item);
+//						database.execSQL(item);
+//					});
 
 				}
 			};
