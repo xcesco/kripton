@@ -89,7 +89,7 @@ public @interface BindDataSource {
 	 * @return
 	 * 		true if you want to generate async task class
 	 */
-	boolean generateAsyncTask() default true;
+	boolean generateAsyncTask() default false;
 
 	/**
 	 * if true, generate cursor wrapper
@@ -97,7 +97,7 @@ public @interface BindDataSource {
 	 * @return
 	 * 		true if you want to generate cursor wrapper
 	 */
-	boolean generateCursorWrapper() default true;
+	boolean generateCursorWrapper() default false;
 	
 	
 }
