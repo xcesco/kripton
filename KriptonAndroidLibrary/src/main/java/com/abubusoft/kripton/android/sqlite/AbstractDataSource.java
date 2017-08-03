@@ -18,6 +18,8 @@
  */
 package com.abubusoft.kripton.android.sqlite;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -39,7 +41,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * 
  */
 public abstract class AbstractDataSource implements AutoCloseable {
-	
+
 	/**
 	 * Interface for database transactions.
 	 * 
@@ -69,7 +71,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * database instance
 	 */
-	protected SQLiteDatabase database;
+	SQLiteDatabase database;
 
 	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
 
@@ -88,7 +90,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	private AtomicInteger openCounter = new AtomicInteger();
 
 	protected DataSourceOptions options;
-		
+
 	protected SQLiteOpenHelper sqliteHelper;
 
 	protected ThreadLocal<TypeStatus> status = new ThreadLocal<TypeStatus>() {
@@ -102,19 +104,27 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * if true, database was update during this application run
 	 */
-	protected boolean upgradedVersion;
+	protected boolean versionChanged;
 
 	/**
 	 * <p>
 	 * database version
 	 * </p>
 	 */
-	public final int version;
+	protected int version;
+
+	public int getVersion() {
+		return version;
+	}
+
+	void setVersion(int version) {
+		this.version = version;
+	}
 
 	protected AbstractDataSource(String name, int version, DataSourceOptions options) {
 		this.name = name;
-		this.version = version;		
-		this.options=options==null ? DataSourceOptions.builder().build(): options;
+		this.version = version;
+		this.options = options == null ? DataSourceOptions.builder().build() : options;
 	}
 
 	/*
@@ -132,8 +142,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				database = null;
 				Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			} else {
-				Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());	
-			}		
+				Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
+			}
 		} finally {
 			lockDb.unlock();
 			switch (status.get()) {
@@ -154,10 +164,52 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	}
 
+	void forceClose() {
+		openCounter.set(0);
+	}
+
+	protected SQLiteUpdateTask findPopulateTaskList(int currentVersion) {
+		for (SQLiteUpdateTask item : this.options.updateTasks) {
+			if (item.previousVersion == item.currentVersion && item.currentVersion == currentVersion) {
+				return item;
+			}
+		}
+
+		return null;
+	}
+
+	protected List<SQLiteUpdateTask> buildTaskList(int previousVersion, int currentVersion) {
+		int counter = currentVersion - previousVersion > 0 ? 1 : -1;
+		List<SQLiteUpdateTask> result = new ArrayList<>();
+
+		for (SQLiteUpdateTask item : this.options.updateTasks) {
+			if (item.previousVersion == previousVersion && item.currentVersion == item.previousVersion + counter) {
+				result.add(item);
+
+				previousVersion = item.currentVersion;
+			}
+
+			if (previousVersion == currentVersion)
+				break;
+		}
+
+		if (previousVersion != currentVersion) {
+			throw (new KriptonRuntimeException(
+					String.format("Can not find version update task from version %s to version %s", previousVersion,
+							currentVersion)));
+		}
+
+		return result;
+
+	}
+
 	protected void createHelper(DataSourceOptions options) {
-		if (KriptonLibrary.context()==null) throw new KriptonRuntimeException("Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
-		
-		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version, options.errorHandler) {
+		if (KriptonLibrary.context() == null)
+			throw new KriptonRuntimeException(
+					"Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
+
+		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version,
+				options.errorHandler) {
 
 			@Override
 			public void onConfigure(SQLiteDatabase database) {
@@ -166,7 +218,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			}
 
 			@Override
-			public void onCreate(SQLiteDatabase database) {				
+			public void onCreate(SQLiteDatabase database) {
 				AbstractDataSource.this.onCreate(database);
 			}
 
@@ -191,7 +243,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 */
 	public SQLiteDatabase database() {
 		if (database == null)
-			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
+			throw (new KriptonRuntimeException(
+					"No database connection is opened before use " + this.getClass().getCanonicalName()));
 		return database;
 	}
 
@@ -210,7 +263,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @return the upgradedVersion
 	 */
 	public boolean isUpgradedVersion() {
-		return upgradedVersion;
+		return versionChanged;
 	}
 
 	public abstract void onConfigure(SQLiteDatabase database);
@@ -220,14 +273,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
 			AbstractDataSource.this.options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, false);
-			upgradedVersion = true;
+			versionChanged = true;
 		}
 	}
 
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
 			AbstractDataSource.this.options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, true);
-			upgradedVersion = true;
+			versionChanged = true;
 		}
 	}
 
@@ -249,14 +302,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			if (openCounter.incrementAndGet() == 1) {
 				// open new read database
 				database = sqliteHelper.getReadableDatabase();
-				Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() ));
+				Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
 			} else {
 				Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
-			}					
+			}
 		} finally {
 			lockDb.unlock();
 			lockReadAccess.lock();
-			
+
 		}
 
 		return database;
@@ -280,13 +333,13 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			if (openCounter.incrementAndGet() == 1) {
 				// open new write database
 				database = sqliteHelper.getWritableDatabase();
-				Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() ));
+				Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
 			} else {
 				Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
-			}					
+			}
 		} finally {
 			lockDb.unlock();
-			lockReadWriteAccess.lock();			
+			lockReadWriteAccess.lock();
 		}
 
 		return database;

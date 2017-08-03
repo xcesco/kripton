@@ -137,7 +137,6 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		StringBuilder bufferForeignKey = new StringBuilder();
 		// shared between create table and drop table
 		StringBuilder bufferIndexesCreate = new StringBuilder();
-		StringBuilder bufferIndexesDrop = new StringBuilder();
 		StringBuilder bufferDropTable = new StringBuilder();
 
 		bufferTable.append("CREATE TABLE " + entity.getTableName());
@@ -161,7 +160,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				break;
 			case INDEXED:
 				bufferIndexesCreate.append(String.format(" CREATE INDEX idx_%s_%s ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
-				bufferIndexesDrop.append(String.format(" DROP INDEX idx_%s_%s;", entity.getTableName(), item.columnName));
+				//bufferIndexesDrop.append(String.format(" DROP INDEX idx_%s_%s;", entity.getTableName(), item.columnName));
 				break;
 			case STANDARD:
 				break;
@@ -217,7 +216,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			Pair<String, String> multiIndexes = buldIndexes(entity, true, indexCounter);
 			if (!StringUtils.isEmpty(multiIndexes.value0)) {
 				bufferTable.append(multiIndexes.value0 + ";");
-				bufferIndexesDrop.append(multiIndexes.value1 + ";");
+				// bufferIndexesDrop.append(multiIndexes.value1 + ";");
 			}
 		}
 
@@ -226,7 +225,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			Pair<String, String> multiIndexes = buldIndexes(entity, false, indexCounter);
 			if (!StringUtils.isEmpty(multiIndexes.value0)) {
 				bufferTable.append(multiIndexes.value0 + ";");
-				bufferIndexesDrop.append(multiIndexes.value1 + ";");
+				// bufferIndexesDrop.append(multiIndexes.value1 + ";");
 			}
 		}
 
@@ -246,10 +245,10 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		}
 
 		// drop table SQL
-		// add indexes creation one table
-		if (bufferIndexesDrop.length() > 0) {
-			bufferDropTable.append(bufferIndexesDrop.toString());
-		}
+		// index does not need to be dropped, they are automatically detroyed with tables
+//		if (bufferIndexesDrop.length() > 0) {
+//			bufferDropTable.append(bufferIndexesDrop.toString());
+//		}
 
 		bufferDropTable.append("DROP TABLE IF EXISTS " + entity.getTableName() + ";");
 

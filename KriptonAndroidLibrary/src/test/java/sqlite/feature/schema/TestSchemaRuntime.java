@@ -27,6 +27,11 @@ import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
 
 import android.database.sqlite.SQLiteDatabase;
 import base.BaseAndroidTest;
+import sqlite.feature.schema.version2.BindSchoolDataSource;
+import sqlite.feature.schema.version2.DaoProfessorImpl;
+import sqlite.feature.schema.version2.DaoStudentImpl;
+import sqlite.feature.schema.version2.Professor;
+import sqlite.feature.schema.version2.Student;
 
 /**
  * @author xcesco

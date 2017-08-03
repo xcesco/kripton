@@ -21,12 +21,23 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.paginatedResult.Person;
+import sqlite.feature.schema.version2.DaoBase;
+import sqlite.feature.schema.version2.DaoProfessor;
+import sqlite.feature.schema.version2.DaoSeminar;
+import sqlite.feature.schema.version2.DaoSeminar2Student;
+import sqlite.feature.schema.version2.DaoStudent;
+import sqlite.feature.schema.version2.Entity;
+import sqlite.feature.schema.version2.Professor;
+import sqlite.feature.schema.version2.SchoolDataSource;
+import sqlite.feature.schema.version2.Seminar;
+import sqlite.feature.schema.version2.Seminar2Student;
+import sqlite.feature.schema.version2.Student;
 
 @RunWith(JUnit4.class)
 public class TestSchema extends AbstractBindSQLiteProcessorTest {
 
 	@Test
-	public void testOK() throws Throwable {
+	public void testCompileVersion2() throws Throwable {
 		buildDataSourceProcessorTest(DaoBase.class, DaoProfessor.class, DaoSeminar.class, DaoSeminar2Student.class, DaoStudent.class, Entity.class, Person.class, Professor.class,
 				SchoolDataSource.class, Seminar2Student.class, Student.class, Seminar.class);
 	}
