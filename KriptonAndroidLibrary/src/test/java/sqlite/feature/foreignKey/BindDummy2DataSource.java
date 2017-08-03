@@ -4,9 +4,12 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
+import java.util.List;
 
 /**
  * <p>
@@ -120,10 +123,18 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
+    Logger.info("Create database '%s' version %s",this.name, this.getVersion());
     Logger.info("DDL: %s",BeanA_3Table.CREATE_TABLE_SQL);
     database.execSQL(BeanA_3Table.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",BeanA_4Table.CREATE_TABLE_SQL);
     database.execSQL(BeanA_4Table.CREATE_TABLE_SQL);
+    // if we have a populate task (previous and current are same), try to execute it
+    if (options.updateTasks != null) {
+      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
+      if (task != null) {
+        task.execute(database);
+      }
+    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -133,21 +144,26 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    if (options.databaseLifecycleHandler != null) {
-      options.databaseLifecycleHandler.onUpdate(database, oldVersion, newVersion, true);
+  public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
+    Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
+    // if we have a list of update task, try to execute them
+    if (options.updateTasks != null) {
+      List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
+      for (SQLiteUpdateTask task : tasks) {
+        task.execute(database);
+      }
     } else {
-      // drop tables
-      Logger.info("DDL: %s",BeanA_4Table.DROP_TABLE_SQL);
-      database.execSQL(BeanA_4Table.DROP_TABLE_SQL);
-      Logger.info("DDL: %s",BeanA_3Table.DROP_TABLE_SQL);
-      database.execSQL(BeanA_3Table.DROP_TABLE_SQL);
+      // drop all tables
+      SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
       Logger.info("DDL: %s",BeanA_3Table.CREATE_TABLE_SQL);
       database.execSQL(BeanA_3Table.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",BeanA_4Table.CREATE_TABLE_SQL);
       database.execSQL(BeanA_4Table.CREATE_TABLE_SQL);
+    }
+    if (options.databaseLifecycleHandler != null) {
+      options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
     }
   }
 

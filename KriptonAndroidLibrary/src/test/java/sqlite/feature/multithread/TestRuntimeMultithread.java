@@ -33,7 +33,8 @@ import base.BaseAndroidTest;
 public class TestRuntimeMultithread extends BaseAndroidTest {
 
 	@Test
-	public void testMultithreadWritable() throws InterruptedException {
+	public void testMultithreadWritable() throws InterruptedException {		
+		
 		ExecutorService executor = Executors.newFixedThreadPool(5);
 
 		for (int c = 0; c < 5; c++) {
