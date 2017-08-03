@@ -1,6 +1,7 @@
 package com.abubusoft.kripton.android.sqlite;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import edu.emory.mathcs.backport.java.util.Collections;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLiteUpdateTestDatabase {
@@ -48,8 +50,17 @@ public class SQLiteUpdateTestDatabase {
 		}
 
 		public SQLiteUpdateTestDatabase build() {
-			updateTasks.sort((entry0, entry1) -> (entry0.previousVersion == entry1.previousVersion) ? (entry0.currentVersion - entry1.currentVersion)
-					: (entry0.previousVersion - entry1.previousVersion));
+			Collections.sort(updateTasks, new Comparator<SQLiteUpdateTask>() {
+
+				@Override
+				public int compare(SQLiteUpdateTask entry0, SQLiteUpdateTask entry1) {
+					return (entry0.previousVersion == entry1.previousVersion) ? (entry0.currentVersion - entry1.currentVersion)
+							: (entry0.previousVersion - entry1.previousVersion);
+				}
+			});
+			
+//			updateTasks.sort((entry0, entry1) -> (entry0.previousVersion == entry1.previousVersion) ? (entry0.currentVersion - entry1.currentVersion)
+//					: (entry0.previousVersion - entry1.previousVersion));
 
 			SQLiteUpdateTestDatabase helper = new SQLiteUpdateTestDatabase(KriptonLibrary.context(), null, version,
 					null, initialSchemaFileName, updateTasks);
@@ -111,8 +122,11 @@ public class SQLiteUpdateTestDatabase {
 			@Override
 			public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 				List<SQLiteUpdateTask> task = findTask(oldVersion, newVersion);
-
-				task.forEach(item -> item.execute(db));
+				
+				for (SQLiteUpdateTask item: task) {
+					item.execute(db);
+				}
+				//task.forEach(item -> item.execute(db));
 				SQLiteUpdateTaskHelper.getAllTables(db);
 			}
 
@@ -131,8 +145,16 @@ public class SQLiteUpdateTestDatabase {
 		final One<Integer> ref = new One<>(null);
 		for (int i = previousVersion; i < currentVersion; i++) {
 			ref.value0 = i;
-			SQLiteUpdateTask t = this.updateTasks.stream().filter(item -> item.previousVersion == ref.value0).findFirst()
-					.orElse(null);
+			SQLiteUpdateTask t=null;
+			for (SQLiteUpdateTask item: updateTasks) {
+				if (item.previousVersion == ref.value0) {
+					t=item;
+					break;
+				}
+			}
+			
+//			SQLiteUpdateTask t = this.updateTasks.stream().filter(item -> item.previousVersion == ref.value0).findFirst()
+//					.orElse(null);
 
 			if (t != null) {
 				result.add(t);

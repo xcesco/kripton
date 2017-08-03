@@ -57,7 +57,7 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param type
 	 * @param prefix
 	 */
-	private static void drop(SQLiteDatabase db, QueryType type, String prefix) {
+	private static void drop(SQLiteDatabase db, final QueryType type, String prefix) {
 		String dropSQL = StringUtils.hasText(prefix) ? "name like '" + prefix + "' || '%'" : null;
 
 		query(db, dropSQL, type, new OnResultListener() {
@@ -202,9 +202,12 @@ public abstract class SQLiteUpdateTaskHelper {
 	}
 
 	public static void executeSQL(final SQLiteDatabase database, List<String> commands) {
-		commands.forEach(command -> {
+		for(String command: commands) {
 			executeSQL(database, command);
-		});
+		}
+//		commands.forEach(command -> {
+//			executeSQL(database, command);
+//		});
 	}
 
 	public static void executeSQL(final SQLiteDatabase database, String command) {
@@ -228,21 +231,42 @@ public abstract class SQLiteUpdateTaskHelper {
 
 		if (actualSql.size() != expectedSQL.size()) {
 			Logger.error("SCHEMA COMPARATOR RESULT: ERROR - Number of tables and indexes between aspected and actual schemas are different");
-			actualSql.forEach(item1 -> Logger.info("actual: " + item1));
-			expectedSQL.forEach(item1 -> Logger.info("expected: " + item1));
+			for(String item1: actualSql) {
+				Logger.info("actual: " + item1);
+			}
+			
+			
+			for(String item1: expectedSQL) {
+				Logger.info("expected: " + item1);
+			}
 						
 			throw new KriptonRuntimeException("Number of tables and indexes between aspected and actual schemas are different");
 		}
 
-		expectedSQL.forEach(item -> {
+		for (String item: expectedSQL) {
 			if (!actualSql.contains(item)) {
 				Logger.error("SCHEMA COMPARATOR RESULT: ERROR - Actual and expected schemas are NOT the same");
-				actualSql.forEach(item1 -> Logger.info("actual: " + item1));
-				expectedSQL.forEach(item1 -> Logger.info("expected: " + item1));
+				for(String item1: actualSql) {
+					Logger.info("actual: " + item1);
+				}
+								
+				for(String item1: expectedSQL) {
+					Logger.info("expected: " + item1);
+				}
 				
 				throw new KriptonRuntimeException("not found element: " + item);
 			}
-		});
+		}
+		
+//		expectedSQL.forEach(item -> {
+//			if (!actualSql.contains(item)) {
+//				Logger.error("SCHEMA COMPARATOR RESULT: ERROR - Actual and expected schemas are NOT the same");
+//				actualSql.forEach(item1 -> Logger.info("actual: " + item1));
+//				expectedSQL.forEach(item1 -> Logger.info("expected: " + item1));
+//				
+//				throw new KriptonRuntimeException("not found element: " + item);
+//			}
+//		});
 		
 		Logger.info("SCHEMA COMPARATOR RESULT: OK - Actual and expected schemas are the same!");
 
