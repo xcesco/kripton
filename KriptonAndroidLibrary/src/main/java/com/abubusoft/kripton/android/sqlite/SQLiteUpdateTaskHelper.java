@@ -299,20 +299,20 @@ public abstract class SQLiteUpdateTaskHelper {
 		dataSource.sqliteHelper = null;
 	}
 
-	public static <E extends AbstractDataSource> void clearDatabase(E dataSource) {
+	public static <E extends AbstractDataSource> void clearDatabase(E dataSource) {		
+		dataSource.openWritableDatabase();
+		File file=new File(dataSource.database.getPath(),dataSource.name);
+		
 		if (dataSource.isOpen())
 		{
 			dataSource.forceClose();
+			dataSource.close();
 		}
 		
-		File file=new File(dataSource.database.getPath(),dataSource.name);
-		
 		Logger.info("Clear database file %s", file.getAbsolutePath());		
-		file.delete();
-		
-		
-		
-		
+		if (!file.delete()) {
+			throw(new KriptonRuntimeException("Can not delete database "+file.getAbsolutePath()));
+		}
 	}
 
 }

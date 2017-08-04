@@ -164,7 +164,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	}
 
 	void forceClose() {
-		openCounter.set(0);
+		openCounter.set(1);
 	}
 
 	protected SQLiteUpdateTask findPopulateTaskList(int currentVersion) {

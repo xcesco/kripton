@@ -25,8 +25,11 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	 * 
 	 */
 	@Test
-	public void testStandardUpdate() {			
+	public void testStandardUpdate() {
+		
 		BindSchoolDataSource dataSource=BindSchoolDataSource.open();
+		
+		//SQLiteUpdateTaskHelper.clearDatabase(BindSchoolDataSource.instance());
 		
 		SQLiteUpdateTaskHelper.forceSchemaUpdate(dataSource, 3);		
 		dataSource=BindSchoolDataSource.open();
@@ -40,8 +43,9 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	 * 
 	 */
 	@Test
-	public void testCustomUpdateSingleStep() {			
+	public void testCustomUpdateSingleStep() {					
 		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, "schemas/school_update_2_3.sql").build());
+		//SQLiteUpdateTaskHelper.clearDatabase(BindSchoolDataSource.instance());
 		
 		BindSchoolDataSource dataSource=BindSchoolDataSource.open();				
 		SQLiteUpdateTaskHelper.forceSchemaUpdate(dataSource, 3);
@@ -71,8 +75,8 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 				})
 				.build());
 		
+		//SQLiteUpdateTaskHelper.clearDatabase(BindSchoolDataSource.instance());
 		BindSchoolDataSource dataSource=BindSchoolDataSource.open();
-		SQLiteUpdateTaskHelper.clearDatabase(dataSource);
 							
 		SQLiteUpdateTaskHelper.forceSchemaUpdate(dataSource, 4);		
 		dataSource=BindSchoolDataSource.open();		
