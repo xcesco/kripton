@@ -16,6 +16,8 @@
 
 package com.abubusoft.kripton.android.sqlite;
 
+import java.io.File;
+
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -254,9 +256,13 @@ public abstract class SQLiteOpenHelper {
 			} else {
 				try {
 					// https://stackoverflow.com/questions/19491675/failed-to-change-locale-for-db-data-data-my-easymedi-controller-databases-easy
-					db = mContext.openOrCreateDatabase(mName, (mEnableWriteAheadLogging
-							? Context.MODE_ENABLE_WRITE_AHEAD_LOGGING : 0) | SQLiteDatabase.NO_LOCALIZED_COLLATORS,
-							mFactory, mErrorHandler);
+//				    db = mContext.openOrCreateDatabase(mName, (mEnableWriteAheadLogging
+//							? Context.MODE_ENABLE_WRITE_AHEAD_LOGGING : 0) | SQLiteDatabase.NO_LOCALIZED_COLLATORS,
+//							mFactory, mErrorHandler);
+//					
+					
+					final String path = mContext.getDatabasePath(mName).getPath();					
+					db = SQLiteDatabase.openDatabase(path, mFactory, SQLiteDatabase.CREATE_IF_NECESSARY | (mEnableWriteAheadLogging  ? SQLiteDatabase.ENABLE_WRITE_AHEAD_LOGGING : 0) | SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.NO_LOCALIZED_COLLATORS, mErrorHandler);
 
 				} catch (SQLiteException ex) {
 					if (writable) {
@@ -264,7 +270,7 @@ public abstract class SQLiteOpenHelper {
 					}
 					Log.e(TAG, "Couldn't open " + mName + " for writing (will try read-only):", ex);
 					final String path = mContext.getDatabasePath(mName).getPath();
-					db = SQLiteDatabase.openDatabase(path, mFactory, SQLiteDatabase.OPEN_READONLY | SQLiteDatabase.NO_LOCALIZED_COLLATORS, mErrorHandler);
+					db = SQLiteDatabase.openDatabase(path, mFactory, SQLiteDatabase.CREATE_IF_NECESSARY | SQLiteDatabase.OPEN_READONLY | SQLiteDatabase.NO_LOCALIZED_COLLATORS, mErrorHandler);
 				}
 			}
 
