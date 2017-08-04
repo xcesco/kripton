@@ -29,9 +29,9 @@ public class ProfessorTable {
    * DDL to drop table professor
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS professor;</pre>
+   * <pre> DROP INDEX IF EXISTS idx_professor_1;DROP TABLE IF EXISTS professor;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS professor;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_professor_1;DROP TABLE IF EXISTS professor;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.

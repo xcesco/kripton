@@ -58,19 +58,4 @@ public class SQLiteUpdateTestHelper {
 
 	}
 
-	/**
-	 * Force a schema update for a datasource. Note that no DDL was execute
-	 * untill the database was opened.
-	 * 
-	 * @param dataSource
-	 * @param version
-	 *            to upgrade.
-	 */
-	public static <E extends AbstractDataSource> void forceSchemaUpdate(E dataSource, int version) {
-		dataSource.forceClose();
-
-		dataSource.version = version;
-		dataSource.database = null;
-		dataSource.sqliteHelper = null;
-	}
 }

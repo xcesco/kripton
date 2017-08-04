@@ -29,9 +29,9 @@ public class Seminar2StudentTable {
    * DDL to drop table seminar_2_student
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS seminar_2_student;</pre>
+   * <pre> DROP INDEX IF EXISTS idx_seminar_2_student_1;DROP TABLE IF EXISTS seminar_2_student;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS seminar_2_student;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_seminar_2_student_1;DROP TABLE IF EXISTS seminar_2_student;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.

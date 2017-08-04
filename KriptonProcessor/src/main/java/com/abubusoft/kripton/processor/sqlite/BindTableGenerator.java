@@ -138,6 +138,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		// shared between create table and drop table
 		StringBuilder bufferIndexesCreate = new StringBuilder();
 		StringBuilder bufferDropTable = new StringBuilder();
+		StringBuilder bufferIndexesDrop = new StringBuilder();
 
 		bufferTable.append("CREATE TABLE " + entity.getTableName());
 		// define column typeName set
@@ -160,7 +161,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				break;
 			case INDEXED:
 				bufferIndexesCreate.append(String.format(" CREATE INDEX idx_%s_%s ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
-				//bufferIndexesDrop.append(String.format(" DROP INDEX idx_%s_%s;", entity.getTableName(), item.columnName));
+				bufferIndexesDrop.append(String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
 				break;
 			case STANDARD:
 				break;
@@ -216,7 +217,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			Pair<String, String> multiIndexes = buldIndexes(entity, true, indexCounter);
 			if (!StringUtils.isEmpty(multiIndexes.value0)) {
 				bufferTable.append(multiIndexes.value0 + ";");
-				// bufferIndexesDrop.append(multiIndexes.value1 + ";");
+				bufferIndexesDrop.append(multiIndexes.value1 + ";");
 			}
 		}
 
@@ -225,7 +226,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			Pair<String, String> multiIndexes = buldIndexes(entity, false, indexCounter);
 			if (!StringUtils.isEmpty(multiIndexes.value0)) {
 				bufferTable.append(multiIndexes.value0 + ";");
-				// bufferIndexesDrop.append(multiIndexes.value1 + ";");
+				bufferIndexesDrop.append(multiIndexes.value1 + ";");
 			}
 		}
 
@@ -246,9 +247,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		// drop table SQL
 		// index does not need to be dropped, they are automatically detroyed with tables
-//		if (bufferIndexesDrop.length() > 0) {
-//			bufferDropTable.append(bufferIndexesDrop.toString());
-//		}
+		if (bufferIndexesDrop.length() > 0) {
+			bufferDropTable.append(bufferIndexesDrop.toString());
+		}
 
 		bufferDropTable.append("DROP TABLE IF EXISTS " + entity.getTableName() + ";");
 
@@ -309,7 +310,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		List<String> listDropIndex = new ArrayList<>();
 		for (String index : indexes) {
 			String createIndex = String.format(" CREATE %sINDEX idx_%s_%s on %s (%s)", uniqueString, entity.getTableName(), counter++, entity.getTableName(), index);
-			String dropIndex = String.format(" DROP INDEX idx_%s_%s", entity.getTableName(), counter);
+			String dropIndex = String.format(" DROP INDEX IF EXISTS idx_%s_%s", entity.getTableName(), counter);
 
 			final One<Integer> fieldCounter = new One<Integer>(0);
 			createIndex = JQLChecker.getInstance().replace(createIndex, new JQLReplacerListenerImpl() {

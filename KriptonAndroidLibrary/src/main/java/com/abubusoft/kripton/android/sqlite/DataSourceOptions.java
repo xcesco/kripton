@@ -1,5 +1,6 @@
 package com.abubusoft.kripton.android.sqlite;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,7 +59,7 @@ public class DataSourceOptions {
 		 * @param resId
 		 * @return
 		 */
-		public Builder addVersionUpdateTask(int currentVersion, int resId) {
+		public Builder addUpdateTask(int currentVersion, int resId) {
 			String[] commands = IOUtils.readTextFile(KriptonLibrary.context(), resId).split(";");
 
 			return addUpdateTask(currentVersion, Arrays.asList(commands));
@@ -110,6 +111,23 @@ public class DataSourceOptions {
 		 */
 		public Builder addUpdateTask(int currentVersion, String updateSqlFileName) {
 			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(currentVersion, updateSqlFileName);
+
+			this.updateTasks.add(task);
+
+			return this;
+		}
+		
+		/**
+		 * task to execute upgrade from currentVersion-1 to currentVersion.
+		 * 
+		 * @param currentVersion
+		 *            database current version
+		 * @param updateSqlFileName
+		 *            filename to read and execute
+		 * @return
+		 */
+		public Builder addUpdateTask(int currentVersion, InputStream inputStream) {
+			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(currentVersion, inputStream);
 
 			this.updateTasks.add(task);
 

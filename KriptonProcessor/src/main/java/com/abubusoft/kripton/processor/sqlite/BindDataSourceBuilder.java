@@ -111,7 +111,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			return;
 
 		// and now, write schema.create.v and schema.drop.v
-		String schemaCreation = defineFileName(schema, "");
+		String schemaCreation = defineFileName(schema);
 		File schemaCreatePath = new File("schemas").getAbsoluteFile();
 		File schemaCreateFile = new File("schemas/" + schemaCreation).getAbsoluteFile();
 		schemaCreatePath.mkdirs();
@@ -137,14 +137,15 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		bw.close();
 	}
 
-	static String defineFileName(SQLiteDatabaseSchema model, String kind) {
+	static String defineFileName(SQLiteDatabaseSchema model) {
 		int lastIndex = model.fileName.lastIndexOf(".");
 		String schemaName = model.fileName;
 
 		if (lastIndex > -1) {
 			schemaName = model.fileName.substring(0, lastIndex);
-		}
-		schemaName += ".schema." + model.version + StringUtils.ifNotEmptyAppend(kind, ".") + ".sql";
+		}		
+		
+		schemaName = schemaName.toLowerCase()+"_schema_" + model.version + ".sql";
 
 		return schemaName;
 	}
@@ -246,7 +247,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	private void generateBuild(String dataSourceName, SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("build")
 				.addModifiers(Modifier.PUBLIC, Modifier.STATIC).addParameter(DataSourceOptions.class, "options")
-				.returns(TypeName.get(schema.getElement().asType()));
+				.returns(TypeUtility.mergeTypeName(PREFIX, schema.getElement()));
 
 		methodBuilder.addJavadoc("Build instance.\n");
 		methodBuilder.addJavadoc("@return dataSource instance.\n");

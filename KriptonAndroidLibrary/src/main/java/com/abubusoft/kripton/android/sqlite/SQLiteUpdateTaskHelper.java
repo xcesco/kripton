@@ -1,5 +1,6 @@
 package com.abubusoft.kripton.android.sqlite;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -35,9 +36,8 @@ public abstract class SQLiteUpdateTaskHelper {
 	}
 
 	private static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
-		String query = String.format(
-				"SELECT name, sql FROM sqlite_master WHERE type='%s'and name!='sqlite_sequence' and name!='android_metadata'%s",
-				type.toString().toLowerCase(), StringUtils.hasText(conditions) ? " AND " + conditions : "");
+		String query = String.format("SELECT name, sql FROM sqlite_master WHERE type='%s'and name!='sqlite_sequence' and name!='android_metadata'%s", type.toString().toLowerCase(),
+				StringUtils.hasText(conditions) ? " AND " + conditions : "");
 		try (Cursor cursor = db.rawQuery(query, null)) {
 			if (cursor.moveToFirst()) {
 				int index0 = cursor.getColumnIndex("name");
@@ -202,12 +202,12 @@ public abstract class SQLiteUpdateTaskHelper {
 	}
 
 	public static void executeSQL(final SQLiteDatabase database, List<String> commands) {
-		for(String command: commands) {
+		for (String command : commands) {
 			executeSQL(database, command);
 		}
-//		commands.forEach(command -> {
-//			executeSQL(database, command);
-//		});
+		// commands.forEach(command -> {
+		// executeSQL(database, command);
+		// });
 	}
 
 	public static void executeSQL(final SQLiteDatabase database, String command) {
@@ -221,56 +221,97 @@ public abstract class SQLiteUpdateTaskHelper {
 		}
 
 	}
+	
+	public static void verifySchema(SQLiteDatabase database, String fileNameSchema) {
+		try {
+			verifySchema(database, new FileInputStream(fileNameSchema));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			
+			throw(new KriptonRuntimeException(e));
+		}
+	}
+	
+	public static void verifySchema(SQLiteDatabase database, File fileSchema) {
+		try {
+			verifySchema(database, new FileInputStream(fileSchema));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			
+			throw(new KriptonRuntimeException(e));
+		}
+	}
 
-	public static void verifySchema(SQLiteDatabase database, String schemaDefinitionFileName) {		
-		Set<String> actualSql = new HashSet<String>();		
+	public static void verifySchema(SQLiteDatabase database, InputStream inputStream) {
+		Set<String> actualSql = new HashSet<String>();
 		actualSql.addAll(SQLiteUpdateTaskHelper.getAllTables(database).values());
 		actualSql.addAll(SQLiteUpdateTaskHelper.getAllIndexes(database).values());
-				
-		List<String> expectedSQL = SQLiteUpdateTaskHelper.readSQLFromFile(schemaDefinitionFileName);
+
+		List<String> expectedSQL = SQLiteUpdateTaskHelper.readSQLFromFile(inputStream);
 
 		if (actualSql.size() != expectedSQL.size()) {
 			Logger.error("SCHEMA COMPARATOR RESULT: ERROR - Number of tables and indexes between aspected and actual schemas are different");
-			for(String item1: actualSql) {
+			for (String item1 : actualSql) {
 				Logger.info("actual: " + item1);
 			}
-			
-			
-			for(String item1: expectedSQL) {
+
+			for (String item1 : expectedSQL) {
 				Logger.info("expected: " + item1);
 			}
-						
+
 			throw new KriptonRuntimeException("Number of tables and indexes between aspected and actual schemas are different");
 		}
 
-		for (String item: expectedSQL) {
+		for (String item : expectedSQL) {
 			if (!actualSql.contains(item)) {
 				Logger.error("SCHEMA COMPARATOR RESULT: ERROR - Actual and expected schemas are NOT the same");
-				for(String item1: actualSql) {
+				for (String item1 : actualSql) {
 					Logger.info("actual: " + item1);
 				}
-								
-				for(String item1: expectedSQL) {
+
+				for (String item1 : expectedSQL) {
 					Logger.info("expected: " + item1);
 				}
-				
+
 				throw new KriptonRuntimeException("not found element: " + item);
 			}
 		}
-		
-//		expectedSQL.forEach(item -> {
-//			if (!actualSql.contains(item)) {
-//				Logger.error("SCHEMA COMPARATOR RESULT: ERROR - Actual and expected schemas are NOT the same");
-//				actualSql.forEach(item1 -> Logger.info("actual: " + item1));
-//				expectedSQL.forEach(item1 -> Logger.info("expected: " + item1));
-//				
-//				throw new KriptonRuntimeException("not found element: " + item);
-//			}
-//		});
-		
+
 		Logger.info("SCHEMA COMPARATOR RESULT: OK - Actual and expected schemas are the same!");
 
 		database.close();
+
+	}
+	
+	/**
+	 * Force a schema update for a datasource. Note that no DDL was execute
+	 * untill the database was opened.
+	 * 
+	 * @param dataSource
+	 * @param version
+	 *            to upgrade.
+	 */
+	public static <E extends AbstractDataSource> void forceSchemaUpdate(E dataSource, int version) {
+		dataSource.forceClose();
+
+		dataSource.version = version;
+		dataSource.database = null;
+		dataSource.sqliteHelper = null;
+	}
+
+	public static <E extends AbstractDataSource> void clearDatabase(E dataSource) {
+		if (dataSource.isOpen())
+		{
+			dataSource.forceClose();
+		}
+		
+		File file=new File(dataSource.database.getPath(),dataSource.name);
+		
+		Logger.info("Clear database file %s", file.getAbsolutePath());		
+		file.delete();
+		
+		
+		
 		
 	}
 

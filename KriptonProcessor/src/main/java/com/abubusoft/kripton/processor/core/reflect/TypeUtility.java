@@ -365,6 +365,19 @@ public abstract class TypeUtility {
 
 		return false;
 	}
+	
+	public static TypeName mergeTypeName(String prefix, TypeElement element) {
+		String fullName = element.getQualifiedName().toString();
+		
+		int lastIndex = fullName.lastIndexOf(".");
+		
+		String packageName = fullName.substring(0, lastIndex);
+		String className = prefix+fullName.substring(lastIndex + 1);
+
+		return typeName(packageName, className);
+				
+	}
+	
 
 	public static TypeName typeName(TypeElement element, String suffix) {
 		String fullName = element.getQualifiedName().toString() + suffix;
@@ -545,7 +558,8 @@ public abstract class TypeUtility {
 			return false;
 		}
 	}
-	
+
+
 	
 
 }

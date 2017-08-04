@@ -28,7 +28,7 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	public void testStandardUpdate() {			
 		BindSchoolDataSource dataSource=BindSchoolDataSource.open();
 		
-		SQLiteUpdateTestHelper.forceSchemaUpdate(dataSource, 3);		
+		SQLiteUpdateTaskHelper.forceSchemaUpdate(dataSource, 3);		
 		dataSource=BindSchoolDataSource.open();
 		
 		Logger.info("finish");
@@ -41,13 +41,13 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	 */
 	@Test
 	public void testCustomUpdateSingleStep() {			
-		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, "schemas/school.update.2.3.sql").build());
+		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, "schemas/school_update_2_3.sql").build());
 		
 		BindSchoolDataSource dataSource=BindSchoolDataSource.open();				
-		SQLiteUpdateTestHelper.forceSchemaUpdate(dataSource, 3);
+		SQLiteUpdateTaskHelper.forceSchemaUpdate(dataSource, 3);
 		
 		dataSource=BindSchoolDataSource.open();					
-		SQLiteUpdateTaskHelper.verifySchema(dataSource.database(), "schemas/school.schema.2.sql");
+		SQLiteUpdateTaskHelper.verifySchema(dataSource.database(), "schemas/school_schema_2.sql");
 		
 		Logger.info("finish");
 	}
@@ -60,7 +60,7 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	@Test
 	public void testCustomUpdateTwiceStep() {	
 		
-		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, "schemas/school.update.2.3.sql")
+		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, "schemas/school_update_2_3.sql")
 				.addUpdateTask(new SQLiteUpdateTask(4) {
 					
 					@Override
@@ -72,10 +72,10 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 				.build());
 		
 		BindSchoolDataSource dataSource=BindSchoolDataSource.open();
-				
-		SQLiteUpdateTestHelper.forceSchemaUpdate(dataSource, 4);
-		
-		dataSource=BindSchoolDataSource.open();
+		SQLiteUpdateTaskHelper.clearDatabase(dataSource);
+							
+		SQLiteUpdateTaskHelper.forceSchemaUpdate(dataSource, 4);		
+		dataSource=BindSchoolDataSource.open();		
 		
 		Logger.info("finish");
 	}

@@ -150,10 +150,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
     database.execSQL(StudentTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
     database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
@@ -187,10 +187,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
       database.execSQL(StudentTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
       database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
@@ -217,7 +217,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * Build instance.
    * @return dataSource instance.
    */
-  public static SchoolDataSource build(DataSourceOptions options) {
+  public static BindSchoolDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindSchoolDataSource(options);
     }

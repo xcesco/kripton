@@ -21,7 +21,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
-		{ 
+		{  
 		TestSchemaUpdater.class,
 		TestSchemaUpdater2.class,
 		 })
