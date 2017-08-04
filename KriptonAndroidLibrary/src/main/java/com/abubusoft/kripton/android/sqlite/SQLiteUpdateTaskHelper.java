@@ -126,8 +126,8 @@ public abstract class SQLiteUpdateTaskHelper {
 	}
 
 	public static void dropTablesAndIndices(SQLiteDatabase db) {
-		drop(db, QueryType.TABLE, null);
 		drop(db, QueryType.INDEX, null);
+		drop(db, QueryType.TABLE, null);		
 	}
 
 	/**
