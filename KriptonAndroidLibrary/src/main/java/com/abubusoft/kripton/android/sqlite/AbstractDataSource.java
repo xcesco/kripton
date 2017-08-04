@@ -156,6 +156,9 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					status.set(TypeStatus.CLOSED);
 				lockReadAccess.unlock();
 				break;
+			case CLOSED:
+				// do nothing
+				break;
 			default:
 				throw (new KriptonRuntimeException("Inconsistent status"));
 			}

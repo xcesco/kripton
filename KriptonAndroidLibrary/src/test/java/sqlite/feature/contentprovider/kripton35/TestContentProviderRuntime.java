@@ -25,8 +25,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.android.controller.ContentProviderController;
 import org.robolectric.annotation.Config;
+import org.robolectric.util.ContentProviderController;
 
 import com.abubusoft.kripton.common.DateUtils;
 
