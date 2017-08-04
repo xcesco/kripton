@@ -165,7 +165,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    * Build instance.
    * @return dataSource instance.
    */
-  public static DoubleDataSource build(DataSourceOptions options) {
+  public static BindDoubleDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindDoubleDataSource(options);
     }

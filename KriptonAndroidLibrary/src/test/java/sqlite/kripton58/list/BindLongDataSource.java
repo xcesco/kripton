@@ -165,7 +165,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    * Build instance.
    * @return dataSource instance.
    */
-  public static LongDataSource build(DataSourceOptions options) {
+  public static BindLongDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindLongDataSource(options);
     }

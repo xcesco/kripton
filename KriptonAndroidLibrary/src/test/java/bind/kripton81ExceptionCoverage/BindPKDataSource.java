@@ -165,7 +165,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    * Build instance.
    * @return dataSource instance.
    */
-  public static PKDataSource build(DataSourceOptions options) {
+  public static BindPKDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPKDataSource(options);
     }

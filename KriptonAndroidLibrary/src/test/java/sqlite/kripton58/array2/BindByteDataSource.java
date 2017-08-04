@@ -165,7 +165,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
    * Build instance.
    * @return dataSource instance.
    */
-  public static ByteDataSource build(DataSourceOptions options) {
+  public static BindByteDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindByteDataSource(options);
     }

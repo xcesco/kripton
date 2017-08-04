@@ -165,7 +165,7 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    * Build instance.
    * @return dataSource instance.
    */
-  public static Bean64ADataSource build(DataSourceOptions options) {
+  public static BindBean64ADataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindBean64ADataSource(options);
     }

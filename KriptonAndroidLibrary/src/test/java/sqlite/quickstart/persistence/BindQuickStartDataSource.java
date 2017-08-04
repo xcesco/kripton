@@ -221,7 +221,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * Build instance.
    * @return dataSource instance.
    */
-  public static QuickStartDataSource build(DataSourceOptions options) {
+  public static BindQuickStartDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindQuickStartDataSource(options);
     }

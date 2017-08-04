@@ -165,7 +165,7 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
    * Build instance.
    * @return dataSource instance.
    */
-  public static Bean93DataSource build(DataSourceOptions options) {
+  public static BindBean93DataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindBean93DataSource(options);
     }

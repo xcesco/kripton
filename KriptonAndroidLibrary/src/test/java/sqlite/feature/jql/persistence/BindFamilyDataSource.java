@@ -185,7 +185,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * Build instance.
    * @return dataSource instance.
    */
-  public static FamilyDataSource build(DataSourceOptions options) {
+  public static BindFamilyDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindFamilyDataSource(options);
     }

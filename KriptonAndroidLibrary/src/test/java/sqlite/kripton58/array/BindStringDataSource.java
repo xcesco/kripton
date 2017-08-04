@@ -165,7 +165,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * Build instance.
    * @return dataSource instance.
    */
-  public static StringDataSource build(DataSourceOptions options) {
+  public static BindStringDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindStringDataSource(options);
     }

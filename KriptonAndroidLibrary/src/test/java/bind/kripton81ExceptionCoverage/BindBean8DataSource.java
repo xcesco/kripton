@@ -165,7 +165,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * Build instance.
    * @return dataSource instance.
    */
-  public static Bean8DataSource build(DataSourceOptions options) {
+  public static BindBean8DataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindBean8DataSource(options);
     }

@@ -165,7 +165,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    * Build instance.
    * @return dataSource instance.
    */
-  public static FloatDataSource build(DataSourceOptions options) {
+  public static BindFloatDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindFloatDataSource(options);
     }
