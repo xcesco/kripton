@@ -18,7 +18,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_stm
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Sql_stmtContext;
 
 import android.database.sqlite.SQLiteDatabase;
-import sqlite.feature.schema.version2.BindSchoolDataSource;
 
 public class SQLiteUpdateTestHelper {
 	public static List<String> readSQLFromFile(String sqlDefinitionFile) {
