@@ -27,7 +27,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   /**
    * <p>datasource singleton</p>
    */
-  private static BindCharDataSource instance;
+  static BindCharDataSource instance;
 
   /**
    * <p>dao instance</p>

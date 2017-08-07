@@ -27,7 +27,7 @@ public class BindBean84ADataSource extends AbstractDataSource implements BindBea
   /**
    * <p>datasource singleton</p>
    */
-  private static BindBean84ADataSource instance;
+  static BindBean84ADataSource instance;
 
   /**
    * <p>dao instance</p>

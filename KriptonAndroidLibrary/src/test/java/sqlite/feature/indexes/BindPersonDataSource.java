@@ -27,7 +27,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * <p>datasource singleton</p>
    */
-  private static BindPersonDataSource instance;
+  static BindPersonDataSource instance;
 
   /**
    * <p>dao instance</p>

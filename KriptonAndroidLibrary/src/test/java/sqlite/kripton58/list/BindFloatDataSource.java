@@ -27,7 +27,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   /**
    * <p>datasource singleton</p>
    */
-  private static BindFloatDataSource instance;
+  static BindFloatDataSource instance;
 
   /**
    * <p>dao instance</p>

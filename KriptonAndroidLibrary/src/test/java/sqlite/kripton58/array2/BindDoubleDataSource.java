@@ -27,7 +27,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
   /**
    * <p>datasource singleton</p>
    */
-  private static BindDoubleDataSource instance;
+  static BindDoubleDataSource instance;
 
   /**
    * <p>dao instance</p>

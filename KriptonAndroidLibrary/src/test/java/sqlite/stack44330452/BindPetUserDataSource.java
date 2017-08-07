@@ -30,7 +30,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   /**
    * <p>datasource singleton</p>
    */
-  private static BindPetUserDataSource instance;
+  static BindPetUserDataSource instance;
 
   /**
    * <p>dao instance</p>

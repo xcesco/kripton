@@ -100,7 +100,7 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param db
 	 * @param prefix
 	 */
-	public static void addPrefixToTables(SQLiteDatabase db, final String prefix) {
+	public static void renameTablesWithPrefix(SQLiteDatabase db, final String prefix) {
 		Logger.info("MASSIVE TABLE RENAME OPERATION: ADD PREFIX " + prefix);
 		query(db, null, QueryType.TABLE, new OnResultListener() {
 

@@ -27,7 +27,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   /**
    * <p>datasource singleton</p>
    */
-  private static BindShortDataSource instance;
+  static BindShortDataSource instance;
 
   /**
    * <p>dao instance</p>

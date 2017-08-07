@@ -40,7 +40,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * <p>datasource singleton</p>
    */
-  private static BindQuickStartDataSource instance;
+  static BindQuickStartDataSource instance;
 
   /**
    * <p>dao instance</p>

@@ -30,7 +30,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   /**
    * <p>datasource singleton</p>
    */
-  private static BindDummyDataSource instance;
+  static BindDummyDataSource instance;
 
   /**
    * <p>dao instance</p>

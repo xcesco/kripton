@@ -28,7 +28,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
   /**
    * <p>datasource singleton</p>
    */
-  private static BindPersonUpdateDataSource instance;
+  static BindPersonUpdateDataSource instance;
 
   /**
    * <p>dao instance</p>

@@ -27,7 +27,7 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>datasource singleton</p>
    */
-  private static BindDummy04DataSource instance;
+  static BindDummy04DataSource instance;
 
   /**
    * <p>dao instance</p>

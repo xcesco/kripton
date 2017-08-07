@@ -28,7 +28,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   /**
    * <p>datasource singleton</p>
    */
-  private static BindWhisperDataSource instance;
+  static BindWhisperDataSource instance;
 
   /**
    * <p>dao instance</p>

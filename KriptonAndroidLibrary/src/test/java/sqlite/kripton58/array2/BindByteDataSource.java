@@ -27,7 +27,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
   /**
    * <p>datasource singleton</p>
    */
-  private static BindByteDataSource instance;
+  static BindByteDataSource instance;
 
   /**
    * <p>dao instance</p>

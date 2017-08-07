@@ -36,7 +36,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * <p>datasource singleton</p>
    */
-  private static BindSchoolDataSource instance;
+  static BindSchoolDataSource instance;
 
   /**
    * <p>dao instance</p>

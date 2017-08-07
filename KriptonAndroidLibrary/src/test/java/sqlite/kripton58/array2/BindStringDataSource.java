@@ -27,7 +27,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   /**
    * <p>datasource singleton</p>
    */
-  private static BindStringDataSource instance;
+  static BindStringDataSource instance;
 
   /**
    * <p>dao instance</p>

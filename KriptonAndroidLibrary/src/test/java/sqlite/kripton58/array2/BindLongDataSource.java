@@ -27,7 +27,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   /**
    * <p>datasource singleton</p>
    */
-  private static BindLongDataSource instance;
+  static BindLongDataSource instance;
 
   /**
    * <p>dao instance</p>

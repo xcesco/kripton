@@ -27,7 +27,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   /**
    * <p>datasource singleton</p>
    */
-  private static BindBean2DataSource instance;
+  static BindBean2DataSource instance;
 
   /**
    * <p>dao instance</p>

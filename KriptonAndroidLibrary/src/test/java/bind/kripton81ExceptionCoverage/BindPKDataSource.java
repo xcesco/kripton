@@ -27,7 +27,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
   /**
    * <p>datasource singleton</p>
    */
-  private static BindPKDataSource instance;
+  static BindPKDataSource instance;
 
   /**
    * <p>dao instance</p>

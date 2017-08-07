@@ -27,7 +27,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   /**
    * <p>datasource singleton</p>
    */
-  private static BindBean8DataSource instance;
+  static BindBean8DataSource instance;
 
   /**
    * <p>dao instance</p>

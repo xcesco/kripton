@@ -27,7 +27,7 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
   /**
    * <p>datasource singleton</p>
    */
-  private static BindBean64BDataSource instance;
+  static BindBean64BDataSource instance;
 
   /**
    * <p>dao instance</p>

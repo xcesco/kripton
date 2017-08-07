@@ -27,7 +27,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   /**
    * <p>datasource singleton</p>
    */
-  private static BindFirstAidDataSource instance;
+  static BindFirstAidDataSource instance;
 
   /**
    * <p>dao instance</p>

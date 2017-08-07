@@ -32,7 +32,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * <p>datasource singleton</p>
    */
-  private static BindFamilyDataSource instance;
+  static BindFamilyDataSource instance;
 
   /**
    * <p>dao instance</p>

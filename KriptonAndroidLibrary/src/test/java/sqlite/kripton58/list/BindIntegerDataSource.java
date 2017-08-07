@@ -27,7 +27,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   /**
    * <p>datasource singleton</p>
    */
-  private static BindIntegerDataSource instance;
+  static BindIntegerDataSource instance;
 
   /**
    * <p>dao instance</p>

@@ -24,7 +24,7 @@ public class TestSchemaUpdater extends BaseAndroidTest {
 
 					@Override
 					public void execute(SQLiteDatabase database) {
-						SQLiteUpdateTaskHelper.addPrefixToTables(database, "tmp_");
+						SQLiteUpdateTaskHelper.renameTablesWithPrefix(database, "tmp_");
 						SQLiteUpdateTaskHelper.executeSQLFromFile(database, "schemas/school_schema_2.sql");
 						SQLiteUpdateTaskHelper.dropTablesWithPrefix(database, "tmp_");
 
