@@ -73,7 +73,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
   /**
    * instance
    */
-  public static BindByteDataSource instance() {
+  public static synchronized BindByteDataSource instance() {
     if (instance==null) {
       instance=new BindByteDataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
    * @return opened dataSource instance.
    */
   public static BindByteDataSource open() {
-    if (instance==null) {
-      instance=new BindByteDataSource(null);
-    }
+    BindByteDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
    * @return opened dataSource instance.
    */
   public static BindByteDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindByteDataSource(null);
-    }
+    BindByteDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -165,7 +161,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
    * Build instance.
    * @return dataSource instance.
    */
-  public static ByteDataSource build(DataSourceOptions options) {
+  public static BindByteDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindByteDataSource(options);
     }

@@ -116,7 +116,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * instance
    */
-  public static BindQuickStartDataSource instance() {
+  public static synchronized BindQuickStartDataSource instance() {
     if (instance==null) {
       instance=new BindQuickStartDataSource(null);
     }
@@ -128,9 +128,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @return opened dataSource instance.
    */
   public static BindQuickStartDataSource open() {
-    if (instance==null) {
-      instance=new BindQuickStartDataSource(null);
-    }
+    BindQuickStartDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -140,9 +138,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @return opened dataSource instance.
    */
   public static BindQuickStartDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindQuickStartDataSource(null);
-    }
+    BindQuickStartDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -221,7 +217,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * Build instance.
    * @return dataSource instance.
    */
-  public static QuickStartDataSource build(DataSourceOptions options) {
+  public static BindQuickStartDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindQuickStartDataSource(options);
     }

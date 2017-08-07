@@ -73,7 +73,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   /**
    * instance
    */
-  public static BindIntegerDataSource instance() {
+  public static synchronized BindIntegerDataSource instance() {
     if (instance==null) {
       instance=new BindIntegerDataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * @return opened dataSource instance.
    */
   public static BindIntegerDataSource open() {
-    if (instance==null) {
-      instance=new BindIntegerDataSource(null);
-    }
+    BindIntegerDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * @return opened dataSource instance.
    */
   public static BindIntegerDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindIntegerDataSource(null);
-    }
+    BindIntegerDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -165,7 +161,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * Build instance.
    * @return dataSource instance.
    */
-  public static IntegerDataSource build(DataSourceOptions options) {
+  public static BindIntegerDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindIntegerDataSource(options);
     }

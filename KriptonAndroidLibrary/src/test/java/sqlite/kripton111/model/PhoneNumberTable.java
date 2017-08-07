@@ -29,9 +29,9 @@ public class PhoneNumberTable {
    * DDL to drop table phone_number
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS phone_number;</pre>
+   * <pre> DROP INDEX IF EXISTS idx_phone_number_1;DROP TABLE IF EXISTS phone_number;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS phone_number;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_phone_number_1;DROP TABLE IF EXISTS phone_number;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.

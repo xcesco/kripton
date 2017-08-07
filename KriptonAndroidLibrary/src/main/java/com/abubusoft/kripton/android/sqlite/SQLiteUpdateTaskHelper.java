@@ -222,9 +222,9 @@ public abstract class SQLiteUpdateTaskHelper {
 
 	}
 	
-	public static void verifySchema(SQLiteDatabase database, String fileNameSchema) {
+	public static <H extends AbstractDataSource> void verifySchema(H dataSource, String fileNameSchema) {
 		try {
-			verifySchema(database, new FileInputStream(fileNameSchema));
+			verifySchema(dataSource.openWritableDatabase(), new FileInputStream(fileNameSchema));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			
@@ -232,9 +232,9 @@ public abstract class SQLiteUpdateTaskHelper {
 		}
 	}
 	
-	public static void verifySchema(SQLiteDatabase database, File fileSchema) {
+	public  static <H extends AbstractDataSource> void verifySchema(H dataSource, File fileSchema) {
 		try {
-			verifySchema(database, new FileInputStream(fileSchema));
+			verifySchema(dataSource.openWritableDatabase(), new FileInputStream(fileSchema));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			
@@ -242,7 +242,7 @@ public abstract class SQLiteUpdateTaskHelper {
 		}
 	}
 
-	public static void verifySchema(SQLiteDatabase database, InputStream inputStream) {
+	static void verifySchema(SQLiteDatabase database, InputStream inputStream) {
 		Set<String> actualSql = new HashSet<String>();
 		actualSql.addAll(SQLiteUpdateTaskHelper.getAllTables(database).values());
 		actualSql.addAll(SQLiteUpdateTaskHelper.getAllIndexes(database).values());
@@ -297,6 +297,8 @@ public abstract class SQLiteUpdateTaskHelper {
 		dataSource.version = version;
 		dataSource.database = null;
 		dataSource.sqliteHelper = null;
+		
+		dataSource.openWritableDatabase();
 	}
 
 	public static <E extends AbstractDataSource> void clearDatabase(E dataSource) {		

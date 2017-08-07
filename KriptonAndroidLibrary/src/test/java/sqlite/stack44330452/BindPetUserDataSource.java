@@ -86,7 +86,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   /**
    * instance
    */
-  public static BindPetUserDataSource instance() {
+  public static synchronized BindPetUserDataSource instance() {
     if (instance==null) {
       instance=new BindPetUserDataSource(null);
     }
@@ -98,9 +98,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * @return opened dataSource instance.
    */
   public static BindPetUserDataSource open() {
-    if (instance==null) {
-      instance=new BindPetUserDataSource(null);
-    }
+    BindPetUserDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -110,9 +108,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * @return opened dataSource instance.
    */
   public static BindPetUserDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindPetUserDataSource(null);
-    }
+    BindPetUserDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -183,7 +179,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * Build instance.
    * @return dataSource instance.
    */
-  public static PetUserDataSource build(DataSourceOptions options) {
+  public static BindPetUserDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPetUserDataSource(options);
     }

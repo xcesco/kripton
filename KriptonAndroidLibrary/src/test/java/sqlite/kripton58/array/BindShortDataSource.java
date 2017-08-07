@@ -73,7 +73,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   /**
    * instance
    */
-  public static BindShortDataSource instance() {
+  public static synchronized BindShortDataSource instance() {
     if (instance==null) {
       instance=new BindShortDataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    * @return opened dataSource instance.
    */
   public static BindShortDataSource open() {
-    if (instance==null) {
-      instance=new BindShortDataSource(null);
-    }
+    BindShortDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    * @return opened dataSource instance.
    */
   public static BindShortDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindShortDataSource(null);
-    }
+    BindShortDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -165,7 +161,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    * Build instance.
    * @return dataSource instance.
    */
-  public static ShortDataSource build(DataSourceOptions options) {
+  public static BindShortDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindShortDataSource(options);
     }

@@ -30,6 +30,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * <p>
@@ -169,7 +170,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	}
 
 	void forceClose() {
-		openCounter.set(1);
+		openCounter.set(0);
 	}
 
 	protected SQLiteUpdateTask findPopulateTaskList(int currentVersion) {

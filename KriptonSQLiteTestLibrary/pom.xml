@@ -20,7 +20,7 @@
 		<!-- test version -->
 		<junit.version>4.12</junit.version>
 		<unitils.version>3.4.2</unitils.version>
-		<robolectric.version>3.4</robolectric.version>
+		<robolectric.version>3.1.4</robolectric.version>
 		
 
 		<kripton.debug>false</kripton.debug>

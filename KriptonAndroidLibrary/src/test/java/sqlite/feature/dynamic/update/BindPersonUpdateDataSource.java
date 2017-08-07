@@ -74,7 +74,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
   /**
    * instance
    */
-  public static BindPersonUpdateDataSource instance() {
+  public static synchronized BindPersonUpdateDataSource instance() {
     if (instance==null) {
       instance=new BindPersonUpdateDataSource(null);
     }
@@ -86,9 +86,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    * @return opened dataSource instance.
    */
   public static BindPersonUpdateDataSource open() {
-    if (instance==null) {
-      instance=new BindPersonUpdateDataSource(null);
-    }
+    BindPersonUpdateDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -98,9 +96,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    * @return opened dataSource instance.
    */
   public static BindPersonUpdateDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindPersonUpdateDataSource(null);
-    }
+    BindPersonUpdateDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -166,7 +162,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    * Build instance.
    * @return dataSource instance.
    */
-  public static PersonUpdateDataSource build(DataSourceOptions options) {
+  public static BindPersonUpdateDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPersonUpdateDataSource(options);
     }

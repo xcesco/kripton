@@ -73,7 +73,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   /**
    * instance
    */
-  public static BindLongDataSource instance() {
+  public static synchronized BindLongDataSource instance() {
     if (instance==null) {
       instance=new BindLongDataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    * @return opened dataSource instance.
    */
   public static BindLongDataSource open() {
-    if (instance==null) {
-      instance=new BindLongDataSource(null);
-    }
+    BindLongDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    * @return opened dataSource instance.
    */
   public static BindLongDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindLongDataSource(null);
-    }
+    BindLongDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -165,7 +161,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
    * Build instance.
    * @return dataSource instance.
    */
-  public static LongDataSource build(DataSourceOptions options) {
+  public static BindLongDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindLongDataSource(options);
     }

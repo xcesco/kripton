@@ -73,7 +73,7 @@ public class BindBean64DataSource extends AbstractDataSource implements BindBean
   /**
    * instance
    */
-  public static BindBean64DataSource instance() {
+  public static synchronized BindBean64DataSource instance() {
     if (instance==null) {
       instance=new BindBean64DataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindBean64DataSource extends AbstractDataSource implements BindBean
    * @return opened dataSource instance.
    */
   public static BindBean64DataSource open() {
-    if (instance==null) {
-      instance=new BindBean64DataSource(null);
-    }
+    BindBean64DataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindBean64DataSource extends AbstractDataSource implements BindBean
    * @return opened dataSource instance.
    */
   public static BindBean64DataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindBean64DataSource(null);
-    }
+    BindBean64DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -165,7 +161,7 @@ public class BindBean64DataSource extends AbstractDataSource implements BindBean
    * Build instance.
    * @return dataSource instance.
    */
-  public static Bean64DataSource build(DataSourceOptions options) {
+  public static BindBean64DataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindBean64DataSource(options);
     }

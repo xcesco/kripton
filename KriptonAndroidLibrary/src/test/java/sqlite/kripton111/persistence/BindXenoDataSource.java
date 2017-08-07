@@ -102,7 +102,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * instance
    */
-  public static BindXenoDataSource instance() {
+  public static synchronized BindXenoDataSource instance() {
     if (instance==null) {
       instance=new BindXenoDataSource(null);
     }
@@ -114,9 +114,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @return opened dataSource instance.
    */
   public static BindXenoDataSource open() {
-    if (instance==null) {
-      instance=new BindXenoDataSource(null);
-    }
+    BindXenoDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -126,9 +124,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @return opened dataSource instance.
    */
   public static BindXenoDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindXenoDataSource(null);
-    }
+    BindXenoDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -140,12 +136,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+    Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -175,12 +171,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -202,7 +198,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * Build instance.
    * @return dataSource instance.
    */
-  public static XenoDataSource build(DataSourceOptions options) {
+  public static BindXenoDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindXenoDataSource(options);
     }

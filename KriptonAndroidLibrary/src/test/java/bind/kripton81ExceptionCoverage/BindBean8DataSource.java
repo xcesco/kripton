@@ -73,7 +73,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   /**
    * instance
    */
-  public static BindBean8DataSource instance() {
+  public static synchronized BindBean8DataSource instance() {
     if (instance==null) {
       instance=new BindBean8DataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * @return opened dataSource instance.
    */
   public static BindBean8DataSource open() {
-    if (instance==null) {
-      instance=new BindBean8DataSource(null);
-    }
+    BindBean8DataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * @return opened dataSource instance.
    */
   public static BindBean8DataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindBean8DataSource(null);
-    }
+    BindBean8DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -165,7 +161,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * Build instance.
    * @return dataSource instance.
    */
-  public static Bean8DataSource build(DataSourceOptions options) {
+  public static BindBean8DataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindBean8DataSource(options);
     }

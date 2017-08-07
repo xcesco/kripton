@@ -73,7 +73,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   /**
    * instance
    */
-  public static BindFloatDataSource instance() {
+  public static synchronized BindFloatDataSource instance() {
     if (instance==null) {
       instance=new BindFloatDataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    * @return opened dataSource instance.
    */
   public static BindFloatDataSource open() {
-    if (instance==null) {
-      instance=new BindFloatDataSource(null);
-    }
+    BindFloatDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    * @return opened dataSource instance.
    */
   public static BindFloatDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindFloatDataSource(null);
-    }
+    BindFloatDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -165,7 +161,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    * Build instance.
    * @return dataSource instance.
    */
-  public static FloatDataSource build(DataSourceOptions options) {
+  public static BindFloatDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindFloatDataSource(options);
     }

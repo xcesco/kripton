@@ -3,6 +3,7 @@ package com.abubusoft.kripton.android.sqlite;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,13 @@ import org.apache.commons.io.IOUtils;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.internals.MigrationSQLChecker;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Sql_stmtContext;
 
 import android.database.sqlite.SQLiteDatabase;
+import sqlite.feature.schema.version2.BindSchoolDataSource;
 
 public class SQLiteUpdateTestHelper {
 	public static List<String> readSQLFromFile(String sqlDefinitionFile) {
@@ -54,6 +57,20 @@ public class SQLiteUpdateTestHelper {
 		for (String item : executionList) {
 			Logger.info(item);
 			database.execSQL(item);
+		}
+
+	}
+
+	public static void resetInstance(Class<? extends AbstractDataSource> classDataSource) {
+		Field threadLocalField;
+		try {
+			threadLocalField = classDataSource.getDeclaredField("instance");
+			threadLocalField.setAccessible(true);
+
+			threadLocalField.set(null, null);
+		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {		
+			e.printStackTrace();
+			throw(new KriptonRuntimeException(e));
 		}
 
 	}
