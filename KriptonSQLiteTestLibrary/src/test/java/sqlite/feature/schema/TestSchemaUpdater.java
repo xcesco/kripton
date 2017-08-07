@@ -18,20 +18,20 @@ public class TestSchemaUpdater extends BaseAndroidTest {
 
 	@Test
 	public void testUpdateWithHelper() {
-		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, "schemas/school.schema.1.sql")
+		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, "schemas/school_schema_1.sql")
 
 				.addVersionUpdateTask(new SQLiteUpdateTask(2) {
 
 					@Override
 					public void execute(SQLiteDatabase database) {
 						SQLiteUpdateTaskHelper.addPrefixToTables(database, "tmp_");
-						SQLiteUpdateTaskHelper.executeSQLFromFile(database, "schemas/school.schema.2.sql");
+						SQLiteUpdateTaskHelper.executeSQLFromFile(database, "schemas/school_schema_2.sql");
 						SQLiteUpdateTaskHelper.dropTablesWithPrefix(database, "tmp_");
 
 					}
 				}).build();
 		database.create();
-		database.updateAndVerify(2, "schemas/school.schema.2.sql");
+		database.updateAndVerify(2, "schemas/school_schema_2.sql");
 
 		log("finish");
 
@@ -39,11 +39,11 @@ public class TestSchemaUpdater extends BaseAndroidTest {
 
 	@Test
 	public void testUpdateWithFile() {
-		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, "schemas/school.schema.1.sql")
-				.addVersionUpdateTask(2, "schemas/school.update.1.2.sql").build();
+		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, "schemas/school_schema_1.sql")
+				.addVersionUpdateTask(2, "schemas/school_update_1_2.sql").build();
 
 		database.create();
-		database.updateAndVerify(2, "schemas/school.schema.2.sql");
+		database.updateAndVerify(2, "schemas/school_schema_2.sql");
 
 		log("finish");
 

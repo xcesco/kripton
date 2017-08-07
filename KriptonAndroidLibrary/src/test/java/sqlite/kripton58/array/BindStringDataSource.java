@@ -73,7 +73,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   /**
    * instance
    */
-  public static BindStringDataSource instance() {
+  public static synchronized BindStringDataSource instance() {
     if (instance==null) {
       instance=new BindStringDataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * @return opened dataSource instance.
    */
   public static BindStringDataSource open() {
-    if (instance==null) {
-      instance=new BindStringDataSource(null);
-    }
+    BindStringDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * @return opened dataSource instance.
    */
   public static BindStringDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindStringDataSource(null);
-    }
+    BindStringDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }

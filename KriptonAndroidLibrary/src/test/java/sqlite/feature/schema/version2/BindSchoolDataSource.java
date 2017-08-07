@@ -112,7 +112,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * instance
    */
-  public static BindSchoolDataSource instance() {
+  public static synchronized BindSchoolDataSource instance() {
     if (instance==null) {
       instance=new BindSchoolDataSource(null);
     }
@@ -124,9 +124,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * @return opened dataSource instance.
    */
   public static BindSchoolDataSource open() {
-    if (instance==null) {
-      instance=new BindSchoolDataSource(null);
-    }
+    BindSchoolDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -136,9 +134,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * @return opened dataSource instance.
    */
   public static BindSchoolDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindSchoolDataSource(null);
-    }
+    BindSchoolDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -150,10 +146,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-    database.execSQL(StudentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
     database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+    database.execSQL(StudentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
     database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
@@ -187,10 +183,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-      database.execSQL(StudentTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
       database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+      database.execSQL(StudentTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
       database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);

@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.android.sqlite;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -137,7 +139,12 @@ public class SQLiteUpdateTestDatabase {
 			}
 		};
 
-		SQLiteUpdateTaskHelper.verifySchema(sqlite.getWritableDatabase(), schemaDefinitionFileName);
+		try {
+			SQLiteUpdateTaskHelper.verifySchema(sqlite.getWritableDatabase(), new FileInputStream(schemaDefinitionFileName));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			throw(new KriptonRuntimeException(e));
+		}
 	}
 
 	List<SQLiteUpdateTask> findTask(int previousVersion, int currentVersion) {

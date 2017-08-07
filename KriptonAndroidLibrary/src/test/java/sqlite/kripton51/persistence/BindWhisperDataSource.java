@@ -74,7 +74,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   /**
    * instance
    */
-  public static BindWhisperDataSource instance() {
+  public static synchronized BindWhisperDataSource instance() {
     if (instance==null) {
       instance=new BindWhisperDataSource(null);
     }
@@ -86,9 +86,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * @return opened dataSource instance.
    */
   public static BindWhisperDataSource open() {
-    if (instance==null) {
-      instance=new BindWhisperDataSource(null);
-    }
+    BindWhisperDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -98,9 +96,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * @return opened dataSource instance.
    */
   public static BindWhisperDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindWhisperDataSource(null);
-    }
+    BindWhisperDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }

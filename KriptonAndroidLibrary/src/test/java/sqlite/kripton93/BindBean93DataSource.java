@@ -73,7 +73,7 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
   /**
    * instance
    */
-  public static BindBean93DataSource instance() {
+  public static synchronized BindBean93DataSource instance() {
     if (instance==null) {
       instance=new BindBean93DataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
    * @return opened dataSource instance.
    */
   public static BindBean93DataSource open() {
-    if (instance==null) {
-      instance=new BindBean93DataSource(null);
-    }
+    BindBean93DataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
    * @return opened dataSource instance.
    */
   public static BindBean93DataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindBean93DataSource(null);
-    }
+    BindBean93DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }

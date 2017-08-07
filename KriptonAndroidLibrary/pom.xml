@@ -43,8 +43,7 @@
 		<jsr305.version>3.0.1</jsr305.version>
 		<guava.version>19.0</guava.version>
 		<javapoet.version>1.7.0</javapoet.version>
-		<robolectric.version>3.4</robolectric.version>
-		<roboletricAndroidAll.version>6.0.0_r1-robolectric-0</roboletricAndroidAll.version>
+		<robolectric.version>3.1.4</robolectric.version>
 
 		<!-- plugins version -->
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>

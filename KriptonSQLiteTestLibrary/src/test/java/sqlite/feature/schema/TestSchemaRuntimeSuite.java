@@ -24,6 +24,7 @@ import org.junit.runners.Suite;
 		{  
 		TestSchemaUpdater.class,
 		TestSchemaUpdater2.class,
+		TestSchemaUpdater3.class
 		 })
 //@formatter:on
 public class TestSchemaRuntimeSuite {

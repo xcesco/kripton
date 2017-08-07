@@ -73,7 +73,7 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   /**
    * instance
    */
-  public static BindIntDataSource instance() {
+  public static synchronized BindIntDataSource instance() {
     if (instance==null) {
       instance=new BindIntDataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
    * @return opened dataSource instance.
    */
   public static BindIntDataSource open() {
-    if (instance==null) {
-      instance=new BindIntDataSource(null);
-    }
+    BindIntDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
    * @return opened dataSource instance.
    */
   public static BindIntDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindIntDataSource(null);
-    }
+    BindIntDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }

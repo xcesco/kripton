@@ -40,7 +40,6 @@ import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
-import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -185,7 +184,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// instance
 		classBuilder
-				.addField(FieldSpec.builder(className(dataSourceName), "instance", Modifier.PRIVATE, Modifier.STATIC)
+				.addField(FieldSpec.builder(className(dataSourceName), "instance", Modifier.STATIC)
 						.addJavadoc("<p>datasource singleton</p>\n").build());
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
@@ -268,7 +267,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	private void generateInstance(String schemaName) {
 		// instance
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance")
-				.addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
+				.addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).returns(className(schemaName));
 
 		methodBuilder.beginControlFlow("if (instance==null)");
 		methodBuilder.addStatement("instance=new $L(null)", schemaName);
@@ -289,10 +288,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		methodBuilder.addJavadoc("Retrieve data source instance and open it.\n");
 		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
-
-		methodBuilder.beginControlFlow("if (instance==null)");
-		methodBuilder.addStatement("instance=new $L(null)", schemaName);
-		methodBuilder.endControlFlow();
+		
+		methodBuilder.addStatement("$L instance=instance()", schemaName);
 
 		methodBuilder.addStatement("instance.openWritableDatabase()");
 		methodBuilder.addCode("return instance;\n");
@@ -311,9 +308,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("Retrieve data source instance and open it in read only mode.\n");
 		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
 
-		methodBuilder.beginControlFlow("if (instance==null)");
-		methodBuilder.addStatement("instance=new $L(null)", schemaName);
-		methodBuilder.endControlFlow();
+		methodBuilder.addStatement("$L instance=instance()", schemaName);
 
 		methodBuilder.addStatement("instance.openReadOnlyDatabase()");
 		methodBuilder.addCode("return instance;\n");

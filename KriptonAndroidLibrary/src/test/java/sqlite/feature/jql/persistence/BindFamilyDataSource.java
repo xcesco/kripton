@@ -88,7 +88,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * instance
    */
-  public static BindFamilyDataSource instance() {
+  public static synchronized BindFamilyDataSource instance() {
     if (instance==null) {
       instance=new BindFamilyDataSource(null);
     }
@@ -100,9 +100,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * @return opened dataSource instance.
    */
   public static BindFamilyDataSource open() {
-    if (instance==null) {
-      instance=new BindFamilyDataSource(null);
-    }
+    BindFamilyDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -112,9 +110,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * @return opened dataSource instance.
    */
   public static BindFamilyDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindFamilyDataSource(null);
-    }
+    BindFamilyDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }

@@ -102,7 +102,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * instance
    */
-  public static BindXenoDataSource instance() {
+  public static synchronized BindXenoDataSource instance() {
     if (instance==null) {
       instance=new BindXenoDataSource(null);
     }
@@ -114,9 +114,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @return opened dataSource instance.
    */
   public static BindXenoDataSource open() {
-    if (instance==null) {
-      instance=new BindXenoDataSource(null);
-    }
+    BindXenoDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -126,9 +124,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @return opened dataSource instance.
    */
   public static BindXenoDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindXenoDataSource(null);
-    }
+    BindXenoDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }

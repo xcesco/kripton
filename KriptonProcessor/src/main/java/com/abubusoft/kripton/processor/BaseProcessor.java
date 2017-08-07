@@ -128,14 +128,4 @@ public abstract class BaseProcessor extends AbstractProcessor {
 		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
 	}
 
-	/**
-	 * Display warn message
-	 * 
-	 * @param msg
-	 * @param args
-	 */
-	protected void warn(String msg, Object... args) {
-		messager.printMessage(Diagnostic.Kind.WARNING, String.format(msg, args));
-	}
-
 }

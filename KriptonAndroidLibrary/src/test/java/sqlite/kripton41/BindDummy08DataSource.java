@@ -73,7 +73,7 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
   /**
    * instance
    */
-  public static BindDummy08DataSource instance() {
+  public static synchronized BindDummy08DataSource instance() {
     if (instance==null) {
       instance=new BindDummy08DataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
    * @return opened dataSource instance.
    */
   public static BindDummy08DataSource open() {
-    if (instance==null) {
-      instance=new BindDummy08DataSource(null);
-    }
+    BindDummy08DataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
    * @return opened dataSource instance.
    */
   public static BindDummy08DataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindDummy08DataSource(null);
-    }
+    BindDummy08DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }

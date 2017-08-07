@@ -74,7 +74,7 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
   /**
    * instance
    */
-  public static BindPerson1DataSource instance() {
+  public static synchronized BindPerson1DataSource instance() {
     if (instance==null) {
       instance=new BindPerson1DataSource(null);
     }
@@ -86,9 +86,7 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
    * @return opened dataSource instance.
    */
   public static BindPerson1DataSource open() {
-    if (instance==null) {
-      instance=new BindPerson1DataSource(null);
-    }
+    BindPerson1DataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -98,9 +96,7 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
    * @return opened dataSource instance.
    */
   public static BindPerson1DataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindPerson1DataSource(null);
-    }
+    BindPerson1DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }

@@ -30,6 +30,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * <p>
@@ -135,16 +136,17 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	public void close() {
 		lockDb.lock();
 		try {
-			if (openCounter.decrementAndGet() == 0) {
+			if (openCounter.decrementAndGet() <= 0) {
 				// Closing database
-				database.close();
+				if (database != null) {
+					database.close();
+				}
 				database = null;
 				Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			} else {
 				Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			}
 		} finally {
-			lockDb.unlock();
 			switch (status.get()) {
 			case READ_AND_WRITE_OPENED:
 				if (database == null)
@@ -156,9 +158,13 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					status.set(TypeStatus.CLOSED);
 				lockReadAccess.unlock();
 				break;
+			case CLOSED:
+				// do nothing
+				break;
 			default:
 				throw (new KriptonRuntimeException("Inconsistent status"));
 			}
+			lockDb.unlock();
 		}
 
 	}
@@ -193,9 +199,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		}
 
 		if (previousVersion != currentVersion) {
-			throw (new KriptonRuntimeException(
-					String.format("Can not find version update task from version %s to version %s", previousVersion,
-							currentVersion)));
+			throw (new KriptonRuntimeException(String.format("Can not find version update task from version %s to version %s", previousVersion, currentVersion)));
 		}
 
 		return result;
@@ -204,11 +208,9 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	protected void createHelper(DataSourceOptions options) {
 		if (KriptonLibrary.context() == null)
-			throw new KriptonRuntimeException(
-					"Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
+			throw new KriptonRuntimeException("Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
 
-		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version,
-				options.errorHandler) {
+		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version, options.errorHandler) {
 
 			@Override
 			public void onConfigure(SQLiteDatabase database) {
@@ -242,8 +244,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 */
 	public SQLiteDatabase database() {
 		if (database == null)
-			throw (new KriptonRuntimeException(
-					"No database connection is opened before use " + this.getClass().getCanonicalName()));
+			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
 		return database;
 	}
 
@@ -291,7 +292,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @return read only database
 	 */
 	public SQLiteDatabase openReadOnlyDatabase() {
-		lockDb.lock();
+		lockDb.lock();		
 		try {
 			if (sqliteHelper == null)
 				createHelper(options);
@@ -300,6 +301,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 			if (openCounter.incrementAndGet() == 1) {
 				// open new read database
+				sqliteHelper.setWriteAheadLoggingEnabled(true);
 				database = sqliteHelper.getReadableDatabase();
 				Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
 			} else {
@@ -308,7 +310,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		} finally {
 			lockDb.unlock();
 			lockReadAccess.lock();
-
 		}
 
 		return database;
@@ -322,7 +323,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @return writable database
 	 */
 	public SQLiteDatabase openWritableDatabase() {
-		lockDb.lock();
+		lockDb.lock();		
 		try {
 			if (sqliteHelper == null)
 				createHelper(options);
@@ -331,6 +332,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 			if (openCounter.incrementAndGet() == 1) {
 				// open new write database
+				sqliteHelper.setWriteAheadLoggingEnabled(true);
 				database = sqliteHelper.getWritableDatabase();
 				Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
 			} else {
@@ -339,6 +341,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		} finally {
 			lockDb.unlock();
 			lockReadWriteAccess.lock();
+
 		}
 
 		return database;

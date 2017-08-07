@@ -73,7 +73,7 @@ public class BindBean84BDataSource extends AbstractDataSource implements BindBea
   /**
    * instance
    */
-  public static BindBean84BDataSource instance() {
+  public static synchronized BindBean84BDataSource instance() {
     if (instance==null) {
       instance=new BindBean84BDataSource(null);
     }
@@ -85,9 +85,7 @@ public class BindBean84BDataSource extends AbstractDataSource implements BindBea
    * @return opened dataSource instance.
    */
   public static BindBean84BDataSource open() {
-    if (instance==null) {
-      instance=new BindBean84BDataSource(null);
-    }
+    BindBean84BDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -97,9 +95,7 @@ public class BindBean84BDataSource extends AbstractDataSource implements BindBea
    * @return opened dataSource instance.
    */
   public static BindBean84BDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindBean84BDataSource(null);
-    }
+    BindBean84BDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
