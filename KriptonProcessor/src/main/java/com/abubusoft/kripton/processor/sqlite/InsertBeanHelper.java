@@ -55,7 +55,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 		// generate javadoc and query
 		sqlInsert = generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
-		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
+		//methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
 
 		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
 

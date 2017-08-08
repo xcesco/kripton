@@ -244,7 +244,7 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.addCode("\n// log for where parameters -- BEGIN\n");
 			methodBuilder.addStatement("int _whereParamCounter=0");
 			methodBuilder.beginControlFlow("for (String _whereParamItem: _sqlWhereParams)");
-			methodBuilder.addStatement("$T.info(\"==> param%s: '%s'\",(_whereParamCounter++), _whereParamItem)", Logger.class);
+			methodBuilder.addStatement("$T.info(\"==> param%s: '%s'\",(_whereParamCounter++), $T.checkSize(_whereParamItem))", Logger.class, StringUtils.class);
 			methodBuilder.endControlFlow();
 			methodBuilder.addCode("// log for where parameters -- END\n");
 		}
@@ -364,7 +364,7 @@ public abstract class SqlBuilderHelper {
 
 		// we need always this
 		if (!sqlWhereParamsAlreadyDefined) {
-			methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<>()", ArrayList.class, ArrayList.class);
+			methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
 		}
 
 		if (jql.isWhereConditions()) {

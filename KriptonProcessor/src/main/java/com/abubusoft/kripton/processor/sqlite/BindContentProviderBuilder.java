@@ -205,22 +205,22 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 				switch (daoMethod.jql.operationType) {
 				case INSERT:
-					AssertKripton.fail(entry.insert != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path %s", daoDefinition.getName().toString(),
+					AssertKripton.fail(entry.insert != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'", daoDefinition.getName().toString(),
 							daoMethod.jql.operationType, entry.path));
 					entry.insert = daoMethod;
 					break;
 				case UPDATE:
-					AssertKripton.fail(entry.update != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path %s", daoDefinition.getName().toString(),
+					AssertKripton.fail(entry.update != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'", daoDefinition.getName().toString(),
 							daoMethod.jql.operationType, entry.path));
 					entry.update = daoMethod;
 					break;
 				case SELECT:
-					AssertKripton.fail(entry.select != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path %s", daoDefinition.getName().toString(),
+					AssertKripton.fail(entry.select != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'", daoDefinition.getName().toString(),
 							daoMethod.jql.operationType, entry.path));
 					entry.select = daoMethod;
 					break;
 				case DELETE:
-					AssertKripton.fail(entry.delete != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path %s", daoDefinition.getName().toString(),
+					AssertKripton.fail(entry.delete != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'", daoDefinition.getName().toString(),
 							daoMethod.jql.operationType, entry.path));
 					entry.delete = daoMethod;
 					break;

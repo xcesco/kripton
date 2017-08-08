@@ -414,6 +414,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			if (StringUtils.isEmpty(currentDaoDefinition.contentProviderTypeName))
 			{
 				Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
+				AssertKripton.assertTrue(currentDaoDefinition.getParent().contentProvider!=null,"DAO '%s' has an inconsistent content provider definition, perhaps you forget to use @%s in data source interface?", currentDaoDefinition.getElement().getQualifiedName(), BindContentProvider.class.getSimpleName());
 				currentDaoDefinition.contentProviderTypeName=currentDaoDefinition.getParent().contentProvider.authority+"."+convert.convert(currentDaoDefinition.getSimpleEntityClassName());
 			}
 		}

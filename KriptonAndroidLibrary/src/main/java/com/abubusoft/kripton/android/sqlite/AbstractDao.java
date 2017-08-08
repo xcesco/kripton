@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
+import java.util.ArrayList;
+
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
@@ -44,7 +46,8 @@ public abstract class AbstractDao implements AutoCloseable {
 	protected SQLiteDatabase database() {
 		SQLiteDatabase database = dataSource.database;
 		if (database == null)
-			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
+			throw (new KriptonRuntimeException(
+					"No database connection is opened before use " + this.getClass().getCanonicalName()));
 		return database;
 	}
 
@@ -71,5 +74,28 @@ public abstract class AbstractDao implements AutoCloseable {
 		}
 
 	};
+
+	/**
+	 * Thread safe array for query parameters. It's used to avoid creation of
+	 * new array everytime a query is invoked.
+	 */
+	private ThreadLocal<ArrayList<String>> whereParamsArray = new ThreadLocal<ArrayList<String>>() {
+
+		@Override
+		protected ArrayList<String> initialValue() {
+			return new ArrayList<String>();
+		}
+	
+	};
+
+	/**
+	 * retrieve whereParamsArray attribute that allow to work with where parameters
+	 * @return
+	 */
+	protected ArrayList<String> getWhereParamsArray() {
+		ArrayList<String> array = whereParamsArray.get();
+		array.clear();
+		return array;		
+	}
 
 }

@@ -217,7 +217,7 @@ public abstract class SqlModifyBuilder {
 			// check size (one parameter is a bean and one is the where
 			// conditions)
 			AssertKripton.assertTrueOrInvalidMethodSignException(
-					method.getParameters().size() == 1 + (method.hasDynamicWhereConditions() ? 1 : 0), method,
+					method.getParameters().size() == 1 + (method.hasDynamicWhereConditions() ? 1 : 0)+(method.hasDynamicWhereArgs() ? 1 : 0), method,
 					" expected only one parameter of %s type", daoDefinition.getEntityClassName());
 		} else {
 			throw (new InvalidMethodSignException(method,
@@ -261,9 +261,7 @@ public abstract class SqlModifyBuilder {
 		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(whereStatement.value0);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = SqlBuilderHelper.removeDynamicPlaceHolder(placeHolders);
-		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(),
-				"In '%s.%s' content provider URI path variables and variables in where conditions are different",
-				daoDefinition.getName(), method.getName());
+		checkContentProviderVarsAndArguments(method, placeHolders);
 
 		// detect column used for content value
 		jqlChecker.replace(method.jql, new JQLReplacerListenerImpl() {
@@ -305,7 +303,7 @@ public abstract class SqlModifyBuilder {
 		// every controls was done in constructor of SQLiteModelMethod
 		for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
 			AssertKripton.assertTrue(SqlBuilderHelper.validate(variable.value, placeHolders, i),
-					"In '%s.%s' content provider URI path variables and variables in where conditions are different",
+					"In '%s.%s' content provider URI path variables and variables in where conditions are different. If SQL uses parameters, they must be defined in URI path.",
 					daoDefinition.getName(), method.getName());
 
 			JQLParameterName paramName = JQLParameterName.parse(variable.value);
@@ -411,6 +409,18 @@ public abstract class SqlModifyBuilder {
 
 	/**
 	 * @param method
+	 * @param daoDefinition
+	 * @param placeHolders
+	 */
+	public static void checkContentProviderVarsAndArguments(final SQLiteModelMethod method,
+			List<JQLPlaceHolder> placeHolders) {
+		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(),
+				"In '%s.%s' content provider URI path variables and variables used in where conditions are different. If SQL uses parameters, they must be defined in URI path.",
+				method.getParent().getName(), method.getName());
+	}
+
+	/**
+	 * @param method
 	 * @param methodBuilder
 	 */
 	static void generateInitForDynamicWhereVariables(SQLiteModelMethod method, MethodSpec.Builder methodBuilder,
@@ -448,15 +458,19 @@ public abstract class SqlModifyBuilder {
 			final One<Boolean> usedInWhere = new One<Boolean>(false);
 
 			methodBuilder.addCode("\n// display log\n");
-
 			String sqlForLog = jqlChecker.replace(method.jql, new JQLReplacerListenerImpl() {
 
 				@Override
 				public String onBindParameter(String bindParameterName) {
-					if (!usedInWhere.value0) {
-						// String
-						// realName=method.findParameterNameByAlias(bindParameterName);
-						// String columnName = entity.get(realName).columnName;
+					if (!usedInWhere.value0) {						
+						if (bindParameterName.contains(".")) {
+							String[] a=bindParameterName.split("\\.");
+							
+							if (a.length==2) {
+								bindParameterName=a[1];
+							}							
+						}
+						
 						return ":" + bindParameterName;
 					} else {
 						return "?";

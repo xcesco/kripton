@@ -73,7 +73,7 @@ public abstract class GenericSQLHelper {
 			}
 		});
 		
-		methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<String>()", List.class, ArrayList.class);
+		methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
 			
 		methodBuilder.addCode("\n// build where condition\n");			
 		{

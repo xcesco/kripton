@@ -241,8 +241,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		if (generationType.generateMethodContent) {
 			SplittedSql splittedSql=SqlSelectBuilder.generateSQL(method, methodBuilder, false);
 			
-			methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
-						
+			methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);						
 			methodBuilder.addStatement("_sqlBuilder.append($S)", splittedSql.sqlBasic.trim());
 			
 			SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, method.dynamicWhereParameterName, method.dynamicWhereArgsParameterName);			

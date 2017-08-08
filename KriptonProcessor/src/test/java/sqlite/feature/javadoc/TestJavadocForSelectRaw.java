@@ -13,16 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.exceptions;
+package sqlite.feature.javadoc;
 
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-public class UnknownClassInJQLException extends KriptonProcessorException {
+import sqlite.feature.javadoc.select.raw.PersonDao;
+import sqlite.feature.javadoc.select.raw.PersonDataSource;
 
-	private static final long serialVersionUID = 8462705406839489618L;
+import sqlite.AbstractBindSQLiteProcessorTest;
 
-	public UnknownClassInJQLException(SQLiteModelMethod method, String className) {
-		super(String.format("In DAO '%s' method '%s''s JQL uses class '%s' that is unknown", method.getParent().getName(), method.getName(),  className));		
+@RunWith(JUnit4.class)
+public class TestJavadocForSelectRaw extends AbstractBindSQLiteProcessorTest {
+
+	@Test
+	public void testCompileUpdateBean() throws Throwable {
+		buildDataSourceProcessorTest(Person.class, PersonDao.class, PersonDataSource.class);
 	}
 
 }

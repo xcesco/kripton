@@ -213,7 +213,7 @@ public abstract class SqlSelectBuilder {
 		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(splittedSql.sqlWhereStatement);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = SqlBuilderHelper.removeDynamicPlaceHolder(placeHolders);
-		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(), "In '%s.%s' content provider URI path variables and variables in where conditions are different",
+		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(), "In '%s.%s' content provider URI path variables and variables in where conditions are different. If SQL uses parameters, they must be defined in URI path.",
 				daoDefinition.getName(), method.getName());
 
 		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method.jql, entity);

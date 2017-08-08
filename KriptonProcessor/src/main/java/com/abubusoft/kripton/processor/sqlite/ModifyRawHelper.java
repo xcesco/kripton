@@ -24,6 +24,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
@@ -350,7 +351,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					}
 				});
 
-		return whereCondition.value0;
+		return StringUtils.ifNotEmptyAppend(whereCondition.value0, " ");
 	}
 
 	/**
@@ -546,7 +547,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			Pair<String, List<Pair<String, TypeName>>> where) {
 		boolean nullable;
 
-		methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<String>()", ArrayList.class, ArrayList.class);
+		methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
+		
+		
 		for (Pair<String, TypeName> item : where.value1) {
 			String resolvedParamName = method.findParameterNameByAlias(item.value0);
 			methodBuilder.addCode("_sqlWhereParams.add(");

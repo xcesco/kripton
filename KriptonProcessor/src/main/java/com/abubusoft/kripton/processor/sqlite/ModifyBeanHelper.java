@@ -105,7 +105,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		String tableName = daoDefinition.getEntity().getTableName();
 
 		// query builder
-		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
+		if (method.jql.isWhereConditions()) {
+			methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
+		}
 
 		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, method.dynamicWhereParameterName,
 				method.dynamicWhereArgsParameterName);
@@ -113,7 +115,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		// generate where condition
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, true);
 
-		methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
+		// methodBuilder.addCode("//$T and $T will be used to format SQL\n",
+		// StringUtils.class, SqlUtils.class);
 
 		SqlModifyBuilder.generateLogForModifiers(method, methodBuilder);
 
@@ -159,7 +162,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		boolean nullable;
 		TypeName beanClass = typeName(entity.getElement());
 
-		methodBuilder.addStatement("$T<String> _sqlWhereParams=new $T<String>()", ArrayList.class, ArrayList.class);
+		methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
 
 		for (String item : analyzer.getUsedBeanPropertyNames()) {
 			property = entity.findByName(item);
@@ -250,8 +253,14 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		String separator = "";
 		for (SQLProperty property : listUsedProperty) {
-			buffer.append(String.format("%s%s=${%s.%s}", separator, property.columnName,
-					method.findParameterAliasByName(beanNameParameter), property.getName()));
+			// this line generate ${bean.attribute}
+			// buffer.append(String.format("%s%s=${%s.%s}", separator,
+			// property.columnName,
+			// method.findParameterAliasByName(beanNameParameter),
+			// property.getName()));
+
+			// this line genearate only ${attribute}
+			buffer.append(String.format("%s%s=${%s}", separator, property.columnName, property.getName()));
 
 			bufferQuestion.append(separator);
 			bufferQuestion.append(property.columnName + "=");
@@ -262,14 +271,14 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		if (updateMode) {
 			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "'%s'");
-			sqlResult = String.format("UPDATE %s SET %s WHERE %s", daoDefinition.getEntity().getTableName(),
+			sqlResult = String.format("UPDATE %s SET %s %s", daoDefinition.getEntity().getTableName(),
 					bufferQuestion.toString(), where);
 
 			// query
 			methodBuilder.addJavadoc("<h2>SQL update:</h2>\n");
 			methodBuilder.addJavadoc("<pre>");
-			methodBuilder.addJavadoc("UPDATE $L SET $L WHERE $L", daoDefinition.getEntity().getTableName(),
-					buffer.toString(), whereCondition);
+			methodBuilder.addJavadoc("UPDATE $L SET $L$L", daoDefinition.getEntity().getTableName(), buffer.toString(),
+					StringUtils.ifNotEmptyAppend(whereCondition, " "));
 			if (method.hasDynamicWhereConditions()) {
 				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
 				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
@@ -289,11 +298,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("\n\n");
 		} else {
 			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
-			sqlResult = String.format("DELETE %s WHERE %s ", daoDefinition.getEntity().getTableName(), where);
+			sqlResult = String.format("DELETE %s %s ", daoDefinition.getEntity().getTableName(), where);
 
 			methodBuilder.addJavadoc("<h2>SQL delete:</h2>\n");
 			methodBuilder.addJavadoc("<pre>");
-			methodBuilder.addJavadoc("DELETE $L WHERE $L", daoDefinition.getEntity().getTableName(), whereCondition);
+			methodBuilder.addJavadoc("DELETE $L $L", daoDefinition.getEntity().getTableName(), whereCondition);
 			if (method.hasDynamicWhereConditions()) {
 				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
 				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);

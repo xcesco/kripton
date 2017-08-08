@@ -35,6 +35,14 @@ import java.lang.annotation.Target;
  * <code>long</code> or bean value)</li>
  * </ul>
  * 
+ * <h3>Examples</h3>
+ * <p>What follows is an examples of UPDATE method with a parameter used in content provider too.</p>
+ * <pre>
+ * &#64;BindContentProviderEntry(path="${bean.id}")
+ * &#64;BindSqlUpdate(where="id=${bean.id}")
+ * int updateBean(Person bean);
+ * </pre>
+ * 
  * @author Francesco Benincasa (abubusoft@gmail.com)
  * 
  * @see <a href=
@@ -46,7 +54,7 @@ import java.lang.annotation.Target;
 public @interface BindContentProviderEntry {
 
 	/**
-	 * Define the segment path associated to DAO.
+	 * Define the segment path associated to DAO. <strong>Do not insert '/' at beginning of path, it's automatically added.</strong>
 	 * 
 	 * @return content provider authority
 	 */
