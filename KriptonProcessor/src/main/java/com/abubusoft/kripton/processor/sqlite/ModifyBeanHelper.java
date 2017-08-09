@@ -27,7 +27,6 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -44,6 +43,12 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
+/**
+ * 
+ * 
+ * @author Francesco Benincasa (abubusoft@gmail.com)
+ *
+ */
 public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode,

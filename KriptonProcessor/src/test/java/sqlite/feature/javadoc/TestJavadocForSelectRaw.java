@@ -28,7 +28,7 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 public class TestJavadocForSelectRaw extends AbstractBindSQLiteProcessorTest {
 
 	@Test
-	public void testCompileUpdateBean() throws Throwable {
+	public void testCompileSelectRaw() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, PersonDao.class, PersonDataSource.class);
 	}
 

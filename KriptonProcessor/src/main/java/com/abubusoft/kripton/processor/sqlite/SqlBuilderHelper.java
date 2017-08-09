@@ -370,14 +370,23 @@ public abstract class SqlBuilderHelper {
 		if (jql.isWhereConditions()) {
 			// parameters extracted from query
 			final One<String> whereStatement = new One<>();
+			final One<Boolean> alreadyFoundWhereStatement = new One<>(false);
 
 			// put in whereStatement value of where statement.
 			jqlChecker.replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
 
 				@Override
 				public String onWhere(String statement) {
-					whereStatement.value0 = statement;
-					return "";
+					if (alreadyFoundWhereStatement.value0==false) {
+						whereStatement.value0 = statement;
+						alreadyFoundWhereStatement.value0=true;
+						return "";
+					} else {
+						// DO NOTHING
+						return null;						
+					}
+					
+					
 				}
 
 			});

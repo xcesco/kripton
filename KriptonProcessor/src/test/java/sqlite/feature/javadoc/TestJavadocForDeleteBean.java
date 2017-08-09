@@ -19,16 +19,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import sqlite.feature.javadoc.update.bean.PersonDao;
-import sqlite.feature.javadoc.update.bean.PersonDataSource;
+import sqlite.feature.javadoc.delete.bean.PersonDao;
+import sqlite.feature.javadoc.delete.bean.PersonDataSource;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 @RunWith(JUnit4.class)
-public class TestJavadocForUpdateBean extends AbstractBindSQLiteProcessorTest {
+public class TestJavadocForDeleteBean extends AbstractBindSQLiteProcessorTest {
 
 	@Test
-	public void testCompileUpdateBean() throws Throwable {
+	public void testCompileDeleteBean() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, PersonDao.class, PersonDataSource.class);
 	}
 

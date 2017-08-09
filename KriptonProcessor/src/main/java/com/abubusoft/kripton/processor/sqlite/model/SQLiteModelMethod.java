@@ -246,7 +246,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			final SQLEntity entity = this.getParent().getEntity();
 
-			List<ContentUriPlaceHolder> uriParams = ContentUriChecker.getInstance().extract(contentProviderUri());
+			String contentProviderUri=contentProviderUri();
+						
+			AssertKripton.assertTrueOrInvalidMethodSignException(!contentProviderUri.endsWith("/"), this, " content provider URI '%s' can not finish with '/'", contentProviderUri);
+			AssertKripton.assertTrueOrInvalidMethodSignException(!this.contentProviderPath().contains("//"), this, " content provider URI '%s' can not contain with '//'", contentProviderUri);
+			
+			List<ContentUriPlaceHolder> uriParams = ContentUriChecker.getInstance().extract(contentProviderUri);
 			String uriTemplate = ContentUriChecker.getInstance().replace(contentProviderUri(), new UriPlaceHolderReplacerListener() {
 
 				@Override
