@@ -308,10 +308,6 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<h2>SQL delete:</h2>\n");
 			methodBuilder.addJavadoc("<pre>");
 			methodBuilder.addJavadoc("DELETE $L $L", daoDefinition.getEntity().getTableName(), whereCondition);
-			if (method.hasDynamicWhereConditions()) {
-				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
-				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
-			}
 			methodBuilder.addJavadoc("</pre>");
 			methodBuilder.addJavadoc("\n\n");
 		}

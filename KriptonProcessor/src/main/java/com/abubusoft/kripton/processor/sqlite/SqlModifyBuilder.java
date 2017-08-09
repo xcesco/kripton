@@ -142,27 +142,22 @@ public abstract class SqlModifyBuilder {
 
 		if (method.contentProviderEntryPathEnabled) {
 			// delete-bean, update-bean can not be used with content provider
-			
-			
+
 			if (method.jql.containsSelectOperation) {
 				AssertKripton.failWithInvalidMethodSignException(true, method, " query can not be used in content provider");
 			}
-			
-			/*
-			switch (updateResultType) {
-			case DELETE_BEAN:
-				break;
-			case UPDATE_BEAN:
-				AssertKripton.failWithInvalidMethodSignException(true, method, "update/delete sql with a bean as parameter can not be used in content provider");
-				break;
-			case DELETE_RAW:
-			case UPDATE_RAW:
-				// we need to generate UPDATE or DELETE for content provider to
 
-			default:
-				break;
-			}*/
-			
+			/*
+			 * switch (updateResultType) { case DELETE_BEAN: break; case
+			 * UPDATE_BEAN:
+			 * AssertKripton.failWithInvalidMethodSignException(true, method,
+			 * "update/delete sql with a bean as parameter can not be used in content provider"
+			 * ); break; case DELETE_RAW: case UPDATE_RAW: // we need to
+			 * generate UPDATE or DELETE for content provider to
+			 * 
+			 * default: break; }
+			 */
+
 			generateModifierForContentProvider(elementUtils, builder, method, updateResultType);
 
 		}
@@ -254,16 +249,28 @@ public abstract class SqlModifyBuilder {
 		// parameters extracted from query
 		final One<String> whereStatement = new One<>();
 
-		// put in whereStatement value of where statement.
-		jqlChecker.replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
+		if (method.jql.isWhereConditions()) {
+			// parameters extracted from query
 
-			@Override
-			public String onWhere(String statement) {
-				whereStatement.value0 = statement;
-				return "";
-			}
+			final One<Boolean> alreadyFoundWhereStatement = new One<>(false);
 
-		});
+			// put in whereStatement value of where statement.
+			jqlChecker.replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
+
+				@Override
+				public String onWhere(String statement) {
+					if (alreadyFoundWhereStatement.value0 == false) {
+						whereStatement.value0 = statement;
+						alreadyFoundWhereStatement.value0 = true;
+						return "";
+					} else {
+						// DO NOTHING
+						return null;
+					}
+				}
+
+			});
+		}
 
 		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(whereStatement.value0);
 		// remove placeholder for dynamic where, we are not interested here

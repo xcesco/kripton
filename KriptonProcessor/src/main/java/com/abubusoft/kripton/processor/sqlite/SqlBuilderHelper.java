@@ -385,8 +385,6 @@ public abstract class SqlBuilderHelper {
 						// DO NOTHING
 						return null;						
 					}
-					
-					
 				}
 
 			});
