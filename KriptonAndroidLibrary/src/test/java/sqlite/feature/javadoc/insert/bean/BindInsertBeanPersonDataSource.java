@@ -1,4 +1,4 @@
-package sqlite.feature.javadoc.delete.bean;
+package sqlite.feature.javadoc.insert.bean;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -14,34 +14,34 @@ import sqlite.feature.javadoc.PersonTable;
 
 /**
  * <p>
- * Rapresents implementation of datasource PersonDataSource.
+ * Rapresents implementation of datasource InsertBeanPersonDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see PersonDataSource
- * @see BindPersonDaoFactory
- * @see PersonDao
- * @see PersonDaoImpl
+ * @see InsertBeanPersonDataSource
+ * @see BindInsertBeanPersonDaoFactory
+ * @see InsertBeanPersonDao
+ * @see InsertBeanPersonDaoImpl
  * @see sqlite.feature.javadoc.Person
  */
-public class BindPersonDataSource extends AbstractDataSource implements BindPersonDaoFactory, PersonDataSource {
+public class BindInsertBeanPersonDataSource extends AbstractDataSource implements BindInsertBeanPersonDaoFactory, InsertBeanPersonDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindPersonDataSource instance;
+  static BindInsertBeanPersonDataSource instance;
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonDaoImpl personDao = new PersonDaoImpl(this);
+  protected InsertBeanPersonDaoImpl insertBeanPersonDao = new InsertBeanPersonDaoImpl(this);
 
-  protected BindPersonDataSource(DataSourceOptions options) {
+  protected BindInsertBeanPersonDataSource(DataSourceOptions options) {
     super("person.db", 1, options);
   }
 
   @Override
-  public PersonDaoImpl getPersonDao() {
-    return personDao;
+  public InsertBeanPersonDaoImpl getInsertBeanPersonDao() {
+    return insertBeanPersonDao;
   }
 
   /**
@@ -74,9 +74,9 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * instance
    */
-  public static synchronized BindPersonDataSource instance() {
+  public static synchronized BindInsertBeanPersonDataSource instance() {
     if (instance==null) {
-      instance=new BindPersonDataSource(null);
+      instance=new BindInsertBeanPersonDataSource(null);
     }
     return instance;
   }
@@ -85,8 +85,8 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindPersonDataSource open() {
-    BindPersonDataSource instance=instance();
+  public static BindInsertBeanPersonDataSource open() {
+    BindInsertBeanPersonDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -95,8 +95,8 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindPersonDataSource openReadOnly() {
-    BindPersonDataSource instance=instance();
+  public static BindInsertBeanPersonDataSource openReadOnly() {
+    BindInsertBeanPersonDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -162,9 +162,9 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindPersonDataSource build(DataSourceOptions options) {
+  public static BindInsertBeanPersonDataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindPersonDataSource(options);
+      instance=new BindInsertBeanPersonDataSource(options);
     }
     instance.openWritableDatabase();
     return instance;
@@ -173,7 +173,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindPersonDaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindInsertBeanPersonDaoFactory> {
   }
 
   /**

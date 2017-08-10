@@ -284,10 +284,10 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<pre>");
 			methodBuilder.addJavadoc("UPDATE $L SET $L$L", daoDefinition.getEntity().getTableName(), buffer.toString(),
 					StringUtils.ifNotEmptyAppend(whereCondition, " "));
-			if (method.hasDynamicWhereConditions()) {
-				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
-				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
-			}
+//			if (method.hasDynamicWhereConditions()) {
+//				sqlResult += " #{" + method.dynamicWhereParameterName + "}";
+//				methodBuilder.addJavadoc(" #{$L}", method.dynamicWhereParameterName);
+//			}
 			methodBuilder.addJavadoc("</pre>");
 			methodBuilder.addJavadoc("\n\n");
 

@@ -19,8 +19,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import sqlite.feature.javadoc.delete.bean.PersonDao;
-import sqlite.feature.javadoc.delete.bean.PersonDataSource;
+import sqlite.feature.javadoc.delete.bean.DeleteBeanPersonDao;
+import sqlite.feature.javadoc.delete.bean.DeleteBeanPersonDataSource;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
@@ -29,7 +29,7 @@ public class TestJavadocForDeleteBean extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testCompileDeleteBean() throws Throwable {
-		buildDataSourceProcessorTest(Person.class, PersonDao.class, PersonDataSource.class);
+		buildDataSourceProcessorTest(Person.class, DeleteBeanPersonDao.class, DeleteBeanPersonDataSource.class);
 	}
 
 }

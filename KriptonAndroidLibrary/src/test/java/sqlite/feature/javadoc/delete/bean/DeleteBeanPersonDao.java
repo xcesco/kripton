@@ -11,7 +11,7 @@ import sqlite.feature.javadoc.Person;
 
 @BindContentProviderPath(path = "persons")
 @BindDao(Person.class)
-public interface PersonDao {
+public interface DeleteBeanPersonDao {
 
 	/**
 	 * delete BEAN with parameter.

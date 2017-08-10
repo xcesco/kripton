@@ -54,7 +54,7 @@ public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 		//ASSERT: returnType is a supported type
 		
 		// no column or too many columns
-		AssertKripton.assertTrueOrInvalidMethodSignException(fieldList.size() == 1, method, "only one field can be defined as result for this method");				
+		AssertKripton.assertTrueOrInvalidMethodSignException(fieldList.size() == 1, method, "no way to understand which field is the result for this method");				
 
 		SQLTransform t = SQLTransformer.lookup(returnTypeName);
 

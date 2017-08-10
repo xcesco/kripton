@@ -18,8 +18,6 @@ package sqlite.feature.javadoc;
 import org.junit.Test;
 
 import base.BaseAndroidTest;
-import sqlite.feature.javadoc.update.bean.BindPersonDataSource;
-import sqlite.feature.javadoc.update.bean.PersonDaoImpl;
 
 /**
  * @author Francesco Benincasa (abubusoft@gmail.com)
@@ -27,22 +25,5 @@ import sqlite.feature.javadoc.update.bean.PersonDaoImpl;
  */
 public class TestJavadocRuntime extends BaseAndroidTest {
 
-	@Test
-	public void testRunSqlite1() {	
-		try (BindPersonDataSource dataSource=BindPersonDataSource.open()) {
-			Person bean=new Person();
-			bean.setName("Tonj");
-			bean.setSurname("Manero");
-			bean.setStudent(true);
-			
-			PersonDaoImpl dao = dataSource.getPersonDao();
-			
-			dao.updateAllBeans(bean);
-			
-			dao.updateBean(bean);
-		}
-		
-		
-	}
-
+	
 }

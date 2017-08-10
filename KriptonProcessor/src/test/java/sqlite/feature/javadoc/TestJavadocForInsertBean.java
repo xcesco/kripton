@@ -19,16 +19,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import sqlite.feature.javadoc.select.bean.SelectBeanPersonDao;
-import sqlite.feature.javadoc.select.bean.SelectBeanPersonDataSource;
+import sqlite.feature.javadoc.insert.bean.InsertBeanPersonDao;
+import sqlite.feature.javadoc.insert.bean.InsertBeanPersonDataSource;
+
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 @RunWith(JUnit4.class)
-public class TestJavadocForSelectBean extends AbstractBindSQLiteProcessorTest {
+public class TestJavadocForInsertBean extends AbstractBindSQLiteProcessorTest {
 
 	@Test
-	public void testCompileSelectBean() throws Throwable {
-		buildDataSourceProcessorTest(Person.class, SelectBeanPersonDao.class, SelectBeanPersonDataSource.class);
+	public void testCompileInsertBean() throws Throwable {
+		buildDataSourceProcessorTest(Person.class, InsertBeanPersonDao.class, InsertBeanPersonDataSource.class);
 	}
 
 }

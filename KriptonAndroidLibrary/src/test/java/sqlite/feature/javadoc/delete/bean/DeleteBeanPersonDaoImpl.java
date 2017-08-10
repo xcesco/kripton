@@ -9,15 +9,15 @@ import sqlite.feature.javadoc.Person;
 
 /**
  * <p>
- * DAO implementation for entity <code>Person</code>, based on interface <code>PersonDao</code>
+ * DAO implementation for entity <code>Person</code>, based on interface <code>DeleteBeanPersonDao</code>
  * </p>
  *
  *  @see Person
- *  @see PersonDao
+ *  @see DeleteBeanPersonDao
  *  @see sqlite.feature.javadoc.PersonTable
  */
-public class PersonDaoImpl extends AbstractDao implements PersonDao {
-  public PersonDaoImpl(BindPersonDataSource dataSet) {
+public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPersonDao {
+  public DeleteBeanPersonDaoImpl(BindDeleteBeanPersonDataSource dataSet) {
     super(dataSet);
   }
 
