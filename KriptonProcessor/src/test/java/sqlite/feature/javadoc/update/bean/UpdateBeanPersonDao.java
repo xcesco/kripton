@@ -3,7 +3,6 @@ package sqlite.feature.javadoc.update.bean;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;

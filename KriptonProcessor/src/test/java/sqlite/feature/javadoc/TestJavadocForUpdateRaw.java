@@ -19,8 +19,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import sqlite.feature.javadoc.update.raw.PersonDao;
-import sqlite.feature.javadoc.update.raw.PersonDataSource;
+import sqlite.feature.javadoc.update.raw.UpdateRawPersonDao;
+import sqlite.feature.javadoc.update.raw.UpdateRawPersonDataSource;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
@@ -29,7 +29,7 @@ public class TestJavadocForUpdateRaw extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testCompileUpdateBean() throws Throwable {
-		buildDataSourceProcessorTest(Person.class, PersonDao.class, PersonDataSource.class);
+		buildDataSourceProcessorTest(Person.class, UpdateRawPersonDao.class, UpdateRawPersonDataSource.class);
 	}
 
 }

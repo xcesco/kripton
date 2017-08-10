@@ -1,9 +1,8 @@
-package sqlite.feature.javadoc.delete.raw;
+package sqlite.feature.javadoc.update.raw;
 
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
@@ -12,7 +11,7 @@ import sqlite.feature.javadoc.Person;
 
 @BindContentProviderPath(path = "persons")
 @BindDao(Person.class)
-public interface PersonDao {
+public interface UpdateRawPersonDao {
 
 	/**
 	 * Update RAW with no parameters.
@@ -21,7 +20,7 @@ public interface PersonDao {
 	 * @return
 	 */
 	//@BindContentProviderEntry
-	@BindSqlDelete
+	@BindSqlUpdate
 	int updateAllBeans(String name);
 	
 	@BindContentProviderEntry(path="jql")
