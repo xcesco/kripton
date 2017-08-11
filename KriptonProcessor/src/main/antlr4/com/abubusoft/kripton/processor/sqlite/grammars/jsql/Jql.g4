@@ -255,7 +255,7 @@ select_or_values
 
 update_stmt
  : with_clause? K_UPDATE ( K_OR conflict_algorithm )? qualified_table_name
-   K_SET column_name_to_update '=' expr ( ',' column_name_to_update '=' expr )* ( where_stmt )?
+   K_SET columns_to_update ( where_stmt )?
  ;
  
 conflict_algorithm
@@ -268,7 +268,7 @@ update_stmt_limited
                          | K_OR K_REPLACE
                          | K_OR K_FAIL
                          | K_OR K_IGNORE )? qualified_table_name
-   K_SET column_name_to_update '=' expr ( ',' column_name_to_update '=' expr )* ( where_stmt )?
+   K_SET columns_to_update ( where_stmt )?
    ( ( order_stmt )?
      limit_stmt ( offset_stmt )?
    )?
@@ -688,6 +688,10 @@ column_name
 
 column_name_to_update
  : any_name
+ ;
+
+columns_to_update
+ : column_name_to_update '=' expr ( ',' column_name_to_update '=' expr )*
  ;
 
 collation_name

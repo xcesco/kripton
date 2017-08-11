@@ -99,7 +99,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		SQLDaoDefinition daoDefinition = method.getParent();
 		//PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectType.isMapFields(), null);
 		
-		Set<JQLProjection> fieldList=JQLChecker.getInstance().extractProjections(method.jql, daoDefinition.getEntity());
+		Set<JQLProjection> fieldList=JQLChecker.getInstance().extractProjections(method.jql.value, daoDefinition.getEntity());
 		
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);

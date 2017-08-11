@@ -52,6 +52,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nam
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_to_updateContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Columns_to_updateContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Group_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Having_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Limit_stmtContext;
@@ -154,12 +155,12 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public Set<JQLProjection> extractProjections(JQL jql, final Finder<SQLProperty> entity) {
+	public Set<JQLProjection> extractProjections(String jqlValue, final Finder<SQLProperty> entity) {
 		final Set<JQLProjection> result = new LinkedHashSet<JQLProjection>();
 
 		final One<Boolean> projection = new One<Boolean>(null);
 
-		analyzeInternal(jql.value, new JqlBaseListener() {
+		analyzeInternal(jqlValue, new JqlBaseListener() {
 
 			@Override
 			public void enterProjected_columns(Projected_columnsContext ctx) {
@@ -221,6 +222,37 @@ public class JQLChecker {
 				}
 			}
 		}
+
+		return result;
+	}
+	
+	public Set<String> extractColumnsToUpdate(String jqlValue, final Finder<SQLProperty> entity) {
+		final Set<String> result = new LinkedHashSet<String>();
+
+		final One<Boolean> selectionOn = new One<Boolean>(null);
+
+		analyzeInternal(jqlValue, new JqlBaseListener() {
+			
+			@Override
+			public void enterColumns_to_update(Columns_to_updateContext ctx) {
+				if (selectionOn.value0 == null) {
+					selectionOn.value0 = true;
+				}
+			}
+
+
+			@Override
+			public void exitColumns_to_update(Columns_to_updateContext ctx) {
+				selectionOn.value0 = false;
+			}
+			
+			@Override
+			public void enterColumn_name_to_update(Column_name_to_updateContext ctx) {
+				result.add(ctx.getText());
+			}
+					
+						
+		});
 
 		return result;
 	}

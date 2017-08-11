@@ -130,7 +130,7 @@ public @interface BindSqlInsert {
 	/**
 	 * <p>
 	 * bean properties to include into INSERT command. <b>To use only if method
-	 * have only one parameter and its type is the same of supported bean</b>.
+	 * have only one parameter and its type is the same of DAO's supported bean</b>.
 	 * </p>
 	 * 
 	 * @return property's names to include
@@ -140,7 +140,7 @@ public @interface BindSqlInsert {
 	/**
 	 * <p>
 	 * Allow to include primary key into INSERT command. <b>To use only if
-	 * method have only one parameter and its type is the same of supported
+	 * method have only one parameter and its type is the same of DAO's supported
 	 * bean</b>.
 	 * </p>
 	 * 
@@ -151,7 +151,7 @@ public @interface BindSqlInsert {
 	/**
 	 * <p>
 	 * properties to exclude into INSERT command. <b>To use only if method have
-	 * only one parameter and its type is the same of supported bean</b>.
+	 * only one parameter and its type is the same of DAO's supported bean</b>.
 	 * </p>
 	 * 
 	 * @return property's names to exclude

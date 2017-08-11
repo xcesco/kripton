@@ -62,7 +62,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		String pagedResultName = buildSpecializedPagedResultClass(builder, method);
 
 		
-		Set<JQLProjection> fieldList=JQLChecker.getInstance().extractProjections(method.jql, daoDefinition.getEntity());
+		Set<JQLProjection> fieldList=JQLChecker.getInstance().extractProjections(method.jql.value, daoDefinition.getEntity());
 		
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);

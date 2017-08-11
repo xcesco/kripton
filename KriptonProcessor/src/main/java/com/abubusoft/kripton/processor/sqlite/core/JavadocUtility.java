@@ -86,7 +86,7 @@ public abstract class JavadocUtility {
 			
 		});
 		
-		Set<JQLProjection> projectedColumns=JQLChecker.getInstance().extractProjections(method.jql, entity);
+		Set<JQLProjection> projectedColumns=JQLChecker.getInstance().extractProjections(method.jql.value, entity);
 		
 		methodBuilder.addJavadoc("<h2>Select SQL:</h2>\n\n", annotation.getSimpleName());
 		methodBuilder.addJavadoc("<pre>$L</pre>", sql);

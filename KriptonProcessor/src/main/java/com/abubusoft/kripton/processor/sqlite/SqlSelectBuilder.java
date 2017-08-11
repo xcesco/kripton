@@ -216,7 +216,7 @@ public abstract class SqlSelectBuilder {
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(), "In '%s.%s' content provider URI path variables and variables in where conditions are different. If SQL uses parameters, they must be defined in URI path.",
 				daoDefinition.getName(), method.getName());
 
-		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method.jql, entity);
+		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method.jql.value, entity);
 		for (JQLProjection item : projectedColumns) {
 			if (item.type == ProjectionType.COLUMN) {
 				columns.add(entity.get(item.column.trim()).columnName);

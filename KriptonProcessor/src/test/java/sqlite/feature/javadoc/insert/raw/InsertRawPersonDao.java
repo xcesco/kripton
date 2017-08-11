@@ -1,4 +1,4 @@
-package sqlite.feature.javadoc.insert.bean;
+package sqlite.feature.javadoc.insert.raw;
 
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
@@ -10,7 +10,7 @@ import sqlite.feature.javadoc.Person;
 
 @BindContentProviderPath(path = "persons")
 @BindDao(Person.class)
-public interface InsertBeanPersonDao {
+public interface InsertRawPersonDao {
 	
 	/**
 	 * insert BEAN with parameter.
@@ -19,8 +19,8 @@ public interface InsertBeanPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry
-	@BindSqlInsert
-	int insertOneBean(Person bean);
+	@BindSqlInsert()
+	int insertOneRaw(String name, String surname);
 	
 
 	/**
@@ -30,27 +30,28 @@ public interface InsertBeanPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path="name")
-	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE, fields = "name")
-	int insertOneBeanFieldName(Person bean);
+	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
+	int insertOneRawFieldName(String name);
 	
 	/**
-	 * insert BEAN with parameter.
+	 * insert RAW
 	 * 
 	 * @param bean
 	 * @return
 	 */
 	@BindContentProviderEntry(path="surname")
-	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE, excludedFields = "name")
-	int insertOneBeanFieldSurname(Person bean);
+	@BindSqlInsert(jql="INSERT OR REPLACE INTO Person (name) VALUES (${name})")
+	int insertOne2RawFieldName(String name);
 	
 	/**
-	 * insert BEAN with INSERT-FROM-SELECT is no allowed
+	 * insert RAW with parameter.
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	//@BindSqlInsert(jql="INSERT OR REPLACE INTO Person (name) SELECT name FROM Person WHERE name=${bean.name}")
-	//void insertOneRawComplexFieldName(Person bean);
+	//@BindContentProviderEntry(path="surname")
+	@BindSqlInsert(jql="INSERT OR REPLACE INTO Person (name) SELECT name FROM Person WHERE name=${name}")
+	void insertOneRawComplexFieldName(String name);
 
 
 }

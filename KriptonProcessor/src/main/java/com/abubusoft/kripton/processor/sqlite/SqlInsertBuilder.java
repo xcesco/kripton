@@ -27,6 +27,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -98,7 +99,41 @@ public abstract class SqlInsertBuilder {
 	 * @param builder
 	 * @param method
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
+	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method) {		
+		InsertType insertResultType = detectInsertType(method);
+
+		// if true, field must be associate to ben attributes
+		TypeName returnType = method.getReturnClass();
+
+		AssertKripton.failWithInvalidMethodSignException(insertResultType == null, method);
+
+		// generate method code
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
+
+		ParameterSpec parameterSpec;
+		for (Pair<String, TypeName> item : method.getParameters()) {
+			parameterSpec = ParameterSpec.builder(item.value1, item.value0).build();
+			methodBuilder.addParameter(parameterSpec);
+		}
+		methodBuilder.returns(returnType);
+		
+		// fail if we use jql to INSERT_BEAN with operation of INSERT-FOR-SELECT
+		AssertKripton.failWithInvalidMethodSignException(insertResultType == InsertType.INSERT_BEAN && method.jql.containsSelectOperation, method, "INSERT-FROM-SELECT SQL can not be used with this parameter type");		
+
+		// generate inner code
+		insertResultType.generate(elementUtils, methodBuilder, method, returnType);
+
+		MethodSpec methodSpec = methodBuilder.build();
+		builder.addMethod(methodSpec);
+
+		if (method.contentProviderEntryPathEnabled) {
+			// we need to generate insert for content provider to			
+			generateInsertForContentProvider(elementUtils, builder, method, insertResultType);
+		}
+
+	}
+
+	public static InsertType detectInsertType(SQLiteModelMethod method) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -119,11 +154,11 @@ public abstract class SqlInsertBuilder {
 			ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
 
 			// check value attribute
-			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.FIELDS).size() > 0, method,
+			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method, annotation, AnnotationAttributeType.FIELDS).size() > 0, method,
 					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.FIELDS.getValue());
 
 			// check excludeFields attribute
-			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() > 0, method,
+			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() > 0, method,
 					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
 
 			// check if there is only one parameter
@@ -141,36 +176,8 @@ public abstract class SqlInsertBuilder {
 		} else {
 			throw (new InvalidMethodSignException(method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));
 		}
-
-		// if true, field must be associate to ben attributes
-		TypeName returnType = method.getReturnClass();
-
-		AssertKripton.failWithInvalidMethodSignException(insertResultType == null, method);
-
-		// generate method code
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
-
-		ParameterSpec parameterSpec;
-		for (Pair<String, TypeName> item : method.getParameters()) {
-			parameterSpec = ParameterSpec.builder(item.value1, item.value0).build();
-			methodBuilder.addParameter(parameterSpec);
-		}
-		methodBuilder.returns(returnType);
 		
-		// fail if we use jql to INSERT_BEAN with operation of INSERT-FOR-SELECT
-		AssertKripton.failWithInvalidMethodSignException(insertResultType == InsertType.INSERT_BEAN && method.jql.containsSelectOperation, method);		
-
-		// generate inner code
-		insertResultType.generate(elementUtils, methodBuilder, method, returnType);
-
-		MethodSpec methodSpec = methodBuilder.build();
-		builder.addMethod(methodSpec);
-
-		if (method.contentProviderEntryPathEnabled) {
-			// we need to generate insert for content provider to			
-			generateInsertForContentProvider(elementUtils, builder, method, insertResultType);
-		}
-
+		return insertResultType;
 	}
 
 	/**

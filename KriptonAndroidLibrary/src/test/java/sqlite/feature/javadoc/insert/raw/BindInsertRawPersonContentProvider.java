@@ -1,4 +1,4 @@
-package sqlite.feature.javadoc.update.bean;
+package sqlite.feature.javadoc.insert.raw;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -10,7 +10,7 @@ import java.lang.IllegalArgumentException;
 import java.lang.Override;
 import java.lang.String;
 
-public class BindUpdateBeanPersonContentProvider extends ContentProvider {
+public class BindInsertRawPersonContentProvider extends ContentProvider {
   /**
    * <p>content provider's URI. Example:</p>
    * <pre>content://sqlite.contentprovider.kripton35</pre>
@@ -20,7 +20,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
   /**
    * <p>datasource singleton</p>
    */
-  private static BindUpdateBeanPersonDataSource dataSource;
+  private static BindInsertRawPersonDataSource dataSource;
 
   /**
    * <p>Content provider authority</p>
@@ -32,12 +32,22 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  public static final String PATH_PERSON_1 = "persons/jql";
+  public static final String PATH_PERSON_1 = "persons";
+
+  public static final String PATH_PERSON_2 = "persons/name";
+
+  public static final String PATH_PERSON_3 = "persons/surname";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
+  static final int PATH_PERSON_2_INDEX = 2;
+
+  static final int PATH_PERSON_3_INDEX = 3;
+
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_3, PATH_PERSON_3_INDEX);
   }
 
   /**
@@ -47,7 +57,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    */
   @Override
   public boolean onCreate() {
-    dataSource = BindUpdateBeanPersonDataSource.instance();
+    dataSource = BindInsertRawPersonDataSource.instance();
     dataSource.openWritableDatabase();
     return true;
   }
@@ -63,37 +73,45 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
     dataSource.close();
   }
 
+  /**
+   * method InsertRawPersonDao.insertOneRaw
+   * method InsertRawPersonDao.insertOneRawFieldName
+   * method InsertRawPersonDao.insertOne2RawFieldName
+   */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
     long _id=-1;
     Uri _returnURL=null;
     switch (sURIMatcher.match(uri)) {
+      case PATH_PERSON_1_INDEX: {
+        _id=dataSource.getInsertRawPersonDao().insertOneRaw0(uri, contentValues);
+        _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
+        break;
+      }
+      case PATH_PERSON_2_INDEX: {
+        _id=dataSource.getInsertRawPersonDao().insertOneRawFieldName1(uri, contentValues);
+        _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
+        break;
+      }
+      case PATH_PERSON_3_INDEX: {
+        _id=dataSource.getInsertRawPersonDao().insertOne2RawFieldName2(uri, contentValues);
+        _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
+        break;
+      }
       default: {
         throw new IllegalArgumentException("Unknown URI for INSERT operation: " + uri);
       }
     }
+    Logger.info("Element is created with URI '%s'", _returnURL);
+    Logger.info("Changes are notified for URI '%s'", uri);
+    getContext().getContentResolver().notifyChange(uri, null);
+    return _returnURL;
   }
 
-  /**
-   * method UpdateBeanPersonDao.updateAllBeansJQL
-   */
   @Override
   public int update(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
-    int returnRowUpdated=1;
-    switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_1_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/jql
-        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateAllBeansJQL0(uri, contentValues, selection, selectionArgs);
-        break;
-      }
-      default: {
-        throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
-      }
-    }
-    Logger.info("Changes are notified for URI %s", uri);
-    getContext().getContentResolver().notifyChange(uri, null);
-    return returnRowUpdated;
+    throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
   }
 
   @Override
@@ -111,6 +129,12 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
   public String getType(Uri uri) {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_2_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_3_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
     }
