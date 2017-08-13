@@ -98,6 +98,10 @@ public class SQLiteUpdateTestDatabase {
 		this.updateTasks = updateTasks;
 	}
 
+	/**
+	 * create database with specified version by builder.
+	 * @return
+	 */
 	public SQLiteUpdateTestDatabase create() {
 		sqlite = new SQLiteOpenHelper(context, MIGRATION_TEST, factory, version, errorHandler) {
 
@@ -118,6 +122,12 @@ public class SQLiteUpdateTestDatabase {
 		return this;
 	}
 
+	/**
+	 * Allow to update database version to <i>version</i>. This method allows to specify the destination version schema
+	 * and compare it with schema resulting by version update applied.
+	 * @param version
+	 * @param schemaDefinitionFileName
+	 */
 	public void updateAndVerify(int version, final String schemaDefinitionFileName) {
 		sqlite = new SQLiteOpenHelper(context, MIGRATION_TEST, factory, version, errorHandler) {
 
