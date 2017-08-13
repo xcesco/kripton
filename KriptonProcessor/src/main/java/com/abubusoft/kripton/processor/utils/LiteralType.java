@@ -51,18 +51,18 @@ public class LiteralType {
 	/**
 	 * @return the value
 	 */
-	public String getValue() {
-		return value;
-	}
+//	public String getValue() {
+//		return value;
+//	}
 
 	protected boolean primitive;
 
 	/**
 	 * @return the primitive
 	 */
-	public boolean isPrimitive() {
-		return primitive;
-	}
+//	public boolean isPrimitive() {
+//		return primitive;
+//	}
 
 	private static final Pattern CLASS_PATTERN = Pattern.compile("([\\w\\.]+)\\<(.*)\\>|([\\w\\.]+)\\[\\]|([\\w\\.]+)");
 
@@ -88,9 +88,9 @@ public class LiteralType {
 		
 	}
 
-	protected LiteralType(String input) {
-		parse(this, input);
-	}
+//	protected LiteralType(String input) {
+//		parse(this, input);
+//	}
 	
 	public static LiteralType parse(String input) {
 		LiteralType result=new LiteralType();
@@ -174,25 +174,25 @@ public class LiteralType {
 		}
 	}
 	
-	public static LiteralType of(String rawType, String parametrizedType) {
-		String clazzName=rawType+"<"+parametrizedType+">";
-		LiteralType newValue;
-		if (cached.containsKey(clazzName))
-		{
-			return cached.get(clazzName);
-		} else {
-			
-			newValue=LiteralType.parse(clazzName);
-			cached.put(clazzName, newValue);
-			
-			return newValue;
-		}
-				
-	}
+//	public static LiteralType of(String rawType, String parametrizedType) {
+//		String clazzName=rawType+"<"+parametrizedType+">";
+//		LiteralType newValue;
+//		if (cached.containsKey(clazzName))
+//		{
+//			return cached.get(clazzName);
+//		} else {
+//			
+//			newValue=LiteralType.parse(clazzName);
+//			cached.put(clazzName, newValue);
+//			
+//			return newValue;
+//		}
+//				
+//	}
 	
-	public static LiteralType of(Class<?> rawType, TypeElement parametrizedType) {
-		return of(rawType.getCanonicalName(), parametrizedType.getQualifiedName().toString());
-	}
+//	public static LiteralType of(Class<?> rawType, TypeElement parametrizedType) {
+//		return of(rawType.getCanonicalName(), parametrizedType.getQualifiedName().toString());
+//	}
 	
 	public boolean isCollection() {
 		if (isResolved() && Collection.class.isAssignableFrom(resolvedRawType)) {
@@ -211,7 +211,6 @@ public class LiteralType {
 	}
 
 	public TypeKind getKind() {
-
 		return null;
 	}
 

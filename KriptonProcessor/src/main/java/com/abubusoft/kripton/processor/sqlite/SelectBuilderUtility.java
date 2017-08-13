@@ -61,9 +61,9 @@ public abstract class SelectBuilderUtility {
 		/**
 		 * @return the codeGenerator
 		 */
-		public SelectCodeGenerator getCodeGenerator() {
-			return codeGenerator;
-		}
+//		public SelectCodeGenerator getCodeGenerator() {
+//			return codeGenerator;
+//		}
 
 		/**
 		 * if true, map cursor fields to bean attributes.

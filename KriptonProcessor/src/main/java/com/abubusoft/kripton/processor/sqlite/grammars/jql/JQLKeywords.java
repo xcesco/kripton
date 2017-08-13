@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
-public class JQLKeywords {
+public abstract class JQLKeywords {
 
 	public static final String DELETE_KEYWORD = "DELETE";
 	public static final String DISTINCT_KEYWORD ="DISTINCT";
