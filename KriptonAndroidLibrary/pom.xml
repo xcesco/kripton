@@ -17,6 +17,8 @@
 	<packaging>jar</packaging>
 
 	<description>Kripton Persistence Library for Android platform</description>
+	
+	<url>https://github.com/xcesco/kripton</url>
 
 	<!-- common part - BEGIN -->
 	<!-- Property version 1.6.2-SNAPSHOT -->
@@ -273,5 +275,4 @@
 
 	</dependencies>
 
-	<url>https://github.com/xcesco/kripton</url>
 </project>
