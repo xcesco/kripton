@@ -138,7 +138,7 @@ public class SQLiteUpdateTestDatabase {
 
 			}
 		};
-
+ 
 		try {
 			SQLiteUpdateTaskHelper.verifySchema(sqlite.getWritableDatabase(), new FileInputStream(schemaDefinitionFileName));
 		} catch (FileNotFoundException e) {
