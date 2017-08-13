@@ -20,9 +20,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_parent_id INTEGER, birth_city TEXT, birth_day TEXT, value INTEGER, name TEXT, surname TEXT, FOREIGN KEY(alias_parent_id) REFERENCES person(id));</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_parent_id INTEGER, birth_city INTEGER, birth_day TEXT, value INTEGER, name TEXT, surname TEXT, FOREIGN KEY(alias_parent_id) REFERENCES person(id), FOREIGN KEY(birth_city) REFERENCES city(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_parent_id INTEGER, birth_city TEXT, birth_day TEXT, value INTEGER, name TEXT, surname TEXT, FOREIGN KEY(alias_parent_id) REFERENCES person(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_parent_id INTEGER, birth_city INTEGER, birth_day TEXT, value INTEGER, name TEXT, surname TEXT, FOREIGN KEY(alias_parent_id) REFERENCES person(id), FOREIGN KEY(birth_city) REFERENCES city(id));";
 
   /**
    * <p>

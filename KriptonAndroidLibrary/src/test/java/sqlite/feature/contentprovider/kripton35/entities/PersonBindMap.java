@@ -29,10 +29,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
     // Serialized Field:
 
     // field birthCity (mapped with "birthCity")
-    if (object.birthCity!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("birthCity", object.birthCity);
-    }
+    fieldCount++;
+    jacksonSerializer.writeNumberField("birthCity", object.birthCity);
 
     // field birthDay (mapped with "birthDay")
     if (object.birthDay!=null)  {
@@ -77,10 +75,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
     // Serialized Field:
 
     // field birthCity (mapped with "birthCity")
-    if (object.birthCity!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("birthCity", object.birthCity);
-    }
+    jacksonSerializer.writeStringField("birthCity", PrimitiveUtils.writeLong(object.birthCity));
 
     // field birthDay (mapped with "birthDay")
     if (object.birthDay!=null)  {
@@ -126,11 +121,9 @@ public class PersonBindMap extends AbstractMapper<Person> {
     // Persisted fields:
 
     // field birthCity (mapped with "birthCity")
-    if (object.birthCity!=null) {
-      xmlSerializer.writeStartElement("birthCity");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.birthCity));
-      xmlSerializer.writeEndElement();
-    }
+    xmlSerializer.writeStartElement("birthCity");
+    xmlSerializer.writeLong(object.birthCity);
+    xmlSerializer.writeEndElement();
 
     // field birthDay (mapped with "birthDay")
     if (object.birthDay!=null)  {
@@ -195,9 +188,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
       switch (fieldName) {
           case "birthCity":
             // field birthCity (mapped with "birthCity")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.birthCity=jacksonParser.getText();
-            }
+            instance.birthCity=jacksonParser.getLongValue();
           break;
           case "birthDay":
             // field birthDay (mapped with "birthDay")
@@ -258,9 +249,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
       switch (fieldName) {
           case "birthCity":
             // field birthCity (mapped with "birthCity")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.birthCity=jacksonParser.getText();
-            }
+            instance.birthCity=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
           break;
           case "birthDay":
             // field birthDay (mapped with "birthDay")
@@ -331,7 +320,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
             switch(currentTag) {
                 case "birthCity":
                   // property birthCity (mapped on "birthCity")
-                  instance.birthCity=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                  instance.birthCity=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                 break;
                 case "birthDay":
                   // property birthDay (mapped on "birthDay")

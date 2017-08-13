@@ -29,7 +29,8 @@ public class Person {
 	@BindColumn(value="alias_parent_id", foreignKey=Person.class, nullable=true)
 	public long parentId;
 	
-	public String birthCity;
+	@BindColumn(foreignKey=City.class)
+	public long birthCity;
 	
 	public Date birthDay;
 	

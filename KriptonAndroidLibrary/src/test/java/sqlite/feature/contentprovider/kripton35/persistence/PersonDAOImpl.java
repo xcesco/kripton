@@ -75,11 +75,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    if (bean.birthCity!=null) {
-      contentValues.put("birth_city", bean.birthCity);
-    } else {
-      contentValues.putNull("birth_city");
-    }
+    contentValues.put("birth_city", bean.birthCity);
     if (bean.birthDay!=null) {
       contentValues.put("birth_day", DateUtils.write(bean.birthDay));
     } else {
@@ -1126,11 +1122,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     contentValues.clear();
 
     contentValues.put("alias_parent_id", person.parentId);
-    if (person.birthCity!=null) {
-      contentValues.put("birth_city", person.birthCity);
-    } else {
-      contentValues.putNull("birth_city");
-    }
+    contentValues.put("birth_city", person.birthCity);
     if (person.birthDay!=null) {
       contentValues.put("birth_day", DateUtils.write(person.birthDay));
     } else {
@@ -1359,7 +1351,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getString(index2); }
+          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getLong(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
           if (!cursor.isNull(index4)) { resultBean.value=cursor.getLong(index4); }
           if (!cursor.isNull(index5)) { resultBean.setName(cursor.getString(index5)); }
@@ -1558,7 +1550,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getString(index2); }
+          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getLong(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
           if (!cursor.isNull(index4)) { resultBean.value=cursor.getLong(index4); }
           if (!cursor.isNull(index5)) { resultBean.setName(cursor.getString(index5)); }
@@ -1744,7 +1736,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getString(index2); }
+          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getLong(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
           if (!cursor.isNull(index4)) { resultBean.value=cursor.getLong(index4); }
           if (!cursor.isNull(index5)) { resultBean.setName(cursor.getString(index5)); }
@@ -1902,7 +1894,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getString(index2); }
+          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getLong(index2); }
           if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
           if (!cursor.isNull(index4)) { resultBean.value=cursor.getLong(index4); }
           if (!cursor.isNull(index5)) { resultBean.setName(cursor.getString(index5)); }

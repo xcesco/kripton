@@ -12,6 +12,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see PersonDAO
  * @see PersonDAOImpl
  * @see sqlite.feature.contentprovider.kripton35.entities.Person
+ * @see CityDAO
+ * @see CityDAOImpl
+ * @see sqlite.feature.contentprovider.kripton35.entities.City
  */
 public interface BindPersonDaoFactory extends BindDaoFactory {
   /**
@@ -19,4 +22,10 @@ public interface BindPersonDaoFactory extends BindDaoFactory {
    * retrieve dao PersonDAO
    */
   PersonDAOImpl getPersonDAO();
+
+  /**
+   *
+   * retrieve dao CityDAO
+   */
+  CityDAOImpl getCityDAO();
 }

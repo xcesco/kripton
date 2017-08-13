@@ -13,30 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.contentprovider.kripton35;
+package sqlite.feature.contentprovider.kripton35.persistence;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.contentprovider.kripton35.entities.City;
-import sqlite.feature.contentprovider.kripton35.entities.Person;
-import sqlite.feature.contentprovider.kripton35.persistence.CityDAO;
-import sqlite.feature.contentprovider.kripton35.persistence.PersonDAO;
-import sqlite.feature.contentprovider.kripton35.persistence.PersonDataSource;
 
-@RunWith(JUnit4.class)
-public class TestContentProvider extends AbstractBindSQLiteProcessorTest {
+@BindContentProviderPath(path = "cities")
+@BindDao(City.class)
+public interface CityDAO {
 
-	/**
-	 * No @BindType is put in bean definition
-	 * 
-	 * @throws Throwable
-	 */
-	@Test
-	public void testCompile01() throws Throwable {
-		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, CityDAO.class,Person.class, City.class);
-	}
-
+	@BindContentProviderEntry
+	@BindSqlInsert
+	void insertBean(City bean);
+	
+	@BindContentProviderEntry(path="person/${personId}")
+	@BindSqlSelect(jql="select * from City where id = (select id from Person where id=${personId} )")
+	City selectCityFromPerson(long personId);
 }

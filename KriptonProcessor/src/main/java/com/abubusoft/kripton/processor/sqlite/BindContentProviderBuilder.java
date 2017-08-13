@@ -24,6 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -120,7 +121,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		}
 	}
 
-	protected Map<String, ContentEntry> uriSet = new LinkedHashMap<>();
+	protected Map<String, ContentEntry> uriSet = new TreeMap<>();
 
 	public static final String PREFIX = "Bind";
 
@@ -302,6 +303,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.INSERT);
 
+		defineJavadocHeaderForContentOperation("insert");
+		
 		// method code
 		methodBuilder.addStatement("long _id=-1");
 		methodBuilder.addStatement("$T _returnURL=null", Uri.class);
@@ -310,7 +313,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			if (item.getValue().insert == null)
 				continue;
 
-			//methodBuilder.addJavadoc("uri $L\n", item.getKey());
+			defineJavadocForContentUri(item.getValue().insert);
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
 			methodBuilder.addStatement("_id=dataSource.get$L().$L(uri, contentValues)", item.getValue().insert.getParent().getName(), item.getValue().insert.contentProviderMethodName);
@@ -319,6 +322,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
+		
+		classBuilder.addJavadoc("</table>\n");
 
 		methodBuilder.beginControlFlow("default:");
 		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.INSERT);
@@ -340,6 +345,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 	}
 
+	private void defineJavadocForContentUri(SQLiteModelMethod method) {
+		classBuilder.addJavadoc("<tr><td>$L</td><td>{@link $LImpl#$L}</td></tr>\n", method.contentProviderUri(), method.getParent().getName(),method.contentProviderMethodName);
+
+	}
+
 	private void generateDelete(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("delete").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Integer.TYPE);
 		methodBuilder.addParameter(Uri.class, "uri");
@@ -356,10 +366,15 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		methodBuilder.addStatement("int returnRowDeleted=-1");
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
+		
+		defineJavadocHeaderForContentOperation("delete");
+		
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
 			if (item.getValue().delete == null)
 				continue;
-
+			
+			defineJavadocForContentUri(item.getValue().delete);
+			
 			//methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
@@ -369,6 +384,9 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
+		
+		classBuilder.addJavadoc("</table>\n");
+		
 
 		methodBuilder.beginControlFlow("default:");
 		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.DELETE);
@@ -402,6 +420,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			return;
 		}
 
+		defineJavadocHeaderForContentOperation("update");
+		
 		methodBuilder.addStatement("int returnRowUpdated=1");
 
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
@@ -410,6 +430,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 				continue;
 
 			//methodBuilder.addJavadoc("uri $L\n", item.getKey());
+			defineJavadocForContentUri(item.getValue().update);
+		
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
 			methodBuilder.addCode("// URI: $L\n", item.getValue().update.contentProviderUri());
@@ -418,6 +440,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
+		
+		classBuilder.addJavadoc("</table>\n");
 
 		methodBuilder.beginControlFlow("default:");
 		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.UPDATE);
@@ -436,6 +460,13 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		classBuilder.addMethod(methodBuilder.build());
 
+	}
+
+	private void defineJavadocHeaderForContentOperation(String value) {
+		classBuilder.addJavadoc("\n<h2>Supported $L operations</h2>\n", value);
+		classBuilder.addJavadoc("<table>\n");
+		classBuilder.addJavadoc("<tr><th>URI</th><th>DAO.METHOD</th></tr>\n");
+		
 	}
 
 	/**
@@ -537,11 +568,15 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
 			}
 		}
+		
+		defineJavadocHeaderForContentOperation("query");
 
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
 			if (item.getValue().select == null)
 				continue;
+			
+			defineJavadocForContentUri(item.getValue().select);
 
 			//methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
@@ -557,6 +592,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.endControlFlow();
 
 		methodBuilder.endControlFlow();
+		
+		classBuilder.addJavadoc("</table>\n");
 
 		if (hasOperation) {
 			methodBuilder.addStatement("return returnCursor");

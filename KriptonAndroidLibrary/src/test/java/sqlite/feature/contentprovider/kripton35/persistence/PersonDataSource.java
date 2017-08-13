@@ -18,13 +18,11 @@ package sqlite.feature.contentprovider.kripton35.persistence;
 import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import sqlite.feature.contentprovider.kripton35.persistence.PersonDAO;
-
 /**
  * Created by xcesco on 27/09/2016.
  */
 
 @BindContentProvider(authority="sqlite.feature.contentprovider.kripton35")
-@BindDataSource(daoSet={PersonDAO.class}, fileName = "person", version = 1, generateLog=true)
+@BindDataSource(daoSet={PersonDAO.class, CityDAO.class}, fileName = "person", version = 1, generateLog=true)
 public interface PersonDataSource {
 }

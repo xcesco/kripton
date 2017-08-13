@@ -10,6 +10,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
 import java.util.List;
+import sqlite.feature.contentprovider.kripton35.entities.CityTable;
 import sqlite.feature.contentprovider.kripton35.entities.PersonTable;
 
 /**
@@ -23,6 +24,9 @@ import sqlite.feature.contentprovider.kripton35.entities.PersonTable;
  * @see PersonDAO
  * @see PersonDAOImpl
  * @see sqlite.feature.contentprovider.kripton35.entities.Person
+ * @see CityDAO
+ * @see CityDAOImpl
+ * @see sqlite.feature.contentprovider.kripton35.entities.City
  */
 public class BindPersonDataSource extends AbstractDataSource implements BindPersonDaoFactory, PersonDataSource {
   /**
@@ -35,6 +39,11 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    */
   protected PersonDAOImpl personDAO = new PersonDAOImpl(this);
 
+  /**
+   * <p>dao instance</p>
+   */
+  protected CityDAOImpl cityDAO = new CityDAOImpl(this);
+
   protected BindPersonDataSource(DataSourceOptions options) {
     super("person", 1, options);
   }
@@ -42,6 +51,11 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   @Override
   public PersonDAOImpl getPersonDAO() {
     return personDAO;
+  }
+
+  @Override
+  public CityDAOImpl getCityDAO() {
+    return cityDAO;
   }
 
   /**
@@ -108,6 +122,8 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+    Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+    database.execSQL(CityTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
@@ -139,6 +155,8 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
+      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+      database.execSQL(CityTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
     }
@@ -153,6 +171,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
+    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
