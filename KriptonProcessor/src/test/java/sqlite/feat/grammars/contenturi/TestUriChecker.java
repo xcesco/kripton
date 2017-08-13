@@ -217,7 +217,7 @@ public class TestUriChecker extends BaseProcessorTest {
 			
 		};
 
-		JQLChecker.getInstance().extractProjections(jql, finder);
+		JQLChecker.getInstance().extractProjections(jql.value, finder);
 	}
 
 	@Test

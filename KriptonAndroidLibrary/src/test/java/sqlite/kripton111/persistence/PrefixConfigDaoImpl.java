@@ -60,7 +60,6 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     contentValues.put("enabled", bean.enabled);
     contentValues.put("dialog_timeout", bean.dialogTimeout);
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -121,7 +120,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     _sqlBuilder.append("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -141,7 +140,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -187,7 +186,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public boolean deleteById(long id) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -201,7 +200,6 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM prefix_config WHERE id = ?");
@@ -209,7 +207,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("prefix_config", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -238,7 +236,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     _sqlBuilder.append("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -250,7 +248,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -281,7 +279,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE prefix_config SET default_country=${bean.defaultCountry}, dual_billing_prefix=${bean.dualBillingPrefix}, enabled=${bean.enabled}, dialog_timeout=${bean.dialogTimeout} WHERE WHERE id = ${bean.id}</pre>
+   * <pre>UPDATE PrefixConfig SET defaultCountry=${bean.defaultCountry}, dualBillingPrefix=${bean.dualBillingPrefix}, enabled=${bean.enabled}, dialogTimeout=${bean.dialogTimeout} WHERE id = ${bean.id} </pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -319,7 +317,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     contentValues.put("enabled", bean.enabled);
     contentValues.put("dialog_timeout", bean.dialogTimeout);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -333,10 +331,9 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE prefix_config SET defaultCountry=:bean.defaultCountry, dualBillingPrefix=:bean.dualBillingPrefix, enabled=:bean.enabled, dialogTimeout=:bean.dialogTimeout WHERE id = ? ");
+    Logger.info("UPDATE prefix_config SET defaultCountry=:defaultCountry, dualBillingPrefix=:dualBillingPrefix, enabled=:enabled, dialogTimeout=:dialogTimeout WHERE id = ? ");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -353,7 +350,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("prefix_config", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;

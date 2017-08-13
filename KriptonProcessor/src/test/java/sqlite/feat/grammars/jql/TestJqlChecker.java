@@ -109,7 +109,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		JQL jql=new JQL();
 		jql.value=sql;
 
-		JQLChecker.getInstance().extractProjections(jql, new Finder<SQLProperty>() {
+		JQLChecker.getInstance().extractProjections(jql.value, new Finder<SQLProperty>() {
 			
 			@Override
 			public String getSimpleName() {
@@ -199,7 +199,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 			}
 		};
 		// check projections
-		Set<JQLProjection> projections = checker.extractProjections(jql, entityMock);
+		Set<JQLProjection> projections = checker.extractProjections(jql.value, entityMock);
 		{
 			LinkedHashSet<JQLProjection> aspected = new LinkedHashSet<>();
 			aspected.add(JQLProjection.ProjectionBuilder.create().type(ProjectionType.COMPLEX).expression("count(*)")

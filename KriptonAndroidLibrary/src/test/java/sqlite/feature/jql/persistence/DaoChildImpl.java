@@ -45,7 +45,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _sqlBuilder.append("SELECT _id, name, parent_id FROM child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -57,7 +57,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -116,7 +116,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     contentValues.put("parent_id", bean.parentId);
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -174,7 +173,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _sqlBuilder.append("select * from child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -194,7 +193,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -250,7 +249,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _sqlBuilder.append("select count(*) from child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -270,7 +269,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -313,7 +312,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _sqlBuilder.append("SELECT _id, name, parent_id FROM child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -333,7 +332,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -385,7 +384,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void insertByCopy(long parentId, long aliasParentId, long parent) {
-    List<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(parentId));
@@ -397,7 +396,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -432,7 +431,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     contentValues.put("parent_id", bean.parentId);
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -463,12 +461,12 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO child (name, parent_id) VALUES (${name}, ${parentId})</pre>
+   * <pre>INSERT INTO child (parent_id, name) VALUES (${parentId}, ${name})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * 	<dt>parent_id</dt><dd>is binded to query's parameter <strong>${parentId}</strong> and method's parameter <strong>parentId</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param parentId
@@ -546,7 +544,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       contentValues.putNull("name");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(parentId));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -560,7 +558,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("update or replace child set name=:name where parentId=?");
@@ -580,7 +577,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     // conflict algorithm REPLACE
@@ -609,7 +606,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void updateJQL2(long parentId) {
-    List<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(parentId));
@@ -621,7 +618,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 

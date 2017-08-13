@@ -265,7 +265,7 @@ public abstract class SqlSelectBuilder {
 			// extract pathVariables
 			// every controls was done in constructor of SQLiteModelMethod
 			for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
-				AssertKripton.assertTrue(SqlBuilderHelper.validate(variable.value, placeHolders, i), "In '%s.%s' content provider URI path and where conditions have to use same set of variables",
+				AssertKripton.assertTrue(SqlBuilderHelper.validate(variable.value, placeHolders, i), "In '%s.%s' content provider URI path and where conditions must use same set of variables",
 						daoDefinition.getName(), method.getName());
 
 				SQLProperty entityProperty = entity.get(variable.value);

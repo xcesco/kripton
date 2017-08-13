@@ -63,7 +63,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     _sqlBuilder.append("SELECT id, column_bean FROM bean84_b");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -83,7 +83,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -132,7 +132,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     _sqlBuilder.append("SELECT id, column_bean FROM bean84_b");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -152,7 +152,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -202,7 +202,6 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       contentValues.putNull("column_bean");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -235,7 +234,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean84_b SET column_bean=${bean.columnBean} WHERE </pre>
+   * <pre>UPDATE Bean84B SET columnBean=${bean.columnBean}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -258,16 +257,14 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       contentValues.putNull("column_bean");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
-    StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE bean84_b SET columnBean=:bean.columnBean");
+    Logger.info("UPDATE bean84_b SET columnBean=:columnBean");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -284,7 +281,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean84_b", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -293,7 +290,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE bean84_b WHERE WHERE 1=1</pre>
+   * <pre>DELETE FROM Bean84B WHERE 1=1</pre>
    *
    * @param bean
    * 	is used as ${bean}
@@ -302,7 +299,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    */
   @Override
   public boolean deleteAll(Bean84B bean) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
@@ -315,7 +312,6 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean84_b WHERE 1=1");
@@ -323,7 +319,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean84_b", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;

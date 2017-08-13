@@ -45,7 +45,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     _sqlBuilder.append("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -57,7 +57,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -118,7 +118,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     _sqlBuilder.append("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -138,7 +138,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -210,7 +210,6 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
       contentValues.putNull("value_string");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();

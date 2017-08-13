@@ -28,6 +28,7 @@ import sqlite.feature.dynamic.TestDynamicSuite;
 import sqlite.feature.foreignKey.TestForeignKeySuite;
 import sqlite.feature.generichierarchy.TestGenericHierarchySuite;
 import sqlite.feature.indexes.IndexTestSuite;
+import sqlite.feature.javadoc.TestJavadocFeatureSuite;
 import sqlite.feature.jql.TestJQLFeatureSuite;
 import sqlite.feature.multithread.TestCompileMultithreadSuite;
 import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
@@ -71,6 +72,7 @@ import sqlite.kripton63.Test63Compile;
 			TestPaginatedResultSuite.class,
 			TestCompileMultithreadSuite.class,
 			TestGenericHierarchySuite.class,
+			TestJavadocFeatureSuite.class,
 			TestDynamicSuite.class,
 			TestSchemaSuite.class,
 			IndexTestSuite.class,

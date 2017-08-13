@@ -3,7 +3,6 @@ package sqlite.feature.schema.version2;
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -45,7 +44,6 @@ public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2St
     contentValues.put("student_id", bean.studentId);
     contentValues.put("seminar_id", bean.seminarId);
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();

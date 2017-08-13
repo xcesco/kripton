@@ -42,42 +42,15 @@ public interface InsertBeanPersonDao {
 	@BindContentProviderEntry(path="surname")
 	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE, excludedFields = "name")
 	int insertOneBeanFieldSurname(Person bean);
+	
+	/**
+	 * insert BEAN with INSERT-FROM-SELECT is no allowed
+	 * 
+	 * @param bean
+	 * @return
+	 */
+	//@BindSqlInsert(jql="INSERT OR REPLACE INTO Person (name) SELECT name FROM Person WHERE name=${bean.name}")
+	//void insertOneRawComplexFieldName(Person bean);
 
-//	/**
-//	 * delete BEAN with some parameters
-//	 * 
-//	 * @param bean
-//	 */
-//	@BindSqlDelete(jql = "DELETE FROM Person WHERE name=${bean.name} AND surname=${bean.surname} AND student = 0")
-//	void deleteAllBeansJQL(Person bean);
-//
-//	/**
-//	 * JQL DELETE-FROM-SELECT can be used as content provider method. The
-//	 * important thing is params.
-//	 * 
-//	 * @param bean
-//	 */
-//	@BindContentProviderEntry(path = "${bean.surname}/${bean.name}")
-//	@BindSqlDelete(jql = "DELETE FROM Person WHERE surname=${bean.surname} and student = (select student from Person where name=${bean.name})")
-//	void deleteFromSelectAllBeansJQL(Person bean);
-//
-//	/**
-//	 * Update BEAN with one parameter.
-//	 * 
-//	 * @param bean
-//	 * @return
-//	 */
-//	@BindContentProviderEntry(path = "single/${bean.id}")
-//	@BindSqlDelete(where = "id=${bean.id}")
-//	int deleteBean(Person bean);
-//
-//	@BindContentProviderEntry(path = "single2/${bean.id}")
-//	@BindSqlDelete(where = "id=${bean.id}")
-//	int deleteBeanDynamic(Person bean, @BindSqlDynamicWhere String where);
-//
-//	@BindContentProviderEntry(path = "${bean.id}/moreAndMore")
-//	@BindSqlDelete(where = "id=${bean.id}")
-//	int deleteBeanDynamicWithArgs(Person bean, @BindSqlDynamicWhere String where,
-//			@BindSqlDynamicWhereArgs String[] args);
 
 }

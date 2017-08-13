@@ -11,7 +11,7 @@ import sqlite.feature.javadoc.Person;
 
 @BindContentProviderPath(path = "persons")
 @BindDao(Person.class)
-public interface PersonDao {
+public interface UpdateRawPersonDao {
 
 	/**
 	 * Update RAW with no parameters.
@@ -23,8 +23,8 @@ public interface PersonDao {
 	@BindSqlUpdate
 	int updateAllBeans(String name);
 	
-	@BindContentProviderEntry(path="jql")
-	@BindSqlUpdate(jql="UPDATE Person SET name=${name}, surname=${surname}, student = ${student}")
+	@BindContentProviderEntry(path="jql/${surname}")
+	@BindSqlUpdate(jql="UPDATE Person SET name=${name}, student = ${student} where surname=${surname}")
 	void updateAllBeansJQL(String name, String surname, boolean student);
 	
 	/**

@@ -23,7 +23,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE id=${bean.id}</pre>
+   * <pre>DELETE FROM Person WHERE id=${bean.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -36,7 +36,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    * @return number of deleted records
    */
   @Override
-  public int deleteAllBeans(Person bean) {
+  public int deleteOneBean(Person bean) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
@@ -89,7 +89,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int deleteAllBeans0(Uri uri, String selection, String[] selectionArgs) {
+  int deleteOneBean0(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
@@ -123,7 +123,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE name=${bean.name} AND surname=${bean.surname} AND student = 0</pre>
+   * <pre>DELETE FROM Person WHERE name=${bean.name} AND surname=${bean.surname} AND student = 0</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -166,7 +166,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE surname=${bean.surname} and student = (select student from Person where name=${bean.name})</pre>
+   * <pre>DELETE FROM Person WHERE surname=${bean.surname} and student = (select student from Person where name=${bean.name})</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -268,7 +268,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE id=${bean.id}</pre>
+   * <pre>DELETE FROM Person WHERE id=${bean.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -368,7 +368,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -477,7 +477,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>

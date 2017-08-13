@@ -12,15 +12,15 @@ import java.util.Set;
 
 /**
  * <p>
- * DAO implementation for entity <code>Person</code>, based on interface <code>PersonDao</code>
+ * DAO implementation for entity <code>Person</code>, based on interface <code>UpdateRawPersonDao</code>
  * </p>
  *
  *  @see sqlite.feature.javadoc.Person
- *  @see PersonDao
+ *  @see UpdateRawPersonDao
  *  @see sqlite.feature.javadoc.PersonTable
  */
-public class PersonDaoImpl extends AbstractDao implements PersonDao {
-  private static final Set<String> updateAllBeansJQL0ColumnSet = CollectionUtils.asSet(String.class, "name", "surname", "student");
+public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPersonDao {
+  private static final Set<String> updateAllBeansJQL0ColumnSet = CollectionUtils.asSet(String.class, "name", "student");
 
   private static final Set<String> updateBean1ColumnSet = CollectionUtils.asSet(String.class, "name");
 
@@ -28,13 +28,13 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
   private static final Set<String> updateBeanDynamicWithArgs3ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  public PersonDaoImpl(BindPersonDataSource dataSet) {
+  public UpdateRawPersonDaoImpl(BindUpdateRawPersonDataSource dataSet) {
     super(dataSet);
   }
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name}, surname=${surname}, student=${student}</pre>
+   * <pre>UPDATE person SET name=${name}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -66,7 +66,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     String _sqlWhereStatement="";
 
     // display log
-    Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student");
+    Logger.info("UPDATE person SET name=:name");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -92,7 +92,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name}, surname=${surname}, student = ${student}</pre>
+   * <pre>UPDATE person SET name=${name}, student = ${student} where surname=${surname}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -100,12 +100,13 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
+   * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
    * </dl>
    *
    * @param name
    * 	is used as updated field <strong>name</strong>
    * @param surname
-   * 	is used as updated field <strong>surname</strong>
+   * 	is used as where parameter <strong>${surname}</strong>
    * @param student
    * 	is used as updated field <strong>student</strong>
    */
@@ -118,21 +119,25 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     } else {
       contentValues.putNull("name");
     }
-    if (surname!=null) {
-      contentValues.put("surname", surname);
-    } else {
-      contentValues.putNull("surname");
-    }
     contentValues.put("student", student);
 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    _sqlWhereParams.add((surname==null?"":surname));
 
+    StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" where surname=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE person SET name=:name, surname=:surname, student = :student");
+    Logger.info("UPDATE person SET name=:name, student = :student where surname=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -157,19 +162,24 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
   /**
    * <h1>Content provider URI (UPDATE operation):</h1>
-   * <pre>content://sqlite.feature.javadoc.bean/persons/jql</pre>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql/[*]</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name}, surname=${surname}, student = ${student}</pre>
+   * <pre>UPDATE Person SET name=${name}, student = ${student} where surname=${surname}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name}, surname=${surname}, student = ${student}</pre>
+   * <pre>UPDATE person SET name=${name}, student = ${student} where surname=${surname}</pre>
+   *
+   * <h3>Path variables defined:</h3>
+   * <ul>
+   * <li><strong>${surname}</strong> at path segment 2</li>
+   * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
-   * @param uri "content://sqlite.feature.javadoc.bean/persons/jql"
+   * @param uri "content://sqlite.feature.javadoc.bean/persons/jql/[*]"
    * @param contentValues content values
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
@@ -182,15 +192,24 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    String _sqlWhereStatement="";
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" where surname=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    // Add parameter surname at path segment 2
+    _sqlWhereParams.add(uri.getPathSegments().get(2));
     for (String columnName:contentValues.keySet()) {
       if (!updateAllBeansJQL0ColumnSet.contains(columnName)) {
-        throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/jql', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
+        throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/jql/*', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
 
     // display log
-    Logger.info("UPDATE person SET name=:name, surname=:surname, student = :student");
+    Logger.info("UPDATE person SET name=:name, student = :student where surname=?");
 
     // log for content values -- BEGIN
     Object _contentValue;

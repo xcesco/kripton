@@ -21,7 +21,7 @@ public interface DeleteBeanPersonDao {
 	 */
 	@BindContentProviderEntry(path = "${bean.id}")
 	@BindSqlDelete(where = "id=${bean.id}")
-	int deleteAllBeans(Person bean);
+	int deleteOneBean(Person bean);
 
 	/**
 	 * delete BEAN with some parameters

@@ -3,7 +3,6 @@ package sqlite.kripton56.persistence;
 import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import sqlite.kripton56.entities.OwnerType;
@@ -52,7 +51,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       contentValues.putNull("owner_type");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -66,7 +65,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE message SET ownerType=:ownerType WHERE id = ?");
@@ -86,7 +84,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("message", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;

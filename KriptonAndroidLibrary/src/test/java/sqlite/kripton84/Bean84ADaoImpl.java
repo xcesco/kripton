@@ -66,7 +66,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     _sqlBuilder.append("SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -78,7 +78,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -163,7 +163,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     _sqlBuilder.append("SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -183,7 +183,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -278,7 +278,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     _sqlBuilder.append("SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -301,7 +301,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -437,7 +437,6 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       contentValues.putNull("value_string");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -470,21 +469,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean84_a (param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string) VALUES (${param1}, ${param2}, ${param3}, ${param4}, ${param1}, ${columnMapIntegerString}, ${columnArrayChar}, ${columnArrayCharType}, ${columnBean}, ${columnArrayByteType}, ${valueString})</pre>
+   * <pre>INSERT INTO bean84_a (column_list_string) VALUES (${param1})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>column_list_string</dt><dd>is binded to query's parameter <strong>${columnListString}</strong> and method's parameter <strong>param1</strong></dd>
-   * 	<dt>param2</dt><dd>is binded to query's parameter <strong>${param2}</strong> and method's parameter <strong>param2</strong></dd>
-   * 	<dt>param3</dt><dd>is binded to query's parameter <strong>${param3}</strong> and method's parameter <strong>param3</strong></dd>
-   * 	<dt>param4</dt><dd>is binded to query's parameter <strong>${param4}</strong> and method's parameter <strong>param4</strong></dd>
-   * 	<dt>column_list_string</dt><dd>is binded to query's parameter <strong>${columnListString}</strong> and method's parameter <strong>param1</strong></dd>
-   * 	<dt>column_map_integer_string</dt><dd>is binded to query's parameter <strong>${columnMapIntegerString}</strong> and method's parameter <strong>columnMapIntegerString</strong></dd>
-   * 	<dt>column_array_char</dt><dd>is binded to query's parameter <strong>${columnArrayChar}</strong> and method's parameter <strong>columnArrayChar</strong></dd>
-   * 	<dt>column_array_char_type</dt><dd>is binded to query's parameter <strong>${columnArrayCharType}</strong> and method's parameter <strong>columnArrayCharType</strong></dd>
-   * 	<dt>column_bean</dt><dd>is binded to query's parameter <strong>${columnBean}</strong> and method's parameter <strong>columnBean</strong></dd>
-   * 	<dt>column_array_byte_type</dt><dd>is binded to query's parameter <strong>${columnArrayByteType}</strong> and method's parameter <strong>columnArrayByteType</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
    * </dl>
    *
    * @param param1
@@ -533,7 +522,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean84_a SET param1=${bean.param1}, param2=${bean.param2}, param3=${bean.param3}, param4=${bean.param4}, column_list_string=${bean.columnListString}, column_map_integer_string=${bean.columnMapIntegerString}, column_array_char=${bean.columnArrayChar}, column_array_char_type=${bean.columnArrayCharType}, column_bean=${bean.columnBean}, column_array_byte_type=${bean.columnArrayByteType}, value_string=${bean.valueString} WHERE </pre>
+   * <pre>UPDATE Bean84A SET param1=${bean.param1}, param2=${bean.param2}, param3=${bean.param3}, param4=${bean.param4}, columnListString=${bean.columnListString}, columnMapIntegerString=${bean.columnMapIntegerString}, columnArrayChar=${bean.columnArrayChar}, columnArrayCharType=${bean.columnArrayCharType}, columnBean=${bean.columnBean}, columnArrayByteType=${bean.columnArrayByteType}, valueString=${bean.valueString}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -616,16 +605,14 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       contentValues.putNull("value_string");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
-    StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE bean84_a SET param1=:bean.param1, param2=:bean.param2, param3=:bean.param3, param4=:bean.param4, columnListString=:bean.columnListString, columnMapIntegerString=:bean.columnMapIntegerString, columnArrayChar=:bean.columnArrayChar, columnArrayCharType=:bean.columnArrayCharType, columnBean=:bean.columnBean, columnArrayByteType=:bean.columnArrayByteType, valueString=:bean.valueString");
+    Logger.info("UPDATE bean84_a SET param1=:param1, param2=:param2, param3=:param3, param4=:param4, columnListString=:columnListString, columnMapIntegerString=:columnMapIntegerString, columnArrayChar=:columnArrayChar, columnArrayCharType=:columnArrayCharType, columnBean=:columnBean, columnArrayByteType=:columnArrayByteType, valueString=:valueString");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -642,7 +629,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean84_a", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -651,7 +638,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE bean84_a WHERE WHERE 1=1</pre>
+   * <pre>DELETE FROM Bean84A WHERE 1=1</pre>
    *
    * @param bean
    * 	is used as ${bean}
@@ -660,7 +647,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public boolean deleteAll(Bean84A bean) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
@@ -673,7 +660,6 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean84_a WHERE 1=1");
@@ -681,7 +667,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean84_a", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;

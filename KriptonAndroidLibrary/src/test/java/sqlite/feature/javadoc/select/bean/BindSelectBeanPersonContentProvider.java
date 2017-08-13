@@ -35,13 +35,17 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
 
   public static final String PATH_PERSON_2 = "persons/#";
 
-  public static final String PATH_PERSON_3 = "persons/dynamic/#";
+  public static final String PATH_PERSON_3 = "persons/a";
 
-  public static final String PATH_PERSON_4 = "persons/dynamicOrder/#";
+  public static final String PATH_PERSON_4 = "persons/dynamic/#";
 
-  public static final String PATH_PERSON_5 = "persons/dynamicOrderAndLis/#";
+  public static final String PATH_PERSON_5 = "persons/dynamicOrder/#";
 
-  public static final String PATH_PERSON_6 = "persons/dynamicandArgs/#";
+  public static final String PATH_PERSON_6 = "persons/dynamicOrderAndLis/#";
+
+  public static final String PATH_PERSON_7 = "persons/dynamicandArgs/#";
+
+  public static final String PATH_PERSON_8 = "persons/jql/#";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -55,6 +59,10 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
 
   static final int PATH_PERSON_6_INDEX = 6;
 
+  static final int PATH_PERSON_7_INDEX = 7;
+
+  static final int PATH_PERSON_8_INDEX = 8;
+
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
@@ -62,6 +70,8 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_4, PATH_PERSON_4_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_5, PATH_PERSON_5_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_6, PATH_PERSON_6_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_7, PATH_PERSON_7_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_8, PATH_PERSON_8_INDEX);
   }
 
   /**
@@ -106,11 +116,13 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
 
   /**
    * method SelectBeanPersonDao.selectAllBeans
+   * method SelectBeanPersonDao.selectAllBeansCount
    * method SelectBeanPersonDao.selectOneBean
    * method SelectBeanPersonDao.selectOneBeanWithDynamic
    * method SelectBeanPersonDao.selectOneBeanWithDynamicAndArgs
    * method SelectBeanPersonDao.selectOneBeanWithDynamicOrder
    * method SelectBeanPersonDao.selectOneBeanWithDynamicOrderAndListener
+   * method SelectBeanPersonDao.selectWithJQL
    * method SelectBeanPersonDao.selectAllBeans
    * method SelectBeanPersonDao.selectAllBeansCount
    * method SelectBeanPersonDao.selectOneBean
@@ -118,6 +130,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * method SelectBeanPersonDao.selectOneBeanWithDynamicAndArgs
    * method SelectBeanPersonDao.selectOneBeanWithDynamicOrder
    * method SelectBeanPersonDao.selectOneBeanWithDynamicOrderAndListener
+   * method SelectBeanPersonDao.selectWithJQL
    */
   @Override
   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -129,29 +142,39 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
         returnCursor=dataSource.getSelectBeanPersonDao().selectAllBeans0(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
+      case PATH_PERSON_3_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/a
+        returnCursor=dataSource.getSelectBeanPersonDao().selectAllBeansCount1(uri, projection, selection, selectionArgs, sortOrder);
+        break;
+      }
       case PATH_PERSON_2_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBean1(uri, projection, selection, selectionArgs, sortOrder);
-        break;
-      }
-      case PATH_PERSON_3_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamic2(uri, projection, selection, selectionArgs, sortOrder);
-        break;
-      }
-      case PATH_PERSON_6_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicAndArgs3(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBean2(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_4_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicOrder4(uri, projection, selection, selectionArgs, sortOrder);
+        // URI: content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamic3(uri, projection, selection, selectionArgs, sortOrder);
+        break;
+      }
+      case PATH_PERSON_7_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicAndArgs4(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_5_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicOrder5(uri, projection, selection, selectionArgs, sortOrder);
+        break;
+      }
+      case PATH_PERSON_6_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicOrderAndListener5(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicOrderAndListener6(uri, projection, selection, selectionArgs, sortOrder);
+        break;
+      }
+      case PATH_PERSON_8_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}
+        returnCursor=dataSource.getSelectBeanPersonDao().selectWithJQL7(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       default: {
@@ -172,19 +195,25 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
       case PATH_PERSON_1_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
+      case PATH_PERSON_3_INDEX: {
+        return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
+      }
       case PATH_PERSON_2_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
-      case PATH_PERSON_3_INDEX: {
+      case PATH_PERSON_4_INDEX: {
+        return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_7_INDEX: {
+        return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_5_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_6_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
-      case PATH_PERSON_4_INDEX: {
-        return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
-      }
-      case PATH_PERSON_5_INDEX: {
+      case PATH_PERSON_8_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
     }

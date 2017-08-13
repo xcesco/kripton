@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
@@ -34,7 +35,7 @@ public interface SelectBeanPersonDao {
 	 * @param bean
 	 * @return
 	 */
-	
+	@BindContentProviderEntry(path="a")
 	@BindSqlSelect(fields="count(*)")
 	int selectAllBeansCount();
 	
@@ -46,7 +47,7 @@ public interface SelectBeanPersonDao {
 	 */
 	@BindContentProviderEntry(path="${bean.id}", multiplicityResult=MultiplicityResultType.ONE)
 	@BindSqlSelect(where="id=${bean.id}")
-	Person selectOneBean(Person bean);
+	Person selectOneBean(@BindSqlParam("bean") Person benza);
 	
 	/**
 	 * select BEAN with one parameter and dynamic where
@@ -55,7 +56,7 @@ public interface SelectBeanPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path="dynamic/${bean.id}")
-	@BindSqlSelect(where="id=${bean.id}")
+	@BindSqlSelect(fields="name",where="id=${bean.id}")
 	Person selectOneBeanWithDynamic(Person bean, @BindSqlDynamicWhere String where);
 	
 	/**
@@ -89,33 +90,14 @@ public interface SelectBeanPersonDao {
 	@BindSqlSelect(where="id=${bean.id}")
 	void selectOneBeanWithDynamicOrderAndListener(Person bean, @BindSqlDynamicOrderBy String order, OnReadBeanListener<Person> listener);
 	
-//	/**
-//	 * Update BEAN with one parameter and dynamic where
-//	 * 
-//	 * @param bean
-//	 * @return
-//	 */
-//	@BindContentProviderEntry(path="dynamicArgs/${bean.id}")
-//	@BindSqlUpdate(where="id=${bean.id}")
-//	int updateOneBeanWithDynamicAndArgs(Person bean, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String args[]);
-//	
-//	@BindContentProviderEntry(path="jql")
-//	@BindSqlUpdate(jql="UPDATE Person SET name=${bean.name}, surname=${bean.surname}, student = ${bean.student}")
-//	void updateAllBeansJQL(Person bean);
-//	
-//	/**
-//	 * JQL UPDATE-FROM-SELECT can not be used as content provider method.
-//	 * @param bean
-//	 */
-//	@BindSqlUpdate(jql="UPDATE Person SET name=${bean.name}, surname=${bean.surname}, student = (select student from Person where id=${bean.student})")
-//	void updateFromSelectAllBeansJQL(Person bean);	
-//	
-//	@BindContentProviderEntry(path="${bean.id}/more")
-//	@BindSqlUpdate(where="id=${bean.id}")
-//	int updateBeanDynamic(Person bean, @BindSqlDynamicWhere String where);
-//	
-//	@BindContentProviderEntry(path="${bean.id}/moreAndMore")
-//	@BindSqlUpdate(where="id=${bean.id}")
-//	int updateBeanDynamicWithArgs(Person bean, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
-//	
+	/**
+	 * select BEAN with one parameter and dynamic order
+	 * 
+	 * @param bean
+	 * @return
+	 */
+	@BindContentProviderEntry(path="jql/${bean.id}")
+	@BindSqlSelect(jql="select * from Person where id=${bean.id}")
+	Person selectWithJQL(Person bean);
+	
 }

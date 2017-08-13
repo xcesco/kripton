@@ -1,4 +1,4 @@
-package sqlite.feature.javadoc.update.raw;
+package sqlite.feature.javadoc.delete.raw;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -10,7 +10,7 @@ import java.lang.IllegalArgumentException;
 import java.lang.Override;
 import java.lang.String;
 
-public class BindPersonContentProvider extends ContentProvider {
+public class BindDeleteRawPersonContentProvider extends ContentProvider {
   /**
    * <p>content provider's URI. Example:</p>
    * <pre>content://sqlite.contentprovider.kripton35</pre>
@@ -20,7 +20,7 @@ public class BindPersonContentProvider extends ContentProvider {
   /**
    * <p>datasource singleton</p>
    */
-  private static BindPersonDataSource dataSource;
+  private static BindDeleteRawPersonDataSource dataSource;
 
   /**
    * <p>Content provider authority</p>
@@ -34,11 +34,13 @@ public class BindPersonContentProvider extends ContentProvider {
 
   public static final String PATH_PERSON_1 = "persons/#";
 
-  public static final String PATH_PERSON_2 = "persons/#/more";
+  public static final String PATH_PERSON_2 = "persons/#/moreAndMore";
 
-  public static final String PATH_PERSON_3 = "persons/#/moreAndMore";
+  public static final String PATH_PERSON_3 = "persons/*/*";
 
-  public static final String PATH_PERSON_4 = "persons/jql";
+  public static final String PATH_PERSON_4 = "persons/single/#";
+
+  public static final String PATH_PERSON_5 = "persons/single2/#";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -48,11 +50,14 @@ public class BindPersonContentProvider extends ContentProvider {
 
   static final int PATH_PERSON_4_INDEX = 4;
 
+  static final int PATH_PERSON_5_INDEX = 5;
+
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_3, PATH_PERSON_3_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_4, PATH_PERSON_4_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_5, PATH_PERSON_5_INDEX);
   }
 
   /**
@@ -62,7 +67,7 @@ public class BindPersonContentProvider extends ContentProvider {
    */
   @Override
   public boolean onCreate() {
-    dataSource = BindPersonDataSource.instance();
+    dataSource = BindDeleteRawPersonDataSource.instance();
     dataSource.openWritableDatabase();
     return true;
   }
@@ -89,44 +94,10 @@ public class BindPersonContentProvider extends ContentProvider {
     }
   }
 
-  /**
-   * method PersonDao.updateAllBeansJQL
-   * method PersonDao.updateBean
-   * method PersonDao.updateBeanDynamic
-   * method PersonDao.updateBeanDynamicWithArgs
-   */
   @Override
   public int update(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
-    int returnRowUpdated=1;
-    switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_4_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/jql
-        returnRowUpdated=dataSource.getPersonDao().updateAllBeansJQL0(uri, contentValues, selection, selectionArgs);
-        break;
-      }
-      case PATH_PERSON_1_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/${id}
-        returnRowUpdated=dataSource.getPersonDao().updateBean1(uri, contentValues, selection, selectionArgs);
-        break;
-      }
-      case PATH_PERSON_2_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/${id}/more
-        returnRowUpdated=dataSource.getPersonDao().updateBeanDynamic2(uri, contentValues, selection, selectionArgs);
-        break;
-      }
-      case PATH_PERSON_3_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore
-        returnRowUpdated=dataSource.getPersonDao().updateBeanDynamicWithArgs3(uri, contentValues, selection, selectionArgs);
-        break;
-      }
-      default: {
-        throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
-      }
-    }
-    Logger.info("Changes are notified for URI %s", uri);
-    getContext().getContentResolver().notifyChange(uri, null);
-    return returnRowUpdated;
+    throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
   }
 
   @Override
@@ -135,24 +106,67 @@ public class BindPersonContentProvider extends ContentProvider {
     throw new IllegalArgumentException("Unknown URI for SELECT operation: " + uri);
   }
 
+  /**
+   * method DeleteRawPersonDao.deleteOneBean
+   * method DeleteRawPersonDao.deleteFromSelectAllBeansJQL
+   * method DeleteRawPersonDao.deleteRaw
+   * method DeleteRawPersonDao.deleteRawDynamic
+   * method DeleteRawPersonDao.deleteBeanDynamicWithArgs
+   */
   @Override
   public int delete(Uri uri, String selection, String[] selectionArgs) {
-    throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
+    int returnRowDeleted=-1;
+    switch (sURIMatcher.match(uri)) {
+      case PATH_PERSON_1_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/${id}
+        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteOneBean0(uri, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_3_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/${surname}/${name}
+        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteFromSelectAllBeansJQL1(uri, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_4_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/single/${id}
+        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteRaw2(uri, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_5_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/single2/${id}
+        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteRawDynamic3(uri, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_2_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore
+        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteBeanDynamicWithArgs4(uri, selection, selectionArgs);
+        break;
+      }
+      default: {
+        throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
+      }
+    }
+    Logger.info("Changes are notified for URI %s", uri);
+    getContext().getContentResolver().notifyChange(uri, null);
+    return returnRowDeleted;
   }
 
   @Override
   public String getType(Uri uri) {
     switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_4_INDEX: {
-        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
-      }
       case PATH_PERSON_1_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
-      case PATH_PERSON_2_INDEX: {
+      case PATH_PERSON_3_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
-      case PATH_PERSON_3_INDEX: {
+      case PATH_PERSON_4_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_5_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_2_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
     }

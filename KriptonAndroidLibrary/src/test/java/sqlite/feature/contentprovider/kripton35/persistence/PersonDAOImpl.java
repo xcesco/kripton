@@ -29,7 +29,7 @@ import sqlite.feature.contentprovider.kripton35.entities.Person;
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "birth_city", "birth_day", "value", "name", "surname");
 
-  private static final Set<String> insertName1ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> insertName1ColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static final Set<String> updateRaw5ColumnSet = CollectionUtils.asSet(String.class, "name");
 
@@ -97,7 +97,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("surname");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -184,16 +183,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person (alias_parent_id, birth_city, birth_day, value, name, surname) VALUES (${parentId}, ${birthCity}, ${birthDay}, ${value}, ${tempName}, ${surname})</pre>
+   * <pre>INSERT INTO person (name) VALUES (${tempName})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>alias_parent_id</dt><dd>is binded to query's parameter <strong>${parentId}</strong> and method's parameter <strong>parentId</strong></dd>
-   * 	<dt>birth_city</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>birthCity</strong></dd>
-   * 	<dt>birth_day</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>birthDay</strong></dd>
-   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>tempName</strong></dd>
-   * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
    * </dl>
    *
    * @param tempName
@@ -243,10 +237,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/[*]</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO Person (parentId, birthCity, birthDay, value, name, surname) VALUES (${parentId}, ${birthCity}, ${birthDay}, ${value}, ${name}, ${surname})</pre>
+   * <pre>INSERT INTO Person (name) VALUES (${name})</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO person (alias_parent_id, birth_city, birth_day, value, name, surname) VALUES (${parentId}, ${birthCity}, ${birthDay}, ${value}, ${name}, ${surname})</pre>
+   * <pre>INSERT INTO person (name) VALUES (${name})</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -314,7 +308,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteRaw(long id) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -328,7 +322,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM person WHERE id = ?");
@@ -336,7 +329,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -371,7 +364,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -389,7 +382,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -425,7 +418,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteRaw(long id, String where, String[] args) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -448,7 +441,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         _sqlWhereParams.add(_arg);
       }
     }
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -456,7 +448,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -493,7 +485,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=selectionArgs;
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -521,7 +513,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -532,7 +524,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE person WHERE WHERE id = ${bean.id}</pre>
+   * <pre>DELETE FROM Person WHERE id = ${bean.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -544,7 +536,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteBean(Person bean) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -558,7 +550,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM person WHERE id = ?");
@@ -566,7 +557,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -601,7 +592,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -619,7 +610,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -658,7 +649,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("name");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -672,7 +663,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE person SET name=:name WHERE id=?");
@@ -692,7 +682,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -729,7 +719,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -764,7 +754,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -813,7 +803,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("name");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -829,7 +819,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -849,7 +838,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -886,7 +875,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -921,7 +910,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -972,7 +961,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("name");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -995,7 +984,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         _sqlWhereParams.add(_arg);
       }
     }
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -1015,7 +1003,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1054,7 +1042,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=selectionArgs;
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1099,7 +1087,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -1110,7 +1098,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET alias_parent_id=${person.parentId}, birth_city=${person.birthCity}, birth_day=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE WHERE id=${person.id}</pre>
+   * <pre>UPDATE Person SET parentId=${person.parentId}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -1160,7 +1148,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       contentValues.putNull("surname");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(person.id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1174,10 +1162,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE person SET parentId=:person.parentId, birthCity=:person.birthCity, birthDay=:person.birthDay, value=:person.value, name=:person.name, surname=:person.surname WHERE id=?");
+    Logger.info("UPDATE person SET parentId=:parentId, birthCity=:birthCity, birthDay=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -1194,7 +1181,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1231,7 +1218,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     StringBuilder _sqlBuilder=new StringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1249,7 +1236,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
 
     // display log
-    Logger.info("UPDATE person SET parentId=:person.parentId, birthCity=:person.birthCity, birthDay=:person.birthDay, value=:person.value, name=:person.name, surname=:person.surname WHERE id=?");
+    Logger.info("UPDATE person SET parentId=:parentId, birthCity=:birthCity, birthDay=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -1266,7 +1253,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -1314,7 +1301,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=orderBy;
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1347,7 +1334,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1419,7 +1406,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     StringBuilder _projectionBuffer=new StringBuilder();
     String _sortOrder=sortOrder;
     _sqlBuilder.append("SELECT %s FROM person    ");
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1468,7 +1455,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -1517,7 +1504,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String[] _sqlDynamicWhereArgs=args;
     // generation CODE_001 -- END
     String _sortOrder=order;
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1546,7 +1533,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1615,7 +1602,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     StringBuilder _projectionBuffer=new StringBuilder();
     String _sortOrder=sortOrder;
     _sqlBuilder.append("SELECT %s FROM person  ");
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1659,7 +1646,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -1707,7 +1694,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=orderBy;
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1732,7 +1719,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1804,7 +1791,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     StringBuilder _projectionBuffer=new StringBuilder();
     String _sortOrder=sortOrder;
     _sqlBuilder.append("SELECT %s FROM person  ");
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1845,7 +1832,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -1878,7 +1865,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -1890,7 +1877,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1956,7 +1943,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
     _sqlBuilder.append("SELECT %s FROM person");
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // manage projected columns
@@ -1983,7 +1970,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
@@ -2027,7 +2014,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
     String _sortOrder=null;
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -2051,7 +2038,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

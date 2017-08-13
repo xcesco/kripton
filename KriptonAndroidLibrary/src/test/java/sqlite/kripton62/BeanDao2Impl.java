@@ -68,7 +68,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -80,7 +80,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -160,7 +160,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -180,7 +180,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -275,7 +275,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -295,7 +295,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -347,7 +347,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -367,7 +367,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -418,7 +418,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean2 SET value=${value.value}, value_byte_set=${value.valueByteSet}, value_short_set=${value.valueShortSet}, value_integer_set=${value.valueIntegerSet}, value_string_set=${value.valueStringSet}, value_character_set=${value.valueCharacterSet}, value_float_set=${value.valueFloatSet}, value_double_set=${value.valueDoubleSet}, value_big_decimal_set=${value.valueBigDecimalSet}, value_bean_set=${value.valueBeanSet}, value_enum_type_set=${value.valueEnumTypeSet} WHERE WHERE id=${value.id}</pre>
+   * <pre>UPDATE Bean2 SET value=${value.value}, valueByteSet=${value.valueByteSet}, valueShortSet=${value.valueShortSet}, valueIntegerSet=${value.valueIntegerSet}, valueStringSet=${value.valueStringSet}, valueCharacterSet=${value.valueCharacterSet}, valueFloatSet=${value.valueFloatSet}, valueDoubleSet=${value.valueDoubleSet}, valueBigDecimalSet=${value.valueBigDecimalSet}, valueBeanSet=${value.valueBeanSet}, valueEnumTypeSet=${value.valueEnumTypeSet} WHERE id=${value.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -506,7 +506,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       contentValues.putNull("value_enum_type_set");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(value.id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -520,10 +520,9 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE bean2 SET value=:value.value, valueByteSet=:value.valueByteSet, valueShortSet=:value.valueShortSet, valueIntegerSet=:value.valueIntegerSet, valueStringSet=:value.valueStringSet, valueCharacterSet=:value.valueCharacterSet, valueFloatSet=:value.valueFloatSet, valueDoubleSet=:value.valueDoubleSet, valueBigDecimalSet=:value.valueBigDecimalSet, valueBeanSet=:value.valueBeanSet, valueEnumTypeSet=:value.valueEnumTypeSet WHERE id=?");
+    Logger.info("UPDATE bean2 SET value=:value, valueByteSet=:valueByteSet, valueShortSet=:valueShortSet, valueIntegerSet=:valueIntegerSet, valueStringSet=:valueStringSet, valueCharacterSet=:valueCharacterSet, valueFloatSet=:valueFloatSet, valueDoubleSet=:valueDoubleSet, valueBigDecimalSet=:valueBigDecimalSet, valueBeanSet=:valueBeanSet, valueEnumTypeSet=:valueEnumTypeSet WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -540,7 +539,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean2", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -634,7 +633,6 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       contentValues.putNull("value_enum_type_set");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -667,21 +665,11 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean2 (value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES (${value}, ${valueByteSet}, ${valueShortSet}, ${valueIntegerSet}, ${valueStringSet}, ${valueCharacterSet}, ${valueFloatSet}, ${valueDoubleSet}, ${valueBigDecimalSet}, ${valueBeanSet}, ${valueEnumTypeSet})</pre>
+   * <pre>INSERT INTO bean2 (value_big_decimal_set) VALUES (${valueBigDecimalSet})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
-   * 	<dt>value_byte_set</dt><dd>is binded to query's parameter <strong>${valueByteSet}</strong> and method's parameter <strong>valueByteSet</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is binded to query's parameter <strong>${valueShortSet}</strong> and method's parameter <strong>valueShortSet</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is binded to query's parameter <strong>${valueIntegerSet}</strong> and method's parameter <strong>valueIntegerSet</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is binded to query's parameter <strong>${valueStringSet}</strong> and method's parameter <strong>valueStringSet</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is binded to query's parameter <strong>${valueCharacterSet}</strong> and method's parameter <strong>valueCharacterSet</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is binded to query's parameter <strong>${valueFloatSet}</strong> and method's parameter <strong>valueFloatSet</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is binded to query's parameter <strong>${valueDoubleSet}</strong> and method's parameter <strong>valueDoubleSet</strong></dd>
    * 	<dt>value_big_decimal_set</dt><dd>is binded to query's parameter <strong>${valueBigDecimalSet}</strong> and method's parameter <strong>valueBigDecimalSet</strong></dd>
-   * 	<dt>value_bean_set</dt><dd>is binded to query's parameter <strong>${valueBeanSet}</strong> and method's parameter <strong>valueBeanSet</strong></dd>
-   * 	<dt>value_enum_type_set</dt><dd>is binded to query's parameter <strong>${valueEnumTypeSet}</strong> and method's parameter <strong>valueEnumTypeSet</strong></dd>
    * </dl>
    *
    * @param valueBigDecimalSet
@@ -764,7 +752,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -784,7 +772,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -844,7 +832,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long delete(HashSet<BigDecimal> valueBigDecimalSet) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -858,7 +846,6 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean2 WHERE value=?");
@@ -866,7 +853,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean2", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -899,7 +886,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -913,7 +900,6 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean2 SET id=:id WHERE value=?");
@@ -933,7 +919,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean2", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;

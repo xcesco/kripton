@@ -39,7 +39,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE channel WHERE WHERE ownerUid=${value.id}</pre>
+   * <pre>DELETE FROM Channel WHERE ownerUid=${value.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -53,7 +53,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean deleteContactBean1(Channel channel) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(channel.getId()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -67,7 +67,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM channel WHERE ownerUid=?");
@@ -75,7 +74,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("channel", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -84,7 +83,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE channel WHERE WHERE ownerUid=${value.id}</pre>
+   * <pre>DELETE FROM Channel WHERE ownerUid=${value.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -98,7 +97,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean deleteContactBean2(Channel value) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(value.getId()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -112,7 +111,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM channel WHERE ownerUid=?");
@@ -120,7 +118,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("channel", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -147,7 +145,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public long deleteContactRaw1(String b, long dummy) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((b==null?"":b));
     _sqlWhereParams.add(String.valueOf(dummy));
 
@@ -162,7 +160,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM channel WHERE ownerUid=? and id=?");
@@ -170,7 +167,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("channel", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -197,7 +194,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean deleteContactRaw2(String ownerUid, long id) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((ownerUid==null?"":ownerUid));
     _sqlWhereParams.add(String.valueOf(id));
 
@@ -212,7 +209,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM channel WHERE ownerUid=? and id=?");
@@ -220,7 +216,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("channel", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -229,18 +225,18 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (${uid}, ${b}, ${updateTime}, ${name})</pre>
+   * <pre>INSERT INTO channel (owner_uid, id) VALUES (${b}, ${azz})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is binded to query's parameter <strong>${uid}</strong> and method's parameter <strong>uid</strong></dd>
    * 	<dt>owner_uid</dt><dd>is binded to query's parameter <strong>${ownerUid}</strong> and method's parameter <strong>b</strong></dd>
-   * 	<dt>update_time</dt><dd>is binded to query's parameter <strong>${updateTime}</strong> and method's parameter <strong>updateTime</strong></dd>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>azz</strong></dd>
    * </dl>
    *
    * @param b
    * 	is binded to column value <strong>owner_uid</strong>
+   * @param azz
+   * 	is binded to column value <strong>id</strong>
    *
    * @return <strong>id</strong> of inserted record
    */
@@ -286,18 +282,18 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (${uid}, ${b}, ${updateTime}, ${name})</pre>
+   * <pre>INSERT INTO channel (owner_uid, id) VALUES (${b}, ${id})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is binded to query's parameter <strong>${uid}</strong> and method's parameter <strong>uid</strong></dd>
    * 	<dt>owner_uid</dt><dd>is binded to query's parameter <strong>${ownerUid}</strong> and method's parameter <strong>b</strong></dd>
-   * 	<dt>update_time</dt><dd>is binded to query's parameter <strong>${updateTime}</strong> and method's parameter <strong>updateTime</strong></dd>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param b
    * 	is binded to column value <strong>owner_uid</strong>
+   * @param id
+   * 	is binded to column value <strong>id</strong>
    *
    * @return <code>true</code> if record is inserted, <code>false</code> otherwise
    */
@@ -343,18 +339,18 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (${uid}, ${ownerUid}, ${updateTime}, ${name})</pre>
+   * <pre>INSERT INTO channel (owner_uid, id) VALUES (${ownerUid}, ${id})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is binded to query's parameter <strong>${uid}</strong> and method's parameter <strong>uid</strong></dd>
    * 	<dt>owner_uid</dt><dd>is binded to query's parameter <strong>${ownerUid}</strong> and method's parameter <strong>ownerUid</strong></dd>
-   * 	<dt>update_time</dt><dd>is binded to query's parameter <strong>${updateTime}</strong> and method's parameter <strong>updateTime</strong></dd>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param ownerUid
    * 	is binded to column value <strong>owner_uid</strong>
+   * @param id
+   * 	is binded to column value <strong>id</strong>
    *
    * @return <strong>id</strong> of inserted record
    */
@@ -439,7 +435,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("name");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -511,7 +506,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("name");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -544,7 +538,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE channel SET glu=${glu}, aid=${aid} WHERE id=${dummy}</pre>
+   * <pre>UPDATE channel SET id=${id}, dummy=${dummy} WHERE id=${dummy}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -568,7 +562,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     contentValues.clear();
     contentValues.put("id", glu);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(aid));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -582,10 +576,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE channel SET glu=:glu, aid=:aid WHERE id=?");
+    Logger.info("UPDATE channel SET id=:id, dummy=:dummy WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -602,7 +595,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("channel", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -635,7 +628,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(dummy));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -649,7 +642,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE channel SET id=:id WHERE id=?");
@@ -669,7 +661,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("channel", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -678,7 +670,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE channel SET app=${app}, id=${id} WHERE id=${test}</pre>
+   * <pre>UPDATE channel SET ownerUid=${ownerUid}, test=${test} WHERE id=${test}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -706,7 +698,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("owner_uid");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -720,10 +712,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE channel SET app=:app, id=:id WHERE id=?");
+    Logger.info("UPDATE channel SET ownerUid=:ownerUid, test=:test WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -740,7 +731,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("channel", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -777,7 +768,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("owner_uid");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -791,7 +782,6 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE channel SET ownerUid=:ownerUid WHERE id=?");
@@ -811,7 +801,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("channel", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -820,7 +810,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE channel SET uid=${bean.uid}, owner_uid=${bean.ownerUid}, update_time=${bean.updateTime}, name=${bean.name} WHERE WHERE id=${bean.id}</pre>
+   * <pre>UPDATE Channel SET uid=${value.uid}, ownerUid=${value.ownerUid}, updateTime=${value.updateTime}, name=${value.name} WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -862,7 +852,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("name");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(value.getId()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -876,10 +866,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE channel SET uid=:value.uid, ownerUid=:value.ownerUid, updateTime=:value.updateTime, name=:value.name WHERE id=?");
+    Logger.info("UPDATE channel SET uid=:uid, ownerUid=:ownerUid, updateTime=:updateTime, name=:name WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -896,7 +885,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("channel", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -905,7 +894,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE channel SET uid=${bean.uid}, owner_uid=${bean.ownerUid}, update_time=${bean.updateTime}, name=${bean.name} WHERE WHERE id=${bean.id}</pre>
+   * <pre>UPDATE Channel SET uid=${bean.uid}, ownerUid=${bean.ownerUid}, updateTime=${bean.updateTime}, name=${bean.name} WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -947,7 +936,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("name");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.getId()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -961,10 +950,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE channel SET uid=:bean.uid, ownerUid=:bean.ownerUid, updateTime=:bean.updateTime, name=:bean.name WHERE id=?");
+    Logger.info("UPDATE channel SET uid=:uid, ownerUid=:ownerUid, updateTime=:updateTime, name=:name WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -981,7 +969,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("channel", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -990,7 +978,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE channel SET uid=${bean.uid}, owner_uid=${bean.ownerUid}, update_time=${bean.updateTime}, name=${bean.name} WHERE WHERE id=${bean.id}</pre>
+   * <pre>UPDATE Channel SET uid=${bean.uid}, ownerUid=${bean.ownerUid}, updateTime=${bean.updateTime}, name=${bean.name} WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -1032,7 +1020,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       contentValues.putNull("name");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.getId()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1046,10 +1034,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE channel SET uid=:bean.uid, ownerUid=:bean.ownerUid, updateTime=:bean.updateTime, name=:bean.name WHERE id=?");
+    Logger.info("UPDATE channel SET uid=:uid, ownerUid=:ownerUid, updateTime=:updateTime, name=:name WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -1066,7 +1053,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("channel", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1095,7 +1082,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -1107,7 +1094,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1171,7 +1158,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1191,7 +1178,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1255,7 +1242,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1275,7 +1262,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     Cursor cursor = database().rawQuery(_sql, _sqlArgs);
@@ -1313,7 +1300,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1333,7 +1320,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1400,7 +1387,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1420,7 +1407,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1465,7 +1452,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1485,7 +1472,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1545,7 +1532,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT count(*) FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1565,7 +1552,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1607,7 +1594,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1627,7 +1614,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1682,7 +1669,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1702,7 +1689,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1743,7 +1730,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1763,7 +1750,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     Cursor cursor = database().rawQuery(_sql, _sqlArgs);
@@ -1796,7 +1783,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1816,7 +1803,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1862,7 +1849,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1882,7 +1869,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -1934,7 +1921,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1954,7 +1941,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -2006,7 +1993,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -2026,7 +2013,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {

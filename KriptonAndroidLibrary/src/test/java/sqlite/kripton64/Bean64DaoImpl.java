@@ -77,7 +77,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(BigDecimal valueBigDecimal) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -91,7 +91,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueBigDecimal=?");
@@ -99,7 +98,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -123,7 +122,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(BigInteger valueBigDecimal) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toString()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -137,7 +136,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueBigDecimal=?");
@@ -145,7 +143,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -169,7 +167,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(boolean valueBoolType) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueBoolType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -183,7 +181,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueBoolType=?");
@@ -191,7 +188,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -215,7 +212,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(Boolean valueBool) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBool==null?"":String.valueOf(valueBool)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -229,7 +226,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueBool=?");
@@ -237,7 +233,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -261,7 +257,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteArrayBeanType(Bean64[] valueBeanArray) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -275,7 +271,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueBeanArray=?");
@@ -283,7 +278,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -307,7 +302,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteArrayLong(Long[] valueLongArray) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -321,7 +316,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueLongArray=?");
@@ -329,7 +323,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -353,7 +347,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteArrayLongType(long[] valueLongTypeArray) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -367,7 +361,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueLongTypeArray=?");
@@ -375,7 +368,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -399,7 +392,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteByte(Byte valueByte) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueByte==null?"":String.valueOf(valueByte)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -413,7 +406,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueByte=?");
@@ -421,7 +413,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -445,7 +437,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteByteType(boolean valueByteType) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueByteType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -459,7 +451,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueByteType=?");
@@ -467,7 +458,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -491,7 +482,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteCalendar(Date valueCalendar) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueCalendar==null?"":DateUtils.write(valueCalendar)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -505,7 +496,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueCalendar=?");
@@ -513,7 +503,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -537,7 +527,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteChar(Character valueChar) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueChar==null?"":String.valueOf((int)valueChar)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -551,7 +541,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueCharType=?");
@@ -559,7 +548,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -583,7 +572,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteCharType(char valueCharType) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf((int)valueCharType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -597,7 +586,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueCharType=?");
@@ -605,7 +593,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -629,7 +617,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteCurrency(Currency valueCurrency) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -643,7 +631,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueCurrency=?");
@@ -651,7 +638,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -675,7 +662,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteDate(Date valueDate) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueDate==null?"":DateUtils.write(valueDate)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -689,7 +676,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueDate=?");
@@ -697,7 +683,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -721,7 +707,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteDouble(Double valueDouble) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueDouble==null?"":String.valueOf(valueDouble)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -735,7 +721,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueDouble=?");
@@ -743,7 +728,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -767,7 +752,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteDoubleType(double valueDoubleType) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueDoubleType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -781,7 +766,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueDoubleType=?");
@@ -789,7 +773,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -813,7 +797,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteEnumType(EnumType valueEnumType) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueEnumType==null?"":valueEnumType.toString()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -827,7 +811,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueEnumType=?");
@@ -835,7 +818,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -859,7 +842,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteFloat(Float valueFloat) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueFloat==null?"":String.valueOf(valueFloat)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -873,7 +856,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueFloat=?");
@@ -881,7 +863,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -905,7 +887,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteFloatType(float valueFloatType) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueFloatType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -919,7 +901,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueFloatType=?");
@@ -927,7 +908,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -951,7 +932,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteInt(Integer valueInt) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueInt==null?"":String.valueOf(valueInt)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -965,7 +946,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueInt=?");
@@ -973,7 +953,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -997,7 +977,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteIntType(int valueIntType) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueIntType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1011,7 +991,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueIntType=?");
@@ -1019,7 +998,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1043,7 +1022,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteListLong(LinkedList<Long> valueLongList) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1057,7 +1036,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueLongList=?");
@@ -1065,7 +1043,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1089,7 +1067,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteLocale(Date valueLocale) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLocale==null?"":DateUtils.write(valueLocale)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1103,7 +1081,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueLocale=?");
@@ -1111,7 +1088,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1135,7 +1112,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteLong(Long valueLong) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLong==null?"":String.valueOf(valueLong)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1149,7 +1126,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueLong=?");
@@ -1157,7 +1133,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1181,7 +1157,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteLongType(long valueLongType) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueLongType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1195,7 +1171,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueLongType=?");
@@ -1203,7 +1178,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1227,7 +1202,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteShort(Short valueShort) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueShort==null?"":String.valueOf((int)valueShort)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1241,7 +1216,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueShort=?");
@@ -1249,7 +1223,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1273,7 +1247,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteShortType(short valueShortType) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf((int)valueShortType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1287,7 +1261,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueShortType=?");
@@ -1295,7 +1268,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1319,7 +1292,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteString(String valueString) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueString==null?"":valueString));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1333,7 +1306,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueString=?");
@@ -1341,7 +1313,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1365,7 +1337,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteTime(Time valueTime) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueTime==null?"":TimeUtils.write(valueTime)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1379,7 +1351,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueTime=?");
@@ -1387,7 +1358,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1411,7 +1382,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteTimeZone(TimeZone valueTimeZone) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1425,7 +1396,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueTimeZone=?");
@@ -1433,7 +1403,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1457,7 +1427,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteURL(URL valueUrl) {
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueUrl==null?"":UrlUtils.write(valueUrl)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -1471,7 +1441,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE valueUrl=?");
@@ -1479,7 +1448,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -1721,7 +1690,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       contentValues.putNull("value_set_string");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -1754,51 +1722,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_big_decimal) VALUES (${valueBigDecimal})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
    * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueBigDecimal
@@ -1847,51 +1775,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_big_integer) VALUES (${valueBigInteger})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
    * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueBigInteger
@@ -1940,51 +1828,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_bool_type) VALUES (${valueBoolType})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueBoolType
@@ -2029,51 +1877,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_bool) VALUES (${valueBool})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
    * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueBool
@@ -2122,51 +1930,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_bean_array) VALUES (${valueBeanArray})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
    * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueBeanArray
@@ -2215,51 +1983,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_long_array) VALUES (${valueLongArray})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
    * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueLongArray
@@ -2308,51 +2036,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_long_type_array) VALUES (${valueLongTypeArray})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
    * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueLongTypeArray
@@ -2401,51 +2089,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_byte) VALUES (${valueByte})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
    * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueByte
@@ -2494,51 +2142,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_byte_type) VALUES (${valueByteType})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
    * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueByteType
@@ -2583,51 +2191,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_calendar) VALUES (${valueCalendar})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
    * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueCalendar
@@ -2676,51 +2244,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_char) VALUES (${valueChar})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
    * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueChar
@@ -2769,51 +2297,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_char_type) VALUES (${valueCharType})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
    * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueCharType
@@ -2858,51 +2346,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_currency) VALUES (${valueCurrency})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
    * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueCurrency
@@ -2951,51 +2399,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_date) VALUES (${valueDate})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
    * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueDate
@@ -3044,51 +2452,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_double) VALUES (${valueDouble})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
    * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueDouble
@@ -3137,51 +2505,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_double_type) VALUES (${valueDoubleType})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
    * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueDoubleType
@@ -3226,51 +2554,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_enum_type) VALUES (${valueEnumType})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
    * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueEnumType
@@ -3319,51 +2607,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_float) VALUES (${valueFloat})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
    * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueFloat
@@ -3412,51 +2660,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_float_type) VALUES (${valueFloatType})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
    * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueFloatType
@@ -3501,51 +2709,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_int) VALUES (${valueInt})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
    * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueInt
@@ -3594,51 +2762,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_int_type) VALUES (${valueIntType})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
    * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueIntType
@@ -3683,51 +2811,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_long_list) VALUES (${valueLongList})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
    * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueLongList
@@ -3776,51 +2864,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_locale) VALUES (${valueLocale})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
    * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueLocale
@@ -3869,51 +2917,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_long) VALUES (${valueLong})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
    * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueLong
@@ -3962,51 +2970,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_long_type) VALUES (${valueLongType})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
    * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueLongType
@@ -4051,51 +3019,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_short) VALUES (${valueShort})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
    * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueShort
@@ -4144,51 +3072,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_short_type) VALUES (${valueShortType})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
    * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueShortType
@@ -4233,51 +3121,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_string) VALUES (${valueString})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
    * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueString
@@ -4326,51 +3174,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_time) VALUES (${valueTime})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
    * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueTime
@@ -4419,51 +3227,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_time_zone) VALUES (${valueTimeZone})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
    * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueTimeZone
@@ -4512,51 +3280,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${valueBoolType}, ${valueBool}, ${valueByteType}, ${valueByte}, ${valueShortType}, ${valueShort}, ${valueIntType}, ${valueInt}, ${valueString}, ${valueCharType}, ${valueChar}, ${valueFloatType}, ${valueFloat}, ${valueBigInteger}, ${valueBigDecimal}, ${valueEnumType}, ${valueLongType}, ${valueLong}, ${valueDoubleType}, ${valueDouble}, ${valueLocale}, ${valueCalendar}, ${valueDate}, ${valueUrl}, ${valueTime}, ${valueCurrency}, ${valueTimeZone}, ${valueTimeList}, ${valueStrinList}, ${valueLongList}, ${valueByteArray}, ${valueLongTypeArray}, ${valueLongArray}, ${valueBeanArray}, ${valueStringArray}, ${valueCharList}, ${valueCharTypeArray}, ${valueCharArray}, ${valueMapStringBean}, ${valueLinkedMapStringBean}, ${valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_url) VALUES (${valueUrl})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is binded to query's parameter <strong>${valueBoolType}</strong> and method's parameter <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is binded to query's parameter <strong>${valueBool}</strong> and method's parameter <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is binded to query's parameter <strong>${valueByteType}</strong> and method's parameter <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is binded to query's parameter <strong>${valueByte}</strong> and method's parameter <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is binded to query's parameter <strong>${valueShortType}</strong> and method's parameter <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is binded to query's parameter <strong>${valueShort}</strong> and method's parameter <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is binded to query's parameter <strong>${valueIntType}</strong> and method's parameter <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is binded to query's parameter <strong>${valueInt}</strong> and method's parameter <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is binded to query's parameter <strong>${valueString}</strong> and method's parameter <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is binded to query's parameter <strong>${valueCharType}</strong> and method's parameter <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is binded to query's parameter <strong>${valueChar}</strong> and method's parameter <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is binded to query's parameter <strong>${valueFloatType}</strong> and method's parameter <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is binded to query's parameter <strong>${valueFloat}</strong> and method's parameter <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is binded to query's parameter <strong>${valueBigInteger}</strong> and method's parameter <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is binded to query's parameter <strong>${valueBigDecimal}</strong> and method's parameter <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is binded to query's parameter <strong>${valueEnumType}</strong> and method's parameter <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is binded to query's parameter <strong>${valueLongType}</strong> and method's parameter <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is binded to query's parameter <strong>${valueLong}</strong> and method's parameter <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is binded to query's parameter <strong>${valueDoubleType}</strong> and method's parameter <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is binded to query's parameter <strong>${valueDouble}</strong> and method's parameter <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is binded to query's parameter <strong>${valueLocale}</strong> and method's parameter <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is binded to query's parameter <strong>${valueCalendar}</strong> and method's parameter <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is binded to query's parameter <strong>${valueDate}</strong> and method's parameter <strong>valueDate</strong></dd>
    * 	<dt>value_url</dt><dd>is binded to query's parameter <strong>${valueUrl}</strong> and method's parameter <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is binded to query's parameter <strong>${valueTime}</strong> and method's parameter <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is binded to query's parameter <strong>${valueCurrency}</strong> and method's parameter <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is binded to query's parameter <strong>${valueTimeZone}</strong> and method's parameter <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is binded to query's parameter <strong>${valueTimeList}</strong> and method's parameter <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is binded to query's parameter <strong>${valueStrinList}</strong> and method's parameter <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is binded to query's parameter <strong>${valueLongList}</strong> and method's parameter <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is binded to query's parameter <strong>${valueByteArray}</strong> and method's parameter <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is binded to query's parameter <strong>${valueLongTypeArray}</strong> and method's parameter <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is binded to query's parameter <strong>${valueLongArray}</strong> and method's parameter <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is binded to query's parameter <strong>${valueBeanArray}</strong> and method's parameter <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is binded to query's parameter <strong>${valueStringArray}</strong> and method's parameter <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is binded to query's parameter <strong>${valueCharList}</strong> and method's parameter <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is binded to query's parameter <strong>${valueCharTypeArray}</strong> and method's parameter <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is binded to query's parameter <strong>${valueCharArray}</strong> and method's parameter <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueMapStringBean}</strong> and method's parameter <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is binded to query's parameter <strong>${valueLinkedMapStringBean}</strong> and method's parameter <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is binded to query's parameter <strong>${valueSetString}</strong> and method's parameter <strong>valueSetString</strong></dd>
    * </dl>
    *
    * @param valueUrl
@@ -4669,7 +3397,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -4689,7 +3417,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -4857,7 +3585,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -4869,7 +3597,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -5038,7 +3766,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -5058,7 +3786,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -5227,7 +3955,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -5247,7 +3975,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -5416,7 +4144,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -5436,7 +4164,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -5605,7 +4333,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -5625,7 +4353,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -5795,7 +4523,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -5815,7 +4543,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6030,7 +4758,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6050,7 +4778,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6132,7 +4860,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6152,7 +4880,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6321,7 +5049,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6341,7 +5069,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6510,7 +5238,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6530,7 +5258,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6699,7 +5427,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6719,7 +5447,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -6888,7 +5616,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6908,7 +5636,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7077,7 +5805,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -7097,7 +5825,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7266,7 +5994,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -7286,7 +6014,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7455,7 +6183,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -7475,7 +6203,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7644,7 +6372,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -7664,7 +6392,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -7833,7 +6561,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -7853,7 +6581,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8022,7 +6750,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8042,7 +6770,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8211,7 +6939,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8231,7 +6959,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8400,7 +7128,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8420,7 +7148,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8589,7 +7317,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8609,7 +7337,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8778,7 +7506,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8798,7 +7526,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -8967,7 +7695,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8987,7 +7715,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -9156,7 +7884,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -9176,7 +7904,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -9345,7 +8073,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -9365,7 +8093,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -9534,7 +8262,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -9554,7 +8282,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -9723,7 +8451,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -9743,7 +8471,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -9912,7 +8640,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -9932,7 +8660,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -10101,7 +8829,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -10121,7 +8849,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -10290,7 +9018,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -10310,7 +9038,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -10479,7 +9207,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -10499,7 +9227,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -10668,7 +9396,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -10688,7 +9416,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -10857,7 +9585,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -10877,7 +9605,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11046,7 +9774,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -11066,7 +9794,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11187,7 +9915,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11199,7 +9927,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11233,7 +9961,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_bool_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11245,7 +9973,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11279,7 +10007,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_byte FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11291,7 +10019,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11325,7 +10053,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_byte_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11337,7 +10065,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11371,7 +10099,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_char FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11383,7 +10111,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11417,7 +10145,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_char_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11429,7 +10157,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11463,7 +10191,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_double FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11475,7 +10203,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11509,7 +10237,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_double_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11521,7 +10249,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11555,7 +10283,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_float FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11567,7 +10295,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11601,7 +10329,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_float_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11613,7 +10341,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11647,7 +10375,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_int FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11659,7 +10387,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11693,7 +10421,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_int_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11705,7 +10433,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11739,7 +10467,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_long FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11751,7 +10479,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11785,7 +10513,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_long_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11797,7 +10525,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11831,7 +10559,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_short FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11843,7 +10571,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11877,7 +10605,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_short_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11889,7 +10617,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11923,7 +10651,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append("SELECT value_string FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -11935,7 +10663,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -11953,7 +10681,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean64 SET value_bool_type=${value.valueBoolType}, value_bool=${value.valueBool}, value_byte_type=${value.valueByteType}, value_byte=${value.valueByte}, value_short_type=${value.valueShortType}, value_short=${value.valueShort}, value_int_type=${value.valueIntType}, value_int=${value.valueInt}, value_string=${value.valueString}, value_char_type=${value.valueCharType}, value_char=${value.valueChar}, value_float_type=${value.valueFloatType}, value_float=${value.valueFloat}, value_big_integer=${value.valueBigInteger}, value_big_decimal=${value.valueBigDecimal}, value_enum_type=${value.valueEnumType}, value_long_type=${value.valueLongType}, value_long=${value.valueLong}, value_double_type=${value.valueDoubleType}, value_double=${value.valueDouble}, value_locale=${value.valueLocale}, value_calendar=${value.valueCalendar}, value_date=${value.valueDate}, value_url=${value.valueUrl}, value_time=${value.valueTime}, value_currency=${value.valueCurrency}, value_time_zone=${value.valueTimeZone}, value_time_list=${value.valueTimeList}, value_strin_list=${value.valueStrinList}, value_long_list=${value.valueLongList}, value_byte_array=${value.valueByteArray}, value_long_type_array=${value.valueLongTypeArray}, value_long_array=${value.valueLongArray}, value_bean_array=${value.valueBeanArray}, value_string_array=${value.valueStringArray}, value_char_list=${value.valueCharList}, value_char_type_array=${value.valueCharTypeArray}, value_char_array=${value.valueCharArray}, value_map_string_bean=${value.valueMapStringBean}, value_linked_map_string_bean=${value.valueLinkedMapStringBean}, value_set_string=${value.valueSetString} WHERE WHERE id=${value.id}</pre>
+   * <pre>UPDATE Bean64 SET valueBoolType=${value.valueBoolType}, valueBool=${value.valueBool}, valueByteType=${value.valueByteType}, valueByte=${value.valueByte}, valueShortType=${value.valueShortType}, valueShort=${value.valueShort}, valueIntType=${value.valueIntType}, valueInt=${value.valueInt}, valueString=${value.valueString}, valueCharType=${value.valueCharType}, valueChar=${value.valueChar}, valueFloatType=${value.valueFloatType}, valueFloat=${value.valueFloat}, valueBigInteger=${value.valueBigInteger}, valueBigDecimal=${value.valueBigDecimal}, valueEnumType=${value.valueEnumType}, valueLongType=${value.valueLongType}, valueLong=${value.valueLong}, valueDoubleType=${value.valueDoubleType}, valueDouble=${value.valueDouble}, valueLocale=${value.valueLocale}, valueCalendar=${value.valueCalendar}, valueDate=${value.valueDate}, valueUrl=${value.valueUrl}, valueTime=${value.valueTime}, valueCurrency=${value.valueCurrency}, valueTimeZone=${value.valueTimeZone}, valueTimeList=${value.valueTimeList}, valueStrinList=${value.valueStrinList}, valueLongList=${value.valueLongList}, valueByteArray=${value.valueByteArray}, valueLongTypeArray=${value.valueLongTypeArray}, valueLongArray=${value.valueLongArray}, valueBeanArray=${value.valueBeanArray}, valueStringArray=${value.valueStringArray}, valueCharList=${value.valueCharList}, valueCharTypeArray=${value.valueCharTypeArray}, valueCharArray=${value.valueCharArray}, valueMapStringBean=${value.valueMapStringBean}, valueLinkedMapStringBean=${value.valueLinkedMapStringBean}, valueSetString=${value.valueSetString} WHERE id=${value.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -12189,7 +10917,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       contentValues.putNull("value_set_string");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(value.id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12203,10 +10931,9 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE bean64 SET valueBoolType=:value.valueBoolType, valueBool=:value.valueBool, valueByteType=:value.valueByteType, valueByte=:value.valueByte, valueShortType=:value.valueShortType, valueShort=:value.valueShort, valueIntType=:value.valueIntType, valueInt=:value.valueInt, valueString=:value.valueString, valueCharType=:value.valueCharType, valueChar=:value.valueChar, valueFloatType=:value.valueFloatType, valueFloat=:value.valueFloat, valueBigInteger=:value.valueBigInteger, valueBigDecimal=:value.valueBigDecimal, valueEnumType=:value.valueEnumType, valueLongType=:value.valueLongType, valueLong=:value.valueLong, valueDoubleType=:value.valueDoubleType, valueDouble=:value.valueDouble, valueLocale=:value.valueLocale, valueCalendar=:value.valueCalendar, valueDate=:value.valueDate, valueUrl=:value.valueUrl, valueTime=:value.valueTime, valueCurrency=:value.valueCurrency, valueTimeZone=:value.valueTimeZone, valueTimeList=:value.valueTimeList, valueStrinList=:value.valueStrinList, valueLongList=:value.valueLongList, valueByteArray=:value.valueByteArray, valueLongTypeArray=:value.valueLongTypeArray, valueLongArray=:value.valueLongArray, valueBeanArray=:value.valueBeanArray, valueStringArray=:value.valueStringArray, valueCharList=:value.valueCharList, valueCharTypeArray=:value.valueCharTypeArray, valueCharArray=:value.valueCharArray, valueMapStringBean=:value.valueMapStringBean, valueLinkedMapStringBean=:value.valueLinkedMapStringBean, valueSetString=:value.valueSetString WHERE id=?");
+    Logger.info("UPDATE bean64 SET valueBoolType=:valueBoolType, valueBool=:valueBool, valueByteType=:valueByteType, valueByte=:valueByte, valueShortType=:valueShortType, valueShort=:valueShort, valueIntType=:valueIntType, valueInt=:valueInt, valueString=:valueString, valueCharType=:valueCharType, valueChar=:valueChar, valueFloatType=:valueFloatType, valueFloat=:valueFloat, valueBigInteger=:valueBigInteger, valueBigDecimal=:valueBigDecimal, valueEnumType=:valueEnumType, valueLongType=:valueLongType, valueLong=:valueLong, valueDoubleType=:valueDoubleType, valueDouble=:valueDouble, valueLocale=:valueLocale, valueCalendar=:valueCalendar, valueDate=:valueDate, valueUrl=:valueUrl, valueTime=:valueTime, valueCurrency=:valueCurrency, valueTimeZone=:valueTimeZone, valueTimeList=:valueTimeList, valueStrinList=:valueStrinList, valueLongList=:valueLongList, valueByteArray=:valueByteArray, valueLongTypeArray=:valueLongTypeArray, valueLongArray=:valueLongArray, valueBeanArray=:valueBeanArray, valueStringArray=:valueStringArray, valueCharList=:valueCharList, valueCharTypeArray=:valueCharTypeArray, valueCharArray=:valueCharArray, valueMapStringBean=:valueMapStringBean, valueLinkedMapStringBean=:valueLinkedMapStringBean, valueSetString=:valueSetString WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12223,7 +10950,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12256,7 +10983,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12270,7 +10997,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueBigDecimal=?");
@@ -12290,7 +11016,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12323,7 +11049,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toString()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12337,7 +11063,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueBigDecimal=?");
@@ -12357,7 +11082,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12390,7 +11115,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueBoolType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12404,7 +11129,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueBoolType=?");
@@ -12424,7 +11148,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12457,7 +11181,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBool==null?"":String.valueOf(valueBool)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12471,7 +11195,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueBool=?");
@@ -12491,7 +11214,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12528,7 +11251,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       contentValues.putNull("value_set_string");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12542,7 +11265,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET valueSetString=:valueSetString WHERE id=?");
@@ -12562,7 +11284,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12595,7 +11317,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12609,7 +11331,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueBeanArray=?");
@@ -12629,7 +11350,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12662,7 +11383,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12676,7 +11397,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueLongArray=?");
@@ -12696,7 +11416,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12729,7 +11449,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12743,7 +11463,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueLongTypeArray=?");
@@ -12763,7 +11482,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12796,7 +11515,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueByte==null?"":String.valueOf(valueByte)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12810,7 +11529,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueByte=?");
@@ -12830,7 +11548,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12863,7 +11581,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueByteType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12877,7 +11595,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueByteType=?");
@@ -12897,7 +11614,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12930,7 +11647,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -12944,7 +11661,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueCalendar=?");
@@ -12964,7 +11680,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -12997,7 +11713,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueChar==null?"":String.valueOf((int)valueChar)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13011,7 +11727,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueCharType=?");
@@ -13031,7 +11746,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13064,7 +11779,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf((int)valueCharType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13078,7 +11793,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueCharType=?");
@@ -13098,7 +11812,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13131,7 +11845,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13145,7 +11859,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueCurrency=?");
@@ -13165,7 +11878,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13198,7 +11911,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueDate==null?"":DateUtils.write(valueDate)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13212,7 +11925,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueDate=?");
@@ -13232,7 +11944,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13265,7 +11977,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueDouble==null?"":String.valueOf(valueDouble)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13279,7 +11991,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueDouble=?");
@@ -13299,7 +12010,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13332,7 +12043,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueDoubleType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13346,7 +12057,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueDoubleType=?");
@@ -13366,7 +12076,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13399,7 +12109,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueEnumType==null?"":valueEnumType.toString()));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13413,7 +12123,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueEnumType=?");
@@ -13433,7 +12142,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13466,7 +12175,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueFloat==null?"":String.valueOf(valueFloat)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13480,7 +12189,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueFloat=?");
@@ -13500,7 +12208,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13533,7 +12241,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueFloatType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13547,7 +12255,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueFloatType=?");
@@ -13567,7 +12274,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13600,7 +12307,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueInt==null?"":String.valueOf(valueInt)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13614,7 +12321,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueInt=?");
@@ -13634,7 +12340,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13667,7 +12373,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueIntType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13681,7 +12387,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueIntType=?");
@@ -13701,7 +12406,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13734,7 +12439,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13748,7 +12453,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueLongList=?");
@@ -13768,7 +12472,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13801,7 +12505,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLocale==null?"":LocaleUtils.write(valueLocale)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13815,7 +12519,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueLocale=?");
@@ -13835,7 +12538,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13868,7 +12571,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLong==null?"":String.valueOf(valueLong)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13882,7 +12585,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueLong=?");
@@ -13902,7 +12604,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -13935,7 +12637,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueLongType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -13949,7 +12651,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueLongType=?");
@@ -13969,7 +12670,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14002,7 +12703,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueShort==null?"":String.valueOf((int)valueShort)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -14016,7 +12717,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueShort=?");
@@ -14036,7 +12736,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14069,7 +12769,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf((int)valueShortType));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -14083,7 +12783,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueShortType=?");
@@ -14103,7 +12802,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14136,7 +12835,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueString==null?"":String.valueOf(valueString)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -14150,7 +12849,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueString=?");
@@ -14170,7 +12868,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14203,7 +12901,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueTime==null?"":TimeUtils.write(valueTime)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -14217,7 +12915,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueTime=?");
@@ -14237,7 +12934,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14270,7 +12967,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -14284,7 +12981,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueTimeZone=?");
@@ -14304,7 +13000,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -14337,7 +13033,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     contentValues.clear();
     contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueUrl==null?"":UrlUtils.write(valueUrl)));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -14351,7 +13047,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE valueUrl=?");
@@ -14371,7 +13066,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;

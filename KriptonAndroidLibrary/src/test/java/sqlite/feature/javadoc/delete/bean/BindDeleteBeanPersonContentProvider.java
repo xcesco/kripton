@@ -107,7 +107,7 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
   }
 
   /**
-   * method DeleteBeanPersonDao.deleteAllBeans
+   * method DeleteBeanPersonDao.deleteOneBean
    * method DeleteBeanPersonDao.deleteFromSelectAllBeansJQL
    * method DeleteBeanPersonDao.deleteBean
    * method DeleteBeanPersonDao.deleteBeanDynamic
@@ -119,7 +119,7 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}
-        returnRowDeleted=dataSource.getDeleteBeanPersonDao().deleteAllBeans0(uri, selection, selectionArgs);
+        returnRowDeleted=dataSource.getDeleteBeanPersonDao().deleteOneBean0(uri, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_3_INDEX: {

@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
@@ -34,7 +35,7 @@ public interface SelectBeanPersonDao {
 	 * @param bean
 	 * @return
 	 */
-	
+	@BindContentProviderEntry(path="a")
 	@BindSqlSelect(fields="count(*)")
 	int selectAllBeansCount();
 	
@@ -46,7 +47,7 @@ public interface SelectBeanPersonDao {
 	 */
 	@BindContentProviderEntry(path="${bean.id}", multiplicityResult=MultiplicityResultType.ONE)
 	@BindSqlSelect(where="id=${bean.id}")
-	Person selectOneBean(Person bean);
+	Person selectOneBean(@BindSqlParam("bean") Person benza);
 	
 	/**
 	 * select BEAN with one parameter and dynamic where
@@ -55,7 +56,7 @@ public interface SelectBeanPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path="dynamic/${bean.id}")
-	@BindSqlSelect(where="id=${bean.id}")
+	@BindSqlSelect(fields="name",where="id=${bean.id}")
 	Person selectOneBeanWithDynamic(Person bean, @BindSqlDynamicWhere String where);
 	
 	/**
@@ -89,5 +90,14 @@ public interface SelectBeanPersonDao {
 	@BindSqlSelect(where="id=${bean.id}")
 	void selectOneBeanWithDynamicOrderAndListener(Person bean, @BindSqlDynamicOrderBy String order, OnReadBeanListener<Person> listener);
 	
+	/**
+	 * select BEAN with one parameter and dynamic order
+	 * 
+	 * @param bean
+	 * @return
+	 */
+	@BindContentProviderEntry(path="jql/${bean.id}")
+	@BindSqlSelect(jql="select * from Person where id=${bean.id}")
+	Person selectWithJQL(Person bean);
 	
 }

@@ -118,7 +118,7 @@ public abstract class SqlInsertBuilder {
 		methodBuilder.returns(returnType);
 		
 		// fail if we use jql to INSERT_BEAN with operation of INSERT-FOR-SELECT
-		AssertKripton.failWithInvalidMethodSignException(insertResultType == InsertType.INSERT_BEAN && method.jql.containsSelectOperation, method, "INSERT-FROM-SELECT SQL can not be used with this parameter type");		
+		AssertKripton.failWithInvalidMethodSignException(insertResultType == InsertType.INSERT_BEAN && method.jql.containsSelectOperation, method, "INSERT-FROM-SELECT SQL can not be used with method sign");		
 
 		// generate inner code
 		insertResultType.generate(elementUtils, methodBuilder, method, returnType);

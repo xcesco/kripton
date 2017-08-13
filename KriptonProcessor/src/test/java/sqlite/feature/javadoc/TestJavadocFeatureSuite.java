@@ -26,7 +26,13 @@ import base.BaseProcessorTest;
 		{ 
 		TestJavadocForUpdateBean.class,
 		TestJavadocForUpdateRaw.class,
-		TestJavadocForSelectRaw.class
+		TestJavadocForSelectRaw.class,
+		TestJavadocForSelectBean.class,
+		TestJavadocForDeleteRaw.class,
+		TestJavadocForDeleteBean.class,
+		TestJavadocForInsertRaw.class,
+		TestJavadocForInsertBean.class,
+		
 		 })
 //@formatter:on
 public class TestJavadocFeatureSuite extends BaseProcessorTest {

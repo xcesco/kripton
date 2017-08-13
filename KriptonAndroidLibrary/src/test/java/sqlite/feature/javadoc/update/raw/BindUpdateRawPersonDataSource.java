@@ -14,34 +14,34 @@ import sqlite.feature.javadoc.PersonTable;
 
 /**
  * <p>
- * Rapresents implementation of datasource PersonDataSource.
+ * Rapresents implementation of datasource UpdateRawPersonDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see PersonDataSource
- * @see BindPersonDaoFactory
- * @see PersonDao
- * @see PersonDaoImpl
+ * @see UpdateRawPersonDataSource
+ * @see BindUpdateRawPersonDaoFactory
+ * @see UpdateRawPersonDao
+ * @see UpdateRawPersonDaoImpl
  * @see sqlite.feature.javadoc.Person
  */
-public class BindPersonDataSource extends AbstractDataSource implements BindPersonDaoFactory, PersonDataSource {
+public class BindUpdateRawPersonDataSource extends AbstractDataSource implements BindUpdateRawPersonDaoFactory, UpdateRawPersonDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindPersonDataSource instance;
+  static BindUpdateRawPersonDataSource instance;
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonDaoImpl personDao = new PersonDaoImpl(this);
+  protected UpdateRawPersonDaoImpl updateRawPersonDao = new UpdateRawPersonDaoImpl(this);
 
-  protected BindPersonDataSource(DataSourceOptions options) {
+  protected BindUpdateRawPersonDataSource(DataSourceOptions options) {
     super("person.db", 1, options);
   }
 
   @Override
-  public PersonDaoImpl getPersonDao() {
-    return personDao;
+  public UpdateRawPersonDaoImpl getUpdateRawPersonDao() {
+    return updateRawPersonDao;
   }
 
   /**
@@ -74,9 +74,9 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * instance
    */
-  public static synchronized BindPersonDataSource instance() {
+  public static synchronized BindUpdateRawPersonDataSource instance() {
     if (instance==null) {
-      instance=new BindPersonDataSource(null);
+      instance=new BindUpdateRawPersonDataSource(null);
     }
     return instance;
   }
@@ -85,8 +85,8 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindPersonDataSource open() {
-    BindPersonDataSource instance=instance();
+  public static BindUpdateRawPersonDataSource open() {
+    BindUpdateRawPersonDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -95,8 +95,8 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindPersonDataSource openReadOnly() {
-    BindPersonDataSource instance=instance();
+  public static BindUpdateRawPersonDataSource openReadOnly() {
+    BindUpdateRawPersonDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -162,9 +162,9 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindPersonDataSource build(DataSourceOptions options) {
+  public static BindUpdateRawPersonDataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindPersonDataSource(options);
+      instance=new BindUpdateRawPersonDataSource(options);
     }
     instance.openWritableDatabase();
     return instance;
@@ -173,7 +173,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindPersonDaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindUpdateRawPersonDaoFactory> {
   }
 
   /**

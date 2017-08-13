@@ -61,7 +61,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     _sqlBuilder.append("SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -81,7 +81,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
@@ -128,7 +128,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE message SET channel_id=${bean.channelId}, owner_type=${bean.ownerType}, uid=${bean.uid}, face_uid=${bean.faceUid}, text=${bean.text}, owner_uid=${bean.ownerUid}, channel_uid=${bean.channelUid}, update_time=${bean.updateTime}, type=${bean.type} WHERE WHERE id = ${bean.id}</pre>
+   * <pre>UPDATE MessageEntity SET channelId=${bean.channelId}, ownerType=${bean.ownerType}, uid=${bean.uid}, faceUid=${bean.faceUid}, text=${bean.text}, ownerUid=${bean.ownerUid}, channelUid=${bean.channelUid}, updateTime=${bean.updateTime}, type=${bean.type} WHERE id = ${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -196,7 +196,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       contentValues.putNull("type");
     }
 
-    ArrayList<String> _sqlWhereParams=new ArrayList<String>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
     StringBuilder _sqlBuilder=new StringBuilder();
@@ -210,10 +210,9 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    //StringUtils and SqlUtils will be used to format SQL
 
     // display log
-    Logger.info("UPDATE message SET channelId=:bean.channelId, ownerType=:bean.ownerType, uid=:bean.uid, faceUid=:bean.faceUid, text=:bean.text, ownerUid=:bean.ownerUid, channelUid=:bean.channelUid, updateTime=:bean.updateTime, type=:bean.type WHERE id = ?");
+    Logger.info("UPDATE message SET channelId=:channelId, ownerType=:ownerType, uid=:uid, faceUid=:faceUid, text=:text, ownerUid=:ownerUid, channelUid=:channelUid, updateTime=:updateTime, type=:type WHERE id = ?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -230,7 +229,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     int result = database().update("message", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
@@ -303,7 +302,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       contentValues.putNull("type");
     }
 
-    //StringUtils and SqlUtils will be used to format SQL
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
@@ -366,7 +364,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     _sqlBuilder.append("SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=new ArrayList<>();
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -386,7 +384,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
     for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), _whereParamItem);
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
