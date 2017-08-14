@@ -244,8 +244,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	public String buildJavadoc(MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method,
 			String beanNameParameter, String whereCondition, List<SQLProperty> listUsedProperty,
 			List<String> attributesUsedInWhereConditions) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
+		//SQLDaoDefinition daoDefinition = method.getParent();
+		//SQLEntity entity = daoDefinition.getEntity();
 
 		// in this case, only one parameter can exists for method
 		Pair<String, TypeName> beanParameter = method.getParameters().get(0);
@@ -276,7 +276,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		sqlResult=method.jql.value;
 		if (updateMode) {
-			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "'%s'");
+			//String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "'%s'");
 			//sqlResult = String.format("UPDATE %s SET %s %s", daoDefinition.getEntity().getTableName(), 			bufferQuestion.toString(), where);
 			
 
