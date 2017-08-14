@@ -27,7 +27,7 @@ import sqlite.feature.contentprovider.kripton35.entities.Person;
  *  @see sqlite.feature.contentprovider.kripton35.entities.PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
-  private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "city", "birth_city", "birth_day", "value", "name", "surname");
 
   private static final Set<String> insertName1ColumnSet = CollectionUtils.asSet(String.class, "name");
 
@@ -37,15 +37,15 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   private static final Set<String> updateRaw7ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  private static final Set<String> updateBean8ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> updateBean8ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  private static final Set<String> selectOne9ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> selectOne9ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  private static final Set<String> selectAll10ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> selectAll10ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  private static final Set<String> selectOne11ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> selectOne11ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  private static final Set<String> selectBean12ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> selectBean12ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
@@ -53,12 +53,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR FAIL INTO person (city, birth_city, birth_day, value, name, surname) VALUES (${bean.city}, ${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>city</dt><dd>is mapped to <strong>${bean.city}</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
    * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
@@ -75,7 +76,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    contentValues.put("birth_city", bean.birthCity);
+    contentValues.put("city", bean.city);
+    if (bean.birthCity!=null) {
+      contentValues.put("birth_city", bean.birthCity);
+    } else {
+      contentValues.putNull("birth_city");
+    }
     if (bean.birthDay!=null) {
       contentValues.put("birth_day", DateUtils.write(bean.birthDay));
     } else {
@@ -127,10 +133,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR FAIL INTO Person (birthCity, birthDay, value, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR FAIL INTO Person (city, birthCity, birthDay, value, name, surname) VALUES (${bean.city}, ${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, value, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT OR FAIL INTO person (city, birth_city, birth_day, value, name, surname) VALUES (${bean.city}, ${bean.birthCity}, ${bean.birthDay}, ${bean.value}, ${bean.name}, ${bean.surname})</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -1094,11 +1100,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Person SET parentId=${person.parentId}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
+   * <pre>UPDATE Person SET parentId=${person.parentId}, city=${person.city}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>alias_parent_id</dt><dd>is mapped to <strong>${person.parentId}</strong></dd>
+   * 	<dt>city</dt><dd>is mapped to <strong>${person.city}</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>${person.birthCity}</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${person.birthDay}</strong></dd>
    * 	<dt>value</dt><dd>is mapped to <strong>${person.value}</strong></dd>
@@ -1122,7 +1129,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     contentValues.clear();
 
     contentValues.put("alias_parent_id", person.parentId);
-    contentValues.put("birth_city", person.birthCity);
+    contentValues.put("city", person.city);
+    if (person.birthCity!=null) {
+      contentValues.put("birth_city", person.birthCity);
+    } else {
+      contentValues.putNull("birth_city");
+    }
     if (person.birthDay!=null) {
       contentValues.put("birth_day", DateUtils.write(person.birthDay));
     } else {
@@ -1156,7 +1168,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE person SET parentId=:parentId, birthCity=:birthCity, birthDay=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
+    Logger.info("UPDATE person SET parentId=:parentId, city=:city, birthCity=:birthCity, birthDay=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -1185,10 +1197,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test3/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET parentId=${person.parentId}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
+   * <pre>UPDATE Person SET parentId=${person.parentId}, city=${person.city}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET parentId=${person.parentId}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
+   * <pre>UPDATE person SET parentId=${person.parentId}, city=${person.city}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1228,7 +1240,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
 
     // display log
-    Logger.info("UPDATE person SET parentId=:parentId, birthCity=:birthCity, birthDay=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
+    Logger.info("UPDATE person SET parentId=:parentId, city=:city, birthCity=:birthCity, birthDay=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -1257,12 +1269,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>alias_parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * 	<dt>city</dt><dd>is associated to bean's property <strong>city</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -1289,7 +1302,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectOne(String nameValue, String orderBy) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person");
+    _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=orderBy;
@@ -1339,11 +1352,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
         int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("alias_parent_id");
-        int index2=cursor.getColumnIndex("birth_city");
-        int index3=cursor.getColumnIndex("birth_day");
-        int index4=cursor.getColumnIndex("value");
-        int index5=cursor.getColumnIndex("name");
-        int index6=cursor.getColumnIndex("surname");
+        int index2=cursor.getColumnIndex("city");
+        int index3=cursor.getColumnIndex("birth_city");
+        int index4=cursor.getColumnIndex("birth_day");
+        int index5=cursor.getColumnIndex("value");
+        int index6=cursor.getColumnIndex("name");
+        int index7=cursor.getColumnIndex("surname");
 
         do
          {
@@ -1351,11 +1365,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getLong(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.value=cursor.getLong(index4); }
-          if (!cursor.isNull(index5)) { resultBean.setName(cursor.getString(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.setSurname(cursor.getString(index6)); }
+          if (!cursor.isNull(index2)) { resultBean.city=cursor.getLong(index2); }
+          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+          if (!cursor.isNull(index5)) { resultBean.value=cursor.getLong(index5); }
+          if (!cursor.isNull(index6)) { resultBean.setName(cursor.getString(index6)); }
+          if (!cursor.isNull(index7)) { resultBean.setSurname(cursor.getString(index7)); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -1370,10 +1385,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/[*]/test0</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1459,12 +1474,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>alias_parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * 	<dt>city</dt><dd>is associated to bean's property <strong>city</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -1488,7 +1504,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectAll(String where, String[] args, String order) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person");
+    _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -1538,11 +1554,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
         int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("alias_parent_id");
-        int index2=cursor.getColumnIndex("birth_city");
-        int index3=cursor.getColumnIndex("birth_day");
-        int index4=cursor.getColumnIndex("value");
-        int index5=cursor.getColumnIndex("name");
-        int index6=cursor.getColumnIndex("surname");
+        int index2=cursor.getColumnIndex("city");
+        int index3=cursor.getColumnIndex("birth_city");
+        int index4=cursor.getColumnIndex("birth_day");
+        int index5=cursor.getColumnIndex("value");
+        int index6=cursor.getColumnIndex("name");
+        int index7=cursor.getColumnIndex("surname");
 
         do
          {
@@ -1550,11 +1567,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getLong(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.value=cursor.getLong(index4); }
-          if (!cursor.isNull(index5)) { resultBean.setName(cursor.getString(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.setSurname(cursor.getString(index6)); }
+          if (!cursor.isNull(index2)) { resultBean.city=cursor.getLong(index2); }
+          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+          if (!cursor.isNull(index5)) { resultBean.value=cursor.getLong(index5); }
+          if (!cursor.isNull(index6)) { resultBean.setName(cursor.getString(index6)); }
+          if (!cursor.isNull(index7)) { resultBean.setSurname(cursor.getString(index7)); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -1569,10 +1587,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
@@ -1650,12 +1668,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>alias_parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * 	<dt>city</dt><dd>is associated to bean's property <strong>city</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -1682,7 +1701,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectOne(Person bean, String orderBy) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person");
+    _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=orderBy;
@@ -1724,11 +1743,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
         int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("alias_parent_id");
-        int index2=cursor.getColumnIndex("birth_city");
-        int index3=cursor.getColumnIndex("birth_day");
-        int index4=cursor.getColumnIndex("value");
-        int index5=cursor.getColumnIndex("name");
-        int index6=cursor.getColumnIndex("surname");
+        int index2=cursor.getColumnIndex("city");
+        int index3=cursor.getColumnIndex("birth_city");
+        int index4=cursor.getColumnIndex("birth_day");
+        int index5=cursor.getColumnIndex("value");
+        int index6=cursor.getColumnIndex("name");
+        int index7=cursor.getColumnIndex("surname");
 
         do
          {
@@ -1736,11 +1756,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getLong(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.value=cursor.getLong(index4); }
-          if (!cursor.isNull(index5)) { resultBean.setName(cursor.getString(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.setSurname(cursor.getString(index6)); }
+          if (!cursor.isNull(index2)) { resultBean.city=cursor.getLong(index2); }
+          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+          if (!cursor.isNull(index5)) { resultBean.value=cursor.getLong(index5); }
+          if (!cursor.isNull(index6)) { resultBean.setName(cursor.getString(index6)); }
+          if (!cursor.isNull(index7)) { resultBean.setSurname(cursor.getString(index7)); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -1755,10 +1776,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/[*]/test1</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1836,12 +1857,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>alias_parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * 	<dt>city</dt><dd>is associated to bean's property <strong>city</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -1854,7 +1876,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectBean() {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person");
+    _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -1882,11 +1904,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
         int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("alias_parent_id");
-        int index2=cursor.getColumnIndex("birth_city");
-        int index3=cursor.getColumnIndex("birth_day");
-        int index4=cursor.getColumnIndex("value");
-        int index5=cursor.getColumnIndex("name");
-        int index6=cursor.getColumnIndex("surname");
+        int index2=cursor.getColumnIndex("city");
+        int index3=cursor.getColumnIndex("birth_city");
+        int index4=cursor.getColumnIndex("birth_day");
+        int index5=cursor.getColumnIndex("value");
+        int index6=cursor.getColumnIndex("name");
+        int index7=cursor.getColumnIndex("surname");
 
         do
          {
@@ -1894,11 +1917,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthCity=cursor.getLong(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthDay=DateUtils.read(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.value=cursor.getLong(index4); }
-          if (!cursor.isNull(index5)) { resultBean.setName(cursor.getString(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.setSurname(cursor.getString(index6)); }
+          if (!cursor.isNull(index2)) { resultBean.city=cursor.getLong(index2); }
+          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+          if (!cursor.isNull(index5)) { resultBean.value=cursor.getLong(index5); }
+          if (!cursor.isNull(index6)) { resultBean.setName(cursor.getString(index6)); }
+          if (!cursor.isNull(index7)) { resultBean.setSurname(cursor.getString(index7)); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -1913,10 +1937,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test3</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, parentId, birthCity, birthDay, value, name, surname FROM Person</pre>
+   * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -1974,12 +1998,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>alias_parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
+   * 	<dt>city</dt><dd>is associated to bean's property <strong>city</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
@@ -2000,7 +2025,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void selectCursorListener(OnReadCursorListener cursorListener, String where) {
     StringBuilder _sqlBuilder=new StringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, value, name, surname FROM person");
+    _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;

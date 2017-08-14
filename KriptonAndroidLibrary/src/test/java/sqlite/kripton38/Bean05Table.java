@@ -34,42 +34,42 @@ public class Bean05Table {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS ws_bean;";
 
   /**
-   * Entity's property <code>pk</code> is associated to table column <code>pk</code>. This costant represents column typeName.
+   * Entity's property <code>pk</code> is associated to table column <code>pk</code>. This costant represents column name.
    *
    *  @see Bean05#pk
    */
   public static final String COLUMN_PK = "pk";
 
   /**
-   * Entity's property <code>number</code> is associated to table column <code>number</code>. This costant represents column typeName.
+   * Entity's property <code>number</code> is associated to table column <code>number</code>. This costant represents column name.
    *
    *  @see Bean05#number
    */
   public static final String COLUMN_NUMBER = "number";
 
   /**
-   * Entity's property <code>beanType</code> is associated to table column <code>bean_type</code>. This costant represents column typeName.
+   * Entity's property <code>beanType</code> is associated to table column <code>bean_type</code>. This costant represents column name.
    *
    *  @see Bean05#beanType
    */
   public static final String COLUMN_BEAN_TYPE = "bean_type";
 
   /**
-   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column typeName.
+   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
    *
    *  @see Bean05#text
    */
   public static final String COLUMN_TEXT = "text";
 
   /**
-   * Entity's property <code>content</code> is associated to table column <code>content</code>. This costant represents column typeName.
+   * Entity's property <code>content</code> is associated to table column <code>content</code>. This costant represents column name.
    *
    *  @see Bean05#content
    */
   public static final String COLUMN_CONTENT = "content";
 
   /**
-   * Entity's property <code>creationTime</code> is associated to table column <code>creation_time</code>. This costant represents column typeName.
+   * Entity's property <code>creationTime</code> is associated to table column <code>creation_time</code>. This costant represents column name.
    *
    *  @see Bean05#creationTime
    */

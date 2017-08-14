@@ -34,42 +34,42 @@ public class PhoneNumberTable {
   public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_phone_number_1;DROP TABLE IF EXISTS phone_number;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see PhoneNumber#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>actionType</code> is associated to table column <code>action_type</code>. This costant represents column typeName.
+   * Entity's property <code>actionType</code> is associated to table column <code>action_type</code>. This costant represents column name.
    *
    *  @see PhoneNumber#actionType
    */
   public static final String COLUMN_ACTION_TYPE = "action_type";
 
   /**
-   * Entity's property <code>number</code> is associated to table column <code>number</code>. This costant represents column typeName.
+   * Entity's property <code>number</code> is associated to table column <code>number</code>. This costant represents column name.
    *
    *  @see PhoneNumber#number
    */
   public static final String COLUMN_NUMBER = "number";
 
   /**
-   * Entity's property <code>countryCode</code> is associated to table column <code>country_code</code>. This costant represents column typeName.
+   * Entity's property <code>countryCode</code> is associated to table column <code>country_code</code>. This costant represents column name.
    *
    *  @see PhoneNumber#countryCode
    */
   public static final String COLUMN_COUNTRY_CODE = "country_code";
 
   /**
-   * Entity's property <code>contactName</code> is associated to table column <code>contact_name</code>. This costant represents column typeName.
+   * Entity's property <code>contactName</code> is associated to table column <code>contact_name</code>. This costant represents column name.
    *
    *  @see PhoneNumber#contactName
    */
   public static final String COLUMN_CONTACT_NAME = "contact_name";
 
   /**
-   * Entity's property <code>contactId</code> is associated to table column <code>contact_id</code>. This costant represents column typeName.
+   * Entity's property <code>contactId</code> is associated to table column <code>contact_id</code>. This costant represents column name.
    *
    *  @see PhoneNumber#contactId
    */

@@ -35,6 +35,7 @@ import android.content.pm.ProviderInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import base.BaseAndroidTest;
+import sqlite.feature.contentprovider.kripton35.entities.CityTable;
 import sqlite.feature.contentprovider.kripton35.entities.PersonTable;
 import sqlite.feature.contentprovider.kripton35.persistence.BindPersonContentProvider;
 
@@ -59,17 +60,19 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(PersonTable.COLUMN_BIRTH_CITY, "New York");
 		contentValues.put(PersonTable.COLUMN_BIRTH_DAY, DateUtils.write(new Date()));
+		contentValues.put(PersonTable.COLUMN_CITY, 1);
 
 		for (int i = 0; i < rows; i++) {
 			Uri uri = Uri.parse(BindPersonContentProvider.URI + "/persons");
 			Uri resultURI = getApplicationContext().getContentResolver().insert(uri, contentValues);
-			assertTrue(Long.parseLong(resultURI.toString().replace("content://sqlite.feature.contentprovider.kripton35/persons/",""))>0);
+			assertTrue(Long.parseLong(resultURI.toString().replace("content://sqlite.feature.contentprovider.kripton35/persons/", "")) > 0);
 		}
 	}
 
 	@Test
 	public void testRunSelectAfterInsert() {
 		int rows = 10;
+		insertCity(rows);
 		insertRows(rows);
 
 		{
@@ -79,20 +82,30 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 
 			System.out.println(cursor.getColumnCount() + " " + cursor.getCount());
 			Assert.assertEquals(rows, cursor.getCount());
-			Assert.assertEquals(7, cursor.getColumnCount());
+			Assert.assertEquals(8, cursor.getColumnCount());
 		}
 
 		{
 			Uri uriUpdate = Uri.parse(BindPersonContentProvider.URI + "/persons/#");
-			String temp=uriUpdate.toString().replace("#", "8");
-			uriUpdate=Uri.parse(temp);
-			ContentValues contentValues=new ContentValues();
+			String temp = uriUpdate.toString().replace("#", "8");
+			uriUpdate = Uri.parse(temp);
+			ContentValues contentValues = new ContentValues();
 			contentValues.put(PersonTable.COLUMN_NAME, "London");
 			getApplicationContext().getContentResolver().update(uriUpdate, contentValues, null, null);
 		}
 
 	}
 
+	private void insertCity(int rows) {
+		for (int i = 0; i < rows; i++) {
 
+			ContentValues contentValues = new ContentValues();
+			contentValues.put(CityTable.COLUMN_NAME, "New York" + i);
+
+			Uri uri = Uri.parse(BindPersonContentProvider.URI + "/cities");
+			Uri resultURI = getApplicationContext().getContentResolver().insert(uri, contentValues);
+			assertTrue(Long.parseLong(resultURI.toString().replace("content://sqlite.feature.contentprovider.kripton35/cities/", "")) > 0);
+		}
+	}
 
 }

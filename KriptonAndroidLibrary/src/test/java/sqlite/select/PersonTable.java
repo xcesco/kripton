@@ -34,42 +34,42 @@ public class PersonTable {
   public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_person_name;DROP TABLE IF EXISTS person;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Person#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
    *  @see Person#name
    */
   public static final String COLUMN_NAME = "name";
 
   /**
-   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column typeName.
+   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column name.
    *
    *  @see Person#surname
    */
   public static final String COLUMN_SURNAME = "surname";
 
   /**
-   * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column typeName.
+   * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column name.
    *
    *  @see Person#birthCity
    */
   public static final String COLUMN_BIRTH_CITY = "birth_city";
 
   /**
-   * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column typeName.
+   * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column name.
    *
    *  @see Person#birthDay
    */
   public static final String COLUMN_BIRTH_DAY = "birth_day";
 
   /**
-   * Entity's property <code>typeName</code> is associated to table column <code>type_name</code>. This costant represents column typeName.
+   * Entity's property <code>typeName</code> is associated to table column <code>type_name</code>. This costant represents column name.
    *
    *  @see Person#typeName
    */

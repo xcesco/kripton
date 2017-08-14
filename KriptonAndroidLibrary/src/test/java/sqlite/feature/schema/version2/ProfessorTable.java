@@ -34,28 +34,28 @@ public class ProfessorTable {
   public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_professor_1;DROP TABLE IF EXISTS professor;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Professor#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
    *  @see Professor#name
    */
   public static final String COLUMN_NAME = "name";
 
   /**
-   * Entity's property <code>birthDate</code> is associated to table column <code>birth_date</code>. This costant represents column typeName.
+   * Entity's property <code>birthDate</code> is associated to table column <code>birth_date</code>. This costant represents column name.
    *
    *  @see Professor#birthDate
    */
   public static final String COLUMN_BIRTH_DATE = "birth_date";
 
   /**
-   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column typeName.
+   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column name.
    *
    *  @see Professor#surname
    */

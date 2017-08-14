@@ -10,6 +10,22 @@ import java.lang.IllegalArgumentException;
 import java.lang.Override;
 import java.lang.String;
 
+/**
+ *
+ * <h2>Supported insert operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * </table>
+ *
+ * <h2>Supported update operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${id}</td><td>{@link UpdateRawPersonDaoImpl#updateBean1}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${id}/more</td><td>{@link UpdateRawPersonDaoImpl#updateBeanDynamic2}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore</td><td>{@link UpdateRawPersonDaoImpl#updateBeanDynamicWithArgs3}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql/${surname}</td><td>{@link UpdateRawPersonDaoImpl#updateAllBeansJQL0}</td></tr>
+ * </table>
+ */
 public class BindUpdateRawPersonContentProvider extends ContentProvider {
   /**
    * <p>content provider's URI. Example:</p>
@@ -100,11 +116,6 @@ public class BindUpdateRawPersonContentProvider extends ContentProvider {
       String[] selectionArgs) {
     int returnRowUpdated=1;
     switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_4_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/jql/${surname}
-        returnRowUpdated=dataSource.getUpdateRawPersonDao().updateAllBeansJQL0(uri, contentValues, selection, selectionArgs);
-        break;
-      }
       case PATH_PERSON_1_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${id}
         returnRowUpdated=dataSource.getUpdateRawPersonDao().updateBean1(uri, contentValues, selection, selectionArgs);
@@ -118,6 +129,11 @@ public class BindUpdateRawPersonContentProvider extends ContentProvider {
       case PATH_PERSON_3_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore
         returnRowUpdated=dataSource.getUpdateRawPersonDao().updateBeanDynamicWithArgs3(uri, contentValues, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_4_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/jql/${surname}
+        returnRowUpdated=dataSource.getUpdateRawPersonDao().updateAllBeansJQL0(uri, contentValues, selection, selectionArgs);
         break;
       }
       default: {
@@ -143,9 +159,6 @@ public class BindUpdateRawPersonContentProvider extends ContentProvider {
   @Override
   public String getType(Uri uri) {
     switch (sURIMatcher.match(uri)) {
-      case PATH_PERSON_4_INDEX: {
-        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
-      }
       case PATH_PERSON_1_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
@@ -153,6 +166,9 @@ public class BindUpdateRawPersonContentProvider extends ContentProvider {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_3_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_4_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
     }

@@ -10,6 +10,16 @@ import java.lang.IllegalArgumentException;
 import java.lang.Override;
 import java.lang.String;
 
+/**
+ *
+ * <h2>Supported insert operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons</td><td>{@link InsertBeanPersonDaoImpl#insertOneBean0}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/name</td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldName1}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/surname</td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldSurname2}</td></tr>
+ * </table>
+ */
 public class BindInsertBeanPersonContentProvider extends ContentProvider {
   /**
    * <p>content provider's URI. Example:</p>

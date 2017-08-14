@@ -34,42 +34,42 @@ public class CountryTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS country;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Country#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>area</code> is associated to table column <code>area</code>. This costant represents column typeName.
+   * Entity's property <code>area</code> is associated to table column <code>area</code>. This costant represents column name.
    *
    *  @see Country#area
    */
   public static final String COLUMN_AREA = "area";
 
   /**
-   * Entity's property <code>code</code> is associated to table column <code>code</code>. This costant represents column typeName.
+   * Entity's property <code>code</code> is associated to table column <code>code</code>. This costant represents column name.
    *
    *  @see Country#code
    */
   public static final String COLUMN_CODE = "code";
 
   /**
-   * Entity's property <code>callingCode</code> is associated to table column <code>calling_code</code>. This costant represents column typeName.
+   * Entity's property <code>callingCode</code> is associated to table column <code>calling_code</code>. This costant represents column name.
    *
    *  @see Country#callingCode
    */
   public static final String COLUMN_CALLING_CODE = "calling_code";
 
   /**
-   * Entity's property <code>region</code> is associated to table column <code>region</code>. This costant represents column typeName.
+   * Entity's property <code>region</code> is associated to table column <code>region</code>. This costant represents column name.
    *
    *  @see Country#region
    */
   public static final String COLUMN_REGION = "region";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
    *  @see Country#name
    */

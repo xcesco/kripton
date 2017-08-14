@@ -34,28 +34,28 @@ public class PostTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS post;";
 
   /**
-   * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column typeName.
+   * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column name.
    *
    *  @see Post#userId
    */
   public static final String COLUMN_USER_ID = "user_id";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Post#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>title</code> is associated to table column <code>title</code>. This costant represents column typeName.
+   * Entity's property <code>title</code> is associated to table column <code>title</code>. This costant represents column name.
    *
    *  @see Post#title
    */
   public static final String COLUMN_TITLE = "title";
 
   /**
-   * Entity's property <code>body</code> is associated to table column <code>body</code>. This costant represents column typeName.
+   * Entity's property <code>body</code> is associated to table column <code>body</code>. This costant represents column name.
    *
    *  @see Post#body
    */

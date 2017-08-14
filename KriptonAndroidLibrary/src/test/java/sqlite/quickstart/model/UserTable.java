@@ -45,56 +45,56 @@ public class UserTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS user;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see User#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
    *  @see User#name
    */
   public static final String COLUMN_NAME = "name";
 
   /**
-   * Entity's property <code>username</code> is associated to table column <code>username</code>. This costant represents column typeName.
+   * Entity's property <code>username</code> is associated to table column <code>username</code>. This costant represents column name.
    *
    *  @see User#username
    */
   public static final String COLUMN_USERNAME = "username";
 
   /**
-   * Entity's property <code>email</code> is associated to table column <code>email</code>. This costant represents column typeName.
+   * Entity's property <code>email</code> is associated to table column <code>email</code>. This costant represents column name.
    *
    *  @see User#email
    */
   public static final String COLUMN_EMAIL = "email";
 
   /**
-   * Entity's property <code>address</code> is associated to table column <code>address</code>. This costant represents column typeName.
+   * Entity's property <code>address</code> is associated to table column <code>address</code>. This costant represents column name.
    *
    *  @see User#address
    */
   public static final String COLUMN_ADDRESS = "address";
 
   /**
-   * Entity's property <code>phone</code> is associated to table column <code>phone</code>. This costant represents column typeName.
+   * Entity's property <code>phone</code> is associated to table column <code>phone</code>. This costant represents column name.
    *
    *  @see User#phone
    */
   public static final String COLUMN_PHONE = "phone";
 
   /**
-   * Entity's property <code>website</code> is associated to table column <code>website</code>. This costant represents column typeName.
+   * Entity's property <code>website</code> is associated to table column <code>website</code>. This costant represents column name.
    *
    *  @see User#website
    */
   public static final String COLUMN_WEBSITE = "website";
 
   /**
-   * Entity's property <code>company</code> is associated to table column <code>company</code>. This costant represents column typeName.
+   * Entity's property <code>company</code> is associated to table column <code>company</code>. This costant represents column name.
    *
    *  @see User#company
    */

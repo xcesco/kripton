@@ -100,7 +100,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 	@Override
 	public void visit(SQLEntity entity) throws Exception {
-		int indexCounter=0;
+		int indexCounter = 0;
 		// entity.buildTableName(elementUtils, model);
 
 		// generate the class name that represents the table
@@ -246,7 +246,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		}
 
 		// drop table SQL
-		// index does not need to be dropped, they are automatically detroyed with tables
+		// index does not need to be dropped, they are automatically detroyed
+		// with tables
 		if (bufferIndexesDrop.length() > 0) {
 			bufferDropTable.append(bufferIndexesDrop.toString());
 		}
@@ -319,7 +320,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					fieldCounter.value0++;
 					SQLProperty property = entity.findByName(columnName);
 
-					AssertKripton.assertTrue(property!=null, "class '%s' in @%s(indexes) use unknown property '%s'", entity.getName(), BindTable.class.getSimpleName(), columnName);
+					AssertKripton.assertTrue(property != null, "class '%s' in @%s(indexes) use unknown property '%s'", entity.getName(), BindTable.class.getSimpleName(), columnName);
 					return property.columnName;
 				}
 			});
@@ -341,7 +342,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		//@formatter:off
 		FieldSpec fieldSpec = FieldSpec.builder(String.class, "COLUMN_" + columnNameToUpperCaseConverter.convert(kriptonProperty.getName()), Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
 				.initializer("$S", kriptonProperty.columnName)
-				.addJavadoc("Entity's property <code>$L</code> is associated to table column <code>$L</code>. This costant represents column typeName.\n",
+				.addJavadoc("Entity's property <code>$L</code> is associated to table column <code>$L</code>. This costant represents column name.\n",
 						kriptonProperty.getName(),
 						kriptonProperty.columnName)
 				.addJavadoc("\n @see $T#$L\n", TypeUtility.className(kriptonProperty.getParent().getName()), kriptonProperty.getName())

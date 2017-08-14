@@ -34,7 +34,7 @@ public class UserTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS user;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see User#id
    */

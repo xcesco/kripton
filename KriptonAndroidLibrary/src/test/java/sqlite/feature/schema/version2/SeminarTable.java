@@ -34,21 +34,21 @@ public class SeminarTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS seminar;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Seminar#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
    *  @see Seminar#name
    */
   public static final String COLUMN_NAME = "name";
 
   /**
-   * Entity's property <code>location</code> is associated to table column <code>location</code>. This costant represents column typeName.
+   * Entity's property <code>location</code> is associated to table column <code>location</code>. This costant represents column name.
    *
    *  @see Seminar#location
    */
