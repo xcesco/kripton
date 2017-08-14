@@ -136,9 +136,11 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    * 	is used as where parameter <strong>${name}</strong>
    * @param surname
    * 	is used as where parameter <strong>${surname}</strong>
+   *
+   * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
   @Override
-  public void deleteAllBeansJQL(String name, String surname) {
+  public boolean deleteAllBeansJQL(String name, String surname) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((name==null?"":name));
     _sqlWhereParams.add((surname==null?"":surname));
@@ -165,6 +167,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    return result!=0;
   }
 
   /**
@@ -182,9 +185,11 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    * 	is used as where parameter <strong>${name}</strong>
    * @param surname
    * 	is used as where parameter <strong>${surname}</strong>
+   *
+   * @return number of deleted records
    */
   @Override
-  public void deleteFromSelectAllBeansJQL(String name, String surname) {
+  public int deleteFromSelectAllBeansJQL(String name, String surname) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((surname==null?"":surname));
     _sqlWhereParams.add((name==null?"":name));
@@ -211,6 +216,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    return result;
   }
 
   /**
@@ -288,7 +294,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    * @return number of deleted records
    */
   @Override
-  public int deleteRaw(long id) {
+  public long deleteRaw(long id) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 

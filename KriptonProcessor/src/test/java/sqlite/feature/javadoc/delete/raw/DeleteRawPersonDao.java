@@ -29,7 +29,7 @@ public interface DeleteRawPersonDao {
 	 * @param bean
 	 */
 	@BindSqlDelete(jql = "DELETE FROM Person WHERE name=${name} and surname=${surname} AND student = 0")
-	void deleteAllBeansJQL(String name, String surname);
+	boolean deleteAllBeansJQL(String name, String surname);
 
 	/**
 	 * JQL DELETE-FROM-SELECT can be used as content provider method. The
@@ -39,7 +39,7 @@ public interface DeleteRawPersonDao {
 	 */
 	@BindContentProviderEntry(path = "${surname}/${name}")
 	@BindSqlDelete(jql = "DELETE FROM Person WHERE surname=${surname} and student = (select student from Person where name=${name})")
-	void deleteFromSelectAllBeansJQL(String name, String surname);
+	int deleteFromSelectAllBeansJQL(String name, String surname);
 
 	/**
 	 * Update BEAN with one parameter.
@@ -49,7 +49,7 @@ public interface DeleteRawPersonDao {
 	 */
 	@BindContentProviderEntry(path = "single/${id}")
 	@BindSqlDelete(where = "id=${id}")
-	int deleteRaw(long id);
+	long deleteRaw(long id);
 
 	@BindContentProviderEntry(path = "single2/${id}")
 	@BindSqlDelete(where = "id=${id}")

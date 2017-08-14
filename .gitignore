@@ -48,3 +48,4 @@ target
 /KriptonBenchmarkDemo/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin
 /KriptonBenchmarkDemo/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin
 .gradle
+/.project

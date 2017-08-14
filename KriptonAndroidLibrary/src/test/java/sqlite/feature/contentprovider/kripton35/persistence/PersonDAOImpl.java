@@ -307,9 +307,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * @param id
    * 	is used as where parameter <strong>${id}</strong>
+   *
+   * @return number of deleted records
    */
   @Override
-  public void deleteRaw(long id) {
+  public int deleteRaw(long id) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
@@ -335,6 +337,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    return result;
   }
 
   /**
@@ -417,9 +420,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	is used as dynamic where conditions
    * @param args
    * 	is used as updated field <strong>args</strong>
+   *
+   * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
   @Override
-  public void deleteRaw(long id, String where, String[] args) {
+  public boolean deleteRaw(long id, String where, String[] args) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
@@ -454,6 +459,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    return result!=0;
   }
 
   /**
@@ -535,9 +541,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * @param bean
    * 	is used as ${bean}
+   *
+   * @return number of deleted records
    */
   @Override
-  public void deleteBean(Person bean) {
+  public long deleteBean(Person bean) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
@@ -563,6 +571,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    return result;
   }
 
   /**
