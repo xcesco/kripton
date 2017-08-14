@@ -58,294 +58,294 @@ public class Bean64Table {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean64;";
 
   /**
-   * Entity's property <code>valueBoolType</code> is associated to table column <code>value_bool_type</code>. This costant represents column typeName.
+   * Entity's property <code>valueBoolType</code> is associated to table column <code>value_bool_type</code>. This costant represents column name.
    *
    *  @see Bean64#valueBoolType
    */
   public static final String COLUMN_VALUE_BOOL_TYPE = "value_bool_type";
 
   /**
-   * Entity's property <code>valueBool</code> is associated to table column <code>value_bool</code>. This costant represents column typeName.
+   * Entity's property <code>valueBool</code> is associated to table column <code>value_bool</code>. This costant represents column name.
    *
    *  @see Bean64#valueBool
    */
   public static final String COLUMN_VALUE_BOOL = "value_bool";
 
   /**
-   * Entity's property <code>valueByteType</code> is associated to table column <code>value_byte_type</code>. This costant represents column typeName.
+   * Entity's property <code>valueByteType</code> is associated to table column <code>value_byte_type</code>. This costant represents column name.
    *
    *  @see Bean64#valueByteType
    */
   public static final String COLUMN_VALUE_BYTE_TYPE = "value_byte_type";
 
   /**
-   * Entity's property <code>valueByte</code> is associated to table column <code>value_byte</code>. This costant represents column typeName.
+   * Entity's property <code>valueByte</code> is associated to table column <code>value_byte</code>. This costant represents column name.
    *
    *  @see Bean64#valueByte
    */
   public static final String COLUMN_VALUE_BYTE = "value_byte";
 
   /**
-   * Entity's property <code>valueShortType</code> is associated to table column <code>value_short_type</code>. This costant represents column typeName.
+   * Entity's property <code>valueShortType</code> is associated to table column <code>value_short_type</code>. This costant represents column name.
    *
    *  @see Bean64#valueShortType
    */
   public static final String COLUMN_VALUE_SHORT_TYPE = "value_short_type";
 
   /**
-   * Entity's property <code>valueShort</code> is associated to table column <code>value_short</code>. This costant represents column typeName.
+   * Entity's property <code>valueShort</code> is associated to table column <code>value_short</code>. This costant represents column name.
    *
    *  @see Bean64#valueShort
    */
   public static final String COLUMN_VALUE_SHORT = "value_short";
 
   /**
-   * Entity's property <code>valueIntType</code> is associated to table column <code>value_int_type</code>. This costant represents column typeName.
+   * Entity's property <code>valueIntType</code> is associated to table column <code>value_int_type</code>. This costant represents column name.
    *
    *  @see Bean64#valueIntType
    */
   public static final String COLUMN_VALUE_INT_TYPE = "value_int_type";
 
   /**
-   * Entity's property <code>valueInt</code> is associated to table column <code>value_int</code>. This costant represents column typeName.
+   * Entity's property <code>valueInt</code> is associated to table column <code>value_int</code>. This costant represents column name.
    *
    *  @see Bean64#valueInt
    */
   public static final String COLUMN_VALUE_INT = "value_int";
 
   /**
-   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column typeName.
+   * Entity's property <code>valueString</code> is associated to table column <code>value_string</code>. This costant represents column name.
    *
    *  @see Bean64#valueString
    */
   public static final String COLUMN_VALUE_STRING = "value_string";
 
   /**
-   * Entity's property <code>valueCharType</code> is associated to table column <code>value_char_type</code>. This costant represents column typeName.
+   * Entity's property <code>valueCharType</code> is associated to table column <code>value_char_type</code>. This costant represents column name.
    *
    *  @see Bean64#valueCharType
    */
   public static final String COLUMN_VALUE_CHAR_TYPE = "value_char_type";
 
   /**
-   * Entity's property <code>valueChar</code> is associated to table column <code>value_char</code>. This costant represents column typeName.
+   * Entity's property <code>valueChar</code> is associated to table column <code>value_char</code>. This costant represents column name.
    *
    *  @see Bean64#valueChar
    */
   public static final String COLUMN_VALUE_CHAR = "value_char";
 
   /**
-   * Entity's property <code>valueFloatType</code> is associated to table column <code>value_float_type</code>. This costant represents column typeName.
+   * Entity's property <code>valueFloatType</code> is associated to table column <code>value_float_type</code>. This costant represents column name.
    *
    *  @see Bean64#valueFloatType
    */
   public static final String COLUMN_VALUE_FLOAT_TYPE = "value_float_type";
 
   /**
-   * Entity's property <code>valueFloat</code> is associated to table column <code>value_float</code>. This costant represents column typeName.
+   * Entity's property <code>valueFloat</code> is associated to table column <code>value_float</code>. This costant represents column name.
    *
    *  @see Bean64#valueFloat
    */
   public static final String COLUMN_VALUE_FLOAT = "value_float";
 
   /**
-   * Entity's property <code>valueBigInteger</code> is associated to table column <code>value_big_integer</code>. This costant represents column typeName.
+   * Entity's property <code>valueBigInteger</code> is associated to table column <code>value_big_integer</code>. This costant represents column name.
    *
    *  @see Bean64#valueBigInteger
    */
   public static final String COLUMN_VALUE_BIG_INTEGER = "value_big_integer";
 
   /**
-   * Entity's property <code>valueBigDecimal</code> is associated to table column <code>value_big_decimal</code>. This costant represents column typeName.
+   * Entity's property <code>valueBigDecimal</code> is associated to table column <code>value_big_decimal</code>. This costant represents column name.
    *
    *  @see Bean64#valueBigDecimal
    */
   public static final String COLUMN_VALUE_BIG_DECIMAL = "value_big_decimal";
 
   /**
-   * Entity's property <code>valueEnumType</code> is associated to table column <code>value_enum_type</code>. This costant represents column typeName.
+   * Entity's property <code>valueEnumType</code> is associated to table column <code>value_enum_type</code>. This costant represents column name.
    *
    *  @see Bean64#valueEnumType
    */
   public static final String COLUMN_VALUE_ENUM_TYPE = "value_enum_type";
 
   /**
-   * Entity's property <code>valueLongType</code> is associated to table column <code>value_long_type</code>. This costant represents column typeName.
+   * Entity's property <code>valueLongType</code> is associated to table column <code>value_long_type</code>. This costant represents column name.
    *
    *  @see Bean64#valueLongType
    */
   public static final String COLUMN_VALUE_LONG_TYPE = "value_long_type";
 
   /**
-   * Entity's property <code>valueLong</code> is associated to table column <code>value_long</code>. This costant represents column typeName.
+   * Entity's property <code>valueLong</code> is associated to table column <code>value_long</code>. This costant represents column name.
    *
    *  @see Bean64#valueLong
    */
   public static final String COLUMN_VALUE_LONG = "value_long";
 
   /**
-   * Entity's property <code>valueDoubleType</code> is associated to table column <code>value_double_type</code>. This costant represents column typeName.
+   * Entity's property <code>valueDoubleType</code> is associated to table column <code>value_double_type</code>. This costant represents column name.
    *
    *  @see Bean64#valueDoubleType
    */
   public static final String COLUMN_VALUE_DOUBLE_TYPE = "value_double_type";
 
   /**
-   * Entity's property <code>valueDouble</code> is associated to table column <code>value_double</code>. This costant represents column typeName.
+   * Entity's property <code>valueDouble</code> is associated to table column <code>value_double</code>. This costant represents column name.
    *
    *  @see Bean64#valueDouble
    */
   public static final String COLUMN_VALUE_DOUBLE = "value_double";
 
   /**
-   * Entity's property <code>valueLocale</code> is associated to table column <code>value_locale</code>. This costant represents column typeName.
+   * Entity's property <code>valueLocale</code> is associated to table column <code>value_locale</code>. This costant represents column name.
    *
    *  @see Bean64#valueLocale
    */
   public static final String COLUMN_VALUE_LOCALE = "value_locale";
 
   /**
-   * Entity's property <code>valueCalendar</code> is associated to table column <code>value_calendar</code>. This costant represents column typeName.
+   * Entity's property <code>valueCalendar</code> is associated to table column <code>value_calendar</code>. This costant represents column name.
    *
    *  @see Bean64#valueCalendar
    */
   public static final String COLUMN_VALUE_CALENDAR = "value_calendar";
 
   /**
-   * Entity's property <code>valueDate</code> is associated to table column <code>value_date</code>. This costant represents column typeName.
+   * Entity's property <code>valueDate</code> is associated to table column <code>value_date</code>. This costant represents column name.
    *
    *  @see Bean64#valueDate
    */
   public static final String COLUMN_VALUE_DATE = "value_date";
 
   /**
-   * Entity's property <code>valueUrl</code> is associated to table column <code>value_url</code>. This costant represents column typeName.
+   * Entity's property <code>valueUrl</code> is associated to table column <code>value_url</code>. This costant represents column name.
    *
    *  @see Bean64#valueUrl
    */
   public static final String COLUMN_VALUE_URL = "value_url";
 
   /**
-   * Entity's property <code>valueTime</code> is associated to table column <code>value_time</code>. This costant represents column typeName.
+   * Entity's property <code>valueTime</code> is associated to table column <code>value_time</code>. This costant represents column name.
    *
    *  @see Bean64#valueTime
    */
   public static final String COLUMN_VALUE_TIME = "value_time";
 
   /**
-   * Entity's property <code>valueCurrency</code> is associated to table column <code>value_currency</code>. This costant represents column typeName.
+   * Entity's property <code>valueCurrency</code> is associated to table column <code>value_currency</code>. This costant represents column name.
    *
    *  @see Bean64#valueCurrency
    */
   public static final String COLUMN_VALUE_CURRENCY = "value_currency";
 
   /**
-   * Entity's property <code>valueTimeZone</code> is associated to table column <code>value_time_zone</code>. This costant represents column typeName.
+   * Entity's property <code>valueTimeZone</code> is associated to table column <code>value_time_zone</code>. This costant represents column name.
    *
    *  @see Bean64#valueTimeZone
    */
   public static final String COLUMN_VALUE_TIME_ZONE = "value_time_zone";
 
   /**
-   * Entity's property <code>valueTimeList</code> is associated to table column <code>value_time_list</code>. This costant represents column typeName.
+   * Entity's property <code>valueTimeList</code> is associated to table column <code>value_time_list</code>. This costant represents column name.
    *
    *  @see Bean64#valueTimeList
    */
   public static final String COLUMN_VALUE_TIME_LIST = "value_time_list";
 
   /**
-   * Entity's property <code>valueStrinList</code> is associated to table column <code>value_strin_list</code>. This costant represents column typeName.
+   * Entity's property <code>valueStrinList</code> is associated to table column <code>value_strin_list</code>. This costant represents column name.
    *
    *  @see Bean64#valueStrinList
    */
   public static final String COLUMN_VALUE_STRIN_LIST = "value_strin_list";
 
   /**
-   * Entity's property <code>valueLongList</code> is associated to table column <code>value_long_list</code>. This costant represents column typeName.
+   * Entity's property <code>valueLongList</code> is associated to table column <code>value_long_list</code>. This costant represents column name.
    *
    *  @see Bean64#valueLongList
    */
   public static final String COLUMN_VALUE_LONG_LIST = "value_long_list";
 
   /**
-   * Entity's property <code>valueByteArray</code> is associated to table column <code>value_byte_array</code>. This costant represents column typeName.
+   * Entity's property <code>valueByteArray</code> is associated to table column <code>value_byte_array</code>. This costant represents column name.
    *
    *  @see Bean64#valueByteArray
    */
   public static final String COLUMN_VALUE_BYTE_ARRAY = "value_byte_array";
 
   /**
-   * Entity's property <code>valueLongTypeArray</code> is associated to table column <code>value_long_type_array</code>. This costant represents column typeName.
+   * Entity's property <code>valueLongTypeArray</code> is associated to table column <code>value_long_type_array</code>. This costant represents column name.
    *
    *  @see Bean64#valueLongTypeArray
    */
   public static final String COLUMN_VALUE_LONG_TYPE_ARRAY = "value_long_type_array";
 
   /**
-   * Entity's property <code>valueLongArray</code> is associated to table column <code>value_long_array</code>. This costant represents column typeName.
+   * Entity's property <code>valueLongArray</code> is associated to table column <code>value_long_array</code>. This costant represents column name.
    *
    *  @see Bean64#valueLongArray
    */
   public static final String COLUMN_VALUE_LONG_ARRAY = "value_long_array";
 
   /**
-   * Entity's property <code>valueBeanArray</code> is associated to table column <code>value_bean_array</code>. This costant represents column typeName.
+   * Entity's property <code>valueBeanArray</code> is associated to table column <code>value_bean_array</code>. This costant represents column name.
    *
    *  @see Bean64#valueBeanArray
    */
   public static final String COLUMN_VALUE_BEAN_ARRAY = "value_bean_array";
 
   /**
-   * Entity's property <code>valueStringArray</code> is associated to table column <code>value_string_array</code>. This costant represents column typeName.
+   * Entity's property <code>valueStringArray</code> is associated to table column <code>value_string_array</code>. This costant represents column name.
    *
    *  @see Bean64#valueStringArray
    */
   public static final String COLUMN_VALUE_STRING_ARRAY = "value_string_array";
 
   /**
-   * Entity's property <code>valueCharList</code> is associated to table column <code>value_char_list</code>. This costant represents column typeName.
+   * Entity's property <code>valueCharList</code> is associated to table column <code>value_char_list</code>. This costant represents column name.
    *
    *  @see Bean64#valueCharList
    */
   public static final String COLUMN_VALUE_CHAR_LIST = "value_char_list";
 
   /**
-   * Entity's property <code>valueCharTypeArray</code> is associated to table column <code>value_char_type_array</code>. This costant represents column typeName.
+   * Entity's property <code>valueCharTypeArray</code> is associated to table column <code>value_char_type_array</code>. This costant represents column name.
    *
    *  @see Bean64#valueCharTypeArray
    */
   public static final String COLUMN_VALUE_CHAR_TYPE_ARRAY = "value_char_type_array";
 
   /**
-   * Entity's property <code>valueCharArray</code> is associated to table column <code>value_char_array</code>. This costant represents column typeName.
+   * Entity's property <code>valueCharArray</code> is associated to table column <code>value_char_array</code>. This costant represents column name.
    *
    *  @see Bean64#valueCharArray
    */
   public static final String COLUMN_VALUE_CHAR_ARRAY = "value_char_array";
 
   /**
-   * Entity's property <code>valueMapStringBean</code> is associated to table column <code>value_map_string_bean</code>. This costant represents column typeName.
+   * Entity's property <code>valueMapStringBean</code> is associated to table column <code>value_map_string_bean</code>. This costant represents column name.
    *
    *  @see Bean64#valueMapStringBean
    */
   public static final String COLUMN_VALUE_MAP_STRING_BEAN = "value_map_string_bean";
 
   /**
-   * Entity's property <code>valueLinkedMapStringBean</code> is associated to table column <code>value_linked_map_string_bean</code>. This costant represents column typeName.
+   * Entity's property <code>valueLinkedMapStringBean</code> is associated to table column <code>value_linked_map_string_bean</code>. This costant represents column name.
    *
    *  @see Bean64#valueLinkedMapStringBean
    */
   public static final String COLUMN_VALUE_LINKED_MAP_STRING_BEAN = "value_linked_map_string_bean";
 
   /**
-   * Entity's property <code>valueSetString</code> is associated to table column <code>value_set_string</code>. This costant represents column typeName.
+   * Entity's property <code>valueSetString</code> is associated to table column <code>value_set_string</code>. This costant represents column name.
    *
    *  @see Bean64#valueSetString
    */
   public static final String COLUMN_VALUE_SET_STRING = "value_set_string";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Bean64#id
    */

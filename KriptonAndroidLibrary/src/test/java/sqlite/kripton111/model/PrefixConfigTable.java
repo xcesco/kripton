@@ -34,35 +34,35 @@ public class PrefixConfigTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS prefix_config;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see PrefixConfig#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>defaultCountry</code> is associated to table column <code>default_country</code>. This costant represents column typeName.
+   * Entity's property <code>defaultCountry</code> is associated to table column <code>default_country</code>. This costant represents column name.
    *
    *  @see PrefixConfig#defaultCountry
    */
   public static final String COLUMN_DEFAULT_COUNTRY = "default_country";
 
   /**
-   * Entity's property <code>dualBillingPrefix</code> is associated to table column <code>dual_billing_prefix</code>. This costant represents column typeName.
+   * Entity's property <code>dualBillingPrefix</code> is associated to table column <code>dual_billing_prefix</code>. This costant represents column name.
    *
    *  @see PrefixConfig#dualBillingPrefix
    */
   public static final String COLUMN_DUAL_BILLING_PREFIX = "dual_billing_prefix";
 
   /**
-   * Entity's property <code>enabled</code> is associated to table column <code>enabled</code>. This costant represents column typeName.
+   * Entity's property <code>enabled</code> is associated to table column <code>enabled</code>. This costant represents column name.
    *
    *  @see PrefixConfig#enabled
    */
   public static final String COLUMN_ENABLED = "enabled";
 
   /**
-   * Entity's property <code>dialogTimeout</code> is associated to table column <code>dialog_timeout</code>. This costant represents column typeName.
+   * Entity's property <code>dialogTimeout</code> is associated to table column <code>dialog_timeout</code>. This costant represents column name.
    *
    *  @see PrefixConfig#dialogTimeout
    */

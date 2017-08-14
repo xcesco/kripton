@@ -10,6 +10,19 @@ import java.lang.IllegalArgumentException;
 import java.lang.Override;
 import java.lang.String;
 
+/**
+ *
+ * <h2>Supported insert operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * </table>
+ *
+ * <h2>Supported update operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql</td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL0}</td></tr>
+ * </table>
+ */
 public class BindUpdateBeanPersonContentProvider extends ContentProvider {
   /**
    * <p>content provider's URI. Example:</p>

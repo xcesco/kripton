@@ -9,6 +9,26 @@ import java.lang.IllegalArgumentException;
 import java.lang.Override;
 import java.lang.String;
 
+/**
+ *
+ * <h2>Supported insert operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * </table>
+ *
+ * <h2>Supported query operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons</td><td>{@link SelectBeanPersonDaoImpl#selectAllBeans0}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectOneBean2}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/a</td><td>{@link SelectBeanPersonDaoImpl#selectAllBeansCount1}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamic3}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrder5}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicAndArgs4}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectWithJQL7}</td></tr>
+ * </table>
+ */
 public class BindSelectBeanPersonContentProvider extends ContentProvider {
   /**
    * <p>content provider's URI. Example:</p>
@@ -142,24 +162,19 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
         returnCursor=dataSource.getSelectBeanPersonDao().selectAllBeans0(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
-      case PATH_PERSON_3_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/a
-        returnCursor=dataSource.getSelectBeanPersonDao().selectAllBeansCount1(uri, projection, selection, selectionArgs, sortOrder);
-        break;
-      }
       case PATH_PERSON_2_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}
         returnCursor=dataSource.getSelectBeanPersonDao().selectOneBean2(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
+      case PATH_PERSON_3_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/a
+        returnCursor=dataSource.getSelectBeanPersonDao().selectAllBeansCount1(uri, projection, selection, selectionArgs, sortOrder);
+        break;
+      }
       case PATH_PERSON_4_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}
         returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamic3(uri, projection, selection, selectionArgs, sortOrder);
-        break;
-      }
-      case PATH_PERSON_7_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicAndArgs4(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_5_INDEX: {
@@ -170,6 +185,11 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
       case PATH_PERSON_6_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}
         returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicOrderAndListener6(uri, projection, selection, selectionArgs, sortOrder);
+        break;
+      }
+      case PATH_PERSON_7_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicAndArgs4(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_8_INDEX: {
@@ -195,22 +215,22 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
       case PATH_PERSON_1_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
-      case PATH_PERSON_3_INDEX: {
-        return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
-      }
       case PATH_PERSON_2_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
-      case PATH_PERSON_4_INDEX: {
+      case PATH_PERSON_3_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
-      case PATH_PERSON_7_INDEX: {
+      case PATH_PERSON_4_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_5_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_6_INDEX: {
+        return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_7_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_8_INDEX: {

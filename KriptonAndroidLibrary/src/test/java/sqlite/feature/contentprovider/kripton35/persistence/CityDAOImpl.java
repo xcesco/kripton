@@ -1,17 +1,16 @@
 package sqlite.feature.contentprovider.kripton35.persistence;
 
-import java.util.ArrayList;
-import java.util.Set;
-
-import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.CollectionUtils;
-import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
+import com.abubusoft.kripton.common.CollectionUtils;
+import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.util.ArrayList;
+import java.util.Set;
 import sqlite.feature.contentprovider.kripton35.entities.City;
 
 /**

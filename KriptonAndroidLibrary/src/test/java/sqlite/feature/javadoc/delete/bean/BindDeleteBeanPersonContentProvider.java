@@ -10,6 +10,23 @@ import java.lang.IllegalArgumentException;
 import java.lang.Override;
 import java.lang.String;
 
+/**
+ *
+ * <h2>Supported insert operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * </table>
+ *
+ * <h2>Supported delete operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}</td><td>{@link DeleteBeanPersonDaoImpl#deleteOneBean0}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamicWithArgs4}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.surname}/${bean.name}</td><td>{@link DeleteBeanPersonDaoImpl#deleteFromSelectAllBeansJQL1}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/single/${bean.id}</td><td>{@link DeleteBeanPersonDaoImpl#deleteBean2}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/single2/${bean.id}</td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamic3}</td></tr>
+ * </table>
+ */
 public class BindDeleteBeanPersonContentProvider extends ContentProvider {
   /**
    * <p>content provider's URI. Example:</p>
@@ -122,6 +139,11 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
         returnRowDeleted=dataSource.getDeleteBeanPersonDao().deleteOneBean0(uri, selection, selectionArgs);
         break;
       }
+      case PATH_PERSON_2_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore
+        returnRowDeleted=dataSource.getDeleteBeanPersonDao().deleteBeanDynamicWithArgs4(uri, selection, selectionArgs);
+        break;
+      }
       case PATH_PERSON_3_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${bean.surname}/${bean.name}
         returnRowDeleted=dataSource.getDeleteBeanPersonDao().deleteFromSelectAllBeansJQL1(uri, selection, selectionArgs);
@@ -135,11 +157,6 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
       case PATH_PERSON_5_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/single2/${bean.id}
         returnRowDeleted=dataSource.getDeleteBeanPersonDao().deleteBeanDynamic3(uri, selection, selectionArgs);
-        break;
-      }
-      case PATH_PERSON_2_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore
-        returnRowDeleted=dataSource.getDeleteBeanPersonDao().deleteBeanDynamicWithArgs4(uri, selection, selectionArgs);
         break;
       }
       default: {
@@ -157,6 +174,9 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
       case PATH_PERSON_1_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
+      case PATH_PERSON_2_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
       case PATH_PERSON_3_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
@@ -164,9 +184,6 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_5_INDEX: {
-        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
-      }
-      case PATH_PERSON_2_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
     }

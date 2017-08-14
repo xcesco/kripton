@@ -34,14 +34,14 @@ public class CityTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS city;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see City#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
    *  @see City#name
    */

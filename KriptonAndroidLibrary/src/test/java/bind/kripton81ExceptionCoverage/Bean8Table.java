@@ -34,14 +34,14 @@ public class Bean8Table {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean8;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Bean8#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>ignore2</code> is associated to table column <code>ignore2</code>. This costant represents column typeName.
+   * Entity's property <code>ignore2</code> is associated to table column <code>ignore2</code>. This costant represents column name.
    *
    *  @see Bean8#ignore2
    */

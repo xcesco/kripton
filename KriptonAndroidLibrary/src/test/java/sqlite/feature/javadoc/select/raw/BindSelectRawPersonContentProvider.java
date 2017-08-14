@@ -9,6 +9,26 @@ import java.lang.IllegalArgumentException;
 import java.lang.Override;
 import java.lang.String;
 
+/**
+ *
+ * <h2>Supported insert operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * </table>
+ *
+ * <h2>Supported query operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons</td><td>{@link SelectRawPersonDaoImpl#selectAllBeans0}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${id}</td><td>{@link SelectRawPersonDaoImpl#selectOneBean2}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/a</td><td>{@link SelectRawPersonDaoImpl#selectAllBeansCount1}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamic/${id}</td><td>{@link SelectRawPersonDaoImpl#selectOneBeanWithDynamic3}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${id}</td><td>{@link SelectRawPersonDaoImpl#selectOneBeanWithDynamicOrder5}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${surname}</td><td>{@link SelectRawPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${id}/${name}</td><td>{@link SelectRawPersonDaoImpl#selectOneBeanWithDynamicAndArgs4}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql/${id}</td><td>{@link SelectRawPersonDaoImpl#selectWithJQL7}</td></tr>
+ * </table>
+ */
 public class BindSelectRawPersonContentProvider extends ContentProvider {
   /**
    * <p>content provider's URI. Example:</p>
@@ -142,24 +162,19 @@ public class BindSelectRawPersonContentProvider extends ContentProvider {
         returnCursor=dataSource.getSelectRawPersonDao().selectAllBeans0(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
-      case PATH_PERSON_3_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/a
-        returnCursor=dataSource.getSelectRawPersonDao().selectAllBeansCount1(uri, projection, selection, selectionArgs, sortOrder);
-        break;
-      }
       case PATH_PERSON_2_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${id}
         returnCursor=dataSource.getSelectRawPersonDao().selectOneBean2(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
+      case PATH_PERSON_3_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/a
+        returnCursor=dataSource.getSelectRawPersonDao().selectAllBeansCount1(uri, projection, selection, selectionArgs, sortOrder);
+        break;
+      }
       case PATH_PERSON_4_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamic/${id}
         returnCursor=dataSource.getSelectRawPersonDao().selectOneBeanWithDynamic3(uri, projection, selection, selectionArgs, sortOrder);
-        break;
-      }
-      case PATH_PERSON_7_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${id}/${name}
-        returnCursor=dataSource.getSelectRawPersonDao().selectOneBeanWithDynamicAndArgs4(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_5_INDEX: {
@@ -170,6 +185,11 @@ public class BindSelectRawPersonContentProvider extends ContentProvider {
       case PATH_PERSON_6_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${surname}
         returnCursor=dataSource.getSelectRawPersonDao().selectOneBeanWithDynamicOrderAndListener6(uri, projection, selection, selectionArgs, sortOrder);
+        break;
+      }
+      case PATH_PERSON_7_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${id}/${name}
+        returnCursor=dataSource.getSelectRawPersonDao().selectOneBeanWithDynamicAndArgs4(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_8_INDEX: {
@@ -195,22 +215,22 @@ public class BindSelectRawPersonContentProvider extends ContentProvider {
       case PATH_PERSON_1_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
-      case PATH_PERSON_3_INDEX: {
-        return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
-      }
       case PATH_PERSON_2_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
-      case PATH_PERSON_4_INDEX: {
+      case PATH_PERSON_3_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
-      case PATH_PERSON_7_INDEX: {
+      case PATH_PERSON_4_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_5_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_6_INDEX: {
+        return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_7_INDEX: {
         return "vnd.android.cursor.dir/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_8_INDEX: {

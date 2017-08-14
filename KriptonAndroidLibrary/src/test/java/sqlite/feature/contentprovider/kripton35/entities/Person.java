@@ -26,16 +26,17 @@ public class Person {
 
 	public long id;
 
-	@BindColumn(value="alias_parent_id", foreignKey=Person.class, nullable=true)
+	@BindColumn(value = "alias_parent_id", foreignKey = Person.class, nullable = true)
 	public long parentId;
-	
-	@BindColumn(foreignKey=City.class)
-	public long birthCity;
-	
+
+	@BindColumn(foreignKey = City.class)
+	public long city;
+
+	public String birthCity;
+
 	public Date birthDay;
-	
+
 	public long value;
-	
 
 	public String getName() {
 		return name;
@@ -54,6 +55,6 @@ public class Person {
 	}
 
 	protected String name;
-	
+
 	protected String surname;
 }

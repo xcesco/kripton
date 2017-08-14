@@ -34,28 +34,28 @@ public class PersonTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS person;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Person#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
    *  @see Person#name
    */
   public static final String COLUMN_NAME = "name";
 
   /**
-   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column typeName.
+   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column name.
    *
    *  @see Person#surname
    */
   public static final String COLUMN_SURNAME = "surname";
 
   /**
-   * Entity's property <code>student</code> is associated to table column <code>student</code>. This costant represents column typeName.
+   * Entity's property <code>student</code> is associated to table column <code>student</code>. This costant represents column name.
    *
    *  @see Person#student
    */

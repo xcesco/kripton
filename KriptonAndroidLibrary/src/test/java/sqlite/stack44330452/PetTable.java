@@ -34,21 +34,21 @@ public class PetTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS pet;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Pet#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column typeName.
+   * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column name.
    *
    *  @see Pet#userId
    */
   public static final String COLUMN_USER_ID = "user_id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column typeName.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
    *  @see Pet#name
    */
