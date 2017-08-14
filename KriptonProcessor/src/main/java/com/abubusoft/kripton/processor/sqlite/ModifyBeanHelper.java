@@ -21,7 +21,6 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
@@ -34,7 +33,6 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -195,7 +193,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		}
 	}
-
+	
 	/**
 	 * @param methodBuilder
 	 * @param updateMode
@@ -293,7 +291,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("\n\n");
 
 			// list of updated fields
-			Set<String> updateColumns=JQLChecker.getInstance().extractColumnsToUpdate(method.jql.value, entity);
+			//Set<String> updateColumns=JQLChecker.getInstance().extractColumnsToUpdate(method.jql.value, entity);
 			methodBuilder.addJavadoc("<h2>Updated columns:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
@@ -304,7 +302,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");
 		} else {
-			String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
+			//String where = SqlUtility.replaceParametersWithQuestion(whereCondition, "%s");
 			//sqlResult = String.format("DELETE %s %s ", daoDefinition.getEntity().getTableName(), where);			
 
 			methodBuilder.addJavadoc("<h2>SQL delete:</h2>\n");
