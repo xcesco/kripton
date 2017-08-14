@@ -31,7 +31,7 @@ import javax.lang.model.type.TypeVisitor;
  * @author Francesco Benincasa (abubusoft@gmail.com)
  *
  */
-public class LiteralType {
+public class LiteralType { 
 	
 	final static Map<String, LiteralType> cached=new HashMap<String, LiteralType>();
 
