@@ -127,7 +127,7 @@ public abstract class SQLiteUpdateTaskHelper {
 
 	public static void dropTablesAndIndices(SQLiteDatabase db) {
 		drop(db, QueryType.INDEX, null);
-		drop(db, QueryType.TABLE, null);		
+		drop(db, QueryType.TABLE, null);
 	}
 
 	/**
@@ -221,25 +221,29 @@ public abstract class SQLiteUpdateTaskHelper {
 		}
 
 	}
-	
+
 	public static <H extends AbstractDataSource> void verifySchema(H dataSource, String fileNameSchema) {
 		try {
 			verifySchema(dataSource.openWritableDatabase(), new FileInputStream(fileNameSchema));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			
-			throw(new KriptonRuntimeException(e));
+
+			throw (new KriptonRuntimeException(e));
 		}
 	}
-	
-	public  static <H extends AbstractDataSource> void verifySchema(H dataSource, File fileSchema) {
+
+	public static <H extends AbstractDataSource> void verifySchema(H dataSource, File fileSchema) {
 		try {
 			verifySchema(dataSource.openWritableDatabase(), new FileInputStream(fileSchema));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			
-			throw(new KriptonRuntimeException(e));
+
+			throw (new KriptonRuntimeException(e));
 		}
+	}
+
+	public static <H extends AbstractDataSource> void verifySchema(H dataSource, InputStream fileSchemaInputStream) {
+		verifySchema(dataSource.openWritableDatabase(), fileSchemaInputStream);
 	}
 
 	static void verifySchema(SQLiteDatabase database, InputStream inputStream) {
@@ -282,7 +286,7 @@ public abstract class SQLiteUpdateTaskHelper {
 		database.close();
 
 	}
-	
+
 	/**
 	 * Force a schema update for a datasource. Note that no DDL was execute
 	 * untill the database was opened.
@@ -297,23 +301,22 @@ public abstract class SQLiteUpdateTaskHelper {
 		dataSource.version = version;
 		dataSource.database = null;
 		dataSource.sqliteHelper = null;
-		
+
 		dataSource.openWritableDatabase();
 	}
 
-	public static <E extends AbstractDataSource> void clearDatabase(E dataSource) {		
+	public static <E extends AbstractDataSource> void clearDatabase(E dataSource) {
 		dataSource.openWritableDatabase();
-		File file=new File(dataSource.database.getPath(),dataSource.name);
-		
-		if (dataSource.isOpen())
-		{
+		File file = new File(dataSource.database.getPath(), dataSource.name);
+
+		if (dataSource.isOpen()) {
 			dataSource.forceClose();
 			dataSource.close();
 		}
-		
-		Logger.info("Clear database file %s", file.getAbsolutePath());		
+
+		Logger.info("Clear database file %s", file.getAbsolutePath());
 		if (!file.delete()) {
-			throw(new KriptonRuntimeException("Can not delete database "+file.getAbsolutePath()));
+			throw (new KriptonRuntimeException("Can not delete database " + file.getAbsolutePath()));
 		}
 	}
 

@@ -3,6 +3,7 @@ package com.abubusoft.kripton.android.sqlite;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import edu.emory.mathcs.backport.java.util.Collections;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLiteUpdateTestDatabase {
