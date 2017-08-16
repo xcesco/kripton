@@ -412,7 +412,7 @@
 					<argLine>-Xmx64m</argLine>
 					<systemPropertyVariables>
 						<kripton.debug>${kripton.debug}</kripton.debug>
-					</systemPropertyVariables>
+					</systemPropertyVariables> 
 					<includes>
 						<include>all/*TestSuite.java</include>
 					</includes>
