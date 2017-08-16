@@ -40,7 +40,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Analyze an SQL statement, extract parameter and replace with ?
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class SqlAnalyzer {

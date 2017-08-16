@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
 /**
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class JQLPlaceHolder {

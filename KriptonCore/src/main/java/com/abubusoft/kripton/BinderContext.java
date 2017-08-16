@@ -16,11 +16,11 @@ import java.util.Map;
  * viceversa.
  * </p>
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public interface BinderContext {

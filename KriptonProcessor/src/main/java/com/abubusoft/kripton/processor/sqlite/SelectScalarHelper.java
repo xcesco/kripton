@@ -34,7 +34,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Manage query with only one value
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  *
  * @since 17/mag/2016

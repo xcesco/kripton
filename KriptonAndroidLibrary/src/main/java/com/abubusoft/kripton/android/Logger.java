@@ -23,8 +23,8 @@ import android.util.Log;
 /**
  * Logger used in kripton library
  * 
- * @author Francesco Benincasa
- * 
+ * @author Francesco Benincasa (info@abubusoft.com)
+ *
  */
 public class Logger {
 

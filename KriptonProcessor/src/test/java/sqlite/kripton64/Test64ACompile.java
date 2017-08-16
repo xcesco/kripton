@@ -22,7 +22,7 @@ import org.junit.Test;
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class Test64ACompile extends AbstractBindSQLiteProcessorTest {

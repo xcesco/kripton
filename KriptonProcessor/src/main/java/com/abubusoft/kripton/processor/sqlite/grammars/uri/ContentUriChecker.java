@@ -45,7 +45,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Bind_parame
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Path_segmentContext;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class ContentUriChecker {

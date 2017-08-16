@@ -24,7 +24,7 @@ import shared.AbstractBindSharedPreferenceProcessorTest;
 /**
  * Test bean field
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class TestSharedPreferenceGenericHierarchy extends AbstractBindSharedPreferenceProcessorTest {

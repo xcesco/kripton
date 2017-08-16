@@ -16,7 +16,7 @@
 /**
  *	Tests on DatabaseSchema. Without Dao and BindType elements, no database schema can ben generated.
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  * @since 11/mag/2016
  */

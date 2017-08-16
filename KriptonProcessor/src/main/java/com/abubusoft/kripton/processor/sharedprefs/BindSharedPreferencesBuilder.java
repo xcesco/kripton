@@ -56,7 +56,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public abstract class BindSharedPreferencesBuilder {

@@ -22,7 +22,7 @@ import java.io.Writer;
 /**
  * A few string utils
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class StringUtils {

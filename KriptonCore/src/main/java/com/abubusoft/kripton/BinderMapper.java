@@ -12,7 +12,7 @@ import com.fasterxml.jackson.core.JsonParser;
 /**
  * This annotation is used to define interface of generated bind map classes by Kripton.
  *  
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  * @param <E>
  */

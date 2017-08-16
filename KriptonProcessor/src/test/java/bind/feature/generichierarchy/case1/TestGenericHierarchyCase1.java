@@ -31,7 +31,7 @@ import bind.feature.generichierarchy.case1.transfer.ServiceStatusType;
 /**
  * Test bean field
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class TestGenericHierarchyCase1 extends AbstractBindTypeProcessorTest {

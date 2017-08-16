@@ -40,7 +40,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
  * 
  * <p>Usually it is used in <code>BindType</code> bean and <code>Dao</code> definitions.</p>
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class TypeVariableResolver {

@@ -16,7 +16,7 @@
 /**
  * KRIPTON-74: compile time support for map of entity
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 package bind.kripton78;

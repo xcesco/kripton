@@ -3,7 +3,7 @@ package com.abubusoft.kripton.map;
 import com.abubusoft.kripton.map.BindMapVisitor.VisitorStatusType;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public interface BindMapListener {	

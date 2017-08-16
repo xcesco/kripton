@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 import com.abubusoft.kripton.BindTypeAdapter;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class Enum87BigIntegerTypeAdapter implements BindTypeAdapter<Enum87A, BigDecimal> {

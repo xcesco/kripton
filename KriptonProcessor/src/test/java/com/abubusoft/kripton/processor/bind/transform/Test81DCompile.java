@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class Test81DCompile {

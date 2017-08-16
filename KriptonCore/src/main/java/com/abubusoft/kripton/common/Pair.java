@@ -16,7 +16,7 @@
 package com.abubusoft.kripton.common;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class Pair<V0, V1> extends One<V0> {

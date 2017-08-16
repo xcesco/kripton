@@ -64,7 +64,7 @@ import android.content.ContentValues;
 import android.net.Uri;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  *
  * @since 05/mag/2016

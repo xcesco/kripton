@@ -18,7 +18,7 @@ package com.abubusoft.kripton.xml;
 /**
  * Specify type of xml binding.
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public enum XmlType { 

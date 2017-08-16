@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.DateUtils;
 /**
  * Transformer between a string and a java.util.Date object
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 class DateSQLTransform extends WrappedSQLTransform<DateUtils> {

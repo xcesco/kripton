@@ -39,7 +39,7 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 /**
  * Annotation processor for json/xml/etc
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class BindTypeProcessor extends BaseProcessor {

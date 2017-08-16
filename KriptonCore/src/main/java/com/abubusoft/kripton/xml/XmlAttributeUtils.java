@@ -3,7 +3,7 @@ package com.abubusoft.kripton.xml;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class XmlAttributeUtils {

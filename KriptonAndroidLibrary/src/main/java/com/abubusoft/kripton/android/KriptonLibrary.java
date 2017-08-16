@@ -20,7 +20,7 @@ import android.content.Context;
 /**
  * Refererrer of android context.
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class KriptonLibrary {

@@ -29,8 +29,8 @@ import com.abubusoft.kripton.android.sqlite.NoForeignKey;
  * column.
  * </p>
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
- * 
+ * @author Francesco Benincasa (info@abubusoft.com)
+ *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
@@ -39,8 +39,9 @@ public @interface BindColumn {
 	static boolean NULLABLE_DEFAULT = true;
 
 	/**
+	 * If true, indicates that attribute must be binded to a column on bean's associated table
 	 * 
-	 * @return if true, means field must bind persist model
+	 * @return true to create a column for this attribute
 	 */
 	boolean enabled() default true;
 

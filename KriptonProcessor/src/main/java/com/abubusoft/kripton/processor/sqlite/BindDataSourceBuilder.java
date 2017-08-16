@@ -65,7 +65,7 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Generates database class
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class BindDataSourceBuilder extends AbstractBuilder {
@@ -348,7 +348,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.beginControlFlow("if (options.updateTasks != null)");
 		methodBuilder.addStatement("$T task = findPopulateTaskList(database.getVersion())", SQLiteUpdateTask.class);
 		methodBuilder.beginControlFlow("if (task != null)");
-		methodBuilder.addStatement("task.execute(database)");
+			methodBuilder.addStatement("$T.info(\"Begin update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+			methodBuilder.addStatement("task.execute(database)");
+			methodBuilder.addStatement("$T.info(\"End update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 
@@ -385,7 +387,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.beginControlFlow("if (options.updateTasks != null)");
 			methodBuilder.addStatement("$T<$T> tasks = buildTaskList(previousVersion, currentVersion)", List.class, SQLiteUpdateTask.class);
 			methodBuilder.beginControlFlow("for ($T task : tasks)",SQLiteUpdateTask.class);
+				methodBuilder.addStatement("$T.info(\"Begin update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
 				methodBuilder.addStatement("task.execute(database)");
+				methodBuilder.addStatement("$T.info(\"End update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
 			methodBuilder.endControlFlow();		
 		methodBuilder.nextControlFlow("else");
 

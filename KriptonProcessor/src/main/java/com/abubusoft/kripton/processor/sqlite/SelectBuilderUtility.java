@@ -22,7 +22,7 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  *
  * @since 05/mag/2016

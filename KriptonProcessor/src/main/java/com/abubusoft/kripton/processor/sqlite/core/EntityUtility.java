@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Utility to order SQLEntity by their dependencies. It was build as generic class to test algorithm
  *  
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  * @param <E>
  * 		item to order 

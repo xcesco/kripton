@@ -28,7 +28,7 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeVisitor;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class LiteralType { 

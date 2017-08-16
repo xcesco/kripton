@@ -30,7 +30,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * </p>
  * 
  * <p>
- * Supported query is:
+ * Supported queries are:
  * <ul>
  * 	<li><code>INSERT</code>: with {@link BindSqlInsert} annotation</li>
  *  <li><code>UPDATE</code>: with {@link BindSqlUpdate} annotation</li>
@@ -40,7 +40,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * 
  * <p>Referred {@link #value()} bean must be annotated with {@link BindType} annotation.</p>
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

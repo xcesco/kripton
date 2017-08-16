@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 /**
  * Transformer between an array field to base64 encoded string and viceversa
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class ArraySQLTransform extends AbstractGeneratedSQLTransform {

@@ -20,7 +20,7 @@ import javax.lang.model.element.ExecutableElement;
 /**
  * Attribute typeName used in annotations. Introduced to avoid to type typeName attribute as string
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  *
  * @since 05/mag/2016

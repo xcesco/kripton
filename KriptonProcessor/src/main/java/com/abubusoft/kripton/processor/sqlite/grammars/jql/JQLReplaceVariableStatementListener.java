@@ -5,7 +5,7 @@ package com.abubusoft.kripton.processor.sqlite.grammars.jql;
  * 
  * If event return null, replacement will no executed.
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public interface JQLReplaceVariableStatementListener {

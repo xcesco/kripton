@@ -29,7 +29,7 @@ import com.abubusoft.kripton.annotation.BindXml;
 
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 @BindType(allFields=true)

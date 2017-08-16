@@ -15,10 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android;
 
-/**
- * @author Francesco Benincasa (abubusoft@gmail.com)
- *
- */
 public enum ColumnType {
 	PRIMARY_KEY, UNIQUE, STANDARD,
 	/**

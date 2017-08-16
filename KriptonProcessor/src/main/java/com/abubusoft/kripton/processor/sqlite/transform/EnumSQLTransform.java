@@ -27,7 +27,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
 /**
  * Transformer between a string and a Java5 Enum object
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  * 
  */
 public class EnumSQLTransform extends AbstractSQLTransform {

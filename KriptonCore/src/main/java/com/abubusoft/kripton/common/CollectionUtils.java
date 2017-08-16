@@ -11,7 +11,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 /**
  * Utility to work with list and array Json conversion.
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class CollectionUtils {

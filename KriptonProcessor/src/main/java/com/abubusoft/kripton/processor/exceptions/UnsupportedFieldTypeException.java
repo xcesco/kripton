@@ -21,7 +21,7 @@ package com.abubusoft.kripton.processor.exceptions;
 import com.squareup.javapoet.TypeName;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class UnsupportedFieldTypeException extends KriptonProcessorException {

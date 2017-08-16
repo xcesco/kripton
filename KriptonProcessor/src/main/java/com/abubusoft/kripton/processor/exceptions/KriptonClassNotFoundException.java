@@ -16,7 +16,7 @@
 package com.abubusoft.kripton.processor.exceptions;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class KriptonClassNotFoundException extends KriptonProcessorException {

@@ -24,7 +24,7 @@ import bind.AbstractBindTypeProcessorTest;
 /**
  * Test bean field
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class TestGenericHierarchy extends AbstractBindTypeProcessorTest {

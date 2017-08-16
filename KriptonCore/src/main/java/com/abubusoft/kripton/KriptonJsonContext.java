@@ -3,7 +3,7 @@ package com.abubusoft.kripton;
 import com.fasterxml.jackson.core.JsonFactory;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class KriptonJsonContext extends AbstractJacksonContext {

@@ -50,7 +50,7 @@ import com.squareup.javapoet.TypeSpec;
  * Utility class for build methods
  * </p>
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public abstract class SqlBuilderHelper {

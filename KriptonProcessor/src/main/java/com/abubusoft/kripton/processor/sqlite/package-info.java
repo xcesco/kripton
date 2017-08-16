@@ -17,7 +17,7 @@
  * 
  */
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 package com.abubusoft.kripton.processor.sqlite;

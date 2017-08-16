@@ -51,7 +51,7 @@ import sqlite.kripton58.list.StringDao;
 import sqlite.kripton58.list.StringDataSource;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 @RunWith(JUnit4.class)

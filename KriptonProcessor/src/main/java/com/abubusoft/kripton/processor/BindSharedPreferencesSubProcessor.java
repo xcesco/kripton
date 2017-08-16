@@ -54,7 +54,7 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 /**
  * Annotation processor for shared preferences
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class BindSharedPreferencesSubProcessor extends BaseProcessor {

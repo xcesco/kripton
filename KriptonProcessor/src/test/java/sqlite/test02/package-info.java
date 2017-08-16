@@ -16,7 +16,7 @@
 /**
  * Test about DaoDefinitions. It's supposed that Database schema and Bean definition are correct.
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  *
  * @since 12/mag/2016

@@ -24,7 +24,7 @@ import org.junit.runners.JUnit4;
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 @RunWith(JUnit4.class)

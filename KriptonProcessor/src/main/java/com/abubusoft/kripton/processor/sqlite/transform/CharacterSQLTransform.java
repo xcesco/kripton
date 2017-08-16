@@ -27,7 +27,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a Java Character object
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 class CharacterSQLTransform extends AbstractSQLTransform {

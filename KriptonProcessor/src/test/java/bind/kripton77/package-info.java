@@ -16,7 +16,7 @@
 /**
  * KRIPTON-77: improve check
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 package bind.kripton77;

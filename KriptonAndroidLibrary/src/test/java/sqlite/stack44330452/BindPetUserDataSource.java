@@ -128,7 +128,9 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
       if (task != null) {
+        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
         task.execute(database);
+        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
       }
     }
     if (options.databaseLifecycleHandler != null) {
@@ -146,7 +148,9 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     if (options.updateTasks != null) {
       List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
       for (SQLiteUpdateTask task : tasks) {
+        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
         task.execute(database);
+        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
       }
     } else {
       // drop all tables

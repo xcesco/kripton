@@ -17,7 +17,7 @@ import com.abubusoft.kripton.xml.XMLSerializer;
 import com.fasterxml.jackson.core.JsonEncoding;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class KriptonXmlContext extends AbstractContext {

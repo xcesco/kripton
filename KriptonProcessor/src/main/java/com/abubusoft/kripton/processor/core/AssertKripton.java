@@ -35,7 +35,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public abstract class AssertKripton {

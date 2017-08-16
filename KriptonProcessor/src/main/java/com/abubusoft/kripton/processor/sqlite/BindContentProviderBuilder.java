@@ -64,7 +64,7 @@ import android.net.Uri;
 /**
  * Generates content provider class
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class BindContentProviderBuilder extends AbstractBuilder {

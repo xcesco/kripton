@@ -20,7 +20,7 @@ package sqlite.example01;
 
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class UidEntity extends Entity {

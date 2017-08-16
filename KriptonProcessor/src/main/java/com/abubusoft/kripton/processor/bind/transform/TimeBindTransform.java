@@ -20,7 +20,7 @@ import com.abubusoft.kripton.common.TimeUtils;
 /**
  * Transformer between a string and a custom Time object
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class TimeBindTransform extends WrappedBindTransform {

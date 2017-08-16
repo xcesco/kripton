@@ -44,7 +44,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer for java primitive types and frequently used java types
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public abstract class SQLTransformer {

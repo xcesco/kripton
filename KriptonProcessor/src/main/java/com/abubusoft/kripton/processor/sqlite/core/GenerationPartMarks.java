@@ -6,7 +6,7 @@ package com.abubusoft.kripton.processor.sqlite.core;
 /**
  * <p>Needed to mark generation code methods
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public enum GenerationPartMarks{

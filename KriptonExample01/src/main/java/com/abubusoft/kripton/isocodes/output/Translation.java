@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.isocodes.output;
 
 /**
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public enum Translation {

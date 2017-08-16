@@ -274,7 +274,7 @@ public class JQLChecker {
 
 	/**
 	 * 
-	 * @author Francesco Benincasa (abubusoft@gmail.com)
+	 * @author Francesco Benincasa (info@abubusoft.com)
 	 *
 	 */
 	public class JQLRewriterListener extends JqlBaseListener {

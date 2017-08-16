@@ -26,7 +26,7 @@ import com.squareup.javapoet.TypeName;
 /**
  * Transformer between a string and a Java Integer object
  * 
- * @author Francesco Benincasa (abubusoft@gmail.com)
+ * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class IntegerSQLTransform extends AbstractSQLTransform {
