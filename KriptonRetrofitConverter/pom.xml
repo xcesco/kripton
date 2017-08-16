@@ -9,6 +9,8 @@
 	<packaging>jar</packaging>
 
 	<description>Kripton adapter for Retrofit library</description>
+	
+	<url>https://github.com/xcesco/kripton</url>
 
 	<!-- common part - BEGIN -->
 	<!-- Property version 1.6.2-SNAPSHOT-SNAPSHOT -->
@@ -240,6 +242,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<url>https://github.com/xcesco/kripton</url>
+	
 </project>
