@@ -45,7 +45,7 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
    */
   @Override
   public Bean96 selectByBean(String name) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname FROM bean96");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

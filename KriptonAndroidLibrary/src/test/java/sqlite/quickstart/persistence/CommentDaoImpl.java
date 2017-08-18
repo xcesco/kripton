@@ -120,7 +120,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    */
   @Override
   public List<Comment> selectByPostId(long postId) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT post_id, id, name, email, body FROM comment");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -204,7 +204,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    */
   @Override
   public Comment selectOneByPostId(long postId) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT post_id, id, name, email, body FROM comment");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

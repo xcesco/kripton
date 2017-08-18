@@ -53,7 +53,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public LongBean selectOne() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -120,7 +120,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public LongBean selectOne(long[] value, Long[] value2) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -197,7 +197,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public void selectOne(long[] value, Long[] value2, OnReadBeanListener<LongBean> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -280,7 +280,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public void selectOne(long[] value, Long[] value2, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -347,7 +347,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public List<LongBean> selectList(long[] value, Long[] value2) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -405,10 +405,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE long_bean SET id=${id} WHERE value=${value} and value2=${value2}</pre>
+   * <pre>UPDATE long_bean SET id=:id WHERE value=${value} and value2=${value2}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -436,7 +437,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -625,7 +626,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 

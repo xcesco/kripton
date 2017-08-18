@@ -63,7 +63,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public BeanBean selectOne() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -127,7 +127,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public BeanBean selectOne(List<BeanBean> value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -200,7 +200,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public void selectOne(List<BeanBean> value, OnReadBeanListener<BeanBean> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -279,7 +279,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public void selectOne(List<BeanBean> value, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -342,7 +342,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public List<BeanBean> selectList(List<BeanInner> value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM bean_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -399,10 +399,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean_bean SET value=${value} WHERE id=${id} and value=${paramValue}</pre>
+   * <pre>UPDATE bean_bean SET value=:value WHERE id=${id} and value=${paramValue}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>value</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -434,7 +435,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _sqlWhereParams.add(String.valueOf(id));
     _sqlWhereParams.add((paramValue==null?"":new String(serializer2(paramValue),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -611,7 +612,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((paramValue==null?"":new String(serializer2(paramValue),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 

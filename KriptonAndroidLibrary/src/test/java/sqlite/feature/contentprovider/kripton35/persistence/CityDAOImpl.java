@@ -161,7 +161,7 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
    */
   @Override
   public City selectCityFromPerson(long personId) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("select * from city");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -235,7 +235,7 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
   Cursor selectCityFromPerson1(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();

@@ -109,7 +109,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public boolean contentProviderEntryPathEnabled;
 
 	/**
-	 * it's the path defined in @ContentProviderEntry.path 
+	 * it's the path defined in @ContentProviderEntry.path
 	 */
 	public String contentProviderEntryPath;
 
@@ -140,6 +140,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
+
+		// before proceed convert typevariable in right typename
+		parent.resolveTypeVariable(this);
+
 		this.parent = new WeakReference<SQLDaoDefinition>(parent);
 
 		// detect type of operation
@@ -219,8 +223,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			}
 
 		});
-		
-		
+
 		// check if we have jql annotation attribute
 		String preparedJql = getJQLDeclared();
 
@@ -246,11 +249,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			final SQLEntity entity = this.getParent().getEntity();
 
-			String contentProviderUri=contentProviderUri();
-						
+			String contentProviderUri = contentProviderUri();
+
 			AssertKripton.assertTrueOrInvalidMethodSignException(!contentProviderUri.endsWith("/"), this, " content provider URI '%s' can not finish with '/'", contentProviderUri);
 			AssertKripton.assertTrueOrInvalidMethodSignException(!this.contentProviderPath().contains("//"), this, " content provider URI '%s' can not contain with '//'", contentProviderUri);
-			
+
 			List<ContentUriPlaceHolder> uriParams = ContentUriChecker.getInstance().extract(contentProviderUri);
 			String uriTemplate = ContentUriChecker.getInstance().replace(contentProviderUri(), new UriPlaceHolderReplacerListener() {
 
@@ -302,10 +305,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			// INSERT from SELECT type SQL can not be used with content provider
 			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.INSERT && this.jql.containsSelectOperation), this,
 					" INSERT-FROM-SELECT sql can not be used for content provider");
-			
-			// UPDATE from SELECT type SQL can not be used with content provider					
+
+			// UPDATE from SELECT type SQL can not be used with content provider
 			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.UPDATE && this.jql.containsSelectOperation), this,
-								" UPDATE-FROM-SELECT sql can not be used for content provider");
+					" UPDATE-FROM-SELECT sql can not be used for content provider");
 
 		}
 

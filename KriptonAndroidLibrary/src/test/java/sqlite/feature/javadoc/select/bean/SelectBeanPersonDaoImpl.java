@@ -62,7 +62,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    */
   @Override
   public List<Person> selectAllBeans() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -133,7 +133,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   Cursor selectAllBeans0(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -188,7 +188,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    */
   @Override
   public int selectAllBeansCount() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT count(*) FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -242,7 +242,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   Cursor selectAllBeansCount1(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -307,7 +307,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    */
   @Override
   public Person selectOneBean(Person benza) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -385,7 +385,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   Cursor selectOneBean2(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -463,7 +463,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    */
   @Override
   public Person selectOneBeanWithDynamic(Person bean, String where) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT name FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -535,7 +535,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   Cursor selectOneBeanWithDynamic3(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -620,7 +620,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    */
   @Override
   public Person selectOneBeanWithDynamicAndArgs(Person bean, String where, String[] args) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -705,7 +705,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   Cursor selectOneBeanWithDynamicAndArgs4(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -795,7 +795,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    */
   @Override
   public Person selectOneBeanWithDynamicOrder(Person bean, String order) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -879,7 +879,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   Cursor selectOneBeanWithDynamicOrder5(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -968,7 +968,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   @Override
   public void selectOneBeanWithDynamicOrderAndListener(Person bean, String order,
       OnReadBeanListener<Person> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1059,7 +1059,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   Cursor selectOneBeanWithDynamicOrderAndListener6(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -1139,7 +1139,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    */
   @Override
   public Person selectWithJQL(Person bean) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("select * from person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1217,7 +1217,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   Cursor selectWithJQL7(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();

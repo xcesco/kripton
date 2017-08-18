@@ -134,7 +134,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public PhoneNumber selectById(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -209,7 +209,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -260,7 +260,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public PhoneNumber selectByNumber(String number) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -334,7 +334,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public List<PhoneNumber> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

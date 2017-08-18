@@ -46,8 +46,7 @@ public abstract class AbstractDao implements AutoCloseable {
 	protected SQLiteDatabase database() {
 		SQLiteDatabase database = dataSource.database;
 		if (database == null)
-			throw (new KriptonRuntimeException(
-					"No database connection is opened before use " + this.getClass().getCanonicalName()));
+			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
 		return database;
 	}
 
@@ -85,17 +84,36 @@ public abstract class AbstractDao implements AutoCloseable {
 		protected ArrayList<String> initialValue() {
 			return new ArrayList<String>();
 		}
-	
+
+	};
+
+	private ThreadLocal<StringBuilder> sqlStringBuilder = new ThreadLocal<StringBuilder>() {
+
+		@Override
+		protected StringBuilder initialValue() {
+			return new StringBuilder();
+		}
+
 	};
 
 	/**
-	 * retrieve whereParamsArray attribute that allow to work with where parameters
+	 * retrieve whereParamsArray attribute that allow to work with where
+	 * parameters
+	 * 
 	 * @return
 	 */
 	protected ArrayList<String> getWhereParamsArray() {
 		ArrayList<String> array = whereParamsArray.get();
 		array.clear();
-		return array;		
+		return array;
+	}
+
+	protected StringBuilder getSQLStringBuilder() {
+		StringBuilder builder = this.sqlStringBuilder.get();
+		builder.delete(0, builder.length());
+
+		return builder;
+
 	}
 
 }

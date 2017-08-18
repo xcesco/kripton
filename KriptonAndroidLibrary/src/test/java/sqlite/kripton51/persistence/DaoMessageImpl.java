@@ -57,7 +57,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public List<MessageEntity> selectByChannel(long channelId) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -128,7 +128,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE MessageEntity SET channelId=${bean.channelId}, ownerType=${bean.ownerType}, uid=${bean.uid}, faceUid=${bean.faceUid}, text=${bean.text}, ownerUid=${bean.ownerUid}, channelUid=${bean.channelUid}, updateTime=${bean.updateTime}, type=${bean.type} WHERE id = ${bean.id}</pre>
+   * <pre>UPDATE message SET channel_id=:channelId, owner_type=:ownerType, uid=:uid, face_uid=:faceUid, text=:text, owner_uid=:ownerUid, channel_uid=:channelUid, update_time=:updateTime, type=:type WHERE id = ${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -199,7 +199,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -212,7 +212,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE message SET channelId=:channelId, ownerType=:ownerType, uid=:uid, faceUid=:faceUid, text=:text, ownerUid=:ownerUid, channelUid=:channelUid, updateTime=:updateTime, type=:type WHERE id = ?");
+    Logger.info("UPDATE message SET channel_id=:channelId, owner_type=:ownerType, uid=:uid, face_uid=:faceUid, text=:text, owner_uid=:ownerUid, channel_uid=:channelUid, update_time=:updateTime, type=:type WHERE id = ?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -360,7 +360,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public MessageEntity selectByUid(String uid) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

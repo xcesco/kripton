@@ -29,7 +29,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Person SET surname=${bean.surname}, student = ${bean.student}</pre>
+   * <pre>UPDATE person SET surname=:surname, student = :student</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -106,7 +106,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   int updateAllBeansJQL0(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();

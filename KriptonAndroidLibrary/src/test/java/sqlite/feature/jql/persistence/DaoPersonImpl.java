@@ -42,7 +42,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
    */
   @Override
   public List<Person> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT _id, name, image FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

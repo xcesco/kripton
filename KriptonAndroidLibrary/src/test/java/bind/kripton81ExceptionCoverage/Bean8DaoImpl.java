@@ -38,7 +38,7 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
    */
   @Override
   public List<Bean8> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, ignore2 FROM bean8");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

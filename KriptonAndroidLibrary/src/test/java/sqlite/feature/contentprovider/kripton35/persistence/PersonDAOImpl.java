@@ -315,7 +315,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -366,7 +366,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   int deleteRaw2(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -428,7 +428,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -486,7 +486,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   int deleteRaw3(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -532,7 +532,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Person WHERE id = ${bean.id}</pre>
+   * <pre>DELETE FROM person WHERE id = ${bean.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -549,7 +549,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -600,7 +600,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   int deleteBean4(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -632,10 +632,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -663,7 +664,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -727,7 +728,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   int updateRaw5(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -776,10 +777,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -817,7 +819,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -881,7 +883,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   int updateRaw6(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -932,10 +934,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -975,7 +978,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -1046,7 +1049,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   int updateRaw7(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -1109,7 +1112,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Person SET parentId=${person.parentId}, city=${person.city}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
+   * <pre>UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=${person.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -1164,7 +1167,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(person.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1177,7 +1180,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE person SET parentId=:parentId, city=:city, birthCity=:birthCity, birthDay=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
+    Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -1228,7 +1231,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   int updateBean8(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -1249,7 +1252,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
 
     // display log
-    Logger.info("UPDATE person SET parentId=:parentId, city=:city, birthCity=:birthCity, birthDay=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
+    Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -1310,7 +1313,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectOne(String nameValue, String orderBy) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1416,7 +1419,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   Cursor selectOne9(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -1512,7 +1515,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectAll(String where, String[] args, String order) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -1611,7 +1614,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   Cursor selectAll10(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -1709,7 +1712,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectOne(Person bean, String orderBy) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1807,7 +1810,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   Cursor selectOne11(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -1884,7 +1887,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectBean() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1963,7 +1966,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   Cursor selectBean12(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -2033,7 +2036,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void selectCursorListener(OnReadCursorListener cursorListener, String where) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where

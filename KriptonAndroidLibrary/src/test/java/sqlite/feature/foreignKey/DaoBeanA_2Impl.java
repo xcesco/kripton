@@ -39,7 +39,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    */
   @Override
   public List<BeanA_2> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, value_string2 FROM bean_a_2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -106,7 +106,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    */
   @Override
   public List<BeanA_2> selectById(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, value_string2 FROM bean_a_2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -180,7 +180,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
    */
   @Override
   public List<BeanA_2> selectByString(String value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk FROM bean_a_2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -290,7 +290,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE BeanA_2 SET valueString2=${bean.valueString2} WHERE valueString2=${bean.valueString2}</pre>
+   * <pre>UPDATE bean_a_2 SET value_string2=:valueString2 WHERE value_string2=${bean.valueString2}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -321,7 +321,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((bean.valueString2==null?"":bean.valueString2));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -334,7 +334,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean_a_2 SET valueString2=:valueString2 WHERE valueString2=?");
+    Logger.info("UPDATE bean_a_2 SET value_string2=:valueString2 WHERE value_string2=?");
 
     // log for content values -- BEGIN
     Object _contentValue;

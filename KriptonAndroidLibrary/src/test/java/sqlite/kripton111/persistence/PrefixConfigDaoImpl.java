@@ -116,7 +116,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public PrefixConfig selectById(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -189,7 +189,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -232,7 +232,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public PrefixConfig selectOne() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -279,7 +279,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE PrefixConfig SET defaultCountry=${bean.defaultCountry}, dualBillingPrefix=${bean.dualBillingPrefix}, enabled=${bean.enabled}, dialogTimeout=${bean.dialogTimeout} WHERE id = ${bean.id} </pre>
+   * <pre>UPDATE prefix_config SET default_country=:defaultCountry, dual_billing_prefix=:dualBillingPrefix, enabled=:enabled, dialog_timeout=:dialogTimeout WHERE id = ${bean.id} </pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -320,7 +320,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -333,7 +333,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE prefix_config SET defaultCountry=:defaultCountry, dualBillingPrefix=:dualBillingPrefix, enabled=:enabled, dialogTimeout=:dialogTimeout WHERE id = ? ");
+    Logger.info("UPDATE prefix_config SET default_country=:defaultCountry, dual_billing_prefix=:dualBillingPrefix, enabled=:enabled, dialog_timeout=:dialogTimeout WHERE id = ? ");
 
     // log for content values -- BEGIN
     Object _contentValue;

@@ -47,7 +47,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectIncludeOne(Person bean) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT name, id FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -123,7 +123,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectExcludeOne() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT surname, birth_city, birth_day, type_name FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -306,7 +306,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Person SET name=${bean.name}, id=${bean.id}</pre>
+   * <pre>UPDATE person SET name=:name, id=:id</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -359,7 +359,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Person SET surname=${bean.surname}, birthCity=${bean.birthCity}, birthDay=${bean.birthDay}, typeName=${bean.typeName}</pre>
+   * <pre>UPDATE person SET surname=:surname, birth_city=:birthCity, birth_day=:birthDay, type_name=:typeName</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -405,7 +405,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     String _sqlWhereStatement="";
 
     // display log
-    Logger.info("UPDATE person SET surname=:surname, birthCity=:birthCity, birthDay=:birthDay, typeName=:typeName");
+    Logger.info("UPDATE person SET surname=:surname, birth_city=:birthCity, birth_day=:birthDay, type_name=:typeName");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -430,7 +430,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Person WHERE 1=1</pre>
+   * <pre>DELETE FROM person WHERE 1=1</pre>
    *
    * @param bean
    * 	is used as ${bean}
@@ -439,7 +439,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   public void deleteIncludeOne(Person bean) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -465,7 +465,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Person WHERE 1=1</pre>
+   * <pre>DELETE FROM person WHERE 1=1</pre>
    *
    * @param bean
    * 	is used as ${bean}
@@ -474,7 +474,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   public void deleteExcludeOne(Person bean) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 

@@ -55,7 +55,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean63 selectOne() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -123,7 +123,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean63> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -206,7 +206,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -270,7 +270,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public List<Bean63> selectList(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -329,7 +329,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Bean63 SET value=${value.value}, valueMapStringByte=${value.valueMapStringByte}, valueMapEnumByte=${value.valueMapEnumByte} WHERE id=${value.id}</pre>
+   * <pre>UPDATE bean63 SET value=:value, value_map_string_byte=:valueMapStringByte, value_map_enum_byte=:valueMapEnumByte WHERE id=${value.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -372,7 +372,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(value.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -385,7 +385,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean63 SET value=:value, valueMapStringByte=:valueMapStringByte, valueMapEnumByte=:valueMapEnumByte WHERE id=?");
+    Logger.info("UPDATE bean63 SET value=:value, value_map_string_byte=:valueMapStringByte, value_map_enum_byte=:valueMapEnumByte WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -555,7 +555,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean63 selectOne(Map<String, Byte> valueMapStringByte) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -626,7 +626,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -653,10 +653,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean63 SET id=${id} WHERE value=${valueMapStringByte}</pre>
+   * <pre>UPDATE bean63 SET id=:id WHERE value=${valueMapStringByte}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -680,7 +681,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -794,7 +795,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean63 selectOne(HashMap<EnumType, Byte> valueMapEnumByte) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -869,7 +870,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Cursor selectCursorOne(HashMap<EnumType, Byte> valueMapEnumByte) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -927,7 +928,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte,
       OnReadBeanListener<Bean63> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1011,7 +1012,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte,
       OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1071,7 +1072,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1098,10 +1099,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean63 SET id=${id} WHERE value=${valueMapEnumByte}</pre>
+   * <pre>UPDATE bean63 SET id=:id WHERE value=${valueMapEnumByte}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -1125,7 +1127,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1176,7 +1178,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public List<Bean63> selectMapEnumByteOne() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1233,7 +1235,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public List<String> selectMapEnumByteOneString() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

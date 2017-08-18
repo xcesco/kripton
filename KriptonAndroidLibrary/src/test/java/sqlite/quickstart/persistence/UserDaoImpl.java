@@ -139,7 +139,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    */
   @Override
   public List<User> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, username, email, address, phone, website, company FROM user");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -230,7 +230,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    */
   @Override
   public User selectById(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, username, email, address, phone, website, company FROM user");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

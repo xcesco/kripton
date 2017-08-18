@@ -64,7 +64,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public Bean2 selectOne() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -156,7 +156,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean2> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -271,7 +271,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -343,7 +343,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public List<Bean2> selectList(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -418,7 +418,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Bean2 SET value=${value.value}, valueByteSet=${value.valueByteSet}, valueShortSet=${value.valueShortSet}, valueIntegerSet=${value.valueIntegerSet}, valueStringSet=${value.valueStringSet}, valueCharacterSet=${value.valueCharacterSet}, valueFloatSet=${value.valueFloatSet}, valueDoubleSet=${value.valueDoubleSet}, valueBigDecimalSet=${value.valueBigDecimalSet}, valueBeanSet=${value.valueBeanSet}, valueEnumTypeSet=${value.valueEnumTypeSet} WHERE id=${value.id}</pre>
+   * <pre>UPDATE bean2 SET value=:value, value_byte_set=:valueByteSet, value_short_set=:valueShortSet, value_integer_set=:valueIntegerSet, value_string_set=:valueStringSet, value_character_set=:valueCharacterSet, value_float_set=:valueFloatSet, value_double_set=:valueDoubleSet, value_big_decimal_set=:valueBigDecimalSet, value_bean_set=:valueBeanSet, value_enum_type_set=:valueEnumTypeSet WHERE id=${value.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -509,7 +509,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(value.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -522,7 +522,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean2 SET value=:value, valueByteSet=:valueByteSet, valueShortSet=:valueShortSet, valueIntegerSet=:valueIntegerSet, valueStringSet=:valueStringSet, valueCharacterSet=:valueCharacterSet, valueFloatSet=:valueFloatSet, valueDoubleSet=:valueDoubleSet, valueBigDecimalSet=:valueBigDecimalSet, valueBeanSet=:valueBeanSet, valueEnumTypeSet=:valueEnumTypeSet WHERE id=?");
+    Logger.info("UPDATE bean2 SET value=:value, value_byte_set=:valueByteSet, value_short_set=:valueShortSet, value_integer_set=:valueIntegerSet, value_string_set=:valueStringSet, value_character_set=:valueCharacterSet, value_float_set=:valueFloatSet, value_double_set=:valueDoubleSet, value_big_decimal_set=:valueBigDecimalSet, value_bean_set=:valueBeanSet, value_enum_type_set=:valueEnumTypeSet WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -748,7 +748,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public Bean2 selectOne(HashSet<BigDecimal> valueBigDecimalSet) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -835,7 +835,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -862,10 +862,11 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean2 SET id=${id} WHERE value=${valueBigDecimalSet}</pre>
+   * <pre>UPDATE bean2 SET id=:id WHERE value=${valueBigDecimalSet}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -889,7 +890,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 

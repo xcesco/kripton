@@ -45,7 +45,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public Bean01 selectOne(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT temp, id, text FROM bean01");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -96,10 +96,11 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean01 SET text=${text} WHERE id=${id}</pre>
+   * <pre>UPDATE bean01 SET text=:text WHERE id=${id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>text</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -127,7 +128,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 

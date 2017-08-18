@@ -43,7 +43,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
    */
   @Override
   public Bean02 selectOne(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, text FROM bean02");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -110,7 +110,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 

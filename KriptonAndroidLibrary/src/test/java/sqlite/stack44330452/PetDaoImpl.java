@@ -39,7 +39,7 @@ public class PetDaoImpl extends AbstractDao implements PetDao {
    */
   @Override
   public List<Pet> loadPet() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, user_id, name FROM pet");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

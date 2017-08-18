@@ -41,7 +41,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
    */
   @Override
   public List<Bean64A> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -114,7 +114,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
    */
   @Override
   public List<Bean64A> selectList(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

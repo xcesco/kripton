@@ -37,7 +37,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public String selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT type_name FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -89,7 +89,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public Date selectAll2() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

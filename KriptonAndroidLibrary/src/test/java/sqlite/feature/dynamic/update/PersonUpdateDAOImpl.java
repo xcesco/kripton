@@ -52,7 +52,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    */
   @Override
   public List<Person> selectOne(String nameValue) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -139,7 +139,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((nameValue==null?"":nameValue));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -167,7 +167,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Person WHERE id = ${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id = ${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -189,7 +189,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -217,10 +217,11 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id = ${nameValue} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id = ${nameValue} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -256,7 +257,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((nameValue==null?"":nameValue));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -296,7 +297,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Person SET name=${bean.name}, surname=${bean.surname}, birthCity=${bean.birthCity}, birthDay=${bean.birthDay} WHERE id = ${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id = ${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -350,7 +351,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -365,7 +366,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE person SET name=:name, surname=:surname, birthCity=:birthCity, birthDay=:birthDay WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -406,7 +407,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    */
   @Override
   public List<Person> selecAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

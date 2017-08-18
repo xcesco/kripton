@@ -40,7 +40,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -91,7 +91,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    */
   int deleteOneBean0(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -145,7 +145,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     _sqlWhereParams.add((name==null?"":name));
     _sqlWhereParams.add((surname==null?"":surname));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -194,7 +194,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     _sqlWhereParams.add((surname==null?"":surname));
     _sqlWhereParams.add((name==null?"":name));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -246,7 +246,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    */
   int deleteFromSelectAllBeansJQL1(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -298,7 +298,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -349,7 +349,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    */
   int deleteRaw2(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -409,7 +409,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -460,7 +460,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    */
   int deleteRawDynamic3(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -524,7 +524,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -582,7 +582,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    */
   int deleteBeanDynamicWithArgs4(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;

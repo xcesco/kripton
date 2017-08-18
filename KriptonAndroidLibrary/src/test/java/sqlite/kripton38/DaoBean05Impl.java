@@ -63,7 +63,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public Bean05 selectOne(Long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -145,7 +145,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public Bean05 selectOne(Bean05 bean) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -227,7 +227,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public List<Bean05> selectAll(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -309,7 +309,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public List<Long> selectPK(String text) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -378,7 +378,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public Long selectCount(String text) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT count(*) FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -445,7 +445,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void selectCursorListener(Long id, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -512,7 +512,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -603,7 +603,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void selectOne(Long id, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -670,7 +670,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void selectOne(long id, OnReadBeanListener<Bean05> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -879,7 +879,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Bean05 SET number=${bean.number}, beanType=${bean.beanType}, text=${bean.text}, content=${bean.content}, creationTime=${bean.creationTime} WHERE pk=${bean.pk} and text=${bean.text} and creationTime=${bean.creationTime}</pre>
+   * <pre>UPDATE ws_bean SET number=:number, bean_type=:beanType, text=:text, content=:content, creation_time=:creationTime WHERE pk=${bean.pk} and text=${bean.text} and creation_time=${bean.creationTime}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -934,7 +934,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((bean.getText()==null?"":bean.getText()));
     _sqlWhereParams.add((bean.getCreationTime()==null?"":DateUtils.write(bean.getCreationTime())));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -947,7 +947,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE ws_bean SET number=:number, beanType=:beanType, text=:text, content=:content, creationTime=:creationTime WHERE pk=? and text=? and creationTime=?");
+    Logger.info("UPDATE ws_bean SET number=:number, bean_type=:beanType, text=:text, content=:content, creation_time=:creationTime WHERE pk=? and text=? and creation_time=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -973,10 +973,12 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE ws_bean SET content=${content}, text=${text} WHERE pk=${uid} and creation_time=${valido} and creation_time=${validoIn}</pre>
+   * <pre>UPDATE ws_bean SET content=:content, text=:text WHERE pk=${uid} and creation_time=${valido} and creation_time=${validoIn}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>content</li>
+   * 	<li>text</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -1019,7 +1021,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((valido==null?"":DateUtils.write(valido)));
     _sqlWhereParams.add((validoIn==null?"":DateUtils.write(validoIn)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1032,7 +1034,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE ws_bean SET content=:content, text=:text WHERE pk=? and creationTime=? and creationTime=?");
+    Logger.info("UPDATE ws_bean SET content=:content, text=:text WHERE pk=? and creation_time=? and creation_time=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -1058,7 +1060,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Bean05 WHERE pk=${bean.pk} and text=${bean.text} and creationTime=${bean.creationTime}</pre>
+   * <pre>DELETE FROM ws_bean WHERE pk=${bean.pk} and text=${bean.text} and creation_time=${bean.creationTime}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -1079,7 +1081,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((bean.getText()==null?"":bean.getText()));
     _sqlWhereParams.add((bean.getCreationTime()==null?"":DateUtils.write(bean.getCreationTime())));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1092,7 +1094,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM ws_bean WHERE pk=? and text=? and creationTime=?");
+    Logger.info("DELETE FROM ws_bean WHERE pk=? and text=? and creation_time=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1132,7 +1134,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((valido==null?"":DateUtils.write(valido)));
     _sqlWhereParams.add((validoIn==null?"":DateUtils.write(validoIn)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1145,7 +1147,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM ws_bean WHERE pk=? and creationTime=? and creationTime=?");
+    Logger.info("DELETE FROM ws_bean WHERE pk=? and creation_time=? and creation_time=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1177,7 +1179,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1204,7 +1206,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Bean05 WHERE pk=${va.pk}</pre>
+   * <pre>DELETE FROM ws_bean WHERE pk=${va.pk}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -1221,7 +1223,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(va.getPk()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1267,7 +1269,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public byte[] getOne(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT content FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

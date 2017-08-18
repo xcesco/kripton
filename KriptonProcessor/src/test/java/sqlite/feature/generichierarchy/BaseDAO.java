@@ -15,15 +15,29 @@
  *******************************************************************************/
 package sqlite.feature.generichierarchy;
 
+import java.util.List;
+
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 public interface BaseDAO<E> {
+	//
+	// @BindSqlSelect(where = "id=${id}")
+	// E selectById(@BindSqlParam("id") long id);
+	//
+	@BindSqlSelect(where = "id=${work.id}")
+	List<E> selectById(@BindSqlParam("work") E bean);
 
-	@BindSqlSelect(where ="id=${id}")
-	E selectById(@BindSqlParam("id") long id);
-	
 	@BindSqlInsert
 	public void insertThread1(E bean);
+
+	@BindSqlUpdate(where = "id=${work.id}")
+	public boolean update(@BindSqlParam("work") E bean);
+
+	@BindSqlDelete(where = "id=${work.id}")
+	public boolean delete(@BindSqlParam("work") E bean);
+
 }

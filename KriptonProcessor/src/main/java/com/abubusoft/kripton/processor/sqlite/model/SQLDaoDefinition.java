@@ -27,13 +27,13 @@ import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
 import com.squareup.javapoet.TypeName;
 
 public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {
-	
+
 	public static final String PARAM_PARSER_PREFIX = "parser";
 
 	public static final String PARAM_SERIALIZER_PREFIX = "serializer";
 
 	private WeakReference<SQLiteDatabaseSchema> parent;
-	
+
 	private TypeVariableResolver typeVariableResolver;
 
 	/**
@@ -43,16 +43,24 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 		return parent.get();
 	}
 
-	@Override
-	public void add(SQLiteModelMethod value) {
+	/**
+	 * Convert type variable in correct type. This must be done before work on
+	 * SQLMethod
+	 * 
+	 * @param value
+	 */
+	void resolveTypeVariable(SQLiteModelMethod value) {
 		// before proceed, we need to resolve typeVariables
-		for (Pair<String, TypeName> item: value.getParameters())
-		{
-			item.value1=typeVariableResolver.resolve(item.value1);
+		for (Pair<String, TypeName> item : value.getParameters()) {
+			item.value1 = typeVariableResolver.resolve(item.value1);
 		}
 
 		value.setReturnClass(typeVariableResolver.resolve(value.getReturnClass()));
-		
+
+	}
+
+	@Override
+	public void add(SQLiteModelMethod value) {
 		super.add(value);
 	}
 
@@ -80,21 +88,21 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 
 	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, TypeElement element, String entityClassName) {
 		super(element.getSimpleName().toString(), element);
-		this.parent=new WeakReference<SQLiteDatabaseSchema>(databaseSchema);
+		this.parent = new WeakReference<SQLiteDatabaseSchema>(databaseSchema);
 		this.entityClassName = entityClassName;
 
 		int i = 0;
 		i = entityClassName.indexOf(".");
 
 		if (i > 0) {
-			entitySimplyClassName = entityClassName.substring(entityClassName.lastIndexOf(".")+1);
+			entitySimplyClassName = entityClassName.substring(entityClassName.lastIndexOf(".") + 1);
 		} else {
 			entitySimplyClassName = entityClassName;
 		}
-		
-		typeVariableResolver=TypeVariableResolver.build(element);
+
+		typeVariableResolver = TypeVariableResolver.build(element);
 	}
-	
+
 	public TypeName resolveTypeVariable(TypeName inputTypeName) {
 		return typeVariableResolver.resolve(inputTypeName);
 	}
@@ -105,26 +113,27 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	}
 
 	public SQLEntity getEntity() {
-		 return getParent().getEntity(getEntityClassName());
+		return getParent().getEntity(getEntityClassName());
 	}
 
 	/**
 	 * Return true if log must be generated.
 	 * 
-	 * @return
-	 * 	Return true if log must be generated.
+	 * @return Return true if log must be generated.
 	 */
 	public boolean isLogEnabled() {
 		return getParent().generateLog;
 	}
-	
+
 	/**
 	 * map of params for which generate a java2Content method converter
 	 */
-	public Map<TypeName, String> managedParams=new HashMap<TypeName, String>();
+	public Map<TypeName, String> managedParams = new HashMap<TypeName, String>();
 
 	/**
-	 * <p>if <code>true</code> indicates that content provider generation is enabled
+	 * <p>
+	 * if <code>true</code> indicates that content provider generation is
+	 * enabled
 	 */
 	public boolean contentProviderEnabled;
 
@@ -137,39 +146,39 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	 * type name exposed by content provider
 	 */
 	public String contentProviderTypeName;
-	
+
 	/**
 	 * number of element generated for content provider
 	 */
 	public long contentProviderCounter;
 
 	public String generateJava2ContentSerializer(TypeName paramTypeName) {
-		if (!managedParams.containsKey(paramTypeName))
-		{				
-			managedParams.put(paramTypeName, ""+(managedParams.size()+1));
+		if (!managedParams.containsKey(paramTypeName)) {
+			managedParams.put(paramTypeName, "" + (managedParams.size() + 1));
 		}
-		
-		return PARAM_SERIALIZER_PREFIX+managedParams.get(paramTypeName);
+
+		return PARAM_SERIALIZER_PREFIX + managedParams.get(paramTypeName);
 	}
 
 	public String generateJava2ContentParser(TypeName paramTypeName) {
-		if (!managedParams.containsKey(paramTypeName))
-		{				
-			managedParams.put(paramTypeName, ""+(managedParams.size()+1));
+		if (!managedParams.containsKey(paramTypeName)) {
+			managedParams.put(paramTypeName, "" + (managedParams.size() + 1));
 		}
-		
-		return PARAM_PARSER_PREFIX+managedParams.get(paramTypeName);
+
+		return PARAM_PARSER_PREFIX + managedParams.get(paramTypeName);
 	}
 
 	public String contentProviderUri() {
-		if (!contentProviderEnabled) return "";
-		
-		return this.getParent().contentProviderUri()+"/"+contentProviderPath;
+		if (!contentProviderEnabled)
+			return "";
+
+		return this.getParent().contentProviderUri() + "/" + contentProviderPath;
 	}
 
 	public String contentProviderPath() {
-		if (!contentProviderEnabled) return "";
-		
+		if (!contentProviderEnabled)
+			return "";
+
 		return contentProviderPath;
 	}
 

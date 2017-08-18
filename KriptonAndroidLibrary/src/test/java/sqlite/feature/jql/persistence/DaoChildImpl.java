@@ -41,7 +41,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public List<Child> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT _id, name, parent_id FROM child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -169,7 +169,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public List<Child> selectByParent(long parentId) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("select * from child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -245,7 +245,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public int selectByParent2(long parentId) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("select count(*) from child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -308,7 +308,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public List<Child> selectByParentId(long parentId) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT _id, name, parent_id FROM child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -518,10 +518,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>update or replace child set name=${name} where parent_id=${a}</pre>
+   * <pre>update or replace child set name=:name where parent_id=${a}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -547,7 +548,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(parentId));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -560,7 +561,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("update or replace child set name=:name where parentId=?");
+    Logger.info("update or replace child set name=:name where parent_id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;

@@ -53,7 +53,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
    */
   @Override
   public CharBean selectOne() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM char_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -120,7 +120,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
    */
   @Override
   public CharBean selectOne(char[] value, Character[] value2) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM char_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -197,7 +197,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
    */
   @Override
   public void selectOne(char[] value, Character[] value2, OnReadBeanListener<CharBean> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM char_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -280,7 +280,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
    */
   @Override
   public void selectOne(char[] value, Character[] value2, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM char_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -347,7 +347,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
    */
   @Override
   public List<CharBean> selectList(char[] value, Character[] value2) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM char_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -405,10 +405,11 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE char_bean SET id=${id} WHERE value=${value} and value2=${value2}</pre>
+   * <pre>UPDATE char_bean SET id=:id WHERE value=${value} and value2=${value2}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -436,7 +437,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
     _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -625,7 +626,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
     _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 

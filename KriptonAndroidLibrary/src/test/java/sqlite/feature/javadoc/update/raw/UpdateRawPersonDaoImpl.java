@@ -34,10 +34,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name}</pre>
+   * <pre>UPDATE person SET name=:name</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -92,10 +93,12 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name}, student = ${student} where surname=${surname}</pre>
+   * <pre>UPDATE person SET name=:name, student = :student where surname=${surname}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>name</li>
+   * 	<li>student</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -124,7 +127,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((surname==null?"":surname));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -188,7 +191,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
   int updateAllBeansJQL0(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -283,10 +286,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -314,7 +318,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -378,7 +382,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    */
   int updateBean1(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -427,10 +431,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -468,7 +473,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -533,7 +538,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
   int updateBeanDynamic2(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -584,10 +589,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -627,7 +633,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -699,7 +705,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
   int updateBeanDynamicWithArgs3(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;

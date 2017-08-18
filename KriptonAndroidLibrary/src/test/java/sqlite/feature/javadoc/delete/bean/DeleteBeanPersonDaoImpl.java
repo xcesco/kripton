@@ -23,7 +23,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Person WHERE id=${bean.id}</pre>
+   * <pre>DELETE FROM person WHERE id=${bean.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -40,7 +40,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -91,7 +91,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    */
   int deleteOneBean0(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -123,7 +123,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Person WHERE name=${bean.name} AND surname=${bean.surname} AND student = 0</pre>
+   * <pre>DELETE FROM person WHERE name=${bean.name} AND surname=${bean.surname} AND student = 0</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -140,7 +140,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
     _sqlWhereParams.add((bean.getName()==null?"":bean.getName()));
     _sqlWhereParams.add((bean.getSurname()==null?"":bean.getSurname()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -166,7 +166,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Person WHERE surname=${bean.surname} and student = (select student from Person where name=${bean.name})</pre>
+   * <pre>DELETE FROM person WHERE surname=${bean.surname} and student = (select student from person where name=${bean.name})</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -183,7 +183,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
     _sqlWhereParams.add((bean.getSurname()==null?"":bean.getSurname()));
     _sqlWhereParams.add((bean.getName()==null?"":bean.getName()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -234,7 +234,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    */
   int deleteFromSelectAllBeansJQL1(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -268,7 +268,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Person WHERE id=${bean.id}</pre>
+   * <pre>DELETE FROM person WHERE id=${bean.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -285,7 +285,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -336,7 +336,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    */
   int deleteBean2(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -368,7 +368,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -392,7 +392,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -443,7 +443,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    */
   int deleteBeanDynamic3(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -477,7 +477,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -503,7 +503,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -561,7 +561,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    */
   int deleteBeanDynamicWithArgs4(Uri uri, String selection, String[] selectionArgs) {
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;

@@ -59,7 +59,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    */
   @Override
   public Bean84B selectById(long param1) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, column_bean FROM bean84_b");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -128,7 +128,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    */
   @Override
   public Bean84B selectByBean(Bean84B2 param1) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, column_bean FROM bean84_b");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -234,7 +234,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Bean84B SET columnBean=${bean.columnBean}</pre>
+   * <pre>UPDATE bean84_b SET column_bean=:columnBean</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -264,7 +264,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     String _sqlWhereStatement="";
 
     // display log
-    Logger.info("UPDATE bean84_b SET columnBean=:columnBean");
+    Logger.info("UPDATE bean84_b SET column_bean=:columnBean");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -290,7 +290,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Bean84B WHERE 1=1</pre>
+   * <pre>DELETE FROM bean84_b WHERE 1=1</pre>
    *
    * @param bean
    * 	is used as ${bean}
@@ -301,7 +301,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   public boolean deleteAll(Bean84B bean) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 

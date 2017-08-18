@@ -23,10 +23,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE message SET ownerType=${ownerType} WHERE id = ${id}</pre>
+   * <pre>UPDATE message SET owner_type=:ownerType WHERE id = ${id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>owner_type</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -54,7 +55,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -67,7 +68,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE message SET ownerType=:ownerType WHERE id = ?");
+    Logger.info("UPDATE message SET owner_type=:ownerType WHERE id = ?");
 
     // log for content values -- BEGIN
     Object _contentValue;

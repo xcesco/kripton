@@ -168,7 +168,7 @@ public abstract class SqlSelectBuilder {
 			generateSelectForContentProvider(elementUtils, builder, method, selectResultType);
 		}
 	}
-	
+
 	public static class SplittedSql {
 		public String sqlWhereStatement;
 		public String sqlOrderByStatement;
@@ -191,9 +191,9 @@ public abstract class SqlSelectBuilder {
 	 */
 	private static void generateSelectForContentProvider(Elements elementUtils, Builder builder, final SQLiteModelMethod method, SelectType selectResultType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();		
+		final SQLEntity entity = daoDefinition.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
-		
+
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
 
 		// params
@@ -204,17 +204,18 @@ public abstract class SqlSelectBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(String.class, "sortOrder").build());
 
 		methodBuilder.returns(Cursor.class);
-		
+
 		SqlBuilderHelper.generateLogForContentProviderBeginning(method, methodBuilder);
-		
-		JQLChecker jqlChecker=JQLChecker.getInstance();
-		SplittedSql splittedSql=generateSQL(method, methodBuilder, true);
+
+		JQLChecker jqlChecker = JQLChecker.getInstance();
+		SplittedSql splittedSql = generateSQL(method, methodBuilder, true);
 
 		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(splittedSql.sqlWhereStatement);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = SqlBuilderHelper.removeDynamicPlaceHolder(placeHolders);
-		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(), "In '%s.%s' content provider URI path variables and variables in where conditions are different. If SQL uses parameters, they must be defined in URI path.",
-				daoDefinition.getName(), method.getName());
+		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(),
+				"In '%s.%s' content provider URI path variables and variables in where conditions are different. If SQL uses parameters, they must be defined in URI path.", daoDefinition.getName(),
+				method.getName());
 
 		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method.jql.value, entity);
 		for (JQLProjection item : projectedColumns) {
@@ -225,14 +226,14 @@ public abstract class SqlSelectBuilder {
 			}
 		}
 
-		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
+		methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
 		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, "selection", "selectionArgs");
-		
-		methodBuilder.addStatement("$T _projectionBuffer=new $T()", StringBuilder.class, StringBuilder.class);		
+
+		methodBuilder.addStatement("$T _projectionBuffer=new $T()", StringBuilder.class, StringBuilder.class);
 		if (method.jql.isOrderBy()) {
 			methodBuilder.addStatement("String _sortOrder=sortOrder");
 		}
-		
+
 		methodBuilder.addStatement("_sqlBuilder.append($S)", splittedSql.sqlBasic);
 
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, false);
@@ -352,7 +353,7 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.addComment("generation limit - BEGIN");
 			if (jql.annotatedPageSize) {
 				methodBuilder.addStatement("String _sqlLimitStatement=$S", splittedSql.sqlLimitStatement);
-			} else if (jql.hasParamPageSize()){
+			} else if (jql.hasParamPageSize()) {
 				methodBuilder.addStatement("String _sqlLimitStatement=$T.printIf($L>0, \" LIMIT \"+pageSize)", SqlUtils.class, jql.paramPageSize);
 			}
 			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlLimitStatement");
@@ -364,10 +365,10 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.addComment("generation offset - BEGIN");
 			if (jql.annotatedPageSize) {
 				methodBuilder.addStatement("String _sqlOffsetStatement=\" OFFSET \"+paginatedResult.firstRow()", SqlUtils.class);
-			} else if (jql.hasParamPageSize()){
+			} else if (jql.hasParamPageSize()) {
 				methodBuilder.addStatement("String _sqlOffsetStatement=$T.printIf($L>0 && paginatedResult.firstRow()>0, \" OFFSET \"+paginatedResult.firstRow())", SqlUtils.class, jql.paramPageSize);
 			}
-			
+
 			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOffsetStatement");
 			methodBuilder.addComment("generation offset - END");
 			methodBuilder.addCode("\n");
@@ -376,11 +377,11 @@ public abstract class SqlSelectBuilder {
 
 	static SplittedSql generateSQL(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, final boolean replaceProjectedColumns) {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
-		final SQLEntity entity=method.getParent().getEntity();
-		final SQLiteDatabaseSchema schema=method.getParent().getParent();
+		final SQLEntity entity = method.getParent().getEntity();
+		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 
-		final SplittedSql splittedSql=new SplittedSql();
-		
+		final SplittedSql splittedSql = new SplittedSql();
+
 		// convert jql to sql
 		String sql = jqlChecker.replace(method.jql, new JQLReplacerListener() {
 
@@ -396,9 +397,9 @@ public abstract class SqlSelectBuilder {
 
 			@Override
 			public String onColumnName(String columnName) {
-				SQLProperty tempProperty = entity.get(columnName);				
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
-								
+				SQLProperty tempProperty = entity.get(columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
 				return tempProperty.columnName;
 			}
 
@@ -417,7 +418,7 @@ public abstract class SqlSelectBuilder {
 
 			@Override
 			public void onColumnNameSetBegin(Column_name_setContext ctx) {
-				
+
 			}
 
 			@Override
@@ -431,12 +432,12 @@ public abstract class SqlSelectBuilder {
 			@Override
 			public void onColumnValueSetEnd(Column_value_setContext ctx) {
 			}
-			
+
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
 				return null;
 			}
-		
+
 		});
 
 		// parameters extracted from JQL converted in SQL
@@ -480,10 +481,13 @@ public abstract class SqlSelectBuilder {
 
 			@Override
 			public String onProjectedColumns(String statement) {
-				if (replaceProjectedColumns) return "%s"; else return null;
+				if (replaceProjectedColumns)
+					return "%s";
+				else
+					return null;
 			}
 		});
-		
+
 		return splittedSql;
 	}
 

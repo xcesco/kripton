@@ -48,6 +48,7 @@ import android.content.ContentValues;
 
 public class ModifyRawHelper implements ModifyCodeGenerator {
 
+	@Override
 	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
@@ -356,19 +357,14 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	 * 
 	 * @return sql generated
 	 */
-	public void generateJavaDoc(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition, Pair<String, List<Pair<String, TypeName>>> where,
+	private void generateJavaDoc(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition, Pair<String, List<Pair<String, TypeName>>> where,
 			List<Pair<String, TypeName>> methodParams) {
 
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final List<SQLProperty> updatedProperties = new ArrayList<>();
-		final One<Boolean> onWhereStatement = new One<Boolean>(null);
+		final One<Boolean> onWhereStatement = new One<Boolean>(false);
 
-		// final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue =
-		// new ArrayList<>();
-		// final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new
-		// ArrayList<>();
-		// new
 		String sqlModify = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
@@ -382,14 +378,21 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			}
 
 			@Override
-			public String onColumnName(String columnName) {
+			public String onColumnNameToUpdate(String columnName) {
 				SQLProperty tempProperty = entity.get(columnName);
 
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
 
-				if (onWhereStatement.value0 == null) {
-					updatedProperties.add(tempProperty);
-				}
+				updatedProperties.add(tempProperty);
+
+				return tempProperty.columnName;
+			}
+
+			@Override
+			public String onColumnName(String columnName) {
+				SQLProperty tempProperty = entity.get(columnName);
+
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
 
 				return tempProperty.columnName;
 			}
@@ -407,16 +410,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
 				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method, bindParameterName);
 
-				/*
-				 * if (inColumnValues.value0) { methodParamsUsedAsColumnValue
-				 * .add(new Pair<>(resolvedParamName,
-				 * method.findParameterType(resolvedParamName))); } else {
-				 * methodParamsUsedAsParameter .add(new
-				 * Pair<>(resolvedParamName,
-				 * method.findParameterType(resolvedParamName))); }
-				 */
+				if (onWhereStatement.value0) {
+					return "${" + bindParameterName + "}";
+				} else {
+					return ":" + bindParameterName;
+				}
 
-				return "${" + bindParameterName + "}";
 			}
 
 		});

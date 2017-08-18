@@ -37,7 +37,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    */
   @Override
   public List<User> loadUser() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id FROM user");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

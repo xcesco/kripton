@@ -109,7 +109,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
    */
   @Override
   public List<Todo> selectByUserId(long userId) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, user_id, title, completed FROM todo");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -190,7 +190,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
    */
   @Override
   public Todo selectOneByUserId(long userId) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, user_id, title, completed FROM todo");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

@@ -185,7 +185,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public Person selectThread1() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -248,7 +248,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public Person selectThread2() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

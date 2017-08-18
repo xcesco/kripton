@@ -40,7 +40,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
    */
   @Override
   public List<BeanA_4> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, bean_a2_id, value_string FROM bean_a_4");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -110,7 +110,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
    */
   @Override
   public List<BeanA_4> selectById(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, bean_a2_id, value_string FROM bean_a_4");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -186,7 +186,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
    */
   @Override
   public List<BeanA_4> selectByString(String value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id FROM bean_a_4");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -298,7 +298,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE BeanA_4 SET beanA2Id=${bean.beanA2Id}, valueString=${bean.valueString} WHERE valueString=${bean.valueString}</pre>
+   * <pre>UPDATE bean_a_4 SET bean_a2_id=:beanA2Id, value_string=:valueString WHERE value_string=${bean.valueString}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -331,7 +331,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((bean.valueString==null?"":bean.valueString));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -344,7 +344,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean_a_4 SET beanA2Id=:beanA2Id, valueString=:valueString WHERE valueString=?");
+    Logger.info("UPDATE bean_a_4 SET bean_a2_id=:beanA2Id, value_string=:valueString WHERE value_string=?");
 
     // log for content values -- BEGIN
     Object _contentValue;

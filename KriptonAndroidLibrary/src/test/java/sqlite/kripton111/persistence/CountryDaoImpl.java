@@ -129,7 +129,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public Country selectById(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -204,7 +204,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -248,7 +248,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public List<Country> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -333,7 +333,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public Country selectByCallingCode(String callingCode) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -414,7 +414,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public Country selectByCountry(String code) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, area, code, calling_code, region, name FROM country");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

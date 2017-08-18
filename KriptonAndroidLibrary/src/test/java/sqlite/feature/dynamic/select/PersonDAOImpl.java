@@ -121,7 +121,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -212,7 +212,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectOne(String nameValue, String where, String orderBy) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -305,7 +305,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void selectBeanListener(OnReadBeanListener<Person> beanListener, String orderBy) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

@@ -97,10 +97,12 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	@Override
 	public void generate(Elements elementUtils, TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		//PropertyList fieldList = CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition, method, BindSqlSelect.class, selectType.isMapFields(), null);
-		
-		Set<JQLProjection> fieldList=JQLChecker.getInstance().extractProjections(method.jql.value, daoDefinition.getEntity());
-		
+		// PropertyList fieldList =
+		// CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition,
+		// method, BindSqlSelect.class, selectType.isMapFields(), null);
+
+		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method.jql.value, daoDefinition.getEntity());
+
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 
@@ -120,17 +122,19 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		SQLEntity entity = daoDefinition.getEntity();
 
 		// if true, field must be associate to ben attributes
-		//TypeName returnType = method.getReturnClass();
+		// TypeName returnType = method.getReturnClass();
 		TypeName returnTypeName = method.getReturnClass();
 
 		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
-		//int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
+		// int pageSize =
+		// annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
 
 		// take field list
-		//String fieldStatement = fieldList.value0;
-		//String tableStatement = daoDefinition.getEntity().getTableName();
+		// String fieldStatement = fieldList.value0;
+		// String tableStatement = daoDefinition.getEntity().getTableName();
 
-		//boolean distinctClause = Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.DISTINCT));
+		// boolean distinctClause =
+		// Boolean.valueOf(annotation.getAttribute(AnnotationAttributeType.DISTINCT));
 
 		// parameters
 		List<String> paramNames = new ArrayList<String>();
@@ -140,65 +144,68 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		// used method parameters
 		Set<String> usedMethodParameters = new HashSet<String>();
 
-		final One<String> whereJQL=new One<>("");
-		final One<String> havingJQL=new One<>("");
-		final One<String> groupJQL=new One<>("");
-		final One<String> orderJQL=new One<>("");
-		
+		final One<String> whereJQL = new One<>("");
+		final One<String> havingJQL = new One<>("");
+		final One<String> groupJQL = new One<>("");
+		final One<String> orderJQL = new One<>("");
+
 		// extract parts of jql statement
 		JQLChecker.getInstance().replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
 
 			@Override
-			public String onWhere(String statement) {				
-				whereJQL.value0=statement;
+			public String onWhere(String statement) {
+				whereJQL.value0 = statement;
 				return null;
 			}
 
 			@Override
-			public String onOrderBy(String statement) {			
-				orderJQL.value0=statement;
+			public String onOrderBy(String statement) {
+				orderJQL.value0 = statement;
 				return null;
 			}
 
 			@Override
-			public String onHaving(String statement) {			
-				havingJQL.value0=statement;
+			public String onHaving(String statement) {
+				havingJQL.value0 = statement;
 				return null;
 			}
 
 			@Override
-			public String onGroup(String statement) {			
-				groupJQL.value0=statement;
+			public String onGroup(String statement) {
+				groupJQL.value0 = statement;
 				return null;
 			}
 
 		});
 
-		
 		SqlAnalyzer analyzer = new SqlAnalyzer();
 
-		//String whereSQL = annotation.getAttribute(AnnotationAttributeType.WHERE);
+		// String whereSQL =
+		// annotation.getAttribute(AnnotationAttributeType.WHERE);
 		analyzer.execute(elementUtils, method, whereJQL.value0);
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
-		//String havingSQL = annotation.getAttribute(AnnotationAttributeType.HAVING);
+		// String havingSQL =
+		// annotation.getAttribute(AnnotationAttributeType.HAVING);
 		analyzer.execute(elementUtils, method, havingJQL.value0);
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
-		//String groupBySQL = annotation.getAttribute(AnnotationAttributeType.GROUP_BY);
+		// String groupBySQL =
+		// annotation.getAttribute(AnnotationAttributeType.GROUP_BY);
 		analyzer.execute(elementUtils, method, groupJQL.value0);
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
-		//String orderBySQL = annotation.getAttribute(AnnotationAttributeType.ORDER_BY);
+		// String orderBySQL =
+		// annotation.getAttribute(AnnotationAttributeType.ORDER_BY);
 		analyzer.execute(elementUtils, method, orderJQL.value0);
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
@@ -210,7 +217,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicWhereParameterName), method,
 					" parameter %s is used like SQL parameter and dynamic WHERE condition.", method.dynamicOrderByParameterName);
 			usedMethodParameters.add(method.dynamicWhereParameterName);
-			
+
 			if (method.hasDynamicWhereArgs()) {
 				AssertKripton.assertTrueOrInvalidMethodSignException(!usedMethodParameters.contains(method.dynamicWhereArgsParameterName), method,
 						" parameter %s is used like SQL parameter and dynamic WHERE ARGS condition.", method.dynamicWhereArgsParameterName);
@@ -239,28 +246,28 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		JavadocUtility.generateJavaDocForSelect(methodBuilder, paramNames, method, annotation, fieldList, selectType, javadocParts);
 
 		if (generationType.generateMethodContent) {
-			SplittedSql splittedSql=SqlSelectBuilder.generateSQL(method, methodBuilder, false);
-			
-			methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);						
+			SplittedSql splittedSql = SqlSelectBuilder.generateSQL(method, methodBuilder, false);
+
+			methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
 			methodBuilder.addStatement("_sqlBuilder.append($S)", splittedSql.sqlBasic.trim());
-			
-			SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, method.dynamicWhereParameterName, method.dynamicWhereArgsParameterName);			
-			
+
+			SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, method.dynamicWhereParameterName, method.dynamicWhereArgsParameterName);
+
 			if (method.jql.isOrderBy()) {
 				methodBuilder.addStatement("String _sortOrder=$L", method.jql.paramOrderBy);
 			}
 
 			SqlBuilderHelper.generateWhereCondition(methodBuilder, method, false);
-									
+
 			// build where condition (common for every type of select)
 			StringBuilder logArgsBuffer = new StringBuilder();
-			methodBuilder.addCode("\n// build where condition\n");			
+			methodBuilder.addCode("\n// build where condition\n");
 			{
 				String separator = "";
 				TypeName paramName;
 				boolean nullable;
 				int i = 0;
-				
+
 				for (String item : paramGetters) {
 					methodBuilder.addCode("_sqlWhereParams.add(");
 					logArgsBuffer.append(separator + "%s");
@@ -276,7 +283,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					// check for string conversion
 					TypeUtility.beginStringConversion(methodBuilder, paramName);
 
-					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition,paramName, item);
+					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, paramName, item);
 
 					// check for string conversion
 					TypeUtility.endStringConversion(methodBuilder, paramName);
@@ -287,25 +294,25 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 					separator = ", ";
 					i++;
-					
+
 					methodBuilder.addCode(");\n");
-				}				
+				}
 			}
-			
+
 			SqlSelectBuilder.generateDynamicPartOfQuery(method, methodBuilder, splittedSql);
-			
+
 			// this comment is added to include in all situation
 			methodBuilder.addCode("//$T, $T will be used in case of dynamic parts of SQL\n", StringUtils.class, SqlUtils.class);
 
 			methodBuilder.addStatement("String _sql=_sqlBuilder.toString()");
-			
+
 			methodBuilder.addStatement("String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()])");
-			
+
 			if (daoDefinition.isLogEnabled()) {
-			    // manage log			    
+				// manage log
 				methodBuilder.addStatement("$T.info(_sql)", Logger.class);
 			}
-			
+
 			// log for where parames
 			SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 
@@ -321,14 +328,17 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 			switch (selectType) {
 			case LISTENER_CURSOR: {
-				ClassName readCursorListenerToExclude=ClassName.get(OnReadCursorListener.class);
-				//LiteralType readCursorListenerToExclude = LiteralType.of(OnReadCursorListener.class);
+				ClassName readCursorListenerToExclude = ClassName.get(OnReadCursorListener.class);
+				// LiteralType readCursorListenerToExclude =
+				// LiteralType.of(OnReadCursorListener.class);
 				checkUnusedParameters(method, usedMethodParameters, readCursorListenerToExclude);
 			}
 				break;
 			case LISTENER_BEAN: {
-				//LiteralType readBeanListenerToExclude = LiteralType.of(OnReadBeanListener.class.getCanonicalName(), entity.getName());
-				ParameterizedTypeName readBeanListenerToExclude=ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class), TypeName.get(entity.getElement().asType()));
+				// LiteralType readBeanListenerToExclude =
+				// LiteralType.of(OnReadBeanListener.class.getCanonicalName(),
+				// entity.getName());
+				ParameterizedTypeName readBeanListenerToExclude = ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class), TypeName.get(entity.getElement().asType()));
 				checkUnusedParameters(method, usedMethodParameters, readBeanListenerToExclude);
 			}
 				break;
@@ -364,45 +374,57 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		this.selectType = value;
 	}
 
-//	public static String formatSqlForLog(SQLiteModelMethod method, String sql) {
-//		sql = sql.replaceAll("\\%[^s]", "\\%\\%").replaceAll("\\?", "\'%s\'");
-//
-//		return formatSqlInternal(method, sql, "appendForLog");
-//	}
-//
-//	public static String formatSql(SQLiteModelMethod method, String sql) {
-//		return formatSqlInternal(method, sql, "appendForSQL");
-//	}
-//
-//	public static String formatSqlInternal(SQLiteModelMethod method, String sql, String appendMethod) {
-//		if (method.hasDynamicWhereConditions()) {
-//			sql = sql.replace("#{" + method.dynamicWhereParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.dynamicWhereParameterName + ")+\"");
-//		}
-//
-//		if (method.hasDynamicOrderByConditions()) {
-//			sql = sql.replace("#{" + method.dynamicOrderByParameterName + "}", "\"+SqlUtils." + appendMethod + "(" + method.dynamicOrderByParameterName + ")+\"");
-//		}
-//
-//		if (method.hasDynamicPageSizeConditions()) {
-//			sql = sql.replace("#{" + method.dynamicPageSizeName + "}", String.format("\"+SqlUtils.printIf(%s>0, \" LIMIT \"+%s)+\"", method.dynamicPageSizeName, method.dynamicPageSizeName));
-//		}
-//
-//		if (method.hasPaginatedResultParameter()) {
-//			if (method.hasDynamicPageSizeConditions()) {
-//				sql = sql.replace("#{" + method.paginatedResultName + "}", String.format("\"+SqlUtils.printIf(%s>0 && %s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.dynamicPageSizeName,
-//						method.paginatedResultName, method.paginatedResultName));
-//			} else {
-//				sql = sql.replace("#{" + method.paginatedResultName + "}",
-//						String.format("\"+SqlUtils.printIf(%s.firstRow()>0, \" OFFSET \"+%s.firstRow())+\"", method.paginatedResultName, method.paginatedResultName));
-//			}
-//		}
-//
-//		// smart optimization
-//		sql = "\"" + sql + "\"";
-//		sql = sql.replaceAll("\\+\"\"", "");
-//
-//		return sql;
-//	}
+	// public static String formatSqlForLog(SQLiteModelMethod method, String
+	// sql) {
+	// sql = sql.replaceAll("\\%[^s]", "\\%\\%").replaceAll("\\?", "\'%s\'");
+	//
+	// return formatSqlInternal(method, sql, "appendForLog");
+	// }
+	//
+	// public static String formatSql(SQLiteModelMethod method, String sql) {
+	// return formatSqlInternal(method, sql, "appendForSQL");
+	// }
+	//
+	// public static String formatSqlInternal(SQLiteModelMethod method, String
+	// sql, String appendMethod) {
+	// if (method.hasDynamicWhereConditions()) {
+	// sql = sql.replace("#{" + method.dynamicWhereParameterName + "}",
+	// "\"+SqlUtils." + appendMethod + "(" + method.dynamicWhereParameterName +
+	// ")+\"");
+	// }
+	//
+	// if (method.hasDynamicOrderByConditions()) {
+	// sql = sql.replace("#{" + method.dynamicOrderByParameterName + "}",
+	// "\"+SqlUtils." + appendMethod + "(" + method.dynamicOrderByParameterName
+	// + ")+\"");
+	// }
+	//
+	// if (method.hasDynamicPageSizeConditions()) {
+	// sql = sql.replace("#{" + method.dynamicPageSizeName + "}",
+	// String.format("\"+SqlUtils.printIf(%s>0, \" LIMIT \"+%s)+\"",
+	// method.dynamicPageSizeName, method.dynamicPageSizeName));
+	// }
+	//
+	// if (method.hasPaginatedResultParameter()) {
+	// if (method.hasDynamicPageSizeConditions()) {
+	// sql = sql.replace("#{" + method.paginatedResultName + "}",
+	// String.format("\"+SqlUtils.printIf(%s>0 && %s.firstRow()>0, \" OFFSET
+	// \"+%s.firstRow())+\"", method.dynamicPageSizeName,
+	// method.paginatedResultName, method.paginatedResultName));
+	// } else {
+	// sql = sql.replace("#{" + method.paginatedResultName + "}",
+	// String.format("\"+SqlUtils.printIf(%s.firstRow()>0, \" OFFSET
+	// \"+%s.firstRow())+\"", method.paginatedResultName,
+	// method.paginatedResultName));
+	// }
+	// }
+	//
+	// // smart optimization
+	// sql = "\"" + sql + "\"";
+	// sql = sql.replaceAll("\\+\"\"", "");
+	//
+	// return sql;
+	// }
 
 	/**
 	 * Check if there are unused method parameters. In this case an exception

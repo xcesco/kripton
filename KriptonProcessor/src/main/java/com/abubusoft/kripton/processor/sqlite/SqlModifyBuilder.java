@@ -307,7 +307,7 @@ public abstract class SqlModifyBuilder {
 		SqlBuilderHelper.generateLogForContentProviderBeginning(method, methodBuilder);
 
 		// query builder
-		methodBuilder.addStatement("$T _sqlBuilder=new $T()", StringBuilder.class, StringBuilder.class);
+		methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
 		generateInitForDynamicWhereVariables(method, methodBuilder, "selection", "selectionArgs");
 
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, false);
@@ -451,13 +451,22 @@ public abstract class SqlModifyBuilder {
 		// display log
 		if (schema.generateLog) {
 
-			// final SQLEntity entity = method.getParent().getEntity();
+			final SQLEntity entity = method.getParent().getEntity();
 			JQLChecker jqlChecker = JQLChecker.getInstance();
 
 			final One<Boolean> usedInWhere = new One<Boolean>(false);
 
 			methodBuilder.addCode("\n// display log\n");
 			String sqlForLog = jqlChecker.replace(method.jql, new JQLReplacerListenerImpl() {
+				@Override
+				public String onColumnNameToUpdate(String columnName) {
+					return entity.findByName(columnName).columnName;
+				}
+
+				@Override
+				public String onColumnName(String columnName) {
+					return entity.findByName(columnName).columnName;
+				}
 
 				@Override
 				public String onBindParameter(String bindParameterName) {
@@ -488,6 +497,7 @@ public abstract class SqlModifyBuilder {
 					usedInWhere.value0 = true;
 				}
 
+				@Override
 				public void onWhereStatementEnd(Where_stmtContext ctx) {
 					usedInWhere.value0 = false;
 				};

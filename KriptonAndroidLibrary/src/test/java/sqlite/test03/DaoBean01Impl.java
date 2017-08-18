@@ -42,7 +42,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public List<Bean01> listAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT lista, id, message_date, message_text, bean_list, value FROM bean01");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

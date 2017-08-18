@@ -39,7 +39,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Channel WHERE ownerUid=${value.id}</pre>
+   * <pre>DELETE FROM channel WHERE owner_uid=${value.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -56,7 +56,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(channel.getId()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -69,7 +69,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM channel WHERE ownerUid=?");
+    Logger.info("DELETE FROM channel WHERE owner_uid=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -83,7 +83,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Channel WHERE ownerUid=${value.id}</pre>
+   * <pre>DELETE FROM channel WHERE owner_uid=${value.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -100,7 +100,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(value.getId()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -113,7 +113,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM channel WHERE ownerUid=?");
+    Logger.info("DELETE FROM channel WHERE owner_uid=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -149,7 +149,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add((b==null?"":b));
     _sqlWhereParams.add(String.valueOf(dummy));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -162,7 +162,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM channel WHERE ownerUid=? and id=?");
+    Logger.info("DELETE FROM channel WHERE owner_uid=? and id=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -198,7 +198,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add((ownerUid==null?"":ownerUid));
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -211,7 +211,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM channel WHERE ownerUid=? and id=?");
+    Logger.info("DELETE FROM channel WHERE owner_uid=? and id=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -538,10 +538,11 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE channel SET id=${id}, dummy=${dummy} WHERE id=${dummy}</pre>
+   * <pre>UPDATE channel SET id=:id WHERE id=${dummy}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -565,73 +566,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(aid));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // display log
-    Logger.info("UPDATE channel SET id=:id, dummy=:dummy WHERE id=?");
-
-    // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
-      }
-    }
-    // log for content values -- END
-
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
-    }
-    // log for where parameters -- END
-    int result = database().update("channel", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
-    return result;
-  }
-
-  /**
-   * <h2>SQL update</h2>
-   * <pre>UPDATE channel SET id=${id} WHERE id=${dummy}</pre>
-   *
-   * <h2>Updated columns:</h2>
-   * <ul>
-   * </ul>
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * 	<dt>${dummy}</dt><dd>is mapped to method's parameter <strong>dummy</strong></dd>
-   * </dl>
-   *
-   * @param id
-   * 	is used as updated field <strong>id</strong>
-   * @param dummy
-   * 	is used as where parameter <strong>${dummy}</strong>
-   *
-   * @return number of updated records
-   */
-  @Override
-  public long updateContactRaw2(long id, long dummy) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
-
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(dummy));
-
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -670,10 +605,78 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE channel SET ownerUid=${ownerUid}, test=${test} WHERE id=${test}</pre>
+   * <pre>UPDATE channel SET id=:id WHERE id=${dummy}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
+   * </ul>
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${dummy}</dt><dd>is mapped to method's parameter <strong>dummy</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is used as updated field <strong>id</strong>
+   * @param dummy
+   * 	is used as where parameter <strong>${dummy}</strong>
+   *
+   * @return number of updated records
+   */
+  @Override
+  public long updateContactRaw2(long id, long dummy) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+    contentValues.put("id", id);
+
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    _sqlWhereParams.add(String.valueOf(dummy));
+
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // display log
+    Logger.info("UPDATE channel SET id=:id WHERE id=?");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+    int result = database().update("channel", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    return result;
+  }
+
+  /**
+   * <h2>SQL update</h2>
+   * <pre>UPDATE channel SET owner_uid=:ownerUid WHERE id=${test}</pre>
+   *
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * 	<li>owner_uid</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -701,7 +704,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -714,7 +717,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE channel SET ownerUid=:ownerUid, test=:test WHERE id=?");
+    Logger.info("UPDATE channel SET owner_uid=:ownerUid WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -740,10 +743,11 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE channel SET ownerUid=${ownerUid} WHERE id=${id}</pre>
+   * <pre>UPDATE channel SET owner_uid=:ownerUid WHERE id=${id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>owner_uid</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -771,7 +775,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -784,7 +788,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE channel SET ownerUid=:ownerUid WHERE id=?");
+    Logger.info("UPDATE channel SET owner_uid=:ownerUid WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -810,7 +814,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Channel SET uid=${value.uid}, ownerUid=${value.ownerUid}, updateTime=${value.updateTime}, name=${value.name} WHERE id=${bean.id}</pre>
+   * <pre>UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -855,7 +859,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(value.getId()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -868,7 +872,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE channel SET uid=:uid, ownerUid=:ownerUid, updateTime=:updateTime, name=:name WHERE id=?");
+    Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -894,7 +898,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Channel SET uid=${bean.uid}, ownerUid=${bean.ownerUid}, updateTime=${bean.updateTime}, name=${bean.name} WHERE id=${bean.id}</pre>
+   * <pre>UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -939,7 +943,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.getId()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -952,7 +956,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE channel SET uid=:uid, ownerUid=:ownerUid, updateTime=:updateTime, name=:name WHERE id=?");
+    Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -978,7 +982,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Channel SET uid=${bean.uid}, ownerUid=${bean.ownerUid}, updateTime=${bean.updateTime}, name=${bean.name} WHERE id=${bean.id}</pre>
+   * <pre>UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -1023,7 +1027,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.getId()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1036,7 +1040,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE channel SET uid=:uid, ownerUid=:ownerUid, updateTime=:updateTime, name=:name WHERE id=?");
+    Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -1078,7 +1082,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public List<Channel> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1154,7 +1158,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public List<Channel> selectRaw1(long updateTimeA) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1238,7 +1242,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public Cursor selectRaw2(long updateTimeA) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1296,7 +1300,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public void selectRaw3(long updateTimeA, OnReadBeanListener<Channel> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1383,7 +1387,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public void selectRaw4(long updateTimeA, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1448,7 +1452,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public Set<Channel> selectRaw5(long updateTimeA) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT uid, owner_uid, update_time, name, id FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1528,7 +1532,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public long selectBean1(Channel value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT count(*) FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1590,7 +1594,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public void selectBean2(Channel value, OnReadBeanListener<Channel> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1665,7 +1669,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public void selectBean3(Channel value, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1726,7 +1730,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public Cursor selectBean4(Channel value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1779,7 +1783,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public Channel selectBean5(Channel value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1845,7 +1849,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public ArrayList<Channel> selectBean6(Channel value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1917,7 +1921,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public Set<Channel> selectBean7(Channel value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1989,7 +1993,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public List<Long> selectBean8(Channel value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT update_time FROM channel");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

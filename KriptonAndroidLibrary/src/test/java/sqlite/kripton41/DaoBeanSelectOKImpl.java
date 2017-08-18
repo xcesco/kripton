@@ -45,7 +45,7 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
    */
   @Override
   public Boolean selectDistance(long id, double value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT count(*) FROM bean01");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

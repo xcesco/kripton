@@ -80,7 +80,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -93,7 +93,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueBigDecimal=?");
+    Logger.info("DELETE FROM bean WHERE value_big_decimal=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -125,7 +125,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toString()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -138,7 +138,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueBigDecimal=?");
+    Logger.info("DELETE FROM bean WHERE value_big_decimal=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -170,7 +170,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueBoolType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -183,7 +183,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueBoolType=?");
+    Logger.info("DELETE FROM bean WHERE value_bool_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -215,7 +215,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBool==null?"":String.valueOf(valueBool)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -228,7 +228,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueBool=?");
+    Logger.info("DELETE FROM bean WHERE value_bool=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -260,7 +260,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -273,7 +273,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueBeanArray=?");
+    Logger.info("DELETE FROM bean WHERE value_bean_array=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -305,7 +305,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -318,7 +318,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueLongArray=?");
+    Logger.info("DELETE FROM bean WHERE value_long_array=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -350,7 +350,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -363,7 +363,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueLongTypeArray=?");
+    Logger.info("DELETE FROM bean WHERE value_long_type_array=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -395,7 +395,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueByte==null?"":String.valueOf(valueByte)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -408,7 +408,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueByte=?");
+    Logger.info("DELETE FROM bean WHERE value_byte=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -440,7 +440,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueByteType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -453,7 +453,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueByteType=?");
+    Logger.info("DELETE FROM bean WHERE value_byte_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -485,7 +485,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueCalendar==null?"":DateUtils.write(valueCalendar)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -498,7 +498,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueCalendar=?");
+    Logger.info("DELETE FROM bean WHERE value_calendar=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -530,7 +530,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueChar==null?"":String.valueOf((int)valueChar)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -543,7 +543,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueCharType=?");
+    Logger.info("DELETE FROM bean WHERE value_char_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -575,7 +575,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf((int)valueCharType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -588,7 +588,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueCharType=?");
+    Logger.info("DELETE FROM bean WHERE value_char_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -620,7 +620,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -633,7 +633,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueCurrency=?");
+    Logger.info("DELETE FROM bean WHERE value_currency=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -665,7 +665,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueDate==null?"":DateUtils.write(valueDate)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -678,7 +678,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueDate=?");
+    Logger.info("DELETE FROM bean WHERE value_date=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -710,7 +710,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueDouble==null?"":String.valueOf(valueDouble)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -723,7 +723,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueDouble=?");
+    Logger.info("DELETE FROM bean WHERE value_double=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -755,7 +755,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueDoubleType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -768,7 +768,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueDoubleType=?");
+    Logger.info("DELETE FROM bean WHERE value_double_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -800,7 +800,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueEnumType==null?"":valueEnumType.toString()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -813,7 +813,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueEnumType=?");
+    Logger.info("DELETE FROM bean WHERE value_enum_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -845,7 +845,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueFloat==null?"":String.valueOf(valueFloat)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -858,7 +858,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueFloat=?");
+    Logger.info("DELETE FROM bean WHERE value_float=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -890,7 +890,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueFloatType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -903,7 +903,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueFloatType=?");
+    Logger.info("DELETE FROM bean WHERE value_float_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -935,7 +935,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueInt==null?"":String.valueOf(valueInt)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -948,7 +948,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueInt=?");
+    Logger.info("DELETE FROM bean WHERE value_int=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -980,7 +980,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueIntType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -993,7 +993,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueIntType=?");
+    Logger.info("DELETE FROM bean WHERE value_int_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1025,7 +1025,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1038,7 +1038,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueLongList=?");
+    Logger.info("DELETE FROM bean WHERE value_long_list=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1070,7 +1070,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLocale==null?"":DateUtils.write(valueLocale)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1083,7 +1083,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueLocale=?");
+    Logger.info("DELETE FROM bean WHERE value_locale=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1115,7 +1115,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLong==null?"":String.valueOf(valueLong)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1128,7 +1128,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueLong=?");
+    Logger.info("DELETE FROM bean WHERE value_long=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1160,7 +1160,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueLongType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1173,7 +1173,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueLongType=?");
+    Logger.info("DELETE FROM bean WHERE value_long_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1205,7 +1205,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueShort==null?"":String.valueOf((int)valueShort)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1218,7 +1218,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueShort=?");
+    Logger.info("DELETE FROM bean WHERE value_short=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1250,7 +1250,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf((int)valueShortType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1263,7 +1263,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueShortType=?");
+    Logger.info("DELETE FROM bean WHERE value_short_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1295,7 +1295,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueString==null?"":valueString));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1308,7 +1308,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueString=?");
+    Logger.info("DELETE FROM bean WHERE value_string=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1340,7 +1340,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueTime==null?"":TimeUtils.write(valueTime)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1353,7 +1353,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueTime=?");
+    Logger.info("DELETE FROM bean WHERE value_time=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1385,7 +1385,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1398,7 +1398,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueTimeZone=?");
+    Logger.info("DELETE FROM bean WHERE value_time_zone=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -1430,7 +1430,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueUrl==null?"":UrlUtils.write(valueUrl)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1443,7 +1443,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM bean WHERE valueUrl=?");
+    Logger.info("DELETE FROM bean WHERE value_url=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -3393,7 +3393,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public List<Bean> selectList(long id) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -3581,7 +3581,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOne() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -3762,7 +3762,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOne(BigDecimal valueBigDecimal) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -3951,7 +3951,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOne(BigInteger valueBigDecimal) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -4140,7 +4140,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOne(boolean valueBoolType) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -4329,7 +4329,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOne(Boolean valueBool) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -4519,7 +4519,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -4754,7 +4754,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -4856,7 +4856,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneArrayBeanType(Bean[] valueBeanArray) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -5045,7 +5045,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneArrayLong(Long[] valueLongArray) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -5234,7 +5234,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneArrayLongType(long[] valueLongTypeArray) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -5423,7 +5423,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneByte(Byte valueByte) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -5612,7 +5612,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneByteType(boolean valueByteType) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -5801,7 +5801,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneCalendar(Calendar valueCalendar) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -5990,7 +5990,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneChar(Character valueChar) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -6179,7 +6179,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneCharType(char valueCharType) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -6368,7 +6368,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneCurrencye(Currency valueCurrency) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -6557,7 +6557,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneDate(Date valueDate) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -6746,7 +6746,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneDouble(Double valueDouble) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -6935,7 +6935,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneDoubleType(double valueDoubleType) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -7124,7 +7124,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneEnumType(EnumType valueEnumType) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -7313,7 +7313,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneFloat(Float valueFloat) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -7502,7 +7502,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneFloatType(float valueFloatType) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -7691,7 +7691,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneInt(Integer valueInt) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -7880,7 +7880,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneIntType(int valueIntType) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -8069,7 +8069,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneListLong(LinkedList<Long> valueLongList) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -8258,7 +8258,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneLocale(Calendar valueLocale) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -8447,7 +8447,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneLong(Long valueLong) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -8636,7 +8636,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneLongType(long valueLongType) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -8825,7 +8825,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneShort(Short valueShort) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -9014,7 +9014,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneShortType(short valueShortType) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -9203,7 +9203,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneString(String valueString) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -9392,7 +9392,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneTime(Time valueTime) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -9581,7 +9581,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneTimeZone(TimeZone valueTimeZone) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -9770,7 +9770,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean selectOneURL(URL valueUrl) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -9911,7 +9911,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Boolean selectValueBool() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -9957,7 +9957,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public boolean selectValueBoolType() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10003,7 +10003,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Byte selectValueByte() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_byte FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10049,7 +10049,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public byte selectValueByteType() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_byte_type FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10095,7 +10095,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Character selectValueChar() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_char FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10141,7 +10141,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public char selectValueCharType() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_char_type FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10187,7 +10187,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Double selectValueDouble() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_double FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10233,7 +10233,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public double selectValueDoubleType() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_double_type FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10279,7 +10279,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Float selectValueFloat() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_float FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10325,7 +10325,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public float selectValueFloatType() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_float_type FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10371,7 +10371,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Integer selectValueInt() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_int FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10417,7 +10417,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public int selectValueIntType() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_int_type FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10463,7 +10463,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Long selectValueLong() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_long FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10509,7 +10509,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long selectValueLongType() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_long_type FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10555,7 +10555,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Short selectValueShort() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_short FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10601,7 +10601,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public short selectValueShortType() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_short_type FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10647,7 +10647,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public String selectValueString() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_string FROM bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -10681,7 +10681,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Bean SET valueBoolType=${value.valueBoolType}, valueBool=${value.valueBool}, valueByteType=${value.valueByteType}, valueByte=${value.valueByte}, valueShortType=${value.valueShortType}, valueShort=${value.valueShort}, valueIntType=${value.valueIntType}, valueInt=${value.valueInt}, valueString=${value.valueString}, valueCharType=${value.valueCharType}, valueChar=${value.valueChar}, valueFloatType=${value.valueFloatType}, valueFloat=${value.valueFloat}, valueBigInteger=${value.valueBigInteger}, valueBigDecimal=${value.valueBigDecimal}, valueEnumType=${value.valueEnumType}, valueLongType=${value.valueLongType}, valueLong=${value.valueLong}, valueDoubleType=${value.valueDoubleType}, valueDouble=${value.valueDouble}, valueLocale=${value.valueLocale}, valueCalendar=${value.valueCalendar}, valueDate=${value.valueDate}, valueUrl=${value.valueUrl}, valueTime=${value.valueTime}, valueCurrency=${value.valueCurrency}, valueTimeZone=${value.valueTimeZone}, valueTimeList=${value.valueTimeList}, valueStrinList=${value.valueStrinList}, valueLongList=${value.valueLongList}, valueByteArray=${value.valueByteArray}, valueLongTypeArray=${value.valueLongTypeArray}, valueLongArray=${value.valueLongArray}, valueBeanArray=${value.valueBeanArray}, valueStringArray=${value.valueStringArray}, valueCharList=${value.valueCharList}, valueCharTypeArray=${value.valueCharTypeArray}, valueCharArray=${value.valueCharArray}, valueMapStringBean=${value.valueMapStringBean}, valueLinkedMapStringBean=${value.valueLinkedMapStringBean}, valueSetString=${value.valueSetString} WHERE id=${value.id}</pre>
+   * <pre>UPDATE bean SET value_bool_type=:valueBoolType, value_bool=:valueBool, value_byte_type=:valueByteType, value_byte=:valueByte, value_short_type=:valueShortType, value_short=:valueShort, value_int_type=:valueIntType, value_int=:valueInt, value_string=:valueString, value_char_type=:valueCharType, value_char=:valueChar, value_float_type=:valueFloatType, value_float=:valueFloat, value_big_integer=:valueBigInteger, value_big_decimal=:valueBigDecimal, value_enum_type=:valueEnumType, value_long_type=:valueLongType, value_long=:valueLong, value_double_type=:valueDoubleType, value_double=:valueDouble, value_locale=:valueLocale, value_calendar=:valueCalendar, value_date=:valueDate, value_url=:valueUrl, value_time=:valueTime, value_currency=:valueCurrency, value_time_zone=:valueTimeZone, value_time_list=:valueTimeList, value_strin_list=:valueStrinList, value_long_list=:valueLongList, value_byte_array=:valueByteArray, value_long_type_array=:valueLongTypeArray, value_long_array=:valueLongArray, value_bean_array=:valueBeanArray, value_string_array=:valueStringArray, value_char_list=:valueCharList, value_char_type_array=:valueCharTypeArray, value_char_array=:valueCharArray, value_map_string_bean=:valueMapStringBean, value_linked_map_string_bean=:valueLinkedMapStringBean, value_set_string=:valueSetString WHERE id=${value.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -10920,7 +10920,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(value.id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -10933,7 +10933,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET valueBoolType=:valueBoolType, valueBool=:valueBool, valueByteType=:valueByteType, valueByte=:valueByte, valueShortType=:valueShortType, valueShort=:valueShort, valueIntType=:valueIntType, valueInt=:valueInt, valueString=:valueString, valueCharType=:valueCharType, valueChar=:valueChar, valueFloatType=:valueFloatType, valueFloat=:valueFloat, valueBigInteger=:valueBigInteger, valueBigDecimal=:valueBigDecimal, valueEnumType=:valueEnumType, valueLongType=:valueLongType, valueLong=:valueLong, valueDoubleType=:valueDoubleType, valueDouble=:valueDouble, valueLocale=:valueLocale, valueCalendar=:valueCalendar, valueDate=:valueDate, valueUrl=:valueUrl, valueTime=:valueTime, valueCurrency=:valueCurrency, valueTimeZone=:valueTimeZone, valueTimeList=:valueTimeList, valueStrinList=:valueStrinList, valueLongList=:valueLongList, valueByteArray=:valueByteArray, valueLongTypeArray=:valueLongTypeArray, valueLongArray=:valueLongArray, valueBeanArray=:valueBeanArray, valueStringArray=:valueStringArray, valueCharList=:valueCharList, valueCharTypeArray=:valueCharTypeArray, valueCharArray=:valueCharArray, valueMapStringBean=:valueMapStringBean, valueLinkedMapStringBean=:valueLinkedMapStringBean, valueSetString=:valueSetString WHERE id=?");
+    Logger.info("UPDATE bean SET value_bool_type=:valueBoolType, value_bool=:valueBool, value_byte_type=:valueByteType, value_byte=:valueByte, value_short_type=:valueShortType, value_short=:valueShort, value_int_type=:valueIntType, value_int=:valueInt, value_string=:valueString, value_char_type=:valueCharType, value_char=:valueChar, value_float_type=:valueFloatType, value_float=:valueFloat, value_big_integer=:valueBigInteger, value_big_decimal=:valueBigDecimal, value_enum_type=:valueEnumType, value_long_type=:valueLongType, value_long=:valueLong, value_double_type=:valueDoubleType, value_double=:valueDouble, value_locale=:valueLocale, value_calendar=:valueCalendar, value_date=:valueDate, value_url=:valueUrl, value_time=:valueTime, value_currency=:valueCurrency, value_time_zone=:valueTimeZone, value_time_list=:valueTimeList, value_strin_list=:valueStrinList, value_long_list=:valueLongList, value_byte_array=:valueByteArray, value_long_type_array=:valueLongTypeArray, value_long_array=:valueLongArray, value_bean_array=:valueBeanArray, value_string_array=:valueStringArray, value_char_list=:valueCharList, value_char_type_array=:valueCharTypeArray, value_char_array=:valueCharArray, value_map_string_bean=:valueMapStringBean, value_linked_map_string_bean=:valueLinkedMapStringBean, value_set_string=:valueSetString WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -10959,10 +10959,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_big_decimal=${valueBigDecimal}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_big_decimal=${valueBigDecimal}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -10986,7 +10987,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -10999,7 +11000,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueBigDecimal=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_big_decimal=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11025,10 +11026,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_big_decimal=${valueBigDecimal}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_big_decimal=${valueBigDecimal}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11052,7 +11054,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toString()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11065,7 +11067,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueBigDecimal=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_big_decimal=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11091,10 +11093,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_bool_type=${valueBoolType}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_bool_type=${valueBoolType}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11118,7 +11121,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueBoolType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11131,7 +11134,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueBoolType=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_bool_type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11157,10 +11160,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_bool=${valueBool}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_bool=${valueBool}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11184,7 +11188,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBool==null?"":String.valueOf(valueBool)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11197,7 +11201,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueBool=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_bool=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11223,10 +11227,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET valueSetString=${valueSetString} WHERE id=${id}</pre>
+   * <pre>UPDATE bean SET value_set_string=:valueSetString WHERE id=${id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>value_set_string</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11254,7 +11259,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11267,7 +11272,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET valueSetString=:valueSetString WHERE id=?");
+    Logger.info("UPDATE bean SET value_set_string=:valueSetString WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11293,10 +11298,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_bean_array=${valueBeanArray}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_bean_array=${valueBeanArray}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11320,7 +11326,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11333,7 +11339,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueBeanArray=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_bean_array=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11359,10 +11365,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_long_array=${valueLongArray}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_long_array=${valueLongArray}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11386,7 +11393,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11399,7 +11406,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueLongArray=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_long_array=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11425,10 +11432,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_long_type_array=${valueLongTypeArray}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_long_type_array=${valueLongTypeArray}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11452,7 +11460,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11465,7 +11473,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueLongTypeArray=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_long_type_array=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11491,10 +11499,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_byte=${valueByte}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_byte=${valueByte}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11518,7 +11527,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueByte==null?"":String.valueOf(valueByte)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11531,7 +11540,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueByte=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_byte=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11557,10 +11566,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_byte_type=${valueByteType}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_byte_type=${valueByteType}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11584,7 +11594,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueByteType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11597,7 +11607,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueByteType=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_byte_type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11623,10 +11633,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_calendar=${valueCalendar}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_calendar=${valueCalendar}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11650,7 +11661,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11663,7 +11674,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueCalendar=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_calendar=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11689,10 +11700,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_char_type=${valueChar}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_char_type=${valueChar}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11716,7 +11728,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueChar==null?"":String.valueOf((int)valueChar)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11729,7 +11741,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueCharType=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_char_type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11755,10 +11767,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_char_type=${valueCharType}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_char_type=${valueCharType}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11782,7 +11795,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf((int)valueCharType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11795,7 +11808,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueCharType=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_char_type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11821,10 +11834,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_currency=${valueCurrency}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_currency=${valueCurrency}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11848,7 +11862,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11861,7 +11875,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueCurrency=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_currency=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11887,10 +11901,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_date=${valueDate}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_date=${valueDate}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11914,7 +11929,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueDate==null?"":DateUtils.write(valueDate)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11927,7 +11942,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueDate=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_date=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -11953,10 +11968,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_double=${valueDouble}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_double=${valueDouble}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -11980,7 +11996,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueDouble==null?"":String.valueOf(valueDouble)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -11993,7 +12009,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueDouble=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_double=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12019,10 +12035,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_double_type=${valueDoubleType}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_double_type=${valueDoubleType}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12046,7 +12063,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueDoubleType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12059,7 +12076,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueDoubleType=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_double_type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12085,10 +12102,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_enum_type=${valueEnumType}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_enum_type=${valueEnumType}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12112,7 +12130,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueEnumType==null?"":valueEnumType.toString()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12125,7 +12143,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueEnumType=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_enum_type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12151,10 +12169,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_float=${valueFloat}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_float=${valueFloat}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12178,7 +12197,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueFloat==null?"":String.valueOf(valueFloat)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12191,7 +12210,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueFloat=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_float=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12217,10 +12236,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_float_type=${valueFloatType}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_float_type=${valueFloatType}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12244,7 +12264,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueFloatType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12257,7 +12277,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueFloatType=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_float_type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12283,10 +12303,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_int=${valueInt}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_int=${valueInt}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12310,7 +12331,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueInt==null?"":String.valueOf(valueInt)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12323,7 +12344,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueInt=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_int=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12349,10 +12370,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_int_type=${valueIntType}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_int_type=${valueIntType}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12376,7 +12398,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueIntType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12389,7 +12411,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueIntType=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_int_type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12415,10 +12437,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_long_list=${valueLongList}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_long_list=${valueLongList}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12442,7 +12465,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12455,7 +12478,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueLongList=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_long_list=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12481,10 +12504,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_locale=${valueLocale}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_locale=${valueLocale}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12508,7 +12532,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLocale==null?"":LocaleUtils.write(valueLocale)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12521,7 +12545,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueLocale=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_locale=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12547,10 +12571,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_long=${valueLong}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_long=${valueLong}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12574,7 +12599,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueLong==null?"":String.valueOf(valueLong)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12587,7 +12612,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueLong=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_long=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12613,10 +12638,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_long_type=${valueLongType}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_long_type=${valueLongType}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12640,7 +12666,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(valueLongType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12653,7 +12679,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueLongType=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_long_type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12679,10 +12705,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_short=${valueShort}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_short=${valueShort}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12706,7 +12733,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueShort==null?"":String.valueOf((int)valueShort)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12719,7 +12746,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueShort=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_short=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12745,10 +12772,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_short_type=${valueShortType}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_short_type=${valueShortType}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12772,7 +12800,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf((int)valueShortType));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12785,7 +12813,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueShortType=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_short_type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12811,10 +12839,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_string=${valueString}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_string=${valueString}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12838,7 +12867,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueString==null?"":String.valueOf(valueString)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12851,7 +12880,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueString=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_string=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12877,10 +12906,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_time=${valueTime}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_time=${valueTime}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12904,7 +12934,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueTime==null?"":TimeUtils.write(valueTime)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12917,7 +12947,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueTime=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_time=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -12943,10 +12973,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_time_zone=${valueTimeZone}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_time_zone=${valueTimeZone}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -12970,7 +13001,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -12983,7 +13014,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueTimeZone=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_time_zone=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -13009,10 +13040,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=${id} WHERE value_url=${valueUrl}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value_url=${valueUrl}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>id</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -13036,7 +13068,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((valueUrl==null?"":UrlUtils.write(valueUrl)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -13049,7 +13081,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean SET id=:id WHERE valueUrl=?");
+    Logger.info("UPDATE bean SET id=:id WHERE value_url=?");
 
     // log for content values -- BEGIN
     Object _contentValue;

@@ -52,7 +52,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public DoubleBean selectOne() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -116,7 +116,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public DoubleBean selectOne(List<Double> value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -189,7 +189,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public void selectOne(List<Double> value, OnReadBeanListener<DoubleBean> listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -268,7 +268,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public void selectOne(List<Double> value, OnReadCursorListener listener) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -331,7 +331,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public List<DoubleBean> selectList(List<Double> value) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -388,10 +388,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE double_bean SET value=${value} WHERE id=${id} and value=${paramValue}</pre>
+   * <pre>UPDATE double_bean SET value=:value WHERE id=${id} and value=${paramValue}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>value</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -423,7 +424,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     _sqlWhereParams.add((id==null?"":String.valueOf(id)));
     _sqlWhereParams.add((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -600,7 +601,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 

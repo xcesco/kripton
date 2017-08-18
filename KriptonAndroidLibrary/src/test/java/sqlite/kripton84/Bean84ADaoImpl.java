@@ -62,7 +62,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -159,7 +159,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectById(long uid) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -274,7 +274,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   @Override
   public List<Bean84A> selectWhere(List<String> param1, Map<Integer, String> param2,
       Character[] param3, char[] param4) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -522,7 +522,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Bean84A SET param1=${bean.param1}, param2=${bean.param2}, param3=${bean.param3}, param4=${bean.param4}, columnListString=${bean.columnListString}, columnMapIntegerString=${bean.columnMapIntegerString}, columnArrayChar=${bean.columnArrayChar}, columnArrayCharType=${bean.columnArrayCharType}, columnBean=${bean.columnBean}, columnArrayByteType=${bean.columnArrayByteType}, valueString=${bean.valueString}</pre>
+   * <pre>UPDATE bean84_a SET param1=:param1, param2=:param2, param3=:param3, param4=:param4, column_list_string=:columnListString, column_map_integer_string=:columnMapIntegerString, column_array_char=:columnArrayChar, column_array_char_type=:columnArrayCharType, column_bean=:columnBean, column_array_byte_type=:columnArrayByteType, value_string=:valueString</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -612,7 +612,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     String _sqlWhereStatement="";
 
     // display log
-    Logger.info("UPDATE bean84_a SET param1=:param1, param2=:param2, param3=:param3, param4=:param4, columnListString=:columnListString, columnMapIntegerString=:columnMapIntegerString, columnArrayChar=:columnArrayChar, columnArrayCharType=:columnArrayCharType, columnBean=:columnBean, columnArrayByteType=:columnArrayByteType, valueString=:valueString");
+    Logger.info("UPDATE bean84_a SET param1=:param1, param2=:param2, param3=:param3, param4=:param4, column_list_string=:columnListString, column_map_integer_string=:columnMapIntegerString, column_array_char=:columnArrayChar, column_array_char_type=:columnArrayCharType, column_bean=:columnBean, column_array_byte_type=:columnArrayByteType, value_string=:valueString");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -638,7 +638,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Bean84A WHERE 1=1</pre>
+   * <pre>DELETE FROM bean84_a WHERE 1=1</pre>
    *
    * @param bean
    * 	is used as ${bean}
@@ -649,7 +649,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   public boolean deleteAll(Bean84A bean) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 

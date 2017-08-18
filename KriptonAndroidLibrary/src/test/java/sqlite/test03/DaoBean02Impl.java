@@ -166,7 +166,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -193,7 +193,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM Bean01 WHERE id=${bean.id}</pre>
+   * <pre>DELETE FROM bean01 WHERE id=${bean.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -210,7 +210,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.getId()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -237,10 +237,11 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean01 SET value=${value} WHERE id>${id}</pre>
+   * <pre>UPDATE bean01 SET value=:value WHERE id>${id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
+   * 	<li>value</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -264,7 +265,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -303,7 +304,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE Bean01 SET lista=${bean.lista}, messageDate=${bean.messageDate}, messageText=${bean.messageText}, beanList=${bean.beanList}, value=${bean.value} WHERE value=${bean.value}</pre>
+   * <pre>UPDATE bean01 SET lista=:lista, message_date=:messageDate, message_text=:messageText, bean_list=:beanList, value=:value WHERE value=${bean.value}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -350,7 +351,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add(String.valueOf(bean.getValue()));
 
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -363,7 +364,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE bean01 SET lista=:lista, messageDate=:messageDate, messageText=:messageText, beanList=:beanList, value=:value WHERE value=?");
+    Logger.info("UPDATE bean01 SET lista=:lista, message_date=:messageDate, message_text=:messageText, bean_list=:beanList, value=:value WHERE value=?");
 
     // log for content values -- BEGIN
     Object _contentValue;

@@ -48,7 +48,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public Bean93 selectByBean(String name) {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, type_name FROM bean93");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -116,7 +116,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public List<Bean93> selectAll() {
-    StringBuilder _sqlBuilder=new StringBuilder();
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, type_name FROM bean93");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
