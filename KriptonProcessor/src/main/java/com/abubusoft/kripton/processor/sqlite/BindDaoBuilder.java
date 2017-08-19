@@ -24,6 +24,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
@@ -39,6 +40,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -84,6 +86,8 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 		PackageElement pkg = elementUtils.getPackageOf(value.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
+
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDao.class, packageName, classTableName);
 
 		builder = TypeSpec.classBuilder(classTableName).superclass(AbstractDao.class).addSuperinterface(typeName(value.getElement())).addModifiers(Modifier.PUBLIC);
 
