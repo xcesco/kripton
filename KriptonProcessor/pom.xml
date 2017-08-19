@@ -22,7 +22,7 @@
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-processor</artifactId>
 	<packaging>jar</packaging>
-	<version>2.0.1-SNAPSHOT</version>
+	<version>2.0.1</version>
 
 	<!-- Property version 2.0.0 -->
 	<properties>

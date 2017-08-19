@@ -21,7 +21,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton</artifactId>
-	<version>2.0.1-SNAPSHOT</version>
+	<version>2.0.1</version>
 	<packaging>jar</packaging>
 
 	<description>Kripton Persistence Library</description>

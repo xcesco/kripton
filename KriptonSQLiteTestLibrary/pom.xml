@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-sqlite-test-library</artifactId>
-	<version>2.0.1-SNAPSHOT</version>
+	<version>2.0.1</version>
 
 	<name>Kripton SQLite Test Library</name>
 	<description>Kripton SQLite Test Library</description>
