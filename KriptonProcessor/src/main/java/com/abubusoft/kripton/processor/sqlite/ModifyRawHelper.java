@@ -313,7 +313,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					methodBuilder.addJavadoc("@return number of deleted records");
 				}
 
-				methodBuilder.addCode("return result;\n");
+				// methodBuilder.addCode("return result;\n");
 			} else {
 				// more than one listener found
 				throw (new InvalidMethodSignException(method, "invalid return type"));

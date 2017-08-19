@@ -185,11 +185,9 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    * 	is used as where parameter <strong>${name}</strong>
    * @param surname
    * 	is used as where parameter <strong>${surname}</strong>
-   *
-   * @return number of deleted records
    */
   @Override
-  public int deleteFromSelectAllBeansJQL(String name, String surname) {
+  public void deleteFromSelectAllBeansJQL(String name, String surname) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     _sqlWhereParams.add((surname==null?"":surname));
     _sqlWhereParams.add((name==null?"":name));
@@ -216,12 +214,11 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
-    return result;
   }
 
   /**
    * <h1>Content provider URI (DELETE operation):</h1>
-   * <pre>content://sqlite.feature.javadoc.bean/persons/[*]/[*]</pre>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/a/[*]/[*]</pre>
    *
    * <h2>JQL DELETE for Content Provider</h2>
    * <pre>DELETE FROM Person WHERE surname=${surname} and student = (select student from Person where name=${name})</pre>
@@ -231,15 +228,15 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${surname}</strong> at path segment 1</li>
-   * <li><strong>${name}</strong> at path segment 2</li>
+   * <li><strong>${surname}</strong> at path segment 2</li>
+   * <li><strong>${name}</strong> at path segment 3</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
-   * @param uri "content://sqlite.feature.javadoc.bean/persons/[*]/[*]"
+   * @param uri "content://sqlite.feature.javadoc.bean/persons/a/[*]/[*]"
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
@@ -258,10 +255,10 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    // Add parameter surname at path segment 1
-    _sqlWhereParams.add(uri.getPathSegments().get(1));
-    // Add parameter name at path segment 2
+    // Add parameter surname at path segment 2
     _sqlWhereParams.add(uri.getPathSegments().get(2));
+    // Add parameter name at path segment 3
+    _sqlWhereParams.add(uri.getPathSegments().get(3));
 
     // display log
     Logger.info("DELETE FROM person WHERE surname=? and student = (select student from person where name=?)");

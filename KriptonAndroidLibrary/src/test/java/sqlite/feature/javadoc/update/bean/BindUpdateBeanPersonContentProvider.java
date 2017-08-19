@@ -20,7 +20,14 @@ import java.lang.String;
  * <h2>Supported update operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql</td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL0}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons</td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeans0}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}</td><td>{@link UpdateBeanPersonDaoImpl#updateOneBean1}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}/more</td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamic6}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamicWithArgs7}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamic2}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}</td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamicAndArgs3}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql</td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</td><td>{@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5}</td></tr>
  * </table>
  */
 public class BindUpdateBeanPersonContentProvider extends ContentProvider {
@@ -45,12 +52,47 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  public static final String PATH_PERSON_1 = "persons/jql";
+  public static final String PATH_PERSON_1 = "persons";
+
+  public static final String PATH_PERSON_2 = "persons/#";
+
+  public static final String PATH_PERSON_3 = "persons/#/more";
+
+  public static final String PATH_PERSON_4 = "persons/#/moreAndMore";
+
+  public static final String PATH_PERSON_5 = "persons/dynamic/#";
+
+  public static final String PATH_PERSON_6 = "persons/dynamicArgs/#";
+
+  public static final String PATH_PERSON_7 = "persons/jql";
+
+  public static final String PATH_PERSON_8 = "persons/jql/one/b/#";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
+  static final int PATH_PERSON_2_INDEX = 2;
+
+  static final int PATH_PERSON_3_INDEX = 3;
+
+  static final int PATH_PERSON_4_INDEX = 4;
+
+  static final int PATH_PERSON_5_INDEX = 5;
+
+  static final int PATH_PERSON_6_INDEX = 6;
+
+  static final int PATH_PERSON_7_INDEX = 7;
+
+  static final int PATH_PERSON_8_INDEX = 8;
+
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_3, PATH_PERSON_3_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_4, PATH_PERSON_4_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_5, PATH_PERSON_5_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_6, PATH_PERSON_6_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_7, PATH_PERSON_7_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_8, PATH_PERSON_8_INDEX);
   }
 
   /**
@@ -88,7 +130,14 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
   }
 
   /**
+   * method UpdateBeanPersonDao.updateAllBeans
+   * method UpdateBeanPersonDao.updateOneBean
+   * method UpdateBeanPersonDao.updateOneBeanWithDynamic
+   * method UpdateBeanPersonDao.updateOneBeanWithDynamicAndArgs
    * method UpdateBeanPersonDao.updateAllBeansJQL
+   * method UpdateBeanPersonDao.updateFromSelectJQL
+   * method UpdateBeanPersonDao.updateBeanDynamic
+   * method UpdateBeanPersonDao.updateBeanDynamicWithArgs
    */
   @Override
   public int update(Uri uri, ContentValues contentValues, String selection,
@@ -96,8 +145,43 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
     int returnRowUpdated=1;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateAllBeans0(uri, contentValues, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_2_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateOneBean1(uri, contentValues, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_3_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}/more
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateBeanDynamic6(uri, contentValues, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_4_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateBeanDynamicWithArgs7(uri, contentValues, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_5_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateOneBeanWithDynamic2(uri, contentValues, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_6_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateOneBeanWithDynamicAndArgs3(uri, contentValues, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_7_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/jql
-        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateAllBeansJQL0(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateAllBeansJQL4(uri, contentValues, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_8_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateFromSelectJQL5(uri, contentValues, selection, selectionArgs);
         break;
       }
       default: {
@@ -124,6 +208,27 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
   public String getType(Uri uri) {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_2_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_3_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_4_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_5_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_6_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_7_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_8_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
     }

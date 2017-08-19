@@ -37,9 +37,9 @@ public interface DeleteBeanPersonDao {
 	 * 
 	 * @param bean
 	 */
-	@BindContentProviderEntry(path = "${bean.surname}/${bean.name}")
+	@BindContentProviderEntry(path = "a/${bean.surname}/${bean.name}")
 	@BindSqlDelete(jql = "DELETE FROM Person WHERE surname=${bean.surname} and student = (select student from Person where name=${bean.name})")
-	void deleteFromSelectAllBeansJQL(Person bean);
+	int deleteFromSelectAllBeansJQL(Person bean);
 
 	/**
 	 * Update BEAN with one parameter.

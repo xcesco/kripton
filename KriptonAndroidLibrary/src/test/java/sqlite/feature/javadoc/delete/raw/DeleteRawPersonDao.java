@@ -37,9 +37,9 @@ public interface DeleteRawPersonDao {
 	 * 
 	 * @param bean
 	 */
-	@BindContentProviderEntry(path = "${surname}/${name}")
+	@BindContentProviderEntry(path = "a/${surname}/${name}")
 	@BindSqlDelete(jql = "DELETE FROM Person WHERE surname=${surname} and student = (select student from Person where name=${name})")
-	int deleteFromSelectAllBeansJQL(String name, String surname);
+	void deleteFromSelectAllBeansJQL(String name, String surname);
 
 	/**
 	 * Update BEAN with one parameter.

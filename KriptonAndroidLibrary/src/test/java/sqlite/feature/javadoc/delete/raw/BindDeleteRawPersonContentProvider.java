@@ -22,7 +22,7 @@ import java.lang.String;
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
  * <tr><td>content://sqlite.feature.javadoc.bean/persons/${id}</td><td>{@link DeleteRawPersonDaoImpl#deleteOneBean0}</td></tr>
  * <tr><td>content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore</td><td>{@link DeleteRawPersonDaoImpl#deleteBeanDynamicWithArgs4}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/${surname}/${name}</td><td>{@link DeleteRawPersonDaoImpl#deleteFromSelectAllBeansJQL1}</td></tr>
+ * <tr><td>content://sqlite.feature.javadoc.bean/persons/a/${surname}/${name}</td><td>{@link DeleteRawPersonDaoImpl#deleteFromSelectAllBeansJQL1}</td></tr>
  * <tr><td>content://sqlite.feature.javadoc.bean/persons/single/${id}</td><td>{@link DeleteRawPersonDaoImpl#deleteRaw2}</td></tr>
  * <tr><td>content://sqlite.feature.javadoc.bean/persons/single2/${id}</td><td>{@link DeleteRawPersonDaoImpl#deleteRawDynamic3}</td></tr>
  * </table>
@@ -53,7 +53,7 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
 
   public static final String PATH_PERSON_2 = "persons/#/moreAndMore";
 
-  public static final String PATH_PERSON_3 = "persons/*/*";
+  public static final String PATH_PERSON_3 = "persons/a/*/*";
 
   public static final String PATH_PERSON_4 = "persons/single/#";
 
@@ -145,7 +145,7 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
         break;
       }
       case PATH_PERSON_3_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/${surname}/${name}
+        // URI: content://sqlite.feature.javadoc.bean/persons/a/${surname}/${name}
         returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteFromSelectAllBeansJQL1(uri, selection, selectionArgs);
         break;
       }

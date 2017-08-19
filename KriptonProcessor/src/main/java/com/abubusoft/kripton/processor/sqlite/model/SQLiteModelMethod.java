@@ -273,7 +273,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 						} else if (TypeUtility.isTypeIncludedIn(entityPropertyType, Long.class, Long.TYPE)) {
 							return "#";
 						} else {
-							AssertKripton.fail("In '%s.%s', parameter '%s' has an invalid type '%s' to be used in path content provider path '%s'", getParent().getName(), getName(), name,
+							AssertKripton.fail("In '%s.%s', parameter '%s' of type '%s', can not be used in path content provider path '%s'", getParent().getName(), getName(), name,
 									entityPropertyType, contentProviderUri());
 						}
 					} else if (methodParamTypeName != null) {

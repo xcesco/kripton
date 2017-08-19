@@ -141,22 +141,13 @@ public abstract class SqlModifyBuilder {
 		builder.addMethod(methodSpec);
 
 		if (method.contentProviderEntryPathEnabled) {
-			// delete-bean, update-bean can not be used with content provider
+			// delete-select, update-select can be used with content provider
+			// insert-select no
 
-			if (method.jql.containsSelectOperation) {
-				AssertKripton.failWithInvalidMethodSignException(true, method, " query can not be used in content provider");
-			}
-
-			/*
-			 * switch (updateResultType) { case DELETE_BEAN: break; case
-			 * UPDATE_BEAN:
-			 * AssertKripton.failWithInvalidMethodSignException(true, method,
-			 * "update/delete sql with a bean as parameter can not be used in content provider"
-			 * ); break; case DELETE_RAW: case UPDATE_RAW: // we need to
-			 * generate UPDATE or DELETE for content provider to
-			 * 
-			 * default: break; }
-			 */
+			// if (method.jql.containsSelectOperation && updateResultType==) {
+			// AssertKripton.failWithInvalidMethodSignException(true, method, "
+			// SQL with inner SELECT can not be used in content provider");
+			// }
 
 			generateModifierForContentProvider(elementUtils, builder, method, updateResultType);
 

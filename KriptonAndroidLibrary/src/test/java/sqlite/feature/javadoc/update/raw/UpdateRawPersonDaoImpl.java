@@ -22,11 +22,13 @@ import java.util.Set;
 public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPersonDao {
   private static final Set<String> updateAllBeansJQL0ColumnSet = CollectionUtils.asSet(String.class, "name", "student");
 
-  private static final Set<String> updateBean1ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateFromSelectJQL1ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  private static final Set<String> updateBeanDynamic2ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateBean2ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  private static final Set<String> updateBeanDynamicWithArgs3ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateBeanDynamic3ColumnSet = CollectionUtils.asSet(String.class, "name");
+
+  private static final Set<String> updateBeanDynamicWithArgs4ColumnSet = CollectionUtils.asSet(String.class, "name");
 
   public UpdateRawPersonDaoImpl(BindUpdateRawPersonDataSource dataSet) {
     super(dataSet);
@@ -240,12 +242,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name}, surname=${surname}, student = (select student from person where id=${student})</pre>
+   * <pre>UPDATE person SET name=${name}, student = (select student from person where surname=${surname})</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>name</li>
-   * 	<li>surname</li>
    * 	<li>student</li>
    * </ul>
    *
@@ -253,26 +254,22 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <dl>
    * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
    * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
-   * 	<dt>${student}</dt><dd>is mapped to method's parameter <strong>student</strong></dd>
    * </dl>
    *
    * @param name
    * 	is used as for parameter <strong>name</strong>
    * @param surname
    * 	is used as for parameter <strong>surname</strong>
-   * @param student
-   * 	is used as for parameter <strong>student</strong>
    */
   @Override
-  public void updateFromSelectAllBeansJQL(String name, String surname, boolean student) {
+  public void updateFromSelectAllBeansJQL(String name, String surname) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // build where condition
     _sqlWhereParams.add((name==null?"":name));
     _sqlWhereParams.add((surname==null?"":surname));
-    _sqlWhereParams.add(String.valueOf(student));
 
-    Logger.info("UPDATE person SET name=${param0}, surname=${param1}, student = (select student from person where id=${param2})");
+    Logger.info("UPDATE person SET name=${param0}, student = (select student from person where surname=${param1})");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -281,7 +278,150 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     }
     // log for where parameters -- END
 
-    database().execSQL("UPDATE person SET name=?, surname=?, student = (select student from person where id=?)", _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]));
+    database().execSQL("UPDATE person SET name=?, student = (select student from person where surname=?)", _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]));
+  }
+
+  /**
+   * <h2>SQL update</h2>
+   * <pre>UPDATE person SET name=:name where student= (select student from person where surname=${surname})</pre>
+   *
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * 	<li>name</li>
+   * </ul>
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
+   * </dl>
+   *
+   * @param name
+   * 	is used as updated field <strong>name</strong>
+   * @param surname
+   * 	is used as where parameter <strong>${surname}</strong>
+   */
+  @Override
+  public void updateFromSelectJQL(String name, String surname) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+    if (name!=null) {
+      contentValues.put("name", name);
+    } else {
+      contentValues.putNull("name");
+    }
+
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    _sqlWhereParams.add((surname==null?"":surname));
+
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" where student= (select student from person where surname=?)";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // display log
+    Logger.info("UPDATE person SET name=:name where student= (select student from person where surname=?)");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+  }
+
+  /**
+   * <h1>Content provider URI (UPDATE operation):</h1>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql/all/[*]</pre>
+   *
+   * <h2>JQL UPDATE for Content Provider</h2>
+   * <pre>UPDATE Person SET name=${name} where student= (select student from Person where surname=${surname})</pre>
+   *
+   * <h2>SQL UPDATE for Content Provider</h2>
+   * <pre>UPDATE person SET name=${name} where student= (select student from person where surname=${surname})</pre>
+   *
+   * <h3>Path variables defined:</h3>
+   * <ul>
+   * <li><strong>${surname}</strong> at path segment 3</li>
+   * </ul>
+   *
+   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
+   *
+   * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
+   *
+   * @param uri "content://sqlite.feature.javadoc.bean/persons/jql/all/[*]"
+   * @param contentValues content values
+   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @return number of effected rows
+   */
+  int updateFromSelectJQL1(Uri uri, ContentValues contentValues, String selection,
+      String[] selectionArgs) {
+    Logger.info("Execute UPDATE for URI %s", uri.toString());
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" where student= (select student from person where surname=?)";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    // Add parameter surname at path segment 3
+    _sqlWhereParams.add(uri.getPathSegments().get(3));
+    for (String columnName:contentValues.keySet()) {
+      if (!updateFromSelectJQL1ColumnSet.contains(columnName)) {
+        throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/jql/all/*', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
+      }
+    }
+
+    // display log
+    Logger.info("UPDATE person SET name=:name where student= (select student from person where surname=?)");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+
+    // execute SQL
+    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    return result;
   }
 
   /**
@@ -380,7 +520,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int updateBean1(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+  int updateBean2(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -397,7 +537,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     // Add parameter id at path segment 1
     _sqlWhereParams.add(uri.getPathSegments().get(1));
     for (String columnName:contentValues.keySet()) {
-      if (!updateBean1ColumnSet.contains(columnName)) {
+      if (!updateBean2ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -535,7 +675,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  int updateBeanDynamic2(Uri uri, ContentValues contentValues, String selection,
+  int updateBeanDynamic3(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
@@ -555,7 +695,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     // Add parameter id at path segment 1
     _sqlWhereParams.add(uri.getPathSegments().get(1));
     for (String columnName:contentValues.keySet()) {
-      if (!updateBeanDynamic2ColumnSet.contains(columnName)) {
+      if (!updateBeanDynamic3ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/#/more', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -702,7 +842,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  int updateBeanDynamicWithArgs3(Uri uri, ContentValues contentValues, String selection,
+  int updateBeanDynamicWithArgs4(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
@@ -734,7 +874,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
       }
     }
     for (String columnName:contentValues.keySet()) {
-      if (!updateBeanDynamicWithArgs3ColumnSet.contains(columnName)) {
+      if (!updateBeanDynamicWithArgs4ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/#/moreAndMore', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }

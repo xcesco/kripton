@@ -11,7 +11,7 @@ import sqlite.feature.javadoc.Person;
 @BindContentProviderPath(path = "persons")
 @BindDao(Person.class)
 public interface InsertRawPersonDao {
-	
+
 	/**
 	 * insert BEAN with parameter.
 	 * 
@@ -21,7 +21,6 @@ public interface InsertRawPersonDao {
 	@BindContentProviderEntry
 	@BindSqlInsert()
 	int insertOneRaw(String name, String surname);
-	
 
 	/**
 	 * insert BEAN with parameter.
@@ -29,29 +28,28 @@ public interface InsertRawPersonDao {
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="name")
+	@BindContentProviderEntry(path = "name")
 	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
 	int insertOneRawFieldName(String name);
-	
+
 	/**
 	 * insert RAW
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="surname")
-	@BindSqlInsert(jql="INSERT OR REPLACE INTO Person (name) VALUES (${name})")
+	@BindContentProviderEntry(path = "surname")
+	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (name) VALUES (${name})")
 	int insertOne2RawFieldName(String name);
-	
+
 	/**
-	 * insert RAW with parameter.
+	 * insert RAW with parameter. INSERT-FROM-SELECT is not allowed
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	//@BindContentProviderEntry(path="surname")
-	@BindSqlInsert(jql="INSERT OR REPLACE INTO Person (name) SELECT name FROM Person WHERE name=${name}")
-	void insertOneRawComplexFieldName(String name);
-
+	// @BindContentProviderEntry(path="surname")
+	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (name) SELECT name FROM Person WHERE name=${name}")
+	void insertRawFromSelect(String name);
 
 }

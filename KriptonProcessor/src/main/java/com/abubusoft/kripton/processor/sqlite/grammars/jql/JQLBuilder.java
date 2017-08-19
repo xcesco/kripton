@@ -68,6 +68,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Columns_to_updateContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Conflict_algorithmContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
@@ -181,6 +182,14 @@ public abstract class JQLBuilder {
 					result.bindParameterOnWhereStatementCounter++;
 				}
 
+				// // DELETE method can contains select only on where condition.
+				// This mode is supported.
+				// @Override
+				// public void enterProjected_columns(Projected_columnsContext
+				// ctx) {
+				// result.containsSelectOperation = true;
+				// }
+
 			});
 
 			// where management
@@ -195,6 +204,12 @@ public abstract class JQLBuilder {
 
 			});
 
+			// if (result.containsSelectOperation) {
+			// AssertKripton.failWithInvalidMethodSignException(!TypeUtility.typeName(Void.TYPE).equals(method.getReturnClass()),
+			// method,
+			// "method that contains SQL with inner SELECT can return only
+			// void");
+			// }
 		} else {
 			StringBuilder builder = new StringBuilder();
 			builder.append(DELETE_KEYWORD + " " + FROM_KEYWORD);
@@ -523,12 +538,16 @@ public abstract class JQLBuilder {
 			// UPDATE can contains bind parameter in column values and select
 			// statement
 			final One<Boolean> inWhereCondition = new One<Boolean>(false);
+			final One<Boolean> inColumnsToUpdate = new One<Boolean>(false);
 
 			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
 
 				@Override
 				public void enterProjected_columns(Projected_columnsContext ctx) {
-					result.containsSelectOperation = true;
+					if (inColumnsToUpdate.value0) {
+						result.containsSelectOperation = true;
+					}
+
 				}
 
 				@Override
@@ -553,6 +572,16 @@ public abstract class JQLBuilder {
 					} else {
 						result.bindParameterAsColumnValueCounter++;
 					}
+				}
+
+				@Override
+				public void enterColumns_to_update(Columns_to_updateContext ctx) {
+					inColumnsToUpdate.value0 = true;
+				}
+
+				@Override
+				public void exitColumns_to_update(Columns_to_updateContext ctx) {
+					inColumnsToUpdate.value0 = false;
 				}
 
 			});

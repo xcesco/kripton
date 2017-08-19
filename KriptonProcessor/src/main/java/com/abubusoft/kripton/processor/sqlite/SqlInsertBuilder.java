@@ -99,7 +99,7 @@ public abstract class SqlInsertBuilder {
 	 * @param builder
 	 * @param method
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method) {		
+	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
 		InsertType insertResultType = detectInsertType(method);
 
 		// if true, field must be associate to ben attributes
@@ -116,9 +116,11 @@ public abstract class SqlInsertBuilder {
 			methodBuilder.addParameter(parameterSpec);
 		}
 		methodBuilder.returns(returnType);
-		
+
 		// fail if we use jql to INSERT_BEAN with operation of INSERT-FOR-SELECT
-		AssertKripton.failWithInvalidMethodSignException(insertResultType == InsertType.INSERT_BEAN && method.jql.containsSelectOperation, method, "INSERT-FROM-SELECT SQL can not be used with method sign");		
+		// AssertKripton.failWithInvalidMethodSignException(insertResultType ==
+		// InsertType.INSERT_BEAN && method.jql.containsSelectOperation, method,
+		// "INSERT-FROM-SELECT SQL can not be used with method sign");
 
 		// generate inner code
 		insertResultType.generate(elementUtils, methodBuilder, method, returnType);
@@ -127,7 +129,7 @@ public abstract class SqlInsertBuilder {
 		builder.addMethod(methodSpec);
 
 		if (method.contentProviderEntryPathEnabled) {
-			// we need to generate insert for content provider to			
+			// we need to generate insert for content provider to
 			generateInsertForContentProvider(elementUtils, builder, method, insertResultType);
 		}
 
@@ -158,8 +160,8 @@ public abstract class SqlInsertBuilder {
 					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.FIELDS.getValue());
 
 			// check excludeFields attribute
-			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() > 0, method,
-					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
+			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() > 0,
+					method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
 
 			// check if there is only one parameter
 			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() != 1 && TypeUtility.isEquals(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()),
@@ -176,12 +178,14 @@ public abstract class SqlInsertBuilder {
 		} else {
 			throw (new InvalidMethodSignException(method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));
 		}
-		
+
 		return insertResultType;
 	}
 
 	/**
-	 * <p>Generate insert used in content provider class.</p>
+	 * <p>
+	 * Generate insert used in content provider class.
+	 * </p>
 	 * 
 	 * @param elementUtils
 	 * @param builder
@@ -189,10 +193,10 @@ public abstract class SqlInsertBuilder {
 	 * @param insertResultType
 	 */
 	private static void generateInsertForContentProvider(Elements elementUtils, TypeSpec.Builder builder, final SQLiteModelMethod method, InsertType insertResultType) {
-		final SQLDaoDefinition daoDefinition = method.getParent();		
+		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
-		final Set<String> columns=new LinkedHashSet<>();
-		
+		final Set<String> columns = new LinkedHashSet<>();
+
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
 		ParameterSpec parameterSpec;
 		parameterSpec = ParameterSpec.builder(Uri.class, "uri").build();
@@ -200,81 +204,79 @@ public abstract class SqlInsertBuilder {
 		parameterSpec = ParameterSpec.builder(ContentValues.class, "contentValues").build();
 		methodBuilder.addParameter(parameterSpec);
 		methodBuilder.returns(Long.TYPE);
-			
+
 		SqlBuilderHelper.generateLogForContentProviderBeginning(method, methodBuilder);
-				
+
 		// just detect which columns are admitted
 		JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
-			
+
 			@Override
 			public String onColumnName(String columnName) {
-				SQLProperty tempProperty = entity.get(columnName);				
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
-				
+				SQLProperty tempProperty = entity.get(columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
 				columns.add(tempProperty.columnName);
-				
+
 				return tempProperty.columnName;
-				
+
 			}
-			
+
 			@Override
 			public String onTableName(String tableName) {
 				return daoDefinition.getParent().getEntityBySimpleName(tableName).getTableName();
 			}
-								
+
 		});
-		
+
 		// generate columnCheckSet
-		SqlBuilderHelper.generateColumnCheckSet(elementUtils, builder, method,columns);
-		
+		SqlBuilderHelper.generateColumnCheckSet(elementUtils, builder, method, columns);
+
 		// generate column check
 		SqlBuilderHelper.forEachColumnInContentValue(method, methodBuilder, "contentValues.keySet()", true, null);
-		
+
 		methodBuilder.addCode("\n");
-		
+
 		// extract pathVariables
 		// generate get uri variables in content values
-		// every controls was done in constructor of SQLiteModelMethod		
-		for (ContentUriPlaceHolder variable: method.contentProviderUriVariables) {
+		// every controls was done in constructor of SQLiteModelMethod
+		for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
 			SQLProperty entityProperty = entity.get(variable.value);
-			
-			if (entityProperty!=null) {
+
+			if (entityProperty != null) {
 				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
-				TypeName entityPropertyType=entityProperty.getPropertyType().getTypeName();
+				TypeName entityPropertyType = entityProperty.getPropertyType().getTypeName();
 				if (TypeUtility.isString(entityPropertyType)) {
-					methodBuilder.addStatement("contentValues.put($S, uri.getPathSegments().get($L))", entityProperty.columnName, variable.pathSegmentIndex);									
+					methodBuilder.addStatement("contentValues.put($S, uri.getPathSegments().get($L))", entityProperty.columnName, variable.pathSegmentIndex);
 				} else {
-					methodBuilder.addStatement("contentValues.put($S, Long.valueOf(uri.getPathSegments().get($L)))", entityProperty.columnName, variable.pathSegmentIndex);					
-				}													
-			} 
-		}		
-		
+					methodBuilder.addStatement("contentValues.put($S, Long.valueOf(uri.getPathSegments().get($L)))", entityProperty.columnName, variable.pathSegmentIndex);
+				}
+			}
+		}
+
 		// generate log for inser operation
 		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
-		
+
 		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
 		String conflictString1 = "";
-		String conflictString2 = "";		
+		String conflictString2 = "";
 		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
 			conflictString1 = "WithOnConflict";
-			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();			
+			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
 			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 		}
 		methodBuilder.addStatement("long result = database().insert$L($S, null, contentValues$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 		methodBuilder.addStatement("return result");
-		
+
 		// javadoc
 		// we add at last javadoc, because need info is built at last.
 		SqlBuilderHelper.generateJavaDocForContentProvider(method, methodBuilder);
 
 		methodBuilder.addJavadoc("@param uri $S\n", method.contentProviderUriTemplate.replace("*", "[*]"));
 		methodBuilder.addJavadoc("@param contentValues content values\n");
-		
-		methodBuilder.addJavadoc("@return new row's id\n");
 
+		methodBuilder.addJavadoc("@return new row's id\n");
 
 		builder.addMethod(methodBuilder.build());
 	}
-			
-			
+
 }

@@ -31,7 +31,7 @@ import base.BaseProcessorTest;
 		TestJavadocForDeleteRaw.class,
 		TestJavadocForDeleteBean.class,
 		TestJavadocForInsertRaw.class,
-		TestJavadocForInsertBean.class,
+		TestJavadocForInsertBean.class
 		
 		 })
 //@formatter:on

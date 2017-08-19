@@ -11,7 +11,7 @@ import sqlite.feature.javadoc.Person;
 @BindContentProviderPath(path = "persons")
 @BindDao(Person.class)
 public interface InsertBeanPersonDao {
-	
+
 	/**
 	 * insert BEAN with parameter.
 	 * 
@@ -21,7 +21,6 @@ public interface InsertBeanPersonDao {
 	@BindContentProviderEntry
 	@BindSqlInsert
 	int insertOneBean(Person bean);
-	
 
 	/**
 	 * insert BEAN with parameter.
@@ -29,28 +28,27 @@ public interface InsertBeanPersonDao {
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="name")
+	@BindContentProviderEntry(path = "name")
 	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE, fields = "name")
 	int insertOneBeanFieldName(Person bean);
-	
+
 	/**
 	 * insert BEAN with parameter.
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="surname")
+	@BindContentProviderEntry(path = "surname")
 	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE, excludedFields = "name")
 	int insertOneBeanFieldSurname(Person bean);
-	
+
 	/**
 	 * insert BEAN with INSERT-FROM-SELECT is no allowed
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	//@BindSqlInsert(jql="INSERT OR REPLACE INTO Person (name) SELECT name FROM Person WHERE name=${bean.name}")
-	//void insertOneRawComplexFieldName(Person bean);
-
+	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (name) SELECT name FROM Person WHERE name=${bean.name}")
+	void insertBeanFromSelect(Person bean);
 
 }

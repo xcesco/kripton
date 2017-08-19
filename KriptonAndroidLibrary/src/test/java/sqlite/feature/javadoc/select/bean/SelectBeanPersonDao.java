@@ -28,76 +28,85 @@ public interface SelectBeanPersonDao {
 	@BindContentProviderEntry
 	@BindSqlSelect
 	List<Person> selectAllBeans();
-	
+
 	/**
 	 * select BEAN with no parameters.
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="a")
-	@BindSqlSelect(fields="count(*)")
-	int selectAllBeansCount();
-	
+	@BindContentProviderEntry(path = "a/${love.id}")
+	@BindSqlSelect(fields = "count(*)", where = " id=${love.id}")
+	int selectAllBeansCount(@BindSqlParam("love") Person bean);
+
 	/**
 	 * select BEAN with one parameter.
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="${bean.id}", multiplicityResult=MultiplicityResultType.ONE)
-	@BindSqlSelect(where="id=${bean.id}")
+	@BindContentProviderEntry(path = "${bean.id}", multiplicityResult = MultiplicityResultType.ONE)
+	@BindSqlSelect(where = "id=${bean.id}")
 	Person selectOneBean(@BindSqlParam("bean") Person benza);
-	
+
 	/**
 	 * select BEAN with one parameter and dynamic where
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="dynamic/${bean.id}")
-	@BindSqlSelect(fields="name",where="id=${bean.id}")
+	@BindContentProviderEntry(path = "dynamic/${bean.id}")
+	@BindSqlSelect(fields = "name", where = "id=${bean.id}")
 	Person selectOneBeanWithDynamic(Person bean, @BindSqlDynamicWhere String where);
-	
+
 	/**
 	 * select BEAN with one parameter and dynamic where and args
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="dynamicandArgs/${bean.id}")
-	@BindSqlSelect(where="id=${bean.id}")
+	@BindContentProviderEntry(path = "dynamicandArgs/${bean.id}")
+	@BindSqlSelect(where = "id=${bean.id}")
 	Person selectOneBeanWithDynamicAndArgs(Person bean, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
-	
+
 	/**
 	 * select BEAN with one parameter and dynamic order
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="dynamicOrder/${bean.id}")
-	@BindSqlSelect(where="id=${bean.id}")
+	@BindContentProviderEntry(path = "dynamicOrder/${bean.id}")
+	@BindSqlSelect(where = "id=${bean.id}")
 	Person selectOneBeanWithDynamicOrder(Person bean, @BindSqlDynamicOrderBy String order);
-	
-	
+
 	/**
 	 * select BEAN with one parameter and dynamic order
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="dynamicOrderAndLis/${bean.id}")
-	@BindSqlSelect(where="id=${bean.id}")
+	@BindContentProviderEntry(path = "dynamicOrderAndLis/${bean.id}")
+	@BindSqlSelect(where = "id=${bean.id}")
 	void selectOneBeanWithDynamicOrderAndListener(Person bean, @BindSqlDynamicOrderBy String order, OnReadBeanListener<Person> listener);
-	
+
 	/**
 	 * select BEAN with one parameter and dynamic order
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="jql/${bean.id}")
-	@BindSqlSelect(jql="select * from Person where id=${bean.id}")
+	@BindContentProviderEntry(path = "jql/${bean.id}")
+	@BindSqlSelect(jql = "select * from Person where id=${bean.id}")
 	Person selectWithJQL(Person bean);
-	
+
+	/**
+	 * select BEAN with JQL and inner SELECT
+	 * 
+	 * @param bean
+	 * @return
+	 */
+	@BindContentProviderEntry(path = "jqlAndInnserSQL/${bean.id}")
+	@BindSqlSelect(jql = "select * from Person where id=${bean.id} and id in (select id from Person)")
+	Person selectWithJQLAndInnerSQL(Person bean);
+
 }

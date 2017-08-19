@@ -41,6 +41,8 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
   private static final Set<String> selectWithJQL7ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
 
+  private static final Set<String> selectWithJQLAndInnerSQL8ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
+
   public SelectBeanPersonDaoImpl(BindSelectBeanPersonDataSource dataSet) {
     super(dataSet);
   }
@@ -177,25 +179,40 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT count(*) FROM person</pre>
+   * <pre>SELECT count(*) FROM person WHERE id=${love.id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
    * </dl>
    *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${love.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * </dl>
+   *
+   * @param bean
+   * 	is used as ${love}
    * @return single value extracted by query.
    */
   @Override
-  public int selectAllBeansCount() {
+  public int selectAllBeansCount(Person bean) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT count(*) FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    String _sqlWhereStatement="";
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
 
     // build where condition
+    _sqlWhereParams.add(String.valueOf(bean.id));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
@@ -222,19 +239,24 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
-   * <pre>content://sqlite.feature.javadoc.bean/persons/a</pre>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/a/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT count(*) FROM Person</pre>
+   * <pre>SELECT count(*) FROM Person WHERE id=${love.id}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT count(*) FROM person</pre>
+   * <pre>SELECT count(*) FROM person WHERE id=${love.id}</pre>
+   *
+   * <h3>Path variables defined:</h3>
+   * <ul>
+   * <li><strong>${love.id}</strong> at path segment 2</li>
+   * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
-   * @param uri "content://sqlite.feature.javadoc.bean/persons/a"
+   * @param uri "content://sqlite.feature.javadoc.bean/persons/a/#"
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
@@ -246,16 +268,23 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
-    _sqlBuilder.append("SELECT %s FROM person");
+    _sqlBuilder.append("SELECT %s FROM person ");
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    String _sqlWhereStatement="";
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
 
     // manage projected columns
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
         if (!selectAllBeansCount1ColumnSet.contains(columnName)) {
-          throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/a', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
+          throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/a/#', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
@@ -266,6 +295,8 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
         _columnSeparator=", ";
       }
     }
+    // Add parameter love.id at path segment 2
+    _sqlWhereParams.add(uri.getPathSegments().get(2));
 
     // manage log
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
@@ -1244,6 +1275,158 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
       }
     } else {
       for (String column: selectWithJQL7ColumnSet) {
+        _projectionBuffer.append(_columnSeparator + column);
+        _columnSeparator=", ";
+      }
+    }
+    // Add parameter bean.id at path segment 2
+    _sqlWhereParams.add(uri.getPathSegments().get(2));
+
+    // manage log
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+
+    // execute query
+    Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    return _result;
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>select * from person where id=${bean.id} and id in (select id from person)</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * </dl>
+   *
+   * @param bean
+   * 	is used as ${bean}
+   * @return selected bean or <code>null</code>.
+   */
+  @Override
+  public Person selectWithJQLAndInnerSQL(Person bean) {
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    _sqlBuilder.append("select * from person");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" where id=? and id in (select id from person)";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // build where condition
+    _sqlWhereParams.add(String.valueOf(bean.id));
+    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+
+      Person resultBean=null;
+
+      if (cursor.moveToFirst()) {
+
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("surname");
+        int index3=cursor.getColumnIndex("student");
+
+        resultBean=new Person();
+
+        resultBean.id=cursor.getLong(index0);
+        if (!cursor.isNull(index1)) { resultBean.setName(cursor.getString(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setSurname(cursor.getString(index2)); }
+        if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
+
+      }
+      return resultBean;
+    }
+  }
+
+  /**
+   * <h1>Content provider URI (SELECT operation):</h1>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/#</pre>
+   *
+   * <h2>JQL SELECT for Content Provider</h2>
+   * <pre>select * from Person where id=${bean.id} and id in (select id from Person)</pre>
+   *
+   * <h2>SQL SELECT for Content Provider</h2>
+   * <pre>select * from person where id=${bean.id} and id in (select id from person)</pre>
+   *
+   * <h3>Path variables defined:</h3>
+   * <ul>
+   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * </ul>
+   *
+   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
+   *
+   * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
+   *
+   * @param uri "content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/#"
+   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @return number of effected rows
+   */
+  Cursor selectWithJQLAndInnerSQL8(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
+    Logger.info("Execute SELECT for URI %s", uri.toString());
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("select %s from person ");
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" where id=? and id in (select id from person)";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // manage projected columns
+    String _columnSeparator="";
+    if (projection!=null && projection.length>0) {
+      for (String columnName:projection) {
+        if (!selectWithJQLAndInnerSQL8ColumnSet.contains(columnName)) {
+          throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/#', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
+        }
+        _projectionBuffer.append(_columnSeparator + columnName);
+        _columnSeparator=", ";
+      }
+    } else {
+      for (String column: selectWithJQLAndInnerSQL8ColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }

@@ -19,37 +19,48 @@ public interface UpdateRawPersonDao {
 	 * @param bean
 	 * @return
 	 */
-	//@BindContentProviderEntry
+	// @BindContentProviderEntry
 	@BindSqlUpdate
 	int updateAllBeans(String name);
-	
-	@BindContentProviderEntry(path="jql/${surname}")
-	@BindSqlUpdate(jql="UPDATE Person SET name=${name}, student = ${student} where surname=${surname}")
+
+	@BindContentProviderEntry(path = "jql/${surname}")
+	@BindSqlUpdate(jql = "UPDATE Person SET name=${name}, student = ${student} where surname=${surname}")
 	void updateAllBeansJQL(String name, String surname, boolean student);
-	
+
 	/**
-	 * JQL UPDATE-FROM-SELECT can not be used as content provider method.
+	 * this JQL UPDATE-FROM-SELECT can NOT be used as content provider method.
+	 * 
 	 * @param bean
 	 */
-	@BindSqlUpdate(jql="UPDATE Person SET name=${name}, surname=${surname}, student = (select student from Person where id=${student})")
-	void updateFromSelectAllBeansJQL(String name, String surname, boolean student);
-	
+	// @BindContentProviderEntry(path = "jql/b/${surname}")
+	@BindSqlUpdate(jql = "UPDATE Person SET name=${name}, student = (select student from Person where surname=${surname})")
+	void updateFromSelectAllBeansJQL(String name, String surname);
+
+	/**
+	 * this JQL UPDATE-FROM-SELECT can be used as content provider method.
+	 * 
+	 * @param bean
+	 */
+	@BindContentProviderEntry(path = "jql/all/${surname}")
+	@BindSqlUpdate(jql = "UPDATE Person SET name=${name} where student= (select student from Person where surname=${surname})")
+	void updateFromSelectJQL(String name, String surname);
+
 	/**
 	 * Update BEAN with one parameter.
 	 * 
 	 * @param bean
 	 * @return
 	 */
-	@BindContentProviderEntry(path="${id}")
-	@BindSqlUpdate(where="id=${id}")
+	@BindContentProviderEntry(path = "${id}")
+	@BindSqlUpdate(where = "id=${id}")
 	int updateBean(String name, long id);
-	
-	@BindContentProviderEntry(path="${id}/more")
-	@BindSqlUpdate(where="id=${id}")
+
+	@BindContentProviderEntry(path = "${id}/more")
+	@BindSqlUpdate(where = "id=${id}")
 	int updateBeanDynamic(String name, long id, @BindSqlDynamicWhere String where);
-	
-	@BindContentProviderEntry(path="${id}/moreAndMore")
-	@BindSqlUpdate(where="id=${id}")
+
+	@BindContentProviderEntry(path = "${id}/moreAndMore")
+	@BindSqlUpdate(where = "id=${id}")
 	int updateBeanDynamicWithArgs(String name, long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
-	
+
 }

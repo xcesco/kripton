@@ -375,7 +375,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    *
    */
   @Override
-  public void insertOneRawComplexFieldName(String name) {
+  public void insertRawFromSelect(String name) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // build where condition
