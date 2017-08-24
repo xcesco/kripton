@@ -146,7 +146,7 @@ public abstract class SqlBuilderHelper {
 		methodBuilder.addJavadoc("<h2>JQL $L for Content Provider</h2>\n", operation);
 		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.jql.value);
 		methodBuilder.addJavadoc("<h2>SQL $L for Content Provider</h2>\n", operation);
-		String sql = JQLChecker.getInstance().replace(method.jql, new com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl() {
+		String sql = JQLChecker.getInstance().replace(method, method.jql, new com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl() {
 
 			@Override
 			public String onTableName(String tableName) {
@@ -373,24 +373,24 @@ public abstract class SqlBuilderHelper {
 			final One<Boolean> alreadyFoundWhereStatement = new One<>(false);
 
 			// put in whereStatement value of where statement.
-			jqlChecker.replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
+			jqlChecker.replaceVariableStatements(method, method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
 
 				@Override
 				public String onWhere(String statement) {
-					if (alreadyFoundWhereStatement.value0==false) {
+					if (alreadyFoundWhereStatement.value0 == false) {
 						whereStatement.value0 = statement;
-						alreadyFoundWhereStatement.value0=true;
+						alreadyFoundWhereStatement.value0 = true;
 						return "";
 					} else {
 						// DO NOTHING
-						return null;						
+						return null;
 					}
 				}
 
 			});
 
 			methodBuilder.addCode("\n// manage WHERE arguments -- BEGIN\n");
-			String sqlWhere = jqlChecker.replaceFromVariableStatement(whereStatement.value0, new JQLReplacerListenerImpl() {
+			String sqlWhere = jqlChecker.replaceFromVariableStatement(method, whereStatement.value0, new JQLReplacerListenerImpl() {
 
 				@Override
 				public String onColumnName(String columnName) {
@@ -500,7 +500,7 @@ public abstract class SqlBuilderHelper {
 			JQLChecker checker = JQLChecker.getInstance();
 
 			// replace the table name, other pieces will be removed
-			String sql = checker.replace(method.jql, new JQLReplacerListenerImpl() {
+			String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 				@Override
 				public String onTableName(String tableName) {
@@ -510,7 +510,7 @@ public abstract class SqlBuilderHelper {
 
 			});
 
-			sql = checker.replaceVariableStatements(sql, new JQLReplaceVariableStatementListenerImpl() {
+			sql = checker.replaceVariableStatements(method, sql, new JQLReplaceVariableStatementListenerImpl() {
 
 				@Override
 				public String onColumnNameSet(String statement) {

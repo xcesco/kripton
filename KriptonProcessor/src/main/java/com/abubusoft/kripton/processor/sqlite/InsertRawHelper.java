@@ -139,7 +139,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
 		// new
-		String sqlInsert = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public void onColumnValueSetBegin(Column_value_setContext ctx) {

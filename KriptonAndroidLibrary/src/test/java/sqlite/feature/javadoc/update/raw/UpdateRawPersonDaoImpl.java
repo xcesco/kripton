@@ -20,7 +20,7 @@ import java.util.Set;
  *  @see sqlite.feature.javadoc.PersonTable
  */
 public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPersonDao {
-  private static final Set<String> updateAllBeansJQL0ColumnSet = CollectionUtils.asSet(String.class, "name", "student");
+  private static final Set<String> updateAllBeansJQL0ColumnSet = CollectionUtils.asSet(String.class, "student", "name");
 
   private static final Set<String> updateFromSelectJQL1ColumnSet = CollectionUtils.asSet(String.class, "name");
 
@@ -95,12 +95,12 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name, student = :student where surname=${surname}</pre>
+   * <pre>UPDATE person SET student = :student, name=:name  where surname=${surname}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
-   * 	<li>name</li>
    * 	<li>student</li>
+   * 	<li>name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -142,7 +142,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE person SET name=:name, student = :student where surname=?");
+    Logger.info("UPDATE person SET student = :student, name=:name  where surname=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -170,10 +170,10 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql/[*]</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name}, student = ${student} where surname=${surname}</pre>
+   * <pre>UPDATE perSon SET student = ${student}, nAme=${name}  where surname=${surname}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name}, student = ${student} where surname=${surname}</pre>
+   * <pre>UPDATE person SET student = ${student}, nAme=${name}  where surname=${surname}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -214,7 +214,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     }
 
     // display log
-    Logger.info("UPDATE person SET name=:name, student = :student where surname=?");
+    Logger.info("UPDATE person SET student = :student, name=:name  where surname=?");
 
     // log for content values -- BEGIN
     Object _contentValue;

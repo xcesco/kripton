@@ -96,7 +96,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public void addEntity(SQLEntity value) {
 		entities.put(value.getName(), value);
-		entitiesBySimpleName.put(value.getSimpleName().toString(), value);
+		entitiesBySimpleName.put(value.getSimpleName().toString().toLowerCase(), value);
 		Set<SQLProperty> listEntity = null;
 
 		// update map property name -> property collection with same name
@@ -106,7 +106,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 				listEntity = new HashSet<>();
 			}
 			listEntity.add(p);
-			propertyBySimpleName.put(p.getName(), listEntity);
+			propertyBySimpleName.put(p.getName().toLowerCase(), listEntity);
 
 		}
 	}
@@ -124,11 +124,17 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	}
 
 	public SQLEntity getEntityBySimpleName(String entityName) {
-		return entitiesBySimpleName.get(entityName);
+		if (entityName == null)
+			return null;
+
+		return entitiesBySimpleName.get(entityName.toLowerCase());
 	}
 
 	public Set<SQLProperty> getPropertyBySimpleName(String propertyName) {
-		return this.propertyBySimpleName.get(propertyName);
+		if (propertyName == null)
+			return null;
+
+		return this.propertyBySimpleName.get(propertyName.toLowerCase());
 	}
 
 	/**

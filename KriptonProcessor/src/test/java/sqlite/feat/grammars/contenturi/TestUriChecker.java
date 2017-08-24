@@ -32,6 +32,7 @@ import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
@@ -41,6 +42,15 @@ import base.BaseProcessorTest;
 
 @RunWith(JUnit4.class)
 public class TestUriChecker extends BaseProcessorTest {
+
+	JQLContext dummyContext = new JQLContext() {
+
+		@Override
+		public String getContextDescription() {
+			return "test context";
+		}
+
+	};
 
 	protected void checkList(List<ContentUriPlaceHolder> actual, ContentUriPlaceHolder... input) {
 		List<ContentUriPlaceHolder> aspected = new ArrayList<>();
@@ -54,9 +64,7 @@ public class TestUriChecker extends BaseProcessorTest {
 
 	@Test
 	public void testVerify() {
-		String[] inputs = { "content://androi.authority/test/${ input0 }",
-				"content://androi.authority/test/a/${ input0 }", "content://androi.authority/_",
-				"content://androi.authority/"
+		String[] inputs = { "content://androi.authority/test/${ input0 }", "content://androi.authority/test/a/${ input0 }", "content://androi.authority/_", "content://androi.authority/"
 
 		};
 
@@ -67,9 +75,8 @@ public class TestUriChecker extends BaseProcessorTest {
 
 	@Test
 	public void testVerifyFail() {
-		String[] inputs = { "content://androi.authority/test/${ input0 }/", "content://androi.authority/${ input0 }/",
-				"content://androi.authority/{ input0 }", "content://androi.authority/test/a/{ input0 }",
-				"content://androi.authority", "content://androi.authority/$", "content://androi.authority///" };
+		String[] inputs = { "content://androi.authority/test/${ input0 }/", "content://androi.authority/${ input0 }/", "content://androi.authority/{ input0 }",
+				"content://androi.authority/test/a/{ input0 }", "content://androi.authority", "content://androi.authority/$", "content://androi.authority///" };
 
 		for (String input : inputs) {
 
@@ -96,7 +103,7 @@ public class TestUriChecker extends BaseProcessorTest {
 				log(item.toString());
 			}
 
-			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));			
+			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));
 		}
 
 		{
@@ -106,7 +113,7 @@ public class TestUriChecker extends BaseProcessorTest {
 				log(item.toString());
 			}
 
-			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));			
+			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));
 		}
 	}
 
@@ -124,51 +131,48 @@ public class TestUriChecker extends BaseProcessorTest {
 
 		ContentUriChecker checker = ContentUriChecker.getInstance();
 
-		String actual=checker.replace(input, new UriPlaceHolderReplacerListener() {
+		String actual = checker.replace(input, new UriPlaceHolderReplacerListener() {
 
 			@Override
 			public String onParameterName(int pathSegmentIndex, String name) {
-				log("segment : %s, name: [%s]", pathSegmentIndex, name);				
+				log("segment : %s, name: [%s]", pathSegmentIndex, name);
 				return "?";
 			}
 		});
 		assertEquals(actual, "content://androi.authority/test/?");
 	}
-	
+
 	@Test
 	public void testExtractor() throws Throwable {
 		String input = "content://androi.authority/master/${ master }/detail/${detail}/subdetail/${subdetail}";
 		log(input);
 
 		ContentUriChecker checker = ContentUriChecker.getInstance();
-		
+
 		Map<String, ContentUriPlaceHolder> parameters = checker.extractAsMap(input);
 
-		String actual=checker.replace(input, new UriPlaceHolderReplacerListener() {
+		String actual = checker.replace(input, new UriPlaceHolderReplacerListener() {
 
 			@Override
 			public String onParameterName(int pathSegmentIndex, String name) {
-				log("segment : %s, name: %s", pathSegmentIndex, name);				
+				log("segment : %s, name: %s", pathSegmentIndex, name);
 				return "?";
 			}
 		});
-		String expected="content://androi.authority/master/?/detail/?/subdetail/?";
-		
+		String expected = "content://androi.authority/master/?/detail/?/subdetail/?";
+
 		assertEquals(actual, expected);
-		
+
 		log(expected);
-		//log(""+expected.split("/").length);
-		
+		// log(""+expected.split("/").length);
+
 		ContentProviderURIParamsExtractor extractor = new ContentProviderURIParamsExtractor(expected, input.split("/").length);
-		
-		for (ContentUriPlaceHolder item: parameters.values()) {
-			assertTrue(extractor.getPathSegment(item.pathSegmentIndex).equals("?"));	
+
+		for (ContentUriPlaceHolder item : parameters.values()) {
+			assertTrue(extractor.getPathSegment(item.pathSegmentIndex).equals("?"));
 		}
-		
-		
+
 	}
-	
-	
 
 	/**
 	 * <p>
@@ -177,13 +181,13 @@ public class TestUriChecker extends BaseProcessorTest {
 	 * 
 	 * @throws Throwable
 	 */
-	@Test(expected=KriptonProcessorException.class)
+	@Test(expected = KriptonProcessorException.class)
 	public void testERROR() throws Throwable {
 		String input = "content://androi.authority/test/${ input }/";
 		log(input);
 
 		ContentUriChecker checker = ContentUriChecker.getInstance();
-		checker.verify(input);		
+		checker.verify(input);
 	}
 
 	@Test
@@ -191,16 +195,13 @@ public class TestUriChecker extends BaseProcessorTest {
 		String sql = "select count(*) as pippo ,fieldName1, composed.fieldName2 from table where id = ${bean.id}";
 		JQL jql = new JQL();
 		jql.value = sql;
-		
-		
-		
-		Finder<SQLProperty> finder=new Finder<SQLProperty>() {
-			
-			
+
+		Finder<SQLProperty> finder = new Finder<SQLProperty>() {
+
 			@Override
 			public SQLProperty findByName(String name) {
-				SQLProperty properties=new SQLProperty(null, null);
-				properties.columnName=name;
+				SQLProperty properties = new SQLProperty(null, null);
+				properties.columnName = name;
 				return properties;
 			}
 
@@ -214,10 +215,10 @@ public class TestUriChecker extends BaseProcessorTest {
 			public String getSimpleName() {
 				return "table";
 			}
-			
+
 		};
 
-		JQLChecker.getInstance().extractProjections(jql.value, finder);
+		JQLChecker.getInstance().extractProjections(dummyContext, jql.value, finder);
 	}
 
 	@Test
@@ -268,7 +269,7 @@ public class TestUriChecker extends BaseProcessorTest {
 				log(item.toString());
 			}
 
-			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));			
+			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));
 		}
 
 		{
@@ -278,7 +279,7 @@ public class TestUriChecker extends BaseProcessorTest {
 				log(item.toString());
 			}
 
-			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));			
+			checkList(result, new ContentUriPlaceHolder(1, "input"), new ContentUriPlaceHolder(3, "detail.id"));
 		}
 	}
 

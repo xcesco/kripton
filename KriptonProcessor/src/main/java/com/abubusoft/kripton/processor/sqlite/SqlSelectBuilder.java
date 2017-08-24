@@ -210,14 +210,14 @@ public abstract class SqlSelectBuilder {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 		SplittedSql splittedSql = generateSQL(method, methodBuilder, true);
 
-		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(splittedSql.sqlWhereStatement);
+		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(method, splittedSql.sqlWhereStatement);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = SqlBuilderHelper.removeDynamicPlaceHolder(placeHolders);
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(),
 				"In '%s.%s' content provider URI path variables and variables in where conditions are different. If SQL uses parameters, they must be defined in URI path.", daoDefinition.getName(),
 				method.getName());
 
-		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method.jql.value, entity);
+		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method, method.jql.value, entity);
 		for (JQLProjection item : projectedColumns) {
 			if (item.type == ProjectionType.COLUMN) {
 				columns.add(entity.get(item.column.trim()).columnName);
@@ -383,7 +383,7 @@ public abstract class SqlSelectBuilder {
 		final SplittedSql splittedSql = new SplittedSql();
 
 		// convert jql to sql
-		String sql = jqlChecker.replace(method.jql, new JQLReplacerListener() {
+		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListener() {
 
 			@Override
 			public String onTableName(String tableName) {
@@ -441,7 +441,7 @@ public abstract class SqlSelectBuilder {
 		});
 
 		// parameters extracted from JQL converted in SQL
-		splittedSql.sqlBasic = jqlChecker.replaceVariableStatements(sql, new JQLReplaceVariableStatementListenerImpl() {
+		splittedSql.sqlBasic = jqlChecker.replaceVariableStatements(method, sql, new JQLReplaceVariableStatementListenerImpl() {
 
 			@Override
 			public String onWhere(String statement) {

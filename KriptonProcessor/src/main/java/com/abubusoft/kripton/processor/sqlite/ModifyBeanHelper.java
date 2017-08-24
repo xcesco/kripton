@@ -344,7 +344,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		final One<Boolean> usedInWhere = new One<>(false);
 		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		final SQLEntity entity = method.getParent().getEntity();
-		String sqlForJavaDoc = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+		String sqlForJavaDoc = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public String onColumnNameToUpdate(String columnName) {

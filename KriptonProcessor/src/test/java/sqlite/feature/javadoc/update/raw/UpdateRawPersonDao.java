@@ -24,7 +24,7 @@ public interface UpdateRawPersonDao {
 	int updateAllBeans(String name);
 
 	@BindContentProviderEntry(path = "jql/${surname}")
-	@BindSqlUpdate(jql = "UPDATE Person SET name=${name}, student = ${student} where surname=${surname}")
+	@BindSqlUpdate(jql = "UPDATE perSon SET student = ${student}, nAme=${name}  where surname=${surname}")
 	void updateAllBeansJQL(String name, String surname, boolean student);
 
 	/**

@@ -23,20 +23,24 @@ import javax.lang.model.element.Element;
 public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends ModelEntity<E> {
 
 	/**
-	 * find property by its typeName
+	 * Find for contained element, using its name.
 	 * 
-	 * @param key
-	 *            simple typeName of property
-	 * @return property or null
+	 * @param name
+	 * @return
 	 */
-	public T findByName(String key) {
+	public T get(String name) {
+		String lcName = name.toLowerCase();
 		for (T item : collection) {
-			if (item.getName().equals(key)) {
+			if (item.getName().toLowerCase().equals(lcName)) {
 				return item;
 			}
 		}
 
 		return null;
+	}
+
+	public T findByName(String name) {
+		return get(name);
 	}
 
 	protected List<T> collection = new ArrayList<>();
@@ -56,28 +60,7 @@ public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends Mo
 		collection.add(value);
 	}
 
-	public T get(String name) {
-		for (T item : collection) {
-			if (item.getName().equals(name)) {
-				return item;
-			}
-		}
-
-		return null;
-	}
-
 	public boolean contains(String name) {
-		for (T item : collection) {
-			if (item.getName().equals(name)) {
-				return true;
-			}
-		}
-
-		return false;
+		return get(name) != null;
 	}
-
-	// public void clear()
-	// {
-	// collection.clear();
-	// }
 }

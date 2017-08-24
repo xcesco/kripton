@@ -246,7 +246,7 @@ public abstract class SqlModifyBuilder {
 			final One<Boolean> alreadyFoundWhereStatement = new One<>(false);
 
 			// put in whereStatement value of where statement.
-			jqlChecker.replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
+			jqlChecker.replaceVariableStatements(method, method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
 
 				@Override
 				public String onWhere(String statement) {
@@ -263,13 +263,13 @@ public abstract class SqlModifyBuilder {
 			});
 		}
 
-		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(whereStatement.value0);
+		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(method, whereStatement.value0);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = SqlBuilderHelper.removeDynamicPlaceHolder(placeHolders);
 		checkContentProviderVarsAndArguments(method, placeHolders);
 
 		// detect column used for content value
-		jqlChecker.replace(method.jql, new JQLReplacerListenerImpl() {
+		jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
@@ -448,7 +448,7 @@ public abstract class SqlModifyBuilder {
 			final One<Boolean> usedInWhere = new One<Boolean>(false);
 
 			methodBuilder.addCode("\n// display log\n");
-			String sqlForLog = jqlChecker.replace(method.jql, new JQLReplacerListenerImpl() {
+			String sqlForLog = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
 				@Override
 				public String onColumnNameToUpdate(String columnName) {
 					return entity.findByName(columnName).columnName;

@@ -175,7 +175,7 @@ public abstract class JQLBuilder {
 			// in DELETE SQL only where statement can contains bind parameter
 			result.value = preparedJql;
 
-			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
+			JQLChecker.getInstance().analyze(method, result, new JqlBaseListener() {
 
 				@Override
 				public void enterBind_parameter(Bind_parameterContext ctx) {
@@ -193,7 +193,7 @@ public abstract class JQLBuilder {
 			});
 
 			// where management
-			JQLChecker.getInstance().replaceVariableStatements(preparedJql, new JQLReplaceVariableStatementListenerImpl() {
+			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql, new JQLReplaceVariableStatementListenerImpl() {
 
 				@Override
 				public String onWhere(String statement) {
@@ -243,7 +243,7 @@ public abstract class JQLBuilder {
 			final One<Boolean> inColumnValueSet = new One<Boolean>(false);
 			final One<Boolean> inWhereStatement = new One<Boolean>(false);
 
-			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
+			JQLChecker.getInstance().analyze(method, result, new JqlBaseListener() {
 
 				@Override
 				public void enterConflict_algorithm(Conflict_algorithmContext ctx) {
@@ -371,7 +371,7 @@ public abstract class JQLBuilder {
 
 		Set<JQLPlaceHolder> parametersUsedInWhereConditions = new LinkedHashSet<>();
 		if (StringUtils.hasText(annotatedWhere)) {
-			parametersUsedInWhereConditions = JQLChecker.getInstance().extractPlaceHoldersFromVariableStatementAsSet(JQLKeywords.WHERE_KEYWORD + " " + annotatedWhere);
+			parametersUsedInWhereConditions = JQLChecker.getInstance().extractPlaceHoldersFromVariableStatementAsSet(method, JQLKeywords.WHERE_KEYWORD + " " + annotatedWhere);
 		}
 
 		for (Pair<String, TypeName> param : method.getParameters()) {
@@ -404,7 +404,7 @@ public abstract class JQLBuilder {
 			result.value = preparedJql;
 
 			// in SELECT SQL only where statement can contains bind parameter
-			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
+			JQLChecker.getInstance().analyze(method, result, new JqlBaseListener() {
 
 				@Override
 				public void enterBind_parameter(Bind_parameterContext ctx) {
@@ -413,7 +413,7 @@ public abstract class JQLBuilder {
 
 			});
 
-			JQLChecker.getInstance().replaceVariableStatements(preparedJql, new JQLReplaceVariableStatementListenerImpl() {
+			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql, new JQLReplaceVariableStatementListenerImpl() {
 
 				@Override
 				public String onWhere(String statement) {
@@ -540,7 +540,7 @@ public abstract class JQLBuilder {
 			final One<Boolean> inWhereCondition = new One<Boolean>(false);
 			final One<Boolean> inColumnsToUpdate = new One<Boolean>(false);
 
-			JQLChecker.getInstance().analyze(result, new JqlBaseListener() {
+			JQLChecker.getInstance().analyze(method, result, new JqlBaseListener() {
 
 				@Override
 				public void enterProjected_columns(Projected_columnsContext ctx) {
@@ -586,7 +586,7 @@ public abstract class JQLBuilder {
 
 			});
 
-			JQLChecker.getInstance().replaceVariableStatements(preparedJql, new JQLReplaceVariableStatementListenerImpl() {
+			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql, new JQLReplaceVariableStatementListenerImpl() {
 
 				@Override
 				public String onWhere(String statement) {

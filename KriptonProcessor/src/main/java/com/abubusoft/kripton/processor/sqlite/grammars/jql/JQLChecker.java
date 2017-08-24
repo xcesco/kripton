@@ -84,19 +84,19 @@ public class JQLChecker {
 
 	}
 
-	protected <L extends JqlBaseListener> void analyzeInternal(final String jql, L listener) {
-		walker.walk(listener, prepareParser(jql).value0);
+	protected <L extends JqlBaseListener> void analyzeInternal(JQLContext jqlContext, final String jql, L listener) {
+		walker.walk(listener, prepareParser(jqlContext, jql).value0);
 	}
 
-	protected <L extends JqlBaseListener> void analyzeVariableStatementInternal(final String jql, L listener) {
-		walker.walk(listener, prepareVariableStatement(jql).value0);
+	protected <L extends JqlBaseListener> void analyzeVariableStatementInternal(JQLContext jqlContext, final String jql, L listener) {
+		walker.walk(listener, prepareVariableStatement(jqlContext, jql).value0);
 	}
 
-	public <L extends JqlBaseListener> void analyze(final JQL jql, L listener) {
-		analyzeInternal(jql.value, listener);
+	public <L extends JqlBaseListener> void analyze(final JQLContext jqlContext, final JQL jql, L listener) {
+		analyzeInternal(jqlContext, jql.value, listener);
 	}
 
-	protected Pair<ParserRuleContext, CommonTokenStream> prepareParser(final String jql) {
+	protected Pair<ParserRuleContext, CommonTokenStream> prepareParser(final JQLContext jqlContext, final String jql) {
 		JqlLexer lexer = new JqlLexer(CharStreams.fromString(jql));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		JqlParser parser = new JqlParser(tokens);
@@ -104,9 +104,8 @@ public class JQLChecker {
 		parser.removeErrorListeners();
 		parser.addErrorListener(new JQLBaseErrorListener() {
 			@Override
-			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
-					int charPositionInLine, String msg, RecognitionException e) {
-				AssertKripton.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, jql);
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+				AssertKripton.assertTrue(false, jqlContext.getContextDescription() + ": unespected char at pos %s of SQL '%s'", charPositionInLine, jql);
 			}
 		});
 
@@ -131,7 +130,7 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	protected Pair<ParserRuleContext, CommonTokenStream> prepareVariableStatement(final String jql) {
+	protected Pair<ParserRuleContext, CommonTokenStream> prepareVariableStatement(final JQLContext jqlContext, final String jql) {
 		JqlLexer lexer = new JqlLexer(CharStreams.fromString(jql));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		JqlParser parser = new JqlParser(tokens);
@@ -139,9 +138,8 @@ public class JQLChecker {
 		parser.removeErrorListeners();
 		parser.addErrorListener(new JQLBaseErrorListener() {
 			@Override
-			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
-					int charPositionInLine, String msg, RecognitionException e) {
-				AssertKripton.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, jql);
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+				AssertKripton.assertTrue(false, jqlContext.getContextDescription() + ": unespected char at pos %s of JQL '%s'", charPositionInLine, jql);
 			}
 		});
 
@@ -155,12 +153,12 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public Set<JQLProjection> extractProjections(String jqlValue, final Finder<SQLProperty> entity) {
+	public Set<JQLProjection> extractProjections(final JQLContext jqlContext, String jqlValue, final Finder<SQLProperty> entity) {
 		final Set<JQLProjection> result = new LinkedHashSet<JQLProjection>();
 
 		final One<Boolean> projection = new One<Boolean>(null);
 
-		analyzeInternal(jqlValue, new JqlBaseListener() {
+		analyzeInternal(jqlContext, jqlValue, new JqlBaseListener() {
 
 			@Override
 			public void enterProjected_columns(Projected_columnsContext ctx) {
@@ -216,8 +214,7 @@ public class JQLChecker {
 			if (entity != null) {
 
 				for (SQLProperty item : entity.getCollection()) {
-					JQLProjection col = new JQLProjection(ProjectionType.COLUMN, entity.getSimpleName(), item.getName(),
-							null, null, item);
+					JQLProjection col = new JQLProjection(ProjectionType.COLUMN, entity.getSimpleName(), item.getName(), null, null, item);
 					result.add(col);
 				}
 			}
@@ -225,14 +222,14 @@ public class JQLChecker {
 
 		return result;
 	}
-	
-	public Set<String> extractColumnsToUpdate(String jqlValue, final Finder<SQLProperty> entity) {
+
+	public Set<String> extractColumnsToUpdate(final JQLContext jqlContext, String jqlValue, final Finder<SQLProperty> entity) {
 		final Set<String> result = new LinkedHashSet<String>();
 
 		final One<Boolean> selectionOn = new One<Boolean>(null);
 
-		analyzeInternal(jqlValue, new JqlBaseListener() {
-			
+		analyzeInternal(jqlContext, jqlValue, new JqlBaseListener() {
+
 			@Override
 			public void enterColumns_to_update(Columns_to_updateContext ctx) {
 				if (selectionOn.value0 == null) {
@@ -240,18 +237,16 @@ public class JQLChecker {
 				}
 			}
 
-
 			@Override
 			public void exitColumns_to_update(Columns_to_updateContext ctx) {
 				selectionOn.value0 = false;
 			}
-			
+
 			@Override
 			public void enterColumn_name_to_update(Column_name_to_updateContext ctx) {
 				result.add(ctx.getText());
 			}
-					
-						
+
 		});
 
 		return result;
@@ -264,10 +259,10 @@ public class JQLChecker {
 	 * @param listener
 	 * @return string obtained by replacements
 	 */
-	public String replaceFromVariableStatement(String jql, final JQLReplacerListener listener) {
+	public String replaceFromVariableStatement(JQLContext context, String jql, final JQLReplacerListener listener) {
 		rewriterListener.init(listener);
 
-		return replaceFromVariableStatementInternal(jql, replace, rewriterListener);
+		return replaceFromVariableStatementInternal(context, jql, replace, rewriterListener);
 	}
 
 	List<Triple<Token, Token, String>> replace = new ArrayList<>();
@@ -312,7 +307,7 @@ public class JQLChecker {
 
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
-		
+
 		@Override
 		public void enterColumn_name_to_update(Column_name_to_updateContext ctx) {
 			String value = listener.onColumnNameToUpdate(ctx.getText());
@@ -386,27 +381,27 @@ public class JQLChecker {
 	 * @param listener
 	 * @return string obtained by replacements
 	 */
-	public String replace(JQL jql, final JQLReplacerListener listener) {
-		return replace(jql.value, listener);
+	public String replace(final JQLContext jqlContext, JQL jql, final JQLReplacerListener listener) {
+		return replace(jqlContext, jql.value, listener);
 	}
-	
+
 	/**
 	 * Replace place holder with element passed by listener
 	 * 
-	 * @param jql string
+	 * @param jql
+	 *            string
 	 * @param listener
 	 * @return string obtained by replacements
 	 */
-	public String replace(String jql, final JQLReplacerListener listener) {
+	public String replace(final JQLContext jqlContext, String jql, final JQLReplacerListener listener) {
 		rewriterListener.init(listener);
 
-		return replaceInternal(jql, replace, rewriterListener);
+		return replaceInternal(jqlContext, jql, replace, rewriterListener);
 
 	}
 
-	private String replaceInternal(String jql, final List<Triple<Token, Token, String>> replace,
-			JqlBaseListener rewriterListener) {
-		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jql);
+	private String replaceInternal(final JQLContext jqlContext, String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
+		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jqlContext, jql);
 		walker.walk(rewriterListener, parser.value0);
 
 		TokenStreamRewriter rewriter = new TokenStreamRewriter(parser.value1);
@@ -418,9 +413,8 @@ public class JQLChecker {
 		return rewriter.getText();
 	}
 
-	private String replaceFromVariableStatementInternal(String jql, final List<Triple<Token, Token, String>> replace,
-			JqlBaseListener rewriterListener) {
-		Pair<ParserRuleContext, CommonTokenStream> parser = prepareVariableStatement(jql);
+	private String replaceFromVariableStatementInternal(JQLContext context, String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
+		Pair<ParserRuleContext, CommonTokenStream> parser = prepareVariableStatement(context, jql);
 		walker.walk(rewriterListener, parser.value0);
 
 		TokenStreamRewriter rewriter = new TokenStreamRewriter(parser.value1);
@@ -467,8 +461,8 @@ public class JQLChecker {
 	 * 
 	 * @param sql
 	 */
-	public void verify(final JQL jql) {
-		this.analyzeInternal(jql.value, new JqlBaseListener());
+	public void verify(final JQLContext jqlContext, final JQL jql) {
+		this.analyzeInternal(jqlContext, jql.value, new JqlBaseListener());
 	}
 
 	/**
@@ -477,8 +471,8 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public List<JQLPlaceHolder> extractPlaceHoldersAsList(String jql) {
-		return extractPlaceHolders(jql, new ArrayList<JQLPlaceHolder>());
+	public List<JQLPlaceHolder> extractPlaceHoldersAsList(final JQLContext jqlContext, String jql) {
+		return extractPlaceHolders(jqlContext, jql, new ArrayList<JQLPlaceHolder>());
 	}
 
 	/**
@@ -487,8 +481,8 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(String jql) {
-		return extractPlaceHolders(jql, new LinkedHashSet<JQLPlaceHolder>());
+	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(final JQLContext jqlContext, String jql) {
+		return extractPlaceHolders(jqlContext, jql, new LinkedHashSet<JQLPlaceHolder>());
 	}
 
 	/**
@@ -497,8 +491,8 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public Set<JQLPlaceHolder> extractPlaceHoldersFromVariableStatementAsSet(String jql) {
-		return extractPlaceHoldersFromVariableStatement(jql, new LinkedHashSet<JQLPlaceHolder>());
+	public Set<JQLPlaceHolder> extractPlaceHoldersFromVariableStatementAsSet(JQLContext jqlContext, String jql) {
+		return extractPlaceHoldersFromVariableStatement(jqlContext, jql, new LinkedHashSet<JQLPlaceHolder>());
 	}
 
 	/**
@@ -507,15 +501,15 @@ public class JQLChecker {
 	 * @param jql
 	 * @return
 	 */
-	public List<JQLPlaceHolder> extractFromVariableStatement(String jql) {
-		return extractPlaceHoldersFromVariableStatement(jql, new ArrayList<JQLPlaceHolder>());
+	public List<JQLPlaceHolder> extractFromVariableStatement(JQLContext jqlContext, String jql) {
+		return extractPlaceHoldersFromVariableStatement(jqlContext, jql, new ArrayList<JQLPlaceHolder>());
 	}
 
-	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(String jql, final L result) {
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(final JQLContext jqlContext, String jql, final L result) {
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
 
-		analyzeInternal(jql, new JqlBaseListener() {
+		analyzeInternal(jqlContext, jql, new JqlBaseListener() {
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
@@ -537,8 +531,7 @@ public class JQLChecker {
 		return result;
 	}
 
-	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromVariableStatement(String jql,
-			final L result) {
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromVariableStatement(final JQLContext jqlContext, String jql, final L result) {
 		final One<Boolean> valid = new One<>();
 
 		if (!StringUtils.hasText(jql))
@@ -546,7 +539,7 @@ public class JQLChecker {
 
 		valid.value0 = false;
 
-		analyzeVariableStatementInternal(jql, new JqlBaseListener() {
+		analyzeVariableStatementInternal(jqlContext, jql, new JqlBaseListener() {
 
 			@Override
 			public void enterBind_parameter(Bind_parameterContext ctx) {
@@ -579,7 +572,7 @@ public class JQLChecker {
 	 * @param listener
 	 * @return
 	 */
-	public String replaceVariableStatements(final String jql, final JQLReplaceVariableStatementListener listener) {
+	public String replaceVariableStatements(final JQLContext jqlContext, final String jql, final JQLReplaceVariableStatementListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 		final One<Integer> currentSelectLevel = new One<Integer>(-1);
 
@@ -796,7 +789,7 @@ public class JQLChecker {
 
 		};
 
-		return replaceInternal(jql, replace, rewriterListener);
+		return replaceInternal(jqlContext, jql, replace, rewriterListener);
 	}
 
 }

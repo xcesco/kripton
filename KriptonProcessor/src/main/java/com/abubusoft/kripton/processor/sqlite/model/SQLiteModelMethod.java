@@ -49,13 +49,14 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLBuilder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.TypeName;
 
-public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement {
+public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement, JQLContext {
 
 	interface OnFoundDynamicParameter {
 		void onFoundParameter(String parameterName);
@@ -553,6 +554,13 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			return "";
 
 		return (StringUtils.hasText(contentProviderEntryPath) ? ("/" + contentProviderEntryPath) : "");
+	}
+
+	@Override
+	public String getContextDescription() {
+		String msg = String.format("In method '%s.%s'", getParent().getElement().getSimpleName().toString(), getElement().getSimpleName().toString());
+
+		return msg;
 	}
 
 }

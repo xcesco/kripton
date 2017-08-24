@@ -45,6 +45,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidForeignKeyTypeException;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -314,7 +315,13 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			String dropIndex = String.format(" DROP INDEX IF EXISTS idx_%s_%s", entity.getTableName(), counter);
 
 			final One<Integer> fieldCounter = new One<Integer>(0);
-			createIndex = JQLChecker.getInstance().replace(createIndex, new JQLReplacerListenerImpl() {
+			createIndex = JQLChecker.getInstance().replace(new JQLContext() {
+
+				@Override
+				public String getContextDescription() {
+					return "While table definition generation for entity " + entity.getName();
+				}
+			}, createIndex, new JQLReplacerListenerImpl() {
 				@Override
 				public String onColumnName(String columnName) {
 					fieldCounter.value0++;

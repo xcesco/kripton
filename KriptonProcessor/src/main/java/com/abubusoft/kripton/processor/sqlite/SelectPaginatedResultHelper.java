@@ -61,9 +61,8 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		SQLDaoDefinition daoDefinition = method.getParent();
 		String pagedResultName = buildSpecializedPagedResultClass(builder, method);
 
-		
-		Set<JQLProjection> fieldList=JQLChecker.getInstance().extractProjections(method.jql.value, daoDefinition.getEntity());
-		
+		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value, daoDefinition.getEntity());
+
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 			// create PaginatedResult
@@ -106,7 +105,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
-		//List<SQLProperty> fields = fieldList.value1;
+		// List<SQLProperty> fields = fieldList.value1;
 
 		TypeName entityClass = typeName(entity.getElement());
 
@@ -121,7 +120,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		{
 			int i = 0;
 			for (JQLProjection a : fieldList) {
-				SQLProperty item=a.property;
+				SQLProperty item = a.property;
 				methodBuilder.addCode("int index" + (i++) + "=");
 				methodBuilder.addCode("cursor.getColumnIndex($S)", item.columnName);
 				methodBuilder.addCode(";\n");
@@ -135,7 +134,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		// generate mapping
 		int i = 0;
 		for (JQLProjection a : fieldList) {
-			SQLProperty item=a.property;
+			SQLProperty item = a.property;
 
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);

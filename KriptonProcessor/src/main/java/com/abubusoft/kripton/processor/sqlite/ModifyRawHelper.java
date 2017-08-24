@@ -186,7 +186,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
 
 		// new
-		String sqlModify = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+		String sqlModify = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
@@ -331,7 +331,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	static String extractWhereConditions(boolean updateMode, SQLiteModelMethod method) {
 		final One<String> whereCondition = new One<String>("");
 		final One<Boolean> found = new One<Boolean>(null);
-		JQLChecker.getInstance().replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
+		JQLChecker.getInstance().replaceVariableStatements(method, method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
 			@Override
 			public String onWhere(String statement) {
 				if (found.value0 == null) {
@@ -365,7 +365,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		final List<SQLProperty> updatedProperties = new ArrayList<>();
 		final One<Boolean> onWhereStatement = new One<Boolean>(false);
 
-		String sqlModify = JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+		String sqlModify = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public void onWhereStatementBegin(Where_stmtContext ctx) {

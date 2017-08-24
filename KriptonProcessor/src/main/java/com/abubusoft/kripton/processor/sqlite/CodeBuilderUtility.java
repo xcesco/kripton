@@ -59,11 +59,11 @@ public abstract class CodeBuilderUtility {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static List<SQLProperty> populateContentValuesFromEntity(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
-			Builder methodBuilder, List<String> alreadyUsedBeanPropertiesNames) {
-		Elements elementUtils=BaseProcessor.elementUtils;
-		SQLDaoDefinition daoDefinition=method.getParent(); 
-		
+	public static List<SQLProperty> populateContentValuesFromEntity(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
+			List<String> alreadyUsedBeanPropertiesNames) {
+		Elements elementUtils = BaseProcessor.elementUtils;
+		SQLDaoDefinition daoDefinition = method.getParent();
+
 		List<SQLProperty> listPropertyInContentValue = new ArrayList<SQLProperty>();
 
 		SQLEntity entity = daoDefinition.getEntity();
@@ -122,8 +122,8 @@ public abstract class CodeBuilderUtility {
 
 	}
 
-	public static void generateContentValuesFromEntity(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
-			List<String> alreadyUsedBeanPropertiesNames) {
+	public static void generateContentValuesFromEntity(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
+			Builder methodBuilder, List<String> alreadyUsedBeanPropertiesNames) {
 		// all check is already done
 
 		SQLEntity entity = daoDefinition.getEntity();
@@ -149,8 +149,8 @@ public abstract class CodeBuilderUtility {
 		// for each property in entity except primaryKey and excluded properties
 
 		boolean includePrimaryKey = annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
-		
-		Set<String> updateColumns=JQLChecker.getInstance().extractColumnsToUpdate(method.jql.value, entity);
+
+		Set<String> updateColumns = JQLChecker.getInstance().extractColumnsToUpdate(method, method.jql.value, entity);
 
 		for (SQLProperty item : entity.getCollection()) {
 			if (!includePrimaryKey && item.equals(primaryKey) || excludedFields.contains(item.getName()))
@@ -159,7 +159,7 @@ public abstract class CodeBuilderUtility {
 				continue;
 			if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
 				continue;
-			if (updateColumns.size()>0 && !updateColumns.contains(item.getName())) {
+			if (updateColumns.size() > 0 && !updateColumns.contains(item.getName())) {
 				continue;
 			}
 
@@ -176,7 +176,7 @@ public abstract class CodeBuilderUtility {
 				methodBuilder.nextControlFlow("else");
 				methodBuilder.addCode("contentValues.putNull($S);\n", item.columnName);
 				methodBuilder.endControlFlow();
-			}			
+			}
 		}
 		methodBuilder.addCode("\n");
 

@@ -24,68 +24,68 @@ public abstract class GenericSQLHelper {
 	 * @param schema
 	 */
 	public static void generateGenericExecSQL(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method) {
-		final SQLDaoDefinition daoDefinition = method.getParent();		
-		final SQLiteDatabaseSchema schema=daoDefinition.getParent();
-		
+		final SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
+
 		boolean nullable;
-		final List<String> paramsList=new ArrayList<String>();
-		String sql=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+		final List<String> paramsList = new ArrayList<String>();
+		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 			@Override
-			public String onColumnName(String columnName) {												
-				String resolvedName = schema.getExactPropertyBySimpleName(method, columnName);				
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName!=null, method, columnName);
-								
+			public String onColumnName(String columnName) {
+				String resolvedName = schema.getExactPropertyBySimpleName(method, columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName != null, method, columnName);
+
 				return resolvedName;
-				
+
 			}
-			
+
 			@Override
 			public String onTableName(String tableName) {
 				return schema.getEntityBySimpleName(tableName).getTableName();
 			}
-			
+
 			@Override
 			public String onBindParameter(String bindParameterName) {
 				String propertyName = method.findParameterAliasByName(bindParameterName);
 				paramsList.add(propertyName);
 				return "?";
 			}
-		});			
-					
-		final One<Integer> paramCounter=new One<Integer>(0);
-		String sqlForLog=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+		});
+
+		final One<Integer> paramCounter = new One<Integer>(0);
+		String sqlForLog = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 			@Override
-			public String onColumnName(String columnName) {										
-				String resolvedName = schema.getExactPropertyBySimpleName(method, columnName);				
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName!=null, method, columnName);
-								
+			public String onColumnName(String columnName) {
+				String resolvedName = schema.getExactPropertyBySimpleName(method, columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName != null, method, columnName);
+
 				return resolvedName;
 			}
-			
+
 			@Override
 			public String onTableName(String tableName) {
 				return schema.getEntityBySimpleName(tableName).getTableName();
 			}
-			
+
 			@Override
-			public String onBindParameter(String bindParameterName) {										
-				return "${param"+(paramCounter.value0++)+"}";
+			public String onBindParameter(String bindParameterName) {
+				return "${param" + (paramCounter.value0++) + "}";
 			}
 		});
-		
+
 		methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
-			
-		methodBuilder.addCode("\n// build where condition\n");			
+
+		methodBuilder.addCode("\n// build where condition\n");
 		{
-			//String separator = "";
-			TypeName paramType;				
+			// String separator = "";
+			TypeName paramType;
 			String realName;
-			
+
 			for (String item : paramsList) {
-				methodBuilder.addCode("_sqlWhereParams.add(");					
+				methodBuilder.addCode("_sqlWhereParams.add(");
 
 				paramType = method.findParameterTypeByAliasOrName(item);
-				realName=method.findParameterNameByAlias(item);
+				realName = method.findParameterNameByAlias(item);
 
 				// code for query arguments
 				nullable = TypeUtility.isNullable(paramType);
@@ -96,7 +96,7 @@ public abstract class GenericSQLHelper {
 				// check for string conversion
 				TypeUtility.beginStringConversion(methodBuilder, paramType);
 
-				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition,paramType, realName);
+				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, paramType, realName);
 
 				// check for string conversion
 				TypeUtility.endStringConversion(methodBuilder, paramType);
@@ -106,15 +106,15 @@ public abstract class GenericSQLHelper {
 				}
 
 				methodBuilder.addCode(");\n");
-			}				
+			}
 		}
-		
+
 		if (daoDefinition.isLogEnabled()) {
-		   // manage log
+			// manage log
 			methodBuilder.addCode("\n");
 			methodBuilder.addStatement("$T.info($S)", Logger.class, sqlForLog);
 		}
-		
+
 		// log for where parames
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 		methodBuilder.addCode("\n");

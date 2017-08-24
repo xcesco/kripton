@@ -58,36 +58,34 @@ public abstract class JavadocUtility {
 			builder.addJavadoc("@since $L\n", (new Date()).toString());
 		}
 	}
-	
-	
 
 	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, List<String> sqlParams, final SQLiteModelMethod method, ModelAnnotation annotation, Set<JQLProjection> fieldList,
 			SelectType selectResultType, JavadocPart... javadocParts) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity=daoDefinition.getEntity();
+		final SQLEntity entity = daoDefinition.getEntity();
 		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
 
-		String sql=JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
-			
+		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
+
 			@Override
 			public String onTableName(String tableName) {
 				return schema.getEntityBySimpleName(tableName).getTableName();
-							
+
 			}
-			
+
 			@Override
 			public String onColumnName(String columnName) {
-				SQLProperty tempProperty = daoDefinition.getEntity().get(columnName);				
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
-								
-				return tempProperty.columnName;				
+				SQLProperty tempProperty = daoDefinition.getEntity().get(columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
+				return tempProperty.columnName;
 			}
-			
+
 		});
-		
-		Set<JQLProjection> projectedColumns=JQLChecker.getInstance().extractProjections(method.jql.value, entity);
-		
+
+		Set<JQLProjection> projectedColumns = JQLChecker.getInstance().extractProjections(method, method.jql.value, entity);
+
 		methodBuilder.addJavadoc("<h2>Select SQL:</h2>\n\n", annotation.getSimpleName());
 		methodBuilder.addJavadoc("<pre>$L</pre>", sql);
 		methodBuilder.addJavadoc("\n\n");
@@ -100,7 +98,7 @@ public abstract class JavadocUtility {
 				// KRIPTON_DEBUG field info only it exists
 				if (column.column != null) {
 					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.property.columnName);
-					//SQLProperty attribute = fieldList.value1.get(i);
+					// SQLProperty attribute = fieldList.value1.get(i);
 					methodBuilder.addJavadoc("<dd>is associated to bean's property <strong>$L</strong></dd>", column.column);
 				} else {
 					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.expression);
@@ -117,13 +115,16 @@ public abstract class JavadocUtility {
 			methodBuilder.addJavadoc("<h2>Method's parameters and associated dynamic parts:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName, JQLDynamicStatementType.DYNAMIC_WHERE);
+				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+						JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
 			if (method.hasDynamicOrderByConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt>is part of order statement resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicOrderByParameterName, JQLDynamicStatementType.DYNAMIC_ORDER_BY);
+				methodBuilder.addJavadoc("<dt>$L</dt>is part of order statement resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicOrderByParameterName,
+						JQLDynamicStatementType.DYNAMIC_ORDER_BY);
 			}
 			if (method.hasDynamicPageSizeConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt>is part of limit statement resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicPageSizeName, JQLDynamicStatementType.DYNAMIC_PAGE_SIZE);
+				methodBuilder.addJavadoc("<dt>$L</dt>is part of limit statement resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicPageSizeName,
+						JQLDynamicStatementType.DYNAMIC_PAGE_SIZE);
 			}
 
 			methodBuilder.addJavadoc("\n</dl>");

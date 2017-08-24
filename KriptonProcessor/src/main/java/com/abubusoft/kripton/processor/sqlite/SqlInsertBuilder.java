@@ -208,7 +208,7 @@ public abstract class SqlInsertBuilder {
 		SqlBuilderHelper.generateLogForContentProviderBeginning(method, methodBuilder);
 
 		// just detect which columns are admitted
-		JQLChecker.getInstance().replace(method.jql, new JQLReplacerListenerImpl() {
+		JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public String onColumnName(String columnName) {

@@ -101,7 +101,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		// CodeBuilderUtility.generatePropertyList(elementUtils, daoDefinition,
 		// method, BindSqlSelect.class, selectType.isMapFields(), null);
 
-		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method.jql.value, daoDefinition.getEntity());
+		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value, daoDefinition.getEntity());
 
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
@@ -150,7 +150,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		final One<String> orderJQL = new One<>("");
 
 		// extract parts of jql statement
-		JQLChecker.getInstance().replaceVariableStatements(method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
+		JQLChecker.getInstance().replaceVariableStatements(method, method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
 
 			@Override
 			public String onWhere(String statement) {
