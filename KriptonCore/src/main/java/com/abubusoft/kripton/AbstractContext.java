@@ -46,9 +46,7 @@ public abstract class AbstractContext implements BinderContext {
 				OBJECT_MAPPERS.put(cls, mapper);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				throw new KriptonRuntimeException(
-						String.format("Class '%s' does not exist. Does '%s' have @BindType annotation?",
-								mapperClassName, beanClassName));
+				throw new KriptonRuntimeException(String.format("Class '%s' does not exist. Does '%s' have @BindType annotation?", mapperClassName, beanClassName));
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
@@ -57,14 +55,14 @@ public abstract class AbstractContext implements BinderContext {
 		}
 		return mapper;
 	}
-	
+
 	/**
 	 * <p>
 	 * This method will be used by bean mapper to persists embedded objects.
 	 * </p>
 	 *
 	 * @param cls
-	 *		The class for which the JsonMapper should be fetched.
+	 *            The class for which the JsonMapper should be fetched.
 	 */
 	static <T, M extends BinderMapper<T>> M mapperFor(Class<T> cls) throws NoSuchMapperException {
 		M mapper = getMapper(cls);
@@ -75,6 +73,7 @@ public abstract class AbstractContext implements BinderContext {
 			return mapper;
 		}
 	}
+
 	abstract ParserWrapper createParser(byte[] data);
 
 	abstract ParserWrapper createParser(File file);
@@ -332,7 +331,7 @@ public abstract class AbstractContext implements BinderContext {
 
 		SegmentedStringWriter source = new SegmentedStringWriter(buffer.get());
 		try (SerializerWrapper serializer = createSerializer(source)) {
-			mapperFor((Class<E>) objectClazz).serializeCollection(this, serializer, collection);
+			mapperFor(objectClazz).serializeCollection(this, serializer, collection);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);

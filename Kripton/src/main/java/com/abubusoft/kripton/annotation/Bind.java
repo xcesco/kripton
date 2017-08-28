@@ -47,7 +47,8 @@ public @interface Bind {
 	public static final String MAP_KEY_DEFAULT = "key";
 
 	/**
-	 * true if this field must be persisted. Note that {@link BindDisabled} annotation wins about this value.
+	 * true if this field must be persisted. Note that {@link BindDisabled}
+	 * annotation override this value.
 	 * 
 	 * @return true if field is enabled
 	 */
@@ -75,7 +76,8 @@ public @interface Bind {
 	public String mapValueName() default MAP_VALUE_DEFAULT;
 
 	/**
-	 * specifies the order of pojo fields during mapping. Order is specified entire schema.
+	 * specifies the order of pojo fields during mapping. Order is specified
+	 * entire schema.
 	 * 
 	 * @return order of field
 	 */

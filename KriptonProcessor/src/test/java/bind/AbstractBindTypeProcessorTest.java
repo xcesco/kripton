@@ -39,7 +39,6 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 
 public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 
-	
 	@Before
 	public void setup() {
 		KriptonBinder.registryBinder(new KriptonYamlContext());
@@ -68,7 +67,7 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		int i = 0;
 		for (BinderType checkType : BinderType.values()) {
 			if (all || checkList.contains(checkType)) {
-				if (checkType == BinderType.CBOR) {
+				if (checkType.onlyBinary) {
 					values[i] = serializeAndParseBinary(bean, checkType);
 				} else {
 					values[i] = serializeAndParse(bean, checkType);

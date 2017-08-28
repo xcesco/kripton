@@ -33,9 +33,9 @@ public class Main {
 		{
 			Friend input = new Friend();
 			input.id = 23;
-			input.name = "dummy name";					
-		
-			String buffer=KriptonBinder.jsonBind().serialize(input);
+			input.name = "dummy name";
+
+			String buffer = KriptonBinder.jsonBind().serialize(input);
 			System.out.println(buffer);
 		}
 

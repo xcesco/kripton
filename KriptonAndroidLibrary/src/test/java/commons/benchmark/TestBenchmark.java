@@ -18,7 +18,6 @@
  */
 package commons.benchmark;
 
-import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
@@ -36,14 +35,13 @@ import commons.benchmark.model.Response;
 public class TestBenchmark {
 
 	@Test
-	public void test() throws Exception
-	{
+	public void test() throws Exception {
 		URL base = getClass().getClassLoader().getResource("benchmark/largesample.json");
 
 		String input = IOUtils.toString(base, Charset.forName("UTF-8"));
 		System.out.println(base.getPath());
 
-		long start=System.currentTimeMillis();
+		long start = System.currentTimeMillis();
 		for (int i = 0; i < 2000; i++) {
 			Response output = KriptonBinder.jsonBind().parse(input, Response.class);
 
@@ -51,8 +49,8 @@ public class TestBenchmark {
 				throw new RuntimeException();
 			}
 		}
-		long end=System.currentTimeMillis();
-		
-		System.out.println("Time to elaborate "+(end-start));
+		long end = System.currentTimeMillis();
+
+		System.out.println("Time to elaborate " + (end - start));
 	}
 }

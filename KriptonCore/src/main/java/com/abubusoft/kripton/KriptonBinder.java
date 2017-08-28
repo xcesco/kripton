@@ -7,12 +7,12 @@ import java.util.ServiceLoader;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public abstract class KriptonBinder {
-	
+
 	public static final String MAPPER_CLASS_SUFFIX = "BindMap";
 
 	private static final KriptonJsonContext jsonBinderContext = new KriptonJsonContext();
-	
-	private static final KriptonXmlContext xmlBinderContext=new KriptonXmlContext();
+
+	private static final KriptonXmlContext xmlBinderContext = new KriptonXmlContext();
 
 	public static void registryBinder(BinderContext factory) {
 		binders.put(factory.getSupportedFormat(), factory);
@@ -23,11 +23,10 @@ public abstract class KriptonBinder {
 	static {
 		registryBinder(jsonBinderContext);
 		registryBinder(xmlBinderContext);
-		
+
 		ServiceLoader<BinderContext> codecSetLoader = ServiceLoader.load(BinderContext.class);
-		
-		for (BinderContext context: codecSetLoader)
-		{
+
+		for (BinderContext context : codecSetLoader) {
 			registryBinder(context);
 		}
 	}
@@ -40,7 +39,7 @@ public abstract class KriptonBinder {
 	public static KriptonJsonContext jsonBind() {
 		return jsonBinderContext;
 	}
-	
+
 	/**
 	 * Return the JSON binder context.
 	 * 
@@ -51,14 +50,12 @@ public abstract class KriptonBinder {
 	}
 
 	public static BinderContext bind(BinderType format) {
-		BinderContext binder = binders.get(format);		
+		BinderContext binder = binders.get(format);
 
 		if (binder == null)
 			throw new KriptonRuntimeException(String.format("%s format is not supported", format));
 
 		return binder;
 	}
-	
-
 
 }

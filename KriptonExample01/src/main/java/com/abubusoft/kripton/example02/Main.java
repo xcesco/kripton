@@ -42,21 +42,19 @@ public class Main {
 			System.out.println(buffer);
 		}
 
-		
 		{
-			
-			
-			Person person=new Person();
-			
-			person.email="tonj.manero@mail.com";
-			person.name="Tonj";
-			person.surname="Manero";
-			person.username="tonj.manero";
-									
-			String result=KriptonBinder.jsonBind().serialize(person);
+
+			Person person = new Person();
+
+			person.email = "tonj.manero@mail.com";
+			person.name = "Tonj";
+			person.surname = "Manero";
+			person.username = "tonj.manero";
+
+			String result = KriptonBinder.jsonBind().serialize(person);
 			System.out.println(result);
 		}
-		
+
 		{
 
 			BinderContext binderContext = KriptonBinder.bind(BinderType.CBOR);

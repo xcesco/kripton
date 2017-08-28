@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * </p>
  * 
  * <p>
- * <strong>Don't use with allField = true, otherwise an exception will be
+ * <strong>Don't use with allField = false, otherwise an exception will be
  * thrown during compilation</strong>
  * <p>
  * 

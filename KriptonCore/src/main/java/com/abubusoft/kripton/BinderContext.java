@@ -183,8 +183,8 @@ public interface BinderContext {
 
 	/**
 	 * <p>
-	 * Parse a string to create and populate a list of
-	 * <code>objectClazz</code> instance.
+	 * Parse a string to create and populate a list of <code>objectClazz</code>
+	 * instance.
 	 * </p>
 	 * 
 	 * @param source
@@ -194,10 +194,11 @@ public interface BinderContext {
 	 * @return list of objects of type <code>objectClazz</code>
 	 */
 	<E> List<E> parseList(String source, Class<E> objectClazz);
-	
+
 	/**
 	 * <p>
-	 * Parse a string to create and populate a map of key/value. The key is the name of field, value is its content.
+	 * Parse a string to create and populate a map of key/value. The key is the
+	 * name of field, value is its content.
 	 * </p>
 	 * 
 	 * @param source
@@ -205,10 +206,11 @@ public interface BinderContext {
 	 * @return map of key/value.</code>
 	 */
 	Map<String, Object> parseMap(String source);
-	
+
 	/**
 	 * <p>
-	 * Parse an inputstream to create and populate a map of key/value. The key is the name of field, value is its content.
+	 * Parse an inputstream to create and populate a map of key/value. The key
+	 * is the name of field, value is its content.
 	 * </p>
 	 * 
 	 * @param source
@@ -216,10 +218,11 @@ public interface BinderContext {
 	 * @return map of key/value.</code>
 	 */
 	Map<String, Object> parseMap(InputStream source);
-	
+
 	/**
 	 * <p>
-	 * Use a reader to create and populate a map of key/value. The key is the name of field, value is its content.
+	 * Use a reader to create and populate a map of key/value. The key is the
+	 * name of field, value is its content.
 	 * </p>
 	 * 
 	 * @param source
@@ -258,14 +261,13 @@ public interface BinderContext {
 
 	/**
 	 * <p>
-	 * Serialize on a string the object passed as parameter. The used data format
-	 * is the one supported by the binding context
+	 * Serialize on a string the object passed as parameter. The used data
+	 * format is the one supported by the binding context
 	 * </p>
 	 * 
 	 * @param object
-	 * 		object to serialize
-	 * @return
-	 * 		output
+	 *            object to serialize
+	 * @return output
 	 */
 	<E> String serialize(E object);
 
@@ -276,83 +278,82 @@ public interface BinderContext {
 	 * </p>
 	 * 
 	 * @param object
-	 * 		object to serialize
+	 *            object to serialize
 	 * @param output
-	 * 		output
+	 *            output
 	 */
-	<E> void serialize(E object, File output) throws Exception;
+	<E> void serialize(E object, File output);
 
 	/**
 	 * <p>
-	 * Serialize on an outputstream the object passed as parameter. The used data format
-	 * is the one supported by the binding context
+	 * Serialize on an outputstream the object passed as parameter. The used
+	 * data format is the one supported by the binding context
 	 * </p>
 	 * 
 	 * @param object
-	 * 		object to serialize
+	 *            object to serialize
 	 * @param output
-	 * 		output
+	 *            output
 	 */
-	<E> void serialize(E object, OutputStream output) throws Exception;
-	
+	<E> void serialize(E object, OutputStream output);
+
 	/**
 	 * <p>
-	 * Serialize on an writer the object passed as parameter. The used data format
-	 * is the one supported by the binding context
+	 * Serialize on an writer the object passed as parameter. The used data
+	 * format is the one supported by the binding context
 	 * </p>
 	 * 
 	 * @param object
-	 * 		object to serialize
+	 *            object to serialize
 	 * @param output
-	 * 		output
+	 *            output
 	 */
-	<E> void serialize(E object, Writer output) throws Exception;
-	
+	<E> void serialize(E object, Writer output);
+
 	/**
 	 * <p>
-	 * Serialize a collection on a string. The used data format
-	 * is the one supported by the binding context
+	 * Serialize a collection on a string. The used data format is the one
+	 * supported by the binding context
 	 * </p>
 	 * 
 	 * @param list
-	 * 		list to serialize
+	 *            list to serialize
 	 * @param objectClazz
-	 * 		type of object to persist
-	 * 		
-	 * @return
-	 * 		output
+	 *            type of object to persist
+	 * 
+	 * @return output
 	 */
 	<E> String serializeCollection(Collection<E> list, Class<E> objectClazz);
 
 	/**
 	 * <p>
-	 * Serialize a collection on an output stream. The used data format
-	 * is the one supported by the binding context
+	 * Serialize a collection on an output stream. The used data format is the
+	 * one supported by the binding context
 	 * </p>
 	 * 
 	 * @param list
-	 * 		list to serialize
+	 *            list to serialize
 	 * @param objectClazz
-	 * 		type of object to persist
+	 *            type of object to persist
 	 * @param output
-	 * 		output
-	 * 		
+	 *            output
+	 * 
 	 */
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream output);
 
 	/**
 	 * <p>
-	 * Serialize a collection on an file. The used data format
-	 * is the one supported by the binding context
+	 * Serialize a collection on an file. The used data format is the one
+	 * supported by the binding context
 	 * </p>
 	 * 
 	 * @param list
-	 * 		list to serialize
+	 *            list to serialize
 	 * @param objectClazz
-	 * 		type of object to persist
+	 *            type of object to persist
 	 * @param output
-	 * 		output
-	 * 		
+	 *            output
+	 * 
 	 */
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, File output);
 
