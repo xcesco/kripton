@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * Annotation for bind associated field to xml/json/properties/cbor/yaml format.
+ * Annotation for customize binding operation.
  * </p>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -33,16 +33,18 @@ import java.lang.annotation.Target;
 public @interface Bind {
 
 	/**
-	 * default order of
+	 * default order of persistence. The order is ascendent (lower number will
+	 * be used at first)
 	 */
 	public static final int DEFAULT_ORDER = 1000;
 
 	/**
-	 * default name of map value entry
+	 * default value for values of map's entry.
 	 */
 	public static final String MAP_VALUE_DEFAULT = "value";
+
 	/**
-	 * default name of map key entry
+	 * default value for keys of map's entry.
 	 */
 	public static final String MAP_KEY_DEFAULT = "key";
 
@@ -55,21 +57,23 @@ public @interface Bind {
 	public boolean enabled() default true;
 
 	/**
-	 * The name of the XML/JSON element
+	 * The name of the element.
 	 * 
 	 * @return name
 	 */
 	public String value() default "";
 
 	/**
-	 * name of element rapresents key of a map. <b>Used only by map type.</b>
+	 * name of element represents key of a map's entry. <b>Used only by map
+	 * type.</b>
 	 * 
 	 * @return name of map key. Default is {@link #MAP_KEY_DEFAULT}
 	 */
 	public String mapKeyName() default MAP_KEY_DEFAULT;
 
 	/**
-	 * name of element rapresents value of a map. <b>Used only by map type.</b>
+	 * name of element represents value of a map's entry. <b>Used only by map
+	 * type.</b>
 	 * 
 	 * @return name of map. Default is {@link #MAP_VALUE_DEFAULT}
 	 */
