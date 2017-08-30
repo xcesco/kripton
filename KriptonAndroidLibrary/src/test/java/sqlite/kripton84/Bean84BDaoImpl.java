@@ -290,7 +290,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM bean84_b WHERE 1=1</pre>
+   * <pre>DELETE FROM bean84_b</pre>
    *
    * @param bean
    * 	is used as ${bean}
@@ -301,20 +301,12 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   public boolean deleteAll(Bean84B bean) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" 1=1";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
+    String _sqlWhereStatement="";
 
     // display log
-    Logger.info("DELETE FROM bean84_b WHERE 1=1");
+    Logger.info("DELETE FROM bean84_b");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;

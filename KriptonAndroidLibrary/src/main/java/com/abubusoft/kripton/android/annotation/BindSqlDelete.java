@@ -21,7 +21,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Allow to delete a bean from a database. You can use bean as input parameter or method parameters like bean property, but you can not use mixed case.
+ * Allow to delete a bean from a database. You can use bean as input parameter
+ * or method parameters like bean property, but you can not use mixed case.
  * 
  * <p>
  * For example suppose we persist bean <code>Person</code> defined as follow:
@@ -29,15 +30,15 @@ import java.lang.annotation.Target;
  * <pre>
  * &#064;BindType
  * public class Person {
- *  public long id;
- *  
- *  public String name;
- *  
- *  public String surname;
- *  
- *  public String birthCity;
- *  
- *  public Date birthDay;
+ * 	public long id;
+ * 
+ * 	public String name;
+ * 
+ * 	public String surname;
+ * 
+ * 	public String birthCity;
+ * 
+ * 	public Date birthDay;
  * }
  * </pre>
  * 
@@ -54,7 +55,9 @@ import java.lang.annotation.Target;
  * <h2>Case 1 - Method use a bean type parameter</h2>
  * 
  * <p>
- * It's possible define a DELETE query with annotation {@link BindSqlDelete}. It is possibile to define query parameter simply using method parameter with same name of the bean property.
+ * It's possible define a DELETE query with annotation {@link BindSqlDelete}. It
+ * is possibile to define query parameter simply using method parameter with
+ * same name of the bean property.
  * </p>
  * 
  * <pre>
@@ -70,8 +73,12 @@ import java.lang.annotation.Target;
  * </pre>
  * 
  * <p>
- * Each method parameter will be use like input parameter for query. The name of parameters will be used to map field bean and then the column name of the associated table. If you specify a return type for methods (like method
- * <code>insertTwo</code>), it has to be of type <code>int, long, Integer, Long</code>. In this case, the return value will be the id value of just inserted row.
+ * Each method parameter will be use like input parameter for query. The name of
+ * parameters will be used to map field bean and then the column name of the
+ * associated table. If you specify a return type for methods (like method
+ * <code>insertTwo</code>), it has to be of type
+ * <code>int, long, Integer, Long</code>. In this case, the return value will be
+ * the id value of just inserted row.
  * 
  * <h2>Case 2 - method use its parameters like bean properties</h2>
  * 
@@ -80,18 +87,22 @@ import java.lang.annotation.Target;
  * 
  * <pre>
  * &#064;BindDao(Person.class)
- * public interface PersonDAO
- * {
+ * public interface PersonDAO {
  * 
- *  &#064;BindDelete(where=" id = ${bean.id} ")
- *  void deleteThree(Person bean);
+ * 	&#064;BindDelete(where = " id = ${bean.id} ")
+ * 	void deleteThree(Person bean);
  * }
  * </pre>
  * 
  * <p>
- * You can use attribute <b>value</b> to define which property insert into query or you can use attribute <b>excludedFields</b> to avoid to insert some fields,
- * <b>but you can not use both attributes in the same method definition</b>. Values of this attribute will be used like bean property name. At the end of the insert, bean will have id value set to last row id used to insert bean into
- * table. If you specify a return type for methods, it has to be of type <code>int, long, Integer, Long</code> and it will contains same value like row id.
+ * You can use attribute <b>value</b> to define which property insert into query
+ * or you can use attribute <b>excludedFields</b> to avoid to insert some
+ * fields, <b>but you can not use both attributes in the same method
+ * definition</b>. Values of this attribute will be used like bean property
+ * name. At the end of the insert, bean will have id value set to last row id
+ * used to insert bean into table. If you specify a return type for methods, it
+ * has to be of type <code>int, long, Integer, Long</code> and it will contains
+ * same value like row id.
  * 
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -101,26 +112,32 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface BindSqlDelete {
 
-	String where() default "1=1";
-	
+	String where() default "";
+
 	/**
 	 * 
 	 * <p>
-	 * JQL value. With this attribute, it is possibile to specify directly the JQL code. JQL means that you can write SQL using field's names and class name indeed
-	 * of column and table names. Moreover, it is possibile to specify where to use the dynamic parts of query through dynamic statements like DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE, DYNAMIC_PAGE_OFFSET, encapsulated
-	 * in <code>#{ <dynamic-part-name> }</code>
+	 * JQL value. With this attribute, it is possibile to specify directly the
+	 * JQL code. JQL means that you can write SQL using field's names and class
+	 * name indeed of column and table names. Moreover, it is possibile to
+	 * specify where to use the dynamic parts of query through dynamic
+	 * statements like DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE,
+	 * DYNAMIC_PAGE_OFFSET, encapsulated in
+	 * <code>#{ <dynamic-part-name> }</code>
 	 * </p>
 	 * 
-	 * <p>For example, for a <code>select</code> statement, you can write:</p>
+	 * <p>
+	 * For example, for a <code>select</code> statement, you can write:
+	 * </p>
 	 * 
 	 * <pre>
-	 * SELECT * FROM media WHERE mediaId IN (SELECT mediaId FROM fav WHERE #{DYNAMIC_WHERE}) ORDER BY indx DESC LIMIT 0, 100 
+	 * SELECT * FROM media WHERE mediaId IN (SELECT mediaId FROM fav WHERE #{DYNAMIC_WHERE}) ORDER BY indx DESC LIMIT 0, 100
 	 * </pre>
 	 * 
-	 * <strong>If you use this attribute, no other attributes can be defined for the annotation</strong>.
+	 * <strong>If you use this attribute, no other attributes can be defined for
+	 * the annotation</strong>.
 	 * 
-	 * @return
-	 * 	JQL code specified by user
+	 * @return JQL code specified by user
 	 */
 	String jql() default "";
 }

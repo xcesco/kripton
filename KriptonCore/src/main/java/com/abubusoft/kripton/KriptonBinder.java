@@ -6,6 +6,10 @@ import java.util.ServiceLoader;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+/**
+ * @author xcesco
+ *
+ */
 public abstract class KriptonBinder {
 
 	public static final String MAPPER_CLASS_SUFFIX = "BindMap";
@@ -18,6 +22,9 @@ public abstract class KriptonBinder {
 		binders.put(factory.getSupportedFormat(), factory);
 	}
 
+	/**
+	 * map of registered binder. JSON and XML are automatically registered.
+	 */
 	private static final Map<BinderType, BinderContext> binders = new HashMap<>();
 
 	static {
@@ -32,23 +39,32 @@ public abstract class KriptonBinder {
 	}
 
 	/**
-	 * Return the JSON binder context.
+	 * Retrieve JSON binder context. It equivalent to use
+	 * {@link #bind(BinderType)} with {@link BinderType#JSON}.
 	 * 
-	 * @return
+	 * @return returns the JSON binder context.
 	 */
 	public static KriptonJsonContext jsonBind() {
 		return jsonBinderContext;
 	}
 
 	/**
-	 * Return the JSON binder context.
+	 * Retrieve XML binder context. It equivalent to use
+	 * {@link #bind(BinderType)} with {@link BinderType#XML}
 	 * 
-	 * @return
+	 * @return returns the XML binder context.
 	 */
 	public static KriptonXmlContext xmlBind() {
 		return xmlBinderContext;
 	}
 
+	/**
+	 * retrieve binding context for specified data format.
+	 * 
+	 * @param format
+	 *            data format used to persist data
+	 * @return binding context
+	 */
 	public static BinderContext bind(BinderType format) {
 		BinderContext binder = binders.get(format);
 

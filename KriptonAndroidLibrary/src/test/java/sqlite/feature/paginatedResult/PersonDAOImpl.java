@@ -405,7 +405,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE 1=1</pre>
+   * <pre>DELETE FROM person</pre>
    *
    *
    * <h2>Where parameters:</h2>
@@ -419,20 +419,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   public int deleteAll() {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" 1=1";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
+    String _sqlWhereStatement="";
 
     // display log
-    Logger.info("DELETE FROM person WHERE 1=1");
+    Logger.info("DELETE FROM person");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
