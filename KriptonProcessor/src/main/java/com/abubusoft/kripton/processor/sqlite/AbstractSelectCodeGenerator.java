@@ -305,7 +305,6 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			methodBuilder.addCode("//$T, $T will be used in case of dynamic parts of SQL\n", StringUtils.class, SqlUtils.class);
 
 			methodBuilder.addStatement("String _sql=_sqlBuilder.toString()");
-
 			methodBuilder.addStatement("String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()])");
 
 			if (daoDefinition.isLogEnabled()) {

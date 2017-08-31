@@ -205,7 +205,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd><dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
+   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -303,7 +304,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person ORDER BY type_name,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person ORDER BY type_name, #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -319,7 +320,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
+   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * @param beanListener

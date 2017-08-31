@@ -21,9 +21,8 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereParams;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.feature.javadoc.Person;
 
@@ -68,6 +67,6 @@ public interface PersonDao {
 	
 	@BindContentProviderEntry(path="${id}/moreAndMore")
 	@BindSqlSelect(where="id=${id}")
-	List<Person> selectBeanDynamicWithArgs(long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
+	List<Person> selectBeanDynamicWithArgs(long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] args);
 	
 }

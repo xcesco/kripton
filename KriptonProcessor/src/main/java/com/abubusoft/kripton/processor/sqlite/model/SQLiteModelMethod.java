@@ -30,7 +30,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere.PrependType;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereParams;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
@@ -182,7 +182,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 						getParent().getElement(), getElement(), p, BindSqlDynamicWhere.class);
 			}
 
-			BindSqlDynamicWhereArgs paramDynamicWhereArgsName = p.getAnnotation(BindSqlDynamicWhereArgs.class);
+			BindSqlDynamicWhereParams paramDynamicWhereArgsName = p.getAnnotation(BindSqlDynamicWhereParams.class);
 			if (paramDynamicWhereArgsName != null) {
 
 				this.dynamicWhereArgsParameterName = p.getSimpleName().toString();
@@ -191,7 +191,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				// CONSTRAINT: @BindSqlWhereArgs can be used only on
 				// String[] parameter type
 				AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(ArrayTypeName.of(String.class), TypeUtility.typeName(p.asType())),
-						getParent().getElement(), getElement(), p, BindSqlDynamicWhereArgs.class);
+						getParent().getElement(), getElement(), p, BindSqlDynamicWhereParams.class);
 			}
 		}
 

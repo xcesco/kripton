@@ -131,7 +131,7 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean03", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().delete("bean03", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 }

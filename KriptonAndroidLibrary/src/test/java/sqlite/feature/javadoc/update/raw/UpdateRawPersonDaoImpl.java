@@ -584,12 +584,12 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * </dl>
    *
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd></dl>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
    * @param name
    * 	is used as updated field <strong>name</strong>
@@ -742,12 +742,12 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * </dl>
    *
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd></dl>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
    * @param name
    * 	is used as updated field <strong>name</strong>

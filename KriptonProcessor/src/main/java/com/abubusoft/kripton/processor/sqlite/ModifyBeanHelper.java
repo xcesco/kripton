@@ -137,11 +137,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 				methodBuilder.addStatement("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));", tableName);
 			} else {
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),$L);",
+				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),$L)",
 						tableName, method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}
 		} else {
-			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));", tableName);
+			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))", tableName);
 		}
 
 	}
@@ -316,7 +316,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<h2>Method's parameters and associated dynamic parts:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{$L}</dd>", method.dynamicWhereParameterName,
 						JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
 

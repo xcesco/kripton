@@ -142,7 +142,7 @@ public class LiteralType {
 						}
 					}
 					
-					if (result.rawType.equals(Void.TYPE.getSimpleName()))
+					if (Void.TYPE.getSimpleName().equals(result.rawType))
 					{
 						result.resolvedRawType=Void.TYPE;
 					}

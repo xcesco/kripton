@@ -147,7 +147,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>pageSize</dt>is part of limit statement resolved at runtime. In above SQL compairs as #{DYNAMIC_PAGE_SIZE}</dd>
+   * <dt>pageSize</dt>is part of limit statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_PAGE_SIZE}</dd>
    * </dl>
    *
    * @param pageSize
@@ -176,7 +176,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>pageSize</dt>is part of limit statement resolved at runtime. In above SQL compairs as #{DYNAMIC_PAGE_SIZE}</dd>
+   * <dt>pageSize</dt>is part of limit statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_PAGE_SIZE}</dd>
    * </dl>
    *
    * @param pageSize
@@ -432,7 +432,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 
@@ -452,7 +452,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd><dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
+   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -540,7 +541,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name, #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -553,7 +554,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
+   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * @param beanListener

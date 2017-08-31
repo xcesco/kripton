@@ -478,7 +478,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -633,7 +633,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -810,7 +810,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>order</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
+   * <dt>order</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -981,7 +981,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>order</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
+   * <dt>order</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>

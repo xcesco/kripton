@@ -856,7 +856,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean2", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().delete("bean2", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 

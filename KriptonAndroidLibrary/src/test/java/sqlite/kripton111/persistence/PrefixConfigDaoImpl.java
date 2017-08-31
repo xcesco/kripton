@@ -210,7 +210,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("prefix_config", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().delete("prefix_config", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result!=0;
   }
 

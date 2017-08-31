@@ -39,6 +39,11 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
 	}
 	
+	@Test
+	public void test_dynamic_where_on_jql() throws Throwable {
+		buildDataSourceProcessorTest(Person2DataSource.class, PersonDAO2.class, Person.class);
+	}
+	
 	/**
 	 * Use <code>BindSqlWhere</code> in insert method
 	 * @throws Throwable

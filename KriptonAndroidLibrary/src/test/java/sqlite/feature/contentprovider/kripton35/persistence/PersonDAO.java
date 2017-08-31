@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereParams;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
@@ -51,7 +51,7 @@ public interface PersonDAO {
 
 	@BindContentProviderEntry(path = "test0/${id}")
 	@BindSqlDelete(where = "id = ${id}")
-	boolean deleteRaw(long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
+	boolean deleteRaw(long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] args);
 
 	@BindContentProviderEntry(path = "test1/${bean.id}")
 	@BindSqlDelete(where = "id = ${bean.id}")
@@ -67,7 +67,7 @@ public interface PersonDAO {
 
 	@BindContentProviderEntry(path = "test2/${id}")
 	@BindSqlUpdate(where = "id=${id}")
-	int updateRaw(String name, long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
+	int updateRaw(String name, long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] args);
 
 	@BindContentProviderEntry(path = "test3/${person.id}")
 	@BindSqlUpdate(where = "id=${person.id}")
@@ -79,7 +79,7 @@ public interface PersonDAO {
 
 	@BindContentProviderEntry
 	@BindSqlSelect(orderBy = "name asc")
-	List<Person> selectAll(@BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args, @BindSqlDynamicOrderBy String order);
+	List<Person> selectAll(@BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] args, @BindSqlDynamicOrderBy String order);
 
 	@BindContentProviderEntry(path = "${data.name}/test1")
 	@BindSqlSelect(where = "name like ${data.name} || '%'")

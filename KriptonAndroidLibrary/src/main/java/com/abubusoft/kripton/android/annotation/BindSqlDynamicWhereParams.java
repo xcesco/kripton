@@ -21,7 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Define dynamic where condition's arguments. These arguments are append to existing ones. 
+ * Define dynamic where condition's parameters. These arguments are append to existing ones. 
  * 
  * This annotation can be used: 
  * 
@@ -39,6 +39,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface BindSqlDynamicWhereArgs {
+public @interface BindSqlDynamicWhereParams
+{
 
 }

@@ -115,19 +115,19 @@ public abstract class JavadocUtility {
 			methodBuilder.addJavadoc("<h2>Method's parameters and associated dynamic parts:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{$L}</dd>\n", method.dynamicWhereParameterName,
 						JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
 			if (method.hasDynamicOrderByConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt>is part of order statement resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicOrderByParameterName,
+				methodBuilder.addJavadoc("<dt>$L</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{$L}</dd>\n", method.dynamicOrderByParameterName,
 						JQLDynamicStatementType.DYNAMIC_ORDER_BY);
 			}
 			if (method.hasDynamicPageSizeConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt>is part of limit statement resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicPageSizeName,
+				methodBuilder.addJavadoc("<dt>$L</dt>is part of limit statement resolved at runtime. In above SQL it is displayed as #{$L}</dd>\n", method.dynamicPageSizeName,
 						JQLDynamicStatementType.DYNAMIC_PAGE_SIZE);
 			}
 
-			methodBuilder.addJavadoc("\n</dl>");
+			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");
 		}
 

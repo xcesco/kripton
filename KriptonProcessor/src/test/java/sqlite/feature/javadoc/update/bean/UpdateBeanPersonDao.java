@@ -4,7 +4,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereParams;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.feature.javadoc.Person;
@@ -52,7 +52,7 @@ public interface UpdateBeanPersonDao {
 	 */
 	@BindContentProviderEntry(path = "dynamicArgs/${bean.id}")
 	@BindSqlUpdate(where = "id=${bean.id}")
-	int updateOneBeanWithDynamicAndArgs(Person bean, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String args[]);
+	int updateOneBeanWithDynamicAndArgs(Person bean, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String args[]);
 
 	@BindContentProviderEntry(path = "jql")
 	@BindSqlUpdate(jql = "UPDATE Person SET surname=${bean.surname}, student = ${bean.student}")
@@ -81,6 +81,6 @@ public interface UpdateBeanPersonDao {
 
 	@BindContentProviderEntry(path = "${bean.id}/moreAndMore")
 	@BindSqlUpdate(where = "id=${bean.id}")
-	int updateBeanDynamicWithArgs(Person bean, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
+	int updateBeanDynamicWithArgs(Person bean, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] args);
 
 }

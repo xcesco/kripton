@@ -336,7 +336,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 
@@ -407,12 +407,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * </dl>
    *
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd></dl>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
    * @param id
    * 	is used as where parameter <strong>${id}</strong>
@@ -458,7 +458,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result!=0;
   }
 
@@ -570,7 +570,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 
@@ -790,12 +790,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * </dl>
    *
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd></dl>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
    * @param name
    * 	is used as updated field <strong>name</strong>
@@ -947,12 +947,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * </dl>
    *
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd></dl>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
    * @param name
    * 	is used as updated field <strong>name</strong>
@@ -1281,7 +1281,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id, #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1297,7 +1297,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
+   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -1397,10 +1397,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/[*]/test0</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id, #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id, #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1486,7 +1486,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc, #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1502,7 +1502,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd><dt>order</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
+   * <dt>order</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * @param where
@@ -1599,10 +1600,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person WHERE #{DYNAMIC_WHERE} ORDER BY name asc, #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc,  #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc, #{DYNAMIC_ORDER_BY}</pre>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
@@ -1696,7 +1697,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL compairs as #{DYNAMIC_ORDER_BY}</dd>
+   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -2026,7 +2027,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * @param cursorListener

@@ -5,7 +5,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereArgs;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereParams;
 
 import sqlite.feature.javadoc.Person;
 
@@ -57,6 +57,6 @@ public interface DeleteRawPersonDao {
 
 	@BindContentProviderEntry(path = "${id}/moreAndMore")
 	@BindSqlDelete(where = "id=${id}")
-	int deleteBeanDynamicWithArgs(long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereArgs String[] args);
+	int deleteBeanDynamicWithArgs(long id, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] args);
 
 }

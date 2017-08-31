@@ -13,23 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.android.annotation;
+package sqlite.feature.dynamic.select;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.List;
 
-/**
- * Define a dynamic order by condition. It is appended to <code>order by</code>
- * statement defined with attribute <code>orderBy</code> in
- * <code>BindSqlSelect</code> annotation.
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
- *
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
-public @interface BindSqlDynamicOrderBy {
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+
+import sqlite.feature.dynamic.Person;
+
+@BindDao(Person.class)
+public interface PersonDAO2 {
+
+	@BindSqlSelect(jql="select * from person where id=${id} and #{ DYNAMIC_WHERE }")
+	List<Person> select(long id, @BindSqlDynamicWhere String where);
 
 }

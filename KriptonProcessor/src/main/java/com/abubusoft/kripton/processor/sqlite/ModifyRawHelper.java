@@ -259,7 +259,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		if (method.hasDynamicWhereConditions()) {
 			methodBuilder.addJavadoc("<dl>\n");
-			methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+			methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{$L}</dd>", method.dynamicWhereParameterName,
 					JQLDynamicStatementType.DYNAMIC_WHERE);
 			methodBuilder.addJavadoc("\n</dl>");
 			methodBuilder.addJavadoc("\n\n");
@@ -271,7 +271,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{$L}</dd>", method.dynamicWhereParameterName,
 						JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
 
@@ -457,7 +457,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		if (method.hasDynamicWhereConditions()) {
 			methodBuilder.addJavadoc("<dl>\n");
-			methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+			methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{$L}</dd>", method.dynamicWhereParameterName,
 					JQLDynamicStatementType.DYNAMIC_WHERE);
 			methodBuilder.addJavadoc("\n</dl>");
 			methodBuilder.addJavadoc("\n\n");
@@ -469,7 +469,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{$L}</dd>", method.dynamicWhereParameterName,
+				methodBuilder.addJavadoc("<dt>$L</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{$L}</dd>", method.dynamicWhereParameterName,
 						JQLDynamicStatementType.DYNAMIC_WHERE);
 			}
 

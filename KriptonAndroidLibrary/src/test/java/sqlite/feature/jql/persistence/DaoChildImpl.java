@@ -582,7 +582,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     // log for where parameters -- END
     // conflict algorithm REPLACE
-    int result = database().updateWithOnConflict("child", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),5);;
+    int result = database().updateWithOnConflict("child", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),5);
   }
 
   /**

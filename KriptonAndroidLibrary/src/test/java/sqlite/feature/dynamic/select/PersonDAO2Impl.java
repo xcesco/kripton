@@ -1,4 +1,4 @@
-package sqlite.feature.dynamic.kripton121;
+package sqlite.feature.dynamic.select;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
@@ -13,22 +13,22 @@ import sqlite.feature.dynamic.Person;
 
 /**
  * <p>
- * DAO implementation for entity <code>Person</code>, based on interface <code>Person1DAO</code>
+ * DAO implementation for entity <code>Person</code>, based on interface <code>PersonDAO2</code>
  * </p>
  *
  *  @see Person
- *  @see Person1DAO
+ *  @see PersonDAO2
  *  @see sqlite.feature.dynamic.PersonTable
  */
-public class Person1DAOImpl extends AbstractDao implements Person1DAO {
-  public Person1DAOImpl(BindPerson1DataSource dataSet) {
+public class PersonDAO2Impl extends AbstractDao implements PersonDAO2 {
+  public PersonDAO2Impl(BindPerson2DataSource dataSet) {
     super(dataSet);
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>select * from person where id=${id} and #{ DYNAMIC_WHERE }</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -42,40 +42,39 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
    * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
-   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
-   * @param orderBy
-   * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectOne(String where, String orderBy) {
+  public List<Person> select(long id, String where) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
+    _sqlBuilder.append("select * from person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
-    String _sortOrder=orderBy;
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=StringUtils.ifNotEmptyAppend(_sqlDynamicWhere, " WHERE ");
+    String _sqlWhereStatement=" where id=? and #{ DYNAMIC_WHERE }";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // build where condition
-    // generation order - BEGIN
-    String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
-    _sqlBuilder.append(_sqlOrderByStatement);
-    // generation order - END
-
+    _sqlWhereParams.add(String.valueOf(id));
     //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);

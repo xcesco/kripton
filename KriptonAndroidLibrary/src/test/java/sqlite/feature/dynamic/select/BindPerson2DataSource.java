@@ -1,4 +1,4 @@
-package sqlite.feature.schema.version2;
+package sqlite.feature.dynamic.select;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -10,76 +10,38 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
 import java.util.List;
+import sqlite.feature.dynamic.PersonTable;
 
 /**
  * <p>
- * Rapresents implementation of datasource SchoolDataSource.
+ * Rapresents implementation of datasource Person2DataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see SchoolDataSource
- * @see BindSchoolDaoFactory
- * @see DaoProfessor
- * @see DaoProfessorImpl
- * @see Professor
- * @see DaoSeminar
- * @see DaoSeminarImpl
- * @see Seminar
- * @see DaoSeminar2Student
- * @see DaoSeminar2StudentImpl
- * @see Seminar2Student
- * @see DaoStudent
- * @see DaoStudentImpl
- * @see Student
+ * @see Person2DataSource
+ * @see BindPerson2DaoFactory
+ * @see PersonDAO2
+ * @see PersonDAO2Impl
+ * @see sqlite.feature.dynamic.Person
  */
-public class BindSchoolDataSource extends AbstractDataSource implements BindSchoolDaoFactory, SchoolDataSource {
+public class BindPerson2DataSource extends AbstractDataSource implements BindPerson2DaoFactory, Person2DataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindSchoolDataSource instance;
+  static BindPerson2DataSource instance;
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoProfessorImpl daoProfessor = new DaoProfessorImpl(this);
+  protected PersonDAO2Impl personDAO2 = new PersonDAO2Impl(this);
 
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoSeminarImpl daoSeminar = new DaoSeminarImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoSeminar2StudentImpl daoSeminar2Student = new DaoSeminar2StudentImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoStudentImpl daoStudent = new DaoStudentImpl(this);
-
-  protected BindSchoolDataSource(DataSourceOptions options) {
-    super("school", 2, options);
+  protected BindPerson2DataSource(DataSourceOptions options) {
+    super("person.db", 1, options);
   }
 
   @Override
-  public DaoProfessorImpl getDaoProfessor() {
-    return daoProfessor;
-  }
-
-  @Override
-  public DaoSeminarImpl getDaoSeminar() {
-    return daoSeminar;
-  }
-
-  @Override
-  public DaoSeminar2StudentImpl getDaoSeminar2Student() {
-    return daoSeminar2Student;
-  }
-
-  @Override
-  public DaoStudentImpl getDaoStudent() {
-    return daoStudent;
+  public PersonDAO2Impl getPersonDAO2() {
+    return personDAO2;
   }
 
   /**
@@ -112,9 +74,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * instance
    */
-  public static synchronized BindSchoolDataSource instance() {
+  public static synchronized BindPerson2DataSource instance() {
     if (instance==null) {
-      instance=new BindSchoolDataSource(null);
+      instance=new BindPerson2DataSource(null);
     }
     return instance;
   }
@@ -123,8 +85,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindSchoolDataSource open() {
-    BindSchoolDataSource instance=instance();
+  public static BindPerson2DataSource open() {
+    BindPerson2DataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -133,8 +95,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindSchoolDataSource openReadOnly() {
-    BindSchoolDataSource instance=instance();
+  public static BindPerson2DataSource openReadOnly() {
+    BindPerson2DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -146,14 +108,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-    database.execSQL(StudentTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
-    database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
-    database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -187,14 +143,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-      database.execSQL(StudentTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
-      database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
-      database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -207,7 +157,6 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
@@ -217,9 +166,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindSchoolDataSource build(DataSourceOptions options) {
+  public static BindPerson2DataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindSchoolDataSource(options);
+      instance=new BindPerson2DataSource(options);
     }
     instance.openWritableDatabase();
     return instance;
@@ -228,7 +177,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindSchoolDaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindPerson2DaoFactory> {
   }
 
   /**

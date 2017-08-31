@@ -337,7 +337,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * @param bean
@@ -499,7 +499,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * @param bean
@@ -1010,7 +1010,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * @param bean
@@ -1172,7 +1172,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL compairs as #{DYNAMIC_WHERE}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * @param bean
