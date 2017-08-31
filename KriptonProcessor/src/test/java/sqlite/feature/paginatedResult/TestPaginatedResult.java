@@ -22,9 +22,6 @@ import org.junit.runners.JUnit4;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.paginatedResult.Person;
-import sqlite.feature.paginatedResult.PersonDAO;
-import sqlite.feature.paginatedResult.PersonDataSource;
 
 @RunWith(JUnit4.class)
 public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
@@ -81,6 +78,17 @@ public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 	public void testErr4() throws Throwable {
 		this.expectedException(InvalidMethodSignException.class);
 		buildDataSourceProcessorTest(Err4PersonDataSource.class, Err4PersonDAO.class, Err4Person.class);
+	}
+
+	/**
+	 * pageSize in annotation negative
+	 * 
+	 * @throws Throwable
+	 */
+	@Test
+	public void testErr5() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Err5PersonDataSource.class, Err5PersonDAO.class, Person.class);
 	}
 
 }

@@ -83,8 +83,9 @@ public abstract class SqlSelectBuilder {
 	 * @param elementUtils
 	 * @param builder
 	 * @param method
+	 * @throws ClassNotFoundException
 	 */
-	public static void generateSelect(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
+	public static void generateSelect(Elements elementUtils, Builder builder, SQLiteModelMethod method) throws ClassNotFoundException {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -121,33 +122,29 @@ public abstract class SqlSelectBuilder {
 			AssertKripton.assertTrueOrInvalidMethodSignException(returnParameterizedTypeName.typeArguments.size() == 1, method, "return type %s is not supported", returnTypeName);
 			TypeName elementName = returnParameterizedTypeName.typeArguments.get(0);
 
-			try {
-				Class<?> wrapperClazz = Class.forName(returnParameterizedClassName.toString());
-				if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
-					// method must have pageSize, statically or dynamically
-					// defined
-					AssertKripton.assertTrueOrInvalidMethodSignException(method.hasDynamicPageSizeConditions() || pageSize > 0, method,
-							"use of PaginatedResult require 'pageSize' attribute or a @%s annotated parameter", returnTypeName, BindSqlPageSize.class.getSimpleName());
+			Class<?> wrapperClazz = Class.forName(returnParameterizedClassName.toString());
+			if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
+				// method must have pageSize, statically or dynamically
+				// defined
+				AssertKripton.assertTrueOrInvalidMethodSignException(method.hasDynamicPageSizeConditions() || pageSize > 0, method,
+						"use of PaginatedResult requires 'pageSize' attribute or a @%s annotated parameter", returnTypeName, BindSqlPageSize.class.getSimpleName());
 
-					// paged result
-					AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isEquals(elementName, entity.getName().toString()), method, "return type %s is not supported", returnTypeName);
-					selectResultType = SelectBuilderUtility.SelectType.PAGED_RESULT;
-					// set typeName of paginatedResult
-					method.paginatedResultName = "paginatedResult";
-				} else if (Collection.class.isAssignableFrom(wrapperClazz)) {
-					if (TypeUtility.isEquals(elementName, entity.getName().toString())) {
-						// entity list
-						selectResultType = SelectBuilderUtility.SelectType.LIST_BEAN;
-					} else if (SQLTransformer.isSupportedJDKType(elementName) || TypeUtility.isByteArray(elementName)) {
-						// scalar list
-						selectResultType = SelectBuilderUtility.SelectType.LIST_SCALAR;
-					} else {
-						AssertKripton.failWithInvalidMethodSignException(true, method, "");
-					}
-
+				// paged result
+				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isEquals(elementName, entity.getName().toString()), method, "return type %s is not supported", returnTypeName);
+				selectResultType = SelectBuilderUtility.SelectType.PAGED_RESULT;
+				// set typeName of paginatedResult
+				method.paginatedResultName = "paginatedResult";
+			} else if (Collection.class.isAssignableFrom(wrapperClazz)) {
+				if (TypeUtility.isEquals(elementName, entity.getName().toString())) {
+					// entity list
+					selectResultType = SelectBuilderUtility.SelectType.LIST_BEAN;
+				} else if (SQLTransformer.isSupportedJDKType(elementName) || TypeUtility.isByteArray(elementName)) {
+					// scalar list
+					selectResultType = SelectBuilderUtility.SelectType.LIST_SCALAR;
+				} else {
+					AssertKripton.failWithInvalidMethodSignException(true, method, "");
 				}
-			} catch (Exception e) {
-				// error
+
 			}
 		} else if (TypeUtility.isEquals(returnTypeName, entity)) {
 			// return one element (no listener)

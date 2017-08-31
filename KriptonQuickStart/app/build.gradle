@@ -3,12 +3,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     signingConfigs {
-        config {
-            keyAlias System.getenv("GRADLE_KEYSTORE_ALIAS")
-            keyPassword System.getenv("GRADLE_KEYSTORE_ALIAS_PASSWORD")
-            storeFile file(System.getenv("GRADLE_KEYSTORE_FILE"))
-            storePassword System.getenv("GRADLE_KEYSTORE_PASSWORD")
-        }
+
     }
 
     compileSdkVersion 25
@@ -23,7 +18,6 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.config
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
@@ -32,7 +26,7 @@ android {
     }
 }
 
-def kriptonVersion ="1.6.0"
+def kriptonVersion ="2.0.1"
 def retrofitLoggingInterceptor="3.4.1"
 def glideVersion= "3.7.0"
 
