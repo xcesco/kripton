@@ -11,6 +11,9 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
+ * <h2>Content provider authority:</h2>
+ * <pre>sqlite.feature.javadoc.bean</pre>
+ *
  *
  * <h2>Supported insert operations</h2>
  * <table>
@@ -20,11 +23,11 @@ import java.lang.String;
  * <h2>Supported update operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/${id}</td><td>{@link UpdateRawPersonDaoImpl#updateBean2}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/${id}/more</td><td>{@link UpdateRawPersonDaoImpl#updateBeanDynamic3}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore</td><td>{@link UpdateRawPersonDaoImpl#updateBeanDynamicWithArgs4}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql/${surname}</td><td>{@link UpdateRawPersonDaoImpl#updateAllBeansJQL0}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql/all/${surname}</td><td>{@link UpdateRawPersonDaoImpl#updateFromSelectJQL1}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${id}</pre></td><td>{@link UpdateRawPersonDaoImpl#updateBean2}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${id}/more</pre></td><td>{@link UpdateRawPersonDaoImpl#updateBeanDynamic3}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore</pre></td><td>{@link UpdateRawPersonDaoImpl#updateBeanDynamicWithArgs4}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/${surname}</pre></td><td>{@link UpdateRawPersonDaoImpl#updateAllBeansJQL0}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/all/${surname}</pre></td><td>{@link UpdateRawPersonDaoImpl#updateFromSelectJQL1}</td></tr>
  * </table>
  */
 public class BindUpdateRawPersonContentProvider extends ContentProvider {

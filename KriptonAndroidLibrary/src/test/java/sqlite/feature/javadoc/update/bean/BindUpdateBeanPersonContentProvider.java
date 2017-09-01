@@ -11,6 +11,9 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
+ * <h2>Content provider authority:</h2>
+ * <pre>sqlite.feature.javadoc.bean</pre>
+ *
  *
  * <h2>Supported insert operations</h2>
  * <table>
@@ -20,14 +23,14 @@ import java.lang.String;
  * <h2>Supported update operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons</td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeans0}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}</td><td>{@link UpdateBeanPersonDaoImpl#updateOneBean1}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}/more</td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamic6}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamicWithArgs7}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamic2}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}</td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamicAndArgs3}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql</td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</td><td>{@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeans0}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBean1}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/more</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamic6}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamicWithArgs7}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamic2}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamicAndArgs3}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5}</td></tr>
  * </table>
  */
 public class BindUpdateBeanPersonContentProvider extends ContentProvider {

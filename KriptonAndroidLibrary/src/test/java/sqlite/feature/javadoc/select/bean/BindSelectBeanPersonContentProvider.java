@@ -10,6 +10,9 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
+ * <h2>Content provider authority:</h2>
+ * <pre>sqlite.feature.javadoc.bean</pre>
+ *
  *
  * <h2>Supported insert operations</h2>
  * <table>
@@ -19,15 +22,15 @@ import java.lang.String;
  * <h2>Supported query operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons</td><td>{@link SelectBeanPersonDaoImpl#selectAllBeans0}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectOneBean2}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/a/${love.id}</td><td>{@link SelectBeanPersonDaoImpl#selectAllBeansCount1}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamic3}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrder5}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicAndArgs4}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectWithJQL7}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/${bean.id}</td><td>{@link SelectBeanPersonDaoImpl#selectWithJQLAndInnerSQL8}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link SelectBeanPersonDaoImpl#selectAllBeans0}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBean2}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${love.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectAllBeansCount1}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamic3}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrder5}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicAndArgs4}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectWithJQL7}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectWithJQLAndInnerSQL8}</td></tr>
  * </table>
  */
 public class BindSelectBeanPersonContentProvider extends ContentProvider {

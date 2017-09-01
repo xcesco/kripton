@@ -11,40 +11,44 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
+ * <p>This is the content provider generated for {@link PersonDataSource}</p>
+ *
+ * <h2>Content provider authority:</h2>
+ * <pre>sqlite.feature.contentprovider.kripton35</pre>
  *
  * <h2>Supported insert operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/cities</td><td>{@link CityDAOImpl#insertBean0}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons</td><td>{@link PersonDAOImpl#insertBean0}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/${name}</td><td>{@link PersonDAOImpl#insertName1}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/cities</pre></td><td>{@link CityDAOImpl#insertBean0}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></td><td>{@link PersonDAOImpl#insertBean0}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${name}</pre></td><td>{@link PersonDAOImpl#insertName1}</td></tr>
  * </table>
  *
  * <h2>Supported update operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/${id}</td><td>{@link PersonDAOImpl#updateRaw5}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/test1/${id}</td><td>{@link PersonDAOImpl#updateRaw6}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/test2/${id}</td><td>{@link PersonDAOImpl#updateRaw7}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/test3/${person.id}</td><td>{@link PersonDAOImpl#updateBean8}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw5}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw6}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test2/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw7}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test3/${person.id}</pre></td><td>{@link PersonDAOImpl#updateBean8}</td></tr>
  * </table>
  *
  * <h2>Supported query operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/cities/person/${personId}</td><td>{@link CityDAOImpl#selectCityFromPerson1}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons</td><td>{@link PersonDAOImpl#selectAll10}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/${nameTemp}/test0</td><td>{@link PersonDAOImpl#selectOne9}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/${data.name}/test1</td><td>{@link PersonDAOImpl#selectOne11}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/test3</td><td>{@link PersonDAOImpl#selectBean12}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/cities/person/${personId}</pre></td><td>{@link CityDAOImpl#selectCityFromPerson1}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></td><td>{@link PersonDAOImpl#selectAll10}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${nameTemp}/test0</pre></td><td>{@link PersonDAOImpl#selectOne9}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${data.name}/test1</pre></td><td>{@link PersonDAOImpl#selectOne11}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test3</pre></td><td>{@link PersonDAOImpl#selectBean12}</td></tr>
  * </table>
  *
  * <h2>Supported delete operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/${id}</td><td>{@link PersonDAOImpl#deleteRaw2}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/test0/${id}</td><td>{@link PersonDAOImpl#deleteRaw3}</td></tr>
- * <tr><td>content://sqlite.feature.contentprovider.kripton35/persons/test1/${bean.id}</td><td>{@link PersonDAOImpl#deleteBean4}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre></td><td>{@link PersonDAOImpl#deleteRaw2}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test0/${id}</pre></td><td>{@link PersonDAOImpl#deleteRaw3}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${bean.id}</pre></td><td>{@link PersonDAOImpl#deleteBean4}</td></tr>
  * </table>
  */
 public class BindPersonContentProvider extends ContentProvider {

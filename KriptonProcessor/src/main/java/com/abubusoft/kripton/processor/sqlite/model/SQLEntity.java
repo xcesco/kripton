@@ -34,7 +34,7 @@ public class SQLEntity extends ModelClass<SQLProperty> implements Finder<SQLProp
 
 	/**
 	 * Set of entities for which there's a foreign in this entities. In other
-	 * words, rapresents entities from which this entity depends.
+	 * words, represents entities from which this entity depends.
 	 */
 	public Set<SQLEntity> referedEntities = new HashSet<>();
 

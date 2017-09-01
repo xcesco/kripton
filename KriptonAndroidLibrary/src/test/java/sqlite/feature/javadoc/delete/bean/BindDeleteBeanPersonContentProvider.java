@@ -11,6 +11,9 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
+ * <h2>Content provider authority:</h2>
+ * <pre>sqlite.feature.javadoc.bean</pre>
+ *
  *
  * <h2>Supported insert operations</h2>
  * <table>
@@ -20,11 +23,11 @@ import java.lang.String;
  * <h2>Supported delete operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}</td><td>{@link DeleteBeanPersonDaoImpl#deleteOneBean0}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamicWithArgs4}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/a/${bean.surname}/${bean.name}</td><td>{@link DeleteBeanPersonDaoImpl#deleteFromSelectAllBeansJQL1}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/single/${bean.id}</td><td>{@link DeleteBeanPersonDaoImpl#deleteBean2}</td></tr>
- * <tr><td>content://sqlite.feature.javadoc.bean/persons/single2/${bean.id}</td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamic3}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteOneBean0}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamicWithArgs4}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${bean.surname}/${bean.name}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteFromSelectAllBeansJQL1}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBean2}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single2/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamic3}</td></tr>
  * </table>
  */
 public class BindDeleteBeanPersonContentProvider extends ContentProvider {

@@ -155,7 +155,12 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindContentProvider.class, packageName, contentProviderName);
 		classBuilder = TypeSpec.classBuilder(contentProviderName).addModifiers(Modifier.PUBLIC).superclass(ContentProvider.class);
-
+		
+		classBuilder.addJavadoc("<p>This is the content provider generated for {@link $L}</p>\n\n", dataSourceName);
+		
+		classBuilder.addJavadoc("<h2>Content provider authority:</h2>\n");
+		classBuilder.addJavadoc("<pre>$L</pre>\n", schema.contentProvider.authority);
+		
 		generateOnCreate(dataSourceNameClazz);
 
 		generateOnShutdown(dataSourceNameClazz);
@@ -346,7 +351,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	private void defineJavadocForContentUri(SQLiteModelMethod method) {
-		classBuilder.addJavadoc("<tr><td>$L</td><td>{@link $LImpl#$L}</td></tr>\n", method.contentProviderUri(), method.getParent().getName(), method.contentProviderMethodName);
+		classBuilder.addJavadoc("<tr><td><pre>$L</pre></td><td>{@link $LImpl#$L}</td></tr>\n", method.contentProviderUri(), method.getParent().getName(), method.contentProviderMethodName);
 
 	}
 

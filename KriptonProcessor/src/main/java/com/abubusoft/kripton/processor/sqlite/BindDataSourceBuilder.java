@@ -166,7 +166,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 				.addSuperinterface(TypeUtility.typeName(schema.getElement().asType()));
 
 		classBuilder.addJavadoc("<p>\n");
-		classBuilder.addJavadoc("Rapresents implementation of datasource $L.\n", schema.getName());
+		classBuilder.addJavadoc("Represents implementation of datasource $L.\n", schema.getName());
 		classBuilder.addJavadoc("This class expose database interface through Dao attribute.\n", schema.getName());
 		classBuilder.addJavadoc("</p>\n\n");
 

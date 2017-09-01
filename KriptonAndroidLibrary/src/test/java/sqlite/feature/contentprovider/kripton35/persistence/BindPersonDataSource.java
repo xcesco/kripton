@@ -15,7 +15,7 @@ import sqlite.feature.contentprovider.kripton35.entities.PersonTable;
 
 /**
  * <p>
- * Rapresents implementation of datasource PersonDataSource.
+ * Represents implementation of datasource PersonDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
