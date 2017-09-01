@@ -31,9 +31,9 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.MultiplicityResultType;
-import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -153,7 +153,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
-		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, dataSourceName);
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindContentProvider.class, packageName, contentProviderName);
 		classBuilder = TypeSpec.classBuilder(contentProviderName).addModifiers(Modifier.PUBLIC).superclass(ContentProvider.class);
 
 		generateOnCreate(dataSourceNameClazz);
@@ -176,13 +176,13 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		List<FieldSpec> list1 = new ArrayList<>();
 		List<FieldSpec> list2 = new ArrayList<>();
-		
+
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
 			String pathConstantName = "PATH_" + daoConstantConverter.convert(daoDefinition.getEntitySimplyClassName());
 
 			if (!daoDefinition.contentProviderEnabled)
 				continue;
-			
+
 			// define content provider paths
 			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
 				if (!daoMethod.contentProviderEntryPathEnabled)
@@ -194,34 +194,35 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 					uriSet.put(daoMethod.contentProviderEntryPathTemplate, entry);
 
 					entry.path = daoMethod.contentProviderEntryPath;
-					entry.uriTemplate=daoMethod.contentProviderEntryPathTemplate;
-					
-					// we finish  later				
-					entry.pathCostant = pathConstantName; //;+ "_" + i;
-					entry.pathIndex = pathConstantName; //;+ "_" + i + "_INDEX";
-					//entry.pathValue = i;
-										
+					entry.uriTemplate = daoMethod.contentProviderEntryPathTemplate;
+
+					// we finish later
+					entry.pathCostant = pathConstantName; // ;+ "_" + i;
+					entry.pathIndex = pathConstantName; // ;+ "_" + i +
+														// "_INDEX";
+					// entry.pathValue = i;
+
 				}
 
 				switch (daoMethod.jql.operationType) {
 				case INSERT:
-					AssertKripton.fail(entry.insert != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'", daoDefinition.getName().toString(),
-							daoMethod.jql.operationType, entry.path));
+					AssertKripton.fail(entry.insert != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'",
+							daoDefinition.getName().toString(), daoMethod.jql.operationType, entry.path));
 					entry.insert = daoMethod;
 					break;
 				case UPDATE:
-					AssertKripton.fail(entry.update != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'", daoDefinition.getName().toString(),
-							daoMethod.jql.operationType, entry.path));
+					AssertKripton.fail(entry.update != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'",
+							daoDefinition.getName().toString(), daoMethod.jql.operationType, entry.path));
 					entry.update = daoMethod;
 					break;
 				case SELECT:
-					AssertKripton.fail(entry.select != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'", daoDefinition.getName().toString(),
-							daoMethod.jql.operationType, entry.path));
+					AssertKripton.fail(entry.select != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'",
+							daoDefinition.getName().toString(), daoMethod.jql.operationType, entry.path));
 					entry.select = daoMethod;
 					break;
 				case DELETE:
-					AssertKripton.fail(entry.delete != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'", daoDefinition.getName().toString(),
-							daoMethod.jql.operationType, entry.path));
+					AssertKripton.fail(entry.delete != null, String.format("In DAO %s, there are more than one %s statement associated to content provider path '%s'",
+							daoDefinition.getName().toString(), daoMethod.jql.operationType, entry.path));
 					entry.delete = daoMethod;
 					break;
 
@@ -247,18 +248,18 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		};
 		Collections.sort(listUriSet, c);
 
-		int i=1;
+		int i = 1;
 		for (Pair<String, ContentEntry> entry : listUriSet) {
 			// define ordered part of attributes (after sort)
 			entry.value1.pathCostant += "_" + i;
 			entry.value1.pathIndex += "_" + i + "_INDEX";
 			entry.value1.pathValue = i;
-			
+
 			// build class attributes
 			list1.add(FieldSpec.builder(String.class, entry.value1.pathCostant, Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC).initializer(CodeBlock.of("$S", entry.value1.uriTemplate)).build());
 			list2.add(FieldSpec.builder(Integer.TYPE, entry.value1.pathIndex, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$L", entry.value1.pathValue)).build());
 			staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $L, $L)", entry.value1.pathCostant, entry.value1.pathIndex);
-			
+
 			i++;
 		}
 
@@ -303,7 +304,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		boolean hasOperation = hasOperationOfType(schema, methodBuilder, JQLType.INSERT);
 
 		defineJavadocHeaderForContentOperation("insert");
-		
+
 		// method code
 		methodBuilder.addStatement("long _id=-1");
 		methodBuilder.addStatement("$T _returnURL=null", Uri.class);
@@ -321,7 +322,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
-		
+
 		classBuilder.addJavadoc("</table>\n");
 
 		methodBuilder.beginControlFlow("default:");
@@ -345,7 +346,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	private void defineJavadocForContentUri(SQLiteModelMethod method) {
-		classBuilder.addJavadoc("<tr><td>$L</td><td>{@link $LImpl#$L}</td></tr>\n", method.contentProviderUri(), method.getParent().getName(),method.contentProviderMethodName);
+		classBuilder.addJavadoc("<tr><td>$L</td><td>{@link $LImpl#$L}</td></tr>\n", method.contentProviderUri(), method.getParent().getName(), method.contentProviderMethodName);
 
 	}
 
@@ -365,16 +366,16 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		methodBuilder.addStatement("int returnRowDeleted=-1");
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
-		
+
 		defineJavadocHeaderForContentOperation("delete");
-		
+
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
 			if (item.getValue().delete == null)
 				continue;
-			
+
 			defineJavadocForContentUri(item.getValue().delete);
-			
-			//methodBuilder.addJavadoc("uri $L\n", item.getKey());
+
+			// methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
 			methodBuilder.addCode("// URI: $L\n", item.getValue().delete.contentProviderUri());
@@ -383,9 +384,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
-		
+
 		classBuilder.addJavadoc("</table>\n");
-		
 
 		methodBuilder.beginControlFlow("default:");
 		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.DELETE);
@@ -420,7 +420,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		}
 
 		defineJavadocHeaderForContentOperation("update");
-		
+
 		methodBuilder.addStatement("int returnRowUpdated=1");
 
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
@@ -428,9 +428,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			if (item.getValue().update == null)
 				continue;
 
-			//methodBuilder.addJavadoc("uri $L\n", item.getKey());
+			// methodBuilder.addJavadoc("uri $L\n", item.getKey());
 			defineJavadocForContentUri(item.getValue().update);
-		
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
 			methodBuilder.addCode("// URI: $L\n", item.getValue().update.contentProviderUri());
@@ -439,7 +438,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			methodBuilder.addStatement("break");
 			methodBuilder.endControlFlow();
 		}
-		
+
 		classBuilder.addJavadoc("</table>\n");
 
 		methodBuilder.beginControlFlow("default:");
@@ -465,7 +464,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		classBuilder.addJavadoc("\n<h2>Supported $L operations</h2>\n", value);
 		classBuilder.addJavadoc("<table>\n");
 		classBuilder.addJavadoc("<tr><th>URI</th><th>DAO.METHOD</th></tr>\n");
-		
+
 	}
 
 	/**
@@ -500,7 +499,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
-			//methodBuilder.addJavadoc("uri $L\n", item.getKey());
+			// methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
 			methodBuilder.addStatement("return $S", item.getValue().getContentType());
@@ -567,17 +566,17 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 				methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
 			}
 		}
-		
+
 		defineJavadocHeaderForContentOperation("query");
 
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");
 		for (Entry<String, ContentEntry> item : uriSet.entrySet()) {
 			if (item.getValue().select == null)
 				continue;
-			
+
 			defineJavadocForContentUri(item.getValue().select);
 
-			//methodBuilder.addJavadoc("uri $L\n", item.getKey());
+			// methodBuilder.addJavadoc("uri $L\n", item.getKey());
 
 			methodBuilder.beginControlFlow("case $L:", item.getValue().pathIndex);
 			methodBuilder.addCode("// URI: $L\n", item.getValue().select.contentProviderUri());
@@ -591,7 +590,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.endControlFlow();
 
 		methodBuilder.endControlFlow();
-		
+
 		classBuilder.addJavadoc("</table>\n");
 
 		if (hasOperation) {
