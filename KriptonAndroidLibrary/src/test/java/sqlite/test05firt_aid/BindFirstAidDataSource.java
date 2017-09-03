@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource FirstAidDataSource.
+ * Represents implementation of datasource FirstAidDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

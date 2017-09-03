@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource Dummy02DataSource.
+ * Represents implementation of datasource Dummy02DataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

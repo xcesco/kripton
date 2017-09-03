@@ -14,7 +14,7 @@ import sqlite.feature.javadoc.PersonTable;
 
 /**
  * <p>
- * Rapresents implementation of datasource InsertRawPersonDataSource.
+ * Represents implementation of datasource InsertRawPersonDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

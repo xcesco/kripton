@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource Bean84BDataSource.
+ * Represents implementation of datasource Bean84BDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

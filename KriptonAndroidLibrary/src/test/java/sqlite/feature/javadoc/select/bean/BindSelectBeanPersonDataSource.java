@@ -14,7 +14,7 @@ import sqlite.feature.javadoc.PersonTable;
 
 /**
  * <p>
- * Rapresents implementation of datasource SelectBeanPersonDataSource.
+ * Represents implementation of datasource SelectBeanPersonDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

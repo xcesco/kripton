@@ -14,7 +14,7 @@ import sqlite.kripton48.entities.Bean01Table;
 
 /**
  * <p>
- * Rapresents implementation of datasource Dummy01DataSource.
+ * Represents implementation of datasource Dummy01DataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

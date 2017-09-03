@@ -11,9 +11,10 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
+ * <p>This is the content provider generated for {@link DeleteRawPersonDataSource}</p>
+ *
  * <h2>Content provider authority:</h2>
  * <pre>sqlite.feature.javadoc.bean</pre>
- *
  *
  * <h2>Supported insert operations</h2>
  * <table>

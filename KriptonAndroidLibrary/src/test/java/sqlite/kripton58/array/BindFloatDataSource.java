@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource FloatDataSource.
+ * Represents implementation of datasource FloatDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

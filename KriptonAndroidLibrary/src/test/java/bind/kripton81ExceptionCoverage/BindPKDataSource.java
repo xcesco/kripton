@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource PKDataSource.
+ * Represents implementation of datasource PKDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

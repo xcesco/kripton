@@ -14,7 +14,7 @@ import sqlite.select.PersonTable;
 
 /**
  * <p>
- * Rapresents implementation of datasource PersonDataSource.
+ * Represents implementation of datasource PersonDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

@@ -14,7 +14,7 @@ import sqlite.kripton51.entities.MessageEntityTable;
 
 /**
  * <p>
- * Rapresents implementation of datasource WhisperDataSource.
+ * Represents implementation of datasource WhisperDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource ByteDataSource.
+ * Represents implementation of datasource ByteDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

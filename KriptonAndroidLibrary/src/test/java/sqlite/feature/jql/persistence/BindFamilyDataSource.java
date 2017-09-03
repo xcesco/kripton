@@ -15,7 +15,7 @@ import sqlite.feature.jql.entities.PersonTable;
 
 /**
  * <p>
- * Rapresents implementation of datasource FamilyDataSource.
+ * Represents implementation of datasource FamilyDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

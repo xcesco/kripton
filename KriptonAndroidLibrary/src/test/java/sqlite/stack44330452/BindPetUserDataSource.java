@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource PetUserDataSource.
+ * Represents implementation of datasource PetUserDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

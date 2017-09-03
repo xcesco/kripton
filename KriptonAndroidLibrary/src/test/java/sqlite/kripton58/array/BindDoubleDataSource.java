@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource DoubleDataSource.
+ * Represents implementation of datasource DoubleDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

@@ -16,7 +16,7 @@ import sqlite.kripton111.model.PrefixConfigTable;
 
 /**
  * <p>
- * Rapresents implementation of datasource XenoDataSource.
+ * Represents implementation of datasource XenoDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

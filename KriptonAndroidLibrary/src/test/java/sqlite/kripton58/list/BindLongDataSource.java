@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource LongDataSource.
+ * Represents implementation of datasource LongDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

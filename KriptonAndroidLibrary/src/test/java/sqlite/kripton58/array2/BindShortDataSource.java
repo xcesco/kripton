@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource ShortDataSource.
+ * Represents implementation of datasource ShortDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

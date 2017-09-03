@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * Rapresents implementation of datasource CharDataSource.
+ * Represents implementation of datasource CharDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
