@@ -116,6 +116,19 @@
 			</distributionManagement>
 
 		</profile>
+		
+		<profile>
+			<id>deploy-bintray</id>
+			<!-- distribution manager -->
+			<distributionManagement>
+				<repository>
+					<id>bintray-xcesco-kripton</id>
+					<name>xcesco-kripton</name>
+					<url>https://api.bintray.com/maven/xcesco/kripton/${project.artifactId}/;publish=1</url>
+				</repository>
+
+			</distributionManagement>
+		</profile>
 
 		<profile>
 			<id>release</id>
