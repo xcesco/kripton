@@ -7,14 +7,7 @@
 # Kripton Persistence Library
 Kripton is a java library, for Android and Java platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface. Supported persistence format are:
 
-* SQLite database (Android platform)
-* Shared preference (Android platform)
-* REST service, via [Retrofit library](http://square.github.io/retrofit/) integration
-* JSON format
-* XML format
-* CBOR format
-* (Java) properties format
-* YAML format
+<img src="https://github.com/xcesco/wikis/blob/master/kripton/overview2.0.png">
 
 To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object without using reflection and with just few lines of code.
 
@@ -32,7 +25,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
   <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>1.6.1</version>
+    <version>2.0.1</version>
   </dependency>
   ...
 </dependencies>
@@ -51,7 +44,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 		  <path>
 		    <groupId>com.abubusoft</groupId>
 		    <artifactId>kripton-processor</artifactId>
-		    <version>1.6.1</version>
+		    <version>2.0.1</version>
 		</path>
 	    </annotationProcessorPaths>
 	  </configuration>
