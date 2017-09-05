@@ -58,10 +58,10 @@ or via gradle
 
 ```
 // annotation processor
-apt "com.abubusoft:kripton-processor:1.6.1"
+annotationProcessor "com.abubusoft:kripton-processor:2.0.1"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-compile "com.abubusoft:kripton-android-library:1.6.1"
+compile "com.abubusoft:kripton-android-library:2.0.1"
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
