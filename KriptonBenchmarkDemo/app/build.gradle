@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     signingConfigs {
@@ -20,8 +19,8 @@ android {
         applicationId 'com.abubusoft.kripton.benchmark'
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 160
-        versionName "1.6.0"
+        versionCode 202
+        versionName "2.0.2"
     }
     buildTypes {
         release {
@@ -37,19 +36,19 @@ android {
     }
 }
 
-def kriptonVersion = "1.6.0"
+def kriptonVersion = "2.0.2"
 
 dependencies {
-    apt "com.abubusoft:kripton-processor:${kriptonVersion}"
-    apt 'com.bluelinelabs:logansquare-compiler:1.3.5'
+    annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
+    annotationProcessor 'com.bluelinelabs:logansquare-compiler:1.3.7'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.abubusoft:kripton-android-library:${kriptonVersion}"
     compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.bluelinelabs:logansquare:1.3.5'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.1'
-    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.bluelinelabs:logansquare:1.3.7'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.0'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
+    compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.squareup.moshi:moshi:1.0.0'
     compile 'com.android.support:design:25.1.0'
 
