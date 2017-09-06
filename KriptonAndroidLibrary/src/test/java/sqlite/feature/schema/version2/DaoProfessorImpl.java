@@ -22,7 +22,7 @@ public class DaoProfessorImpl extends AbstractDao implements DaoProfessor {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO professor (name, birth_date, surname) VALUES (${bean.name}, ${bean.birthDate}, ${bean.surname})</pre>
+   * <pre>INSERT INTO professor (name, birth_date, surname) VALUES (${name}, ${birthDate}, ${surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

@@ -180,12 +180,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name) VALUES (${bean.name})</pre>
+   * <pre>INSERT INTO person (name, id) VALUES (${bean.name}, ${bean.id})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * </dl>
    *
@@ -203,6 +204,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     } else {
       contentValues.putNull("name");
     }
+    contentValues.put("id", bean.id);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
@@ -310,6 +312,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Updated columns:</h2>
    * <dl>
+   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * </dl>
    *
@@ -326,6 +329,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     } else {
       contentValues.putNull("name");
     }
+    contentValues.put("id", bean.id);
 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 

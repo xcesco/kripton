@@ -223,12 +223,27 @@ public class JQLChecker {
 		return result;
 	}
 
-	public Set<String> extractColumnsToUpdate(final JQLContext jqlContext, String jqlValue, final Finder<SQLProperty> entity) {
+	public Set<String> extractColumnsToInsertOrUpdate(final JQLContext jqlContext, String jqlValue, final Finder<SQLProperty> entity) {
 		final Set<String> result = new LinkedHashSet<String>();
 
 		final One<Boolean> selectionOn = new One<Boolean>(null);
+		final One<Boolean> insertOn = new One<Boolean>(null);
 
+		// Column_name_set is needed for insert
+		// Columns_to_update is needed for update
 		analyzeInternal(jqlContext, jqlValue, new JqlBaseListener() {
+			
+			@Override
+			public void enterColumn_name_set(Column_name_setContext ctx) {
+				if (insertOn.value0 == null) {
+					insertOn.value0 = true;
+				}
+			}
+			
+			@Override
+			public void exitColumn_name_set(Column_name_setContext ctx) {
+				insertOn.value0 = false;
+			}
 
 			@Override
 			public void enterColumns_to_update(Columns_to_updateContext ctx) {
@@ -240,6 +255,14 @@ public class JQLChecker {
 			@Override
 			public void exitColumns_to_update(Columns_to_updateContext ctx) {
 				selectionOn.value0 = false;
+			}
+			
+			@Override
+			public void enterColumn_name(Column_nameContext ctx) {
+				// works for INSERTS
+				if (insertOn.value0!=null && insertOn.value0==true) {
+					result.add(ctx.getText());
+				}
 			}
 
 			@Override

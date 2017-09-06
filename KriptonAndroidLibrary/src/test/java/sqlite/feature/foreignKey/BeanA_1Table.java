@@ -20,9 +20,9 @@ public class BeanA_1Table {
    * DDL to create table bean_a_1
    * </p>
    *
-   * <pre>CREATE TABLE bean_a_1 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_2(pk));</pre>
+   * <pre>CREATE TABLE bean_a_1 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_2(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean_a_1 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_2(pk));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean_a_1 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_2(id));";
 
   /**
    * <p>

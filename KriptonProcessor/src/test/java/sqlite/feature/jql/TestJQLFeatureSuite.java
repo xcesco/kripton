@@ -19,12 +19,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
+import sqlite.feature.jql.kripton163.TestCompileKripton163;
+import sqlite.feature.jql.kripton164.TestCompileKripton164;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestJQL.class		
+		TestJQL.class,
+		TestCompileKripton163.class,
+		TestCompileKripton164.class
 		 })
 //@formatter:on
 public class TestJQLFeatureSuite extends BaseProcessorTest {

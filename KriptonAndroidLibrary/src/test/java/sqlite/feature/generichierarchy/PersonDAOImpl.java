@@ -111,7 +111,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${bean.name}, ${bean.surname}, ${bean.birthCity}, ${bean.birthDay})</pre>
+   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

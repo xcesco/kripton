@@ -105,10 +105,24 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 			if (listEntity == null) {
 				listEntity = new HashSet<>();
 			}
+			checkName(listEntity, p);
 			listEntity.add(p);
 			propertyBySimpleName.put(p.getName().toLowerCase(), listEntity);
 
 		}
+	}
+
+	/**
+	 * property in different class, but same name, must have same column name.
+	 * 
+	 * @param listEntity
+	 * @param p
+	 */
+	private void checkName(Set<SQLProperty> listEntity, SQLProperty p) {
+		for (SQLProperty item: listEntity) {
+			AssertKripton.assertTrueOrInvalidPropertyName(item.columnName.equals(p.columnName), item, p);
+		}
+		
 	}
 
 	public Collection<SQLEntity> getEntities() {

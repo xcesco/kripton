@@ -90,7 +90,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO child (name, parent_id) VALUES (${bean.name}, ${bean.parentId})</pre>
+   * <pre>INSERT INTO child (name, parent_id) VALUES (${name}, ${parentId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -405,7 +405,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO child (name, parent_id) VALUES (${bean.name}, ${bean.parentId})</pre>
+   * <pre>insert into child (name, parent_id) values (${bean.name}, ${bean.parentId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

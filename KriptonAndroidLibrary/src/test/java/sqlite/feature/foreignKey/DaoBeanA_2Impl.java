@@ -27,11 +27,11 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, value_string2 FROM bean_a_2</pre>
+   * <pre>SELECT id, value_string2 FROM bean_a_2</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value_string2</dt><dd>is associated to bean's property <strong>valueString2</strong></dd>
    * </dl>
    *
@@ -40,7 +40,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   @Override
   public List<BeanA_2> selectAll() {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT pk, value_string2 FROM bean_a_2");
+    _sqlBuilder.append("SELECT id, value_string2 FROM bean_a_2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -66,7 +66,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
+        int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("value_string2");
 
         do
@@ -87,11 +87,11 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, value_string2 FROM bean_a_2 WHERE pk=${id}</pre>
+   * <pre>SELECT id, value_string2 FROM bean_a_2 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value_string2</dt><dd>is associated to bean's property <strong>valueString2</strong></dd>
    * </dl>
    *
@@ -107,7 +107,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   @Override
   public List<BeanA_2> selectById(long id) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT pk, value_string2 FROM bean_a_2");
+    _sqlBuilder.append("SELECT id, value_string2 FROM bean_a_2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -115,7 +115,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE pk=?";
+    String _sqlWhereStatement=" WHERE id=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -141,7 +141,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
+        int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("value_string2");
 
         do
@@ -162,11 +162,11 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk FROM bean_a_2 WHERE value_string2=${dummy}</pre>
+   * <pre>SELECT id FROM bean_a_2 WHERE value_string2=${dummy}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -181,7 +181,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   @Override
   public List<BeanA_2> selectByString(String value) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT pk FROM bean_a_2");
+    _sqlBuilder.append("SELECT id FROM bean_a_2");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -215,7 +215,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
+        int index0=cursor.getColumnIndex("id");
 
         do
          {

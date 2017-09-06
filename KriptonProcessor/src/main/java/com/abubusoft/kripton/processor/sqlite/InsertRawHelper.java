@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
@@ -34,6 +35,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_val
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
@@ -44,15 +46,14 @@ import android.content.ContentValues;
 public class InsertRawHelper implements InsertCodeGenerator {
 
 	@Override
-	public String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
+	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();				
 
-		String sqlInsert;
 		boolean nullable;
 
 		// generate javadoc
-		sqlInsert = generateJavaDoc(methodBuilder, method, returnType);
+		generateJavaDoc(methodBuilder, method, returnType);
 
 		if (method.jql.containsSelectOperation) {
 			// INSERT-SELECT		
@@ -121,8 +122,6 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				throw (new InvalidMethodSignException(method, "invalid return type"));
 			}
 		}
-
-		return sqlInsert;
 	}
 
 
@@ -134,11 +133,13 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();		
 		final One<Boolean> inColumnValues = new One<Boolean>(false);
 		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
-		// new
+		
+		// transform JQL to SQL
 		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
@@ -153,7 +154,9 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 			@Override
 			public String onColumnName(String columnName) {
-				SQLProperty tempProperty = entity.get(columnName);				
+				Set<SQLProperty> property = schema.getPropertyBySimpleName(columnName);
+				
+				SQLProperty tempProperty=property.iterator().next();				
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
 								
 				return tempProperty.columnName;			
@@ -161,7 +164,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 			@Override
 			public String onTableName(String tableName) {
-				return daoDefinition.getParent().getEntityBySimpleName(tableName).getTableName();
+				return schema.getEntityBySimpleName(tableName).getTableName();
 			}
 
 			@Override

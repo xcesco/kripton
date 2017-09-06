@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
@@ -25,15 +26,20 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -41,19 +47,20 @@ import com.squareup.javapoet.TypeName;
 public class InsertBeanHelper implements InsertCodeGenerator {
 
 	@Override
-	public String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
-		String sqlInsert;
+		// String sqlInsert;
 
-		List<SQLProperty> listUsedProperty = CodeBuilderUtility.populateContentValuesFromEntity(method, BindSqlInsert.class, methodBuilder, null);
+		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(method, BindSqlInsert.class, methodBuilder, null);
 		CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlInsert.class, methodBuilder, null);
 
 		ModelProperty primaryKey = entity.getPrimaryKey();
 
 		// generate javadoc and query
-		sqlInsert = generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
-		//methodBuilder.addCode("//$T and $T will be used to format SQL\n", StringUtils.class, SqlUtils.class);
+		generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
+		// methodBuilder.addCode("//$T and $T will be used to format SQL\n",
+		// StringUtils.class, SqlUtils.class);
 
 		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
 
@@ -63,7 +70,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
 			conflictString1 = "WithOnConflict";
-			conflictString2 = ", "+conflictAlgorithmType.getConflictAlgorithm();			
+			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
 			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 		}
 		methodBuilder.addStatement("long result = database().insert$L($S, null, contentValues$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
@@ -99,47 +106,79 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			throw (new InvalidMethodSignException(method, "invalid return type"));
 		}
 
-		return sqlInsert;
 	}
 
-	/**
-	 * @param methodBuilder
-	 * @param method
-	 * @param returnType
-	 * @param listUsedProperty
-	 * @param primaryKey
-	 * @return string to use in log
-	 */
-	public String generateJavaDoc(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
-		SQLDaoDefinition daoDefinition = method.getParent();
+	public void generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
+		final SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
+		//final SQLEntity entity = daoDefinition.getEntity();
 
-		String sqlInsert;
+		// transform JQL to SQL
+		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
+
+			@Override
+			public String onColumnName(String columnName) {
+				Set<SQLProperty> property = schema.getPropertyBySimpleName(columnName);
+
+				SQLProperty tempProperty = property.iterator().next();
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
+				return tempProperty.columnName;
+			}
+
+			@Override
+			public String onTableName(String tableName) {
+				SQLEntity entity=schema.getEntityBySimpleName(tableName);
+				
+				AssertKripton.assertTrueOrUnknownClassInJQLException(entity != null, method, tableName);
+				
+				return entity.getTableName();
+				
+				
+			}
+
+			@Override
+			public String onBindParameter(String bindParameterName) {
+				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
+				
+				return "${" + resolvedParamName + "}";
+			}
+
+		});
+
 		// generate javadoc and result
 		{
 			String beanNameParameter = method.findParameterAliasByName(method.getParameters().get(0).value0);
-			StringBuilder bufferName = new StringBuilder();
-			StringBuilder bufferValue = new StringBuilder();
-			StringBuilder bufferQuestion = new StringBuilder();
-			String separator = "";
-			for (SQLProperty property : listUsedProperty) {
-				bufferName.append(separator + property.columnName);
-				bufferValue.append(separator + "${" + beanNameParameter + "." + property.getName() + "}");
+			//StringBuilder bufferName = new StringBuilder();
+			//StringBuilder bufferValue = new StringBuilder();
+			//StringBuilder bufferQuestion = new StringBuilder();
+			//String separator = "";
+//			for (SQLProperty property : listUsedProperty) {
+//				bufferName.append(separator + property.columnName);
+//				bufferValue.append(separator + "${" + beanNameParameter + "." + property.getName() + "}");
+//
+//				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + property.columnName + "\"))+\"'");
+//
+//				separator = ", ";
+//			}
 
-				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + property.columnName + "\"))+\"'");
-
-				separator = ", ";
-			}
-
-			ConflictAlgorithmType conflictAlgorithmType = getConflictAlgorithmType(method);
+			// ConflictAlgorithmType conflictAlgorithmType =
+			// getConflictAlgorithmType(method);
 
 			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
-			methodBuilder.addJavadoc("<pre>INSERT $LINTO $L ($L) VALUES ($L)</pre>\n\n", conflictAlgorithmType.getSqlForInsert(), daoDefinition.getEntity().getTableName(), bufferName.toString(),
-					bufferValue.toString());
+			// methodBuilder.addJavadoc("<pre>INSERT $LINTO $L ($L) VALUES
+			// ($L)</pre>\n\n", conflictAlgorithmType.getSqlForInsert(),
+			// daoDefinition.getEntity().getTableName(), bufferName.toString(),
+			// bufferValue.toString());
+			methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sqlInsert);
 			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");
 
 			// generate sql query
-			sqlInsert = String.format("INSERT %sINTO %s (%s) VALUES (%s)", conflictAlgorithmType.getSqlForInsert(), daoDefinition.getEntity().getTableName(), bufferName.toString(), bufferQuestion.toString());
+			// sqlInsert = String.format("INSERT %sINTO %s (%s) VALUES (%s)",
+			// conflictAlgorithmType.getSqlForInsert(),
+			// daoDefinition.getEntity().getTableName(), bufferName.toString(),
+			// bufferQuestion.toString());
 
 			// list of inserted fields
 			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");
@@ -159,7 +198,6 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 			InsertRawHelper.generateJavaDocReturnType(methodBuilder, returnType);
 		}
-		return sqlInsert;
 	}
 
 	public static ConflictAlgorithmType getConflictAlgorithmType(SQLiteModelMethod method) {

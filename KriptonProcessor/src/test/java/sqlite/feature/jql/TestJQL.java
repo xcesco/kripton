@@ -35,5 +35,4 @@ public class TestJQL extends AbstractBindSQLiteProcessorTest {
 	public void testCompile01() throws Throwable {
 		buildDataSourceProcessorTest( Bean.class, Child.class, Person.class,FamilyDataSource.class, DaoChild.class, DaoPerson.class,  DaoBean.class);
 	}
-
 }

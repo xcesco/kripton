@@ -25,7 +25,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO prefix_config (default_country, dual_billing_prefix, enabled, dialog_timeout) VALUES (${bean.defaultCountry}, ${bean.dualBillingPrefix}, ${bean.enabled}, ${bean.dialogTimeout})</pre>
+   * <pre>INSERT OR REPLACE INTO prefix_config (default_country, dual_billing_prefix, enabled, dialog_timeout) VALUES (${defaultCountry}, ${dualBillingPrefix}, ${enabled}, ${dialogTimeout})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

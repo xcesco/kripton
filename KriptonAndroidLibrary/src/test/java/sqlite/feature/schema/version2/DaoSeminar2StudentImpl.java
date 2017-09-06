@@ -21,7 +21,7 @@ public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2St
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO seminar_2_student (student_id, seminar_id) VALUES (${bean.studentId}, ${bean.seminarId})</pre>
+   * <pre>INSERT INTO seminar_2_student (student_id, seminar_id) VALUES (${studentId}, ${seminarId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

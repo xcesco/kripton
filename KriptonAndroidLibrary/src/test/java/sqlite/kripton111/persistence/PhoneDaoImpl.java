@@ -28,7 +28,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO phone_number (action_type, number, country_code, contact_name, contact_id) VALUES (${bean.actionType}, ${bean.number}, ${bean.countryCode}, ${bean.contactName}, ${bean.contactId})</pre>
+   * <pre>INSERT OR REPLACE INTO phone_number (action_type, number, country_code, contact_name, contact_id) VALUES (${actionType}, ${number}, ${countryCode}, ${contactName}, ${contactId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

@@ -27,11 +27,11 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, bean_a2_id, value_string FROM bean_a_4</pre>
+   * <pre>SELECT pk, bean_a2_id, value_string FROM bean_a_4</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>bean_a2_id</dt><dd>is associated to bean's property <strong>beanA2Id</strong></dd>
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
    * </dl>
@@ -41,7 +41,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
   @Override
   public List<BeanA_4> selectAll() {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, bean_a2_id, value_string FROM bean_a_4");
+    _sqlBuilder.append("SELECT pk, bean_a2_id, value_string FROM bean_a_4");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -67,7 +67,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("pk");
         int index1=cursor.getColumnIndex("bean_a2_id");
         int index2=cursor.getColumnIndex("value_string");
 
@@ -90,11 +90,11 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, bean_a2_id, value_string FROM bean_a_4 WHERE id=${id}</pre>
+   * <pre>SELECT pk, bean_a2_id, value_string FROM bean_a_4 WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>bean_a2_id</dt><dd>is associated to bean's property <strong>beanA2Id</strong></dd>
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
    * </dl>
@@ -111,7 +111,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
   @Override
   public List<BeanA_4> selectById(long id) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, bean_a2_id, value_string FROM bean_a_4");
+    _sqlBuilder.append("SELECT pk, bean_a2_id, value_string FROM bean_a_4");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -119,7 +119,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?";
+    String _sqlWhereStatement=" WHERE pk=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -145,7 +145,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("pk");
         int index1=cursor.getColumnIndex("bean_a2_id");
         int index2=cursor.getColumnIndex("value_string");
 
@@ -168,11 +168,11 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id FROM bean_a_4 WHERE value_string=${dummy}</pre>
+   * <pre>SELECT pk FROM bean_a_4 WHERE value_string=${dummy}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -187,7 +187,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
   @Override
   public List<BeanA_4> selectByString(String value) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id FROM bean_a_4");
+    _sqlBuilder.append("SELECT pk FROM bean_a_4");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -221,7 +221,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
+        int index0=cursor.getColumnIndex("pk");
 
         do
          {

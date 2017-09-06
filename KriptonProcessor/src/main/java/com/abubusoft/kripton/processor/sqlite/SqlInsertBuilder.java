@@ -83,14 +83,14 @@ public abstract class SqlInsertBuilder {
 			}
 		}
 
-		public String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
-			return codeGenerator.generate(elementUtils, methodBuilder, this.isMapFields(), method, returnType);
+		public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
+			codeGenerator.generate(elementUtils, methodBuilder, this.isMapFields(), method, returnType);
 
 		}
 	}
 
 	public interface InsertCodeGenerator {
-		String generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
+		void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**

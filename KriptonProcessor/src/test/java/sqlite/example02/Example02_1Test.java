@@ -19,7 +19,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;

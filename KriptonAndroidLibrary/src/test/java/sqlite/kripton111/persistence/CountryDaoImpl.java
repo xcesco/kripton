@@ -27,7 +27,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO country (area, code, calling_code, region, name) VALUES (${bean.area}, ${bean.code}, ${bean.callingCode}, ${bean.region}, ${bean.name})</pre>
+   * <pre>INSERT OR REPLACE INTO country (area, code, calling_code, region, name) VALUES (${area}, ${code}, ${callingCode}, ${region}, ${name})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

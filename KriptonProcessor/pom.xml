@@ -22,7 +22,7 @@
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-processor</artifactId>
 	<packaging>jar</packaging>
-	<version>2.0.1</version>
+	<version>2.0.2</version>
 
 	<!-- Property version 2.0.0 -->
 	<properties>
@@ -33,7 +33,7 @@
 		<java.version>1.7</java.version>
 
 		<!-- dependencies version -->
-		<jackson.version>2.8.9</jackson.version>
+		<jackson.version>2.9.0</jackson.version>
 		<retrofit.version>2.1.0</retrofit.version>
 
 		<kripton.debug>false</kripton.debug>

@@ -91,7 +91,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, image) VALUES (${bean.name}, ${bean.image})</pre>
+   * <pre>INSERT INTO person (name, image) VALUES (${name}, ${image})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

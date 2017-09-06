@@ -22,7 +22,7 @@ import com.abubusoft.kripton.annotation.BindType;
 @BindType
 public class BeanA_2 {
 
-	@BindColumn(value="pk", columnType=ColumnType.PRIMARY_KEY)
+	@BindColumn(columnType=ColumnType.PRIMARY_KEY)
 	public long id;
 	
 	public String valueString2;

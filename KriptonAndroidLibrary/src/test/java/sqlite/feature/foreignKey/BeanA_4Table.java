@@ -20,9 +20,9 @@ public class BeanA_4Table {
    * DDL to create table bean_a_4
    * </p>
    *
-   * <pre>CREATE TABLE bean_a_4 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER NOT NULL, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_3(pk));</pre>
+   * <pre>CREATE TABLE bean_a_4 (pk INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER NOT NULL, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_3(pk));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean_a_4 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER NOT NULL, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_3(pk));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean_a_4 (pk INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER NOT NULL, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_3(pk));";
 
   /**
    * <p>
@@ -34,11 +34,11 @@ public class BeanA_4Table {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean_a_4;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   * Entity's property <code>id</code> is associated to table column <code>pk</code>. This costant represents column name.
    *
    *  @see BeanA_4#id
    */
-  public static final String COLUMN_ID = "id";
+  public static final String COLUMN_ID = "pk";
 
   /**
    * Entity's property <code>beanA2Id</code> is associated to table column <code>bean_a2_id</code>. This costant represents column name.

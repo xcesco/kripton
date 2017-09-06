@@ -21,7 +21,7 @@ public class DaoStudentImpl extends AbstractDao implements DaoStudent {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO student (name, location) VALUES (${bean.name}, ${bean.location})</pre>
+   * <pre>INSERT INTO student (name, location) VALUES (${name}, ${location})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

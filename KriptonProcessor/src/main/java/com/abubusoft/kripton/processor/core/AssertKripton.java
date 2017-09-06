@@ -24,6 +24,7 @@ import javax.lang.model.element.VariableElement;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.InvalidPropertyToColumnConversion;
 import com.abubusoft.kripton.processor.exceptions.InvalidTypeForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
@@ -31,6 +32,7 @@ import com.abubusoft.kripton.processor.exceptions.UnknownClassInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownParamUsedInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
@@ -183,6 +185,14 @@ public abstract class AssertKripton {
 	public static void failUnknownPropertyInJQLException(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
 			AnnotationAttributeType attribute, String fieldName) {
 		throw(new UnknownPropertyInJQLException(method,annotationClazz, attribute, fieldName));
+		
+	}
+
+	public static void assertTrueOrInvalidPropertyName(boolean expression, SQLProperty item1, SQLProperty item2) {
+		if (!expression) {
+			String msg = String.format("Properties '%s#%s' and '%s#%s' must have same column name", item1.getParent().name, item1.name, item2.getParent().name, item2.name);
+			throw(new InvalidPropertyToColumnConversion(msg));
+		}
 		
 	}
 

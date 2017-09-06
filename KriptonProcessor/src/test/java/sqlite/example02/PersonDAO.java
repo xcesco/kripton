@@ -77,8 +77,12 @@ public interface PersonDAO {
 	@BindSqlSelect(orderBy="typeName")
 	List<Person> selectAll();
 	
-	@BindSqlSelect(where="typeName like ${typeName} || '%%' ", orderBy="typeName")
+	@BindSqlSelect(where="typeName like ${typeName} || '%' ", orderBy="typeName")
 	Set<Person> selectAll(String name);
+	
+	// select a list of students with extended JQL
+	@BindSqlSelect(jql="select * from person where typeName like ${typeName} || '%' ")
+	List<Person> getStudents(String typeName);
 	
 	@BindSqlSelect(orderBy="typeName")
 	void selectBeanListener(OnReadBeanListener<Person> beanListener);

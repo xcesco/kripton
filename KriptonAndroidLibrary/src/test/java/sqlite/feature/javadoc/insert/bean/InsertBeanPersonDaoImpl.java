@@ -379,15 +379,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, surname, student) VALUES (${bean.name}, ${bean.surname}, ${bean.student})</pre>
+   * <pre>INSERT OR REPLACE INTO person (name) SELECT name FROM person WHERE name=${bean.name}</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -404,12 +402,6 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     } else {
       contentValues.putNull("name");
     }
-    if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
-    } else {
-      contentValues.putNull("surname");
-    }
-    contentValues.put("student", bean.isStudent());
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();

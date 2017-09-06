@@ -467,7 +467,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (${arg.uid}, ${arg.ownerUid}, ${arg.updateTime}, ${arg.name})</pre>
+   * <pre>INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (${bean.uid}, ${bean.ownerUid}, ${bean.updateTime}, ${bean.name})</pre>
    *
    * <p><code>arg.id</code> is automatically updated because it is the primary key</p>
    *

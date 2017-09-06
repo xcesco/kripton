@@ -21,7 +21,7 @@ public class DaoSeminarImpl extends AbstractDao implements DaoSeminar {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO seminar (name, location) VALUES (${bean.name}, ${bean.location})</pre>
+   * <pre>INSERT INTO seminar (name, location) VALUES (${name}, ${location})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

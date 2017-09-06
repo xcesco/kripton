@@ -670,7 +670,6 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
@@ -788,7 +787,6 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -852,8 +850,6 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>

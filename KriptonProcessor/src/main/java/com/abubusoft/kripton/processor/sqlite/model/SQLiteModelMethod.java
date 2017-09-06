@@ -37,6 +37,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -326,6 +327,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 		if (selectAnnotation != null) {
 			jql = selectAnnotation.getAttribute(AnnotationAttributeType.JQL);
+
 			if (StringUtils.hasText(jql)) {
 				counter++;
 
@@ -366,6 +368,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 		AssertKripton.assertTrue(counter <= 1, "Method %s.%s have more than one annotation with JQL attribute", this.getParent().getName(), this.getName());
 
+		// remove unscape charater (example \'%\' -> '%')
+		jql = StringEscapeUtils.unescapeEcmaScript(jql);
 		return jql;
 
 	}

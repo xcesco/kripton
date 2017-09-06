@@ -28,6 +28,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -59,60 +60,19 @@ public abstract class CodeBuilderUtility {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static List<SQLProperty> populateContentValuesFromEntity(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
+	public static List<SQLProperty> extractUsedProperties(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
 			List<String> alreadyUsedBeanPropertiesNames) {
-		Elements elementUtils = BaseProcessor.elementUtils;
 		SQLDaoDefinition daoDefinition = method.getParent();
-
-		List<SQLProperty> listPropertyInContentValue = new ArrayList<SQLProperty>();
-
 		SQLEntity entity = daoDefinition.getEntity();
-		// check included and excluded fields
-		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.FIELDS);
-		if (includedFields == null)
-			includedFields = new ArrayList<String>();
-		// CESCOZ
-		/*
-		 * if (alreadyUsedBeanPropertiesNames != null) {
-		 * includedFields.removeAll(alreadyUsedBeanPropertiesNames); }
-		 */
-
-		List<String> temp = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS);
-		if (temp == null)
-			temp = new ArrayList<String>();
-		Set<String> excludedFields = new HashSet<String>();
-		excludedFields.addAll(temp);
-
-		if (includedFields.size() > 0 && excludedFields.size() > 0) {
-			throw (new IncompatibleAttributesInAnnotationException(daoDefinition, method, annotation, AnnotationAttributeType.FIELDS, AnnotationAttributeType.EXCLUDED_FIELDS));
-		}
-		// check included
-		for (String item : includedFields) {
-			if (!entity.contains(item)) {
-				throw (new PropertyInAnnotationNotFoundException(method, item));
-			}
-		}
-		// check excluded
-		for (String item : excludedFields) {
-			if (!entity.contains(item)) {
-				throw (new PropertyInAnnotationNotFoundException(method, item));
-			}
-		}
-
-		// initialize contentValues
-		SQLProperty primaryKey = entity.getPrimaryKey();
-
-		boolean includePrimaryKey = annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
-
+		List<SQLProperty> listPropertyInContentValue = new ArrayList<SQLProperty>();
+		
+		Set<String> foundColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);		
+		
 		// for each property in entity except primaryKey and excluded properties
 		for (SQLProperty item : entity.getCollection()) {
-			if (!includePrimaryKey && item.equals(primaryKey) || excludedFields.contains(item.getName()))
+			if (foundColumns.size()>0 && !foundColumns.contains(item.getName())) {
 				continue;
-			if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
-				continue;
-			if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
-				continue;
+			}
 
 			// add property to list of used properties
 			listPropertyInContentValue.add(item);
@@ -131,38 +91,15 @@ public abstract class CodeBuilderUtility {
 		String entityName = method.getParameters().get(0).value0;
 		TypeName entityClassName = typeName(entity.getElement());
 
-		// check included and excluded fields
-		ModelAnnotation annotation = method.getAnnotation(annotationClazz);
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.FIELDS);
-		// CESCOZ
-		/*
-		 * if (alreadyUsedBeanPropertiesNames != null) {
-		 * includedFields.removeAll(alreadyUsedBeanPropertiesNames); }
-		 */
-		Set<String> excludedFields = new HashSet<String>();
-		excludedFields.addAll(AnnotationUtility.extractAsStringArray(elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS));
-
-		// initialize contentValues
-		SQLProperty primaryKey = entity.getPrimaryKey();
 		methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
 		methodBuilder.addCode("contentValues.clear();\n\n");
-		// for each property in entity except primaryKey and excluded properties
 
-		boolean includePrimaryKey = annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
-
-		Set<String> updateColumns = JQLChecker.getInstance().extractColumnsToUpdate(method, method.jql.value, entity);
-
-		for (SQLProperty item : entity.getCollection()) {
-			if (!includePrimaryKey && item.equals(primaryKey) || excludedFields.contains(item.getName()))
-				continue;
-			if (includedFields.size() > 0 && !includedFields.contains(item.getName()))
-				continue;
-			if (excludedFields.size() > 0 && excludedFields.contains(item.getName()))
-				continue;
-			if (updateColumns.size() > 0 && !updateColumns.contains(item.getName())) {
-				continue;
-			}
-
+		Set<String> updateColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);
+		SQLProperty item;
+		for (String columnName: updateColumns) {
+			item=entity.get(columnName);
+			AssertKripton.assertTrueOrUnknownPropertyInJQLException(item!=null, method, columnName);
+			
 			if (TypeUtility.isNullable(item)) {
 				methodBuilder.beginControlFlow("if ($L!=null)", getter(entityName, entityClassName, item));
 			}
@@ -178,6 +115,7 @@ public abstract class CodeBuilderUtility {
 				methodBuilder.endControlFlow();
 			}
 		}
+		
 		methodBuilder.addCode("\n");
 
 	}

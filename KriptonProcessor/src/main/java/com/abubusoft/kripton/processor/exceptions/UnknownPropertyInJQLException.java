@@ -25,11 +25,11 @@ public class UnknownPropertyInJQLException extends KriptonProcessorException {
 	private static final long serialVersionUID = 8462705406839489618L;
 
 	public UnknownPropertyInJQLException(SQLiteModelMethod method, String propertyName) {
-		super(String.format("In DAO '%s' method '%s' there is an unknown property '%s'", method.getParent().getName(), method.getName(), propertyName));
+		super(String.format("In DAO '%s' method '%s' unknown property '%s' is used", method.getParent().getName(), method.getName(), propertyName));
 	}
 	
 	public UnknownPropertyInJQLException(SQLiteModelMethod method, Class<? extends Annotation> annotation, AnnotationAttributeType attribute, String propertyName) {
-		super(String.format("In DAO '%s' method '%s' there is an unknown property '%s' in annotation '%s' attribute '%s'", method.getParent().getName(), method.getName(), propertyName, annotation.getSimpleName(), attribute));
+		super(String.format("In DAO '%s' method '%s' unknown property '%s' is used in annotation '%s' attribute '%s'", method.getParent().getName(), method.getName(), propertyName, annotation.getSimpleName(), attribute));
 	}
 
 }
