@@ -15,6 +15,7 @@ See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
 See [benchmarks](https://github.com/xcesco/kripton/wiki/Performance) for more informations about JSON persistence perfomance.
 
+If you are interested in Kripton Persistence Library, visit [abubusoft.com](http://www.abubusoft.com/wp/)
 
 # Usage
 You can use Kritpon Annotation Processor and Kripton Library via maven
