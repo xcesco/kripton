@@ -17,7 +17,7 @@ See [benchmarks](https://github.com/xcesco/kripton/wiki/Performance) for more in
 
 If you are interested in Kripton Persistence Library, visit [abubusoft.com](http://www.abubusoft.com/wp/)
 
-# Set up
+# Setup
 You can use Kritpon Annotation Processor and Kripton Library via maven
 
 ```xml
