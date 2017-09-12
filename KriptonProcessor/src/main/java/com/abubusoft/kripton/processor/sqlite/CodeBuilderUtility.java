@@ -20,20 +20,13 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.processor.BaseProcessor;
-import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
-import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -60,17 +53,16 @@ public abstract class CodeBuilderUtility {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static List<SQLProperty> extractUsedProperties(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
-			List<String> alreadyUsedBeanPropertiesNames) {
+	public static List<SQLProperty> extractUsedProperties(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder, List<String> alreadyUsedBeanPropertiesNames) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 		List<SQLProperty> listPropertyInContentValue = new ArrayList<SQLProperty>();
-		
-		Set<String> foundColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);		
-		
+
+		Set<String> foundColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);
+
 		// for each property in entity except primaryKey and excluded properties
 		for (SQLProperty item : entity.getCollection()) {
-			if (foundColumns.size()>0 && !foundColumns.contains(item.getName())) {
+			if (foundColumns.size() > 0 && !foundColumns.contains(item.getName())) {
 				continue;
 			}
 
@@ -96,10 +88,10 @@ public abstract class CodeBuilderUtility {
 
 		Set<String> updateColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);
 		SQLProperty item;
-		for (String columnName: updateColumns) {
-			item=entity.get(columnName);
-			AssertKripton.assertTrueOrUnknownPropertyInJQLException(item!=null, method, columnName);
-			
+		for (String columnName : updateColumns) {
+			item = entity.get(columnName);
+			AssertKripton.assertTrueOrUnknownPropertyInJQLException(item != null, method, columnName);
+
 			if (TypeUtility.isNullable(item)) {
 				methodBuilder.beginControlFlow("if ($L!=null)", getter(entityName, entityClassName, item));
 			}
@@ -115,7 +107,7 @@ public abstract class CodeBuilderUtility {
 				methodBuilder.endControlFlow();
 			}
 		}
-		
+
 		methodBuilder.addCode("\n");
 
 	}

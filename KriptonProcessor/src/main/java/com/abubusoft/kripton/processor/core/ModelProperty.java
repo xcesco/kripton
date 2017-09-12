@@ -29,18 +29,24 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.TypeName;
 
 @BindType
-public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {	
-	
+public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {
+	public class TypeAdapter {
+		public String adapterClazz;
+
+		public String dataType;
+	}
+
 	@SuppressWarnings("rawtypes")
 	protected WeakReference<ModelEntity> parent;
-	
+
 	@SuppressWarnings("rawtypes")
-	public ModelEntity getParent()
-	{
+	public ModelEntity getParent() {
 		return parent.get();
 	}
-		
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -56,7 +62,9 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -91,51 +99,56 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 
 	@SuppressWarnings("rawtypes")
 	public ModelProperty(ModelEntity<?> entity, Element element) {
-		super((element!=null) ? element.getSimpleName().toString() :null, element);
-		
-		this.parent=new WeakReference<ModelEntity>(entity);
-		
-		if (element!=null) {
-			propertyType=new ModelType(element.asType());
-			publicField=element.getModifiers().contains(Modifier.PUBLIC);			
+		super((element != null) ? element.getSimpleName().toString() : null, element);
+
+		this.parent = new WeakReference<ModelEntity>(entity);
+
+		if (element != null) {
+			propertyType = new ModelType(element.asType());
+			publicField = element.getModifiers().contains(Modifier.PUBLIC);
 		}
 		this.annotations = new ArrayList<ModelAnnotation>();
+		this.typeAdapter = new TypeAdapter();
 	}
-	
+
+	@Override
 	public void addAnnotation(ModelAnnotation annotation) {
 		annotations.add(annotation);
 	}
-	
+
+	@Override
 	public ModelAnnotation getAnnotation(Class<? extends Annotation> value) {
 		for (ModelAnnotation item : annotations) {
 			if (item.getName().equals(value.getCanonicalName())) {
 				return item;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
+	@Override
 	public boolean hasAnnotation(Class<? extends Annotation> annotationClazz) {
-		return getAnnotation(annotationClazz)!=null;
+		return getAnnotation(annotationClazz) != null;
 	}
-	
+
 	protected List<ModelAnnotation> annotations;
-	
+
 	protected ModelType propertyType;
-	
+
+	public TypeAdapter typeAdapter;
+
 	/**
 	 * @return the type
 	 */
 	public ModelType getPropertyType() {
 		return propertyType;
 	}
-	
 
 	protected boolean publicField;
-	
+
 	protected boolean fieldWithGetter;
-	
+
 	/**
 	 * @return the fieldWithGetter
 	 */
@@ -144,7 +157,8 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	/**
-	 * @param fieldWithGetter the fieldWithGetter to set
+	 * @param fieldWithGetter
+	 *            the fieldWithGetter to set
 	 */
 	public void setFieldWithGetter(boolean fieldWithGetter) {
 		this.fieldWithGetter = fieldWithGetter;
@@ -158,7 +172,8 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	/**
-	 * @param fieldWithSetter the fieldWithSetter to set
+	 * @param fieldWithSetter
+	 *            the fieldWithSetter to set
 	 */
 	public void setFieldWithSetter(boolean fieldWithSetter) {
 		this.fieldWithSetter = fieldWithSetter;
@@ -172,23 +187,25 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	/**
-	 * @param fieldWithIs the fieldWithIs to set
+	 * @param fieldWithIs
+	 *            the fieldWithIs to set
 	 */
 	public void setFieldWithIs(boolean fieldWithIs) {
 		this.fieldWithIs = fieldWithIs;
 	}
 
 	protected boolean fieldWithSetter;
-	
+
 	protected boolean fieldWithIs;
-	
+
 	/**
-	 * if  true, property is defined in a class. If false property is map entry component or collection item.
+	 * if true, property is defined in a class. If false property is map entry
+	 * component or collection item.
+	 * 
 	 * @return
 	 */
-	public boolean isProperty()
-	{
-		return element!=null;
+	public boolean isProperty() {
+		return element != null;
 	}
 
 	/**
@@ -197,20 +214,23 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	public boolean isPublicField() {
 		return publicField;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void accept(@SuppressWarnings("rawtypes") ModelElementVisitor visitor) throws Exception {
-		visitor.visit(this);		
+		visitor.visit(this);
 	}
 
 	public boolean isType(TypeName value) {
-		return TypeUtility.isEquals(getPropertyType().getTypeName(), value);		
+		return TypeUtility.isEquals(getPropertyType().getTypeName(), value);
 	}
 
-	public boolean isType(Type ... types) {
-		return TypeUtility.isTypeIncludedIn(propertyType.typeName, types);		
+	public boolean isType(Type... types) {
+		return TypeUtility.isTypeIncludedIn(propertyType.typeName, types);
 	}
-		
-		
+
+	public boolean hasTypeAdapter() {
+		return typeAdapter.adapterClazz != null;
+	}
+
 }

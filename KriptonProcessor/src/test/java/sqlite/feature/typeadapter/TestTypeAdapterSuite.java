@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.android.sqlite;
+package sqlite.feature.typeadapter;
 
-/**
- *  
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
- *
- */
-public enum FieldType {
-	NONE,
-	ENUM
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+import base.BaseProcessorTest;
+
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestTypeAdapter.class
+		 })
+//@formatter:on
+public class TestTypeAdapterSuite extends BaseProcessorTest {
+
 }

@@ -25,12 +25,6 @@ import com.squareup.javapoet.TypeName;
 
 public class BindProperty extends ModelProperty {
 
-	public class TypeAdapter {
-		public String adapterClazz;
-
-		public String dataType;
-	}
-
 	public static class BindPropertyBuilder {
 		protected BindProperty parentProperty;
 
@@ -178,8 +172,6 @@ public class BindProperty extends ModelProperty {
 
 	public String mapValueName;
 
-	public TypeAdapter typeAdapter;
-
 	public BindProperty(BindEntity entity, Element element) {
 		super(entity, element);
 
@@ -187,7 +179,6 @@ public class BindProperty extends ModelProperty {
 		inCollection = false;
 		xmlInfo = new XmlInfo();
 		jacksonInfo = new JacksonInfo();
-		typeAdapter = new TypeAdapter();
 	}
 
 	public boolean isInCollection() {
@@ -212,10 +203,6 @@ public class BindProperty extends ModelProperty {
 
 	public boolean isBindedMap() {
 		return propertyType.isMap();
-	}
-
-	public boolean hasTypeAdapter() {
-		return typeAdapter.adapterClazz != null;
 	}
 
 }

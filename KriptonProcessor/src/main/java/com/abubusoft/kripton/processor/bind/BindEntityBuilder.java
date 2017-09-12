@@ -73,7 +73,7 @@ public abstract class BindEntityBuilder {
 		final TypeElement beanElement = element;
 
 		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), beanElement);
-		
+
 		// tag typeName
 		String tagName = AnnotationUtility.extractAsString(elementUtils, beanElement, BindType.class, AnnotationAttributeType.VALUE);
 		if (StringUtils.hasText(tagName)) {
@@ -93,15 +93,12 @@ public abstract class BindEntityBuilder {
 				return new BindProperty(currentEntity, propertyElement);
 			}
 
-		
 		}, propertyAnnotationFilter, new PropertyCreatedListener<BindEntity, BindProperty>() {
 
 			@Override
 			public boolean onProperty(BindEntity entity, BindProperty property) {
 				// if we are build Map, the model are not null
 				boolean contextExternal = (model == null);
-
-				ModelAnnotation annotationBindAdapter = property.getAnnotation(BindAdapter.class);
 
 				// if @BindDisabled is present, exit immediately
 				if (property.hasAnnotation(BindDisabled.class)) {
@@ -136,6 +133,7 @@ public abstract class BindEntityBuilder {
 				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());
 
 				// @BindAdapter
+				ModelAnnotation annotationBindAdapter = property.getAnnotation(BindAdapter.class);
 				if (annotationBindAdapter != null) {
 					property.typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
 					property.typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
@@ -260,7 +258,8 @@ public abstract class BindEntityBuilder {
 
 				property.bindedObject = BindTransformer.isBindedObject(property);
 
-				// if it's an object, we need to avoid to print field typeName (like
+				// if it's an object, we need to avoid to print field typeName
+				// (like
 				// object transform usually do).
 				// set inCollection to true, permits this.
 				if (property.bindedObject && contextExternal) {

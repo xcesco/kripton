@@ -66,7 +66,6 @@ import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Columns_to_updateContext;
@@ -83,9 +82,7 @@ import com.squareup.javapoet.TypeName;
 public abstract class JQLBuilder {
 
 	public interface OnFieldListener {
-
 		String onField(String item);
-
 	}
 
 	/**
@@ -411,14 +408,16 @@ public abstract class JQLBuilder {
 				public void enterBind_parameter(Bind_parameterContext ctx) {
 					result.bindParameterOnWhereStatementCounter++;
 				}
-				
-//				@Override
-//				public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-//					String value=result.value.substring(ctx.start.getStartIndex()-1,ctx.stop.getStopIndex()+1);
-//					value=ctx.getParent().getParent().getText();
-//					
-//					System.out.println(value);
-//				}
+
+				// @Override
+				// public void enterBind_dynamic_sql(Bind_dynamic_sqlContext
+				// ctx) {
+				// String
+				// value=result.value.substring(ctx.start.getStartIndex()-1,ctx.stop.getStopIndex()+1);
+				// value=ctx.getParent().getParent().getText();
+				//
+				// System.out.println(value);
+				// }
 
 			});
 
