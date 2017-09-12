@@ -15,8 +15,9 @@ See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
 See [benchmarks](https://github.com/xcesco/kripton/wiki/Performance) for more informations about JSON persistence perfomance.
 
+If you are interested in Kripton Persistence Library, visit [abubusoft.com](http://www.abubusoft.com/wp/)
 
-# Usage
+# Setup
 You can use Kritpon Annotation Processor and Kripton Library via maven
 
 ```xml
@@ -25,7 +26,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
   <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
   </dependency>
   ...
 </dependencies>
@@ -44,7 +45,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 		  <path>
 		    <groupId>com.abubusoft</groupId>
 		    <artifactId>kripton-processor</artifactId>
-		    <version>2.0.1</version>
+		    <version>2.0.2</version>
 		</path>
 	    </annotationProcessorPaths>
 	  </configuration>
@@ -58,10 +59,10 @@ or via gradle
 
 ```
 // annotation processor
-annotationProcessor "com.abubusoft:kripton-processor:2.0.1"
+annotationProcessor "com.abubusoft:kripton-processor:2.0.2"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-compile "com.abubusoft:kripton-android-library:2.0.1"
+compile "com.abubusoft:kripton-android-library:2.0.2"
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
