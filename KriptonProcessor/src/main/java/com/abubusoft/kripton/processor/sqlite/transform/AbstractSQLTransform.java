@@ -63,4 +63,9 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 		methodBuilder.addCode("null");
 	}
 
+	@Override
+	public boolean isTypeAdapterSupported() {
+		return true;
+	}
+
 }

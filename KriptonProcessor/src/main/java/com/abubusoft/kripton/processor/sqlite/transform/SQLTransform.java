@@ -23,7 +23,8 @@ import com.squareup.javapoet.TypeName;
 
 /**
  * 
- * Class implementing this interface can be used to generate code to read and write the property
+ * Class implementing this interface can be used to generate code to read and
+ * write the property
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -32,16 +33,19 @@ public interface SQLTransform {
 
 	/**
 	 * Generate code to put into cursor, the bean property value
-	 * @param beanClass 
+	 * 
+	 * @param beanClass
 	 */
 	void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName);
-	
+
 	/**
 	 * Generate code to read from cursor
 	 * 
 	 * @param methodBuilder
-	 * @param daoDefinition TODO
-	 * @param paramTypeName TODO
+	 * @param daoDefinition
+	 *            TODO
+	 * @param paramTypeName
+	 *            TODO
 	 * @param cursorName
 	 * @param indexName
 	 */
@@ -50,7 +54,8 @@ public interface SQLTransform {
 	/**
 	 * Generate default value, null or 0 or ''
 	 * 
-	 * @param methodBuilder	 * 
+	 * @param methodBuilder
+	 *            *
 	 */
 	void generateDefaultValue(Builder methodBuilder);
 
@@ -64,13 +69,17 @@ public interface SQLTransform {
 	 * @param beanName
 	 */
 	void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property);
-	
+
 	/**
-	 * <p>Generate code to write parameter to content value element</p>
+	 * <p>
+	 * Generate code to write parameter to content value element
+	 * </p>
+	 * 
 	 * @param methodBuilder
-	 * @param daoDefinition TODO
+	 * @param daoDefinition
+	 *            TODO
 	 * @param objectName
-	 */	
+	 */
 	void generateWriteParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, String paramName, TypeName paramTypeName);
 
 	/**
@@ -82,7 +91,7 @@ public interface SQLTransform {
 	 * @param cursorName
 	 * @param indexName
 	 */
-	void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName);
+	void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName);
 
 	/**
 	 * Associated column type
@@ -91,12 +100,18 @@ public interface SQLTransform {
 	 * 
 	 */
 	String getColumnTypeAsString();
-	
+
 	/**
 	 * 
 	 * @return column type
 	 */
 	SQLColumnType getColumnType();
-	
+
+	/**
+	 * If true, means bind transformer support type adapter
+	 * 
+	 * @return
+	 */
+	boolean isTypeAdapterSupported();
 
 }

@@ -2,8 +2,8 @@ package sqlite.feature.typeadapter;
 
 import java.util.Date;
 
+import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.annotation.BindAdapter;
 
 @BindTable
 public class Contact {
@@ -12,6 +12,6 @@ public class Contact {
 
 	public String name;
 
-	@BindAdapter(adapter = DateAdapterType.class, dataType = Long.class)
+	@BindSqlAdapter(adapter = DateAdapterType.class, dataType = Long.class)
 	public Date birthDay;
 }

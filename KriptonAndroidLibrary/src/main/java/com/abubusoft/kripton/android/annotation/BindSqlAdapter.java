@@ -27,4 +27,11 @@ import com.abubusoft.kripton.BindTypeAdapter;
 public @interface BindSqlAdapter {
 
 	Class<? extends BindTypeAdapter<?, ?>> adapter();
+
+	/**
+	 * Type of data stored in json/xml/etc.
+	 * 
+	 * @return
+	 */
+	public Class<?> dataType();
 }

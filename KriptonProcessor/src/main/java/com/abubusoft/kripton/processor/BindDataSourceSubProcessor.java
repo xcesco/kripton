@@ -50,8 +50,6 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
-import com.abubusoft.kripton.processor.bind.transform.BindTransform;
-import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -89,6 +87,8 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelContentProvider;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
 
@@ -336,7 +336,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						property.typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
 						property.typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
 
-						BindTransform transform = BindTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
+						SQLTransform transform = SQLTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
 
 						if (!transform.isTypeAdapterSupported()) {
 							String msg = String.format("In class '%s', property '%s' uses @BindAdapter with unsupported 'dataType' '%s'", beanElement.asType().toString(), property.getName(),
