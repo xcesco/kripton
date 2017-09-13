@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -73,7 +72,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(channelId));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -376,7 +374,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     // build where condition
     _sqlWhereParams.add((uid==null?"":uid));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);

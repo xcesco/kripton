@@ -3,7 +3,6 @@ package sqlite.kripton48.persistence;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import sqlite.kripton48.entities.Bean02;
@@ -60,7 +59,6 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);

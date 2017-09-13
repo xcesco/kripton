@@ -119,9 +119,6 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		// generate where condition
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, true);
 
-		// methodBuilder.addCode("//$T and $T will be used to format SQL\n",
-		// StringUtils.class, SqlUtils.class);
-
 		SqlModifyBuilder.generateLogForModifiers(method, methodBuilder);
 
 		if (method.jql.operationType == JQLType.UPDATE) {

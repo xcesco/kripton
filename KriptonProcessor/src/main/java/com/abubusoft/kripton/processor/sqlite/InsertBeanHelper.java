@@ -35,7 +35,6 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -58,9 +57,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		ModelProperty primaryKey = entity.getPrimaryKey();
 
 		// generate javadoc and query
-		generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
-		// methodBuilder.addCode("//$T and $T will be used to format SQL\n",
-		// StringUtils.class, SqlUtils.class);
+		generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);		
 
 		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
 

@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -150,7 +149,6 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -276,7 +274,6 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
 
     // build where condition
     _sqlWhereParams.add((number==null?"":number));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -348,7 +345,6 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);

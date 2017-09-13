@@ -5,7 +5,6 @@ import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -72,7 +71,6 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -213,7 +211,6 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(bean.id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -354,7 +351,6 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(benza.id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -512,7 +508,6 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(bean.id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -676,7 +671,6 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(bean.id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -848,7 +842,6 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -1021,7 +1014,6 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -1186,7 +1178,6 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(bean.id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -1338,7 +1329,6 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(bean.id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);

@@ -9,7 +9,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.CalendarUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.CurrencyUtils;
@@ -3409,7 +3408,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -3589,7 +3587,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -3778,7 +3775,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -3967,7 +3963,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toString()));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -4156,7 +4151,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(valueBoolType));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -4345,7 +4339,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueBool==null?"":String.valueOf(valueBool)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -4535,7 +4528,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -4601,14 +4593,14 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
           resultBean.valueBoolType=false;
           resultBean.valueBool=null;
           resultBean.valueByteType=0;
-          resultBean.valueByte=0;
+          resultBean.valueByte=null;
           resultBean.valueShortType=0;
           resultBean.valueShort=null;
           resultBean.valueIntType=0;
           resultBean.valueInt=null;
           resultBean.valueString=null;
           resultBean.valueCharType=0;
-          resultBean.valueChar=0;
+          resultBean.valueChar=null;
           resultBean.valueFloatType=0f;
           resultBean.valueFloat=null;
           resultBean.valueBigInteger=null;
@@ -4770,7 +4762,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(id));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -4872,7 +4863,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -5061,7 +5051,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -5250,7 +5239,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -5439,7 +5427,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueByte==null?"":String.valueOf(valueByte)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -5628,7 +5615,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(valueByteType));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -5817,7 +5803,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -6006,7 +5991,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueChar==null?"":String.valueOf((int)valueChar)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -6195,7 +6179,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf((int)valueCharType));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -6384,7 +6367,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -6573,7 +6555,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueDate==null?"":DateUtils.write(valueDate)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -6762,7 +6743,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueDouble==null?"":String.valueOf(valueDouble)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -6951,7 +6931,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(valueDoubleType));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -7140,7 +7119,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueEnumType==null?"":valueEnumType.toString()));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -7329,7 +7307,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueFloat==null?"":String.valueOf(valueFloat)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -7518,7 +7495,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(valueFloatType));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -7707,7 +7683,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueInt==null?"":String.valueOf(valueInt)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -7896,7 +7871,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(valueIntType));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -8085,7 +8059,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -8274,7 +8247,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueLocale==null?"":CalendarUtils.write(valueLocale)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -8463,7 +8435,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueLong==null?"":String.valueOf(valueLong)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -8652,7 +8623,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf(valueLongType));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -8841,7 +8811,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueShort==null?"":String.valueOf((int)valueShort)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -9030,7 +8999,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add(String.valueOf((int)valueShortType));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -9219,7 +9187,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueString==null?"":valueString));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -9408,7 +9375,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueTime==null?"":TimeUtils.write(valueTime)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -9597,7 +9563,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -9786,7 +9751,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
 
     // build where condition
     _sqlWhereParams.add((valueUrl==null?"":UrlUtils.write(valueUrl)));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -9919,7 +9883,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -9965,7 +9928,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10011,7 +9973,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10057,7 +10018,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10103,7 +10063,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10149,7 +10108,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10195,7 +10153,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10241,7 +10198,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10287,7 +10243,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10333,7 +10288,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10379,7 +10333,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10425,7 +10378,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10471,7 +10423,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10517,7 +10468,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10563,7 +10513,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10609,7 +10558,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -10655,7 +10603,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     String _sqlWhereStatement="";
 
     // build where condition
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -13108,76 +13055,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * write
    */
-  private byte[] serializer1(Bean64[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        Bean64 item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private Bean64[] parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Bean64[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Bean64> collection=new ArrayList<>();
-        Bean64 item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=bean64BindMap.parseOnJackson(jacksonParser);
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
   private byte[] serializer2(Long[] value) {
     if (value==null) {
       return null;
@@ -13248,7 +13125,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * write
    */
-  private byte[] serializer5(Set<String> value) {
+  private byte[] serializer1(Bean64[] value) {
     if (value==null) {
       return null;
     }
@@ -13258,14 +13135,17 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
+        int n=value.length;
+        Bean64 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("element");
         jacksonSerializer.writeStartArray();
-        for (String item: value) {
+        for (int i=0; i<n; i++) {
+          item=value[i];
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(item);
+            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -13281,7 +13161,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   /**
    * parse
    */
-  private Set<String> parser5(byte[] input) {
+  private Bean64[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -13292,19 +13172,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      Set<String> result=null;
+      Bean64[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
+        ArrayList<Bean64> collection=new ArrayList<>();
+        Bean64 item=null;
         while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=jacksonParser.getText();
+            item=bean64BindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }
-        result=collection;
+        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
       }
       return result;
     } catch(Exception e) {
@@ -13441,6 +13321,73 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
           collection.add(item);
         }
         result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * write
+   */
+  private byte[] serializer5(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * parse
+   */
+  private Set<String> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
       }
       return result;
     } catch(Exception e) {

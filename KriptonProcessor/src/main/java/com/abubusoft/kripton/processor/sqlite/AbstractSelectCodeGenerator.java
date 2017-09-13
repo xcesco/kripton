@@ -302,7 +302,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			SqlSelectBuilder.generateDynamicPartOfQuery(method, methodBuilder, splittedSql);
 
 			// this comment is added to include in all situation
-			methodBuilder.addCode("//$T, $T will be used in case of dynamic parts of SQL\n", StringUtils.class, SqlUtils.class);
+			//methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);
 
 			methodBuilder.addStatement("String _sql=_sqlBuilder.toString()");
 			methodBuilder.addStatement("String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()])");

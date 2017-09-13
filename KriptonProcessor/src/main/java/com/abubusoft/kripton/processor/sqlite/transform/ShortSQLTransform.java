@@ -61,8 +61,6 @@ public class ShortSQLTransform  extends WrappedSQLTransformation {
 		methodBuilder.addCode(defaultValue);		
 	}
 	
-	protected String defaultValue;
-
 	@Override
 	public SQLColumnType getColumnType() {
 		return SQLColumnType.INTEGER;
