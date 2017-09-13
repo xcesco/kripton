@@ -23,7 +23,7 @@ import com.abubusoft.kripton.common.TimeUtils;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class TimeSQLTransform extends WrappedSQLTransform<TimeUtils> {
+public class TimeSQLTransform extends UtilSQLTransform<TimeUtils> {
 
 	public TimeSQLTransform() {
 		super(TimeUtils.class);

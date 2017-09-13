@@ -20,12 +20,12 @@ import com.abubusoft.kripton.BindTypeAdapter;
 public class StringEnum87ATypeAdapter implements BindTypeAdapter<String, Enum87A> {
 
 	@Override
-	public String toJava(Enum87A dataValue) throws Exception {
+	public String toJava(Enum87A dataValue) {
 		return dataValue.toString();
 	}
 
 	@Override
-	public Enum87A toData(String javaValue) throws Exception {
+	public Enum87A toData(String javaValue) {
 		return Enum87A.valueOf(javaValue);
 	}
 

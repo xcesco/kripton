@@ -23,7 +23,7 @@ import com.abubusoft.kripton.common.DateUtils;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-class DateSQLTransform extends WrappedSQLTransform<DateUtils> {
+class DateSQLTransform extends UtilSQLTransform<DateUtils> {
 
 	public DateSQLTransform() {
 		super(DateUtils.class);

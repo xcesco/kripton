@@ -15,13 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
-
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
-import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a string and a Java Boolean object
@@ -29,39 +24,24 @@ import com.squareup.javapoet.TypeName;
  * @author xcesco
  *
  */
-class BooleanSQLTransform extends AbstractSQLTransform {
+class BooleanSQLTransform extends WrappedSQLTransformation {
 
-	protected String defaultValue;
-	
 	public BooleanSQLTransform(boolean nullable)
 	{
+		super(nullable);
 		defaultValue="false";
 		if (nullable)
 		{
 			defaultValue="null";
 		}
+		
+		this.READ_FROM_CURSOR="$L.getInt($L)==0?false:true";
 	}
 
 	@Override
 	public void generateDefaultValue(Builder methodBuilder)
 	{
 		methodBuilder.addCode(defaultValue);		
-	}
-	
-	@Override
-	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getInt($L)==0?false:true", cursorName, indexName);		
-	}
-	
-	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getInt($L)==0?false:true"),cursorName, indexName);
-	}
-	
-	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		
-		methodBuilder.addCode(setter(beanClass, beanName, property, defaultValue));
 	}
 
 	@Override

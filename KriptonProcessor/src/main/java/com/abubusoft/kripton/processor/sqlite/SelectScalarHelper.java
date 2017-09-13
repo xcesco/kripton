@@ -79,7 +79,7 @@ public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 			methodBuilder.addCode("; }\n", t);
 		}
 		methodBuilder.addCode("result=");
-		t.generateReadParam(methodBuilder, method.getParent(), returnTypeName, "cursor", "0");
+		t.generateReadParamFromCursor(methodBuilder, method.getParent(), returnTypeName, "cursor", "0");
 		methodBuilder.addCode(";\n");
 
 		// end cursor

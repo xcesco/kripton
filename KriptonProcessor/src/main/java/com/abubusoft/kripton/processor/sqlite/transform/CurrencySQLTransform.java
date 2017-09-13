@@ -34,18 +34,18 @@ import com.squareup.javapoet.TypeName;
 class CurrencySQLTransform extends AbstractSQLTransform {
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.read($L.getString($L))"), CurrencyUtils.class, cursorName, indexName);
 
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		methodBuilder.addCode("$T.write($L)", CurrencyUtils.class, getter(beanName, beanClass, property));
 	}
 
 	@Override
-	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
 		methodBuilder.addCode("$T.write($L)", CurrencyUtils.class, paramName);
 	}
 

@@ -264,7 +264,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			methodBuilder.addCode("\n// build where condition\n");
 			{
 				String separator = "";
-				TypeName paramName;
+				TypeName paramTypeName;
 				boolean nullable;
 				int i = 0;
 
@@ -272,21 +272,21 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					methodBuilder.addCode("_sqlWhereParams.add(");
 					logArgsBuffer.append(separator + "%s");
 
-					paramName = paramTypeNames.get(i);
+					paramTypeName = paramTypeNames.get(i);
 
 					// code for query arguments
-					nullable = TypeUtility.isNullable(paramName);
+					nullable = TypeUtility.isNullable(paramTypeName);
 					if (nullable) {
 						methodBuilder.addCode("($L==null?\"\":", item);
 					}
 
 					// check for string conversion
-					TypeUtility.beginStringConversion(methodBuilder, paramName);
+					TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
 
-					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, paramName, item);
+					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, paramTypeName, item);
 
 					// check for string conversion
-					TypeUtility.endStringConversion(methodBuilder, paramName);
+					TypeUtility.endStringConversion(methodBuilder, paramTypeName);
 
 					if (nullable) {
 						methodBuilder.addCode(")");

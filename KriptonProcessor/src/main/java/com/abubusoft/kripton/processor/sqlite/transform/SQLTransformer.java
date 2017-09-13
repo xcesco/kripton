@@ -60,11 +60,16 @@ public abstract class SQLTransformer {
 	 * @param beanClass
 	 */
 	public static void cursor2Java(MethodSpec.Builder methodBuilder, TypeName beanClass, ModelProperty property, String beanName, String cursorName, String indexName) {
-		SQLTransform transform = lookup(property.getElement().asType());
+		TypeName typeName=property.getPropertyType().getTypeName();
+		
+		if (property.hasTypeAdapter()) {
+			typeName = typeName(property.typeAdapter.dataType);
+		}
+		SQLTransform transform = lookup(typeName);	
 
 		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, TypeUtility.typeName(property.getElement().asType()));
 
-		transform.generateReadProperty(methodBuilder, beanClass, beanName, property, cursorName, indexName);
+		transform.generateReadPropertyFromCursor(methodBuilder, beanClass, beanName, property, cursorName, indexName);
 	}
 
 	/**
@@ -76,11 +81,16 @@ public abstract class SQLTransformer {
 	 * @param property
 	 */
 	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		SQLTransform transform = lookup(property.getElement().asType());
+		TypeName typeName=property.getPropertyType().getTypeName();
+		
+		if (property.hasTypeAdapter()) {
+			typeName = typeName(property.typeAdapter.dataType);
+		}
+		SQLTransform transform = lookup(typeName);	
 
 		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, TypeUtility.typeName(property.getElement().asType()));
 
-		transform.generateWriteProperty(methodBuilder, beanClass, beanName, property);
+		transform.generateWriteProperty2ContentValues(methodBuilder, beanClass, beanName, property);
 	}
 
 	/**
@@ -96,7 +106,7 @@ public abstract class SQLTransformer {
 
 		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, paramType);
 
-		transform.generateWriteParam(methodBuilder, sqlDaoDefinition, paramName, paramType);
+		transform.generateWriteParam2ContentValues(methodBuilder, sqlDaoDefinition, paramName, paramType);
 	}
 
 	/**

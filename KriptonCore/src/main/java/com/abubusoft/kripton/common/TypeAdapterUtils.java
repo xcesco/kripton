@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public abstract class TypeAdapterUtils {
 
@@ -28,7 +29,7 @@ public abstract class TypeAdapterUtils {
 	private static HashMap<Class<? extends BindTypeAdapter>, BindTypeAdapter> cache = new HashMap<>();
 
 	@SuppressWarnings("unchecked")
-	public static <D, J> J toJava(Class<? extends BindTypeAdapter<J, D>> clazz, D value) throws Exception {
+	public static <D, J> J toJava(Class<? extends BindTypeAdapter<J, D>> clazz, D value) {
 		BindTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
@@ -36,6 +37,8 @@ public abstract class TypeAdapterUtils {
 				lock.lock();
 				adapter = clazz.newInstance();
 				cache.put(clazz, adapter);
+			} catch(Throwable e) {
+				throw(new KriptonRuntimeException(e));
 			} finally {
 				lock.unlock();
 			}
@@ -45,7 +48,7 @@ public abstract class TypeAdapterUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <D, J> D toData(Class<? extends BindTypeAdapter<J, D>> clazz, J javaValue) throws Exception {
+	public static <D, J> D toData(Class<? extends BindTypeAdapter<J, D>> clazz, J javaValue) {
 		BindTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
@@ -53,6 +56,8 @@ public abstract class TypeAdapterUtils {
 				lock.lock();
 				adapter = clazz.newInstance();
 				cache.put(clazz, adapter);
+			} catch(Throwable e) {
+				throw(new KriptonRuntimeException(e));
 			} finally {
 				lock.unlock();
 			}

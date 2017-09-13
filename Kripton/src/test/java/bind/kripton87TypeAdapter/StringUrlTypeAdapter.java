@@ -15,6 +15,7 @@
  *******************************************************************************/
 package bind.kripton87TypeAdapter;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.abubusoft.kripton.BindTypeAdapter;
@@ -26,13 +27,17 @@ import com.abubusoft.kripton.BindTypeAdapter;
 public class StringUrlTypeAdapter implements BindTypeAdapter<String, URL> {
 
 	@Override
-	public String toJava(URL dataValue) throws Exception {
+	public String toJava(URL dataValue) {
 		return dataValue.toExternalForm();
 	}
 
 	@Override
-	public URL toData(String javaValue) throws Exception {
-		return new URL(javaValue);
+	public URL toData(String javaValue) {
+		try {
+			return new URL(javaValue);
+		} catch (MalformedURLException e) {
+			throw(new RuntimeException(e));
+		}
 	}
 
 

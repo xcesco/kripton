@@ -23,7 +23,7 @@ import com.abubusoft.kripton.common.CalendarUtils;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class CalendarSQLTransform extends WrappedSQLTransform<CalendarUtils> {
+public class CalendarSQLTransform extends UtilSQLTransform<CalendarUtils> {
 
 	public CalendarSQLTransform() {
 		super(CalendarUtils.class);

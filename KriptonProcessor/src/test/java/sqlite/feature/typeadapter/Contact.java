@@ -8,9 +8,15 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 @BindTable
 public class Contact {
 
-	public long id;
+	protected long id;
 
-	public String name;
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	@BindSqlAdapter(adapter = DateAdapterType.class, dataType = Long.class)
 	public Date birthDay;

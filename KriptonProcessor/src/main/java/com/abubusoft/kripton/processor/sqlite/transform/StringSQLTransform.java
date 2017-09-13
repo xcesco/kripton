@@ -30,14 +30,18 @@ import com.squareup.javapoet.TypeName;
  *
  */
 public class StringSQLTransform  extends AbstractSQLTransform {
+	
+	public StringSQLTransform() {
+		this.supportsTypeAdapter=true;
+	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getString($L)"), cursorName, indexName);
 	}
 	
 	@Override
-	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 

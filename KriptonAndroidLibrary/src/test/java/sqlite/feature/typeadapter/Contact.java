@@ -2,16 +2,22 @@ package sqlite.feature.typeadapter;
 
 import java.util.Date;
 
+import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.annotation.BindAdapter;
 
 @BindTable
 public class Contact {
 
-	public long id;
+	protected long id;
 
-	public String name;
+	public long getId() {
+		return id;
+	}
 
-	@BindAdapter(adapter = DateAdapterType.class, dataType = Long.class)
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	@BindSqlAdapter(adapter = DateAdapterType.class, dataType = Long.class)
 	public Date birthDay;
 }

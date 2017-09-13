@@ -37,23 +37,23 @@ public class EnumSQLTransform extends AbstractSQLTransform {
 	}
 	
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 			methodBuilder.addCode("$L.toString()", getter(beanName, beanClass, property));
 	}
 	
 	@Override
-	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
 		methodBuilder.addCode("$L.toString()", paramName);		
 	}
 
 	
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
+	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
 		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.valueOf($L.getString($L))"), property.getPropertyType().getTypeName(),cursorName, indexName);
 	}
 	
 	@Override
-	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 

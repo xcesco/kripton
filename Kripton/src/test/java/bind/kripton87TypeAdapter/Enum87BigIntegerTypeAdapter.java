@@ -26,12 +26,12 @@ import com.abubusoft.kripton.BindTypeAdapter;
 public class Enum87BigIntegerTypeAdapter implements BindTypeAdapter<Enum87A, BigDecimal> {
 
 	@Override
-	public Enum87A toJava(BigDecimal dataValue) throws Exception {
+	public Enum87A toJava(BigDecimal dataValue) {
 		return Enum87A.values()[dataValue.intValue()];
 	}
 
 	@Override
-	public BigDecimal toData(Enum87A javaValue) throws Exception {
+	public BigDecimal toData(Enum87A javaValue) {
 		return new BigDecimal(javaValue.ordinal());
 	}
 

@@ -36,7 +36,7 @@ public interface SQLTransform {
 	 * 
 	 * @param beanClass
 	 */
-	void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName);
+	void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName);
 
 	/**
 	 * Generate code to read from cursor
@@ -49,13 +49,12 @@ public interface SQLTransform {
 	 * @param cursorName
 	 * @param indexName
 	 */
-	void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName);
+	void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName);
 
 	/**
 	 * Generate default value, null or 0 or ''
 	 * 
 	 * @param methodBuilder
-	 *            *
 	 */
 	void generateDefaultValue(Builder methodBuilder);
 
@@ -68,7 +67,7 @@ public interface SQLTransform {
 	 *            property to write
 	 * @param beanName
 	 */
-	void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property);
+	void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property);
 
 	/**
 	 * <p>
@@ -80,7 +79,7 @@ public interface SQLTransform {
 	 *            TODO
 	 * @param objectName
 	 */
-	void generateWriteParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, String paramName, TypeName paramTypeName);
+	void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition daoDefinition, String paramName, TypeName paramTypeName);
 
 	/**
 	 * Generate code to set property to null value or default value

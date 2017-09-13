@@ -22,7 +22,7 @@ public interface BindTypeAdapter<J, D> {
 	 * @return
 	 * @throws Exception
 	 */
-	J toJava(D dataValue) throws Exception;
+	J toJava(D dataValue);
 
 	/**
 	 * Convert a field value of type J in its persisted version of type D.
@@ -31,6 +31,6 @@ public interface BindTypeAdapter<J, D> {
 	 * @return
 	 * @throws Exception
 	 */
-	D toData(J javaValue) throws Exception;
+	D toData(J javaValue);
 		
 }

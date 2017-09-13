@@ -28,26 +28,26 @@ import com.squareup.javapoet.TypeName;
 public class AbstractGeneratedSQLTransform extends AbstractSQLTransform {
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		methodBuilder.addCode("$T.serialize$L($L)", TypeUtility.mergeTypeName(beanClass, "Table"), formatter.convert(property.getName()), getter(beanName, beanClass, property));
 	}
 
 	@Override
-	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
 		String methodName = sqlDaoDefinition.generateJava2ContentSerializer(paramTypeName);
 		
 		methodBuilder.addCode("$L($L)", methodName, paramName);
 	}
 	
 	@Override
-	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		String methodName = daoDefinition.generateJava2ContentParser(paramTypeName);
 		
 		methodBuilder.addCode("$L($L.getBlob($L))", methodName, cursorName, indexName);
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.parse$L($L.getBlob($L))"), TypeUtility.mergeTypeName(beanClass, "Table"), formatter.convert(property.getName()), cursorName, indexName);
 	}
 

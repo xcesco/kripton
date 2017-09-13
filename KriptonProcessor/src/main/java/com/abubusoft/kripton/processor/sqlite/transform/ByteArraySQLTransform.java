@@ -23,4 +23,8 @@ package com.abubusoft.kripton.processor.sqlite.transform;
  */
 public class ByteArraySQLTransform extends AbstractGeneratedSQLTransform {
 	
+	public ByteArraySQLTransform() {
+		this.supportsTypeAdapter=true;
+	}
+	
 }

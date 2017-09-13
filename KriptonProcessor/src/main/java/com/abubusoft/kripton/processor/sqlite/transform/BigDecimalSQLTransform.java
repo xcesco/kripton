@@ -42,17 +42,17 @@ class BigDecimalSQLTransform extends AbstractSQLTransform {
 	 * java.lang.String)
 	 */
 	@Override
-	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
 		methodBuilder.addCode("$L.toPlainString()", paramName);
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		methodBuilder.addCode("$L.toPlainString()", getter(beanName, beanClass, property));
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "new $T($L.getString($L))"), BigDecimal.class, cursorName, indexName);
 	}
 

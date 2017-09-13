@@ -26,12 +26,12 @@ import com.abubusoft.kripton.BindTypeAdapter;
 public class BooleanBigDecimalTypeAdapter implements BindTypeAdapter<Boolean, BigDecimal> {
 
 	@Override
-	public Boolean toJava(BigDecimal dataValue) throws Exception {
+	public Boolean toJava(BigDecimal dataValue) {
 		return dataValue.longValue()>0;
 	}
 
 	@Override
-	public BigDecimal toData(Boolean javaValue) throws Exception {
+	public BigDecimal toData(Boolean javaValue) {
 		return new BigDecimal(javaValue?1:0);
 	}
 

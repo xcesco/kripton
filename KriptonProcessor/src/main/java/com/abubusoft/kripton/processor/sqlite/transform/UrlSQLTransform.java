@@ -23,7 +23,7 @@ import com.abubusoft.kripton.common.UrlUtils;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class UrlSQLTransform extends WrappedSQLTransform<UrlUtils> {
+public class UrlSQLTransform extends UtilSQLTransform<UrlUtils> {
 
 	public UrlSQLTransform() {
 		super(UrlUtils.class);

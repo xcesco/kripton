@@ -32,31 +32,31 @@ import com.squareup.javapoet.TypeName;
  * @param <U>
  *
  */
-public class WrappedSQLTransform<U> extends AbstractSQLTransform {
+public class UtilSQLTransform<U> extends AbstractSQLTransform {
 
 	private Class<U> utilClazz;
 
-	public WrappedSQLTransform(Class<U> utilClazz) {
+	public UtilSQLTransform(Class<U> utilClazz) {
 		this.utilClazz = utilClazz;
 	}
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.read($L.getString($L))"), utilClazz, cursorName, indexName);
 	}
 
 	@Override
-	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode("$T.read($L.getString($L))", utilClazz, cursorName, indexName);
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		methodBuilder.addCode("$T.write($L)", utilClazz, getter(beanName, beanClass, property));
 	}
 
 	@Override
-	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
 		methodBuilder.addCode("$T.write($L)", utilClazz, paramName);
 	}
 

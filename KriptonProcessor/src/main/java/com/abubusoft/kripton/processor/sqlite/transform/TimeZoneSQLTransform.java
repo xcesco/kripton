@@ -23,7 +23,7 @@ import com.abubusoft.kripton.common.TimeZoneUtils;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class TimeZoneSQLTransform extends WrappedSQLTransform<TimeZoneUtils> {
+public class TimeZoneSQLTransform extends UtilSQLTransform<TimeZoneUtils> {
 
 	public TimeZoneSQLTransform() {
 		super(TimeZoneUtils.class);

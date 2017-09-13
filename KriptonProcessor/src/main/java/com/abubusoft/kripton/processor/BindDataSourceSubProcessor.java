@@ -224,7 +224,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	/**
 	 * <p>
-	 * Create bean definition for each dao definition contained in dataSource
+	 * Create bean's definition for each dao definition contained in dataSource
 	 * </p>
 	 * 
 	 * @param dataSource

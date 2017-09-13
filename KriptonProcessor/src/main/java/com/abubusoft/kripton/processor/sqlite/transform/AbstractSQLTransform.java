@@ -22,7 +22,9 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -33,12 +35,34 @@ import com.squareup.javapoet.TypeName;
  *
  */
 public abstract class AbstractSQLTransform implements SQLTransform {
+	
+	protected static final String PRE_TYPE_ADAPTER_TO_JAVA = "$T.toJava($T.class, ";
+	
+	protected static final String PRE_TYPE_ADAPTER_TO_DATA = "$T.toData($T.class, ";
+	
+	protected static final String POST_TYPE_ADAPTER = ")";
+
+	protected boolean supportsTypeAdapter = false;
 
 	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		methodBuilder.addCode("$L", getter(beanName, beanClass, property));
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName,
+			ModelProperty property) {
+
+		if (property.hasTypeAdapter()) {			
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+		} else {
+			methodBuilder.addCode("$L", getter(beanName, beanClass, property));
+		}
+
+	}
+
+	@Override
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition,
+			String paramName, TypeName paramTypeName) {
+
+		methodBuilder.addCode("$L", paramName);		
 	}
 
 	@Override
@@ -47,12 +71,8 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	}
 
 	@Override
-	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
-		methodBuilder.addCode("$L", paramName);
-	}
-
-	@Override
-	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition,
+			TypeName paramTypeName, String cursorName, String indexName) {
 		// except for supported result type, each transform does not need to
 		// implements this method
 		throw new KriptonProcessorException("Something went wrong!");
@@ -65,7 +85,7 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 
 	@Override
 	public boolean isTypeAdapterSupported() {
-		return true;
+		return supportsTypeAdapter;
 	}
 
 }

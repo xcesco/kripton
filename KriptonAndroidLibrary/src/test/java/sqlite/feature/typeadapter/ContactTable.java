@@ -20,9 +20,9 @@ public class ContactTable {
    * DDL to create table contact
    * </p>
    *
-   * <pre>CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_day TEXT);</pre>
+   * <pre>CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_day TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day TEXT);";
 
   /**
    * <p>
@@ -39,13 +39,6 @@ public class ContactTable {
    *  @see Contact#id
    */
   public static final String COLUMN_ID = "id";
-
-  /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
-   *
-   *  @see Contact#name
-   */
-  public static final String COLUMN_NAME = "name";
 
   /**
    * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column name.

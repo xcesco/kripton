@@ -15,13 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
-
-import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
-import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a string and a Java Float object
@@ -29,25 +24,18 @@ import com.squareup.javapoet.TypeName;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class FloatSQLTransform  extends AbstractSQLTransform {
-
-	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getFloat($L)"), cursorName, indexName);
-	}
-	
-	@Override
-	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getFloat($L)", cursorName, indexName);		
-	}
+public class FloatSQLTransform  extends WrappedSQLTransformation {
 
 	public FloatSQLTransform(boolean nullable)
 	{
+		super(nullable);
 		defaultValue="0f";
 		if (nullable)
 		{
 			defaultValue="null";
 		}
+		
+		this.READ_FROM_CURSOR="$L.getFloat($L)";
 	}
 	
 	@Override
@@ -55,14 +43,7 @@ public class FloatSQLTransform  extends AbstractSQLTransform {
 	{
 		methodBuilder.addCode(defaultValue);		
 	}
-	
-	protected String defaultValue;
-	
-	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		
-		methodBuilder.addCode(setter(beanClass, beanName, property, defaultValue));
-	}
+
 	
 	@Override
 	public SQLColumnType getColumnType() {

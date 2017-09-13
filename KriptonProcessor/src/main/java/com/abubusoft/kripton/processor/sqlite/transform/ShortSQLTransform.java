@@ -30,38 +30,29 @@ import com.squareup.javapoet.TypeName;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class ShortSQLTransform  extends AbstractSQLTransform {
+public class ShortSQLTransform  extends WrappedSQLTransformation {
 	
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.transform.Transform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String)
-	 */
 	@Override
-	public void generateWriteParam(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
 		methodBuilder.addCode("(int)$L", paramName);		
 	}
 	
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
 		methodBuilder.addCode("(int)$L", getter(beanName, beanClass, property));
 	}
 	
-	@Override
-	public void generateReadProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {	
-		methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getShort($L)"), cursorName, indexName);
-	}
-	
-	@Override
-	public void generateReadParam(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getShort($L)", cursorName, indexName);		
-	}
 
 	public ShortSQLTransform(boolean nullable)
 	{
+		super(nullable);
 		defaultValue="0";
 		if (nullable)
 		{
 			defaultValue="null";
 		}
+		
+		this.READ_FROM_CURSOR="$L.getShort($L)";
 	}
 	
 	@Override
@@ -71,17 +62,12 @@ public class ShortSQLTransform  extends AbstractSQLTransform {
 	}
 	
 	protected String defaultValue;
-	
-	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
-		
-		methodBuilder.addCode(setter(beanClass, beanName, property, defaultValue));
-	}
-	
+
 	@Override
 	public SQLColumnType getColumnType() {
 		return SQLColumnType.INTEGER;
 	}
+
 	
 
 }

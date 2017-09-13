@@ -23,7 +23,7 @@ import com.abubusoft.kripton.common.LocaleUtils;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class LocaleSQLTransform extends WrappedSQLTransform<LocaleUtils> {
+public class LocaleSQLTransform extends UtilSQLTransform<LocaleUtils> {
 
 	public LocaleSQLTransform() {
 		super(LocaleUtils.class);
