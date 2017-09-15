@@ -47,5 +47,10 @@ public abstract class WrappedSQLTransformation extends AbstractSQLTransform {
 			methodBuilder.addCode(setter(beanClass, beanName, property, defaultValue));
 		}
 	}
+	
+	@Override
+	public boolean isTypeAdapterAware() {		
+		return nullable;
+	}
 
 }

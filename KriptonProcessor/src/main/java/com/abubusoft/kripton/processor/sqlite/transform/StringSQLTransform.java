@@ -57,5 +57,10 @@ public class StringSQLTransform  extends AbstractSQLTransform {
 	{
 		methodBuilder.addCode("null");		
 	}
+	
+	@Override
+	public boolean isTypeAdapterAware() {		
+		return true;
+	}
 
 }

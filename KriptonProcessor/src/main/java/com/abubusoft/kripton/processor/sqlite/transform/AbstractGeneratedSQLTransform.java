@@ -33,7 +33,7 @@ import com.squareup.javapoet.TypeName;
  * </p>
  *
  */
-public class AbstractGeneratedSQLTransform extends AbstractSQLTransform {
+public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform {
 
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName,
@@ -84,4 +84,5 @@ public class AbstractGeneratedSQLTransform extends AbstractSQLTransform {
 	public SQLColumnType getColumnType() {
 		return SQLColumnType.BLOB;
 	}
+
 }

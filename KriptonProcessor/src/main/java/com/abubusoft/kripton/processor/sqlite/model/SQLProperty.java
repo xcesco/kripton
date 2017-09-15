@@ -27,7 +27,10 @@ import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
+import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 
 public class SQLProperty extends ManagedModelProperty {
 
@@ -40,9 +43,11 @@ public class SQLProperty extends ManagedModelProperty {
 			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
 			typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
 
-			if (getPropertyType().isPrimitive()) {
-				String msg = String.format("In class '%s', property '%s' is primitive of type '%s' and it can not be annotated with @BindAdapter", element.asType().toString(),
-						getName(), getPropertyType().getTypeName());
+			SQLTransform transform=SQLTransformer.lookup(TypeUtility.typeName(typeAdapter.dataType));
+			
+			if (!transform.isTypeAdapterAware()) {
+				String msg = String.format("In class '%s', property '%s' is of type '%s' and it can not be annotated with @%s", element.asType().toString(),
+						getName(), getPropertyType().getTypeName(), BindSqlAdapter.class.getSimpleName());
 				throw (new IncompatibleAnnotationException(msg));
 			}
 		}

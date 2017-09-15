@@ -122,7 +122,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     }
 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.getId()/*BB*/));
+    _sqlWhereParams.add(String.valueOf(bean.getId()));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN

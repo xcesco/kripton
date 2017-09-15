@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.common.TypeAdapterUtils;
@@ -23,8 +22,8 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a base64 encoded string and a byte[]
@@ -61,5 +60,10 @@ public class ByteArraySQLTransform extends AbstractSQLTransform {
 	public void generateDefaultValue(Builder methodBuilder)
 	{
 		methodBuilder.addCode("null");		
+	}
+	
+	@Override
+	public boolean isTypeAdapterAware() {		
+		return true;
 	}
 }

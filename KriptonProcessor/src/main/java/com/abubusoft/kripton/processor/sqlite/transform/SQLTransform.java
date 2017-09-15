@@ -103,5 +103,12 @@ public interface SQLTransform {
 	 * @return column type
 	 */
 	SQLColumnType getColumnType();
+	
+	/**
+	 * if true, transform can be used as convertion type in a type adapter.
+	 * 
+	 * @return
+	 */
+	boolean isTypeAdapterAware();
 
 }
