@@ -22,7 +22,6 @@ public abstract class WrappedSQLTransformation extends AbstractSQLTransform {
 
 	protected WrappedSQLTransformation(boolean nullable) {
 		this.nullable=nullable;
-		this.supportsTypeAdapter=nullable;
 	}
 	
 	@Override
@@ -35,7 +34,7 @@ public abstract class WrappedSQLTransformation extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode(READ_FROM_CURSOR, cursorName, indexName);
 	}
 		

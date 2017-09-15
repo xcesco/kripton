@@ -68,7 +68,8 @@ public class TestContentProviderInsert extends BaseAndroidTest {
 			Uri uri = Uri.parse(BindPersonContentProvider.URI + "/persons");
 			Uri resultURI = getApplicationContext().getContentResolver().insert(uri, contentValues);
 			assertTrue(Long.parseLong(resultURI.toString().replace("content://sqlite.feature.contentprovider.kripton35/persons/",""))>0);
-		}
+		}				
+		
 	}
 
 

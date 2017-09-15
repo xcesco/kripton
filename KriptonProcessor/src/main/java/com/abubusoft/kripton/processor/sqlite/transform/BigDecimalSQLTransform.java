@@ -20,7 +20,9 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import java.math.BigDecimal;
 
+import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -48,7 +50,11 @@ class BigDecimalSQLTransform extends AbstractSQLTransform {
 
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		methodBuilder.addCode("$L.toPlainString()", getter(beanName, beanClass, property));
+		if (property.hasTypeAdapter()) {			
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L.toPlainString()" + POST_TYPE_ADAPTER,TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+		} else {
+			methodBuilder.addCode("$L.toPlainString()", getter(beanName, beanClass, property));
+		}
 	}
 
 	@Override

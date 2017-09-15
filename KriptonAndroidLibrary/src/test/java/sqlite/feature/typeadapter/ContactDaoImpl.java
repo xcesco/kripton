@@ -5,7 +5,6 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TypeAdapterUtils;
 import java.util.ArrayList;
@@ -28,13 +27,14 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO contact (birth_day) VALUES (${bean.birthDay})</pre>
+   * <pre>INSERT INTO contact (birth_day, password) VALUES (${bean.birthDay}, ${bean.password})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
+   * 	<dt>password</dt><dd>is mapped to <strong>${bean.password}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -50,6 +50,11 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       contentValues.put("birth_day", TypeAdapterUtils.toData(DateAdapterType.class, bean.birthDay));
     } else {
       contentValues.putNull("birth_day");
+    }
+    if (bean.getPassword()!=null) {
+      contentValues.put("password", TypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
+    } else {
+      contentValues.putNull("password");
     }
 
     // log for insert -- BEGIN 
@@ -82,11 +87,12 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE contact SET birth_day=:birthDay WHERE id=${bean.id}</pre>
+   * <pre>UPDATE contact SET birth_day=:birthDay, password=:password WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
+   * 	<dt>password</dt><dd>is mapped to <strong>${bean.password}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -109,9 +115,14 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     } else {
       contentValues.putNull("birth_day");
     }
+    if (bean.getPassword()!=null) {
+      contentValues.put("password", TypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
+    } else {
+      contentValues.putNull("password");
+    }
 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.getId()));
+    _sqlWhereParams.add(String.valueOf(bean.getId()/*BB*/));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -126,7 +137,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE contact SET birth_day=:birthDay WHERE id=?");
+    Logger.info("UPDATE contact SET birth_day=:birthDay, password=:password WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -153,12 +164,13 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, birth_day FROM contact WHERE id=${bean.id}</pre>
+   * <pre>SELECT id, birth_day, password FROM contact WHERE id=${bean.id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>password</dt><dd>is associated to bean's property <strong>password</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -173,7 +185,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public List<Contact> selectAll(Contact bean) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, birth_day FROM contact");
+    _sqlBuilder.append("SELECT id, birth_day, password FROM contact");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -187,8 +199,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(bean.getId()));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    _sqlWhereParams.add(String.valueOf(bean.getId()/*AA*/));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -209,6 +220,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
         int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("birth_day");
+        int index2=cursor.getColumnIndex("password");
 
         do
          {
@@ -216,6 +228,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
           resultBean.setId(cursor.getLong(index0));
           if (!cursor.isNull(index1)) { resultBean.birthDay=TypeAdapterUtils.toJava(DateAdapterType.class, cursor.getLong(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.setPassword(TypeAdapterUtils.toJava(PasswordAdapterType.class, cursor.getBlob(index2))); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -228,17 +241,19 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, birth_day FROM contact WHERE id=${bean.id}</pre>
+   * <pre>SELECT id, birth_day, password FROM contact WHERE id=${bean.id} and password=${bean.password}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>password</dt><dd>is associated to bean's property <strong>password</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>${bean.password}</dt><dd>is binded to method's parameter <strong>bean.password</strong></dd>
    * </dl>
    *
    * @param bean
@@ -249,7 +264,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public void selectAll(Contact bean, OnReadBeanListener<Contact> listener) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, birth_day FROM contact");
+    _sqlBuilder.append("SELECT id, birth_day, password FROM contact");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -257,14 +272,14 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?";
+    String _sqlWhereStatement=" WHERE id=? and password=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(bean.getId()));
-    //StringUtils, SqlUtils will be used in case of dynamic parts of SQL
+    _sqlWhereParams.add(String.valueOf(bean.getId()/*AA*/));
+    _sqlWhereParams.add((bean.getPassword()==null?"":bean.getPassword()/*AA*/));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -282,6 +297,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
         int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("birth_day");
+        int index2=cursor.getColumnIndex("password");
 
         int rowCount=cursor.getCount();
         do
@@ -289,10 +305,12 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
           // reset mapping
           // id does not need reset
           resultBean.birthDay=null;
+          resultBean.setPassword(null);
 
           // generate mapping
           resultBean.setId(cursor.getLong(index0));
           if (!cursor.isNull(index1)) { resultBean.birthDay=TypeAdapterUtils.toJava(DateAdapterType.class, cursor.getLong(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.setPassword(TypeAdapterUtils.toJava(PasswordAdapterType.class, cursor.getBlob(index2))); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());

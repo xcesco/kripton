@@ -42,8 +42,6 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	
 	protected static final String POST_TYPE_ADAPTER = ")";
 
-	protected boolean supportsTypeAdapter = false;
-
 	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	@Override
@@ -62,7 +60,7 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition,
 			String paramName, TypeName paramTypeName) {
 
-		methodBuilder.addCode("$L", paramName);		
+		methodBuilder.addCode("$L/*AA*/", paramName);		
 	}
 
 	@Override
@@ -71,7 +69,7 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	}
 
 	@Override
-	public void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition,
+	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition,
 			TypeName paramTypeName, String cursorName, String indexName) {
 		// except for supported result type, each transform does not need to
 		// implements this method
@@ -81,11 +79,6 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	@Override
 	public void generateDefaultValue(Builder methodBuilder) {
 		methodBuilder.addCode("null");
-	}
-
-	@Override
-	public boolean isTypeAdapterSupported() {
-		return supportsTypeAdapter;
 	}
 
 }

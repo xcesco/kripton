@@ -83,7 +83,7 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 				methodBuilder.beginControlFlow("do\n");
 					methodBuilder.beginControlFlow("if (!cursor.isNull(0))");
 						methodBuilder.addCode("resultList.add(");
-						t.generateReadParamFromCursor(methodBuilder, method.getParent(), elementName, "cursor", "0");
+						t.generateReadValueFromCursor(methodBuilder, method.getParent(), elementName, "cursor", "0");
 						methodBuilder.addCode(");\n");
 					methodBuilder.nextControlFlow("else");
 						methodBuilder.addCode("resultList.add(null);\n");		

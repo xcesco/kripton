@@ -98,7 +98,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	@SuppressWarnings("rawtypes")
-	public ModelProperty(ModelEntity<?> entity, Element element) {
+	public ModelProperty(ModelEntity<?> entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super((element != null) ? element.getSimpleName().toString() : null, element);
 
 		this.parent = new WeakReference<ModelEntity>(entity);
@@ -108,6 +108,9 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 			publicField = element.getModifiers().contains(Modifier.PUBLIC);
 		}
 		this.annotations = new ArrayList<ModelAnnotation>();
+		if (modelAnnotations!=null) {
+			this.annotations.addAll(modelAnnotations);
+		}
 		this.typeAdapter = new TypeAdapter();
 	}
 

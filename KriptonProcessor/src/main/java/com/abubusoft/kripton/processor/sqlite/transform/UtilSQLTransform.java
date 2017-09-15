@@ -21,7 +21,9 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -46,13 +48,18 @@ public class UtilSQLTransform<U> extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode("$T.read($L.getString($L))", utilClazz, cursorName, indexName);
 	}
 
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		methodBuilder.addCode("$T.write($L)", utilClazz, getter(beanName, beanClass, property));
+		//methodBuilder.addCode("$T.write($L)", utilClazz, getter(beanName, beanClass, property));
+		if (property.hasTypeAdapter()) {			
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$T.write($L)" + POST_TYPE_ADAPTER,TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), utilClazz, getter(beanName, beanClass, property));
+		} else {
+			methodBuilder.addCode("$T.write($L)", utilClazz, getter(beanName, beanClass, property));
+		}
 	}
 
 	@Override

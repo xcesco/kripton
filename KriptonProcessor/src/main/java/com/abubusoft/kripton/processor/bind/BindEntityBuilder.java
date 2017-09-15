@@ -82,7 +82,7 @@ public abstract class BindEntityBuilder {
 			currentEntity.xmlInfo.label = typeNameConverter.convert(beanElement.getSimpleName().toString());
 		}
 
-		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
+		//AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 
@@ -90,7 +90,7 @@ public abstract class BindEntityBuilder {
 
 			@Override
 			public BindProperty createProperty(BindEntity entity, Element propertyElement) {
-				return new BindProperty(currentEntity, propertyElement);
+				return new BindProperty(currentEntity, propertyElement, AnnotationUtility.buildAnnotationList(propertyElement));
 			}
 
 		}, propertyAnnotationFilter, new PropertyCreatedListener<BindEntity, BindProperty>() {
@@ -135,8 +135,8 @@ public abstract class BindEntityBuilder {
 				// @BindAdapter
 				ModelAnnotation annotationBindAdapter = property.getAnnotation(BindAdapter.class);
 				if (annotationBindAdapter != null) {
-					property.typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-					property.typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
+					//property.typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
+					//property.typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
 
 					BindTransform transform = BindTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
 

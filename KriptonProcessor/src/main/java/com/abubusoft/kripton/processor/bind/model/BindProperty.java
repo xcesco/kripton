@@ -15,8 +15,13 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.model;
 
+import java.util.List;
+
 import javax.lang.model.element.Element;
 
+import com.abubusoft.kripton.annotation.BindAdapter;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.xml.MapEntryType;
@@ -67,7 +72,7 @@ public class BindProperty extends ModelProperty {
 		}
 
 		public BindProperty build() {
-			BindProperty property = new BindProperty(null, null);
+			BindProperty property = new BindProperty(null, null, null);
 
 			property.propertyType = new ModelType(rawTypeName);
 			property.order = parentProperty != null ? parentProperty.order : 0;
@@ -172,13 +177,20 @@ public class BindProperty extends ModelProperty {
 
 	public String mapValueName;
 
-	public BindProperty(BindEntity entity, Element element) {
-		super(entity, element);
+	public BindProperty(BindEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
+		super(entity, element, modelAnnotations);
 
 		nullable = true;
 		inCollection = false;
 		xmlInfo = new XmlInfo();
 		jacksonInfo = new JacksonInfo();
+		
+		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindAdapter.class);
+		if (annotationBindAdapter != null) {
+			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
+			typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
+		}
+
 	}
 
 	public boolean isInCollection() {

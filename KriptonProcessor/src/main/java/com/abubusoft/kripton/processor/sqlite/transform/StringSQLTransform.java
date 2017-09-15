@@ -30,10 +30,7 @@ import com.squareup.javapoet.TypeName;
  *
  */
 public class StringSQLTransform  extends AbstractSQLTransform {
-	
-	public StringSQLTransform() {
-		this.supportsTypeAdapter=true;
-	}
+
 
 	@Override
 	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
@@ -41,7 +38,7 @@ public class StringSQLTransform  extends AbstractSQLTransform {
 	}
 	
 	@Override
-	public void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
 	}
 

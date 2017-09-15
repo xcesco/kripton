@@ -368,7 +368,13 @@ public abstract class SQLTransformer {
 	}
 
 	public static String columnTypeAsString(ModelProperty property) {
-		SQLTransform transform = lookup(property.getElement().asType());
+		TypeName typeName=property.getPropertyType().getTypeName();
+		if (property.hasTypeAdapter()) {
+			typeName = typeName(property.typeAdapter.dataType);
+		}
+		
+		
+		SQLTransform transform = lookup(typeName);
 
 		if (transform == null) {
 			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");

@@ -15,16 +15,51 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
+
+import com.abubusoft.kripton.common.TypeAdapterUtils;
+import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.MethodSpec.Builder;
+
 /**
  * Transformer between a base64 encoded string and a byte[]
  * 
  * @author xcesco
  *
  */
-public class ByteArraySQLTransform extends AbstractGeneratedSQLTransform {
-	
-	public ByteArraySQLTransform() {
-		this.supportsTypeAdapter=true;
+public class ByteArraySQLTransform extends AbstractSQLTransform {
+	@Override
+	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		if (property.hasTypeAdapter()) {			
+			methodBuilder.addCode(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA+"$L.getBlob($L)"+POST_TYPE_ADAPTER),TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), cursorName, indexName);
+		} else {
+			methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getBlob($L)"), cursorName, indexName);
+		}
 	}
 	
+	@Override
+	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+		methodBuilder.addCode("$L.getBlob($L)", cursorName, indexName);		
+	}
+
+	@Override
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
+	}
+	
+	@Override
+	public SQLColumnType getColumnType() {
+		return SQLColumnType.BLOB;
+	}
+	
+	@Override
+	public void generateDefaultValue(Builder methodBuilder)
+	{
+		methodBuilder.addCode("null");		
+	}
 }

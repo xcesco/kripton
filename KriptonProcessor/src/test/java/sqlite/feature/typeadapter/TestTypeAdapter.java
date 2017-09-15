@@ -31,7 +31,7 @@ public class TestTypeAdapter extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(Contact.class, ContactDao.class, ContactDataSource.class, DateAdapterType.class);
+		buildDataSourceProcessorTest(Contact.class, ContactDao.class, ContactDataSource.class, DateAdapterType.class, PasswordAdapterType.class);
 	}
 
 }

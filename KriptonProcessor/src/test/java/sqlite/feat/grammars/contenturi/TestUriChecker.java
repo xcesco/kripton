@@ -200,7 +200,7 @@ public class TestUriChecker extends BaseProcessorTest {
 
 			@Override
 			public SQLProperty findByName(String name) {
-				SQLProperty properties = new SQLProperty(null, null);
+				SQLProperty properties = new SQLProperty(null, null, null);
 				properties.columnName = name;
 				return properties;
 			}

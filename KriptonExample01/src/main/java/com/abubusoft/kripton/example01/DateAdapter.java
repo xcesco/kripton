@@ -7,12 +7,12 @@ import com.abubusoft.kripton.BindTypeAdapter;
 public class DateAdapter implements BindTypeAdapter<Date, Long> {
 
 	@Override
-	public Date toJava(Long dataValue) throws Exception {
+	public Date toJava(Long dataValue) {
 		return new Date(dataValue);
 	}
 
 	@Override
-	public Long toData(Date javaValue) throws Exception {
+	public Long toData(Date javaValue) {
 		return javaValue.getTime();
 	}
 

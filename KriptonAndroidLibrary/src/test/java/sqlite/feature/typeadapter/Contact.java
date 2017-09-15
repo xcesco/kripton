@@ -20,4 +20,18 @@ public class Contact {
 
 	@BindSqlAdapter(adapter = DateAdapterType.class, dataType = Long.class)
 	public Date birthDay;
+		
+	@BindSqlAdapter(adapter = PasswordAdapterType.class, dataType = byte[].class)
+	protected String password;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+//	@BindSqlAdapter(adapter = AdapterType.class, dataType = Long.class)
+//	public byte[] password;
 }

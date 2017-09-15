@@ -52,8 +52,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 	public static String DEFAULT_FIELD_NAME = "element";
 
 	/**
-	 * manage field's persistence for both in sharedpreference and sqlite
-	 * flavours.
+	 * Manage field's persistence for both in SharedPreference and SQLite flavours.
 	 * 
 	 * @param context
 	 * @param collection
@@ -90,7 +89,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 
 		String methodName = "serialize" + format.convert(property.getName());
 
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("write\n").addParameter(ParameterSpec.builder(typeName(property.getElement()), "value").build())
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("for attribute $L serialization\n", property.getName()).addParameter(ParameterSpec.builder(typeName(property.getElement()), "value").build())
 				.addModifiers(modifiers);
 
 		switch (persistType) {
@@ -160,7 +159,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 	public static void generateFieldParser(BindTypeContext context, PersistType persistType, BindProperty property, Modifier... modifiers) {
 		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parse" + format.convert(property.getName())).addJavadoc("parse\n").returns(typeName(property.getElement()));
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parse" + format.convert(property.getName())).addJavadoc("for attribute $L parsing\n", property.getName()).returns(typeName(property.getElement()));
 		methodBuilder.addModifiers(modifiers);
 
 		switch (persistType) {
@@ -215,7 +214,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 	public static void generateParamSerializer(BindTypeContext context, String propertyName, TypeName parameterTypeName, PersistType persistType) {
 		propertyName = SQLDaoDefinition.PARAM_SERIALIZER_PREFIX + propertyName;
 
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(propertyName).addJavadoc("write\n").addParameter(ParameterSpec.builder(parameterTypeName, "value").build());
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(propertyName).addJavadoc("for param $L serialization\n", propertyName).addParameter(ParameterSpec.builder(parameterTypeName, "value").build());
 
 		methodBuilder.addModifiers(context.modifiers);
 		switch (persistType) {
@@ -276,7 +275,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 	public static void generateParamParser(BindTypeContext context, String methodName, TypeName parameterTypeName, PersistType persistType) {
 		methodName = SQLDaoDefinition.PARAM_PARSER_PREFIX + methodName;
 
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("parse\n").returns(parameterTypeName);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("for param $L parsing\n", methodName).returns(parameterTypeName);
 		methodBuilder.addModifiers(context.modifiers);
 
 		switch (persistType) {

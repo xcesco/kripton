@@ -255,14 +255,14 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			return;
 		}
 
-		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
+		//AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 		{
 			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLEntity, SQLProperty>() {
 				@Override
 				public SQLProperty createProperty(SQLEntity entity, Element propertyElement) {
-					return new SQLProperty(entity, propertyElement);
+					return new SQLProperty(entity, propertyElement, AnnotationUtility.buildAnnotationList(propertyElement));
 				}
 			}, propertyAnnotationFilter, new PropertyCreatedListener<SQLEntity, SQLProperty>() {
 
@@ -329,27 +329,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					// fieldName
 					// to field_name
 					property.columnName = currentSchema.columnNameConverter.convert(columnName);
-
-					// @BindAdapter
-					ModelAnnotation annotationBindAdapter = property.getAnnotation(BindSqlAdapter.class);
-					if (annotationBindAdapter != null) {
-						property.typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-						property.typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
-
-						SQLTransform transform = SQLTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
-
-						if (!transform.isTypeAdapterSupported()) {
-							String msg = String.format("In class '%s', property '%s' uses @BindAdapter with unsupported 'dataType' '%s'", beanElement.asType().toString(), property.getName(),
-									property.typeAdapter.dataType);
-							throw (new IncompatibleAnnotationException(msg));
-						}
-
-						if (property.getPropertyType().isPrimitive()) {
-							String msg = String.format("In class '%s', property '%s' is primitive of type '%s' and it can not be annotated with @BindAdapter", beanElement.asType().toString(),
-									property.getName(), property.getPropertyType().getTypeName());
-							throw (new IncompatibleAnnotationException(msg));
-						}
-					}
 
 					return true;
 

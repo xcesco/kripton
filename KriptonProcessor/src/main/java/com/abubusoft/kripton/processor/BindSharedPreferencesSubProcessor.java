@@ -136,7 +136,7 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 		final BindEntity bindEntity = BindEntityBuilder.build(null, elementUtils, sharedPreference);
 		final PrefEntity currentEntity = new PrefEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement);
 
-		AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
+		//AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 
@@ -152,7 +152,7 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 
 			@Override
 			public PrefProperty createProperty(PrefEntity entity, Element propertyElement) {
-				return new PrefProperty(currentEntity, propertyElement);
+				return new PrefProperty(currentEntity, propertyElement, AnnotationUtility.buildAnnotationList(propertyElement));
 			}
 		}, propertyAnnotationFilter, new PropertyCreatedListener<PrefEntity, PrefProperty>() {
 

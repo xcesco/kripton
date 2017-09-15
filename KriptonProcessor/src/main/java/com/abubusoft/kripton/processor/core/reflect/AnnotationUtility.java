@@ -35,6 +35,7 @@ import javax.lang.model.util.Elements;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import com.abubusoft.kripton.common.One;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelEntity;
@@ -123,8 +124,7 @@ public abstract class AnnotationUtility {
 			if (listener != null) {
 				listener.onAcceptAnnotation(currentElement, annotationClassName, values);
 			}
-		}
-
+		}				
 	}
 
 	/**
@@ -352,18 +352,39 @@ public abstract class AnnotationUtility {
 	 * @param elementUtils
 	 * @param entity
 	 */
-	public static void buildAnnotations(Elements elementUtils, final ModelWithAnnotation entity, final AnnotationFilter filter) {
-		forEachAnnotations(elementUtils, entity.getElement(), filter, new AnnotationFoundListener() {
+//	static void buildAnnotations(Elements elementUtils, final ModelWithAnnotation entity, final AnnotationFilter filter) {
+//		forEachAnnotations(elementUtils, entity.getElement(), filter, new AnnotationFoundListener() {
+//
+//			@Override
+//			public void onAcceptAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
+//				ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
+//
+//				entity.addAnnotation(annotation);
+//			}
+//		});
+//	}
+	
+	public static List<ModelAnnotation> buildAnnotationList(final Element element, final AnnotationFilter filter) {
+		final Elements elementUtils=BaseProcessor.elementUtils;		
+		final List<ModelAnnotation> annotationList=new ArrayList<>();
+		
+		forEachAnnotations(elementUtils, element, filter, new AnnotationFoundListener() {
 
 			@Override
 			public void onAcceptAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
 				ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
-
-				entity.addAnnotation(annotation);
+				
+				annotationList.add(annotation);
 			}
 		});
-
+		
+		return annotationList;
 	}
+	
+	public static List<ModelAnnotation> buildAnnotationList(final Element element) {
+		return buildAnnotationList(element, null);
+	}
+
 
 	public static class AnnotationFilter {
 		AnnotationFilter(Set<String> annotations) {

@@ -79,8 +79,7 @@ public abstract class PropertyUtility {
 		for (Element item : list) {
 			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {
 				field = factoryProperty.createProperty(entity, item);
-				AnnotationUtility.buildAnnotations(elementUtils, field, propertyAnnotationFilter);
-
+				//AnnotationUtility.buildAnnotations(elementUtils, field, propertyAnnotationFilter);
 				entity.add(field);
 			}
 		}

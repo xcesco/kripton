@@ -39,17 +39,15 @@ public interface SQLTransform {
 	void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName);
 
 	/**
-	 * Generate code to read from cursor
+	 * Used when you need to use a cursor column as select's result value. 
 	 * 
 	 * @param methodBuilder
 	 * @param daoDefinition
-	 *            TODO
 	 * @param paramTypeName
-	 *            TODO
 	 * @param cursorName
 	 * @param indexName
 	 */
-	void generateReadParamFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName);
+	void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName);
 
 	/**
 	 * Generate default value, null or 0 or ''
@@ -59,7 +57,7 @@ public interface SQLTransform {
 	void generateDefaultValue(Builder methodBuilder);
 
 	/**
-	 * Generate a string representing code to write property
+	 * Write a bean property to a content writer
 	 * 
 	 * 
 	 * @param methodBuilder
@@ -105,12 +103,5 @@ public interface SQLTransform {
 	 * @return column type
 	 */
 	SQLColumnType getColumnType();
-
-	/**
-	 * If true, means bind transformer support type adapter
-	 * 
-	 * @return
-	 */
-	boolean isTypeAdapterSupported();
 
 }

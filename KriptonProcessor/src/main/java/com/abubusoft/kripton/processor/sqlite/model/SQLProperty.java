@@ -15,18 +15,38 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
+import java.util.List;
+
 import javax.lang.model.element.Element;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
 
 public class SQLProperty extends ManagedModelProperty {
 
-	public SQLProperty(SQLEntity entity, Element element) {
-		super(entity, element);								
+	public SQLProperty(SQLEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
+		super(entity, element, modelAnnotations);
+			
+		// @BindAdapter		
+		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindSqlAdapter.class);
+		if (annotationBindAdapter != null) {
+			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
+			typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
+
+			if (getPropertyType().isPrimitive()) {
+				String msg = String.format("In class '%s', property '%s' is primitive of type '%s' and it can not be annotated with @BindAdapter", element.asType().toString(),
+						getName(), getPropertyType().getTypeName());
+				throw (new IncompatibleAnnotationException(msg));
+			}
+		}
+
 	}
 	
 	/**

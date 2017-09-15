@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.core;
 
+import java.util.List;
+
 import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
@@ -22,8 +24,8 @@ import com.abubusoft.kripton.processor.bind.model.BindProperty;
 public class ManagedModelProperty extends ModelProperty {
 
 	@SuppressWarnings("rawtypes")
-	public ManagedModelProperty(ModelEntity entity, Element element) {
-		super(entity, element);
+	public ManagedModelProperty(ModelEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
+		super(entity, element, modelAnnotations);
 	}
 
 	public BindProperty bindProperty;
