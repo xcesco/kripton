@@ -18,8 +18,8 @@ package com.abubusoft.kripton.processor.bind.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.BigDecimalUtils;
-import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
@@ -52,7 +52,7 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 		}
 
 		if (property.hasTypeAdapter()) {
-			methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($L.getText())" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+			methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($L.getText())" + POST_TYPE_ADAPTER), SQLTypeAdapterUtils.class,
 					TypeUtility.typeName(property.typeAdapter.adapterClazz), NUMBER_UTIL_CLAZZ, parserName);
 		} else {
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read($L.getText())"), NUMBER_UTIL_CLAZZ, parserName);
@@ -71,7 +71,7 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 		}
 
 		if (property.hasTypeAdapter()) {
-			methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($L.getText())" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+			methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($L.getText())" + POST_TYPE_ADAPTER), SQLTypeAdapterUtils.class,
 					TypeUtility.typeName(property.typeAdapter.adapterClazz), NUMBER_UTIL_CLAZZ, parserName);
 		} else {
 			methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read($L.getText())"), NUMBER_UTIL_CLAZZ, parserName);
@@ -89,16 +89,16 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 		if (property.hasTypeAdapter()) {
 			switch (xmlType) {
 			case ATTRIBUTE:
-				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$L.getAttributeAs$L(attributeIndex)" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$L.getAttributeAs$L(attributeIndex)" + POST_TYPE_ADAPTER), SQLTypeAdapterUtils.class,
 						TypeUtility.typeName(property.typeAdapter.adapterClazz), parserName, ATTRIBUTE_METHOD);
 				break;
 			case TAG:
-				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($T.unescapeXml($L.getElementText()))" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($T.unescapeXml($L.getElementText()))" + POST_TYPE_ADAPTER), SQLTypeAdapterUtils.class,
 						TypeUtility.typeName(property.typeAdapter.adapterClazz), NUMBER_UTIL_CLAZZ, StringEscapeUtils.class, parserName);
 				break;
 			case VALUE:
 			case VALUE_CDATA:
-				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($T.unescapeXml($L.getText()))" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($T.unescapeXml($L.getText()))" + POST_TYPE_ADAPTER), SQLTypeAdapterUtils.class,
 						TypeUtility.typeName(property.typeAdapter.adapterClazz), NUMBER_UTIL_CLAZZ, StringEscapeUtils.class, parserName);
 				break;
 			}
@@ -132,11 +132,11 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 		if (property.hasTypeAdapter()) {
 			// if in collection, we need to write only the value
 			if (property.isInCollection()) {
-				methodBuilder.addStatement("$L.writeString($T.write(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + "))", serializerName, NUMBER_UTIL_CLAZZ, TypeAdapterUtils.class,
+				methodBuilder.addStatement("$L.writeString($T.write(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + "))", serializerName, NUMBER_UTIL_CLAZZ, SQLTypeAdapterUtils.class,
 						TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 			} else {
 				methodBuilder.addStatement("$L.writeStringField($S, $T.write(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + "))", serializerName, property.label, NUMBER_UTIL_CLAZZ,
-						TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+						SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 			}
 		} else {
 			// if in collection, we need to write only the value
@@ -169,21 +169,21 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 			switch (xmlType) {
 			case ATTRIBUTE:
 				methodBuilder.addStatement("$L.write$LAttribute(null, null,$S, " + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")", serializerName, ATTRIBUTE_METHOD, property.label,
-						TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+						SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				break;
 			case TAG:
 				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
 				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")))", serializerName, StringEscapeUtils.class,
-						NUMBER_UTIL_CLAZZ, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+						NUMBER_UTIL_CLAZZ, SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 				break;
 			case VALUE:
 				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")))", serializerName, StringEscapeUtils.class,
-						NUMBER_UTIL_CLAZZ, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+						NUMBER_UTIL_CLAZZ, SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				break;
 			case VALUE_CDATA:
 				methodBuilder.addStatement("$L.writeCData($T.escapeXml10($T.write(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")))", serializerName, StringEscapeUtils.class,
-						NUMBER_UTIL_CLAZZ, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+						NUMBER_UTIL_CLAZZ, SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				break;
 			}
 		} else {

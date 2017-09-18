@@ -53,7 +53,7 @@ public abstract class CodeBuilderUtility {
 	 *            optional
 	 * @return primary key.
 	 */
-	public static List<SQLProperty> extractUsedProperties(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder, List<String> alreadyUsedBeanPropertiesNames) {
+	public static List<SQLProperty> extractUsedProperties(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 		List<SQLProperty> listPropertyInContentValue = new ArrayList<SQLProperty>();

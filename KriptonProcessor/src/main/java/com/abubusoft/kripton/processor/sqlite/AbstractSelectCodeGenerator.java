@@ -44,6 +44,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.ClassName;
@@ -140,6 +141,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		List<String> paramNames = new ArrayList<String>();
 		List<String> paramGetters = new ArrayList<String>();
 		List<TypeName> paramTypeNames = new ArrayList<TypeName>();
+		List<String> usedBeanPropertyNames=new ArrayList<>();
 
 		// used method parameters
 		Set<String> usedMethodParameters = new HashSet<String>();
@@ -186,6 +188,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
+		usedBeanPropertyNames.addAll(analyzer.getUsedBeanPropertyNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
 		// String havingSQL =
@@ -194,6 +197,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
+		usedBeanPropertyNames.addAll(analyzer.getUsedBeanPropertyNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
 		// String groupBySQL =
@@ -202,6 +206,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
+		usedBeanPropertyNames.addAll(analyzer.getUsedBeanPropertyNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
 		// String orderBySQL =
@@ -210,6 +215,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		paramGetters.addAll(analyzer.getParamGetters());
 		paramNames.addAll(analyzer.getParamNames());
 		paramTypeNames.addAll(analyzer.getParamTypeNames());
+		usedBeanPropertyNames.addAll(analyzer.getUsedBeanPropertyNames());
 		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
 		// add as used parameter dynamic components too
@@ -273,22 +279,26 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					logArgsBuffer.append(separator + "%s");
 
 					paramTypeName = paramTypeNames.get(i);
-
+					
+					// eventually we take associated property
+					SQLProperty property = usedBeanPropertyNames.get(i)==null ? null :entity.get(usedBeanPropertyNames.get(i));
+					
 					// code for query arguments
 					nullable = TypeUtility.isNullable(paramTypeName);
-					if (nullable) {
+					if (nullable && !(property!=null && property.hasTypeAdapter())) {
 						methodBuilder.addCode("($L==null?\"\":", item);
 					}
+					
 
 					// check for string conversion
 					TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
 
-					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, paramTypeName, item);
+					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, paramTypeName, item, property);
 
 					// check for string conversion
 					TypeUtility.endStringConversion(methodBuilder, paramTypeName);
 
-					if (nullable) {
+					if (nullable && !(property!=null && property.hasTypeAdapter())) {
 						methodBuilder.addCode(")");
 					}
 

@@ -1,8 +1,8 @@
 package sqlite.feature.typeadapter;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.android.BindSQLTypeAdapter;
 
-public class PasswordAdapterType implements BindTypeAdapter<String, byte[]> {
+public class PasswordAdapterType implements BindSQLTypeAdapter<String, byte[]> {
 
 	@Override
 	public String toJava(byte[] dataValue) {
@@ -16,6 +16,11 @@ public class PasswordAdapterType implements BindTypeAdapter<String, byte[]> {
 		if (javaValue==null) return null;
 		
 		return javaValue.getBytes();
+	}
+
+	@Override
+	public String toString(String javaValue) {
+		return null;
 	}
 
 

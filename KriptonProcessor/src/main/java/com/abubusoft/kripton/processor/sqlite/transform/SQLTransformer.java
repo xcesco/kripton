@@ -100,13 +100,14 @@ public abstract class SQLTransformer {
 	 * @param sqlDaoDefinition
 	 * @param paramType
 	 * @param paramName
+	 * @param property
 	 */
-	public static void java2ContentValues(MethodSpec.Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, TypeName paramType, String paramName) {
+	public static void java2ContentValues(MethodSpec.Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, TypeName paramType, String paramName, ModelProperty property) {
 		SQLTransform transform = lookup(paramType);
 
 		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, paramType);
 
-		transform.generateWriteParam2ContentValues(methodBuilder, sqlDaoDefinition, paramName, paramType);
+		transform.generateWriteParam2ContentValues(methodBuilder, sqlDaoDefinition, paramName, paramType, property);
 	}
 
 	/**

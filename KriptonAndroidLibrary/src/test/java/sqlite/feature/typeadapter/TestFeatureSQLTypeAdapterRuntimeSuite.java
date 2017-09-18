@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.kripton87TypeAdapter;
+package sqlite.feature.typeadapter;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-public class Enum87IntegerTypeAdapter implements BindTypeAdapter<Enum87A, Integer> {
-
-	@Override
-	public Enum87A toJava(Integer dataValue) {
-		return Enum87A.values()[dataValue];
-	}
-
-	@Override
-	public Integer toData(Enum87A javaValue) {
-		
-		return javaValue.ordinal();
-	}
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestFeatureSQLTypeAdapterRuntime.class
+		 })
+//@formatter:on
+public class TestFeatureSQLTypeAdapterRuntimeSuite {
 
 }

@@ -28,6 +28,8 @@ public class DateLongTypeAdapter implements BindTypeAdapter<Date, Long> {
 
 	@Override
 	public Long toData(Date javaValue) {
+		if (javaValue==null) return null;
+		
 		return javaValue.getTime();
 	}
 

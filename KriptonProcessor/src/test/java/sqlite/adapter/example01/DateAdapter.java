@@ -16,10 +16,9 @@
 package sqlite.adapter.example01;
 
 import java.util.Date;
+import com.abubusoft.kripton.android.BindSQLTypeAdapter;
 
-import com.abubusoft.kripton.BindTypeAdapter;
-
-public class DateAdapter implements BindTypeAdapter<Date, Long> {
+public class DateAdapter implements BindSQLTypeAdapter<Date, Long> {
 
 	@Override
 	public Date toJava(Long dataValue) {
@@ -33,6 +32,13 @@ public class DateAdapter implements BindTypeAdapter<Date, Long> {
 		if (javaValue!=null) return javaValue.getTime();
 		
 		return null;
+	}
+
+	@Override
+	public String toString(Date javaValue) {
+		if (javaValue==null) return null;
+		
+		return String.valueOf(toData(javaValue));
 	}
 	
 

@@ -32,7 +32,7 @@ import com.squareup.javapoet.TypeName;
 public class ShortSQLTransform  extends WrappedSQLTransformation {
 	
 	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName, ModelProperty property) {
 		methodBuilder.addCode("(int)$L", paramName);		
 	}
 	

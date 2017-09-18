@@ -121,7 +121,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					// here it needed raw parameter typeName
 					methodBuilder.addCode("contentValues.put($S, ", property.columnName);
 
-					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(property.getElement()), item.value0);
+					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, TypeUtility.typeName(property.getElement()), item.value0, property);
 
 					methodBuilder.addCode(");\n");
 
@@ -547,7 +547,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			// check for string conversion
 			TypeUtility.beginStringConversion(methodBuilder, item.value1);
 
-			SQLTransformer.java2ContentValues(methodBuilder, method.getParent(), item.value1, resolvedParamName);
+			SQLTransformer.java2ContentValues(methodBuilder, method.getParent(), item.value1, resolvedParamName, null);
 			// check for string conversion
 			TypeUtility.endStringConversion(methodBuilder, item.value1);
 

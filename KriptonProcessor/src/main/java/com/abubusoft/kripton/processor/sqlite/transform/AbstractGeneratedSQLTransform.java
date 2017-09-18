@@ -18,8 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.common.CurrencyUtils;
-import com.abubusoft.kripton.common.TypeAdapterUtils;
+import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
@@ -41,7 +40,7 @@ public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform
 		
 		if (property.hasTypeAdapter()) {			
 			methodBuilder.addCode("$T.serialize$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", TypeUtility.mergeTypeName(beanClass, "Table"),
-					formatter.convert(property.getName()), TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+					formatter.convert(property.getName()), SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 			
 		} else {
 			methodBuilder.addCode("$T.serialize$L($L)", TypeUtility.mergeTypeName(beanClass, "Table"),
@@ -52,7 +51,7 @@ public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform
 
 	@Override
 	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition,
-			String paramName, TypeName paramTypeName) {
+			String paramName, TypeName paramTypeName,ModelProperty property) {
 		String methodName = sqlDaoDefinition.generateJava2ContentSerializer(paramTypeName);
 
 		methodBuilder.addCode("$L($L)", methodName, paramName);

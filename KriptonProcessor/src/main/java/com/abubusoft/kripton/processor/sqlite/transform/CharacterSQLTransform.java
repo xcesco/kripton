@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 
-import com.abubusoft.kripton.common.TypeAdapterUtils;
+import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
@@ -49,14 +49,14 @@ class CharacterSQLTransform extends WrappedSQLTransformation {
 		//methodBuilder.addCode("(int)$L", getter(beanName, beanClass, property));
 		
 		if (property.hasTypeAdapter()) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "(int)$L" + POST_TYPE_ADAPTER,TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "(int)$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 		} else {
 			methodBuilder.addCode("(int)$L", getter(beanName, beanClass, property));
 		}
 	}
 
 	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName) {
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName,ModelProperty property) {
 		methodBuilder.addCode("(int)$L", paramName);
 	}
 

@@ -20,16 +20,20 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.android.BindSQLTypeAdapter;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface BindSqlAdapter {
 
-	Class<? extends BindTypeAdapter<?, ?>> adapter();
+	/**
+	 * Adapter class used to convert bean attribute into column value and viceversa
+	 * @return
+	 */
+	Class<? extends BindSQLTypeAdapter<?, ?>> adapter();
 
 	/**
-	 * Type of data stored in json/xml/etc.
+	 * Type of column to manage
 	 * 
 	 * @return
 	 */

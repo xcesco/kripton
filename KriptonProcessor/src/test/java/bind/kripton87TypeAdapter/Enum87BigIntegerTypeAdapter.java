@@ -35,4 +35,5 @@ public class Enum87BigIntegerTypeAdapter implements BindTypeAdapter<Enum87A, Big
 		return new BigDecimal(javaValue.ordinal());
 	}
 
+
 }

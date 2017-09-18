@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.kripton87TypeAdapter;
+package sqlite.stack45184504;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-public class Enum87IntegerTypeAdapter implements BindTypeAdapter<Enum87A, Integer> {
+import sqlite.AbstractBindSQLiteProcessorTest;
 
-	@Override
-	public Enum87A toJava(Integer dataValue) {
-		return Enum87A.values()[dataValue];
-	}
+@RunWith(JUnit4.class)
+public class TestStack45184504 extends AbstractBindSQLiteProcessorTest {
 
-	@Override
-	public Integer toData(Enum87A javaValue) {
-		
-		return javaValue.ordinal();
+	/**
+	 * OK
+	 * 
+	 * @throws Throwable
+	 */
+	@Test
+	public void testOK() throws Throwable {
+		buildDataSourceProcessorTest(ExampleDataSource.class, FileBeanDao.class, FileBean.class);
 	}
 
 }

@@ -28,7 +28,7 @@ public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends Mo
 	 * @param name
 	 * @return
 	 */
-	public T get(String name) {
+	public T get(String name) {		
 		String lcName = name.toLowerCase();
 		for (T item : collection) {
 			if (item.getName().toLowerCase().equals(lcName)) {

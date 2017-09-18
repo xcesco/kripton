@@ -96,7 +96,7 @@ public abstract class GenericSQLHelper {
 				// check for string conversion
 				TypeUtility.beginStringConversion(methodBuilder, paramType);
 
-				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, paramType, realName);
+				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, paramType, realName, null);
 
 				// check for string conversion
 				TypeUtility.endStringConversion(methodBuilder, paramType);

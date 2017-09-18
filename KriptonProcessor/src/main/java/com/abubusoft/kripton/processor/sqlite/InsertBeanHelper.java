@@ -51,7 +51,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		SQLEntity entity = daoDefinition.getEntity();
 		// String sqlInsert;
 
-		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(method, BindSqlInsert.class, methodBuilder, null);
+		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(method, BindSqlInsert.class, methodBuilder);
 		CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlInsert.class, methodBuilder, null);
 
 		ModelProperty primaryKey = entity.getPrimaryKey();

@@ -20,6 +20,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 
+import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.TypeAdapterUtils;
@@ -40,6 +41,8 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	
 	protected static final String PRE_TYPE_ADAPTER_TO_DATA = "$T.toData($T.class, ";
 	
+	protected static final String PRE_TYPE_ADAPTER_TO_STRING = "$T.toString($T.class, ";
+	
 	protected static final String POST_TYPE_ADAPTER = ")";
 
 	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
@@ -57,10 +60,15 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	}
 
 	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition,
-			String paramName, TypeName paramTypeName) {
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName, ModelProperty property) {
 
-		methodBuilder.addCode("$L/*AA*/", paramName);		
+		if (property!=null && property.hasTypeAdapter()) {			
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), paramName);
+		} else {
+			methodBuilder.addCode("$L", paramName);
+		}
+		
+		//methodBuilder.addCode("$L", paramName);		
 	}
 
 	@Override
@@ -81,6 +89,9 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 		methodBuilder.addCode("null");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#isTypeAdapterAware()
+	 */
 	@Override
 	public boolean isTypeAdapterAware() {		
 		return false;

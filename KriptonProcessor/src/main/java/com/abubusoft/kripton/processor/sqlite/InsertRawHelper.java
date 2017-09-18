@@ -60,8 +60,9 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			GenericSQLHelper.generateGenericExecSQL(methodBuilder, method);		    
 		} else {
 			// standard INSERT
-			methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
-			methodBuilder.addCode("contentValues.clear();\n\n");
+			methodBuilder.addStatement("$T contentValues=contentValues()", ContentValues.class);
+			methodBuilder.addStatement("contentValues.clear()");
+			methodBuilder.addCode("\n");
 			for (Pair<String, TypeName> item : method.getParameters()) {
 				String propertyName = method.findParameterAliasByName(item.value0);
 				SQLProperty property = entity.get(propertyName);
@@ -80,7 +81,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				methodBuilder.addCode("contentValues.put($S, ", property.columnName);
 				// it does not need to be converted in string
 
-				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, item.value1, item.value0);				
+				SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, item.value1, item.value0, property);				
 				methodBuilder.addCode(");\n");
 				if (nullable) {
 					methodBuilder.nextControlFlow("else");

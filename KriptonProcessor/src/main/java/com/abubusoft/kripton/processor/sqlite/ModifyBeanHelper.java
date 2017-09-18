@@ -73,13 +73,13 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		List<SQLProperty> listUsedProperty;
 		if (updateMode) {
-			listUsedProperty = CodeBuilderUtility.extractUsedProperties(method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+			listUsedProperty = CodeBuilderUtility.extractUsedProperties(method, BindSqlUpdate.class, methodBuilder);
 
 			AssertKripton.assertTrueOrInvalidMethodSignException(listUsedProperty.size() > 0, method, "no column was selected for update");
 
 			CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 		} else {
-			listUsedProperty = CodeBuilderUtility.extractUsedProperties(method, BindSqlDelete.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+			listUsedProperty = CodeBuilderUtility.extractUsedProperties(method, BindSqlDelete.class, methodBuilder);
 		}
 		// build javadoc
 		buildJavadoc(methodBuilder, updateMode, method, beanNameParameter, whereCondition, listUsedProperty, analyzer.getUsedBeanPropertyNames());

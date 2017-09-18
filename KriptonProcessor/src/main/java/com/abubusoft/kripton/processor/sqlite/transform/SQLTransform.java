@@ -77,7 +77,8 @@ public interface SQLTransform {
 	 *            TODO
 	 * @param objectName
 	 */
-	void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition daoDefinition, String paramName, TypeName paramTypeName);
+	void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition daoDefinition, String paramName, TypeName paramTypeName, 
+			ModelProperty property);
 
 	/**
 	 * Generate code to set property to null value or default value

@@ -27,10 +27,13 @@ public class BooleanByteArrayTypeAdapter implements BindTypeAdapter<Boolean, Lon
 
 	@Override
 	public Long toData(Boolean javaValue) {
+		if (javaValue==null) return null;
+		
 		if (javaValue) return 1L;
 		
 		return 0L;
 	}
+
 	
 }
 

@@ -55,6 +55,8 @@ public class SqlAnalyzer {
 	
 	private List<TypeName> paramTypeNames;
 	
+	private List<SQLProperty> propertiesAssociated;
+	
 	/**
 	 * @return the paramTypes
 	 */
@@ -112,6 +114,7 @@ public class SqlAnalyzer {
 		paramGetters = new ArrayList<String>();
 		usedBeanPropertyNames=new ArrayList<String>();
 		paramTypeNames=new ArrayList<TypeName>();
+		propertiesAssociated=new ArrayList<>();
 
 		// replace placeholder ${ } with ?
 		{
@@ -159,9 +162,9 @@ public class SqlAnalyzer {
 					throw new MethodParameterNotFoundException(method, effectiveName);
 				}
 				paramGetters.add(effectiveName);
-				paramTypeNames.add(rawNameType);
-				
+				paramTypeNames.add(rawNameType);				
 				usedMethodParameters.add(effectiveName);
+				usedBeanPropertyNames.add(null);
 			} else {
 				if (method.findParameterTypeByAliasOrName(pName.getBeanName())==null)
 				{
@@ -173,9 +176,7 @@ public class SqlAnalyzer {
 					// there are nested property invocation
 					paramGetters.add(method.findParameterNameByAlias(pName.getBeanName())+"."+getter(entity.findByName(pName.getValue())));
 					usedBeanPropertyNames.add(pName.getValue());
-					//paramTypeNames.add(entity.findByName(splittedName[1]).getPropertyType());
-					paramTypeNames.add(TypeUtility.typeName(entity.findByName(pName.getValue()).getElement().asType()));
-					
+					paramTypeNames.add(TypeUtility.typeName(entity.findByName(pName.getValue()).getElement().asType()));				
 					usedMethodParameters.add(method.findParameterNameByAlias(pName.getBeanName()));
 				} else {
 					throw (new PropertyInAnnotationNotFoundException(method, pName.getValue()));
