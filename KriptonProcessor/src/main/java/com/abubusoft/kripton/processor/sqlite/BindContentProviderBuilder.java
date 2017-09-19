@@ -35,7 +35,6 @@ import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.MultiplicityResultType;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -107,7 +106,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 					typeName = item.getParent().contentProviderTypeName;
 				}
 
-				String value = AnnotationUtility.extractAsEnumerationValue(BaseProcessor.elementUtils, item.getElement(), BindContentProviderEntry.class, AnnotationAttributeType.MULTIPLICITY_RESULT);
+				String value = AnnotationUtility.extractAsEnumerationValue(item.getElement(), BindContentProviderEntry.class, AnnotationAttributeType.MULTIPLICITY_RESULT);
 				MultiplicityResultType multiplicity = MultiplicityResultType.valueOf(value);
 
 				if (multiplicity == MultiplicityResultType.MANY || (multiplicity == MultiplicityResultType.DEFAULT && item.jql.operationType == JQLType.SELECT)) {

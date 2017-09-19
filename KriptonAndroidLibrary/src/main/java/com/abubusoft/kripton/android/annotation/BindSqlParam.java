@@ -20,9 +20,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.abubusoft.kripton.android.BindSQLTypeAdapter;
+import com.abubusoft.kripton.android.sqlite.NoAdapter;
+
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface BindSqlParam {
 
-	String value();
+	String value() default "";
+	
+	Class<? extends BindSQLTypeAdapter<?, ?>> adapter() default NoAdapter.class;
 }

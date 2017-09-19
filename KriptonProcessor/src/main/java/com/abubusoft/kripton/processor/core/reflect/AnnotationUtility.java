@@ -36,6 +36,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelEntity;
@@ -171,7 +172,8 @@ public abstract class AnnotationUtility {
 	 * @param attributeName
 	 * @return attribute value extracted as class typeName
 	 */
-	public static String extractAsClassName(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+	public static String extractAsClassName(Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+		final Elements elementUtils=BindDataSourceSubProcessor.elementUtils;
 		final One<String> result = new One<String>();
 
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
@@ -251,7 +253,8 @@ public abstract class AnnotationUtility {
 	 *            attribute typeName to analyze
 	 * @return attribute value as list of string
 	 */
-	public static String extractAsEnumerationValue(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute) {
+	public static String extractAsEnumerationValue(Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute) {
+		final Elements elementUtils=BindDataSourceSubProcessor.elementUtils;
 		final One<String> result = new One<String>();
 
 		extractAttributeValue(elementUtils, item, annotationClass.getName(), attribute, new OnAttributeFoundListener() {

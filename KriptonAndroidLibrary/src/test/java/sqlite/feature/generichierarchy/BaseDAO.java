@@ -23,11 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-public interface BaseDAO<E> {
-	//
-	// @BindSqlSelect(where = "id=${id}")
-	// E selectById(@BindSqlParam("id") long id);
-	//
+public interface BaseDAO<E> {	
 	@BindSqlSelect(where = "id=${work.id}")
 	List<E> selectById(@BindSqlParam("work") E bean);
 

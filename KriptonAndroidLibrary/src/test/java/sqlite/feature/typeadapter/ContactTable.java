@@ -20,9 +20,9 @@ public class ContactTable {
    * DDL to create table contact
    * </p>
    *
-   * <pre>CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day INTEGER, password BLOB);</pre>
+   * <pre>CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day INTEGER, password BLOB, type INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day INTEGER, password BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day INTEGER, password BLOB, type INTEGER);";
 
   /**
    * <p>
@@ -53,4 +53,11 @@ public class ContactTable {
    *  @see Contact#password
    */
   public static final String COLUMN_PASSWORD = "password";
+
+  /**
+   * Entity's property <code>type</code> is associated to table column <code>type</code>. This costant represents column name.
+   *
+   *  @see Contact#type
+   */
+  public static final String COLUMN_TYPE = "type";
 }

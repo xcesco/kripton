@@ -18,13 +18,11 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a string and a Java5 Enum object
@@ -35,46 +33,39 @@ import com.squareup.javapoet.MethodSpec.Builder;
 public class EnumSQLTransform extends AbstractSQLTransform {
 
 	public EnumSQLTransform(TypeName typeName) {
-		
+
 	}
-	
+
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		// 	methodBuilder.addCode("$L.toString()", getter(beanName, beanClass, property));
-		if (property.hasTypeAdapter()) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L.toString()" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
-		} else {
-			methodBuilder.addCode("$L.toString()", getter(beanName, beanClass, property));
-		}		
-	}
-	
-	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName,ModelProperty property) {
-		methodBuilder.addCode("$L.toString()", paramName);		
+		methodBuilder.addCode("$L.toString()", getter(beanName, beanClass, property));
 	}
 
-	
 	@Override
-	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {			
-		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.valueOf($L.getString($L))"), property.getPropertyType().getTypeName(),cursorName, indexName);
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName, ModelProperty property) {
+		methodBuilder.addCode("$L.toString()", paramName);
 	}
-	
+
+	@Override
+	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.valueOf($L.getString($L))"), property.getPropertyType().getTypeName(), cursorName, indexName);
+	}
+
 	@Override
 	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
+		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);
 	}
 
 	@Override
-	public void generateDefaultValue(Builder methodBuilder)
-	{
-		methodBuilder.addCode("null");		
+	public void generateDefaultValue(Builder methodBuilder) {
+		methodBuilder.addCode("null");
 	}
-	
+
 	@Override
-	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property,  String cursorName, String indexName) {
+	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
-	
+
 	@Override
 	public SQLColumnType getColumnType() {
 		return SQLColumnType.TEXT;

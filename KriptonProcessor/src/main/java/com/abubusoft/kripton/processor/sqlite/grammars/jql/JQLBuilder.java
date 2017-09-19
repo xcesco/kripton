@@ -310,7 +310,7 @@ public abstract class JQLBuilder {
 			}
 
 			result.conflictAlgorithmType = ConflictAlgorithmType
-					.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));
+					.valueOf(AnnotationUtility.extractAsEnumerationValue(method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));
 
 			StringBuilder builder = new StringBuilder();
 			builder.append(INSERT_KEYWORD);
@@ -622,7 +622,7 @@ public abstract class JQLBuilder {
 			AssertKripton.assertTrueOrInvalidMethodSignException(fields.size() > 0, method, "no field was specified for update");
 
 			result.conflictAlgorithmType = ConflictAlgorithmType
-					.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));
+					.valueOf(AnnotationUtility.extractAsEnumerationValue(method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));
 
 			StringBuilder builder = new StringBuilder();
 			builder.append(UPDATE_KEYWORD);

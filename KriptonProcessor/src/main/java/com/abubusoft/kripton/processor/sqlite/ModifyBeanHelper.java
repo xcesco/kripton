@@ -164,18 +164,18 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addCode("_sqlWhereParams.add(");
 			nullable = TypeUtility.isNullable(property);
 
-			if (nullable) {
+			if (nullable && !(property.hasTypeAdapter())) {
 				// transform null in ""
 				methodBuilder.addCode("($L==null?\"\":", getter(beanParamName, beanClass, property));
 			}
 
 			// check for string conversion
 			TypeUtility.beginStringConversion(methodBuilder, property);
-			SQLTransformer.java2ContentValues(methodBuilder, beanClass, beanParamName, property);
+			SQLTransformer.java2WhereCondition(methodBuilder, method, beanClass, beanParamName, property);
 			// check for string conversion
 			TypeUtility.endStringConversion(methodBuilder, property);
 
-			if (nullable) {
+			if (nullable && !(property.hasTypeAdapter())) {
 				methodBuilder.addCode(")");
 			}
 

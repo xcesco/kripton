@@ -36,9 +36,9 @@ import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.sqlite.NoAdapter;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
-import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -102,7 +102,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	protected Map<String, String> parameterAlias2NameField;
 
-	protected Map<String, String> parameterNameField2Alias;
+	protected Map<String, String> parameterName2Alias;
+	
+	protected Map<String, String> parameterName2Adapter;
 
 	private WeakReference<SQLDaoDefinition> parent;
 
@@ -155,15 +157,25 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		}
 
 		this.parameterAlias2NameField = new HashMap<>();
-		this.parameterNameField2Alias = new HashMap<>();
+		this.parameterName2Alias = new HashMap<>();
+		this.parameterName2Adapter=new HashMap<>();
 
 		// analyze method looking for BindSqlParam
 		for (VariableElement p : element.getParameters()) {
 			BindSqlParam paramAlias = p.getAnnotation(BindSqlParam.class);
-			if (paramAlias != null && StringUtils.hasText(paramAlias.value())) {
-				String alias = paramAlias.value();
-				parameterAlias2NameField.put(alias, p.getSimpleName().toString());
-				parameterNameField2Alias.put(p.getSimpleName().toString(), alias);
+			if (paramAlias != null) {
+				// check for name
+				if (StringUtils.hasText(paramAlias.value())) {
+					String alias = paramAlias.value();
+					parameterAlias2NameField.put(alias, p.getSimpleName().toString());
+					parameterName2Alias.put(p.getSimpleName().toString(), alias);
+				}
+				
+				// check for adapter				
+				String paramAdapter=AnnotationUtility.extractAsClassName(p, BindSqlParam.class, AnnotationAttributeType.ADAPTER);
+				if (!NoAdapter.class.toString().equals(paramAdapter)) {
+					this.parameterName2Adapter.put(p.getSimpleName().toString(), paramAdapter);
+				}
 			}
 
 			if (TypeUtility.isEquals(TypeUtility.typeName(p.asType()), parent.getEntityClassName())) {
@@ -174,7 +186,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (paramDynamicWhereName != null) {
 				this.dynamicWhereParameterName = p.getSimpleName().toString();
 				PrependType prepend = PrependType
-						.valueOf(AnnotationUtility.extractAsEnumerationValue(BindDataSourceSubProcessor.elementUtils, p, BindSqlDynamicWhere.class, AnnotationAttributeType.PREPEND));
+						.valueOf(AnnotationUtility.extractAsEnumerationValue(p, BindSqlDynamicWhere.class, AnnotationAttributeType.PREPEND));
 				this.dynamicWherePrepend = prepend;
 
 				// CONSTRAINT: @BindSqlWhere can be used only on String
@@ -314,6 +326,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 		}
 
+	}
+	
+	public boolean hasAdapterForParam(String paramName) {
+		return this.parameterName2Adapter.containsKey(paramName);
 	}
 
 	private String getJQLDeclared() {
@@ -461,8 +477,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @return
 	 */
 	public String findParameterAliasByName(String name) {
-		if (parameterNameField2Alias.containsKey(name)) {
-			return parameterNameField2Alias.get(name);
+		if (parameterName2Alias.containsKey(name)) {
+			return parameterName2Alias.get(name);
 		}
 
 		return name;
@@ -565,6 +581,14 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		String msg = String.format("In method '%s.%s'", getParent().getElement().getSimpleName().toString(), getElement().getSimpleName().toString());
 
 		return msg;
+	}
+
+	public TypeName getAdapterForParam(String paramName) {
+		if (this.hasAdapterForParam(paramName)) {
+			return TypeUtility.typeName(this.parameterName2Adapter.get(paramName));
+		} else {
+			return null;
+		}
 	}
 
 }

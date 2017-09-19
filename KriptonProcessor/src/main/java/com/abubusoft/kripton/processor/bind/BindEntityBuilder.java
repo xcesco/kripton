@@ -177,7 +177,7 @@ public abstract class BindEntityBuilder {
 
 				// @BindXml management
 				if (annotationBindXml != null) {
-					String mapEntryType = AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.MAP_ENTRY_TYPE);
+					String mapEntryType = AnnotationUtility.extractAsEnumerationValue(property.getElement(), BindXml.class, AnnotationAttributeType.MAP_ENTRY_TYPE);
 					if (StringUtils.hasText(mapEntryType))
 						property.xmlInfo.mapEntryType = MapEntryType.valueOf(mapEntryType);
 
@@ -188,7 +188,7 @@ public abstract class BindEntityBuilder {
 						property.xmlInfo.wrappedCollection = true;
 					}
 
-					String xmlType = AnnotationUtility.extractAsEnumerationValue(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.XML_TYPE);
+					String xmlType = AnnotationUtility.extractAsEnumerationValue(property.getElement(), BindXml.class, AnnotationAttributeType.XML_TYPE);
 					if (StringUtils.hasText(xmlType))
 						property.xmlInfo.xmlType = XmlType.valueOf(xmlType);
 

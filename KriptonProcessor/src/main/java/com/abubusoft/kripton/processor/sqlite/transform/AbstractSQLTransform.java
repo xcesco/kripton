@@ -23,7 +23,6 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
-import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
@@ -52,7 +51,7 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 			ModelProperty property) {
 
 		if (property.hasTypeAdapter()) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 		} else {
 			methodBuilder.addCode("$L", getter(beanName, beanClass, property));
 		}

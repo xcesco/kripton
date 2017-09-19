@@ -54,12 +54,7 @@ public class UtilSQLTransform<U> extends AbstractSQLTransform {
 
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		//methodBuilder.addCode("$T.write($L)", utilClazz, getter(beanName, beanClass, property));
-		if (property.hasTypeAdapter()) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$T.write($L)" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), utilClazz, getter(beanName, beanClass, property));
-		} else {
-			methodBuilder.addCode("$T.write($L)", utilClazz, getter(beanName, beanClass, property));
-		}
+		methodBuilder.addCode("$T.write($L)", utilClazz, getter(beanName, beanClass, property));
 	}
 
 	@Override

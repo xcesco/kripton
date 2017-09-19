@@ -15,21 +15,22 @@
  *******************************************************************************/
 package sqlite.feature.generichierarchy;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.annotation.BindTypeVariables;
+import java.util.List;
 
-@BindTypeVariables(value="E", typeParameters=Person.class)
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+
 @BindDao(Person.class)
 public interface PersonDAO extends BaseDAO<Person> {
-//
-
-//	
-//	@BindSqlInsert
-//	public void insertThread2(Person bean);
-//	
-//	@BindSqlSelect
-//	public Person selectThread1();
-//	
-//	@BindSqlSelect
-//	public Person selectThread2();
+	
+	@BindSqlSelect(orderBy="name")
+	List<Person> selectOne();
+	
+	@BindSqlSelect(jql="select * from person order by name")
+	List<Person> selectTwo();
+	
+	@BindSqlSelect()
+	List<Person> selectThree(@BindSqlDynamicOrderBy String orderBy);
+	
 }

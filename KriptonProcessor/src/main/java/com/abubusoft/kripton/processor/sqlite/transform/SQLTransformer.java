@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.math.BigDecimal;
@@ -31,11 +32,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
+import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -60,12 +63,12 @@ public abstract class SQLTransformer {
 	 * @param beanClass
 	 */
 	public static void cursor2Java(MethodSpec.Builder methodBuilder, TypeName beanClass, ModelProperty property, String beanName, String cursorName, String indexName) {
-		TypeName typeName=property.getPropertyType().getTypeName();
-		
+		TypeName typeName = property.getPropertyType().getTypeName();
+
 		if (property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);
 		}
-		SQLTransform transform = lookup(typeName);	
+		SQLTransform transform = lookup(typeName);
 
 		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, TypeUtility.typeName(property.getElement().asType()));
 
@@ -81,17 +84,35 @@ public abstract class SQLTransformer {
 	 * @param property
 	 */
 	public static void java2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		TypeName typeName=property.getPropertyType().getTypeName();
-		
+		TypeName typeName = property.getPropertyType().getTypeName();
+
 		if (property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);
 		}
-		SQLTransform transform = lookup(typeName);	
+		SQLTransform transform = lookup(typeName);
 
 		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, TypeUtility.typeName(property.getElement().asType()));
 
 		transform.generateWriteProperty2ContentValues(methodBuilder, beanClass, beanName, property);
 	}
+	
+	/**
+	 * Used to convert a property of managed bean to where conditino
+	 * 
+	 * @param methodBuilder
+	 * @param beanClass
+	 * @param beanName
+	 * @param property
+	 */
+	public static void java2WhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method,  TypeName beanClass, String beanName, ModelProperty property) {
+		if (property.hasTypeAdapter()) {
+			methodBuilder.addCode(AbstractSQLTransform.PRE_TYPE_ADAPTER_TO_STRING + "$L" + AbstractSQLTransform.POST_TYPE_ADAPTER, SQLTypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz),
+					PropertyUtility.getter(beanName, beanClass, property));
+		} else {
+			java2ContentValues(methodBuilder, beanClass, beanName, property);
+		}
+	}
+	
 
 	/**
 	 * Used to convert a generic parameter to contentValues
@@ -102,12 +123,16 @@ public abstract class SQLTransformer {
 	 * @param paramName
 	 * @param property
 	 */
-	public static void java2ContentValues(MethodSpec.Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, TypeName paramType, String paramName, ModelProperty property) {
-		SQLTransform transform = lookup(paramType);
+	public static void java2ContentValues(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName paramType, String paramName, ModelProperty property) {
+		if (method.hasAdapterForParam(paramName)) {
+			methodBuilder.addCode(AbstractSQLTransform.PRE_TYPE_ADAPTER_TO_STRING + "$L" + AbstractSQLTransform.POST_TYPE_ADAPTER, SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName),
+					paramName);
+		} else {
+			SQLTransform transform = (property != null && property.hasTypeAdapter()) ? lookup(typeName(property.typeAdapter.dataType)) : lookup(paramType);
 
-		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, paramType);
-
-		transform.generateWriteParam2ContentValues(methodBuilder, sqlDaoDefinition, paramName, paramType, property);
+			AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, (property != null && property.hasTypeAdapter()) ? typeName(property.typeAdapter.dataType) : paramType);
+			transform.generateWriteParam2ContentValues(methodBuilder, method.getParent(), paramName, paramType, property);
+		}
 	}
 
 	/**
@@ -118,7 +143,7 @@ public abstract class SQLTransformer {
 	 */
 	public static SQLTransform lookup(TypeMirror typeMirror) {
 		TypeName typeName;
-		
+
 		typeName = typeName(typeMirror);
 
 		return lookup(typeName);
@@ -369,12 +394,11 @@ public abstract class SQLTransformer {
 	}
 
 	public static String columnTypeAsString(ModelProperty property) {
-		TypeName typeName=property.getPropertyType().getTypeName();
+		TypeName typeName = property.getPropertyType().getTypeName();
 		if (property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);
 		}
-		
-		
+
 		SQLTransform transform = lookup(typeName);
 
 		if (transform == null) {
@@ -383,7 +407,7 @@ public abstract class SQLTransformer {
 		return transform.getColumnTypeAsString();
 
 	}
-	
+
 	public static SQLColumnType columnType(ModelProperty property) {
 		SQLTransform transform = lookup(property.getElement().asType());
 
@@ -393,7 +417,7 @@ public abstract class SQLTransformer {
 		return transform.getColumnType();
 
 	}
-	
+
 	public static SQLColumnType columnType(TypeName property) {
 		SQLTransform transform = lookup(property);
 

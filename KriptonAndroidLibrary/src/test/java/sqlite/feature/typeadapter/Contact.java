@@ -23,6 +23,9 @@ public class Contact {
 		
 	@BindSqlAdapter(adapter = PasswordAdapterType.class, dataType = byte[].class)
 	protected String password;
+	
+	@BindSqlAdapter(adapter = EnumAdapterType.class, dataType=Integer.class)
+	public ContactType type;
 
 	public String getPassword() {
 		return password;

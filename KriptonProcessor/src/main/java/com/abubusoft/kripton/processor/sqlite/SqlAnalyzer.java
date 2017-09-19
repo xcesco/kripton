@@ -55,8 +55,6 @@ public class SqlAnalyzer {
 	
 	private List<TypeName> paramTypeNames;
 	
-	private List<SQLProperty> propertiesAssociated;
-	
 	/**
 	 * @return the paramTypes
 	 */
@@ -114,7 +112,6 @@ public class SqlAnalyzer {
 		paramGetters = new ArrayList<String>();
 		usedBeanPropertyNames=new ArrayList<String>();
 		paramTypeNames=new ArrayList<TypeName>();
-		propertiesAssociated=new ArrayList<>();
 
 		// replace placeholder ${ } with ?
 		{

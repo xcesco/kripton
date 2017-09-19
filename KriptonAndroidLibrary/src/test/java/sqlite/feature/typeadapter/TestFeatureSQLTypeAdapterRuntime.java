@@ -38,7 +38,7 @@ public class TestFeatureSQLTypeAdapterRuntime extends BaseAndroidTest {
 			Contact bean=new Contact();
 			bean.setId(1);
 			bean.setPassword("test");
-			ds.getContactDao().selectAll(bean, new OnReadBeanListener<Contact>() {
+			ds.getContactDao().selectJQLBeanListener(bean, new OnReadBeanListener<Contact>() {
 				
 				@Override
 				public void onRead(Contact bean, int row, int rowCount) {

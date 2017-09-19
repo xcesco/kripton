@@ -23,15 +23,10 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 
 @RunWith(JUnit4.class)
 public class TestTypeAdapter extends AbstractBindSQLiteProcessorTest {
-
-	/**
-	 * OK
-	 * 
-	 * @throws Throwable
-	 */
+	
 	@Test
 	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(Contact.class, ContactDao.class, ContactDataSource.class, DateAdapterType.class, PasswordAdapterType.class);
+		buildDataSourceProcessorTest(Contact.class, ContactDao.class, EnumAdapterType.class, ContactType.class, ContactDataSource.class, DateAdapterType.class, PasswordAdapterType.class);
 	}
 
 }

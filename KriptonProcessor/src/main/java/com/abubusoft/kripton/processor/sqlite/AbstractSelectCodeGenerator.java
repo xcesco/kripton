@@ -27,10 +27,8 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -285,7 +283,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					
 					// code for query arguments
 					nullable = TypeUtility.isNullable(paramTypeName);
-					if (nullable && !(property!=null && property.hasTypeAdapter())) {
+					if (nullable && !(property!=null && property.hasTypeAdapter()) && !method.hasAdapterForParam(item)) {
 						methodBuilder.addCode("($L==null?\"\":", item);
 					}
 					
@@ -293,12 +291,12 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					// check for string conversion
 					TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
 
-					SQLTransformer.java2ContentValues(methodBuilder, daoDefinition, paramTypeName, item, property);
+					SQLTransformer.java2ContentValues(methodBuilder, method, paramTypeName, item, property);
 
 					// check for string conversion
 					TypeUtility.endStringConversion(methodBuilder, paramTypeName);
 
-					if (nullable && !(property!=null && property.hasTypeAdapter())) {
+					if (nullable && !(property!=null && property.hasTypeAdapter()) && !method.hasAdapterForParam(item)) {
 						methodBuilder.addCode(")");
 					}
 

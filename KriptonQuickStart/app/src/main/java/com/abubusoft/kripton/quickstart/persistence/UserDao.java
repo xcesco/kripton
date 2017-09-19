@@ -1,6 +1,9 @@
 package com.abubusoft.kripton.quickstart.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereParams;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
@@ -22,5 +25,11 @@ public interface UserDao {
 
     @BindSqlSelect(where="id = ${value}")
     User selectById(@BindSqlParam("value") long id);
+
+    @BindSqlSelect
+    List<User> selectDynamic(@BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] args);
+
+    @BindSqlSelect
+    List<User> sortedFind(@BindSqlDynamicOrderBy String orderBy);
 
 }
