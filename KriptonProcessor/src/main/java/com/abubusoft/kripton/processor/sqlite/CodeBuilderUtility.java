@@ -98,7 +98,7 @@ public abstract class CodeBuilderUtility {
 
 			// add property to list of used properties
 			methodBuilder.addCode("contentValues.put($S, ", item.columnName);
-			SQLTransformer.java2ContentValues(methodBuilder, entityClassName, entityName, item);
+			SQLTransformer.javaProperty2ContentValues(methodBuilder, entityClassName, entityName, item);
 			methodBuilder.addCode(");\n");
 
 			if (TypeUtility.isNullable(item)) {

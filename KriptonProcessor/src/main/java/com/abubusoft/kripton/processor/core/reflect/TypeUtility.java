@@ -283,7 +283,7 @@ public abstract class TypeUtility {
 		if (!TypeUtility.isEquals(item.value1, property.getPropertyType().getTypeName())) {
 			// ASSERT: property is not nullable but method yes, so we throw an
 			// exception
-			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s'. They have to be same type  ", property.getName(),
+			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s': they must have same type", property.getName(),
 					property.getPropertyType().getTypeName(), item.value0, item.value1.toString())));
 		}
 	}

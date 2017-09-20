@@ -27,6 +27,7 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -47,22 +48,27 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	@Override
-	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName,
-			ModelProperty property) {
-
-		if (property.hasTypeAdapter()) {			
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
+		if (property!=null && property.hasTypeAdapter()) {			
 			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 		} else {
 			methodBuilder.addCode("$L", getter(beanName, beanClass, property));
 		}
-
 	}
 
 	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName, ModelProperty property) {
-
-		if (property!=null && property.hasTypeAdapter()) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), paramName);
+	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
+		if (method.hasAdapterForParam(paramName)) {			
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName), paramName);
+		} else {
+			methodBuilder.addCode("$L", paramName);
+		}			
+	}
+	
+	@Override
+	public void generateWriteParam2ContentValues(Builder methodBuilder,  SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {
+		if (property.hasTypeAdapter()) {			
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, property.typeAdapter.getAdapterTypeName() , paramName);		
 		} else {
 			methodBuilder.addCode("$L", paramName);
 		}

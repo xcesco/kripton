@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -61,15 +62,15 @@ public interface SQLTransform {
 	 * 
 	 * 
 	 * @param methodBuilder
+	 * @param beanName
 	 * @param property
 	 *            property to write
-	 * @param beanName
 	 */
-	void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property);
+	void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property);
 
 	/**
 	 * <p>
-	 * Generate code to write parameter to content value element
+	 * Generate code to write parameter to where condition
 	 * </p>
 	 * 
 	 * @param methodBuilder
@@ -77,8 +78,19 @@ public interface SQLTransform {
 	 *            TODO
 	 * @param objectName
 	 */
-	void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition daoDefinition, String paramName, TypeName paramTypeName, 
-			ModelProperty property);
+	void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName);
+	
+	/**
+	 * <p>Generate code to write parameter to where statement</p>
+	 * 
+	 * @param methodBuilder
+	 * @param method
+	 * @param paramName
+	 * @param paramType
+	 * @param property 
+	 * @param property
+	 */
+	void generateWriteParam2ContentValues(Builder methodBuilder,  SQLiteModelMethod method, String paramName, TypeName paramType, ModelProperty property);
 
 	/**
 	 * Generate code to set property to null value or default value

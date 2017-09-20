@@ -17,9 +17,10 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 
+import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -29,42 +30,50 @@ import com.squareup.javapoet.TypeName;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class ShortSQLTransform  extends WrappedSQLTransformation {
-	
+public class ShortSQLTransform extends WrappedSQLTransformation {
+
 	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName, ModelProperty property) {
-		methodBuilder.addCode("(int)$L", paramName);		
+	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName,
+			TypeName paramTypeName) {
+		methodBuilder.addCode("(int)$L", paramName);
 	}
-	
+
 	@Override
-	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLiteModelMethod method, String paramName,
+			TypeName paramTypeName, ModelProperty property) {
+		//generateWriteParam2WhereCondition(methodBuilder, method, paramName, paramTypeName);
+		
+		if (method.hasAdapterForParam(paramName)) {			
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + "(int)$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName), paramName);
+		} else {
+			methodBuilder.addCode("(int)$L", paramName);
+		}
+	}
+
+	@Override
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass,
+			ModelProperty property) {
 		methodBuilder.addCode("(int)$L", getter(beanName, beanClass, property));
 	}
-	
 
-	public ShortSQLTransform(boolean nullable)
-	{
+	public ShortSQLTransform(boolean nullable) {
 		super(nullable);
-		defaultValue="0";
-		if (nullable)
-		{
-			defaultValue="null";
+		defaultValue = "0";
+		if (nullable) {
+			defaultValue = "null";
 		}
-		
-		this.READ_FROM_CURSOR="$L.getShort($L)";
+
+		this.READ_FROM_CURSOR = "$L.getShort($L)";
 	}
-	
+
 	@Override
-	public void generateDefaultValue(Builder methodBuilder)
-	{
-		methodBuilder.addCode(defaultValue);		
+	public void generateDefaultValue(Builder methodBuilder) {
+		methodBuilder.addCode(defaultValue);
 	}
-	
+
 	@Override
 	public SQLColumnType getColumnType() {
 		return SQLColumnType.INTEGER;
 	}
-
-	
 
 }

@@ -98,7 +98,6 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			generateJavaDoc(method, methodBuilder, updateMode, whereCondition, where, methodParams);
 
 			if (updateMode) {
-
 				AssertKripton.assertTrueOrInvalidMethodSignException(updateableParams.size() > 0, method, "no column was selected for update");
 
 				// clear contentValues
@@ -121,7 +120,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					// here it needed raw parameter typeName
 					methodBuilder.addCode("contentValues.put($S, ", property.columnName);
 
-					SQLTransformer.java2ContentValues(methodBuilder, method, TypeUtility.typeName(property.getElement()), item.value0, property);
+					SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, TypeUtility.typeName(property.getElement()), property);
 
 					methodBuilder.addCode(");\n");
 
@@ -539,7 +538,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 			nullable = isNullable(item.value1);
 
-			if (nullable) {
+			if (nullable && !method.hasAdapterForParam(item.value0)) {
 				// transform null in ""
 				methodBuilder.addCode("($L==null?\"\":", resolvedParamName);
 			}
@@ -547,11 +546,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			// check for string conversion
 			TypeUtility.beginStringConversion(methodBuilder, item.value1);
 
-			SQLTransformer.java2ContentValues(methodBuilder, method, item.value1, resolvedParamName, null);
+			SQLTransformer.javaMethodParam2WhereConditions(methodBuilder, method, resolvedParamName, item.value1);
 			// check for string conversion
 			TypeUtility.endStringConversion(methodBuilder, item.value1);
 
-			if (nullable) {
+			if (nullable && !method.hasAdapterForParam(item.value0)) {
 				methodBuilder.addCode(")");
 			}
 

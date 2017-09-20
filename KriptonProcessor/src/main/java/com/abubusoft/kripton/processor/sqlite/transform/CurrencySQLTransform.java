@@ -21,7 +21,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -40,15 +40,19 @@ class CurrencySQLTransform extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		// methodBuilder.addCode("(int)$L", getter(beanName, beanClass,
-		// property));
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
 		methodBuilder.addCode("$T.write($L)", CurrencyUtils.class, getter(beanName, beanClass, property));
 	}
 
 	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName, ModelProperty property) {
+	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
 		methodBuilder.addCode("$T.write($L)", CurrencyUtils.class, paramName);
+	}
+	
+	@Override
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLiteModelMethod method, String paramName,
+			TypeName paramTypeName, ModelProperty property) {
+		generateWriteParam2WhereCondition(methodBuilder, method, paramName, paramTypeName);
 	}
 
 	@Override

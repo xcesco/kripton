@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * <p>
@@ -22,51 +23,46 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
-   * <pre>UPDATE contact SET birth_day=:birthDay, password=:password, type=:type WHERE id=${bean.id}  and type=${bean.type}</pre>
+   * <h2>SQL update</h2>
+   * <pre>UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=${password} and type=${type}</pre>
    *
    * <h2>Updated columns:</h2>
+   * <ul>
+   * 	<li>birth_day</li>
+   * 	<li>id</li>
+   * </ul>
+   *
+   * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
-   * 	<dt>password</dt><dd>is mapped to <strong>${bean.password}</strong></dd>
-   * 	<dt>type</dt><dd>is mapped to <strong>${bean.type}</strong></dd>
+   * 	<dt>${password}</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
+   * 	<dt>${type}</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
    * </dl>
    *
-   * <h2>Parameters used in where conditions:</h2>
-   * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.type}</dt><dd>is mapped to method's parameter <strong>bean.type</strong></dd>
-   * </dl>
-   *
-   * @param bean
-   * 	is used as ${bean}
+   * @param password
+   * 	is used as where parameter <strong>${password}</strong>
+   * @param birthDay
+   * 	is used as updated field <strong>birthDay</strong>
+   * @param type
+   * 	is used as where parameter <strong>${type}</strong>
+   * @param id
+   * 	is used as updated field <strong>id</strong>
    *
    * @return number of updated records
    */
   @Override
-  public long update(Contact bean) {
+  public long updateJQLRaw1(String password, Date birthDay, ContactType type, long id) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
-
-    if (bean.birthDay!=null) {
-      contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, bean.birthDay));
+    if (birthDay!=null) {
+      contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
     } else {
       contentValues.putNull("birth_day");
     }
-    if (bean.getPassword()!=null) {
-      contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
-    } else {
-      contentValues.putNull("password");
-    }
-    if (bean.type!=null) {
-      contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
-    } else {
-      contentValues.putNull("type");
-    }
+    contentValues.put("id", id);
 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.getId()));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -75,13 +71,13 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?  and type=?";
+    String _sqlWhereStatement=" password=? and type=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("UPDATE contact SET birth_day=:birthDay, password=:password, type=:type WHERE id=?  and type=?");
+    Logger.info("UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=? and type=?");
 
     // log for content values -- BEGIN
     Object _contentValue;

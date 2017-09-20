@@ -171,7 +171,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 			// check for string conversion
 			TypeUtility.beginStringConversion(methodBuilder, property);
-			SQLTransformer.java2WhereCondition(methodBuilder, method, beanClass, beanParamName, property);
+			SQLTransformer.javaProperty2WhereCondition(methodBuilder, method, beanParamName, beanClass, property);
 			// check for string conversion
 			TypeUtility.endStringConversion(methodBuilder, property);
 

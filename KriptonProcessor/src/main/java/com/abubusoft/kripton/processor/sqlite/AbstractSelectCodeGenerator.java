@@ -291,7 +291,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					// check for string conversion
 					TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
 
-					SQLTransformer.java2ContentValues(methodBuilder, method, paramTypeName, item, property);
+					SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item, paramTypeName, property);
 
 					// check for string conversion
 					TypeUtility.endStringConversion(methodBuilder, paramTypeName);

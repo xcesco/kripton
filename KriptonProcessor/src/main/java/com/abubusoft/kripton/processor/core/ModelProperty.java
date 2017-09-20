@@ -34,6 +34,10 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		public String adapterClazz;
 
 		public String dataType;
+		
+		public TypeName getAdapterTypeName() {
+			return TypeUtility.typeName(adapterClazz);
+		}
 	}
 
 	@SuppressWarnings("rawtypes")

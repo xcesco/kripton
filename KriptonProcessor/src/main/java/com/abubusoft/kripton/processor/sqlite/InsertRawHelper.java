@@ -81,7 +81,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				methodBuilder.addCode("contentValues.put($S, ", property.columnName);
 				// it does not need to be converted in string
 
-				SQLTransformer.java2ContentValues(methodBuilder, method, item.value1, item.value0, property);				
+				SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, item.value1, property);				
 				methodBuilder.addCode(");\n");
 				if (nullable) {
 					methodBuilder.nextControlFlow("else");

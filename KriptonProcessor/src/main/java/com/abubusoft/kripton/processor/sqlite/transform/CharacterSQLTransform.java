@@ -21,7 +21,7 @@ import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -44,7 +44,7 @@ class CharacterSQLTransform extends WrappedSQLTransformation {
 	}
 
 	@Override
-	public void generateWriteProperty2ContentValues(Builder methodBuilder, TypeName beanClass, String beanName,
+	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass,
 			ModelProperty property) {
 		//methodBuilder.addCode("(int)$L", getter(beanName, beanClass, property));
 		
@@ -56,8 +56,19 @@ class CharacterSQLTransform extends WrappedSQLTransformation {
 	}
 
 	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLDaoDefinition sqlDaoDefinition, String paramName, TypeName paramTypeName,ModelProperty property) {
+	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
 		methodBuilder.addCode("(int)$L", paramName);
+	}
+	
+	@Override
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {
+		//generateWriteParam2WhereCondition(methodBuilder, method, paramName, paramTypeName);
+		
+		if (method.hasAdapterForParam(paramName)) {			
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + "(int)$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName), paramName);
+		} else {
+			methodBuilder.addCode("(int)$L", paramName);
+		}
 	}
 
 	@Override
