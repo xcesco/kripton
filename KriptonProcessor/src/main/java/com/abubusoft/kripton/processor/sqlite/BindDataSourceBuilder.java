@@ -245,7 +245,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 	private void generateBuild(String dataSourceName, SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("build")
-				.addModifiers(Modifier.PUBLIC, Modifier.STATIC).addParameter(DataSourceOptions.class, "options")
+				.addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).addParameter(DataSourceOptions.class, "options")
 				.returns(TypeUtility.mergeTypeName(PREFIX, schema.getElement()));
 
 		methodBuilder.addJavadoc("Build instance.\n");
