@@ -3,9 +3,9 @@ package sqlite.feature.typeadapter;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.annotation.BindType;
 
-@BindTable
+@BindType
 public class Contact {
 
 	protected long id;

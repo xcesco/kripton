@@ -14,25 +14,24 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 @BindDao(Contact.class)
 public interface ContactDao {
 
-	//@BindSqlUpdate(fields={"id", "type"}, where = "id=${bean.id}  and password=${bean.password} and type=${bean.type}")
-	//long updateCompactBean(Contact bean);
+	@BindSqlUpdate(fields={"id", "type"}, where = "id=${bean.id}  and password=${bean.password} and type=${bean.type}")
+	long updateCompactBean(Contact bean);
+	/*
+	@BindSqlUpdate(jql = "UPDATE contact SET birthDay=${bean.birthDay}, password=${bean.password}, type=${bean.type} WHERE type=${bean.type}  and type=${bean.password}")	
+	long updateJQLBean(Contact bean);
 	
-	//@BindSqlUpdate(jql = "UPDATE contact SET birthDay=${bean.birthDay}, password=${bean.password}, type=${bean.type} WHERE type=${bean.type}  and type=${bean.password}")	
-	//long updateJQLBean(Contact bean);
 	
+	@BindSqlUpdate(where = "id=${id}")
+	long updateCompactRaw1(String password, ContactType type, long id);
 	
-	//@BindSqlUpdate(where = "id=${id}")
-	//long updateCompactRaw1(String password, ContactType type, long id);
-	
-	//@BindSqlUpdate(where = "password=${password} and type=${type}")
-	//long updateCompactRaw2(Date birthDay, @BindSqlParam(adapter=PasswordAdapterType.class) String password, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type, long id);
+	@BindSqlUpdate(where = "password=${password} and type=${type}")
+	long updateCompactRaw2(Date birthDay, @BindSqlParam(adapter=PasswordAdapterType.class) String password, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type, long id);
 	
 	@BindSqlUpdate(jql="UPDATE contact SET birthDay=${birthDay}, id=${id} WHERE password=${password} and type=${type}")
-	//@BindSqlUpdate(jql="UPDATE contact SET birthDay=${birthDay}, id=${id} WHERE password=${password}")
 	long updateJQLRaw1(@BindSqlParam(adapter=PasswordAdapterType.class) String password, Date birthDay, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type, long id);
 	
-	//@BindSqlUpdate(jql="UPDATE contact SET birthDay=${birthDay}, id=${id} WHERE password=${password} and type=${type}")
-	//long updateJQLRaw2(Date birthDay, @BindSqlParam(adapter=PasswordAdapterType.class) String password, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type, long id);
+	@BindSqlUpdate(jql="UPDATE contact SET birthDay=${birthDay}, id=${id} WHERE password=${password} and type=${type}")
+	long updateJQLRaw2(Date birthDay, @BindSqlParam(adapter=PasswordAdapterType.class) String password, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type, long id);*/
 
 	//--------------------------
 	//-- DONE

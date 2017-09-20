@@ -82,8 +82,8 @@ public abstract class SQLTransformer {
 	 * @param property
 	 */
 	public static void javaProperty2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
-		//TypeName typeName = property.getPropertyType().getTypeName();
-		TypeName typeName = beanClass;
+		TypeName typeName = property.getPropertyType().getTypeName();
+		//TypeName typeName = beanClass;
 
 		if (property!=null && property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);

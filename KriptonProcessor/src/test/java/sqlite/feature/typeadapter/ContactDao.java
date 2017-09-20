@@ -16,7 +16,7 @@ public interface ContactDao {
 
 	@BindSqlUpdate(fields={"id", "type"}, where = "id=${bean.id}  and password=${bean.password} and type=${bean.type}")
 	long updateCompactBean(Contact bean);
-	
+	/*
 	@BindSqlUpdate(jql = "UPDATE contact SET birthDay=${bean.birthDay}, password=${bean.password}, type=${bean.type} WHERE type=${bean.type}  and type=${bean.password}")	
 	long updateJQLBean(Contact bean);
 	
@@ -31,7 +31,7 @@ public interface ContactDao {
 	long updateJQLRaw1(@BindSqlParam(adapter=PasswordAdapterType.class) String password, Date birthDay, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type, long id);
 	
 	@BindSqlUpdate(jql="UPDATE contact SET birthDay=${birthDay}, id=${id} WHERE password=${password} and type=${type}")
-	long updateJQLRaw2(Date birthDay, @BindSqlParam(adapter=PasswordAdapterType.class) String password, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type, long id);
+	long updateJQLRaw2(Date birthDay, @BindSqlParam(adapter=PasswordAdapterType.class) String password, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type, long id);*/
 
 	//--------------------------
 	//-- DONE
