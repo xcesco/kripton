@@ -166,7 +166,7 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindDeleteBeanPersonDataSource build(DataSourceOptions options) {
+  public static synchronized BindDeleteBeanPersonDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindDeleteBeanPersonDataSource(options);
     }

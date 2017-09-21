@@ -654,7 +654,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * write
+   * for param serializer1 serialization
    */
   private byte[] serializer1(BeanInner[] value) {
     if (value==null) {
@@ -690,7 +690,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * parse
+   * for param parser1 parsing
    */
   private BeanInner[] parser1(byte[] input) {
     if (input==null) {

@@ -165,7 +165,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindShortDataSource build(DataSourceOptions options) {
+  public static synchronized BindShortDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindShortDataSource(options);
     }

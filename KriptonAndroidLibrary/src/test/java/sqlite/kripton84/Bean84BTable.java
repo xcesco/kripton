@@ -63,7 +63,7 @@ public class Bean84BTable {
   private static Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
 
   /**
-   * write
+   * for attribute columnBean serialization
    */
   public static byte[] serializeColumnBean(Bean84B2 value) {
     if (value==null) {
@@ -85,7 +85,7 @@ public class Bean84BTable {
   }
 
   /**
-   * parse
+   * for attribute columnBean parsing
    */
   public static Bean84B2 parseColumnBean(byte[] input) {
     if (input==null) {

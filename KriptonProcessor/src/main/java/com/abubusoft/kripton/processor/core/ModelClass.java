@@ -33,13 +33,13 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 	protected TypeVariableResolver typeVariableResolver;
 
 	public ModelClass(TypeElement element) {
-		this(element.getQualifiedName().toString(), element);
+		this(element.getQualifiedName().toString(), element, null);
 	}
 
-	public ModelClass(String name, TypeElement beanElement) {
+	public ModelClass(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
 		super(name, beanElement);
 
-		this.annotations = new ArrayList<ModelAnnotation>();
+		this.annotations = annotationList==null ? new ArrayList<ModelAnnotation>() : annotationList;
 		this.typeVariableResolver=TypeVariableResolver.build(beanElement);
 	}
 

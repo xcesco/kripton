@@ -356,7 +356,7 @@ public class BeanTable {
   private static BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
 
   /**
-   * write
+   * for attribute valueTimeList serialization
    */
   public static byte[] serializeValueTimeList(List<Time> value) {
     if (value==null) {
@@ -393,7 +393,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueTimeList parsing
    */
   public static List<Time> parseValueTimeList(byte[] input) {
     if (input==null) {
@@ -427,7 +427,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueStrinList serialization
    */
   public static byte[] serializeValueStrinList(LinkedList<String> value) {
     if (value==null) {
@@ -464,7 +464,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueStrinList parsing
    */
   public static LinkedList<String> parseValueStrinList(byte[] input) {
     if (input==null) {
@@ -498,7 +498,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueLongList serialization
    */
   public static byte[] serializeValueLongList(LinkedList<Long> value) {
     if (value==null) {
@@ -535,7 +535,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueLongList parsing
    */
   public static LinkedList<Long> parseValueLongList(byte[] input) {
     if (input==null) {
@@ -569,21 +569,21 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueByteArray serialization
    */
   public static byte[] serializeValueByteArray(byte[] value) {
     return value;
   }
 
   /**
-   * parse
+   * for attribute valueByteArray parsing
    */
   public static byte[] parseValueByteArray(byte[] input) {
     return input;
   }
 
   /**
-   * write
+   * for attribute valueLongTypeArray serialization
    */
   public static byte[] serializeValueLongTypeArray(long[] value) {
     if (value==null) {
@@ -616,7 +616,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueLongTypeArray parsing
    */
   public static long[] parseValueLongTypeArray(byte[] input) {
     if (input==null) {
@@ -650,7 +650,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueLongArray serialization
    */
   public static byte[] serializeValueLongArray(Long[] value) {
     if (value==null) {
@@ -687,7 +687,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueLongArray parsing
    */
   public static Long[] parseValueLongArray(byte[] input) {
     if (input==null) {
@@ -721,7 +721,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueBeanArray serialization
    */
   public static byte[] serializeValueBeanArray(Bean[] value) {
     if (value==null) {
@@ -758,7 +758,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueBeanArray parsing
    */
   public static Bean[] parseValueBeanArray(byte[] input) {
     if (input==null) {
@@ -792,7 +792,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueStringArray serialization
    */
   public static byte[] serializeValueStringArray(String[] value) {
     if (value==null) {
@@ -829,7 +829,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueStringArray parsing
    */
   public static String[] parseValueStringArray(byte[] input) {
     if (input==null) {
@@ -863,7 +863,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueCharList serialization
    */
   public static byte[] serializeValueCharList(LinkedList<Character> value) {
     if (value==null) {
@@ -900,7 +900,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueCharList parsing
    */
   public static LinkedList<Character> parseValueCharList(byte[] input) {
     if (input==null) {
@@ -934,7 +934,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueCharTypeArray serialization
    */
   public static byte[] serializeValueCharTypeArray(char[] value) {
     if (value==null) {
@@ -967,7 +967,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueCharTypeArray parsing
    */
   public static char[] parseValueCharTypeArray(byte[] input) {
     if (input==null) {
@@ -1001,7 +1001,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueCharArray serialization
    */
   public static byte[] serializeValueCharArray(Character[] value) {
     if (value==null) {
@@ -1038,7 +1038,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueCharArray parsing
    */
   public static Character[] parseValueCharArray(byte[] input) {
     if (input==null) {
@@ -1072,7 +1072,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueMapStringBean serialization
    */
   public static byte[] serializeValueMapStringBean(Map<String, Bean> value) {
     if (value==null) {
@@ -1114,7 +1114,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueMapStringBean parsing
    */
   public static Map<String, Bean> parseValueMapStringBean(byte[] input) {
     if (input==null) {
@@ -1153,7 +1153,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueLinkedMapStringBean serialization
    */
   public static byte[] serializeValueLinkedMapStringBean(LinkedHashMap<String, Bean> value) {
     if (value==null) {
@@ -1195,7 +1195,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueLinkedMapStringBean parsing
    */
   public static LinkedHashMap<String, Bean> parseValueLinkedMapStringBean(byte[] input) {
     if (input==null) {
@@ -1234,7 +1234,7 @@ public class BeanTable {
   }
 
   /**
-   * write
+   * for attribute valueSetString serialization
    */
   public static byte[] serializeValueSetString(Set<String> value) {
     if (value==null) {
@@ -1268,7 +1268,7 @@ public class BeanTable {
   }
 
   /**
-   * parse
+   * for attribute valueSetString parsing
    */
   public static Set<String> parseValueSetString(byte[] input) {
     if (input==null) {

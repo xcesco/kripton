@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind;
 
+import java.util.List;
+
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
@@ -27,6 +29,7 @@ import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindModel;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
@@ -67,12 +70,13 @@ public abstract class BindEntityBuilder {
 
 	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).build();
 
-	public static BindEntity build(final BindModel model, final Elements elementUtils, TypeElement element) {
+	public static BindEntity build(final BindModel model, TypeElement element) {
+		final Elements elementUtils=BaseProcessor.elementUtils;
 		final InnerCounter counterPropertyInValue = new InnerCounter();
 		final Converter<String, String> typeNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		final TypeElement beanElement = element;
 
-		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), beanElement);
+		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), beanElement, AnnotationUtility.buildAnnotationList(element, classAnnotationFilter));
 
 		// tag typeName
 		String tagName = AnnotationUtility.extractAsString(elementUtils, beanElement, BindType.class, AnnotationAttributeType.VALUE);
@@ -81,8 +85,6 @@ public abstract class BindEntityBuilder {
 		} else {
 			currentEntity.xmlInfo.label = typeNameConverter.convert(beanElement.getSimpleName().toString());
 		}
-
-		//AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 

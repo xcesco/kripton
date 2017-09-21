@@ -621,7 +621,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   }
 
   /**
-   * write
+   * for param serializer1 serialization
    */
   private byte[] serializer1(List<Double> value) {
     if (value==null) {
@@ -657,7 +657,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   }
 
   /**
-   * parse
+   * for param parser1 parsing
    */
   private List<Double> parser1(byte[] input) {
     if (input==null) {

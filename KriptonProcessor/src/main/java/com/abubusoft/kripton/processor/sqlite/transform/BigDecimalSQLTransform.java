@@ -34,13 +34,6 @@ import com.squareup.javapoet.TypeName;
  */
 class BigDecimalSQLTransform extends AbstractSQLTransform {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.transform.Transform#
-	 * generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder,
-	 * java.lang.String)
-	 */
 	@Override
 	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName,
 			TypeName paramTypeName) {

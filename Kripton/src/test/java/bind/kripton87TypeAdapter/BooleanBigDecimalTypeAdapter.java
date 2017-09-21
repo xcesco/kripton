@@ -32,7 +32,10 @@ public class BooleanBigDecimalTypeAdapter implements BindTypeAdapter<Boolean, Bi
 
 	@Override
 	public BigDecimal toData(Boolean javaValue) {
+		if (javaValue==null) return null;
+		
 		return new BigDecimal(javaValue?1:0);
 	}
+
 
 }

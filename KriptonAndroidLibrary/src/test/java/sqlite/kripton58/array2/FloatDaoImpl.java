@@ -646,7 +646,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   }
 
   /**
-   * write
+   * for param serializer2 serialization
    */
   private byte[] serializer2(Float[] value) {
     if (value==null) {
@@ -682,7 +682,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   }
 
   /**
-   * parse
+   * for param parser2 parsing
    */
   private Float[] parser2(byte[] input) {
     if (input==null) {
@@ -716,7 +716,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   }
 
   /**
-   * write
+   * for param serializer1 serialization
    */
   private byte[] serializer1(float[] value) {
     if (value==null) {
@@ -748,7 +748,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   }
 
   /**
-   * parse
+   * for param parser1 parsing
    */
   private float[] parser1(byte[] input) {
     if (input==null) {

@@ -217,7 +217,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindSchoolDataSource build(DataSourceOptions options) {
+  public static synchronized BindSchoolDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindSchoolDataSource(options);
     }

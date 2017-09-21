@@ -166,7 +166,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindPersonUpdateDataSource build(DataSourceOptions options) {
+  public static synchronized BindPersonUpdateDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPersonUpdateDataSource(options);
     }

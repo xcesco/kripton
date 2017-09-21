@@ -145,7 +145,7 @@ public class Bean2Table {
   private static BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
 
   /**
-   * write
+   * for attribute valueByteSet serialization
    */
   public static byte[] serializeValueByteSet(Set<Byte> value) {
     if (value==null) {
@@ -179,7 +179,7 @@ public class Bean2Table {
   }
 
   /**
-   * parse
+   * for attribute valueByteSet parsing
    */
   public static Set<Byte> parseValueByteSet(byte[] input) {
     if (input==null) {
@@ -213,7 +213,7 @@ public class Bean2Table {
   }
 
   /**
-   * write
+   * for attribute valueShortSet serialization
    */
   public static byte[] serializeValueShortSet(HashSet<Short> value) {
     if (value==null) {
@@ -247,7 +247,7 @@ public class Bean2Table {
   }
 
   /**
-   * parse
+   * for attribute valueShortSet parsing
    */
   public static HashSet<Short> parseValueShortSet(byte[] input) {
     if (input==null) {
@@ -281,7 +281,7 @@ public class Bean2Table {
   }
 
   /**
-   * write
+   * for attribute valueIntegerSet serialization
    */
   public static byte[] serializeValueIntegerSet(LinkedHashSet<Integer> value) {
     if (value==null) {
@@ -315,7 +315,7 @@ public class Bean2Table {
   }
 
   /**
-   * parse
+   * for attribute valueIntegerSet parsing
    */
   public static LinkedHashSet<Integer> parseValueIntegerSet(byte[] input) {
     if (input==null) {
@@ -349,7 +349,7 @@ public class Bean2Table {
   }
 
   /**
-   * write
+   * for attribute valueStringSet serialization
    */
   public static byte[] serializeValueStringSet(HashSet<String> value) {
     if (value==null) {
@@ -383,7 +383,7 @@ public class Bean2Table {
   }
 
   /**
-   * parse
+   * for attribute valueStringSet parsing
    */
   public static HashSet<String> parseValueStringSet(byte[] input) {
     if (input==null) {
@@ -417,7 +417,7 @@ public class Bean2Table {
   }
 
   /**
-   * write
+   * for attribute valueCharacterSet serialization
    */
   public static byte[] serializeValueCharacterSet(Set<Character> value) {
     if (value==null) {
@@ -451,7 +451,7 @@ public class Bean2Table {
   }
 
   /**
-   * parse
+   * for attribute valueCharacterSet parsing
    */
   public static Set<Character> parseValueCharacterSet(byte[] input) {
     if (input==null) {
@@ -485,7 +485,7 @@ public class Bean2Table {
   }
 
   /**
-   * write
+   * for attribute valueFloatSet serialization
    */
   public static byte[] serializeValueFloatSet(HashSet<Float> value) {
     if (value==null) {
@@ -519,7 +519,7 @@ public class Bean2Table {
   }
 
   /**
-   * parse
+   * for attribute valueFloatSet parsing
    */
   public static HashSet<Float> parseValueFloatSet(byte[] input) {
     if (input==null) {
@@ -553,7 +553,7 @@ public class Bean2Table {
   }
 
   /**
-   * write
+   * for attribute valueDoubleSet serialization
    */
   public static byte[] serializeValueDoubleSet(HashSet<Double> value) {
     if (value==null) {
@@ -587,7 +587,7 @@ public class Bean2Table {
   }
 
   /**
-   * parse
+   * for attribute valueDoubleSet parsing
    */
   public static HashSet<Double> parseValueDoubleSet(byte[] input) {
     if (input==null) {
@@ -621,7 +621,7 @@ public class Bean2Table {
   }
 
   /**
-   * write
+   * for attribute valueBigDecimalSet serialization
    */
   public static byte[] serializeValueBigDecimalSet(HashSet<BigDecimal> value) {
     if (value==null) {
@@ -655,7 +655,7 @@ public class Bean2Table {
   }
 
   /**
-   * parse
+   * for attribute valueBigDecimalSet parsing
    */
   public static HashSet<BigDecimal> parseValueBigDecimalSet(byte[] input) {
     if (input==null) {
@@ -689,7 +689,7 @@ public class Bean2Table {
   }
 
   /**
-   * write
+   * for attribute valueBeanSet serialization
    */
   public static byte[] serializeValueBeanSet(LinkedHashSet<Bean> value) {
     if (value==null) {
@@ -723,7 +723,7 @@ public class Bean2Table {
   }
 
   /**
-   * parse
+   * for attribute valueBeanSet parsing
    */
   public static LinkedHashSet<Bean> parseValueBeanSet(byte[] input) {
     if (input==null) {
@@ -757,7 +757,7 @@ public class Bean2Table {
   }
 
   /**
-   * write
+   * for attribute valueEnumTypeSet serialization
    */
   public static byte[] serializeValueEnumTypeSet(HashSet<EnumType> value) {
     if (value==null) {
@@ -791,7 +791,7 @@ public class Bean2Table {
   }
 
   /**
-   * parse
+   * for attribute valueEnumTypeSet parsing
    */
   public static HashSet<EnumType> parseValueEnumTypeSet(byte[] input) {
     if (input==null) {

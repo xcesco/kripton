@@ -133,11 +133,9 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 		String result = beanElement.getSimpleName().toString();
 
 		// create equivalent entity in the domain of bind processor
-		final BindEntity bindEntity = BindEntityBuilder.build(null, elementUtils, sharedPreference);
-		final PrefEntity currentEntity = new PrefEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement);
-
-		//AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
-
+		final BindEntity bindEntity = BindEntityBuilder.build(null, sharedPreference);
+		final PrefEntity currentEntity = new PrefEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement, AnnotationUtility.buildAnnotationList((TypeElement) beanElement, classAnnotationFilter));
+		
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 
 		// if (!temp1 && temp2) {

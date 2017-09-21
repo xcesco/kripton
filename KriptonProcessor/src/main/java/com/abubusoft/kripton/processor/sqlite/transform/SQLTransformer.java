@@ -81,11 +81,11 @@ public abstract class SQLTransformer {
 	 * @param beanName
 	 * @param property
 	 */
-	public static void javaProperty2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+	public static void javaProperty2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
 		TypeName typeName = property.getPropertyType().getTypeName();
-		//TypeName typeName = beanClass;
+		// TypeName typeName = beanClass;
 
-		if (property!=null && property.hasTypeAdapter()) {
+		if (property != null && property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);
 		}
 		SQLTransform transform = lookup(typeName);
@@ -93,7 +93,7 @@ public abstract class SQLTransformer {
 		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, typeName);
 		transform.generateWriteProperty2ContentValues(methodBuilder, beanName, beanClass, property);
 	}
-	
+
 	/**
 	 * Used to convert a property of managed bean to where conditino
 	 * 
@@ -102,21 +102,20 @@ public abstract class SQLTransformer {
 	 * @param paramType
 	 * @param property
 	 */
-	public static void javaProperty2WhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method,  String paramName, TypeName paramType, ModelProperty property) {
-		if (property!=null && property.hasTypeAdapter()) {
-			methodBuilder.addCode(AbstractSQLTransform.PRE_TYPE_ADAPTER_TO_STRING + "$L" + AbstractSQLTransform.POST_TYPE_ADAPTER, SQLTypeAdapterUtils.class, typeName(property.typeAdapter.adapterClazz),
-					PropertyUtility.getter(paramName, paramType, property));
+	public static void javaProperty2WhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramType, ModelProperty property) {
+		if (property != null && property.hasTypeAdapter()) {
+			methodBuilder.addCode(AbstractSQLTransform.PRE_TYPE_ADAPTER_TO_STRING + "$L" + AbstractSQLTransform.POST_TYPE_ADAPTER, SQLTypeAdapterUtils.class,
+					typeName(property.typeAdapter.adapterClazz), PropertyUtility.getter(paramName, paramType, property));
 		} else {
-			SQLTransform transform = (property != null && property.hasTypeAdapter()) ? lookup(typeName(property.typeAdapter.dataType)) : lookup(paramType);
+			SQLTransform transform = (property != null && property.hasTypeAdapter()) ? lookup(property.typeAdapter.getDataTypeTypename()) : lookup(property.getPropertyType().getTypeName());
 
 			AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, (property != null && property.hasTypeAdapter()) ? typeName(property.typeAdapter.dataType) : paramType);
-			transform.generateWriteParam2WhereCondition(methodBuilder, method, paramName, paramType);
+			transform.generateWriteProperty2WhereCondition(methodBuilder, paramName, paramType, property);
 		}
 	}
-	
 
 	/**
-	 * Used to convert a generic parameter to contentValues
+	 * Used to convert a method's parameter to contentValues. It can not have a type adpter, because it eventually use the one define in associated bean's attribute
 	 * 
 	 * @param methodBuilder
 	 * @param paramName
@@ -125,17 +124,14 @@ public abstract class SQLTransformer {
 	 * @param sqlDaoDefinition
 	 */
 	public static void javaMethodParam2ContentValues(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramType, ModelProperty property) {
-		if (method.hasAdapterForParam(paramName)) {
-			methodBuilder.addCode(AbstractSQLTransform.PRE_TYPE_ADAPTER_TO_DATA + "$L" + AbstractSQLTransform.POST_TYPE_ADAPTER, SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName),
-					paramName);
-		} else {
-			SQLTransform transform = (property != null && property.hasTypeAdapter()) ? lookup(typeName(property.typeAdapter.dataType)) : lookup(paramType);
+		AssertKripton.assertTrueOrInvalidMethodSignException(!method.hasAdapterForParam(paramName), method, "method's parameter '%s' can not use a type adapter", paramName);
+		SQLTransform transform = (property != null && property.hasTypeAdapter()) ? lookup(typeName(property.typeAdapter.dataType)) : lookup(paramType);
 
-			AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, (property != null && property.hasTypeAdapter()) ? typeName(property.typeAdapter.dataType) : paramType);
-			transform.generateWriteParam2ContentValues(methodBuilder, method, paramName, paramType, property);
-		}
+		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, (property != null && property.hasTypeAdapter()) ? typeName(property.typeAdapter.dataType) : paramType);
+		transform.generateWriteParam2ContentValues(methodBuilder, method, paramName, paramType, property);
+
 	}
-	
+
 	/**
 	 * Used to convert a generic parameter to where conditions
 	 * 
@@ -145,7 +141,7 @@ public abstract class SQLTransformer {
 	 * @param property
 	 * @param sqlDaoDefinition
 	 */
-	public static void javaMethodParam2WhereConditions(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramType) {		
+	public static void javaMethodParam2WhereConditions(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramType) {
 		if (method.hasAdapterForParam(paramName)) {
 			methodBuilder.addCode(AbstractSQLTransform.PRE_TYPE_ADAPTER_TO_STRING + "$L" + AbstractSQLTransform.POST_TYPE_ADAPTER, SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName),
 					paramName);

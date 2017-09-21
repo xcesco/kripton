@@ -2027,7 +2027,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * write
+   * for param serializer1 serialization
    */
   private byte[] serializer1(Long value) {
     if (value==null) {
@@ -2050,7 +2050,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   }
 
   /**
-   * parse
+   * for param parser1 parsing
    */
   private Long parser1(byte[] input) {
     if (input==null) {

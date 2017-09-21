@@ -67,7 +67,7 @@ public class Bean01Table {
   public static final String COLUMN_TEXT = "text";
 
   /**
-   * write
+   * for attribute temp serialization
    */
   public static byte[] serializeTemp(List<String> value) {
     if (value==null) {
@@ -104,7 +104,7 @@ public class Bean01Table {
   }
 
   /**
-   * parse
+   * for attribute temp parsing
    */
   public static List<String> parseTemp(byte[] input) {
     if (input==null) {

@@ -49,11 +49,12 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
-		if (property!=null && property.hasTypeAdapter()) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
-		} else {
-			methodBuilder.addCode("$L", getter(beanName, beanClass, property));
-		}
+		methodBuilder.addCode("$L", getter(beanName, beanClass, property));		
+	}
+	
+	@Override
+	public void generateWriteProperty2WhereCondition(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
+		generateWriteProperty2ContentValues(methodBuilder, beanName, beanClass, property);
 	}
 
 	@Override

@@ -76,14 +76,14 @@ public class Bean05Table {
   public static final String COLUMN_CREATION_TIME = "creation_time";
 
   /**
-   * write
+   * for attribute content serialization
    */
   public static byte[] serializeContent(byte[] value) {
     return value;
   }
 
   /**
-   * parse
+   * for attribute content parsing
    */
   public static byte[] parseContent(byte[] input) {
     return input;

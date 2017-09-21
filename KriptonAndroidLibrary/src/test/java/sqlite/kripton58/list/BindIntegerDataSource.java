@@ -165,7 +165,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindIntegerDataSource build(DataSourceOptions options) {
+  public static synchronized BindIntegerDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindIntegerDataSource(options);
     }

@@ -165,7 +165,7 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindContactDataSource build(DataSourceOptions options) {
+  public static synchronized BindContactDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindContactDataSource(options);
     }

@@ -621,7 +621,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
   }
 
   /**
-   * write
+   * for param serializer1 serialization
    */
   private byte[] serializer1(List<Integer> value) {
     if (value==null) {
@@ -657,7 +657,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
   }
 
   /**
-   * parse
+   * for param parser1 parsing
    */
   private List<Integer> parser1(byte[] input) {
     if (input==null) {

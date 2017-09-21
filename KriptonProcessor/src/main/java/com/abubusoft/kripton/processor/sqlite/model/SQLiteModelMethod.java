@@ -37,6 +37,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.NoAdapter;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -173,7 +174,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				
 				// check for adapter				
 				String paramAdapter=AnnotationUtility.extractAsClassName(p, BindSqlParam.class, AnnotationAttributeType.ADAPTER);
-				if (!NoAdapter.class.toString().equals(paramAdapter)) {
+				if (!NoAdapter.class.getCanonicalName().equals(paramAdapter)) {
 					this.parameterName2Adapter.put(p.getSimpleName().toString(), paramAdapter);
 				}
 			}
@@ -589,6 +590,17 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		} else {
 			return null;
 		}
+	}
+
+	public String findEntityProperty() {
+		SQLEntity entity=getParent().getEntity();
+		
+		for(Pair<String, TypeName> item: this.parameters) {
+			if (item.value1.equals(TypeUtility.typeName(entity.getElement()))) {
+				return item.value0;
+			}
+		}
+		return null;
 	}
 
 }

@@ -153,7 +153,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueMapStringByte serialization
    */
   protected String serializeValueMapStringByte(Map<String, Byte> value) {
     if (value==null) {
@@ -194,7 +194,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueMapStringByte parsing
    */
   protected Map<String, Byte> parseValueMapStringByte(String input) {
     if (input==null) {
@@ -233,7 +233,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueMapEnumByte serialization
    */
   protected String serializeValueMapEnumByte(HashMap<EnumType, Byte> value) {
     if (value==null) {
@@ -274,7 +274,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueMapEnumByte parsing
    */
   protected HashMap<EnumType, Byte> parseValueMapEnumByte(String input) {
     if (input==null) {

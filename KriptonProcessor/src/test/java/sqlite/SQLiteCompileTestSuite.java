@@ -33,6 +33,7 @@ import sqlite.feature.jql.TestJQLFeatureSuite;
 import sqlite.feature.multithread.TestCompileMultithreadSuite;
 import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
 import sqlite.feature.schema.TestSchemaSuite;
+import sqlite.feature.typeadapter.TestTypeAdapterSuite;
 import sqlite.kripton111.TestCompile111;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
@@ -76,6 +77,7 @@ import sqlite.kripton63.Test63Compile;
 			TestDynamicSuite.class,
 			TestSchemaSuite.class,
 			IndexTestSuite.class,
+			TestTypeAdapterSuite.class,
 			
 			// bug-fix			
 			Example01Suite.class,

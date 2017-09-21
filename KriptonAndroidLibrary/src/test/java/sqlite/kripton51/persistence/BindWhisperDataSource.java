@@ -166,7 +166,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindWhisperDataSource build(DataSourceOptions options) {
+  public static synchronized BindWhisperDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindWhisperDataSource(options);
     }

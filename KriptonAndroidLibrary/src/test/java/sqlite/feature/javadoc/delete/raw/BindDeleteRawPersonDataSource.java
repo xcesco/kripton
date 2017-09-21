@@ -166,7 +166,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindDeleteRawPersonDataSource build(DataSourceOptions options) {
+  public static synchronized BindDeleteRawPersonDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindDeleteRawPersonDataSource(options);
     }

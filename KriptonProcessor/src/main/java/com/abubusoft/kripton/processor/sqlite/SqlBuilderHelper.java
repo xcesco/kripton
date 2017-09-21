@@ -66,7 +66,7 @@ public abstract class SqlBuilderHelper {
 	 * 
 	 * @return name of column name set
 	 */
-	public static String generateColumnCheckSet(Elements elementUtils, TypeSpec.Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
+	public static String generateColumnCheckSet(TypeSpec.Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
 		String columnNameSet = method.contentProviderMethodName + "ColumnSet";
 		StringBuilder initBuilder = new StringBuilder();
 		String temp = "";
@@ -88,14 +88,13 @@ public abstract class SqlBuilderHelper {
 	 * <p>
 	 * Generate column check
 	 * </p>
-	 * 
-	 * @param method
 	 * @param methodBuilder
+	 * @param method
 	 * @param columnSetString
 	 * @param generateColumnNameCheck
 	 * @param listener
 	 */
-	static void forEachColumnInContentValue(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, String columnSetString, boolean generateColumnNameCheck, OnColumnListener listener) {
+	static void forEachColumnInContentValue(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, String columnSetString, boolean generateColumnNameCheck, OnColumnListener listener) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		methodBuilder.beginControlFlow("for (String columnName:$L)", columnSetString);
 		if (generateColumnNameCheck) {
@@ -486,7 +485,7 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.addStatement("$T _columnValueBuffer=new $T()", StringBuffer.class, StringBuffer.class);
 			methodBuilder.addStatement("String _columnSeparator=$S", "");
 
-			SqlBuilderHelper.forEachColumnInContentValue(method, methodBuilder, "contentValues.keySet()", false, new OnColumnListener() {
+			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "contentValues.keySet()", false, new OnColumnListener() {
 
 				@Override
 				public void onColumnCheck(MethodSpec.Builder methodBuilder, String columNameVariable) {

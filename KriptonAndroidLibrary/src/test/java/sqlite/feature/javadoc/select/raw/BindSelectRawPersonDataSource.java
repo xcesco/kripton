@@ -166,7 +166,7 @@ public class BindSelectRawPersonDataSource extends AbstractDataSource implements
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindSelectRawPersonDataSource build(DataSourceOptions options) {
+  public static synchronized BindSelectRawPersonDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindSelectRawPersonDataSource(options);
     }

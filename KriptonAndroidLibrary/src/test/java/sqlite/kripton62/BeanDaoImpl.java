@@ -922,7 +922,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * write
+   * for param serializer1 serialization
    */
   private byte[] serializer1(HashSet<BigDecimal> value) {
     if (value==null) {
@@ -955,7 +955,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * parse
+   * for param parser1 parsing
    */
   private HashSet<BigDecimal> parser1(byte[] input) {
     if (input==null) {

@@ -125,7 +125,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute userAccessToken serialization
    */
   protected String serializeUserAccessToken(UserAccessToken value) {
     if (value==null) {
@@ -147,7 +147,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute userAccessToken parsing
    */
   protected UserAccessToken parseUserAccessToken(String input) {
     if (input==null) {

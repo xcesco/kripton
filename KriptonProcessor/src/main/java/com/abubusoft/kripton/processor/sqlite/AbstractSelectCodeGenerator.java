@@ -139,7 +139,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		List<String> paramNames = new ArrayList<String>();
 		List<String> paramGetters = new ArrayList<String>();
 		List<TypeName> paramTypeNames = new ArrayList<TypeName>();
-		List<String> usedBeanPropertyNames=new ArrayList<>();
+		List<String> usedBeanPropertyNames = new ArrayList<>();
 
 		// used method parameters
 		Set<String> usedMethodParameters = new HashSet<String>();
@@ -269,36 +269,70 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			{
 				String separator = "";
 				TypeName paramTypeName;
+				//String paramName;
 				boolean nullable;
 				int i = 0;
+				boolean rawParameters;
+								
+				String beanName=null;
+								
+				beanName=method.findEntityProperty();				
 
 				for (String item : paramGetters) {
+					rawParameters = paramNames.get(i).indexOf(".") == -1;
+
 					methodBuilder.addCode("_sqlWhereParams.add(");
 					logArgsBuffer.append(separator + "%s");
 
 					paramTypeName = paramTypeNames.get(i);
-					
-					// eventually we take associated property
-					SQLProperty property = usedBeanPropertyNames.get(i)==null ? null :entity.get(usedBeanPropertyNames.get(i));
+			//		paramName = paramNames.get(i);
+
 					
 					// code for query arguments
 					nullable = TypeUtility.isNullable(paramTypeName);
-					if (nullable && !(property!=null && property.hasTypeAdapter()) && !method.hasAdapterForParam(item)) {
-						methodBuilder.addCode("($L==null?\"\":", item);
-					}
-					
 
-					// check for string conversion
-					TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
+					if (rawParameters) {
+						if (nullable && !method.hasAdapterForParam(item)) {
+							methodBuilder.addCode("($L==null?\"\":", item);
+						}
 
-					SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item, paramTypeName, property);
+						// check for string conversion
+						TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
 
-					// check for string conversion
-					TypeUtility.endStringConversion(methodBuilder, paramTypeName);
+						SQLTransformer.javaMethodParam2WhereConditions(methodBuilder, method, item, paramTypeName);
 
-					if (nullable && !(property!=null && property.hasTypeAdapter()) && !method.hasAdapterForParam(item)) {
-						methodBuilder.addCode(")");
-					}
+						// check for string conversion
+						TypeUtility.endStringConversion(methodBuilder, paramTypeName);
+
+						if (nullable && !method.hasAdapterForParam(item)) {
+							methodBuilder.addCode(")");
+						}
+					} else {
+						
+						// eventually we take associated property
+						SQLProperty property = usedBeanPropertyNames.get(i) == null ? null : entity.get(usedBeanPropertyNames.get(i));
+						
+						if (nullable && !(property != null && property.hasTypeAdapter()) && !method.hasAdapterForParam(item)) {
+							methodBuilder.addCode("($L==null?\"\":", item);
+						}
+
+						// check for string conversion
+						TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
+
+						// if (property != null) {
+						// SQLTransformer.javaProperty2WhereCondition(methodBuilder,
+						// method, item, paramTypeName, property);
+						// } else {
+						SQLTransformer.javaProperty2WhereCondition(methodBuilder, method, beanName, paramTypeName, property);
+						// }
+
+						// check for string conversion
+						TypeUtility.endStringConversion(methodBuilder, paramTypeName);
+
+						if (nullable && !(property != null && property.hasTypeAdapter()) && !method.hasAdapterForParam(item)) {
+							methodBuilder.addCode(")");
+						}
+					}					
 
 					separator = ", ";
 					i++;
@@ -310,7 +344,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			SqlSelectBuilder.generateDynamicPartOfQuery(method, methodBuilder, splittedSql);
 
 			// this comment is added to include in all situation
-			//methodBuilder.addCode("//$T will be used in case of dynamic parts of SQL\n", StringUtils.class);
+			// methodBuilder.addCode("//$T will be used in case of dynamic parts
+			// of SQL\n", StringUtils.class);
 
 			methodBuilder.addStatement("String _sql=_sqlBuilder.toString()");
 			methodBuilder.addStatement("String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()])");
@@ -380,58 +415,6 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	public void setSelectResultTye(SelectType value) {
 		this.selectType = value;
 	}
-
-	// public static String formatSqlForLog(SQLiteModelMethod method, String
-	// sql) {
-	// sql = sql.replaceAll("\\%[^s]", "\\%\\%").replaceAll("\\?", "\'%s\'");
-	//
-	// return formatSqlInternal(method, sql, "appendForLog");
-	// }
-	//
-	// public static String formatSql(SQLiteModelMethod method, String sql) {
-	// return formatSqlInternal(method, sql, "appendForSQL");
-	// }
-	//
-	// public static String formatSqlInternal(SQLiteModelMethod method, String
-	// sql, String appendMethod) {
-	// if (method.hasDynamicWhereConditions()) {
-	// sql = sql.replace("#{" + method.dynamicWhereParameterName + "}",
-	// "\"+SqlUtils." + appendMethod + "(" + method.dynamicWhereParameterName +
-	// ")+\"");
-	// }
-	//
-	// if (method.hasDynamicOrderByConditions()) {
-	// sql = sql.replace("#{" + method.dynamicOrderByParameterName + "}",
-	// "\"+SqlUtils." + appendMethod + "(" + method.dynamicOrderByParameterName
-	// + ")+\"");
-	// }
-	//
-	// if (method.hasDynamicPageSizeConditions()) {
-	// sql = sql.replace("#{" + method.dynamicPageSizeName + "}",
-	// String.format("\"+SqlUtils.printIf(%s>0, \" LIMIT \"+%s)+\"",
-	// method.dynamicPageSizeName, method.dynamicPageSizeName));
-	// }
-	//
-	// if (method.hasPaginatedResultParameter()) {
-	// if (method.hasDynamicPageSizeConditions()) {
-	// sql = sql.replace("#{" + method.paginatedResultName + "}",
-	// String.format("\"+SqlUtils.printIf(%s>0 && %s.firstRow()>0, \" OFFSET
-	// \"+%s.firstRow())+\"", method.dynamicPageSizeName,
-	// method.paginatedResultName, method.paginatedResultName));
-	// } else {
-	// sql = sql.replace("#{" + method.paginatedResultName + "}",
-	// String.format("\"+SqlUtils.printIf(%s.firstRow()>0, \" OFFSET
-	// \"+%s.firstRow())+\"", method.paginatedResultName,
-	// method.paginatedResultName));
-	// }
-	// }
-	//
-	// // smart optimization
-	// sql = "\"" + sql + "\"";
-	// sql = sql.replaceAll("\\+\"\"", "");
-	//
-	// return sql;
-	// }
 
 	/**
 	 * Check if there are unused method parameters. In this case an exception

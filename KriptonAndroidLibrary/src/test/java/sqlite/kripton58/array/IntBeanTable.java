@@ -68,7 +68,7 @@ public class IntBeanTable {
   public static final String COLUMN_VALUE2 = "value2";
 
   /**
-   * write
+   * for attribute value serialization
    */
   public static byte[] serializeValue(int[] value) {
     if (value==null) {
@@ -101,7 +101,7 @@ public class IntBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value parsing
    */
   public static int[] parseValue(byte[] input) {
     if (input==null) {
@@ -135,7 +135,7 @@ public class IntBeanTable {
   }
 
   /**
-   * write
+   * for attribute value2 serialization
    */
   public static byte[] serializeValue2(Integer[] value) {
     if (value==null) {
@@ -172,7 +172,7 @@ public class IntBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value2 parsing
    */
   public static Integer[] parseValue2(byte[] input) {
     if (input==null) {

@@ -68,7 +68,7 @@ public class LongBeanTable {
   public static final String COLUMN_VALUE2 = "value2";
 
   /**
-   * write
+   * for attribute value serialization
    */
   public static byte[] serializeValue(long[] value) {
     if (value==null) {
@@ -101,7 +101,7 @@ public class LongBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value parsing
    */
   public static long[] parseValue(byte[] input) {
     if (input==null) {
@@ -135,7 +135,7 @@ public class LongBeanTable {
   }
 
   /**
-   * write
+   * for attribute value2 serialization
    */
   public static byte[] serializeValue2(Long[] value) {
     if (value==null) {
@@ -172,7 +172,7 @@ public class LongBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value2 parsing
    */
   public static Long[] parseValue2(byte[] input) {
     if (input==null) {

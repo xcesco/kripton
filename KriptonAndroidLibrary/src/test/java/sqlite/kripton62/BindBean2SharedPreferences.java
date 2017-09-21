@@ -350,7 +350,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueByteSet serialization
    */
   protected String serializeValueByteSet(Set<Byte> value) {
     if (value==null) {
@@ -384,7 +384,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueByteSet parsing
    */
   protected Set<Byte> parseValueByteSet(String input) {
     if (input==null) {
@@ -418,7 +418,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueShortSet serialization
    */
   protected String serializeValueShortSet(HashSet<Short> value) {
     if (value==null) {
@@ -452,7 +452,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueShortSet parsing
    */
   protected HashSet<Short> parseValueShortSet(String input) {
     if (input==null) {
@@ -486,7 +486,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueIntegerSet serialization
    */
   protected String serializeValueIntegerSet(LinkedHashSet<Integer> value) {
     if (value==null) {
@@ -520,7 +520,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueIntegerSet parsing
    */
   protected LinkedHashSet<Integer> parseValueIntegerSet(String input) {
     if (input==null) {
@@ -554,7 +554,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueStringSet serialization
    */
   protected String serializeValueStringSet(HashSet<String> value) {
     if (value==null) {
@@ -588,7 +588,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueStringSet parsing
    */
   protected HashSet<String> parseValueStringSet(String input) {
     if (input==null) {
@@ -622,7 +622,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueCharacterSet serialization
    */
   protected String serializeValueCharacterSet(Set<Character> value) {
     if (value==null) {
@@ -656,7 +656,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueCharacterSet parsing
    */
   protected Set<Character> parseValueCharacterSet(String input) {
     if (input==null) {
@@ -690,7 +690,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueFloatSet serialization
    */
   protected String serializeValueFloatSet(HashSet<Float> value) {
     if (value==null) {
@@ -724,7 +724,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueFloatSet parsing
    */
   protected HashSet<Float> parseValueFloatSet(String input) {
     if (input==null) {
@@ -758,7 +758,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueDoubleSet serialization
    */
   protected String serializeValueDoubleSet(HashSet<Double> value) {
     if (value==null) {
@@ -792,7 +792,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueDoubleSet parsing
    */
   protected HashSet<Double> parseValueDoubleSet(String input) {
     if (input==null) {
@@ -826,7 +826,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueBigDecimalSet serialization
    */
   protected String serializeValueBigDecimalSet(HashSet<BigDecimal> value) {
     if (value==null) {
@@ -860,7 +860,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueBigDecimalSet parsing
    */
   protected HashSet<BigDecimal> parseValueBigDecimalSet(String input) {
     if (input==null) {
@@ -894,7 +894,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueBeanSet serialization
    */
   protected String serializeValueBeanSet(LinkedHashSet<Bean> value) {
     if (value==null) {
@@ -928,7 +928,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueBeanSet parsing
    */
   protected LinkedHashSet<Bean> parseValueBeanSet(String input) {
     if (input==null) {
@@ -962,7 +962,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueEnumTypeSet serialization
    */
   protected String serializeValueEnumTypeSet(HashSet<EnumType> value) {
     if (value==null) {
@@ -996,7 +996,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueEnumTypeSet parsing
    */
   protected HashSet<EnumType> parseValueEnumTypeSet(String input) {
     if (input==null) {

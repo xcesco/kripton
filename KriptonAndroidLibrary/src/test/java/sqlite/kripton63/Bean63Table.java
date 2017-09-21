@@ -76,7 +76,7 @@ public class Bean63Table {
   public static final String COLUMN_VALUE_MAP_ENUM_BYTE = "value_map_enum_byte";
 
   /**
-   * write
+   * for attribute valueMapStringByte serialization
    */
   public static byte[] serializeValueMapStringByte(Map<String, Byte> value) {
     if (value==null) {
@@ -117,7 +117,7 @@ public class Bean63Table {
   }
 
   /**
-   * parse
+   * for attribute valueMapStringByte parsing
    */
   public static Map<String, Byte> parseValueMapStringByte(byte[] input) {
     if (input==null) {
@@ -156,7 +156,7 @@ public class Bean63Table {
   }
 
   /**
-   * write
+   * for attribute valueMapEnumByte serialization
    */
   public static byte[] serializeValueMapEnumByte(HashMap<EnumType, Byte> value) {
     if (value==null) {
@@ -197,7 +197,7 @@ public class Bean63Table {
   }
 
   /**
-   * parse
+   * for attribute valueMapEnumByte parsing
    */
   public static HashMap<EnumType, Byte> parseValueMapEnumByte(byte[] input) {
     if (input==null) {

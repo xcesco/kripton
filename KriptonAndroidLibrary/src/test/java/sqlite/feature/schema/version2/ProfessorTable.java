@@ -20,18 +20,18 @@ public class ProfessorTable {
    * DDL to create table professor
    * </p>
    *
-   * <pre>CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_date TEXT, surname TEXT NOT NULL); CREATE INDEX idx_professor_0 on professor (surname);</pre>
+   * <pre>CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_date TEXT, surname TEXT NOT NULL);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_date TEXT, surname TEXT NOT NULL); CREATE INDEX idx_professor_0 on professor (surname);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_date TEXT, surname TEXT NOT NULL);";
 
   /**
    * <p>
    * DDL to drop table professor
    * </p>
    *
-   * <pre> DROP INDEX IF EXISTS idx_professor_1;DROP TABLE IF EXISTS professor;</pre>
+   * <pre>DROP TABLE IF EXISTS professor;</pre>
    */
-  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_professor_1;DROP TABLE IF EXISTS professor;";
+  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS professor;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.

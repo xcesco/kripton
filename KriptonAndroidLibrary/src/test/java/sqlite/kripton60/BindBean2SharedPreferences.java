@@ -831,7 +831,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueBean serialization
    */
   protected String serializeValueBean(Bean2 value) {
     if (value==null) {
@@ -853,7 +853,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueBean parsing
    */
   protected Bean2 parseValueBean(String input) {
     if (input==null) {
@@ -875,7 +875,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueBeanArray serialization
    */
   protected String serializeValueBeanArray(Bean2[] value) {
     if (value==null) {
@@ -912,7 +912,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueBeanArray parsing
    */
   protected Bean2[] parseValueBeanArray(String input) {
     if (input==null) {
@@ -946,7 +946,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueByteArray serialization
    */
   protected String serializeValueByteArray(byte[] value) {
     if (value==null) {
@@ -970,7 +970,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueByteArray parsing
    */
   protected byte[] parseValueByteArray(String input) {
     if (input==null) {
@@ -994,7 +994,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueCharArray serialization
    */
   protected String serializeValueCharArray(Character[] value) {
     if (value==null) {
@@ -1031,7 +1031,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueCharArray parsing
    */
   protected Character[] parseValueCharArray(String input) {
     if (input==null) {
@@ -1065,7 +1065,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueCharList serialization
    */
   protected String serializeValueCharList(LinkedList<Character> value) {
     if (value==null) {
@@ -1102,7 +1102,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueCharList parsing
    */
   protected LinkedList<Character> parseValueCharList(String input) {
     if (input==null) {
@@ -1136,7 +1136,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueCharTypeArray serialization
    */
   protected String serializeValueCharTypeArray(char[] value) {
     if (value==null) {
@@ -1169,7 +1169,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueCharTypeArray parsing
    */
   protected char[] parseValueCharTypeArray(String input) {
     if (input==null) {
@@ -1203,7 +1203,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueLongArray serialization
    */
   protected String serializeValueLongArray(Long[] value) {
     if (value==null) {
@@ -1240,7 +1240,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueLongArray parsing
    */
   protected Long[] parseValueLongArray(String input) {
     if (input==null) {
@@ -1274,7 +1274,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueLongList serialization
    */
   protected String serializeValueLongList(LinkedList<Long> value) {
     if (value==null) {
@@ -1311,7 +1311,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueLongList parsing
    */
   protected LinkedList<Long> parseValueLongList(String input) {
     if (input==null) {
@@ -1345,7 +1345,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueLongTypeArray serialization
    */
   protected String serializeValueLongTypeArray(long[] value) {
     if (value==null) {
@@ -1378,7 +1378,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueLongTypeArray parsing
    */
   protected long[] parseValueLongTypeArray(String input) {
     if (input==null) {
@@ -1412,7 +1412,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueStringArray serialization
    */
   protected String serializeValueStringArray(String[] value) {
     if (value==null) {
@@ -1449,7 +1449,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueStringArray parsing
    */
   protected String[] parseValueStringArray(String input) {
     if (input==null) {
@@ -1483,7 +1483,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueStrinList serialization
    */
   protected String serializeValueStrinList(LinkedList<String> value) {
     if (value==null) {
@@ -1520,7 +1520,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueStrinList parsing
    */
   protected LinkedList<String> parseValueStrinList(String input) {
     if (input==null) {
@@ -1554,7 +1554,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute valueTimeList serialization
    */
   protected String serializeValueTimeList(List<Time> value) {
     if (value==null) {
@@ -1591,7 +1591,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute valueTimeList parsing
    */
   protected List<Time> parseValueTimeList(String input) {
     if (input==null) {

@@ -26,6 +26,7 @@ public class Enum87IntegerTypeAdapter implements BindTypeAdapter<Enum87A, Intege
 
 	@Override
 	public Integer toData(Enum87A javaValue) {
+		
 		return javaValue.ordinal();
 	}
 

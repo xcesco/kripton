@@ -19,12 +19,21 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
+import sqlite.feature.typeadapter.insert.err1.TestTypeAdapterInsertErr1;
+import sqlite.feature.typeadapter.insert.err2.TestTypeAdapterInsertErr2;
+import sqlite.feature.typeadapter.update.err1.TestTypeAdapterUpdateErr1;
+import sqlite.feature.typeadapter.update.err2.TestTypeAdapterUpdateErr2;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestTypeAdapter.class
+		TestTypeAdapter.class,
+		TestTypeAdapterUpdateErr1.class,
+		TestTypeAdapterUpdateErr2.class,
+		TestTypeAdapterInsertErr1.class,
+		TestTypeAdapterInsertErr2.class
+		
 		 })
 //@formatter:on
 public class TestTypeAdapterSuite extends BaseProcessorTest {

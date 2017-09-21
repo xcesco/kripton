@@ -109,7 +109,7 @@ public class UserTable {
   private static CompanyBindMap companyBindMap = BinderUtils.mapperFor(Company.class);
 
   /**
-   * write
+   * for attribute address serialization
    */
   public static byte[] serializeAddress(Address value) {
     if (value==null) {
@@ -131,7 +131,7 @@ public class UserTable {
   }
 
   /**
-   * parse
+   * for attribute address parsing
    */
   public static Address parseAddress(byte[] input) {
     if (input==null) {
@@ -153,7 +153,7 @@ public class UserTable {
   }
 
   /**
-   * write
+   * for attribute company serialization
    */
   public static byte[] serializeCompany(Company value) {
     if (value==null) {
@@ -175,7 +175,7 @@ public class UserTable {
   }
 
   /**
-   * parse
+   * for attribute company parsing
    */
   public static Company parseCompany(byte[] input) {
     if (input==null) {

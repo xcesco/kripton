@@ -316,7 +316,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   }
 
   /**
-   * write
+   * for param serializer1 serialization
    */
   private byte[] serializer1(Bean84B2 value) {
     if (value==null) {
@@ -337,7 +337,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   }
 
   /**
-   * parse
+   * for param parser1 parsing
    */
   private Bean84B2 parser1(byte[] input) {
     if (input==null) {

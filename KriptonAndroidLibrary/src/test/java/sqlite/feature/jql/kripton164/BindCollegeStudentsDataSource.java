@@ -165,7 +165,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindCollegeStudentsDataSource build(DataSourceOptions options) {
+  public static synchronized BindCollegeStudentsDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindCollegeStudentsDataSource(options);
     }

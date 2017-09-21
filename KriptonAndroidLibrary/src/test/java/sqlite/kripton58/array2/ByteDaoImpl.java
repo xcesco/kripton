@@ -84,7 +84,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
         resultBean=new ByteBean();
 
         resultBean.setId(cursor.getLong(index0));
-        if (!cursor.isNull(index1)) { resultBean.setValue(ByteBeanTable.parseValue(cursor.getBlob(index1))); }
+        if (!cursor.isNull(index1)) { resultBean.setValue(cursor.getBlob(index1)); }
         if (!cursor.isNull(index2)) { resultBean.setValue2(ByteBeanTable.parseValue2(cursor.getBlob(index2))); }
 
       }
@@ -133,8 +133,8 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value==null?"":new String(value,StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -159,7 +159,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
         resultBean=new ByteBean();
 
         resultBean.setId(cursor.getLong(index0));
-        if (!cursor.isNull(index1)) { resultBean.setValue(ByteBeanTable.parseValue(cursor.getBlob(index1))); }
+        if (!cursor.isNull(index1)) { resultBean.setValue(cursor.getBlob(index1)); }
         if (!cursor.isNull(index2)) { resultBean.setValue2(ByteBeanTable.parseValue2(cursor.getBlob(index2))); }
 
       }
@@ -209,8 +209,8 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value==null?"":new String(value,StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -240,7 +240,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
 
           // generate mapping
           resultBean.setId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.setValue(ByteBeanTable.parseValue(cursor.getBlob(index1))); }
+          if (!cursor.isNull(index1)) { resultBean.setValue(cursor.getBlob(index1)); }
           if (!cursor.isNull(index2)) { resultBean.setValue2(ByteBeanTable.parseValue2(cursor.getBlob(index2))); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
@@ -291,8 +291,8 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value==null?"":new String(value,StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -357,8 +357,8 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value==null?"":new String(value,StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -386,7 +386,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
           resultBean=new ByteBean();
 
           resultBean.setId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.setValue(ByteBeanTable.parseValue(cursor.getBlob(index1))); }
+          if (!cursor.isNull(index1)) { resultBean.setValue(cursor.getBlob(index1)); }
           if (!cursor.isNull(index2)) { resultBean.setValue2(ByteBeanTable.parseValue2(cursor.getBlob(index2))); }
 
           resultList.add(resultBean);
@@ -428,8 +428,8 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     contentValues.put("id", id);
 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value==null?"":new String(value,StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -495,12 +495,12 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
 
     contentValues.put("id", id);
     if (value!=null) {
-      contentValues.put("value", serializer1(value));
+      contentValues.put("value", value);
     } else {
       contentValues.putNull("value");
     }
     if (value2!=null) {
-      contentValues.put("value2", serializer2(value2));
+      contentValues.put("value2", serializer1(value2));
     } else {
       contentValues.putNull("value2");
     }
@@ -556,7 +556,7 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     contentValues.clear();
 
     if (bean.getValue()!=null) {
-      contentValues.put("value", ByteBeanTable.serializeValue(bean.getValue()));
+      contentValues.put("value", bean.getValue());
     } else {
       contentValues.putNull("value");
     }
@@ -617,8 +617,8 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   @Override
   public long delete(byte[] value, Byte[] value2) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value==null?"":new String(value,StandardCharsets.UTF_8)));
+    _sqlWhereParams.add((value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -646,56 +646,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   }
 
   /**
-   * write
+   * for param serializer1 serialization
    */
-  private byte[] serializer1(byte[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        jacksonSerializer.writeBinaryField("element", value);
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * parse
-   */
-  private byte[] parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      byte[] result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getBinaryValue();
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * write
-   */
-  private byte[] serializer2(Byte[] value) {
+  private byte[] serializer1(Byte[] value) {
     if (value==null) {
       return null;
     }
@@ -729,9 +682,9 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
   }
 
   /**
-   * parse
+   * for param parser1 parsing
    */
-  private Byte[] parser2(byte[] input) {
+  private Byte[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }

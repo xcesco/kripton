@@ -130,7 +130,7 @@ public abstract class SqlInsertBuilder {
 
 		if (method.contentProviderEntryPathEnabled) {
 			// we need to generate insert for content provider to
-			generateInsertForContentProvider(elementUtils, builder, method, insertResultType);
+			generateInsertForContentProvider(builder, method, insertResultType);
 		}
 
 	}
@@ -187,12 +187,11 @@ public abstract class SqlInsertBuilder {
 	 * Generate insert used in content provider class.
 	 * </p>
 	 * 
-	 * @param elementUtils
-	 * @param builder
+	 * @param methodBuilder
 	 * @param method
 	 * @param insertResultType
 	 */
-	private static void generateInsertForContentProvider(Elements elementUtils, TypeSpec.Builder builder, final SQLiteModelMethod method, InsertType insertResultType) {
+	private static void generateInsertForContentProvider(TypeSpec.Builder classBuilder, final SQLiteModelMethod method, InsertType insertResultType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
@@ -229,10 +228,10 @@ public abstract class SqlInsertBuilder {
 		});
 
 		// generate columnCheckSet
-		SqlBuilderHelper.generateColumnCheckSet(elementUtils, builder, method, columns);
+		SqlBuilderHelper.generateColumnCheckSet(classBuilder, method, columns);
 
 		// generate column check
-		SqlBuilderHelper.forEachColumnInContentValue(method, methodBuilder, "contentValues.keySet()", true, null);
+		SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "contentValues.keySet()", true, null);
 
 		methodBuilder.addCode("\n");
 
@@ -276,7 +275,7 @@ public abstract class SqlInsertBuilder {
 
 		methodBuilder.addJavadoc("@return new row's id\n");
 
-		builder.addMethod(methodBuilder.build());
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 }

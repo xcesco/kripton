@@ -67,6 +67,15 @@ public interface SQLTransform {
 	 *            property to write
 	 */
 	void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property);
+	
+	/**
+	 * Write a bean property into a where condition
+	 * @param methodBuilder
+	 * @param beanName
+	 * @param beanClass
+	 * @param property
+	 */
+	void generateWriteProperty2WhereCondition(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property);
 
 	/**
 	 * <p>

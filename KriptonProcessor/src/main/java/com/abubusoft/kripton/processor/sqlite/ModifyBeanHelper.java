@@ -58,9 +58,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 	@Override
 	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-
-		String beanNameParameter = method.getParameters().get(0).value0;
+		String beanNameParameter = method.getParameters().get(0).value0;		
+		AssertKripton.assertTrueOrInvalidMethodSignException(!method.hasAdapterForParam(beanNameParameter), method, "method's parameter '%s' can not use a type adapter", beanNameParameter);
+		
 		SqlAnalyzer analyzer = new SqlAnalyzer();
 
 		String whereCondition = ModifyRawHelper.extractWhereConditions(updateMode, method);
@@ -73,13 +73,13 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		List<SQLProperty> listUsedProperty;
 		if (updateMode) {
-			listUsedProperty = CodeBuilderUtility.extractUsedProperties(method, BindSqlUpdate.class, methodBuilder);
+			listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlUpdate.class);
 
 			AssertKripton.assertTrueOrInvalidMethodSignException(listUsedProperty.size() > 0, method, "no column was selected for update");
 
-			CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, daoDefinition, method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
+			CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 		} else {
-			listUsedProperty = CodeBuilderUtility.extractUsedProperties(method, BindSqlDelete.class, methodBuilder);
+			listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlDelete.class);
 		}
 		// build javadoc
 		buildJavadoc(methodBuilder, updateMode, method, beanNameParameter, whereCondition, listUsedProperty, analyzer.getUsedBeanPropertyNames());

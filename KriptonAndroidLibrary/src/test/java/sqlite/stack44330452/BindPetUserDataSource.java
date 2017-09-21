@@ -183,7 +183,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindPetUserDataSource build(DataSourceOptions options) {
+  public static synchronized BindPetUserDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPetUserDataSource(options);
     }

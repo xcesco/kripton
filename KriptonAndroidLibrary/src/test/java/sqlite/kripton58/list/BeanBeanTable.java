@@ -75,7 +75,7 @@ public class BeanBeanTable {
   private static BeanInnerBindMap beanInnerBindMap = BinderUtils.mapperFor(BeanInner.class);
 
   /**
-   * write
+   * for attribute value serialization
    */
   public static byte[] serializeValue(List<BeanInner> value) {
     if (value==null) {
@@ -112,7 +112,7 @@ public class BeanBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value parsing
    */
   public static List<BeanInner> parseValue(byte[] input) {
     if (input==null) {
@@ -146,7 +146,7 @@ public class BeanBeanTable {
   }
 
   /**
-   * write
+   * for attribute value2 serialization
    */
   public static byte[] serializeValue2(LinkedList<BeanInner> value) {
     if (value==null) {
@@ -183,7 +183,7 @@ public class BeanBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value2 parsing
    */
   public static LinkedList<BeanInner> parseValue2(byte[] input) {
     if (input==null) {

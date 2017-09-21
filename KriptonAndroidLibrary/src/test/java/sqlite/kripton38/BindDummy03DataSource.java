@@ -165,7 +165,7 @@ public class BindDummy03DataSource extends AbstractDataSource implements BindDum
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindDummy03DataSource build(DataSourceOptions options) {
+  public static synchronized BindDummy03DataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindDummy03DataSource(options);
     }

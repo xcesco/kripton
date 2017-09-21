@@ -621,7 +621,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   }
 
   /**
-   * write
+   * for param serializer1 serialization
    */
   private byte[] serializer1(List<String> value) {
     if (value==null) {
@@ -657,7 +657,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   }
 
   /**
-   * parse
+   * for param parser1 parsing
    */
   private List<String> parser1(byte[] input) {
     if (input==null) {

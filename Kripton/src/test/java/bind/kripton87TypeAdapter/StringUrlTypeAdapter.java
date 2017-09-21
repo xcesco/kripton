@@ -41,5 +41,4 @@ public class StringUrlTypeAdapter implements BindTypeAdapter<String, URL> {
 	}
 
 
-
 }

@@ -140,7 +140,7 @@ public class Bean84ATable {
   private static Bean84ABindMap bean84ABindMap = BinderUtils.mapperFor(Bean84A.class);
 
   /**
-   * write
+   * for attribute columnListString serialization
    */
   public static byte[] serializeColumnListString(List<String> value) {
     if (value==null) {
@@ -177,7 +177,7 @@ public class Bean84ATable {
   }
 
   /**
-   * parse
+   * for attribute columnListString parsing
    */
   public static List<String> parseColumnListString(byte[] input) {
     if (input==null) {
@@ -211,7 +211,7 @@ public class Bean84ATable {
   }
 
   /**
-   * write
+   * for attribute columnMapIntegerString serialization
    */
   public static byte[] serializeColumnMapIntegerString(Map<Integer, String> value) {
     if (value==null) {
@@ -252,7 +252,7 @@ public class Bean84ATable {
   }
 
   /**
-   * parse
+   * for attribute columnMapIntegerString parsing
    */
   public static Map<Integer, String> parseColumnMapIntegerString(byte[] input) {
     if (input==null) {
@@ -291,7 +291,7 @@ public class Bean84ATable {
   }
 
   /**
-   * write
+   * for attribute columnArrayChar serialization
    */
   public static byte[] serializeColumnArrayChar(Character[] value) {
     if (value==null) {
@@ -328,7 +328,7 @@ public class Bean84ATable {
   }
 
   /**
-   * parse
+   * for attribute columnArrayChar parsing
    */
   public static Character[] parseColumnArrayChar(byte[] input) {
     if (input==null) {
@@ -362,7 +362,7 @@ public class Bean84ATable {
   }
 
   /**
-   * write
+   * for attribute columnArrayCharType serialization
    */
   public static byte[] serializeColumnArrayCharType(char[] value) {
     if (value==null) {
@@ -395,7 +395,7 @@ public class Bean84ATable {
   }
 
   /**
-   * parse
+   * for attribute columnArrayCharType parsing
    */
   public static char[] parseColumnArrayCharType(byte[] input) {
     if (input==null) {
@@ -429,7 +429,7 @@ public class Bean84ATable {
   }
 
   /**
-   * write
+   * for attribute columnBean serialization
    */
   public static byte[] serializeColumnBean(Bean84A value) {
     if (value==null) {
@@ -451,7 +451,7 @@ public class Bean84ATable {
   }
 
   /**
-   * parse
+   * for attribute columnBean parsing
    */
   public static Bean84A parseColumnBean(byte[] input) {
     if (input==null) {
@@ -473,14 +473,14 @@ public class Bean84ATable {
   }
 
   /**
-   * write
+   * for attribute columnArrayByteType serialization
    */
   public static byte[] serializeColumnArrayByteType(byte[] value) {
     return value;
   }
 
   /**
-   * parse
+   * for attribute columnArrayByteType parsing
    */
   public static byte[] parseColumnArrayByteType(byte[] input) {
     return input;

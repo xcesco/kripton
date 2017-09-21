@@ -646,7 +646,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * write
+   * for param serializer2 serialization
    */
   private byte[] serializer2(Long[] value) {
     if (value==null) {
@@ -682,7 +682,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * parse
+   * for param parser2 parsing
    */
   private Long[] parser2(byte[] input) {
     if (input==null) {
@@ -716,7 +716,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * write
+   * for param serializer1 serialization
    */
   private byte[] serializer1(long[] value) {
     if (value==null) {
@@ -748,7 +748,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   }
 
   /**
-   * parse
+   * for param parser1 parsing
    */
   private long[] parser1(byte[] input) {
     if (input==null) {

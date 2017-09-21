@@ -68,7 +68,7 @@ public class ShortBeanTable {
   public static final String COLUMN_VALUE2 = "value2";
 
   /**
-   * write
+   * for attribute value serialization
    */
   public static byte[] serializeValue(short[] value) {
     if (value==null) {
@@ -101,7 +101,7 @@ public class ShortBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value parsing
    */
   public static short[] parseValue(byte[] input) {
     if (input==null) {
@@ -135,7 +135,7 @@ public class ShortBeanTable {
   }
 
   /**
-   * write
+   * for attribute value2 serialization
    */
   public static byte[] serializeValue2(Short[] value) {
     if (value==null) {
@@ -172,7 +172,7 @@ public class ShortBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value2 parsing
    */
   public static Short[] parseValue2(byte[] input) {
     if (input==null) {

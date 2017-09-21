@@ -29,4 +29,5 @@ public class StringInverterTypeAdapter implements BindTypeAdapter<String, String
 		return new StringBuilder(javaValue).reverse().toString();
 	}
 
+
 }

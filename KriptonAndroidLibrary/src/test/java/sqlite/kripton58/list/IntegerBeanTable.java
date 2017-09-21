@@ -69,7 +69,7 @@ public class IntegerBeanTable {
   public static final String COLUMN_VALUE2 = "value2";
 
   /**
-   * write
+   * for attribute value serialization
    */
   public static byte[] serializeValue(List<Integer> value) {
     if (value==null) {
@@ -106,7 +106,7 @@ public class IntegerBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value parsing
    */
   public static List<Integer> parseValue(byte[] input) {
     if (input==null) {
@@ -140,7 +140,7 @@ public class IntegerBeanTable {
   }
 
   /**
-   * write
+   * for attribute value2 serialization
    */
   public static byte[] serializeValue2(LinkedList<Integer> value) {
     if (value==null) {
@@ -177,7 +177,7 @@ public class IntegerBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value2 parsing
    */
   public static LinkedList<Integer> parseValue2(byte[] input) {
     if (input==null) {

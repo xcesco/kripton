@@ -69,7 +69,7 @@ public class FloatBeanTable {
   public static final String COLUMN_VALUE2 = "value2";
 
   /**
-   * write
+   * for attribute value serialization
    */
   public static byte[] serializeValue(List<Float> value) {
     if (value==null) {
@@ -106,7 +106,7 @@ public class FloatBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value parsing
    */
   public static List<Float> parseValue(byte[] input) {
     if (input==null) {
@@ -140,7 +140,7 @@ public class FloatBeanTable {
   }
 
   /**
-   * write
+   * for attribute value2 serialization
    */
   public static byte[] serializeValue2(LinkedList<Float> value) {
     if (value==null) {
@@ -177,7 +177,7 @@ public class FloatBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value2 parsing
    */
   public static LinkedList<Float> parseValue2(byte[] input) {
     if (input==null) {

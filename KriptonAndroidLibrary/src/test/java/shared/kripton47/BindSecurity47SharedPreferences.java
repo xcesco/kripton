@@ -159,7 +159,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute authorizationToken serialization
    */
   protected String serializeAuthorizationToken(DeviceAccessToken value) {
     if (value==null) {
@@ -181,7 +181,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute authorizationToken parsing
    */
   protected DeviceAccessToken parseAuthorizationToken(String input) {
     if (input==null) {
@@ -203,7 +203,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write
+   * for attribute userIdentity serialization
    */
   protected String serializeUserIdentity(UserIdentity value) {
     if (value==null) {
@@ -225,7 +225,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * parse
+   * for attribute userIdentity parsing
    */
   protected UserIdentity parseUserIdentity(String input) {
     if (input==null) {

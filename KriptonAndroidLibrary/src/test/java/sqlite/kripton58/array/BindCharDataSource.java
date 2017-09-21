@@ -165,7 +165,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindCharDataSource build(DataSourceOptions options) {
+  public static synchronized BindCharDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindCharDataSource(options);
     }

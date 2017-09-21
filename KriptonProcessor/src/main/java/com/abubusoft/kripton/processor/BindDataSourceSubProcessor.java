@@ -94,7 +94,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	private SQLiteModel model;
 
-	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
+	//private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
 
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).add(BindSqlAdapter.class).build();
 
@@ -243,7 +243,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 
 		// create equivalent entity in the domain of bind processor
-		final BindEntity bindEntity = BindEntityBuilder.build(null, elementUtils, beanElement);
+		final BindEntity bindEntity = BindEntityBuilder.build(null, beanElement);
 		// assert: bean is present
 		final SQLEntity currentEntity = new SQLEntity(elementUtils, currentSchema, beanElement);
 		if (currentSchema.contains(currentEntity.getName())) {

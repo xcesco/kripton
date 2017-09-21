@@ -35,5 +35,4 @@ public class UrlByteArrayTypeAdapter implements BindTypeAdapter<URL, byte[]> {
 	public byte[] toData(URL javaValue) {
 		return javaValue.toExternalForm().getBytes();
 	}
-
 }

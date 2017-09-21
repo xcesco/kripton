@@ -166,7 +166,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindSelectBeanPersonDataSource build(DataSourceOptions options) {
+  public static synchronized BindSelectBeanPersonDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindSelectBeanPersonDataSource(options);
     }

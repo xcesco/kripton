@@ -15,14 +15,17 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.model;
 
+import java.util.List;
+
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelClass;
 
 public class PrefEntity extends ModelClass<PrefProperty> {
 
-	public PrefEntity(String name, TypeElement beanElement) {
-		super(name, beanElement);
+	public PrefEntity(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
+		super(name, beanElement, annotationList);
 		
 	}
 

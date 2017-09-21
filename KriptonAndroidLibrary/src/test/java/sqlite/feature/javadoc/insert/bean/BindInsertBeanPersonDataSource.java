@@ -166,7 +166,7 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindInsertBeanPersonDataSource build(DataSourceOptions options) {
+  public static synchronized BindInsertBeanPersonDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindInsertBeanPersonDataSource(options);
     }

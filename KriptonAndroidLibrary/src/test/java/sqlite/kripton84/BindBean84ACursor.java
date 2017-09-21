@@ -133,7 +133,7 @@ public class BindBean84ACursor {
         if (index7>=0 && !cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index7));}
         if (index8>=0 && !cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index8));}
         if (index9>=0 && !cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index9));}
-        if (index10>=0 && !cursor.isNull(index10)) { resultBean.columnArrayByteType=Bean84ATable.parseColumnArrayByteType(cursor.getBlob(index10));}
+        if (index10>=0 && !cursor.isNull(index10)) { resultBean.columnArrayByteType=cursor.getBlob(index10);}
         if (index11>=0 && !cursor.isNull(index11)) { resultBean.valueString=cursor.getString(index11);}
 
         resultList.add(resultBean);
@@ -178,7 +178,7 @@ public class BindBean84ACursor {
         if (index7>=0 && !cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index7));}
         if (index8>=0 && !cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index8));}
         if (index9>=0 && !cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index9));}
-        if (index10>=0 && !cursor.isNull(index10)) { resultBean.columnArrayByteType=Bean84ATable.parseColumnArrayByteType(cursor.getBlob(index10));}
+        if (index10>=0 && !cursor.isNull(index10)) { resultBean.columnArrayByteType=cursor.getBlob(index10);}
         if (index11>=0 && !cursor.isNull(index11)) { resultBean.valueString=cursor.getString(index11);}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());

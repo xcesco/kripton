@@ -93,7 +93,7 @@ public class Bean01Table {
   private static Bean02BindMap bean02BindMap = BinderUtils.mapperFor(Bean02.class);
 
   /**
-   * write
+   * for attribute lista serialization
    */
   public static byte[] serializeLista(List<Bean02> value) {
     if (value==null) {
@@ -130,7 +130,7 @@ public class Bean01Table {
   }
 
   /**
-   * parse
+   * for attribute lista parsing
    */
   public static List<Bean02> parseLista(byte[] input) {
     if (input==null) {
@@ -164,7 +164,7 @@ public class Bean01Table {
   }
 
   /**
-   * write
+   * for attribute beanList serialization
    */
   public static byte[] serializeBeanList(List<Bean02> value) {
     if (value==null) {
@@ -201,7 +201,7 @@ public class Bean01Table {
   }
 
   /**
-   * parse
+   * for attribute beanList parsing
    */
   public static List<Bean02> parseBeanList(byte[] input) {
     if (input==null) {

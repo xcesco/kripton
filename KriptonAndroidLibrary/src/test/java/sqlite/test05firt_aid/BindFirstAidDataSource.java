@@ -165,7 +165,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindFirstAidDataSource build(DataSourceOptions options) {
+  public static synchronized BindFirstAidDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindFirstAidDataSource(options);
     }

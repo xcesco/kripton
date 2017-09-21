@@ -243,8 +243,8 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.addStatement("String _columnSeparator=\"\"");
 			methodBuilder.beginControlFlow("if (projection!=null && projection.length>0)");
 			// generate projected column check
-			String columnCheckSetName = SqlBuilderHelper.generateColumnCheckSet(elementUtils, builder, method, columns);
-			SqlBuilderHelper.forEachColumnInContentValue(method, methodBuilder, "projection", true, new OnColumnListener() {
+			String columnCheckSetName = SqlBuilderHelper.generateColumnCheckSet(builder, method, columns);
+			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "projection", true, new OnColumnListener() {
 
 				@Override
 				public void onColumnCheck(MethodSpec.Builder methodBuilder, String projectedColumnVariable) {

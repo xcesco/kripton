@@ -68,21 +68,21 @@ public class ByteBeanTable {
   public static final String COLUMN_VALUE2 = "value2";
 
   /**
-   * write
+   * for attribute value serialization
    */
   public static byte[] serializeValue(byte[] value) {
     return value;
   }
 
   /**
-   * parse
+   * for attribute value parsing
    */
   public static byte[] parseValue(byte[] input) {
     return input;
   }
 
   /**
-   * write
+   * for attribute value2 serialization
    */
   public static byte[] serializeValue2(Byte[] value) {
     if (value==null) {
@@ -119,7 +119,7 @@ public class ByteBeanTable {
   }
 
   /**
-   * parse
+   * for attribute value2 parsing
    */
   public static Byte[] parseValue2(byte[] input) {
     if (input==null) {

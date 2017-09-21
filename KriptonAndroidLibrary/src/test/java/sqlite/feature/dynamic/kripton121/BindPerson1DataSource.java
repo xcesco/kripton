@@ -166,7 +166,7 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindPerson1DataSource build(DataSourceOptions options) {
+  public static synchronized BindPerson1DataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPerson1DataSource(options);
     }

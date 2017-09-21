@@ -23,6 +23,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
 		{ 
 		TestFeatureSQLTypeAdapterRuntime.class
+		
 		 })
 //@formatter:on
 public class TestFeatureSQLTypeAdapterRuntimeSuite {

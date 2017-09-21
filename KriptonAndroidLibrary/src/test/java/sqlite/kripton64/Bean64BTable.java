@@ -81,7 +81,7 @@ public class Bean64BTable {
   private static Bean64BBindMap bean64BBindMap = BinderUtils.mapperFor(Bean64B.class);
 
   /**
-   * write
+   * for attribute valueMapStringBean serialization
    */
   public static byte[] serializeValueMapStringBean(Map<String, Bean64B> value) {
     if (value==null) {
@@ -123,7 +123,7 @@ public class Bean64BTable {
   }
 
   /**
-   * parse
+   * for attribute valueMapStringBean parsing
    */
   public static Map<String, Bean64B> parseValueMapStringBean(byte[] input) {
     if (input==null) {
@@ -162,7 +162,7 @@ public class Bean64BTable {
   }
 
   /**
-   * write
+   * for attribute valueSetString serialization
    */
   public static byte[] serializeValueSetString(Set<String> value) {
     if (value==null) {
@@ -196,7 +196,7 @@ public class Bean64BTable {
   }
 
   /**
-   * parse
+   * for attribute valueSetString parsing
    */
   public static Set<String> parseValueSetString(byte[] input) {
     if (input==null) {

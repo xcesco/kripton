@@ -15,14 +15,17 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.model;
 
+import java.util.List;
+
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelClass;
 
 public class BindEntity extends ModelClass<BindProperty> {
 
-	public BindEntity(String name, TypeElement beanElement) {
-		super(name, beanElement);
+	public BindEntity(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
+		super(name, beanElement, annotationList);
 
 		xmlInfo = new XmlInfo();						
 	}

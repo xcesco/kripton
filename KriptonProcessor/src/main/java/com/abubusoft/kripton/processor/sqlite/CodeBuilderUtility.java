@@ -43,17 +43,17 @@ public abstract class CodeBuilderUtility {
 	/**
 	 * Generate code necessary to put bean properties in content values map.
 	 * Return primary key
-	 * 
-	 * @param elementUtils
-	 * @param daoDefinition
-	 * @param method
 	 * @param methodBuilder
 	 *            used to code generation
+	 * @param method
+	 * @param elementUtils
+	 * @param daoDefinition
 	 * @param alreadyUsedBeanPropertiesNames
 	 *            optional
+	 * 
 	 * @return primary key.
 	 */
-	public static List<SQLProperty> extractUsedProperties(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder) {
+	public static List<SQLProperty> extractUsedProperties(Builder methodBuilder, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 		List<SQLProperty> listPropertyInContentValue = new ArrayList<SQLProperty>();
@@ -74,14 +74,16 @@ public abstract class CodeBuilderUtility {
 
 	}
 
-	public static void generateContentValuesFromEntity(Elements elementUtils, SQLDaoDefinition daoDefinition, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
+	public static void generateContentValuesFromEntity(Elements elementUtils, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
 			Builder methodBuilder, List<String> alreadyUsedBeanPropertiesNames) {
 		// all check is already done
 
-		SQLEntity entity = daoDefinition.getEntity();
+		SQLEntity entity = method.getParent().getEntity();
 
 		String entityName = method.getParameters().get(0).value0;
 		TypeName entityClassName = typeName(entity.getElement());
+		
+		AssertKripton.assertTrueOrInvalidMethodSignException(!method.hasAdapterForParam(entityName), method, "method's parameter '%s' can not use a type adapter", entityName);
 
 		methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
 		methodBuilder.addCode("contentValues.clear();\n\n");
