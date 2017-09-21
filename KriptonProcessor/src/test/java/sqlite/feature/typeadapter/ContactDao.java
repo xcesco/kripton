@@ -13,8 +13,14 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
 @BindDao(Contact.class)
 public interface ContactDao {
+	// -- SELECT MIXED
+	@BindSqlSelect(where="surname=${dummyTest}")
+	List<Contact> selectBySurnameWithAdapter(@BindSqlParam(value="dummyTest", adapter=PasswordAdapterType.class) String dummy);
+	
+	@BindSqlSelect(where="surname=${dummy}")
+	List<Contact> selectBySurname(String dummy);
 
-//	//-- DELETE	
+	//-- DELETE	
 	@BindSqlDelete(where = "id=${bean.id} and type=${bean.type}")
 	void deleteCompactBean(Contact bean);
 	

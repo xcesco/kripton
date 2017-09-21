@@ -27,6 +27,25 @@ public abstract class SQLTypeAdapterUtils {
 
 	@SuppressWarnings("rawtypes")
 	private static HashMap<Class<? extends BindSQLTypeAdapter>, BindSQLTypeAdapter> cache = new HashMap<>();
+	
+	public static <E extends BindSQLTypeAdapter<?, ?>> E getAdapter(Class<E> clazz) {
+		@SuppressWarnings("unchecked")
+		E adapter = (E) cache.get(clazz);
+
+		if (adapter == null) {
+			try {
+				lock.lock();
+				adapter = clazz.newInstance();
+				cache.put(clazz, adapter);
+			} catch(Throwable e) {
+				throw(new KriptonRuntimeException(e));
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return adapter;
+	}
 
 	@SuppressWarnings("unchecked")
 	public static <D, J> J toJava(Class<? extends BindSQLTypeAdapter<J, D>> clazz, D value) {

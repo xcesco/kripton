@@ -30,6 +30,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -121,9 +122,11 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			int i = 0;
 			for (JQLProjection a : fieldList) {
 				SQLProperty item = a.property;
-				methodBuilder.addCode("int index" + (i++) + "=");
-				methodBuilder.addCode("cursor.getColumnIndex($S)", item.columnName);
-				methodBuilder.addCode(";\n");
+				
+				methodBuilder.addStatement("int index$L=cursor.getColumnIndex($S)", (i++), item.columnName);				
+				if (item.hasTypeAdapter()) {
+					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class, item.typeAdapter.getAdapterTypeName());
+				}
 			}
 		}
 		methodBuilder.addCode("\n");

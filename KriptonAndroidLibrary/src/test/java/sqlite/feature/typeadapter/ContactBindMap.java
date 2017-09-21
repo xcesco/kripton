@@ -45,6 +45,12 @@ public class ContactBindMap extends AbstractMapper<Contact> {
       jacksonSerializer.writeStringField("password", object.getPassword());
     }
 
+    // field surname (mapped with "surname")
+    if (object.surname!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("surname", object.surname);
+    }
+
     // field type (mapped with "type")
     if (object.type!=null)  {
       fieldCount++;
@@ -76,6 +82,12 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     if (object.getPassword()!=null)  {
       fieldCount++;
       jacksonSerializer.writeStringField("password", object.getPassword());
+    }
+
+    // field surname (mapped with "surname")
+    if (object.surname!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("surname", object.surname);
     }
 
     // field type (mapped with "type")
@@ -116,6 +128,13 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     if (object.getPassword()!=null) {
       xmlSerializer.writeStartElement("password");
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getPassword()));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field surname (mapped with "surname")
+    if (object.surname!=null) {
+      xmlSerializer.writeStartElement("surname");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.surname));
       xmlSerializer.writeEndElement();
     }
 
@@ -167,6 +186,12 @@ public class ContactBindMap extends AbstractMapper<Contact> {
               instance.setPassword(jacksonParser.getText());
             }
           break;
+          case "surname":
+            // field surname (mapped with "surname")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.surname=jacksonParser.getText();
+            }
+          break;
           case "type":
             // field type (mapped with "type")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -215,6 +240,12 @@ public class ContactBindMap extends AbstractMapper<Contact> {
             // field password (mapped with "password")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.setPassword(jacksonParser.getText());
+            }
+          break;
+          case "surname":
+            // field surname (mapped with "surname")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.surname=jacksonParser.getText();
             }
           break;
           case "type":
@@ -272,6 +303,10 @@ public class ContactBindMap extends AbstractMapper<Contact> {
                 case "password":
                   // property password (mapped on "password")
                   instance.setPassword(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
+                case "surname":
+                  // property surname (mapped on "surname")
+                  instance.surname=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 case "type":
                   // property type (mapped on "type")

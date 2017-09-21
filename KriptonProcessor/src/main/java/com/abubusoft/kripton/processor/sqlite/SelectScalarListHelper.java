@@ -64,17 +64,8 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, elementName, collectionClass, elementName);
 		methodBuilder.addCode("\n");
-
-		//LiteralType literalReturn = LiteralType.of(returnTypeName.toString());
-
 		
-		SQLTransform t;
-//		if (!literalReturn.isCollection())
-//			t = SQLTransformer.lookup(returnType);
-//		else {
-//			t = SQLTransformer.lookup(typeName(literalReturn.getComposedType()));
-//		}
-		t = SQLTransformer.lookup(returnListName);
+		SQLTransform t=SQLTransformer.lookup(returnListName);
 
 		//@formatter:off
 		methodBuilder.addCode("\n");

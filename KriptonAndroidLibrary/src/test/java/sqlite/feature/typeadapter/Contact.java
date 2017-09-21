@@ -17,6 +17,8 @@ public class Contact {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public String surname;
 
 	@BindSqlAdapter(adapter = DateAdapterType.class, dataType = Long.class)
 	public Date birthDay;

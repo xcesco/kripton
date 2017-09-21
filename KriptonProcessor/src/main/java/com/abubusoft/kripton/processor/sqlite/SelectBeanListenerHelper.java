@@ -25,6 +25,7 @@ import java.util.Set;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -84,9 +85,11 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 			int i = 0;
 			for (JQLProjection a : fieldList) {
 				SQLProperty item=a.property;
-				methodBuilder.addCode("int index" + (i++) + "=");
-				methodBuilder.addCode("cursor.getColumnIndex($S)", item.columnName);
-				methodBuilder.addCode(";\n");
+				
+				methodBuilder.addStatement("int index$L=cursor.getColumnIndex($S)", (i++), item.columnName);				
+				if (item.hasTypeAdapter()) {
+					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class, item.typeAdapter.getAdapterTypeName());
+				}
 			}
 		}
 		methodBuilder.addCode("\n");

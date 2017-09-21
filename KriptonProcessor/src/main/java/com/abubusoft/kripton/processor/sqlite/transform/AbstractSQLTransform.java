@@ -33,7 +33,7 @@ import com.squareup.javapoet.TypeName;
  */
 public abstract class AbstractSQLTransform implements SQLTransform {
 
-	protected static final String PRE_TYPE_ADAPTER_TO_JAVA = "$T.toJava($T.class, ";
+	protected static final String PRE_TYPE_ADAPTER_TO_JAVA = "$L$L.toJava($T.class, ";
 
 	protected static final String PRE_TYPE_ADAPTER_TO_DATA = "$T.toData($T.class, ";
 
