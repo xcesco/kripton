@@ -48,25 +48,6 @@ public abstract class SQLTypeAdapterUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <D, J> J toJava(Class<? extends BindSQLTypeAdapter<J, D>> clazz, D value) {
-		BindSQLTypeAdapter<J, D> adapter = cache.get(clazz);
-
-		if (adapter == null) {
-			try {
-				lock.lock();
-				adapter = clazz.newInstance();
-				cache.put(clazz, adapter);
-			} catch(Throwable e) {
-				throw(new KriptonRuntimeException(e));
-			} finally {
-				lock.unlock();
-			}
-		}
-
-		return adapter.toJava(value);
-	}
-
-	@SuppressWarnings("unchecked")
 	public static <D, J> D toData(Class<? extends BindSQLTypeAdapter<J, D>> clazz, J javaValue) {
 		BindSQLTypeAdapter<J, D> adapter = cache.get(clazz);
 

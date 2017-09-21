@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -26,17 +25,15 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO file_bean (date, title, text, address, image) VALUES (${bean.date}, ${bean.title}, ${bean.text}, ${bean.address}, ${bean.image})</pre>
+   * <pre>INSERT INTO files (name, content, content_type) VALUES (${bean.name}, ${bean.content}, ${bean.contentType})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>date</dt><dd>is mapped to <strong>${bean.date}</strong></dd>
-   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
-   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
-   * 	<dt>image</dt><dd>is mapped to <strong>${bean.image}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>content</dt><dd>is mapped to <strong>${bean.content}</strong></dd>
+   * 	<dt>content_type</dt><dd>is mapped to <strong>${bean.contentType}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -49,30 +46,20 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
-    if (bean.date!=null) {
-      contentValues.put("date", DateUtils.write(bean.date));
+    if (bean.name!=null) {
+      contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("date");
+      contentValues.putNull("name");
     }
-    if (bean.title!=null) {
-      contentValues.put("title", bean.title);
+    if (bean.content!=null) {
+      contentValues.put("content", bean.content);
     } else {
-      contentValues.putNull("title");
+      contentValues.putNull("content");
     }
-    if (bean.text!=null) {
-      contentValues.put("text", bean.text);
+    if (bean.contentType!=null) {
+      contentValues.put("content_type", bean.contentType);
     } else {
-      contentValues.putNull("text");
-    }
-    if (bean.address!=null) {
-      contentValues.put("address", bean.address);
-    } else {
-      contentValues.putNull("address");
-    }
-    if (bean.image!=null) {
-      contentValues.put("image", bean.image);
-    } else {
-      contentValues.putNull("image");
+      contentValues.putNull("content_type");
     }
 
     // log for insert -- BEGIN 
@@ -84,7 +71,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info("INSERT INTO file_bean (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+    Logger.info("INSERT INTO files (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -99,25 +86,92 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("file_bean", null, contentValues);
+    long result = database().insert("files", null, contentValues);
     bean.id=result;
 
     return result;
   }
 
   /**
+   * <h2>SQL insert</h2>
+   * <pre>INSERT INTO files (name, content_type, content) VALUES (${name}, ${contentType}, ${content})</pre>
+   *
+   * <h2>Inserted columns:</strong></h2>
+   * <dl>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>content_type</dt><dd>is binded to query's parameter <strong>${contentType}</strong> and method's parameter <strong>contentType</strong></dd>
+   * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
+   * </dl>
+   *
+   * @param name
+   * 	is binded to column value <strong>name</strong>
+   * @param contentType
+   * 	is binded to column value <strong>content_type</strong>
+   * @param content
+   * 	is binded to column value <strong>content</strong>
+   *
+   * @return <strong>id</strong> of inserted record
+   */
+  @Override
+  public long insert(String name, String contentType, byte[] content) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+
+    if (name!=null) {
+      contentValues.put("name", name);
+    } else {
+      contentValues.putNull("name");
+    }
+    if (contentType!=null) {
+      contentValues.put("content_type", contentType);
+    } else {
+      contentValues.putNull("content_type");
+    }
+    if (content!=null) {
+      contentValues.put("content", content);
+    } else {
+      contentValues.putNull("content");
+    }
+
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info("INSERT INTO files (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
+    long result = database().insert("files", null, contentValues);
+    return result;
+  }
+
+  /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, date, title, text, address, image FROM file_bean WHERE id=${id}</pre>
+   * <pre>SELECT id, name, content, content_type FROM files WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>date</dt><dd>is associated to bean's property <strong>date</strong></dd>
-   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
-   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
-   * 	<dt>address</dt><dd>is associated to bean's property <strong>address</strong></dd>
-   * 	<dt>image</dt><dd>is associated to bean's property <strong>image</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
+   * 	<dt>content_type</dt><dd>is associated to bean's property <strong>contentType</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -132,7 +186,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
   @Override
   public List<FileBean> selectById(long id) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, date, title, text, address, image FROM file_bean");
+    _sqlBuilder.append("SELECT id, name, content, content_type FROM files");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -166,22 +220,18 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("date");
-        int index2=cursor.getColumnIndex("title");
-        int index3=cursor.getColumnIndex("text");
-        int index4=cursor.getColumnIndex("address");
-        int index5=cursor.getColumnIndex("image");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("content");
+        int index3=cursor.getColumnIndex("content_type");
 
         do
          {
           resultBean=new FileBean();
 
           resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.date=DateUtils.read(cursor.getString(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.text=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.address=cursor.getString(index4); }
-          if (!cursor.isNull(index5)) { resultBean.image=cursor.getBlob(index5); }
+          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.content=cursor.getBlob(index2); }
+          if (!cursor.isNull(index3)) { resultBean.contentType=cursor.getString(index3); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());

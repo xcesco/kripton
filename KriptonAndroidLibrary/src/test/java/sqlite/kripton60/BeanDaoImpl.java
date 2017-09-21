@@ -15,8 +15,8 @@ import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.LocaleUtils;
+import com.abubusoft.kripton.common.SQLTimeUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.common.TimeUtils;
 import com.abubusoft.kripton.common.TimeZoneUtils;
 import com.abubusoft.kripton.common.UrlUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -1337,7 +1337,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long deleteTime(Time valueTime) {
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueTime==null?"":TimeUtils.write(valueTime)));
+    _sqlWhereParams.add((valueTime==null?"":SQLTimeUtils.write(valueTime)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1604,7 +1604,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       contentValues.putNull("value_url");
     }
     if (bean.valueTime!=null) {
-      contentValues.put("value_time", TimeUtils.write(bean.valueTime));
+      contentValues.put("value_time", SQLTimeUtils.write(bean.valueTime));
     } else {
       contentValues.putNull("value_time");
     }
@@ -3191,7 +3191,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.clear();
 
     if (valueTime!=null) {
-      contentValues.put("value_time", TimeUtils.write(valueTime));
+      contentValues.put("value_time", SQLTimeUtils.write(valueTime));
     } else {
       contentValues.putNull("value_time");
     }
@@ -3497,7 +3497,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
           if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
           if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-          if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+          if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
           if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
           if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
           if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -3673,7 +3673,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -3861,7 +3861,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -4049,7 +4049,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -4237,7 +4237,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -4425,7 +4425,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -4658,7 +4658,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
           if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
           if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-          if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+          if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
           if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
           if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
           if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -4949,7 +4949,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -5137,7 +5137,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -5325,7 +5325,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -5513,7 +5513,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -5701,7 +5701,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -5889,7 +5889,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -6077,7 +6077,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -6265,7 +6265,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -6453,7 +6453,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -6641,7 +6641,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -6829,7 +6829,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -7017,7 +7017,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -7205,7 +7205,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -7393,7 +7393,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -7581,7 +7581,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -7769,7 +7769,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -7957,7 +7957,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -8145,7 +8145,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -8333,7 +8333,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -8521,7 +8521,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -8709,7 +8709,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -8897,7 +8897,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -9085,7 +9085,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -9273,7 +9273,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -9374,7 +9374,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueTime==null?"":TimeUtils.write(valueTime)));
+    _sqlWhereParams.add((valueTime==null?"":SQLTimeUtils.write(valueTime)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
     Logger.info(_sql);
@@ -9461,7 +9461,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -9649,7 +9649,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -9837,7 +9837,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
         if (!cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(cursor.getString(index21)); }
         if (!cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(cursor.getString(index22)); }
         if (!cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(cursor.getString(index23)); }
-        if (!cursor.isNull(index24)) { resultBean.valueTime=TimeUtils.read(cursor.getString(index24)); }
+        if (!cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(cursor.getString(index24)); }
         if (!cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(cursor.getString(index25)); }
         if (!cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(cursor.getString(index26)); }
         if (!cursor.isNull(index27)) { resultBean.valueTimeList=BeanTable.parseValueTimeList(cursor.getBlob(index27)); }
@@ -10779,7 +10779,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       contentValues.putNull("value_url");
     }
     if (value.valueTime!=null) {
-      contentValues.put("value_time", TimeUtils.write(value.valueTime));
+      contentValues.put("value_time", SQLTimeUtils.write(value.valueTime));
     } else {
       contentValues.putNull("value_time");
     }
@@ -12879,7 +12879,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     contentValues.put("id", id);
 
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueTime==null?"":TimeUtils.write(valueTime)));
+    _sqlWhereParams.add((valueTime==null?"":SQLTimeUtils.write(valueTime)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -13193,6 +13193,73 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
+   * for param serializer5 serialization
+   */
+  private byte[] serializer5(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser5 parsing
+   */
+  private Set<String> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
    * for param serializer4 serialization
    */
   private byte[] serializer4(LinkedList<Long> value) {
@@ -13321,73 +13388,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           collection.add(item);
         }
         result=CollectionUtils.asLongTypeArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param serializer5 serialization
-   */
-  private byte[] serializer5(Set<String> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (String item: value) {
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeString(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser5 parsing
-   */
-  private Set<String> parser5(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Set<String> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getText();
-          }
-          collection.add(item);
-        }
-        result=collection;
       }
       return result;
     } catch(Exception e) {

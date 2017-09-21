@@ -158,7 +158,11 @@ public abstract class BindTransformer {
 
 	static BindTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
-			return new TimeBindTransform();
+			return new SQLTimeBindTransform();
+		}
+		
+		if (java.sql.Date.class.getName().equals(typeName.toString())) {
+			return new SQLDateBindTransform();
 		}
 
 		return null;

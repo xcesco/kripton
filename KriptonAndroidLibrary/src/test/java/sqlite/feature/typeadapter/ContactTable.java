@@ -20,9 +20,9 @@ public class ContactTable {
    * DDL to create table contact
    * </p>
    *
-   * <pre>CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, surname TEXT, birth_day INTEGER, password BLOB, type INTEGER);</pre>
+   * <pre>CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, surname TEXT, birth_day INTEGER, password BLOB, type INTEGER, update_date TEXT, update_time TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, surname TEXT, birth_day INTEGER, password BLOB, type INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, surname TEXT, birth_day INTEGER, password BLOB, type INTEGER, update_date TEXT, update_time TEXT);";
 
   /**
    * <p>
@@ -67,4 +67,18 @@ public class ContactTable {
    *  @see Contact#type
    */
   public static final String COLUMN_TYPE = "type";
+
+  /**
+   * Entity's property <code>updateDate</code> is associated to table column <code>update_date</code>. This costant represents column name.
+   *
+   *  @see Contact#updateDate
+   */
+  public static final String COLUMN_UPDATE_DATE = "update_date";
+
+  /**
+   * Entity's property <code>updateTime</code> is associated to table column <code>update_time</code>. This costant represents column name.
+   *
+   *  @see Contact#updateTime
+   */
+  public static final String COLUMN_UPDATE_TIME = "update_time";
 }

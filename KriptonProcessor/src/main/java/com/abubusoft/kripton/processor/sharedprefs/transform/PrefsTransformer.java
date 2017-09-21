@@ -159,7 +159,11 @@ public abstract class PrefsTransformer {
 
 	static PrefsTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
-			return new TimePrefsTransform();
+			return new SQLTimePrefsTransform();
+		}
+		
+		if (java.sql.Date.class.getName().equals(typeName.toString())) {
+			return new SQLDatePrefsTransform();
 		}
 
 		return null;

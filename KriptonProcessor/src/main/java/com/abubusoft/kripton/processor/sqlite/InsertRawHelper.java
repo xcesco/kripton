@@ -153,7 +153,8 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 			@Override
 			public String onColumnName(String columnName) {
-				Set<SQLProperty> property = schema.getPropertyBySimpleName(columnName);
+				Set<SQLProperty> property = schema.getPropertyBySimpleName(columnName);				
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(property!=null, method, columnName);
 				
 				SQLProperty tempProperty=property.iterator().next();				
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);

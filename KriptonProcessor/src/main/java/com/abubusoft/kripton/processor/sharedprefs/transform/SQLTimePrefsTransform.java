@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.bind.transform;
+package com.abubusoft.kripton.processor.sharedprefs.transform;
 
-import com.abubusoft.kripton.common.TimeUtils;
+import com.abubusoft.kripton.common.SQLTimeUtils;
 
 /**
  * Transformer between a string and a custom Time object
  * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * @author xcesco
  *
  */
-public class TimeBindTransform extends WrappedBindTransform {
+public class SQLTimePrefsTransform extends WrappedPrefsTransform {
 
-	public TimeBindTransform() {
-		super(TimeUtils.class);
+	public SQLTimePrefsTransform() {
+		super(SQLTimeUtils.class);
 	}
 }

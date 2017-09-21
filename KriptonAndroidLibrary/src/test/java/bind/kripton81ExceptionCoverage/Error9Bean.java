@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.sqlite.transform;
+package bind.kripton81ExceptionCoverage;
 
-import com.abubusoft.kripton.common.TimeUtils;
+import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.annotation.BindType;
 
-/**
- * Transformer between a string and a custom Time object
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
- *
- */
-public class TimeSQLTransform extends UtilSQLTransform<TimeUtils> {
+@BindType
+public class Error9Bean {
 
-	public TimeSQLTransform() {
-		super(TimeUtils.class);
-	}
+	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
+	public long id;
+
+	public String name;
+
+	public java.sql.Date date;
 }

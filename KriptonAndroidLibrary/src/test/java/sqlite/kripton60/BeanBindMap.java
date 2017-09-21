@@ -11,8 +11,8 @@ import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.LocaleUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.common.SQLTimeUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.common.TimeUtils;
 import com.abubusoft.kripton.common.TimeZoneUtils;
 import com.abubusoft.kripton.common.UrlUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -429,7 +429,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     // field valueTime (mapped with "valueTime")
     if (object.valueTime!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("valueTime", TimeUtils.write(object.valueTime));
+      jacksonSerializer.writeStringField("valueTime", SQLTimeUtils.write(object.valueTime));
     }
 
     // field valueTimeZone (mapped with "valueTimeZone")
@@ -457,7 +457,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          jacksonSerializer.writeString(TimeUtils.write(item));
+          jacksonSerializer.writeString(SQLTimeUtils.write(item));
         }
       }
       jacksonSerializer.writeEndArray();
@@ -882,7 +882,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     // field valueTime (mapped with "valueTime")
     if (object.valueTime!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("valueTime", TimeUtils.write(object.valueTime));
+      jacksonSerializer.writeStringField("valueTime", SQLTimeUtils.write(object.valueTime));
     }
 
     // field valueTimeZone (mapped with "valueTimeZone")
@@ -911,7 +911,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            jacksonSerializer.writeString(TimeUtils.write(item));
+            jacksonSerializer.writeString(SQLTimeUtils.write(item));
           }
         }
         jacksonSerializer.writeEndArray();
@@ -1364,7 +1364,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     // field valueTime (mapped with "valueTime")
     if (object.valueTime!=null)  {
       xmlSerializer.writeStartElement("valueTime");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(TimeUtils.write(object.valueTime)));
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(SQLTimeUtils.write(object.valueTime)));
       xmlSerializer.writeEndElement();
     }
 
@@ -1392,7 +1392,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           xmlSerializer.writeEmptyElement("valueTimeList");
         } else {
           xmlSerializer.writeStartElement("valueTimeList");
-          xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(TimeUtils.write(item)));
+          xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(SQLTimeUtils.write(item)));
           xmlSerializer.writeEndElement();
         }
       }
@@ -1779,7 +1779,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           case "valueTime":
             // field valueTime (mapped with "valueTime")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.valueTime=TimeUtils.read(jacksonParser.getText());
+              instance.valueTime=SQLTimeUtils.read(jacksonParser.getText());
             }
           break;
           case "valueTimeZone":
@@ -1803,7 +1803,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=TimeUtils.read(jacksonParser.getText());
+                  item=SQLTimeUtils.read(jacksonParser.getText());
                 }
                 collection.add(item);
               }
@@ -2283,7 +2283,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           case "valueTime":
             // field valueTime (mapped with "valueTime")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.valueTime=TimeUtils.read(jacksonParser.getText());
+              instance.valueTime=SQLTimeUtils.read(jacksonParser.getText());
             }
           break;
           case "valueTimeZone":
@@ -2309,7 +2309,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=TimeUtils.read(jacksonParser.getText());
+                  item=SQLTimeUtils.read(jacksonParser.getText());
                 }
                 collection.add(item);
               }
@@ -2836,7 +2836,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 break;
                 case "valueTime":
                   // property valueTime (mapped on "valueTime")
-                  instance.valueTime=TimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                  instance.valueTime=SQLTimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 case "valueTimeZone":
                   // property valueTimeZone (mapped on "valueTimeZone")
@@ -2860,7 +2860,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=TimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                      item=SQLTimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueTimeList")) {
@@ -2868,7 +2868,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=TimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                        item=SQLTimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                       }
                       collection.add(item);
                     }

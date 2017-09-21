@@ -17,9 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -37,7 +35,7 @@ public class ByteArraySQLTransform extends TypeAdapterAwareSQLTransform {
 	@Override
 	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		if (property.hasTypeAdapter()) {			
-			methodBuilder.addCode(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA+"$L.getBlob($L)"+POST_TYPE_ADAPTER),SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), cursorName, indexName);
+			methodBuilder.addCode(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA+"$L.getBlob($L)"+POST_TYPE_ADAPTER),property.getName(), cursorName, indexName);
 		} else {
 			methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getBlob($L)"), cursorName, indexName);
 		}

@@ -37,6 +37,10 @@ public class Contact {
 		this.password = password;
 	}
 	
+	public java.sql.Date updateDate;
+	
+	public java.sql.Time updateTime;
+	
 //	@BindSqlAdapter(adapter = AdapterType.class, dataType = Long.class)
 //	public byte[] password;
 }

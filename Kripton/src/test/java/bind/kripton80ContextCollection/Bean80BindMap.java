@@ -9,8 +9,8 @@ import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.LocaleUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.common.SQLTimeUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.common.TimeUtils;
 import com.abubusoft.kripton.common.TimeZoneUtils;
 import com.abubusoft.kripton.common.UrlUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -185,7 +185,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
     // field valueTime (mapped with "valueTime")
     if (object.valueTime!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("valueTime", TimeUtils.write(object.valueTime));
+      jacksonSerializer.writeStringField("valueTime", SQLTimeUtils.write(object.valueTime));
     }
 
     // field valueTimeZone (mapped with "valueTimeZone")
@@ -345,7 +345,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
     // field valueTime (mapped with "valueTime")
     if (object.valueTime!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("valueTime", TimeUtils.write(object.valueTime));
+      jacksonSerializer.writeStringField("valueTime", SQLTimeUtils.write(object.valueTime));
     }
 
     // field valueTimeZone (mapped with "valueTimeZone")
@@ -541,7 +541,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
     // field valueTime (mapped with "valueTime")
     if (object.valueTime!=null)  {
       xmlSerializer.writeStartElement("valueTime");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(TimeUtils.write(object.valueTime)));
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(SQLTimeUtils.write(object.valueTime)));
       xmlSerializer.writeEndElement();
     }
 
@@ -732,7 +732,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
           case "valueTime":
             // field valueTime (mapped with "valueTime")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.valueTime=TimeUtils.read(jacksonParser.getText());
+              instance.valueTime=SQLTimeUtils.read(jacksonParser.getText());
             }
           break;
           case "valueTimeZone":
@@ -922,7 +922,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
           case "valueTime":
             // field valueTime (mapped with "valueTime")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.valueTime=TimeUtils.read(jacksonParser.getText());
+              instance.valueTime=SQLTimeUtils.read(jacksonParser.getText());
             }
           break;
           case "valueTimeZone":
@@ -1086,7 +1086,7 @@ public class Bean80BindMap extends AbstractMapper<Bean80> {
                 break;
                 case "valueTime":
                   // property valueTime (mapped on "valueTime")
-                  instance.valueTime=TimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                  instance.valueTime=SQLTimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 case "valueTimeZone":
                   // property valueTimeZone (mapped on "valueTimeZone")
