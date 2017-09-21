@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.feature.jql.entities.Person;
-import sqlite.feature.jql.entities.PersonTable;
 
 /**
  * <p>
@@ -18,7 +17,7 @@ import sqlite.feature.jql.entities.PersonTable;
  *
  *  @see Person
  *  @see DaoPerson
- *  @see PersonTable
+ *  @see sqlite.feature.jql.entities.PersonTable
  */
 public class DaoPersonImpl extends AbstractDao implements DaoPerson {
   public DaoPersonImpl(BindFamilyDataSource dataSet) {
@@ -77,7 +76,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
 
           resultBean.id=cursor.getLong(index0);
           resultBean.name=cursor.getString(index1);
-          if (!cursor.isNull(index2)) { resultBean.image=PersonTable.parseImage(cursor.getBlob(index2)); }
+          if (!cursor.isNull(index2)) { resultBean.image=cursor.getBlob(index2); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -114,7 +113,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
       contentValues.putNull("name");
     }
     if (bean.image!=null) {
-      contentValues.put("image", PersonTable.serializeImage(bean.image));
+      contentValues.put("image", bean.image);
     } else {
       contentValues.putNull("image");
     }

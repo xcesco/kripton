@@ -1,4 +1,4 @@
-package sqlite.feature.jql.persistence;
+package sqlite.feature.indexes;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -10,52 +10,37 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
 import java.util.List;
-import sqlite.feature.jql.entities.ChildTable;
-import sqlite.feature.jql.entities.PersonTable;
 
 /**
  * <p>
- * Represents implementation of datasource FamilyDataSource.
+ * Represents implementation of datasource Err1PersonDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see FamilyDataSource
- * @see BindFamilyDaoFactory
- * @see DaoChild
- * @see DaoChildImpl
- * @see sqlite.feature.jql.entities.Child
- * @see DaoPerson
- * @see DaoPersonImpl
- * @see sqlite.feature.jql.entities.Person
+ * @see Err1PersonDataSource
+ * @see BindErr1PersonDaoFactory
+ * @see Err1PersonDAO
+ * @see Err1PersonDAOImpl
+ * @see Err1Person
  */
-public class BindFamilyDataSource extends AbstractDataSource implements BindFamilyDaoFactory, FamilyDataSource {
+public class BindErr1PersonDataSource extends AbstractDataSource implements BindErr1PersonDaoFactory, Err1PersonDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindFamilyDataSource instance;
+  static BindErr1PersonDataSource instance;
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoChildImpl daoChild = new DaoChildImpl(this);
+  protected Err1PersonDAOImpl err1PersonDAO = new Err1PersonDAOImpl(this);
 
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
-
-  protected BindFamilyDataSource(DataSourceOptions options) {
-    super("familiy", 1, options);
+  protected BindErr1PersonDataSource(DataSourceOptions options) {
+    super("person.db", 1, options);
   }
 
   @Override
-  public DaoChildImpl getDaoChild() {
-    return daoChild;
-  }
-
-  @Override
-  public DaoPersonImpl getDaoPerson() {
-    return daoPerson;
+  public Err1PersonDAOImpl getErr1PersonDAO() {
+    return err1PersonDAO;
   }
 
   /**
@@ -88,9 +73,9 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * instance
    */
-  public static synchronized BindFamilyDataSource instance() {
+  public static synchronized BindErr1PersonDataSource instance() {
     if (instance==null) {
-      instance=new BindFamilyDataSource(null);
+      instance=new BindErr1PersonDataSource(null);
     }
     return instance;
   }
@@ -99,8 +84,8 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindFamilyDataSource open() {
-    BindFamilyDataSource instance=instance();
+  public static BindErr1PersonDataSource open() {
+    BindErr1PersonDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -109,8 +94,8 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindFamilyDataSource openReadOnly() {
-    BindFamilyDataSource instance=instance();
+  public static BindErr1PersonDataSource openReadOnly() {
+    BindErr1PersonDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -122,10 +107,8 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",ChildTable.CREATE_TABLE_SQL);
-    database.execSQL(ChildTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",Err1PersonTable.CREATE_TABLE_SQL);
+    database.execSQL(Err1PersonTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -159,10 +142,8 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",ChildTable.CREATE_TABLE_SQL);
-      database.execSQL(ChildTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",Err1PersonTable.CREATE_TABLE_SQL);
+      database.execSQL(Err1PersonTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -175,7 +156,6 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
@@ -185,9 +165,9 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * Build instance.
    * @return dataSource instance.
    */
-  public static synchronized BindFamilyDataSource build(DataSourceOptions options) {
+  public static synchronized BindErr1PersonDataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindFamilyDataSource(options);
+      instance=new BindErr1PersonDataSource(options);
     }
     instance.openWritableDatabase();
     return instance;
@@ -196,7 +176,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindFamilyDaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindErr1PersonDaoFactory> {
   }
 
   /**

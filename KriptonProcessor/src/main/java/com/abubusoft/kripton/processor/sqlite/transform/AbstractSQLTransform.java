@@ -20,11 +20,9 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 
-import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -36,22 +34,22 @@ import com.squareup.javapoet.TypeName;
  *
  */
 public abstract class AbstractSQLTransform implements SQLTransform {
-	
+
 	protected static final String PRE_TYPE_ADAPTER_TO_JAVA = "$T.toJava($T.class, ";
-	
+
 	protected static final String PRE_TYPE_ADAPTER_TO_DATA = "$T.toData($T.class, ";
-	
+
 	protected static final String PRE_TYPE_ADAPTER_TO_STRING = "$T.toString($T.class, ";
-	
+
 	protected static final String POST_TYPE_ADAPTER = ")";
 
 	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
-		methodBuilder.addCode("$L", getter(beanName, beanClass, property));		
+		methodBuilder.addCode("$L", getter(beanName, beanClass, property));
 	}
-	
+
 	@Override
 	public void generateWriteProperty2WhereCondition(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
 		generateWriteProperty2ContentValues(methodBuilder, beanName, beanClass, property);
@@ -59,22 +57,13 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 
 	@Override
 	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
-		if (method.hasAdapterForParam(paramName)) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName), paramName);
-		} else {
-			methodBuilder.addCode("$L", paramName);
-		}			
+		methodBuilder.addCode("$L", paramName);
+
 	}
-	
+
 	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder,  SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {
-		if (property.hasTypeAdapter()) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, property.typeAdapter.getAdapterTypeName() , paramName);		
-		} else {
-			methodBuilder.addCode("$L", paramName);
-		}
-		
-		//methodBuilder.addCode("$L", paramName);		
+	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {
+		methodBuilder.addCode("$L", paramName);
 	}
 
 	@Override
@@ -83,8 +72,7 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 	}
 
 	@Override
-	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition,
-			TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		// except for supported result type, each transform does not need to
 		// implements this method
 		throw new KriptonProcessorException("Something went wrong!");
@@ -95,11 +83,14 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 		methodBuilder.addCode("null");
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#isTypeAdapterAware()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#
+	 * isTypeAdapterAware()
 	 */
 	@Override
-	public boolean isTypeAdapterAware() {		
+	public boolean isTypeAdapterAware() {
 		return false;
 	}
 }

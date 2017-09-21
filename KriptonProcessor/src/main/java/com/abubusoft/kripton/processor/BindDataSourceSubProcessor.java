@@ -207,6 +207,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			logger.info(currentSchema.toString());
 		} catch (Exception e) {
 			String msg = e.getMessage();
+			if (msg==null) msg="";
 			error(null, msg);
 
 			if (DEBUG_MODE) {

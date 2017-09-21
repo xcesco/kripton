@@ -15,11 +15,15 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -29,8 +33,7 @@ import com.squareup.javapoet.TypeName;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class StringSQLTransform  extends AbstractSQLTransform {
-
+public class StringSQLTransform  extends TypeAdapterAwareSQLTransform {
 
 	@Override
 	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {

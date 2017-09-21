@@ -56,26 +56,6 @@ public abstract class AssertKripton {
 
 	}
 
-	/**
-	 * Assertion which generate an exception if expression is not true
-	 * 
-	 * @param <T>
-	 * 
-	 * @param <E>
-	 * 
-	 * @param expression
-	 * @param message
-	 */
-//	public static <T extends KriptonProcessorException> void assertTrue(Class<T> exceptionClazz, boolean expression, String messageFormat, Object... args) {
-//		if (!expression)
-//			try {
-//				throw (exceptionClazz.getConstructor(String.class).newInstance(String.format(messageFormat, args)));
-//			} catch (Throwable e) {
-//				throw (new KriptonRuntimeException("Unknwon exception!"));
-//			}
-//
-//	}
-
 	public static void assertTrueOrInvalidMethodSignException(boolean expression, SQLiteModelMethod method, String messageFormat, Object... args) {
 		if (!expression)
 			throw (new InvalidMethodSignException(method, String.format(messageFormat, args)));

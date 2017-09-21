@@ -55,14 +55,14 @@ public class PersonTable {
   public static final String COLUMN_IMAGE = "image";
 
   /**
-   * write
+   * for attribute image serialization
    */
   public static byte[] serializeImage(byte[] value) {
     return value;
   }
 
   /**
-   * parse
+   * for attribute image parsing
    */
   public static byte[] parseImage(byte[] input) {
     return input;
