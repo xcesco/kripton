@@ -13,24 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.exceptions;
+package sqlite.feature.indexes;
 
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.squareup.javapoet.TypeName;
+import java.util.Date;
 
-/**
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
- *
- */
-public class UnsupportedFieldTypeException extends KriptonProcessorException {
-	private static final long serialVersionUID = -8165503181899906671L;
+import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.annotation.BindType;
 
-	public UnsupportedFieldTypeException(SQLiteModelMethod method, TypeName typeName) {
-		super(String.format("In DAO '%s' method '%s' unsupported type '%s' is used", method.getParent().getName(), method.getName(), typeName));
-	}
-	
-	public UnsupportedFieldTypeException(TypeName typeName) {
-		super(String.format("Unsupported type '%s' is used", typeName));
-	}
+@BindType
+@BindTable(indexes={"birthCity birthDay"})
+public class Err2Person {
+  public long id;
+  
+  
+  @BindColumn(columnType=ColumnType.INDEXED)
+  public String name;
+  
+  public String surname;
+  public String birthCity;
+  public Date birthDay;
 }

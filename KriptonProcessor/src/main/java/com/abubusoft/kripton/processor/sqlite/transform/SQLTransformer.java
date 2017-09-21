@@ -107,9 +107,10 @@ public abstract class SQLTransformer {
 			methodBuilder.addCode(AbstractSQLTransform.PRE_TYPE_ADAPTER_TO_STRING + "$L" + AbstractSQLTransform.POST_TYPE_ADAPTER, SQLTypeAdapterUtils.class,
 					typeName(property.typeAdapter.adapterClazz), PropertyUtility.getter(paramName, paramType, property));
 		} else {
-			SQLTransform transform = (property != null && property.hasTypeAdapter()) ? lookup(property.typeAdapter.getDataTypeTypename()) : lookup(property.getPropertyType().getTypeName());
+			//SQLTransform transform = (property != null && property.hasTypeAdapter()) ? lookup(property.typeAdapter.getDataTypeTypename()) : lookup(property.getPropertyType().getTypeName());
+			SQLTransform transform = lookup(property.getPropertyType().getTypeName());
 
-			AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, (property != null && property.hasTypeAdapter()) ? typeName(property.typeAdapter.dataType) : paramType);
+			AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, paramType);
 			transform.generateWriteProperty2WhereCondition(methodBuilder, paramName, paramType, property);
 		}
 	}

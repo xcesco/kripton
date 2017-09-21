@@ -13,46 +13,49 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
 /**
+ * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public abstract class TypeAdapterAwareSQLTransform extends AbstractSQLTransform {
+	
+	protected String WRITE_COSTANT="$L";
 
+	@Override
+	public void generateWriteParam2ContentValues(Builder methodBuilder,  SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {
+		if (property!=null && property.hasTypeAdapter()) {					
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + WRITE_COSTANT + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, property.typeAdapter.getAdapterTypeName(), paramName);		
+		} else if (method.hasAdapterForParam(paramName)) {					
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + WRITE_COSTANT + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName) , paramName);		
+		} else {
+			methodBuilder.addCode(WRITE_COSTANT, paramName);
+		}
+	}
+	
+	@Override
+	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
+//		if (method.hasAdapterForParam(paramName)) {			
+//			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + WRITE_COSTANT + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName), paramName);
+//		} else {
+			methodBuilder.addCode(WRITE_COSTANT, paramName);
+		//}			
+	}
+	
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
 		if (property!=null && property.hasTypeAdapter()) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + WRITE_COSTANT  + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addCode("$L", getter(beanName, beanClass, property));
+			methodBuilder.addCode(WRITE_COSTANT, getter(beanName, beanClass, property));
 		}
 	}
 	
 	@Override
 	public void generateWriteProperty2WhereCondition(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
 		if (property!=null && property.hasTypeAdapter()) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + WRITE_COSTANT + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addCode("$L", getter(beanName, beanClass, property));
-		}
-	}
-	
-	@Override
-	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
-		if (method.hasAdapterForParam(paramName)) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName), paramName);
-		} else {
-			methodBuilder.addCode("$L", paramName);
-		}			
-	}
-	
-	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder,  SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {
-		if (property!=null && property.hasTypeAdapter()) {					
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, property.typeAdapter.getAdapterTypeName(), paramName);		
-		} else if (method.hasAdapterForParam(paramName)) {					
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName) , paramName);		
-		} else {
-			methodBuilder.addCode("$L", paramName);
+			methodBuilder.addCode(WRITE_COSTANT, getter(beanName, beanClass, property));
 		}
 	}
 

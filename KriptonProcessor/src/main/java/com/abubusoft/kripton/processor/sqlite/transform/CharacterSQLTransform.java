@@ -15,18 +15,11 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-
-import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
-import com.squareup.javapoet.TypeName;
 
 /**
- * Transformer between a string and a Java Character object
+ * <p>Transformer between a string and a Java Character object.</p>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -41,34 +34,7 @@ class CharacterSQLTransform extends WrappedSQLTransformation {
 		}
 		
 		this.READ_FROM_CURSOR="(char)$L.getInt($L)";
-	}
-
-	@Override
-	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass,
-			ModelProperty property) {
-		//methodBuilder.addCode("(int)$L", getter(beanName, beanClass, property));
-		
-		if (property.hasTypeAdapter()) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "(int)$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
-		} else {
-			methodBuilder.addCode("(int)$L", getter(beanName, beanClass, property));
-		}
-	}
-
-	@Override
-	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
-		methodBuilder.addCode("(int)$L", paramName);
-	}
-	
-	@Override
-	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {
-		//generateWriteParam2WhereCondition(methodBuilder, method, paramName, paramTypeName);
-		
-		if (method.hasAdapterForParam(paramName)) {			
-			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_STRING + "(int)$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName), paramName);
-		} else {
-			methodBuilder.addCode("(int)$L", paramName);
-		}
+		this.WRITE_COSTANT="(int)$L";
 	}
 
 	@Override

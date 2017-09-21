@@ -18,8 +18,6 @@
  */
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
-
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -45,21 +43,21 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 
 	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
-	@Override
-	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
-		methodBuilder.addCode("$L", getter(beanName, beanClass, property));
-	}
+//	@Override
+//	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
+//		methodBuilder.addCode("$L", getter(beanName, beanClass, property));
+//	}
 
 	@Override
 	public void generateWriteProperty2WhereCondition(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
 		generateWriteProperty2ContentValues(methodBuilder, beanName, beanClass, property);
 	}
 
-	@Override
-	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
-		methodBuilder.addCode("$L", paramName);
-
-	}
+//	@Override
+//	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
+//		methodBuilder.addCode("$L", paramName);
+//
+//	}
 
 	@Override
 	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {
@@ -83,12 +81,6 @@ public abstract class AbstractSQLTransform implements SQLTransform {
 		methodBuilder.addCode("null");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#
-	 * isTypeAdapterAware()
-	 */
 	@Override
 	public boolean isTypeAdapterAware() {
 		return false;

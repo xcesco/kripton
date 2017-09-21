@@ -107,6 +107,11 @@ public abstract class AssertKripton {
 		assertTrue(!expression, messageFormat, args);
 	}
 
+	public static void assertTrueOrUnsupportedFieldTypeException(boolean expression, SQLiteModelMethod method, TypeName typeName) {
+		if (!expression)
+			throw (new UnsupportedFieldTypeException(method, typeName));
+	}
+	
 	public static void assertTrueOrUnsupportedFieldTypeException(boolean expression, TypeName typeName) {
 		if (!expression)
 			throw (new UnsupportedFieldTypeException(typeName));

@@ -43,17 +43,15 @@ public interface ContactDao {
 	@BindSqlSelect(where="password=${password} and type=${type}")
 	List<Contact> selectCompactRaw(@BindSqlParam(adapter=PasswordAdapterType.class) String password, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type);
 
-//	//--- UPDATE
+	//--- UPDATE
 	@BindSqlUpdate(fields={"id", "type"}, where = "id=${bean.id}  and password=${bean.password} and type=${bean.type}")
 	long updateCompactBean(Contact bean);
-//	
-	@BindSqlUpdate(where = "id=${id}")
-	long updateCompactRaw1(String password, ContactType type, long id);
 	
+	@BindSqlUpdate(where = "id=${id}")
+	long updateCompactRaw1(String password, ContactType type, long id);	
 	
 	@BindSqlUpdate(where = "password=${password} and type=${type}")
 	long updateCompactRaw2(Date birthDay, @BindSqlParam(adapter=PasswordAdapterType.class) String password, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type, long id);
-	
 	
 	@BindSqlUpdate(jql = "UPDATE contact SET birthDay=${bean.birthDay}, password=${bean.password}, type=${bean.type} WHERE type=${bean.type}  and type=${bean.password}")	
 	long updateJQLBean(Contact bean);
