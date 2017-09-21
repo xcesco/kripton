@@ -21,6 +21,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindDisabled;
@@ -66,7 +67,7 @@ public abstract class BindEntityBuilder {
 
 	}
 
-	private static AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).build();
+	private static AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
 
 	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).build();
 

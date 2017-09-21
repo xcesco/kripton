@@ -20,18 +20,18 @@ public class Seminar2StudentTable {
    * DDL to create table seminar_2_student
    * </p>
    *
-   * <pre>CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT, student_id INTEGER, seminar_id INTEGER, FOREIGN KEY(student_id) REFERENCES student(id), FOREIGN KEY(seminar_id) REFERENCES seminar(id));</pre>
+   * <pre>CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT, student_id INTEGER, seminar_id INTEGER, FOREIGN KEY(student_id) REFERENCES student(id), FOREIGN KEY(seminar_id) REFERENCES seminar(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc, seminar_id desc);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT, student_id INTEGER, seminar_id INTEGER, FOREIGN KEY(student_id) REFERENCES student(id), FOREIGN KEY(seminar_id) REFERENCES seminar(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT, student_id INTEGER, seminar_id INTEGER, FOREIGN KEY(student_id) REFERENCES student(id), FOREIGN KEY(seminar_id) REFERENCES seminar(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc, seminar_id desc);";
 
   /**
    * <p>
    * DDL to drop table seminar_2_student
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS seminar_2_student;</pre>
+   * <pre> DROP INDEX IF EXISTS idx_seminar_2_student_1;DROP TABLE IF EXISTS seminar_2_student;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS seminar_2_student;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_seminar_2_student_1;DROP TABLE IF EXISTS seminar_2_student;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.

@@ -27,7 +27,7 @@ public interface ContactDao {
 	@BindSqlDelete(jql="DELETE FROM contact WHERE id=${id} and type=${type}")
 	long deleteJQLRaw(long id, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type);
 
-//	//-- SELECT	
+	//-- SELECT	
 	@BindSqlSelect(where = "id=${bean.id}  and type=${bean.type}")
 	List<Contact> selectCompactBean(Contact bean);
 	
@@ -42,11 +42,11 @@ public interface ContactDao {
 	
 	@BindSqlSelect(where="password=${password} and type=${type}")
 	List<Contact> selectCompactRaw(@BindSqlParam(adapter=PasswordAdapterType.class) String password, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type);
-//
+
 //	//--- UPDATE
 	@BindSqlUpdate(fields={"id", "type"}, where = "id=${bean.id}  and password=${bean.password} and type=${bean.type}")
 	long updateCompactBean(Contact bean);
-	
+//	
 	@BindSqlUpdate(where = "id=${id}")
 	long updateCompactRaw1(String password, ContactType type, long id);
 	
@@ -61,7 +61,7 @@ public interface ContactDao {
 	@BindSqlUpdate(jql="UPDATE contact SET birthDay=${birthDay}, id=${id} WHERE password=${password} and type=${type}")
 	long updateJQLRaw(@BindSqlParam(adapter=PasswordAdapterType.class) String password, Date birthDay, @BindSqlParam(adapter=EnumAdapterType.class) ContactType type, long id);
 	
-//	//-- INSERT
+	//-- INSERT
 	@BindSqlInsert
 	long insertCompactRaw(String password, ContactType type, long id);
 

@@ -891,7 +891,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       contentValues.putNull("birth_day");
     }
     if (bean.getPassword()!=null) {
-      contentValues.put("password", bean.getPassword());
+      contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
     } else {
       contentValues.putNull("password");
     }
@@ -1169,7 +1169,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     contentValues.clear();
 
     if (bean.getPassword()!=null) {
-      contentValues.put("password", bean.getPassword());
+      contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
     } else {
       contentValues.putNull("password");
     }

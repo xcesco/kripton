@@ -246,7 +246,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.build(null, beanElement);
 		// assert: bean is present
-		final SQLEntity currentEntity = new SQLEntity(elementUtils, currentSchema, beanElement);
+		final SQLEntity currentEntity = new SQLEntity(currentSchema, bindEntity);
 		if (currentSchema.contains(currentEntity.getName())) {
 			// bean already defined in datasource
 			return;

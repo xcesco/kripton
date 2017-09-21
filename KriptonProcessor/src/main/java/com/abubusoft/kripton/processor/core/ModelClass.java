@@ -30,6 +30,10 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 
 	protected List<ModelAnnotation> annotations;
 	
+	public List<ModelAnnotation> getAnnotations() {
+		return annotations;
+	}
+
 	protected TypeVariableResolver typeVariableResolver;
 
 	public ModelClass(TypeElement element) {

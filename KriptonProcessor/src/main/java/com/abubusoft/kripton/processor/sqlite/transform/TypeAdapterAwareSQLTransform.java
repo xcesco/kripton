@@ -47,7 +47,9 @@ public abstract class TypeAdapterAwareSQLTransform extends AbstractSQLTransform 
 	
 	@Override
 	public void generateWriteParam2ContentValues(Builder methodBuilder,  SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {
-		if (method.hasAdapterForParam(paramName)) {					
+		if (property!=null && property.hasTypeAdapter()) {					
+			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, property.typeAdapter.getAdapterTypeName(), paramName);		
+		} else if (method.hasAdapterForParam(paramName)) {					
 			methodBuilder.addCode(PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER,SQLTypeAdapterUtils.class, method.getAdapterForParam(paramName) , paramName);		
 		} else {
 			methodBuilder.addCode("$L", paramName);
