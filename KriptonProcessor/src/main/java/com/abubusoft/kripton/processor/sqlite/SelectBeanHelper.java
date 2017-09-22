@@ -34,8 +34,6 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
-import sqlite.feature.typeadapter.DateAdapterType;
-
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
  *

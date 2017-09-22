@@ -1,20 +1,14 @@
 package sqlite.stack45184504;
 
-import java.util.Date;
-
 import com.abubusoft.kripton.android.annotation.BindTable;
 
-@BindTable
+@BindTable(name="files")
 public class FileBean {
 	public long id;
+		
+	public String name;
 	
-	public Date date;
+	public byte[] content;
 	
-	public String title;
-	
-	public String text;
-	
-	public String address;
-	
-	public byte[] image;
+	public String contentType;
 }

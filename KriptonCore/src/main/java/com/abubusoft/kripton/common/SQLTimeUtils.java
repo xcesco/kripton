@@ -2,7 +2,7 @@ package com.abubusoft.kripton.common;
 
 import java.sql.Time;
 
-public class TimeUtils {
+public class SQLTimeUtils {
 	
 	public static String write(Time value) {
 		return value.toString();
@@ -13,7 +13,7 @@ public class TimeUtils {
 	 * @param localeString
 	 * @return
 	 */
-	public static Time read(String string) {
+	public static Time read(String string) {		
 		return Time.valueOf(string);
 	}
 }

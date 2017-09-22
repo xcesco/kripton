@@ -70,8 +70,9 @@ public abstract class JavadocUtility {
 
 			@Override
 			public String onTableName(String tableName) {
-				return schema.getEntityBySimpleName(tableName).getTableName();
-
+				SQLEntity currentEntity = schema.getEntityBySimpleName(tableName);
+				AssertKripton.assertTrueOrUnknownClassInJQLException(currentEntity != null, method, tableName);
+				return currentEntity.getTableName();
 			}
 
 			@Override

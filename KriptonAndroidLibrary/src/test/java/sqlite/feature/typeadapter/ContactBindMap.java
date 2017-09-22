@@ -4,6 +4,8 @@ import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.common.SQLDateUtils;
+import com.abubusoft.kripton.common.SQLTimeUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -57,6 +59,18 @@ public class ContactBindMap extends AbstractMapper<Contact> {
       jacksonSerializer.writeStringField("type", object.type.toString());
     }
 
+    // field updateDate (mapped with "updateDate")
+    if (object.updateDate!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("updateDate", SQLDateUtils.write(object.updateDate));
+    }
+
+    // field updateTime (mapped with "updateTime")
+    if (object.updateTime!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("updateTime", SQLTimeUtils.write(object.updateTime));
+    }
+
     jacksonSerializer.writeEndObject();
     return fieldCount;
   }
@@ -94,6 +108,18 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     if (object.type!=null)  {
       fieldCount++;
       jacksonSerializer.writeStringField("type", object.type.toString());
+    }
+
+    // field updateDate (mapped with "updateDate")
+    if (object.updateDate!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("updateDate", SQLDateUtils.write(object.updateDate));
+    }
+
+    // field updateTime (mapped with "updateTime")
+    if (object.updateTime!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("updateTime", SQLTimeUtils.write(object.updateTime));
     }
 
     jacksonSerializer.writeEndObject();
@@ -142,6 +168,20 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     if (object.type!=null)  {
       xmlSerializer.writeStartElement("type");
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.type.toString()));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field updateDate (mapped with "updateDate")
+    if (object.updateDate!=null)  {
+      xmlSerializer.writeStartElement("updateDate");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(SQLDateUtils.write(object.updateDate)));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field updateTime (mapped with "updateTime")
+    if (object.updateTime!=null)  {
+      xmlSerializer.writeStartElement("updateTime");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(SQLTimeUtils.write(object.updateTime)));
       xmlSerializer.writeEndElement();
     }
 
@@ -197,6 +237,18 @@ public class ContactBindMap extends AbstractMapper<Contact> {
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               String tempEnum=jacksonParser.getText();
               instance.type=StringUtils.hasText(tempEnum)?ContactType.valueOf(tempEnum):null;
+            }
+          break;
+          case "updateDate":
+            // field updateDate (mapped with "updateDate")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.updateDate=SQLDateUtils.read(jacksonParser.getText());
+            }
+          break;
+          case "updateTime":
+            // field updateTime (mapped with "updateTime")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.updateTime=SQLTimeUtils.read(jacksonParser.getText());
             }
           break;
           default:
@@ -255,6 +307,18 @@ public class ContactBindMap extends AbstractMapper<Contact> {
               instance.type=StringUtils.hasText(tempEnum)?ContactType.valueOf(tempEnum):null;
             }
           break;
+          case "updateDate":
+            // field updateDate (mapped with "updateDate")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.updateDate=SQLDateUtils.read(jacksonParser.getText());
+            }
+          break;
+          case "updateTime":
+            // field updateTime (mapped with "updateTime")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.updateTime=SQLTimeUtils.read(jacksonParser.getText());
+            }
+          break;
           default:
             jacksonParser.skipChildren();
           break;}
@@ -311,6 +375,14 @@ public class ContactBindMap extends AbstractMapper<Contact> {
                 case "type":
                   // property type (mapped on "type")
                   instance.type=ContactType.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
+                case "updateDate":
+                  // property updateDate (mapped on "updateDate")
+                  instance.updateDate=SQLDateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
+                case "updateTime":
+                  // property updateTime (mapped on "updateTime")
+                  instance.updateTime=SQLTimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 default:
                 break;

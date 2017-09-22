@@ -4,34 +4,34 @@ import java.lang.String;
 
 /**
  * <p>
- * Entity <code>FileBean</code> is associated to table <code>file_bean</code>
+ * Entity <code>FileBean</code> is associated to table <code>files</code>
  * This class represents table associated to entity.
  * </p>
  *  @see FileBean
  */
 public class FileBeanTable {
   /**
-   * Costant represents typeName of table file_bean
+   * Costant represents typeName of table files
    */
-  public static final String TABLE_NAME = "file_bean";
+  public static final String TABLE_NAME = "files";
 
   /**
    * <p>
-   * DDL to create table file_bean
+   * DDL to create table files
    * </p>
    *
-   * <pre>CREATE TABLE file_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, title TEXT, text TEXT, address TEXT, image BLOB);</pre>
+   * <pre>CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, content BLOB, content_type TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE file_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, title TEXT, text TEXT, address TEXT, image BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, content BLOB, content_type TEXT);";
 
   /**
    * <p>
-   * DDL to drop table file_bean
+   * DDL to drop table files
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS file_bean;</pre>
+   * <pre>DROP TABLE IF EXISTS files;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS file_bean;";
+  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS files;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
@@ -41,51 +41,37 @@ public class FileBeanTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>date</code> is associated to table column <code>date</code>. This costant represents column name.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
-   *  @see FileBean#date
+   *  @see FileBean#name
    */
-  public static final String COLUMN_DATE = "date";
+  public static final String COLUMN_NAME = "name";
 
   /**
-   * Entity's property <code>title</code> is associated to table column <code>title</code>. This costant represents column name.
+   * Entity's property <code>content</code> is associated to table column <code>content</code>. This costant represents column name.
    *
-   *  @see FileBean#title
+   *  @see FileBean#content
    */
-  public static final String COLUMN_TITLE = "title";
+  public static final String COLUMN_CONTENT = "content";
 
   /**
-   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
+   * Entity's property <code>contentType</code> is associated to table column <code>content_type</code>. This costant represents column name.
    *
-   *  @see FileBean#text
+   *  @see FileBean#contentType
    */
-  public static final String COLUMN_TEXT = "text";
+  public static final String COLUMN_CONTENT_TYPE = "content_type";
 
   /**
-   * Entity's property <code>address</code> is associated to table column <code>address</code>. This costant represents column name.
-   *
-   *  @see FileBean#address
+   * for attribute content serialization
    */
-  public static final String COLUMN_ADDRESS = "address";
-
-  /**
-   * Entity's property <code>image</code> is associated to table column <code>image</code>. This costant represents column name.
-   *
-   *  @see FileBean#image
-   */
-  public static final String COLUMN_IMAGE = "image";
-
-  /**
-   * for attribute image serialization
-   */
-  public static byte[] serializeImage(byte[] value) {
+  public static byte[] serializeContent(byte[] value) {
     return value;
   }
 
   /**
-   * for attribute image parsing
+   * for attribute content parsing
    */
-  public static byte[] parseImage(byte[] input) {
+  public static byte[] parseContent(byte[] input) {
     return input;
   }
 }

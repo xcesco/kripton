@@ -165,7 +165,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
    * Build instance.
    * @return dataSource instance.
    */
-  public static BindExampleDataSource build(DataSourceOptions options) {
+  public static synchronized BindExampleDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindExampleDataSource(options);
     }

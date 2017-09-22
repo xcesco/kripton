@@ -32,6 +32,9 @@ import sqlite.kripton84.Test84RuntimeSuite;
 import sqlite.kripton93.Test93RuntimeSuite;
 import sqlite.kripton96.Test96RuntimeSuite;
 import sqlite.quickstart.TestQuickstartRuntimeSuite;
+import sqlite.stack44330452.TestStack44330452RuntimeSuite;
+import sqlite.stack44633883.TestStack44633883RuntimeSuite;
+import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 
 @RunWith(Suite.class)
 // @formatter:off
@@ -55,6 +58,10 @@ import sqlite.quickstart.TestQuickstartRuntimeSuite;
 	Test58RuntimeSuite.class,
 	TestQuickstartRuntimeSuite.class,
 	TestFeatJQLRuntimeSuite.class,
+	
+	TestStack45184504RuntimeSuite.class,
+	TestStack44330452RuntimeSuite.class,
+	TestStack44633883RuntimeSuite.class
 	
 	 })
 // @formatter:on

@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.sharedprefs.transform;
+package bind.kripton81ExceptionCoverage;
 
-import com.abubusoft.kripton.common.TimeUtils;
+import java.util.List;
 
-/**
- * Transformer between a string and a custom Time object
- * 
- * @author xcesco
- *
- */
-public class TimePrefsTransform extends WrappedPrefsTransform {
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-	public TimePrefsTransform() {
-		super(TimeUtils.class);
-	}
+@BindDao(Error9Bean.class)
+public interface Error9Dao {
+
+	@BindSqlSelect()
+	public List<Error9Bean> selectAll();
 }

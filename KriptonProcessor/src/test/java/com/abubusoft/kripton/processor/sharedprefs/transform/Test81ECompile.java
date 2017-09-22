@@ -33,7 +33,7 @@ public class Test81ECompile {
 		assertEquals(BigDecimalPrefsTransform.class.getName(), PrefsTransformer.getMathTransform(typeName("java.math.BigDecimal")).getClass().getName());
 		assertEquals(UrlPrefsTransform.class.getName(), PrefsTransformer.getNetTransform(typeName("java.net.URL")).getClass().getName());
 		assertEquals(IntegerPrefsTransform.class.getName(), PrefsTransformer.getPrimitiveTransform(typeName("int")).getClass().getName());
-		assertEquals(TimePrefsTransform.class.getName(), PrefsTransformer.getSqlTransform(typeName("java.sql.Time")).getClass().getName());
+		assertEquals(SQLTimePrefsTransform.class.getName(), PrefsTransformer.getSqlTransform(typeName("java.sql.Time")).getClass().getName());
 		assertEquals(DatePrefsTransform.class.getName(), PrefsTransformer.getUtilTransform(typeName("java.util.Date")).getClass().getName());
 	}
 }

@@ -5,7 +5,7 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
-import com.abubusoft.kripton.common.TimeUtils;
+import com.abubusoft.kripton.common.SQLTimeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
 import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
@@ -379,7 +379,7 @@ public class Bean64Table {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(TimeUtils.write(item));
+            jacksonSerializer.writeString(SQLTimeUtils.write(item));
           }
         }
         jacksonSerializer.writeEndArray();
@@ -414,7 +414,7 @@ public class Bean64Table {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=TimeUtils.read(jacksonParser.getText());
+            item=SQLTimeUtils.read(jacksonParser.getText());
           }
           collection.add(item);
         }

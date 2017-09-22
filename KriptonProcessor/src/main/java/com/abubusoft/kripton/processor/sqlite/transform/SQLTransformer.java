@@ -245,7 +245,11 @@ public abstract class SQLTransformer {
 
 	static SQLTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
-			return new TimeSQLTransform();
+			return new SQLTimeSQLTransform();
+		}
+		
+		if (java.sql.Date.class.getName().equals(typeName.toString())) {
+			return new SQLDateSQLTransform();
 		}
 
 		return null;

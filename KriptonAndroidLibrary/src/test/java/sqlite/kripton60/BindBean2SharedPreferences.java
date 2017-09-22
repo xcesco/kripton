@@ -13,8 +13,8 @@ import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.LocaleUtils;
+import com.abubusoft.kripton.common.SQLTimeUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.common.TimeUtils;
 import com.abubusoft.kripton.common.TimeZoneUtils;
 import com.abubusoft.kripton.common.UrlUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -211,7 +211,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
 
      {
       String temp=prefs.getString("valueTime", null);
-      bean.setValueTime((StringUtils.hasText(temp)) ? TimeUtils.read(temp): null);}
+      bean.setValueTime((StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): null);}
 
      {
       String temp=prefs.getString("valueTimeList", null);
@@ -401,7 +401,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     if (bean.getValueTime()!=null)  {
-      editor.putString("valueTime",TimeUtils.write(bean.getValueTime()));
+      editor.putString("valueTime",SQLTimeUtils.write(bean.getValueTime()));
     } else {
       editor.remove("valueTime");
     }
@@ -796,7 +796,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Time valueTime() {
     String temp=prefs.getString("valueTime", null);
-    return (StringUtils.hasText(temp)) ? TimeUtils.read(temp): null;
+    return (StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): null;
   }
 
   /**
@@ -1577,7 +1577,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(TimeUtils.write(item));
+            jacksonSerializer.writeString(SQLTimeUtils.write(item));
           }
         }
         jacksonSerializer.writeEndArray();
@@ -1612,7 +1612,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=TimeUtils.read(jacksonParser.getText());
+            item=SQLTimeUtils.read(jacksonParser.getText());
           }
           collection.add(item);
         }
@@ -2061,7 +2061,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueTime(Time value) {
       if (value!=null)  {
-        editor.putString("valueTime",TimeUtils.write(value));
+        editor.putString("valueTime",SQLTimeUtils.write(value));
       } else {
         editor.remove("valueTime");
       }

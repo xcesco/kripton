@@ -27,5 +27,5 @@ public class Error9Bean {
 
 	public String name;
 
-	public java.sql.Date date;
+	public java.sql.BatchUpdateException date;
 }

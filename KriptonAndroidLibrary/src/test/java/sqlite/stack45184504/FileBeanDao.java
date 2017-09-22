@@ -12,6 +12,9 @@ public interface FileBeanDao {
 	@BindSqlInsert
 	long insert(FileBean bean);
 	
+	@BindSqlInsert
+	long insert(String name, String contentType, byte[] content);
+	
 	@BindSqlSelect(where="id=${id}")
 	List<FileBean> selectById(long id);
 }
