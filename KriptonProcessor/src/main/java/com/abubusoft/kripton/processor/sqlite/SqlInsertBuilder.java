@@ -27,7 +27,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -156,11 +155,11 @@ public abstract class SqlInsertBuilder {
 			ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
 
 			// check value attribute
-			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method, annotation, AnnotationAttributeType.FIELDS).size() > 0, method,
+			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.FIELDS).size() > 0, method,
 					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.FIELDS.getValue());
 
 			// check excludeFields attribute
-			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() > 0,
+			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() > 0,
 					method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
 
 			// check if there is only one parameter

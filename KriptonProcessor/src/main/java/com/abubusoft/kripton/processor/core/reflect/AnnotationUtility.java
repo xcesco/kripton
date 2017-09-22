@@ -99,7 +99,8 @@ public abstract class AnnotationUtility {
 	 * @param filter
 	 * @param listener
 	 */
-	public static void forEachAnnotations(Elements elementUtils, Element currentElement, AnnotationFilter filter, AnnotationFoundListener listener) {
+	public static void forEachAnnotations(Element currentElement, AnnotationFilter filter, AnnotationFoundListener listener) {
+		final Elements elementUtils=BaseProcessor.elementUtils;
 		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(currentElement);
 		String annotationClassName;
 		// boolean valid=true;
@@ -135,8 +136,8 @@ public abstract class AnnotationUtility {
 	 * @param currentElement
 	 * @param listener
 	 */
-	public static void forEachAnnotations(Elements elementUtils, Element currentElement, AnnotationFoundListener listener) {
-		forEachAnnotations(elementUtils, currentElement, null, listener);
+	public static void forEachAnnotations(Element currentElement, AnnotationFoundListener listener) {
+		forEachAnnotations(currentElement, null, listener);
 	}
 
 	/**
@@ -196,7 +197,8 @@ public abstract class AnnotationUtility {
 	 * @param attributeName
 	 * @return attribute value extracted as class typeName
 	 */
-	public static String extractAsString(final Elements elementUtils, final Element item, final Class<? extends Annotation> annotationClass, final AnnotationAttributeType attributeName) {
+	public static String extractAsString(final Element item, final Class<? extends Annotation> annotationClass, final AnnotationAttributeType attributeName) {
+		final Elements elementUtils=BaseProcessor.elementUtils;
 		
 		final One<String> result = new One<String>();
 
@@ -225,7 +227,8 @@ public abstract class AnnotationUtility {
 	 * @param attributeName
 	 * @return attribute value extracted as class typeName
 	 */
-	public static List<String> extractAsStringArray(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+	public static List<String> extractAsStringArray(Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+		final Elements elementUtils=BaseProcessor.elementUtils;
 		final One<List<String>> result = new One<List<String>>(new ArrayList<String>());
 
 		extractString(elementUtils, item, annotationClass, attributeName, new OnAttributeFoundListener() {
@@ -309,7 +312,8 @@ public abstract class AnnotationUtility {
 	 *            attribute typeName to analyze
 	 * @return attribute value as list of string
 	 */
-	public static List<String> extractAsStringArray(Elements elementUtils, ModelMethod method, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
+	public static List<String> extractAsStringArray(ModelMethod method, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
+		final Elements elementUtils=BaseProcessor.elementUtils;
 		final One<List<String>> result = new One<List<String>>();
 		extractAttributeValue(elementUtils, method.getElement(), annotationClass.getName(), attribute, new OnAttributeFoundListener() {
 
@@ -334,7 +338,8 @@ public abstract class AnnotationUtility {
 	 *            attribute typeName to analyze
 	 * @return attribute value as list of string
 	 */
-	public static String extractAsEnumerationValue(Elements elementUtils, ModelProperty property, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
+	public static String extractAsEnumerationValue(ModelProperty property, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
+		final Elements elementUtils=BaseProcessor.elementUtils;
 		final One<String> result = new One<String>();
 
 		extractAttributeValue(elementUtils, property.getElement(), annotationClass.getName(), attribute, new OnAttributeFoundListener() {
@@ -368,10 +373,9 @@ public abstract class AnnotationUtility {
 //	}
 	
 	public static List<ModelAnnotation> buildAnnotationList(final Element element, final AnnotationFilter filter) {
-		final Elements elementUtils=BaseProcessor.elementUtils;		
 		final List<ModelAnnotation> annotationList=new ArrayList<>();
 		
-		forEachAnnotations(elementUtils, element, filter, new AnnotationFoundListener() {
+		forEachAnnotations(element, filter, new AnnotationFoundListener() {
 
 			@Override
 			public void onAcceptAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
@@ -424,7 +428,8 @@ public abstract class AnnotationUtility {
 
 	}
 
-	public static int extractAsInt(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+	public static int extractAsInt(Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
+		final Elements elementUtils=BaseProcessor.elementUtils;
 		final One<Integer> result = new One<Integer>();
 		result.value0 = 0;
 
@@ -439,7 +444,8 @@ public abstract class AnnotationUtility {
 		return result.value0;
 	}
 
-	public static boolean extractAsBoolean(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute) {
+	public static boolean extractAsBoolean(Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute) {
+		final Elements elementUtils=BaseProcessor.elementUtils;
 		final One<Boolean> result = new One<Boolean>(false);
 
 		extractString(elementUtils, item, annotationClass, attribute, new OnAttributeFoundListener() {
@@ -464,7 +470,8 @@ public abstract class AnnotationUtility {
 	 * @param attributeName
 	 *            attribute typeName to analyze
 	 */
-	public static <E extends ModelEntity<?>> boolean extractAsBoolean(Elements elementUtils, E item, ModelAnnotation annotation, AnnotationAttributeType attribute) {
+	public static <E extends ModelEntity<?>> boolean extractAsBoolean(E item, ModelAnnotation annotation, AnnotationAttributeType attribute) {
+		final Elements elementUtils=BaseProcessor.elementUtils;
 		final One<Boolean> result = new One<Boolean>(false);
 
 		extractAttributeValue(elementUtils, item.getElement(), annotation.getName(), attribute, new OnAttributeFoundListener() {

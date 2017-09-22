@@ -19,15 +19,18 @@ import java.lang.annotation.Annotation;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
 import com.abubusoft.kripton.processor.exceptions.InvalidPropertyToColumnConversion;
 import com.abubusoft.kripton.processor.exceptions.InvalidTypeForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
+import com.abubusoft.kripton.processor.exceptions.MissedAnnotationOnClass;
 import com.abubusoft.kripton.processor.exceptions.UnknownClassInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownParamUsedInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
@@ -179,6 +182,13 @@ public abstract class AssertKripton {
 			throw(new InvalidPropertyToColumnConversion(msg));
 		}
 		
+	}
+
+	public static void assertTrueOrMissedAnnotationOnClass(boolean expression, Element element, String beanName, Class<? extends Annotation> annotationClazz) {
+		if (!expression) {
+			String msg = String.format("In dao definition '%s' is referred a bean definition '%s' without @%s annotation", element.getSimpleName(), beanName, annotationClazz.getSimpleName());			
+			throw(new MissedAnnotationOnClass(msg));
+		}	
 	}
 
 }

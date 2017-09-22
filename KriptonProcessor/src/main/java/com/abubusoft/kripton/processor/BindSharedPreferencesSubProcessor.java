@@ -194,7 +194,7 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 
 				// if field disable, skip property definition
 				ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
-				if (annotation != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotation, AnnotationAttributeType.ENABLED) == false) {
+				if (annotation != null && AnnotationUtility.extractAsBoolean(property, annotation, AnnotationAttributeType.ENABLED) == false) {
 					return false;
 				}
 

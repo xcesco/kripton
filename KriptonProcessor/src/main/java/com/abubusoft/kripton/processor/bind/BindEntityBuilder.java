@@ -80,7 +80,7 @@ public abstract class BindEntityBuilder {
 		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), beanElement, AnnotationUtility.buildAnnotationList(element, classAnnotationFilter));
 
 		// tag typeName
-		String tagName = AnnotationUtility.extractAsString(elementUtils, beanElement, BindType.class, AnnotationAttributeType.VALUE);
+		String tagName = AnnotationUtility.extractAsString(beanElement, BindType.class, AnnotationAttributeType.VALUE);
 		if (StringUtils.hasText(tagName)) {
 			currentEntity.xmlInfo.label = tagName;
 		} else {
@@ -114,7 +114,7 @@ public abstract class BindEntityBuilder {
 
 				boolean enabled = bindAllFields;
 				ModelAnnotation annotationBind = property.getAnnotation(Bind.class);
-				enabled = enabled || (annotationBind != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBind, AnnotationAttributeType.ENABLED));
+				enabled = enabled || (annotationBind != null && AnnotationUtility.extractAsBoolean(property, annotationBind, AnnotationAttributeType.ENABLED));
 
 				// if we are not in external context and element is not enabled,
 				// we have to analyze in every case.
@@ -158,10 +158,10 @@ public abstract class BindEntityBuilder {
 
 				// @Bind management
 				if (annotationBind != null) {
-					int order = AnnotationUtility.extractAsInt(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.ORDER);
+					int order = AnnotationUtility.extractAsInt(property.getElement(), Bind.class, AnnotationAttributeType.ORDER);
 					property.order = order;
 
-					String tempName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.VALUE);
+					String tempName = AnnotationUtility.extractAsString(property.getElement(), Bind.class, AnnotationAttributeType.VALUE);
 					if (StringUtils.hasText(tempName)) {
 						// for the moment are the same
 						property.label = tempName;
@@ -169,11 +169,11 @@ public abstract class BindEntityBuilder {
 					}
 
 					// map info
-					String mapKeyName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.MAP_KEY_NAME);
+					String mapKeyName = AnnotationUtility.extractAsString(property.getElement(), Bind.class, AnnotationAttributeType.MAP_KEY_NAME);
 					if (StringUtils.hasText(mapKeyName))
 						property.mapKeyName = mapKeyName;
 
-					String mapValueName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), Bind.class, AnnotationAttributeType.MAP_VALUE_NAME);
+					String mapValueName = AnnotationUtility.extractAsString(property.getElement(), Bind.class, AnnotationAttributeType.MAP_VALUE_NAME);
 					if (StringUtils.hasText(mapValueName))
 						property.mapValueName = mapValueName;
 				}
@@ -185,7 +185,7 @@ public abstract class BindEntityBuilder {
 						property.xmlInfo.mapEntryType = MapEntryType.valueOf(mapEntryType);
 
 					// define element tag typeName
-					String tempElementName = AnnotationUtility.extractAsString(elementUtils, property.getElement(), BindXml.class, AnnotationAttributeType.XML_ELEMENT_TAG);
+					String tempElementName = AnnotationUtility.extractAsString(property.getElement(), BindXml.class, AnnotationAttributeType.XML_ELEMENT_TAG);
 					if (StringUtils.hasText(tempElementName)) {
 						property.xmlInfo.labelItem = tempElementName;
 						property.xmlInfo.wrappedCollection = true;

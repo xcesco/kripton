@@ -72,7 +72,7 @@ public abstract class PropertyUtility {
 		List<? extends Element> list = elementUtils.getAllMembers(entity.getElement());
 
 		if (propertyAnnotationFilter != null) {
-			AnnotationUtility.forEachAnnotations(elementUtils, entity.getElement(), propertyAnnotationFilter, null);
+			AnnotationUtility.forEachAnnotations(entity.getElement(), propertyAnnotationFilter, null);
 		}
 
 		P field;

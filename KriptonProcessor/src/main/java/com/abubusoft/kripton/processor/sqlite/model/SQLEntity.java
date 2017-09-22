@@ -93,7 +93,7 @@ public class SQLEntity extends ModelClass<SQLProperty> implements Finder<SQLProp
 		tableName = getSimpleName();
 		tableName = model.classNameConverter.convert(tableName);
 
-		String temp = AnnotationUtility.extractAsString(elementUtils, getElement(), BindTable.class, AnnotationAttributeType.NAME);
+		String temp = AnnotationUtility.extractAsString(getElement(), BindTable.class, AnnotationAttributeType.NAME);
 		if (StringUtils.hasText(temp)) {
 			tableName = temp;
 		}

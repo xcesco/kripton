@@ -146,8 +146,8 @@ public abstract class JQLBuilder {
 	 * @param annotation
 	 */
 	private static void checkFieldsDefinitions(SQLiteModelMethod method, Class<? extends Annotation> annotation) {
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.FIELDS);
-		List<String> excludedFields = AnnotationUtility.extractAsStringArray(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.EXCLUDED_FIELDS);
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(method.getElement(), annotation, AnnotationAttributeType.FIELDS);
+		List<String> excludedFields = AnnotationUtility.extractAsStringArray(method.getElement(), annotation, AnnotationAttributeType.EXCLUDED_FIELDS);
 
 		// both elements can not be defined
 		if (includedFields.size() > 0 && excludedFields.size() > 0) {
@@ -297,7 +297,7 @@ public abstract class JQLBuilder {
 			// to
 			final Class<? extends Annotation> annotation = BindSqlInsert.class;
 			final SQLDaoDefinition dao = method.getParent();
-			final boolean includePrimaryKey = AnnotationUtility.extractAsBoolean(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
+			final boolean includePrimaryKey = AnnotationUtility.extractAsBoolean(method.getElement(), annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
 
 			// define field list
 			// every method parameter can be used only as insert field
@@ -364,7 +364,7 @@ public abstract class JQLBuilder {
 	 * @return
 	 */
 	private static Set<String> extractFieldsFromMethodParameters(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz) {
-		String annotatedWhere = AnnotationUtility.extractAsString(BaseProcessor.elementUtils, method.getElement(), annotationClazz, AnnotationAttributeType.WHERE);
+		String annotatedWhere = AnnotationUtility.extractAsString(method.getElement(), annotationClazz, AnnotationAttributeType.WHERE);
 		Set<String> annotatedFieldValues = new LinkedHashSet<>();
 
 		Set<JQLPlaceHolder> parametersUsedInWhereConditions = new LinkedHashSet<>();
@@ -470,9 +470,9 @@ public abstract class JQLBuilder {
 			// define field list
 			final Set<String> fields = extractFieldsFromAnnotation(method, BindSqlSelect.class, true);
 
-			boolean distinct = AnnotationUtility.extractAsBoolean(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.DISTINCT);
-			String annotatedGroupBy = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.GROUP_BY);
-			String annotatedHaving = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.HAVING);
+			boolean distinct = AnnotationUtility.extractAsBoolean(method.getElement(), annotation, AnnotationAttributeType.DISTINCT);
+			String annotatedGroupBy = AnnotationUtility.extractAsString(method.getElement(), annotation, AnnotationAttributeType.GROUP_BY);
+			String annotatedHaving = AnnotationUtility.extractAsString(method.getElement(), annotation, AnnotationAttributeType.HAVING);
 
 			StringBuilder builder = new StringBuilder();
 			builder.append(SELECT_KEYWORD + " ");
@@ -667,8 +667,8 @@ public abstract class JQLBuilder {
 		final SQLDaoDefinition dao = method.getParent();
 		final SQLEntity entity = method.getParent().getEntity();
 
-		List<String> annotatedFieldValues = AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method.getElement(), annotationClazz, AnnotationAttributeType.FIELDS);
-		List<String> annotatedExcludedFieldValues = AnnotationUtility.extractAsStringArray(BaseProcessor.elementUtils, method.getElement(), annotationClazz, AnnotationAttributeType.EXCLUDED_FIELDS);
+		List<String> annotatedFieldValues = AnnotationUtility.extractAsStringArray(method.getElement(), annotationClazz, AnnotationAttributeType.FIELDS);
+		List<String> annotatedExcludedFieldValues = AnnotationUtility.extractAsStringArray(method.getElement(), annotationClazz, AnnotationAttributeType.EXCLUDED_FIELDS);
 		CollectionUtils.trim(annotatedFieldValues);
 		CollectionUtils.trim(annotatedExcludedFieldValues);
 
@@ -732,7 +732,7 @@ public abstract class JQLBuilder {
 	private static <L extends Annotation> String defineLimitStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
 
-		int pageSize = AnnotationUtility.extractAsInt(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.PAGE_SIZE);
+		int pageSize = AnnotationUtility.extractAsInt(method.getElement(), annotation, AnnotationAttributeType.PAGE_SIZE);
 		if (pageSize > 0) {
 			result.annotatedPageSize = true;
 		}
@@ -787,7 +787,7 @@ public abstract class JQLBuilder {
 	private static <L extends Annotation> String defineOrderByStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
 
-		String orderBy = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.ORDER_BY);
+		String orderBy = AnnotationUtility.extractAsString(method.getElement(), annotation, AnnotationAttributeType.ORDER_BY);
 
 		if (StringUtils.hasText(orderBy)) {
 			result.annotatedOrderBy = true;
@@ -850,7 +850,7 @@ public abstract class JQLBuilder {
 	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
 
-		String where = AnnotationUtility.extractAsString(BindDataSourceSubProcessor.elementUtils, method.getElement(), annotation, AnnotationAttributeType.WHERE);
+		String where = AnnotationUtility.extractAsString(method.getElement(), annotation, AnnotationAttributeType.WHERE);
 		if (StringUtils.hasText(where))
 			jql.annotatedWhere = true;
 

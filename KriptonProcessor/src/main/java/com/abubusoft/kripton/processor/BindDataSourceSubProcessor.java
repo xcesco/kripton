@@ -37,6 +37,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.annotation.BindMany2Many;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -115,6 +116,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		annotations.add(BindDataSource.class.getCanonicalName());
 		annotations.add(BindTable.class.getCanonicalName());
 		annotations.add(BindDao.class.getCanonicalName());
+		annotations.add(BindMany2Many.class.getCanonicalName());
 
 		return annotations;
 	}
@@ -238,9 +240,14 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		ModelProperty property;
 		String beanName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.VALUE);
 		final TypeElement beanElement = globalBeanElements.get(beanName);
-		if (beanElement == null) {
-			String msg = String.format("In dao definition %s is referred a bean definition %s without @BindType annotation", daoElement.toString(), beanName);
-			throw (new InvalidNameException(msg));
+		BindMany2Many bindMany2ManyAnnotation = daoElement.getAnnotation(BindMany2Many.class);
+		AssertKripton.assertTrueOrMissedAnnotationOnClass(beanElement != null || bindMany2ManyAnnotation==null, daoElement, beanName, BindType.class);
+		
+		if (bindMany2ManyAnnotation!=null) {
+			// create name
+			String idPrefix=AnnotationUtility.extractAsString(daoElement, BindMany2Many.class, AnnotationAttributeType.ID_PREFIX);
+			String entityName1=AnnotationUtility.extractAsClassName(daoElement, BindMany2Many.class, AnnotationAttributeType.ENTITY_1);
+			String entityName2=AnnotationUtility.extractAsClassName(daoElement, BindMany2Many.class, AnnotationAttributeType.ENTITY_2);
 		}
 
 		// create equivalent entity in the domain of bind processor
@@ -274,7 +281,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					}
 
 					ModelAnnotation annotationBindColumn = property.getAnnotation(BindColumn.class);
-					if (annotationBindColumn != null && AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindColumn, AnnotationAttributeType.ENABLED) == false) {
+					if (annotationBindColumn != null && AnnotationUtility.extractAsBoolean(property, annotationBindColumn, AnnotationAttributeType.ENABLED) == false) {
 						return false;
 					}
 
@@ -283,8 +290,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					}
 
 					if (annotationBindColumn != null) {
-						property.setNullable(AnnotationUtility.extractAsBoolean(elementUtils, property, annotationBindColumn, AnnotationAttributeType.NULLABLE));
-						ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(elementUtils, property, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
+						property.setNullable(AnnotationUtility.extractAsBoolean(property, annotationBindColumn, AnnotationAttributeType.NULLABLE));
+						ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(property, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
 
 						property.columnType = columnType;
 						property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
@@ -439,7 +446,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				// optional annotations
 				final List<ModelAnnotation> supportAnnotationList = new ArrayList<>();
 
-				AnnotationUtility.forEachAnnotations(elementUtils, element, new AnnotationFoundListener() {
+				AnnotationUtility.forEachAnnotations(element, new AnnotationFoundListener() {
 
 					@Override
 					public void onAcceptAnnotation(Element element, String annotationClassName, Map<String, String> attributes) {
@@ -500,12 +507,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// go ahead to dataSource analysis
 		// ASSERT: daoElement and beanElement is element for dao and bean
 		// associated
-		String schemaFileName = AnnotationUtility.extractAsString(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.FILENAME);
-		int schemaVersion = AnnotationUtility.extractAsInt(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.VERSION);
-		boolean generateLog = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_LOG);
-		boolean generateSchema = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_SCHEMA);
-		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_ASYNC_TASK);
-		boolean generateCursorWrapper = AnnotationUtility.extractAsBoolean(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_CURSOR_WRAPPER);
+		String schemaFileName = AnnotationUtility.extractAsString(databaseSchema, BindDataSource.class, AnnotationAttributeType.FILENAME);
+		int schemaVersion = AnnotationUtility.extractAsInt(databaseSchema, BindDataSource.class, AnnotationAttributeType.VERSION);
+		boolean generateLog = AnnotationUtility.extractAsBoolean( databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_LOG);
+		boolean generateSchema = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_SCHEMA);
+		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean( databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_ASYNC_TASK);
+		boolean generateCursorWrapper = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_CURSOR_WRAPPER);
 
 		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper);
 		model.schemaAdd(currentSchema);
