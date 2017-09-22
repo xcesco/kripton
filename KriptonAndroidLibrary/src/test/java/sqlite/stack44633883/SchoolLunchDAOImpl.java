@@ -26,6 +26,77 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
   /**
    * <h2>Select SQL:</h2>
    *
+   * <pre>SELECT * FROM SchoolLunches ORDER BY fruits COLLATE LOCALIZED</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>lunch_id</dt><dd>is associated to bean's property <strong>lunchId</strong></dd>
+   * 	<dt>fresh</dt><dd>is associated to bean's property <strong>fresh</strong></dd>
+   * 	<dt>contains_meat</dt><dd>is associated to bean's property <strong>containsMeat</strong></dd>
+   * 	<dt>fruits</dt><dd>is associated to bean's property <strong>fruits</strong></dd>
+   * </dl>
+   *
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public List<SchoolLunch> get1() {
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    _sqlBuilder.append("SELECT * FROM SchoolLunches");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    String _sqlWhereStatement="";
+
+    // build where condition
+    // generation order - BEGIN
+    String _sqlOrderByStatement=" ORDER BY fruits COLLATE LOCALIZED";
+    _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+
+      LinkedList<SchoolLunch> resultList=new LinkedList<SchoolLunch>();
+      SchoolLunch resultBean=null;
+
+      if (cursor.moveToFirst()) {
+
+        int index0=cursor.getColumnIndex("lunch_id");
+        int index1=cursor.getColumnIndex("fresh");
+        int index2=cursor.getColumnIndex("contains_meat");
+        int index3=cursor.getColumnIndex("fruits");
+
+        do
+         {
+          resultBean=new SchoolLunch();
+
+          resultBean.setLunchId(cursor.getLong(index0));
+          if (!cursor.isNull(index1)) { resultBean.setFresh(cursor.getInt(index1)==0?false:true); }
+          if (!cursor.isNull(index2)) { resultBean.setContainsMeat(cursor.getInt(index2)==0?false:true); }
+          if (!cursor.isNull(index3)) { resultBean.setFruits(SchoolLunchTable.parseFruits(cursor.getBlob(index3))); }
+
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
    * <pre>SELECT lunch_id, fresh, contains_meat, fruits FROM SchoolLunches</pre>
    *
    * <h2>Projected columns:</h2>
