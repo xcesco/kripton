@@ -22,6 +22,6 @@ package com.abubusoft.kripton.android.sqlite;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public interface NoForeignKey {
+public interface NoEntity {
 
 }

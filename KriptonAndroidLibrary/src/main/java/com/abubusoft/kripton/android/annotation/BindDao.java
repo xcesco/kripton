@@ -20,6 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.abubusoft.kripton.android.sqlite.NoEntity;
 import com.abubusoft.kripton.annotation.BindType;
 
 /**
@@ -55,6 +56,6 @@ public @interface BindDao {
 	 * @return
 	 * 		class of assocaited bean
 	 */
-	Class<?> value();
+	Class<?> value() default NoEntity.class;
 
 }
