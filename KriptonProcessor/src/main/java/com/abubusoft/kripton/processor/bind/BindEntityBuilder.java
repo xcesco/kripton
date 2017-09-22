@@ -15,8 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind;
 
-import java.util.List;
-
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
@@ -72,7 +70,8 @@ public abstract class BindEntityBuilder {
 	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).build();
 
 	public static BindEntity build(final BindModel model, TypeElement element) {
-		final Elements elementUtils=BaseProcessor.elementUtils;
+		final Elements elementUtils = BaseProcessor.elementUtils;
+
 		final InnerCounter counterPropertyInValue = new InnerCounter();
 		final Converter<String, String> typeNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		final TypeElement beanElement = element;
@@ -138,8 +137,10 @@ public abstract class BindEntityBuilder {
 				// @BindAdapter
 				ModelAnnotation annotationBindAdapter = property.getAnnotation(BindAdapter.class);
 				if (annotationBindAdapter != null) {
-					//property.typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-					//property.typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
+					// property.typeAdapter.adapterClazz =
+					// annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
+					// property.typeAdapter.dataType =
+					// annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
 
 					BindTransform transform = BindTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
 

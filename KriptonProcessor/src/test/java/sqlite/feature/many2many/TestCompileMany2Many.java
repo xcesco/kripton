@@ -21,7 +21,6 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-
 @RunWith(JUnit4.class)
 public class TestCompileMany2Many extends AbstractBindSQLiteProcessorTest {
 
@@ -32,7 +31,7 @@ public class TestCompileMany2Many extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(PersonCirtyDataSource.class, PersonDao.class, Person.class, CityDao.class, City.class, PersonCityDao.class);
+		buildDataSourceProcessorTest(PersonCirtyDataSource.class, PersonDao.class, Person.class, CityDao.class, City.class, PersonCityDao.class, Entity.class);
 	}
 
 }

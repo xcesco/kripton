@@ -44,6 +44,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.sqlite.NoEntity;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
@@ -62,6 +63,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoun
 import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.DaoDefinitionWithoutAnnotatedMethodException;
 import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
@@ -95,7 +97,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	private SQLiteModel model;
 
-	//private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
+	// private AnnotationFilter classAnnotationFilter =
+	// AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
 
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).add(BindSqlAdapter.class).build();
 
@@ -209,7 +212,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			logger.info(currentSchema.toString());
 		} catch (Exception e) {
 			String msg = e.getMessage();
-			if (msg==null) msg="";
+			if (msg == null)
+				msg = "";
 			error(null, msg);
 
 			if (DEBUG_MODE) {
@@ -230,7 +234,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @param daoName
 	 */
 	private void createBeanFromDao(Element dataSource, String daoName) {
-		Element daoElement = globalDaoElements.get(daoName);
+		TypeElement daoElement = globalDaoElements.get(daoName);
 
 		if (daoElement == null) {
 			String msg = String.format("Data source %s references a DAO %s without @BindDao annotation", dataSource.toString(), daoName);
@@ -240,14 +244,15 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		ModelProperty property;
 		String beanName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.VALUE);
 		final TypeElement beanElement = globalBeanElements.get(beanName);
+
 		BindMany2Many bindMany2ManyAnnotation = daoElement.getAnnotation(BindMany2Many.class);
-		AssertKripton.assertTrueOrMissedAnnotationOnClass(beanElement != null || bindMany2ManyAnnotation==null, daoElement, beanName, BindType.class);
-		
-		if (bindMany2ManyAnnotation!=null) {
+		AssertKripton.assertTrueOrMissedAnnotationOnClass(bindMany2ManyAnnotation != null || !TypeUtility.isEquals(NoEntity.class, beanName), daoElement, beanName, BindType.class);
+
+		if (bindMany2ManyAnnotation != null) {
 			// create name
-			String idPrefix=AnnotationUtility.extractAsString(daoElement, BindMany2Many.class, AnnotationAttributeType.ID_PREFIX);
-			String entityName1=AnnotationUtility.extractAsClassName(daoElement, BindMany2Many.class, AnnotationAttributeType.ENTITY_1);
-			String entityName2=AnnotationUtility.extractAsClassName(daoElement, BindMany2Many.class, AnnotationAttributeType.ENTITY_2);
+			String idPrefix = AnnotationUtility.extractAsString(daoElement, BindMany2Many.class, AnnotationAttributeType.ID_PREFIX);
+			String entityName1 = AnnotationUtility.extractAsClassName(daoElement, BindMany2Many.class, AnnotationAttributeType.ENTITY_1);
+			String entityName2 = AnnotationUtility.extractAsClassName(daoElement, BindMany2Many.class, AnnotationAttributeType.ENTITY_2);
 		}
 
 		// create equivalent entity in the domain of bind processor
@@ -259,7 +264,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			return;
 		}
 
-		//AnnotationUtility.buildAnnotations(elementUtils, currentEntity, classAnnotationFilter);
+		// AnnotationUtility.buildAnnotations(elementUtils, currentEntity,
+		// classAnnotationFilter);
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 		{
@@ -509,9 +515,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// associated
 		String schemaFileName = AnnotationUtility.extractAsString(databaseSchema, BindDataSource.class, AnnotationAttributeType.FILENAME);
 		int schemaVersion = AnnotationUtility.extractAsInt(databaseSchema, BindDataSource.class, AnnotationAttributeType.VERSION);
-		boolean generateLog = AnnotationUtility.extractAsBoolean( databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_LOG);
+		boolean generateLog = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_LOG);
 		boolean generateSchema = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_SCHEMA);
-		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean( databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_ASYNC_TASK);
+		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_ASYNC_TASK);
 		boolean generateCursorWrapper = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_CURSOR_WRAPPER);
 
 		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper);

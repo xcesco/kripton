@@ -70,7 +70,7 @@ public abstract class TypeUtility {
 	}
 
 	public static boolean isEquals(TypeName value, String className) {
-		return isEquals(value, typeName(className));		
+		return isEquals(value, typeName(className));
 	}
 
 	/**
@@ -174,7 +174,7 @@ public abstract class TypeUtility {
 	 * @param typeMirror
 	 * @return typeName
 	 */
-	public static TypeName typeName(TypeMirror typeMirror) {		
+	public static TypeName typeName(TypeMirror typeMirror) {
 		LiteralType literalType = LiteralType.of(typeMirror.toString());
 
 		if (literalType.isArray()) {
@@ -182,8 +182,8 @@ public abstract class TypeUtility {
 		} else if (literalType.isCollection()) {
 			return ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()), typeName(literalType.getTypeParameter()));
 		}
-		
-		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT, TypeName.VOID};
+
+		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT, TypeName.VOID };
 
 		for (TypeName item : values) {
 			if (typeMirror.toString().equals(item.toString())) {
@@ -217,7 +217,7 @@ public abstract class TypeUtility {
 	 * @return typeName
 	 */
 	public static TypeName typeName(String typeName) {
-		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT, TypeName.VOID};
+		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT, TypeName.VOID };
 
 		for (TypeName item : values) {
 			if (item.toString().equals(typeName)) {
@@ -225,20 +225,16 @@ public abstract class TypeUtility {
 			}
 		}
 
-		LiteralType literalName=LiteralType.of(typeName);
-		if (literalName.isParametrizedType())
-		{
+		LiteralType literalName = LiteralType.of(typeName);
+		if (literalName.isParametrizedType()) {
 			return ParameterizedTypeName.get(className(literalName.getRawType()), typeName(literalName.getTypeParameter()));
-		} if (literalName.isArray())
-		{
+		}
+		if (literalName.isArray()) {
 			return ArrayTypeName.of(typeName(literalName.getRawType()));
 		}
-		
+
 		return ClassName.bestGuess(typeName);
 	}
-	
-
-
 
 	/**
 	 * Convert a TypeMirror in a typeName
@@ -365,19 +361,18 @@ public abstract class TypeUtility {
 
 		return false;
 	}
-	
+
 	public static TypeName mergeTypeName(String prefix, TypeElement element) {
 		String fullName = element.getQualifiedName().toString();
-		
+
 		int lastIndex = fullName.lastIndexOf(".");
-		
+
 		String packageName = fullName.substring(0, lastIndex);
-		String className = prefix+fullName.substring(lastIndex + 1);
+		String className = prefix + fullName.substring(lastIndex + 1);
 
 		return typeName(packageName, className);
-				
+
 	}
-	
 
 	public static TypeName typeName(TypeElement element, String suffix) {
 		String fullName = element.getQualifiedName().toString() + suffix;
@@ -481,14 +476,14 @@ public abstract class TypeUtility {
 			List<? extends TypeMirror> interfaces = element.getInterfaces();
 
 			for (TypeMirror item : interfaces) {
-				item.accept( new SimpleTypeVisitor7<Void, Void>() {
+				item.accept(new SimpleTypeVisitor7<Void, Void>() {
 
 					@Override
 					public Void visitDeclared(DeclaredType t, Void p) {
 						result.addAll(convert(t.getTypeArguments()));
 						return null;
 					}
-					
+
 				}, null);
 
 			}
@@ -528,30 +523,27 @@ public abstract class TypeUtility {
 	public static boolean isCollection(TypeName typeName) {
 		return isAssignable(typeName, Collection.class);
 	}
-	
-	public static boolean isList(TypeName typeName) {		
+
+	public static boolean isList(TypeName typeName) {
 		return isAssignable(typeName, List.class);
 	}
-	
-	public static boolean isSet(TypeName typeName) {		
+
+	public static boolean isSet(TypeName typeName) {
 		return isAssignable(typeName, Set.class);
 	}
 
-	
 	public static boolean isMap(TypeName typeName) {
 		return isAssignable(typeName, Map.class);
 	}
-	
+
 	public static boolean isAssignable(TypeName typeName, Class<?> assignableClazz) {
-		try {			
-			if (typeName instanceof ParameterizedTypeName)
-			{
-				typeName=((ParameterizedTypeName)typeName).rawType;
-			} else if (typeName instanceof ArrayTypeName)
-			{
-				typeName=((ArrayTypeName)typeName).componentType;
+		try {
+			if (typeName instanceof ParameterizedTypeName) {
+				typeName = ((ParameterizedTypeName) typeName).rawType;
+			} else if (typeName instanceof ArrayTypeName) {
+				typeName = ((ArrayTypeName) typeName).componentType;
 			}
-			
+
 			Class<?> resolvedType = Class.forName(typeName.toString());
 			return assignableClazz.isAssignableFrom(resolvedType);
 		} catch (ClassNotFoundException e) {
@@ -559,7 +551,8 @@ public abstract class TypeUtility {
 		}
 	}
 
-
-	
+	public static boolean isEquals(Class<?> clazz1, String clazz2) {
+		return ClassName.get(clazz1).equals(typeName(clazz2));
+	}
 
 }
