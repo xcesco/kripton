@@ -21,6 +21,7 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
@@ -304,7 +305,8 @@ public abstract class SqlBuilderHelper {
 	 * @param typeElement
 	 * @param listener
 	 */
-	public static void forEachMethods(Elements elementUtils, TypeElement typeElement, MethodFoundListener listener) {
+	public static void forEachMethods(TypeElement typeElement, MethodFoundListener listener) {
+		Elements elementUtils = BaseProcessor.elementUtils;
 		List<? extends Element> list = elementUtils.getAllMembers(typeElement);
 
 		for (Element item : list) {

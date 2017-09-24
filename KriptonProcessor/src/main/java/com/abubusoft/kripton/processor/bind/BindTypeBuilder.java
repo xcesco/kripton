@@ -39,6 +39,7 @@ import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
@@ -135,7 +136,9 @@ public abstract class BindTypeBuilder {
 	 * 
 	 * @throws IOException
 	 */
-	public static String generate(Elements elementUtils, Filer filer, BindEntity item) throws IOException {
+	public static String generate(Filer filer, BindEntity item) throws IOException {
+		Elements elementUtils=BaseProcessor.elementUtils;
+		
 		String beanClassName = item.getSimpleName().toString();
 
 		boolean needSuffix = true;

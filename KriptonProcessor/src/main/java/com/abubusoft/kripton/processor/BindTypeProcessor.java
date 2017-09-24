@@ -18,7 +18,12 @@
  */
 package com.abubusoft.kripton.processor;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -44,7 +49,57 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
  */
 public class BindTypeProcessor extends BaseProcessor {
 
+	public static class ProcessedElement implements RoundEnvironment {
+		HashSet<Element> elements = new HashSet<>();
+
+		public void addRound(RoundEnvironment round) {
+			this.elements.addAll(round.getRootElements());
+		}
+
+		public Set<? extends Element> getElementsAnnotatedWith(Class<? extends Annotation> annotation) {
+			HashSet<Element> result = new HashSet<Element>();
+
+			for (Element element : this.elements) {
+				if (element.getAnnotation(annotation) != null) {
+					result.add(element);
+				}
+			}
+
+			return result;
+		}
+
+		@Override
+		public boolean processingOver() {
+			return false;
+		}
+
+		@Override
+		public boolean errorRaised() {
+			return false;
+		}
+
+		@Override
+		public Set<? extends Element> getRootElements() {
+			HashSet<Element> result = new HashSet<Element>();
+
+			for (Element element : this.elements) {
+				result.add(element);
+			}
+
+			return result;
+		}
+
+		@Override
+		public Set<? extends Element> getElementsAnnotatedWith(TypeElement a) {
+			return null;
+		}
+		}
+
+	private ProcessedElement processedElement = new ProcessedElement();
+
 	private BindModel model;
+
+	private BindMany2ManySubProcessor many2ManyProcessor = new BindMany2ManySubProcessor();
 
 	private BindSharedPreferencesSubProcessor sharedPreferencesProcessor = new BindSharedPreferencesSubProcessor();
 
@@ -65,6 +120,7 @@ public class BindTypeProcessor extends BaseProcessor {
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
 
+		many2ManyProcessor.init(processingEnv);
 		sharedPreferencesProcessor.init(processingEnv);
 		dataSourceProcessor.init(processingEnv);
 	}
@@ -73,7 +129,12 @@ public class BindTypeProcessor extends BaseProcessor {
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
 			count++;
-			if (count > 1) {
+			if (count == 1) {
+				many2ManyProcessor.process(annotations, roundEnv);
+			}
+
+			if (roundEnv.getRootElements().size() > 0) {
+				processedElement.addRound(roundEnv);
 				return true;
 			}
 
@@ -81,14 +142,14 @@ public class BindTypeProcessor extends BaseProcessor {
 			final AtomicInteger itemCounter = new AtomicInteger();
 			itemCounter.set(0);
 
-			parseBindType(roundEnv, elementUtils);
+			parseBindType(processedElement);
 
 			// Build model
-			for (Element element : roundEnv.getElementsAnnotatedWith(BindType.class)) {
+			for (Element element : processedElement.getElementsAnnotatedWith(BindType.class)) {
 				final Element item = element;
 
 				AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
-				BindEntityBuilder.build(model, (TypeElement) item);
+				BindEntityBuilder.parse(model, (TypeElement) item);
 				itemCounter.addAndGet(1);
 			}
 
@@ -97,18 +158,13 @@ public class BindTypeProcessor extends BaseProcessor {
 			}
 
 			// Generate classes for model
-			for (BindEntity entity : model.getEntities()) {
-				final BindEntity item = entity;
-
-				BindTypeBuilder.generate(elementUtils, filer, item);
-
-			}
+			generateFromModel();
 
 			// Wait until all threads are finish
 			// executor.awaitTermination(5, TimeUnit.MILLISECONDS);
 
-			sharedPreferencesProcessor.process(annotations, roundEnv);
-			dataSourceProcessor.process(annotations, roundEnv);
+			sharedPreferencesProcessor.process(annotations, processedElement);
+			dataSourceProcessor.process(annotations, processedElement);
 
 		} catch (Exception e) {
 			String msg = e.getMessage();
@@ -121,6 +177,17 @@ public class BindTypeProcessor extends BaseProcessor {
 		}
 
 		return true;
+	}
+
+	/**
+	 * @throws IOException
+	 */
+	private void generateFromModel() throws IOException {
+		for (BindEntity entity : model.getEntities()) {
+			final BindEntity item = entity;
+
+			BindTypeBuilder.generate(filer, item);
+		}
 	}
 
 }

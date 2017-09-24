@@ -56,6 +56,6 @@ public @interface BindDao {
 	 * @return
 	 * 		class of assocaited bean
 	 */
-	Class<?> value() default NoEntity.class;
+	Class<?> value();
 
 }

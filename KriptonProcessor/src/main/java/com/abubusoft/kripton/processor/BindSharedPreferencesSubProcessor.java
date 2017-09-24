@@ -18,6 +18,7 @@
  */
 package com.abubusoft.kripton.processor;
 
+import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -28,6 +29,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
@@ -76,8 +78,7 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
 
-		annotations.add(BindType.class.getCanonicalName());
-		annotations.add(BindSharedPreferences.class.getCanonicalName());
+		annotations.add(BindDaoMany2Many.class.getCanonicalName());
 
 		return annotations;
 	}
@@ -89,11 +90,10 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-		try {			
+		try {
 			model = new PrefModel();
-			int itemCounter = 0;
 
-			parseBindType(roundEnv, elementUtils);
+			parseBindType(roundEnv);
 
 			// Put all @BindSharedPreferences elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindSharedPreferences.class)) {
@@ -104,16 +104,9 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 
 				createSharedPreferences((TypeElement) item);
 
-				itemCounter++;
 			}
 
-			if (itemCounter > 0) {
-				// warn("No class with %s annotation was found",
-				// BindSharedPreferences.class);
-				for (PrefEntity item : model.getEntities()) {
-					BindSharedPreferencesBuilder.generate(elementUtils, filer, item);
-				}
-			}
+			generateClasses();
 
 		} catch (Exception e) {
 			String msg = e.getMessage();
@@ -128,23 +121,25 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 		return true;
 	}
 
+	/**
+	 * @throws IOException
+	 */
+	public void generateClasses() throws IOException {
+		for (PrefEntity item : model.getEntities()) {
+			BindSharedPreferencesBuilder.generate(elementUtils, filer, item);
+		}
+	}
+
 	private String createSharedPreferences(final TypeElement sharedPreference) {
 		Element beanElement = sharedPreference;
 		String result = beanElement.getSimpleName().toString();
 
 		// create equivalent entity in the domain of bind processor
-		final BindEntity bindEntity = BindEntityBuilder.build(null, sharedPreference);
-		final PrefEntity currentEntity = new PrefEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement, AnnotationUtility.buildAnnotationList((TypeElement) beanElement, classAnnotationFilter));
-		
-		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
+		final BindEntity bindEntity = BindEntityBuilder.parse(null, sharedPreference);
+		final PrefEntity currentEntity = new PrefEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement,
+				AnnotationUtility.buildAnnotationList((TypeElement) beanElement, classAnnotationFilter));
 
-		// if (!temp1 && temp2) {
-		// String msg = String.format("In class '%s', inconsistent value of
-		// attribute 'allFields' in annotations '%s' and '%s'",
-		// currentEntity.getSimpleName(), BindType.class.getSimpleName(),
-		// BindSharedPreferences.class.getSimpleName());
-		// throw (new IncompatibleAttributesInAnnotationException(msg));
-		// }
+		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 
 		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<PrefEntity, PrefProperty>() {
 

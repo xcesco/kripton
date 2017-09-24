@@ -142,7 +142,7 @@ public abstract class SqlSelectBuilder {
 					// scalar list
 					selectResultType = SelectBuilderUtility.SelectType.LIST_SCALAR;
 				} else {
-					AssertKripton.failWithInvalidMethodSignException(true, method, "unknown return type");
+					AssertKripton.failWithInvalidMethodSignException(true, method, "%s is invalid return type", method.getReturnClass());
 				}
 
 			}

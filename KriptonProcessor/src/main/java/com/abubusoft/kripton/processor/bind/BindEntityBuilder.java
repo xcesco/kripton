@@ -69,7 +69,7 @@ public abstract class BindEntityBuilder {
 
 	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).build();
 
-	public static BindEntity build(final BindModel model, TypeElement element) {
+	public static BindEntity parse(final BindModel model, TypeElement element) {
 		final Elements elementUtils = BaseProcessor.elementUtils;
 
 		final InnerCounter counterPropertyInValue = new InnerCounter();

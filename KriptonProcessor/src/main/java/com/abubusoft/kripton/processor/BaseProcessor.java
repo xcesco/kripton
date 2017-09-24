@@ -46,7 +46,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	 * 
 	 * @param roundEnv
 	 */
-	protected void parseBindType(RoundEnvironment roundEnv, Elements elements) {
+	protected void parseBindType(RoundEnvironment roundEnv) {
 		// Put all @BindType elements in beanElements
 		globalBeanElements.clear();
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
