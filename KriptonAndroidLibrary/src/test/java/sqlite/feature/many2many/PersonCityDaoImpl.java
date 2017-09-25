@@ -4,12 +4,12 @@ import com.abubusoft.kripton.android.sqlite.AbstractDao;
 
 /**
  * <p>
- * DAO implementation for entity <code>Person2City</code>, based on interface <code>PersonCityDao</code>
+ * DAO implementation for entity <code>PersonCity</code>, based on interface <code>PersonCityDao</code>
  * </p>
  *
- *  @see Person2City
+ *  @see PersonCity
  *  @see PersonCityDao
- *  @see Person2CityTable
+ *  @see PersonCityTable
  */
 public class PersonCityDaoImpl extends AbstractDao implements PersonCityDao {
   public PersonCityDaoImpl(BindPersonCirtyDataSource dataSet) {

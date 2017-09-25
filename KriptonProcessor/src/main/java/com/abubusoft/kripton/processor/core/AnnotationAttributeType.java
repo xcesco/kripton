@@ -88,9 +88,10 @@ public enum AnnotationAttributeType {
 	XML_TYPE("xmlType"),
 	
 	MULTIPLICITY_RESULT("multiplicityResult"),
-	JQL("jql"), ID_PREFIX("idPrefix"),
+	JQL("jql"), ID_NAME("idName"),
 	ENTITY_1("entity1"),
-	ENTITY_2("entity2")
+	ENTITY_2("entity2"), 
+	TABLE_NAME("tableName")
 	;
 	
 	

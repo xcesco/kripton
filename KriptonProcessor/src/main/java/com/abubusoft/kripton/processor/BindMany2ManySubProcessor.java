@@ -31,7 +31,6 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
-import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MModel;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -91,11 +90,13 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 
 				String a1=AnnotationUtility.extractAsClassName(item, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1);
 				String a2=AnnotationUtility.extractAsClassName(item, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2);
-								
+				String prefixId=AnnotationUtility.extractAsString(item, BindDaoMany2Many.class, AnnotationAttributeType.ID_NAME);
+				String tableName=AnnotationUtility.extractAsString(item, BindDaoMany2Many.class, AnnotationAttributeType.TABLE_NAME);
+												
 				PackageElement pkg = elementUtils.getPackageOf(item);
 				String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 				
-				M2MEntity entity=new M2MEntity(packageName, TypeUtility.typeName(item), a1, a2);
+				M2MEntity entity=new M2MEntity(packageName, TypeUtility.typeName(item), a1, a2, prefixId, tableName);
 				
 				model.entityAdd(entity);				
 				itemCounter++;

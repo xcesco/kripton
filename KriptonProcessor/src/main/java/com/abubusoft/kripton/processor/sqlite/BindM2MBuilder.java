@@ -30,6 +30,8 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.common.CaseFormat;
+import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MModel;
@@ -89,7 +91,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		classBuilder = TypeSpec.classBuilder(entityClassName)
 				.addModifiers(Modifier.PUBLIC)
 				.addAnnotation(BindType.class)
-				.addAnnotation(AnnotationSpec.builder(BindTable.class).addMember("name", "$S",entity.name).build());
+				.addAnnotation(AnnotationSpec.builder(BindTable.class).addMember("name", "$S",entity.tableName).build());
 		//@formatter:on
 
 		// javadoc for class
@@ -99,14 +101,43 @@ public class BindM2MBuilder extends AbstractBuilder {
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
 		//classBuilder.addJavadoc(" @see $T\n", TypeUtility.className(entity.getElement().getQualifiedName().toString()));
 
+		{
 		//@formatter:off
-		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, "id", Modifier.PUBLIC)
+		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, entity.idName, Modifier.PUBLIC)
 				.addJavadoc("Primary key\n")
 				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
 						.addMember("columnType","$T.$L", ColumnType.class, ColumnType.PRIMARY_KEY).build())
 				.build();
 		//@formatter:on
 		classBuilder.addField(fieldSpec);
+		}
+		
+		Converter<String, String> converterFK = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+		Converter<String, String> converterClassName = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
+		String fkPrefix = converterFK.convert(entity.idName);
+		
+		{
+		//@formatter:off
+		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(TypeUtility.className(entity.entityName1).simpleName()+fkPrefix), Modifier.PUBLIC)
+				.addJavadoc("Foreign key to $T model class\n", TypeUtility.className(entity.entityName1))
+				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
+						.addMember("foreignKey","$T.class", TypeUtility.className(entity.entityName1)).build())
+				.build();
+		//@formatter:on
+		classBuilder.addField(fieldSpec);
+		}
+		
+		{
+		//@formatter:off
+		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(TypeUtility.className(entity.entityName2).simpleName()+fkPrefix), Modifier.PUBLIC)
+				.addJavadoc("Foreign key to $T model class\n", TypeUtility.className(entity.entityName2))
+				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
+						.addMember("foreignKey","$T.class", TypeUtility.className(entity.entityName2)).build())
+				.build();
+		//@formatter:on
+		classBuilder.addField(fieldSpec);
+		}
+		
 		
 		// add constructor
 		//@formatter:off

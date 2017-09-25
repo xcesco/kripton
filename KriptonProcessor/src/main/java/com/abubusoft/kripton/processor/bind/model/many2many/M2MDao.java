@@ -7,7 +7,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.StringUtils;
 import com.squareup.javapoet.TypeName;
 
-public class M2MEntity extends M2MBase {
+public class M2MDao extends M2MBase {
 
 	private String packageName;
 	
@@ -29,7 +29,7 @@ public class M2MEntity extends M2MBase {
 	
 	public String tableName;
 
-	public M2MEntity(String packageName, TypeName daoTypeName, String entityName1, String entityName2, String idName, String tableName) {
+	public M2MDao(String packageName, TypeName daoTypeName, String entityName1, String entityName2, String idName, String tableName) {
 		this.packageName=packageName;
 		this.entityName1=entityName1;
 		this.entityName2=entityName2;

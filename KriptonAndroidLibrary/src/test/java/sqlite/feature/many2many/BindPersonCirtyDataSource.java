@@ -27,7 +27,7 @@ import java.util.List;
  * @see City
  * @see PersonCityDao
  * @see PersonCityDaoImpl
- * @see Person2City
+ * @see PersonCity
  */
 public class BindPersonCirtyDataSource extends AbstractDataSource implements BindPersonCirtyDaoFactory, PersonCirtyDataSource {
   /**
@@ -133,12 +133,12 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",Person2CityTable.CREATE_TABLE_SQL);
-    database.execSQL(Person2CityTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
     database.execSQL(CityTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PersonCityTable.CREATE_TABLE_SQL);
+    database.execSQL(PersonCityTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -172,12 +172,12 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",Person2CityTable.CREATE_TABLE_SQL);
-      database.execSQL(Person2CityTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
       database.execSQL(CityTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PersonCityTable.CREATE_TABLE_SQL);
+      database.execSQL(PersonCityTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -190,6 +190,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
+    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }

@@ -13,38 +13,52 @@ import java.lang.Exception;
 import java.lang.Override;
 
 /**
- * This class is binder map for Person2City
+ * This class is binder map for PersonCity
  *
- * @see Person2City
+ * @see PersonCity
  */
-@BindMap(Person2City.class)
-public class Person2CityBindMap extends AbstractMapper<Person2City> {
+@BindMap(PersonCity.class)
+public class PersonCityBindMap extends AbstractMapper<PersonCity> {
   @Override
-  public int serializeOnJackson(Person2City object, JsonGenerator jacksonSerializer) throws
+  public int serializeOnJackson(PersonCity object, JsonGenerator jacksonSerializer) throws
       Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
+    // field cityId (mapped with "cityId")
+    fieldCount++;
+    jacksonSerializer.writeNumberField("cityId", object.cityId);
+
     // field id (mapped with "id")
     fieldCount++;
     jacksonSerializer.writeNumberField("id", object.id);
+
+    // field personId (mapped with "personId")
+    fieldCount++;
+    jacksonSerializer.writeNumberField("personId", object.personId);
 
     jacksonSerializer.writeEndObject();
     return fieldCount;
   }
 
   @Override
-  public int serializeOnJacksonAsString(Person2City object, JsonGenerator jacksonSerializer) throws
+  public int serializeOnJacksonAsString(PersonCity object, JsonGenerator jacksonSerializer) throws
       Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
+    // field cityId (mapped with "cityId")
+    jacksonSerializer.writeStringField("cityId", PrimitiveUtils.writeLong(object.cityId));
+
     // field id (mapped with "id")
     jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
+
+    // field personId (mapped with "personId")
+    jacksonSerializer.writeStringField("personId", PrimitiveUtils.writeLong(object.personId));
 
     jacksonSerializer.writeEndObject();
     return fieldCount;
@@ -54,17 +68,27 @@ public class Person2CityBindMap extends AbstractMapper<Person2City> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Person2City object, XMLSerializer xmlSerializer, int currentEventType)
+  public void serializeOnXml(PersonCity object, XMLSerializer xmlSerializer, int currentEventType)
       throws Exception {
     if (currentEventType == 0) {
-      xmlSerializer.writeStartElement("person2City");
+      xmlSerializer.writeStartElement("personCity");
     }
 
     // Persisted fields:
 
+    // field cityId (mapped with "cityId")
+    xmlSerializer.writeStartElement("cityId");
+    xmlSerializer.writeLong(object.cityId);
+    xmlSerializer.writeEndElement();
+
     // field id (mapped with "id")
     xmlSerializer.writeStartElement("id");
     xmlSerializer.writeLong(object.id);
+    xmlSerializer.writeEndElement();
+
+    // field personId (mapped with "personId")
+    xmlSerializer.writeStartElement("personId");
+    xmlSerializer.writeLong(object.personId);
     xmlSerializer.writeEndElement();
 
     if (currentEventType == 0) {
@@ -76,8 +100,8 @@ public class Person2CityBindMap extends AbstractMapper<Person2City> {
    * parse with jackson
    */
   @Override
-  public Person2City parseOnJackson(JsonParser jacksonParser) throws Exception {
-    Person2City instance = new Person2City();
+  public PersonCity parseOnJackson(JsonParser jacksonParser) throws Exception {
+    PersonCity instance = new PersonCity();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -92,9 +116,17 @@ public class Person2CityBindMap extends AbstractMapper<Person2City> {
 
       // Parse fields:
       switch (fieldName) {
+          case "cityId":
+            // field cityId (mapped with "cityId")
+            instance.cityId=jacksonParser.getLongValue();
+          break;
           case "id":
             // field id (mapped with "id")
             instance.id=jacksonParser.getLongValue();
+          break;
+          case "personId":
+            // field personId (mapped with "personId")
+            instance.personId=jacksonParser.getLongValue();
           break;
           default:
             jacksonParser.skipChildren();
@@ -107,8 +139,8 @@ public class Person2CityBindMap extends AbstractMapper<Person2City> {
    * parse with jackson
    */
   @Override
-  public Person2City parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    Person2City instance = new Person2City();
+  public PersonCity parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    PersonCity instance = new PersonCity();
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -123,9 +155,17 @@ public class Person2CityBindMap extends AbstractMapper<Person2City> {
 
       // Parse fields:
       switch (fieldName) {
+          case "cityId":
+            // field cityId (mapped with "cityId")
+            instance.cityId=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          break;
           case "id":
             // field id (mapped with "id")
             instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          break;
+          case "personId":
+            // field personId (mapped with "personId")
+            instance.personId=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
           break;
           default:
             jacksonParser.skipChildren();
@@ -138,8 +178,8 @@ public class Person2CityBindMap extends AbstractMapper<Person2City> {
    * parse xml
    */
   @Override
-  public Person2City parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    Person2City instance = new Person2City();
+  public PersonCity parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    PersonCity instance = new PersonCity();
     int eventType = currentEventType;
     boolean read=true;
 
@@ -164,9 +204,17 @@ public class Person2CityBindMap extends AbstractMapper<Person2City> {
           case XmlPullParser.START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
+                case "cityId":
+                  // property cityId (mapped on "cityId")
+                  instance.cityId=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                break;
                 case "id":
                   // property id (mapped on "id")
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                break;
+                case "personId":
+                  // property personId (mapped on "personId")
+                  instance.personId=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                 break;
                 default:
                 break;

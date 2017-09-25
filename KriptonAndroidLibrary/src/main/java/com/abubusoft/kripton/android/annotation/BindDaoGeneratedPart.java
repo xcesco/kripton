@@ -21,25 +21,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 
+/**
+ * This annotation is used to mark generated DAO interface parts used in many 2 many relationship.
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface BindDaoMany2Many {
-	String idName() default "id";
-	
-	/**
-	 * Name of the table, in SQLite style (with words underline separator). It will be converted during creation of
-	 * table. If null, the name of the table will be the transformed class name.
-	 * 
-	 * <pre>person_city</pre>
-	 * 
-	 * @return defined name of the table in java style
-	 */
-	String tableName() default "";
-		
-	boolean onlyFields() default true;
-	
-	Class<?> entity1();
-	
-	Class<?> entity2();
-
+public @interface BindDaoGeneratedPart {
+	Class<?> dao();
 }

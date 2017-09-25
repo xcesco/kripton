@@ -261,7 +261,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		if (bindMany2ManyAnnotation != null) {
 			// create name
-			String idPrefix = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ID_PREFIX);
+			String idPrefix = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ID_NAME);
 			
 			beanName=extractEntityManagedByDAO(daoElement);			
 		}
@@ -423,7 +423,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		PackageElement pkg = elementUtils.getPackageOf(daoElement);
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 		
-		return packageName+"."+a1.substring(a1.lastIndexOf(".")+1)+"2"+a2.substring(a2.lastIndexOf(".")+1);
+		return packageName+"."+a1.substring(a1.lastIndexOf(".")+1)+a2.substring(a2.lastIndexOf(".")+1);
 	}
 
 	/**
