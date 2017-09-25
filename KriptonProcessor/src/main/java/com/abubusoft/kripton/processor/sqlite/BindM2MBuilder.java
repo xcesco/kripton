@@ -21,13 +21,18 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.io.IOException;
+
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.CaseFormat;
@@ -51,7 +56,10 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeVariableName;
 import com.squareup.javapoet.TypeSpec.Builder;
+
+import sqlite.feature.many2many.PersonCity;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -60,9 +68,9 @@ import com.squareup.javapoet.TypeSpec.Builder;
 public class BindM2MBuilder extends AbstractBuilder {
 
 	public static final String PREFIX = "Bind";
-	
+
 	public static final String SUFFIX = "Cursor";
-	
+
 	private int counter;
 
 	public BindM2MBuilder(Filer filer) {
@@ -79,66 +87,9 @@ public class BindM2MBuilder extends AbstractBuilder {
 	}
 
 	public void generate(M2MEntity entity) throws Exception {
-		String entityClassName = entity.name;		
+		generateEntity(entity);
+		generateDaoPart(entity);
 
-		PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
-		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
-		
-		ClassName className=TypeUtility.className(packageName,entityClassName);
-
-		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, entityClassName);
-		//@formatter:off
-		classBuilder = TypeSpec.classBuilder(entityClassName)
-				.addModifiers(Modifier.PUBLIC)
-				.addAnnotation(BindType.class)
-				.addAnnotation(AnnotationSpec.builder(BindTable.class).addMember("name", "$S",entity.tableName).build());
-		//@formatter:on
-
-		// javadoc for class
-		classBuilder.addJavadoc("<p>");
-		classBuilder.addJavadoc("\nEntity implementation for entity <code>$L</code>\n", entity.name);
-		classBuilder.addJavadoc("</p>\n");
-		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
-		//classBuilder.addJavadoc(" @see $T\n", TypeUtility.className(entity.getElement().getQualifiedName().toString()));
-
-		{
-		//@formatter:off
-		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, entity.idName, Modifier.PUBLIC)
-				.addJavadoc("Primary key\n")
-				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
-						.addMember("columnType","$T.$L", ColumnType.class, ColumnType.PRIMARY_KEY).build())
-				.build();
-		//@formatter:on
-		classBuilder.addField(fieldSpec);
-		}
-		
-		Converter<String, String> converterFK = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-		Converter<String, String> converterClassName = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
-		String fkPrefix = converterFK.convert(entity.idName);
-		
-		{
-		//@formatter:off
-		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(TypeUtility.className(entity.entityName1).simpleName()+fkPrefix), Modifier.PUBLIC)
-				.addJavadoc("Foreign key to $T model class\n", TypeUtility.className(entity.entityName1))
-				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
-						.addMember("foreignKey","$T.class", TypeUtility.className(entity.entityName1)).build())
-				.build();
-		//@formatter:on
-		classBuilder.addField(fieldSpec);
-		}
-		
-		{
-		//@formatter:off
-		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(TypeUtility.className(entity.entityName2).simpleName()+fkPrefix), Modifier.PUBLIC)
-				.addJavadoc("Foreign key to $T model class\n", TypeUtility.className(entity.entityName2))
-				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
-						.addMember("foreignKey","$T.class", TypeUtility.className(entity.entityName2)).build())
-				.build();
-		//@formatter:on
-		classBuilder.addField(fieldSpec);
-		}
-		
-		
 		// add constructor
 		//@formatter:off
 //		classBuilder.addMethod(MethodSpec.constructorBuilder()
@@ -159,22 +110,25 @@ public class BindM2MBuilder extends AbstractBuilder {
 //				.returns(className)
 //				.addCode("this.cursor=cursor;\n");
 		//@formatter:on
-//		counter=0;
-//		wrapMethodBuilder.addCode("\n");
-//		for (M2MProperty item : entity.getCollection()) {
-//			//wrapMethodBuilder.addCode("index$L=cursor.getColumnIndex($S);\n", counter, item.columnName);
-//			counter++;
-//		}
-//		wrapMethodBuilder.addCode("\n");
-//		wrapMethodBuilder.addCode("return this;\n");
-		
-		//classBuilder.addMethod(wrapMethodBuilder.build());
-		
-		// add execute method		
-		//classBuilder.addMethod(generateExecuteMethod(packageName, entity).build());
-		
+		// counter=0;
+		// wrapMethodBuilder.addCode("\n");
+		// for (M2MProperty item : entity.getCollection()) {
+		// //wrapMethodBuilder.addCode("index$L=cursor.getColumnIndex($S);\n",
+		// counter, item.columnName);
+		// counter++;
+		// }
+		// wrapMethodBuilder.addCode("\n");
+		// wrapMethodBuilder.addCode("return this;\n");
+
+		// classBuilder.addMethod(wrapMethodBuilder.build());
+
+		// add execute method
+		// classBuilder.addMethod(generateExecuteMethod(packageName,
+		// entity).build());
+
 		// add execute listener method
-		//classBuilder.addMethod(generateExecuteListener(packageName, entity).build());
+		// classBuilder.addMethod(generateExecuteListener(packageName,
+		// entity).build());
 
 		// add create
 		//@formatter:off
@@ -190,21 +144,156 @@ public class BindM2MBuilder extends AbstractBuilder {
 		//@formatter:on
 
 		// define column typeName set
-		counter=0;
-//		for (ModelProperty item : entity.getCollection()) {
-//			item.accept(this);
+		counter = 0;
+		// for (ModelProperty item : entity.getCollection()) {
+		// item.accept(this);
+		// }
+
+	}
+
+	private void generateDaoPart(M2MEntity entity) throws IOException {
+		String daoClassName = entity.daoName;
+
+		PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
+		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
+
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, daoClassName);
+		//@formatter:off
+		classBuilder = TypeSpec.interfaceBuilder(daoClassName+"GeneratedPart")
+				.addModifiers(Modifier.PUBLIC)				
+				.addAnnotation(AnnotationSpec.builder(BindDaoGeneratedPart.class)
+						.addMember("dao", "$T.class",TypeUtility.className(packageName, daoClassName))
+						.addMember("entity", "$T.class",TypeUtility.className(packageName, entity.name)).build()
+						)
+						;				
+		//@formatter:on
+
+		// javadoc for class
+//		classBuilder.addJavadoc("<p>");
+//		classBuilder.addJavadoc("\nEntity implementation for entity <code>$L</code>\n", entity.name);
+//		classBuilder.addJavadoc("</p>\n");
+//		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
+		// classBuilder.addJavadoc(" @see $T\n",
+		// TypeUtility.className(entity.getElement().getQualifiedName().toString()));
+
+		{
+		//@formatter:off
+		MethodSpec methodSpec = MethodSpec.methodBuilder("selectById")
+				.addModifiers(Modifier.PUBLIC)
+				.addModifiers(Modifier.ABSTRACT)
+				.addAnnotation(AnnotationSpec.builder(BindSqlSelect.class).addMember("where", "$S","id=${id}").build())
+				.addParameter(ParameterSpec.builder(Long.TYPE, "id")
+						.addAnnotation(AnnotationSpec.builder(BindSqlParam.class).addMember("value", "$S","id").build()).build())
+				.returns(TypeUtility.className(packageName, entity.name))				
+				.build();
+		//@formatter:on
+		classBuilder.addMethod(methodSpec);
+		}
+
+//		Converter<String, String> converterFK = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+//		Converter<String, String> converterClassName = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
+//		String fkPrefix = converterFK.convert(entity.idName);
+//
+//		{
+//		//@formatter:off
+//		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(TypeUtility.className(entity.entityName1).simpleName()+fkPrefix), Modifier.PUBLIC)
+//				.addJavadoc("Foreign key to $T model class\n", TypeUtility.className(entity.entityName1))
+//				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
+//						.addMember("foreignKey","$T.class", TypeUtility.className(entity.entityName1)).build())
+//				.build();
+//		//@formatter:on
+//			classBuilder.addField(fieldSpec);
 //		}
-		
-		TypeSpec typeSpec = classBuilder.build();			
+//
+//		{
+//		//@formatter:off
+//		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(TypeUtility.className(entity.entityName2).simpleName()+fkPrefix), Modifier.PUBLIC)
+//				.addJavadoc("Foreign key to $T model class\n", TypeUtility.className(entity.entityName2))
+//				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
+//						.addMember("foreignKey","$T.class", TypeUtility.className(entity.entityName2)).build())
+//				.build();
+//		//@formatter:on
+//			classBuilder.addField(fieldSpec);
+//		}
+
+		TypeSpec typeSpec = classBuilder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
 
 	}
 
+	/**
+	 * @param entity
+	 * @return
+	 * @throws IOException
+	 */
+	private void generateEntity(M2MEntity entity) throws IOException {
+		String entityClassName = entity.name;
 
+		PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
+		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
-	private MethodSpec.Builder generateExecuteMethod(String packageName, SQLEntity entity) {		
-		ParameterizedTypeName parameterizedReturnTypeName = ParameterizedTypeName.get(className("java.util.LinkedList"), className(packageName,entity.getSimpleName()));
-		
+		ClassName className = TypeUtility.className(packageName, entityClassName);
+
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, entityClassName);
+		//@formatter:off
+		classBuilder = TypeSpec.classBuilder(entityClassName)
+				.addModifiers(Modifier.PUBLIC)
+				.addAnnotation(BindType.class)
+				.addAnnotation(AnnotationSpec.builder(BindTable.class).addMember("name", "$S",entity.tableName).build());
+		//@formatter:on
+
+		// javadoc for class
+		classBuilder.addJavadoc("<p>");
+		classBuilder.addJavadoc("\nEntity implementation for entity <code>$L</code>\n", entity.name);
+		classBuilder.addJavadoc("</p>\n");
+		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
+		// classBuilder.addJavadoc(" @see $T\n",
+		// TypeUtility.className(entity.getElement().getQualifiedName().toString()));
+
+		{
+		//@formatter:off
+		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, entity.idName, Modifier.PUBLIC)
+				.addJavadoc("Primary key\n")
+				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
+						.addMember("columnType","$T.$L", ColumnType.class, ColumnType.PRIMARY_KEY).build())
+				.build();
+		//@formatter:on
+			classBuilder.addField(fieldSpec);
+		}
+
+		Converter<String, String> converterFK = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+		Converter<String, String> converterClassName = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
+		String fkPrefix = converterFK.convert(entity.idName);
+
+		{
+		//@formatter:off
+		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(TypeUtility.className(entity.entityName1).simpleName()+fkPrefix), Modifier.PUBLIC)
+				.addJavadoc("Foreign key to $T model class\n", TypeUtility.className(entity.entityName1))
+				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
+						.addMember("foreignKey","$T.class", TypeUtility.className(entity.entityName1)).build())
+				.build();
+		//@formatter:on
+			classBuilder.addField(fieldSpec);
+		}
+
+		{
+		//@formatter:off
+		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(TypeUtility.className(entity.entityName2).simpleName()+fkPrefix), Modifier.PUBLIC)
+				.addJavadoc("Foreign key to $T model class\n", TypeUtility.className(entity.entityName2))
+				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
+						.addMember("foreignKey","$T.class", TypeUtility.className(entity.entityName2)).build())
+				.build();
+		//@formatter:on
+			classBuilder.addField(fieldSpec);
+		}
+
+		TypeSpec typeSpec = classBuilder.build();
+		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+	}
+
+	private MethodSpec.Builder generateExecuteMethod(String packageName, SQLEntity entity) {
+		ParameterizedTypeName parameterizedReturnTypeName = ParameterizedTypeName.get(className("java.util.LinkedList"), className(packageName, entity.getSimpleName()));
+
 		//@formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("execute")
 				.addJavadoc("<p>Execute the cursor and read all rows from database.</p>\n\n")
@@ -213,44 +302,44 @@ public class BindM2MBuilder extends AbstractBuilder {
 				.returns(parameterizedReturnTypeName);
 		//@formatter:on
 
-		TypeName entityClass= typeName(entity.getElement());
-		
+		TypeName entityClass = typeName(entity.getElement());
+
 		methodBuilder.addCode("\n");
-		methodBuilder.addCode("$T resultList=new $T();\n",parameterizedReturnTypeName, parameterizedReturnTypeName);
-		methodBuilder.addCode("$T resultBean=new $T();\n",entityClass, entityClass);
+		methodBuilder.addCode("$T resultList=new $T();\n", parameterizedReturnTypeName, parameterizedReturnTypeName);
+		methodBuilder.addCode("$T resultBean=new $T();\n", entityClass, entityClass);
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 
-		methodBuilder.beginControlFlow("do\n");			
-		methodBuilder.addCode("resultBean=new $T();\n\n",entityClass);
-		
+		methodBuilder.beginControlFlow("do\n");
+		methodBuilder.addCode("resultBean=new $T();\n\n", entityClass);
+
 		// generate mapping
-		int i=0;
-		for (ModelProperty item : entity.getCollection()) {			
-			methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ",i,i);
-			SQLTransformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");		
+		int i = 0;
+		for (ModelProperty item : entity.getCollection()) {
+			methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ", i, i);
+			SQLTransformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor", "index" + i + "");
 			methodBuilder.addCode(";");
 			methodBuilder.addCode("}\n");
-			
+
 			i++;
 		}
 		methodBuilder.addCode("\n");
-		
-		methodBuilder.addCode("resultList.add(resultBean);\n");			
-		methodBuilder.endControlFlow("while (cursor.moveToNext())");						
-		
+
+		methodBuilder.addCode("resultList.add(resultBean);\n");
+		methodBuilder.endControlFlow("while (cursor.moveToNext())");
+
 		methodBuilder.endControlFlow();
 		methodBuilder.addCode("cursor.close();\n");
-		
+
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("return resultList;\n");
-		
+
 		return methodBuilder;
 	}
-	
-	private MethodSpec.Builder generateExecuteListener(String packageName, SQLEntity entity) {		
-		String interfaceName="On" + entity.getSimpleName() + "Listener";
-		
+
+	private MethodSpec.Builder generateExecuteListener(String packageName, SQLEntity entity) {
+		String interfaceName = "On" + entity.getSimpleName() + "Listener";
+
 		//@formatter:off
 		Builder listenerInterface = TypeSpec.interfaceBuilder(interfaceName)
 				.addModifiers(Modifier.PUBLIC)
@@ -264,16 +353,15 @@ public class BindM2MBuilder extends AbstractBuilder {
 						.addParameter(ParameterSpec.builder(Integer.TYPE, "rowCount").build())
 				.returns(Void.TYPE).addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).build());
 		//@formatter:on
-		
-		ClassName interfaceType=TypeUtility.className(interfaceName);
-		
-		
+
+		ClassName interfaceType = TypeUtility.className(interfaceName);
+
 		// javadoc for interface
-		listenerInterface.addJavadoc("<p>Listener for row read from database.</p>\n");			
+		listenerInterface.addJavadoc("<p>Listener for row read from database.</p>\n");
 		TypeSpec listenerClass = listenerInterface.build();
-		
+
 		classBuilder.addType(listenerClass);
-		
+
 		//@formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("executeListener")
 				.addJavadoc("Method executed for each row extracted from database. For each row specified listener will be invoked.\n\n")
@@ -283,37 +371,37 @@ public class BindM2MBuilder extends AbstractBuilder {
 				.returns(TypeName.VOID);
 		//@formatter:on
 
-		TypeName entityClass= typeName(entity.getElement());
-		
-		methodBuilder.addCode("$T resultBean=new $T();\n",entityClass, entityClass);
+		TypeName entityClass = typeName(entity.getElement());
+
+		methodBuilder.addCode("$T resultBean=new $T();\n", entityClass, entityClass);
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 
-		methodBuilder.beginControlFlow("do\n");					
-		
+		methodBuilder.beginControlFlow("do\n");
+
 		// reset mapping
 		{
-			int i=0;
-			for (ModelProperty item : entity.getCollection()) {			
-				methodBuilder.addCode("if (index$L>=0) { ",i);
-				SQLTransformer.resetBean(methodBuilder, entityClass, "resultBean", item,  "cursor","index"+i+"");
+			int i = 0;
+			for (ModelProperty item : entity.getCollection()) {
+				methodBuilder.addCode("if (index$L>=0) { ", i);
+				SQLTransformer.resetBean(methodBuilder, entityClass, "resultBean", item, "cursor", "index" + i + "");
 				methodBuilder.addCode(";");
 				methodBuilder.addCode("}\n");
-				
+
 				i++;
 			}
 		}
 		methodBuilder.addCode("\n");
-		
+
 		// generate mapping
 		{
-			int i=0;
-			for (ModelProperty item : entity.getCollection()) {			
-				methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ",i,i);
-				SQLTransformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");
+			int i = 0;
+			for (ModelProperty item : entity.getCollection()) {
+				methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ", i, i);
+				SQLTransformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor", "index" + i + "");
 				methodBuilder.addCode(";");
 				methodBuilder.addCode("}\n");
-				
+
 				i++;
 			}
 		}
@@ -321,21 +409,19 @@ public class BindM2MBuilder extends AbstractBuilder {
 		// send to listener
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());\n");
-				
-		methodBuilder.endControlFlow("while (cursor.moveToNext())");						
-		
+
+		methodBuilder.endControlFlow("while (cursor.moveToNext())");
+
 		methodBuilder.endControlFlow();
 		methodBuilder.addCode("cursor.close();\n");
-		
+
 		return methodBuilder;
 	}
 
 	public void visit(M2MProperty property) throws Exception {
 		// add property index
-		classBuilder.addField(FieldSpec.builder(Integer.TYPE, "index"+(counter++), Modifier.PROTECTED).addJavadoc("Index for column $S\n", property.getName()).build());
+		classBuilder.addField(FieldSpec.builder(Integer.TYPE, "index" + (counter++), Modifier.PROTECTED).addJavadoc("Index for column $S\n", property.getName()).build());
 
 	}
-
-	
 
 }

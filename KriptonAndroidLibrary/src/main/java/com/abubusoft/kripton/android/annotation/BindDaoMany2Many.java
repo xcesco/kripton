@@ -41,5 +41,7 @@ public @interface BindDaoMany2Many {
 	Class<?> entity1();
 	
 	Class<?> entity2();
+	
+	boolean generateMethods() default true;
 
 }

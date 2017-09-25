@@ -16,10 +16,8 @@
 package com.abubusoft.kripton.processor.sqlite.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
@@ -28,7 +26,6 @@ import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.Finder;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 

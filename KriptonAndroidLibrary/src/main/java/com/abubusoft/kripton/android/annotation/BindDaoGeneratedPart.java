@@ -29,4 +29,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface BindDaoGeneratedPart {
 	Class<?> dao();
+	Class<?> entity();
 }

@@ -96,7 +96,7 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 				PackageElement pkg = elementUtils.getPackageOf(item);
 				String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 				
-				M2MEntity entity=new M2MEntity(packageName, TypeUtility.typeName(item), a1, a2, prefixId, tableName);
+				M2MEntity entity=new M2MEntity(packageName, item.getSimpleName().toString(), TypeUtility.typeName(item), a1, a2, prefixId, tableName);
 				
 				model.entityAdd(entity);				
 				itemCounter++;

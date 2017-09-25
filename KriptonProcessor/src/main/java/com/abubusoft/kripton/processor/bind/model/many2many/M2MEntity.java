@@ -29,10 +29,13 @@ public class M2MEntity extends M2MBase {
 	
 	public String tableName;
 
-	public M2MEntity(String packageName, TypeName daoTypeName, String entityName1, String entityName2, String idName, String tableName) {
+	public String daoName;
+
+	public M2MEntity(String packageName, String daoName, TypeName daoTypeName, String entityName1, String entityName2, String idName, String tableName) {
 		this.packageName=packageName;
 		this.entityName1=entityName1;
 		this.entityName2=entityName2;
+		this.daoName=daoName;
 		this.daoTypeName=daoTypeName;
 		this.idName=idName;
 		this.name=extractClassName(entityName1)+extractClassName(entityName2);
