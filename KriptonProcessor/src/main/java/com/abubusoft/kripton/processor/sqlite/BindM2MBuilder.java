@@ -56,10 +56,7 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
 import com.squareup.javapoet.TypeSpec.Builder;
-
-import sqlite.feature.many2many.PersonCity;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -169,32 +166,49 @@ public class BindM2MBuilder extends AbstractBuilder {
 		//@formatter:on
 
 		// javadoc for class
-//		classBuilder.addJavadoc("<p>");
-//		classBuilder.addJavadoc("\nEntity implementation for entity <code>$L</code>\n", entity.name);
-//		classBuilder.addJavadoc("</p>\n");
-//		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
+		// classBuilder.addJavadoc("<p>");
+		// classBuilder.addJavadoc("\nEntity implementation for entity
+		// <code>$L</code>\n", entity.name);
+		// classBuilder.addJavadoc("</p>\n");
+		// JavadocUtility.generateJavadocGeneratedBy(classBuilder);
 		// classBuilder.addJavadoc(" @see $T\n",
 		// TypeUtility.className(entity.getElement().getQualifiedName().toString()));
 
 		{
 		//@formatter:off
-		MethodSpec methodSpec = MethodSpec.methodBuilder("selectById")
+		MethodSpec methodSpec = MethodSpec.methodBuilder("selectBy"+entity.idName)
 				.addModifiers(Modifier.PUBLIC)
 				.addModifiers(Modifier.ABSTRACT)
-				.addAnnotation(AnnotationSpec.builder(BindSqlSelect.class).addMember("where", "$S","id=${id}").build())
+				.addAnnotation(AnnotationSpec.builder(BindSqlSelect.class).addMember("where", "$S",entity.idName+"=${"+entity.idName+"}").build())
 				.addParameter(ParameterSpec.builder(Long.TYPE, "id")
-						.addAnnotation(AnnotationSpec.builder(BindSqlParam.class).addMember("value", "$S","id").build()).build())
+						.addAnnotation(AnnotationSpec.builder(BindSqlParam.class).addMember("value", "$S",entity.idName).build()).build())
 				.returns(TypeUtility.className(packageName, entity.name))				
 				.build();
 		//@formatter:on
-		classBuilder.addMethod(methodSpec);
+			classBuilder.addMethod(methodSpec);
 		}
 
-//		Converter<String, String> converterFK = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-//		Converter<String, String> converterClassName = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
-//		String fkPrefix = converterFK.convert(entity.idName);
-//
-//		{
+		{
+			//@formatter:off
+			MethodSpec methodSpec = MethodSpec.methodBuilder("selectBy"+M2MEntity.extractClassName(entity.entityName1)+entity.idName)
+					.addModifiers(Modifier.PUBLIC)
+					.addModifiers(Modifier.ABSTRACT)
+					.addAnnotation(AnnotationSpec.builder(BindSqlSelect.class).addMember("where", "$S","id=${id}").build())
+					.addParameter(ParameterSpec.builder(Long.TYPE, "id")
+							.addAnnotation(AnnotationSpec.builder(BindSqlParam.class).addMember("value", "$S","id").build()).build())
+					.returns(TypeUtility.className(packageName, entity.name))				
+					.build();
+			//@formatter:on
+			classBuilder.addMethod(methodSpec);
+		}
+
+		// Converter<String, String> converterFK =
+		// CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+		// Converter<String, String> converterClassName =
+		// CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
+		// String fkPrefix = converterFK.convert(entity.idName);
+		//
+		// {
 //		//@formatter:off
 //		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(TypeUtility.className(entity.entityName1).simpleName()+fkPrefix), Modifier.PUBLIC)
 //				.addJavadoc("Foreign key to $T model class\n", TypeUtility.className(entity.entityName1))
@@ -202,10 +216,10 @@ public class BindM2MBuilder extends AbstractBuilder {
 //						.addMember("foreignKey","$T.class", TypeUtility.className(entity.entityName1)).build())
 //				.build();
 //		//@formatter:on
-//			classBuilder.addField(fieldSpec);
-//		}
-//
-//		{
+		// classBuilder.addField(fieldSpec);
+		// }
+		//
+		// {
 //		//@formatter:off
 //		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(TypeUtility.className(entity.entityName2).simpleName()+fkPrefix), Modifier.PUBLIC)
 //				.addJavadoc("Foreign key to $T model class\n", TypeUtility.className(entity.entityName2))
@@ -213,8 +227,8 @@ public class BindM2MBuilder extends AbstractBuilder {
 //						.addMember("foreignKey","$T.class", TypeUtility.className(entity.entityName2)).build())
 //				.build();
 //		//@formatter:on
-//			classBuilder.addField(fieldSpec);
-//		}
+		// classBuilder.addField(fieldSpec);
+		// }
 
 		TypeSpec typeSpec = classBuilder.build();
 		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
