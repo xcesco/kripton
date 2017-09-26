@@ -36,6 +36,7 @@ public class DoubleSQLTransform  extends WrappedSQLTransformation {
 		}
 		
 		this.READ_FROM_CURSOR="$L.getDouble($L)";
+		this.WRITE_COSTANT="";
 	}
 	
 	@Override

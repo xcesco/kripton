@@ -34,6 +34,7 @@ public class IntegerSQLTransform extends WrappedSQLTransformation {
 		}
 		
 		this.READ_FROM_CURSOR="$L.getInt($L)";
+		this.WRITE_COSTANT="";
 	}
 
 	@Override

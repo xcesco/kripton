@@ -21,7 +21,6 @@ package com.abubusoft.kripton.processor;
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.logging.Level;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -29,7 +28,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
@@ -40,6 +38,7 @@ import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
@@ -47,7 +46,6 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
-import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sharedprefs.BindSharedPreferencesBuilder;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefModel;
@@ -78,7 +76,7 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> annotations = new LinkedHashSet<String>();
 
-		annotations.add(BindDaoMany2Many.class.getCanonicalName());
+		annotations.add(BindSharedPreferences.class.getCanonicalName());
 
 		return annotations;
 	}
@@ -90,32 +88,15 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-		try {
-			model = new PrefModel();
+		model = new PrefModel();
 
-			parseBindType(roundEnv);
+		parseBindType(roundEnv);
 
-			// Put all @BindSharedPreferences elements in beanElements
-			for (Element item : roundEnv.getElementsAnnotatedWith(BindSharedPreferences.class)) {
-				if (item.getKind() != ElementKind.CLASS) {
-					String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindSharedPreferences.class.getSimpleName());
-					throw (new InvalidKindForAnnotationException(msg));
-				}
+		// Put all @BindSharedPreferences elements in beanElements
+		for (Element item : roundEnv.getElementsAnnotatedWith(BindSharedPreferences.class)) {
+			AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindSharedPreferences.class);
 
-				createSharedPreferences((TypeElement) item);
-
-			}
-
-			generateClasses();
-
-		} catch (Exception e) {
-			String msg = e.getMessage();
-			error(null, msg);
-
-			if (DEBUG_MODE) {
-				logger.log(Level.SEVERE, msg);
-				e.printStackTrace();
-			}
+			analyzeSharedPreferences((TypeElement) item);
 		}
 
 		return true;
@@ -130,7 +111,7 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 		}
 	}
 
-	private String createSharedPreferences(final TypeElement sharedPreference) {
+	private String analyzeSharedPreferences(final TypeElement sharedPreference) {
 		Element beanElement = sharedPreference;
 		String result = beanElement.getSimpleName().toString();
 

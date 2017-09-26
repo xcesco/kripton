@@ -7,8 +7,5 @@ import java.util.List;
 public class M2MBase {
 
 	public List<Annotation> annotation=new ArrayList<Annotation>();
-
-	public List<Annotation> getAnnotation() {
-		return annotation;
-	}	
+	
 }

@@ -36,6 +36,7 @@ class BooleanSQLTransform extends WrappedSQLTransformation {
 		}
 		
 		this.READ_FROM_CURSOR="$L.getInt($L)==0?false:true";
+		this.WRITE_COSTANT="";
 	}
 
 	@Override

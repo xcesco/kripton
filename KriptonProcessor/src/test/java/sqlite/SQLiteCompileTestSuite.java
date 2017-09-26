@@ -30,6 +30,7 @@ import sqlite.feature.generichierarchy.TestGenericHierarchySuite;
 import sqlite.feature.indexes.IndexTestSuite;
 import sqlite.feature.javadoc.TestJavadocFeatureSuite;
 import sqlite.feature.jql.TestJQLFeatureSuite;
+import sqlite.feature.many2many.TestCompileMany2ManySuite;
 import sqlite.feature.multithread.TestCompileMultithreadSuite;
 import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
 import sqlite.feature.schema.TestSchemaSuite;
@@ -78,6 +79,7 @@ import sqlite.kripton63.Test63Compile;
 			TestSchemaSuite.class,
 			IndexTestSuite.class,
 			TestTypeAdapterSuite.class,
+			TestCompileMany2ManySuite.class,
 			
 			// bug-fix			
 			Example01Suite.class,

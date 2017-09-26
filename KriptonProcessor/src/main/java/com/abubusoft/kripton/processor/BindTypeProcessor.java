@@ -20,10 +20,8 @@ package com.abubusoft.kripton.processor;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -35,6 +33,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
@@ -155,20 +154,19 @@ public class BindTypeProcessor extends BaseProcessor {
 			}
 
 			if (itemCounter.get() == 0) {
-				info("No class with @BindType annotation was found");
+				info("No class with @%s annotation was found", BindType.class.getSimpleName());
 			}
 
 			// Generate classes for model
 			generateFromModel();
 
-			// Wait until all threads are finish
-			// executor.awaitTermination(5, TimeUnit.MILLISECONDS);
-
 			sharedPreferencesProcessor.process(annotations, processedElement);
 			dataSourceProcessor.process(annotations, processedElement);
-
+			
+			sharedPreferencesProcessor.generateClasses();
+			dataSourceProcessor.generatedClasses();
 		} catch (Exception e) {
-			String msg = e.getMessage();
+			String msg = StringUtils.nvl(e.getMessage());
 			error(null, msg);
 
 			if (DEBUG_MODE) {

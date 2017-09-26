@@ -31,6 +31,9 @@ import com.squareup.javapoet.TypeName;
  */
 public class ByteArraySQLTransform extends TypeAdapterAwareSQLTransform {
 	
+	public ByteArraySQLTransform() {
+		WRITE_COSTANT="";
+	}
 	
 	@Override
 	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {

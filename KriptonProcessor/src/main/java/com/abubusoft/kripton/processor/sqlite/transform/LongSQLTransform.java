@@ -34,6 +34,7 @@ public class LongSQLTransform extends WrappedSQLTransformation {
 		}
 		
 		this.READ_FROM_CURSOR="$L.getLong($L)";
+		this.WRITE_COSTANT="";
 	}
 
 	@Override

@@ -186,4 +186,10 @@ public class StringUtils {
 		}
 	}
 
+	public static String nvl(String input) {
+		if (input==null) return "";
+		
+		return input;
+	}
+
 }

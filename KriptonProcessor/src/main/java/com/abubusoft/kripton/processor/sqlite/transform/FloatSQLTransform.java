@@ -36,6 +36,7 @@ public class FloatSQLTransform  extends WrappedSQLTransformation {
 		}
 		
 		this.READ_FROM_CURSOR="$L.getFloat($L)";
+		this.WRITE_COSTANT="";
 	}
 	
 	@Override

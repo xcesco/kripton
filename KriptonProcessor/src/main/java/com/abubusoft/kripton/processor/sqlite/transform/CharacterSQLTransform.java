@@ -34,7 +34,7 @@ class CharacterSQLTransform extends WrappedSQLTransformation {
 		}
 		
 		this.READ_FROM_CURSOR="(char)$L.getInt($L)";
-		this.WRITE_COSTANT="(int)$L";
+		this.WRITE_COSTANT="(int)";
 	}
 
 	@Override
