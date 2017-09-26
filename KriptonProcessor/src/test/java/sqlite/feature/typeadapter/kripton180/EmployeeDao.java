@@ -14,8 +14,8 @@ public interface EmployeeDao {
 	@BindSqlSelect(where="id=${bean.id}")
 	List<Employee> selectById(Employee bean);
 	
-	@BindSqlSelect(where="id=${bean.id} and fieldByte=${bean.fieldByte} and fieldByte=${bean.fieldByte} and fieldCharacter=${bean.fieldCharacter} and fieldShort=${bean.fieldShort} and fieldInteger=${bean.fieldInteger} and fieldLong=${bean.fieldLong} and fieldFloat=${bean.fieldFloat} and fieldDouble=${bean.fieldDouble} and fieldString=${bean.fieldString} and fieldByteArray=${bean.fieldByteArray}")
-	List<Employee> selectByAll(Employee bean);
+//	@BindSqlSelect(where="id=${bean.id} and fieldByte=${bean.fieldByte} and fieldByte=${bean.fieldByte} and fieldCharacter=${bean.fieldCharacter} and fieldShort=${bean.fieldShort} and fieldInteger=${bean.fieldInteger} and fieldLong=${bean.fieldLong} and fieldFloat=${bean.fieldFloat} and fieldDouble=${bean.fieldDouble} and fieldString=${bean.fieldString} and fieldByteArray=${bean.fieldByteArray}")
+//	List<Employee> selectByAll(Employee bean);
 	
 	@BindSqlInsert
 	long insert(Employee bean);
