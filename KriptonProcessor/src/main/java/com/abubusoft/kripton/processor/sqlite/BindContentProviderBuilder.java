@@ -34,6 +34,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.MultiplicityResultType;
+import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -482,6 +483,9 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	private boolean hasOperationOfType(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder, JQLType jqlType) {
 		boolean hasOperation = false;
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+			
+			if (daoDefinition.getElement().getAnnotation(BindContentProviderPath.class)==null) continue;
+			
 			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
 				if (daoMethod.jql.operationType != jqlType) {
 					continue;

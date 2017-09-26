@@ -26,6 +26,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
@@ -246,7 +247,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		//
 
 		BindContentProviderEntry annotation = element.getAnnotation(BindContentProviderEntry.class);
-		if (annotation != null) {
+		BindContentProviderPath annotationPath=parent.getElement().getAnnotation(BindContentProviderPath.class);
+		if (annotationPath!=null && annotation != null) {
 			// manage content provider generation
 			String methodPath = "";
 			if (StringUtils.hasText(annotation.path())) {

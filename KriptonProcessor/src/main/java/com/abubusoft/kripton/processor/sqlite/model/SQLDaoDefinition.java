@@ -17,7 +17,9 @@ package com.abubusoft.kripton.processor.sqlite.model;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.lang.model.element.TypeElement;
 
@@ -101,6 +103,7 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 		}
 
 		typeVariableResolver = TypeVariableResolver.build(element);
+		implementedInterface=new HashSet<>();
 	}
 
 	public TypeName resolveTypeVariable(TypeName inputTypeName) {
@@ -152,6 +155,8 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	 */
 	public long contentProviderCounter;
 
+	public Set<TypeName> implementedInterface;
+
 	public String generateJava2ContentSerializer(TypeName paramTypeName) {
 		if (!managedParams.containsKey(paramTypeName)) {
 			managedParams.put(paramTypeName, "" + (managedParams.size() + 1));
@@ -180,6 +185,11 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 			return "";
 
 		return contentProviderPath;
+	}
+
+	public void addImplementedInterface(TypeName className) {
+		this.implementedInterface.add(className);
+		
 	}
 
 }

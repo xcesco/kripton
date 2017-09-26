@@ -37,6 +37,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
@@ -164,7 +165,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				}
 				globalDaoElements.put(item.toString(), (TypeElement) item);
 			}
-			
+
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindDaoMany2Many.class)) {
 				if (item.getKind() != ElementKind.INTERFACE) {
 					String msg = String.format("%s %s can not be annotated with @%s annotation, because it is not an interface", item.getKind(), item, BindDaoMany2Many.class.getSimpleName());
@@ -184,6 +185,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				throw (new NoDaoElementsFound());
 			}
 
+			// get elements for generated dao's
+			Set<? extends Element> generatedDaoParts = roundEnv.getElementsAnnotatedWith(BindDaoGeneratedPart.class);
+
 			for (Element dataSource : dataSets) {
 				createDataSource(dataSource);
 
@@ -201,7 +205,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				// DAO analysis
 				// Get all dao definitions
 				for (String daoItem : daoIntoDataSource) {
-					analyzeDao(globalBeanElements, globalDaoElements, daoItem);
+					analyzeDao(globalBeanElements, globalDaoElements, findGeneratedPart(daoItem, generatedDaoParts), daoItem);
 				}
 
 				String msg;
@@ -213,13 +217,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					return true;
 				}
 
-				//buildClasses();
+				// buildClasses();
 
 			} // end foreach dataSource
-			
-			for (Element dataSource : dataSets) {
+
+			//for (Element dataSource : dataSets) {
 				buildClasses();
-			} // end foreach dataSource
+			//} // end foreach dataSource
 
 			logger.info(currentSchema.toString());
 		} catch (Exception e) {
@@ -235,6 +239,18 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 
 		return true;
+	}
+
+	private TypeElement findGeneratedPart(String daoName, Set<? extends Element> generatedDaoParts) {
+		for (Element item : generatedDaoParts) {
+			String dao = AnnotationUtility.extractAsClassName(item, BindDaoGeneratedPart.class, AnnotationAttributeType.DAO);
+
+			if (dao.equals(daoName)) {
+				return (TypeElement) item;
+			}
+
+		}
+		return null;
 	}
 
 	/**
@@ -254,7 +270,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 
 		ModelProperty property;
-		String beanName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.VALUE);		
+		String beanName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.VALUE);
 
 		BindDaoMany2Many bindMany2ManyAnnotation = daoElement.getAnnotation(BindDaoMany2Many.class);
 		AssertKripton.assertTrueOrMissedAnnotationOnClass(bindMany2ManyAnnotation != null || !TypeUtility.isEquals(NoEntity.class, beanName), daoElement, beanName, BindType.class);
@@ -262,10 +278,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		if (bindMany2ManyAnnotation != null) {
 			// create name
 			String idPrefix = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ID_NAME);
-			
-			beanName=extractEntityManagedByDAO(daoElement);			
+
+			beanName = extractEntityManagedByDAO(daoElement);
 		}
-						
+
 		final TypeElement beanElement = globalBeanElements.get(beanName);
 
 		// create equivalent entity in the domain of bind processor
@@ -409,21 +425,21 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			BindContentProviderBuilder.generate(elementUtils, filer, currentSchema);
 		}
 	}
-	
+
 	public static String extractEntityManagedByDAO(Element daoElement) {
 		String entityClassName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.VALUE);
-		
+
 		if (StringUtils.hasText(entityClassName)) {
 			return entityClassName;
 		}
-		
-		String a1=AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1);
-		String a2=AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2);
-						
+
+		String a1 = AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1);
+		String a2 = AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2);
+
 		PackageElement pkg = elementUtils.getPackageOf(daoElement);
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
-		
-		return packageName+"."+a1.substring(a1.lastIndexOf(".")+1)+a2.substring(a2.lastIndexOf(".")+1);
+
+		return packageName + "." + a1.substring(a1.lastIndexOf(".") + 1) + a2.substring(a2.lastIndexOf(".") + 1);
 	}
 
 	/**
@@ -431,9 +447,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * 
 	 * @param globalBeanElements
 	 * @param globalDaoElements
+	 * @param generatedDaoParts
 	 * @param daoItem
 	 */
-	protected void analyzeDao(final Map<String, TypeElement> globalBeanElements, final Map<String, TypeElement> globalDaoElements, String daoItem) {
+	protected void analyzeDao(final Map<String, TypeElement> globalBeanElements, final Map<String, TypeElement> globalDaoElements, TypeElement generatedDaoPart, String daoItem) {
 		Element daoElement = globalDaoElements.get(daoItem);
 
 		if (daoElement.getKind() != ElementKind.INTERFACE) {
@@ -445,7 +462,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, (TypeElement) daoElement, entityClassName);
 
 		// content provider management
-		BindContentProviderPath daoContentProviderPath = daoElement.getAnnotation(BindContentProviderPath.class);	
+		BindContentProviderPath daoContentProviderPath = daoElement.getAnnotation(BindContentProviderPath.class);
 		if (daoContentProviderPath != null) {
 			currentDaoDefinition.contentProviderEnabled = true;
 			currentDaoDefinition.contentProviderPath = daoContentProviderPath.path();
@@ -468,6 +485,26 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		currentSchema.add(currentDaoDefinition);
 
+		fillMethods(currentDaoDefinition, daoElement);
+		if (generatedDaoPart != null) {
+			currentDaoDefinition.addImplementedInterface(TypeUtility.typeName(generatedDaoPart));
+			fillMethods(currentDaoDefinition, generatedDaoPart);
+		}
+
+		// get @annotation associated to many 2 many relationship
+		BindDaoMany2Many daoMany2Many = daoElement.getAnnotation(BindDaoMany2Many.class);
+
+		// dao definition must have >0 method associated to query
+		if (currentDaoDefinition.getCollection().size() == 0 && daoMany2Many == null) {
+			throw (new DaoDefinitionWithoutAnnotatedMethodException(currentDaoDefinition));
+		}
+	}
+
+	/**
+	 * @param currentDaoDefinition
+	 * @param daoElement
+	 */
+	private void fillMethods(final SQLDaoDefinition currentDaoDefinition, Element daoElement) {
 		// create method for dao
 		SqlBuilderHelper.forEachMethods((TypeElement) daoElement, new MethodFoundListener() {
 
@@ -516,14 +553,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			}
 
 		});
-		
-		// get @annotation associated to many 2 many relationship
-		BindDaoMany2Many daoMany2Many = daoElement.getAnnotation(BindDaoMany2Many.class);
-
-		// dao definition must have >0 method associated to query
-		if (currentDaoDefinition.getCollection().size() == 0 && daoMany2Many==null) {
-			throw (new DaoDefinitionWithoutAnnotatedMethodException(currentDaoDefinition));
-		}
 	}
 
 	/**

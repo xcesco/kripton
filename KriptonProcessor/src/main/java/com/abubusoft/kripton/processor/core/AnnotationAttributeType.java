@@ -91,7 +91,8 @@ public enum AnnotationAttributeType {
 	JQL("jql"), ID_NAME("idName"),
 	ENTITY_1("entity1"),
 	ENTITY_2("entity2"), 
-	TABLE_NAME("tableName")
+	TABLE_NAME("tableName"), 
+	DAO("dao")
 	;
 	
 	

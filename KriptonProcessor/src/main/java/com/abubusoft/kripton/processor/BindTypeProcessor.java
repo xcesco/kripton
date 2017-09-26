@@ -112,6 +112,7 @@ public class BindTypeProcessor extends BaseProcessor {
 		annotations.add(BindType.class.getCanonicalName());
 		annotations.addAll(sharedPreferencesProcessor.getSupportedAnnotationTypes());
 		annotations.addAll(dataSourceProcessor.getSupportedAnnotationTypes());
+		annotations.addAll(many2ManyProcessor.getSupportedAnnotationTypes());
 
 		return annotations;
 	}

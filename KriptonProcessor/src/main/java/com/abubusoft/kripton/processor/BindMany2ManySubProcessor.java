@@ -30,6 +30,7 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MModel;
@@ -50,8 +51,6 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 
 	private M2MModel model;
 
-	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindDao.class).add(BindDaoMany2Many.class).build();
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -64,6 +63,7 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 		Set<String> annotations = new LinkedHashSet<String>();
 		
 		annotations.add(BindDaoMany2Many.class.getCanonicalName());
+		annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
 
 		return annotations;
 	}
@@ -96,7 +96,7 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 				PackageElement pkg = elementUtils.getPackageOf(item);
 				String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 				
-				M2MEntity entity=new M2MEntity(packageName, item.getSimpleName().toString(), TypeUtility.typeName(item), a1, a2, prefixId, tableName);
+				M2MEntity entity=new M2MEntity(packageName, TypeUtility.className(item.asType().toString()), a1, a2, prefixId, tableName);
 				
 				model.entityAdd(entity);				
 				itemCounter++;

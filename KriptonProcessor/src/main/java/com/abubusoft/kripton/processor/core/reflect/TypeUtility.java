@@ -157,7 +157,7 @@ public abstract class TypeUtility {
 	public static ClassName className(Class<?> clazz) {
 		return ClassName.get(clazz);
 	}
-
+	
 	/**
 	 * Convert a type in a typeName
 	 * 

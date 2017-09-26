@@ -5,19 +5,18 @@ import java.util.List;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.StringUtils;
-import com.squareup.javapoet.TypeName;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.ClassName;
 
 public class M2MEntity extends M2MBase {
 
 	private String packageName;
 
-	public String entityName1;
+	public ClassName entity1Name;
 
-	public String entityName2;
+	public ClassName entity2Name;
 
 	public String idName;
-
-	public TypeName daoTypeName;
 
 	private List<M2MProperty> collection = new ArrayList<M2MProperty>();
 
@@ -29,16 +28,15 @@ public class M2MEntity extends M2MBase {
 
 	public String tableName;
 
-	public String daoName;
+	public ClassName daoName;
 
-	public M2MEntity(String packageName, String daoName, TypeName daoTypeName, String entityName1, String entityName2, String idName, String tableName) {
+	public M2MEntity(String packageName, ClassName daoClazzName, String entity1ClazzName, String entity2ClazzName, String idName, String tableName) {
 		this.packageName = packageName;
-		this.entityName1 = entityName1;
-		this.entityName2 = entityName2;
-		this.daoName = daoName;
-		this.daoTypeName = daoTypeName;
+		this.entity1Name = TypeUtility.className(entity1ClazzName);
+		this.entity2Name = TypeUtility.className(entity2ClazzName);
+		this.daoName = daoClazzName;
 		this.idName = idName;
-		this.name = extractClassName(entityName1) + extractClassName(entityName2);
+		this.name = entity1Name.simpleName() + entity2Name.simpleName();
 		this.tableName = StringUtils.hasText(tableName) ? tableName : (CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, this.name));
 	}
 
@@ -51,5 +49,6 @@ public class M2MEntity extends M2MBase {
 
 		return fullName.substring(l + 1);
 	}
+	
 
 }
