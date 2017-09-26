@@ -15,18 +15,18 @@
  *******************************************************************************/
 package sqlite.feature.many2many;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.runners.Suite;
 
-import sqlite.AbstractBindSQLiteProcessorTest;
+import base.BaseAndroidTest;
 
-@RunWith(JUnit4.class)
-public class TestCompileMany2Many extends AbstractBindSQLiteProcessorTest {
-
-	@Test
-	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(PersonCirtyDataSource.class, PersonDao.class, Person.class, CityDao.class, City.class, PersonCityDao.class, Entity.class, BaseDao.class);
-	}
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestRuntimeMany2Many.class
+		 })
+//@formatter:on
+public class TestRuntimeMany2ManySuite extends BaseAndroidTest {
 
 }

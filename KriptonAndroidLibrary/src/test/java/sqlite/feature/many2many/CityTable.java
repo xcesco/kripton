@@ -20,9 +20,9 @@ public class CityTable {
    * DDL to create table cities
    * </p>
    *
-   * <pre>CREATE TABLE cities (id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   * <pre>CREATE TABLE cities (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE cities (id INTEGER PRIMARY KEY AUTOINCREMENT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE cities (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);";
 
   /**
    * <p>
@@ -39,4 +39,11 @@ public class CityTable {
    *  @see City#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   *
+   *  @see City#name
+   */
+  public static final String COLUMN_NAME = "name";
 }
