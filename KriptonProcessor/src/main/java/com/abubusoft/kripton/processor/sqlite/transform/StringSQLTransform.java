@@ -31,18 +31,27 @@ import com.squareup.javapoet.TypeName;
  */
 public class StringSQLTransform  extends TypeAdapterAwareSQLTransform {
 	
+	protected String READ_FROM_CURSOR=null;
+	
+	
 	public StringSQLTransform() {
+		
 		WRITE_COSTANT = "";
+		READ_FROM_CURSOR="$L.getString($L)";
 	}
 
 	@Override
-	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode(setter(beanClass, beanName, property, "$L.getString($L)"), cursorName, indexName);
+	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {				
+		if (property.hasTypeAdapter()) {			
+			methodBuilder.addCode(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA+READ_FROM_CURSOR+POST_TYPE_ADAPTER),property.getName(), cursorName, indexName);
+		} else {			
+			methodBuilder.addCode(setter(beanClass, beanName, property, READ_FROM_CURSOR), cursorName, indexName);
+		}
 	}
 	
 	@Override
 	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
-		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);		
+		methodBuilder.addCode(READ_FROM_CURSOR, cursorName, indexName);		
 	}
 
 	@Override

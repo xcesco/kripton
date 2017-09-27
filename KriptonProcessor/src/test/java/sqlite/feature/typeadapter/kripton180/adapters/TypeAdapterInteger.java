@@ -2,20 +2,20 @@ package sqlite.feature.typeadapter.kripton180.adapters;
 
 import com.abubusoft.kripton.android.BindSQLTypeAdapter;
 
-public class TypeAdapterInteger implements BindSQLTypeAdapter<String, byte[]> {
+public class TypeAdapterInteger implements BindSQLTypeAdapter<String, Integer> {
 
 	@Override
-	public String toJava(byte[] dataValue) {
+	public String toJava(Integer dataValue) {
 		if (dataValue!=null) {
-			return new String(dataValue);
+			return String.valueOf(dataValue);
 		}
 		return null;
 	}
 
 	@Override
-	public byte[] toData(String javaValue) {
+	public Integer toData(String javaValue) {
 		if (javaValue!=null) {
-			return "FIRST_NAME".getBytes();
+			return Integer.parseInt(javaValue);
 		}
 		return null;
 	}
@@ -23,7 +23,7 @@ public class TypeAdapterInteger implements BindSQLTypeAdapter<String, byte[]> {
 	@Override
 	public String toString(String javaValue) {
 		if (javaValue!=null) {
-			return "FIRST_NAME";
+			return ""+Integer.parseInt(javaValue);
 		}
 		return null;
 	}

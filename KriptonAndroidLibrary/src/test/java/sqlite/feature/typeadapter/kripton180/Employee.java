@@ -28,11 +28,11 @@ public class Employee {
 	public long id;
 	
 //	@BindSqlAdapter(adapter=TypeAdapterLastName.class, dataType=Double.class)
-//	public String lastName;
-//	public String firstName;
-//	public Date birthDate;
-//	public Date hireDate;
-//	public Address address;	
+	public String lastName;
+	public String firstName;
+	public Date birthDate;
+	public Date hireDate;
+	public Address address;	
 	
 	@BindSqlAdapter(adapter=TypeAdapterBoolean.class, dataType=Boolean.class)
 	public String fieldBoolean;
