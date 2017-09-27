@@ -18,12 +18,16 @@ package com.abubusoft.kripton.processor.sqlite.model;
 import java.util.List;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -42,6 +46,14 @@ public class SQLProperty extends ManagedModelProperty {
 		if (annotationBindAdapter != null) {
 			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
 			typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
+			
+			TypeElement a = BaseProcessor.elementUtils.getTypeElement(typeAdapter.adapterClazz);
+			for (Element i:BaseProcessor.elementUtils.getAllMembers(a)) {
+				if (i.getKind()==ElementKind.METHOD &&  "toData".equals(i.getSimpleName())) {
+					ExecutableElement  method=(ExecutableElement)i;
+					typeAdapter.dataType=TypeUtility.typeName(method.getReturnType()).toString();					
+				}
+			}
 
 			SQLTransform transform=SQLTransformer.lookup(TypeUtility.typeName(typeAdapter.dataType));
 			

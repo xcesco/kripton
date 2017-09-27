@@ -8,6 +8,7 @@ import java.sql.Date;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindTable;
 
+import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterAddress;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterBoolean;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterByte;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterByteArray;
@@ -27,11 +28,13 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
 public class Employee {	
 	public long id;
 	
-//	@BindSqlAdapter(adapter=TypeAdapterLastName.class, dataType=Double.class)
+//	
 	public String lastName;
 	public String firstName;
 	public Date birthDate;
 	public Date hireDate;
+	
+	@BindSqlAdapter(adapter=TypeAdapterAddress.class, dataType=String.class)
 	public Address address;	
 	
 	@BindSqlAdapter(adapter=TypeAdapterBoolean.class, dataType=Boolean.class)
