@@ -18,7 +18,8 @@ package com.abubusoft.kripton.processor.core;
 import javax.lang.model.element.ExecutableElement;
 
 /**
- * Attribute typeName used in annotations. Introduced to avoid to type typeName attribute as string
+ * Attribute typeName used in annotations. Introduced to avoid to type typeName
+ * attribute as string
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -26,90 +27,60 @@ import javax.lang.model.element.ExecutableElement;
  * @since 05/mag/2016
  */
 public enum AnnotationAttributeType {
-	ADAPTER("adapter"),	
-	ALL_FIELDS("allFields"),
-	
-	COLUMN_TYPE("columnType"),	
-	CONFLICT_ALGORITHM_TYPE("conflictAlgorithm"),
-	
-	DAO_SET("daoSet"),	
-	DATA_TYPE("dataType"),	
-	DISTINCT("distinct"),
-	
-	ENABLED("enabled"),	
-	EXCLUDED_FIELDS("excludedFields"),
-	
-	FIELDS("fields"),	
-	FILENAME("fileName"),
-	FOREIGN_KEY("foreignKey"),
-	
-	GENERATE_ASYNC_TASK("generateAsyncTask"),
-	GENERATE_CURSOR_WRAPPER("generateCursorWrapper"),	
-	GENERATE_LOG("generateLog"),
-	GENERATE_SCHEMA("generateSchema"),
-	GROUP_BY("groupBy"),
-	
-	
+	ADAPTER("adapter"), ALL_FIELDS("allFields"),
+
+	COLUMN_TYPE("columnType"), CONFLICT_ALGORITHM_TYPE("conflictAlgorithm"),
+
+	DAO_SET("daoSet"), DISTINCT("distinct"),
+
+	ENABLED("enabled"), EXCLUDED_FIELDS("excludedFields"),
+
+	FIELDS("fields"), FILENAME("fileName"), FOREIGN_KEY("foreignKey"),
+
+	GENERATE_ASYNC_TASK("generateAsyncTask"), GENERATE_CURSOR_WRAPPER("generateCursorWrapper"), GENERATE_LOG("generateLog"), GENERATE_SCHEMA("generateSchema"), GROUP_BY("groupBy"),
+
 	HAVING("having"),
-	
-	INCLUDE_PRIMARY_KEY("includePrimaryKey"),	
-	INDEXES("indexes"),
-	
-	MAP_ENTRY_TYPE("mapEntryType"),
-	MAP_KEY_NAME("mapKeyName"),
-	MAP_VALUE_NAME("mapValueName"),
-	
+
+	INCLUDE_PRIMARY_KEY("includePrimaryKey"), INDEXES("indexes"),
+
+	MAP_ENTRY_TYPE("mapEntryType"), MAP_KEY_NAME("mapKeyName"), MAP_VALUE_NAME("mapValueName"),
+
 	NULLABLE("nullable"),
-	
-	ORDER("order"),	
-	ORDER_BY("orderBy"),
-	
-	PAGE_SIZE("pageSize"),	
-	PATH("path"),
-	
+
+	ORDER("order"), ORDER_BY("orderBy"),
+
+	PAGE_SIZE("pageSize"), PATH("path"),
+
 	PREPEND("prepend"),
-	
-	RAW_FIELDS("rawFields"),	
-	RESULT_TYPE("resultType"),
-	
+
+	RAW_FIELDS("rawFields"), RESULT_TYPE("resultType"),
+
 	NAME("name"),
-	
-	TYPE_PARAMETERS("typeParameters"),		
-	TYPE_VARIABLES("typeVariables"),
-	
-	VALUE("value"), 
-	VERSION("version"),
-	
+
+	TYPE_PARAMETERS("typeParameters"), TYPE_VARIABLES("typeVariables"),
+
+	VALUE("value"), VERSION("version"),
+
 	WHERE("where"),
-	
+
 	UNIQUE_INDEXES("uniqueIndexes"),
-	
-	XML_ELEMENT_TAG("elementTag"), 
-	XML_TYPE("xmlType"),
-	
-	MULTIPLICITY_RESULT("multiplicityResult"),
-	JQL("jql"), ID_NAME("idName"),
-	ENTITY_1("entity1"),
-	ENTITY_2("entity2"), 
-	TABLE_NAME("tableName"), 
-	DAO("dao")
-	;
-	
-	
+
+	XML_ELEMENT_TAG("elementTag"), XML_TYPE("xmlType"),
+
+	MULTIPLICITY_RESULT("multiplicityResult"), JQL("jql"), ID_NAME("idName"), ENTITY_1("entity1"), ENTITY_2("entity2"), TABLE_NAME("tableName"), DAO("dao");
+
 	private String value;
-	
-	private AnnotationAttributeType(String value)
-	{
-		this.value=value;
+
+	private AnnotationAttributeType(String value) {
+		this.value = value;
 	}
 
-	public String getValue()
-	{
+	public String getValue() {
 		return value;
 	}
 
 	public boolean isEquals(ExecutableElement value) {
 		return this.getValue().equals(value.getSimpleName().toString());
 	}
-	
+
 }

@@ -13,22 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.typeadapter;
+package sqlite.feature.typeadapter.kripton180;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
-import sqlite.feature.typeadapter.kripton180.TestKripton180Suite;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestFeatureSQLTypeAdapterRuntime.class,
-		TestKripton180Suite.class
-		
+		TestKripton180Runtime.class
 		 })
 //@formatter:on
-public class TestFeatureSQLTypeAdapterRuntimeSuite {
+public class TestKripton180Suite {
 
 }

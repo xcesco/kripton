@@ -16,6 +16,6 @@ public class Bean {
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public int id;
 
-	@BindAdapter(adapter = DateAdapter.class, dataType = Long.class)
+	@BindAdapter(adapter = DateAdapter.class)
 	public Date date;
 }

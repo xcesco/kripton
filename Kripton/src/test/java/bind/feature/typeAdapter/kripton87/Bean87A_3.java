@@ -20,27 +20,23 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
-import bind.feature.typeAdapter.kripton87.BooleanByteArrayTypeAdapter;
-import bind.feature.typeAdapter.kripton87.Enum87A;
-import bind.feature.typeAdapter.kripton87.Enum87IntegerTypeAdapter;
-
 @BindType
 public class Bean87A_3 {
-	
+
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
-	@BindAdapter(adapter = BooleanByteArrayTypeAdapter.class, dataType = Long.class)
+	@BindAdapter(adapter = BooleanByteArrayTypeAdapter.class)
 	public Boolean attributeBoolean;
 
 	@BindXml(xmlType = XmlType.TAG)
-	@BindAdapter(adapter = BooleanByteArrayTypeAdapter.class, dataType = Long.class)
+	@BindAdapter(adapter = BooleanByteArrayTypeAdapter.class)
 	public Boolean elementBoolean;
 
 	@BindXml(xmlType = XmlType.VALUE)
-	@BindAdapter(adapter = BooleanByteArrayTypeAdapter.class, dataType = Long.class)
+	@BindAdapter(adapter = BooleanByteArrayTypeAdapter.class)
 	public Boolean dataBoolean;
-	
+
 	@BindXml(xmlType = XmlType.TAG)
-	@BindAdapter(adapter = Enum87IntegerTypeAdapter.class, dataType = Integer.class)
+	@BindAdapter(adapter = Enum87IntegerTypeAdapter.class)
 	public Enum87A elementEnum;
 
 }

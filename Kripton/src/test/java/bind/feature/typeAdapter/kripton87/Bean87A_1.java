@@ -20,15 +20,12 @@ import java.util.Date;
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindType;
 
-import bind.feature.typeAdapter.kripton87.DateLongTypeAdapter;
-import bind.feature.typeAdapter.kripton87.StringInverterTypeAdapter;
-
 @BindType
 public class Bean87A_1 {
-	
-	@BindAdapter(adapter=DateLongTypeAdapter.class, dataType=Long.class)	
+
+	@BindAdapter(adapter = DateLongTypeAdapter.class)
 	public Date valueDate;
-	
-	@BindAdapter(adapter=StringInverterTypeAdapter.class, dataType=String.class)
-	public String valueDescription;	
+
+	@BindAdapter(adapter = StringInverterTypeAdapter.class)
+	public String valueDescription;
 }

@@ -15,28 +15,24 @@
  *******************************************************************************/
 package bind.feature.typeAdapter.kripton87;
 
-import java.math.BigDecimal;
-
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
-import bind.feature.typeAdapter.kripton87.BooleanBigDecimalTypeAdapter;
-
 @BindType
 public class Bean87A_5 {
-	
+
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
-	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class, dataType = BigDecimal.class)
+	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class)
 	public Boolean attributeBoolean;
 
 	@BindXml(xmlType = XmlType.TAG)
-	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class, dataType = BigDecimal.class)
+	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class)
 	public Boolean elementBoolean;
 
 	@BindXml(xmlType = XmlType.VALUE)
-	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class, dataType = BigDecimal.class)
+	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class)
 	public Boolean dataBoolean;
 
 }

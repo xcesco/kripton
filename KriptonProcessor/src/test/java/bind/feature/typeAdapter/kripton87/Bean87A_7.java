@@ -20,21 +20,19 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
-import bind.feature.typeAdapter.kripton87.StringInverterTypeAdapter;
-
 @BindType
 public class Bean87A_7 {
-	
+
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
-	@BindAdapter(adapter = StringInverterTypeAdapter.class, dataType = String.class)
+	@BindAdapter(adapter = StringInverterTypeAdapter.class)
 	public String attributeString;
 
 	@BindXml(xmlType = XmlType.TAG)
-	@BindAdapter(adapter = StringInverterTypeAdapter.class, dataType = String.class)
+	@BindAdapter(adapter = StringInverterTypeAdapter.class)
 	public String elementString;
 
 	@BindXml(xmlType = XmlType.VALUE_CDATA)
-	@BindAdapter(adapter = StringInverterTypeAdapter.class, dataType = String.class)
+	@BindAdapter(adapter = StringInverterTypeAdapter.class)
 	public String dataString;
 
 }

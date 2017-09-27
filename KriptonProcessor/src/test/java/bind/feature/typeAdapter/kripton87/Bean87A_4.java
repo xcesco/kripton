@@ -20,21 +20,19 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
-import bind.feature.typeAdapter.kripton87.BooleanBigDecimalTypeAdapter;
-
 @BindType
 public class Bean87A_4 {
-	
+
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
-	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class, dataType = Long.class)
+	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class)
 	public boolean attributeBoolean;
 
 	@BindXml(xmlType = XmlType.TAG)
-	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class, dataType = Long.class)
+	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class)
 	public boolean elementBoolean;
 
 	@BindXml(xmlType = XmlType.VALUE)
-	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class, dataType = Long.class)
+	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class)
 	public boolean dataBoolean;
 
 }

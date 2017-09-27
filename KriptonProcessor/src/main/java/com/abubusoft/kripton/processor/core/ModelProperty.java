@@ -22,9 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.TypeName;
 
@@ -34,7 +38,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		public String adapterClazz;
 
 		public String dataType;
-		
+
 		public TypeName getAdapterTypeName() {
 			return TypeUtility.typeName(adapterClazz);
 		}
@@ -42,6 +46,19 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		public TypeName getDataTypeTypename() {
 			return TypeUtility.typeName(dataType);
 		}
+	}
+
+	protected String detectRealtType(Element element, String adapterClazz) {
+		TypeElement a = BaseProcessor.elementUtils.getTypeElement(adapterClazz);
+		for (Element i : BaseProcessor.elementUtils.getAllMembers(a)) {
+			if (i.getKind() == ElementKind.METHOD && "toData".equals(i.getSimpleName().toString())) {
+				ExecutableElement method = (ExecutableElement) i;
+				return TypeUtility.typeName(method.getReturnType()).toString();
+			}
+		}
+
+		AssertKripton.fail("In '%s', class '%s' can not be used as type adapter", element, adapterClazz);
+		return null;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -116,7 +133,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 			publicField = element.getModifiers().contains(Modifier.PUBLIC);
 		}
 		this.annotations = new ArrayList<ModelAnnotation>();
-		if (modelAnnotations!=null) {
+		if (modelAnnotations != null) {
 			this.annotations.addAll(modelAnnotations);
 		}
 		this.typeAdapter = new TypeAdapter();

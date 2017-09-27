@@ -27,15 +27,10 @@ import com.abubusoft.kripton.android.BindSQLTypeAdapter;
 public @interface BindSqlAdapter {
 
 	/**
-	 * Adapter class used to convert bean attribute into column value and viceversa
-	 * @return
-	 */
-	Class<? extends BindSQLTypeAdapter<?, ?>> adapter();
-
-	/**
-	 * Type of column to manage
+	 * Adapter class used to convert bean attribute into column value and
+	 * viceversa
 	 * 
 	 * @return
 	 */
-	public Class<?> dataType();
+	Class<? extends BindSQLTypeAdapter<?, ?>> adapter();
 }

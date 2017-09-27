@@ -18,16 +18,12 @@ package com.abubusoft.kripton.processor.sqlite.model;
 import java.util.List;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
-import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -40,45 +36,36 @@ public class SQLProperty extends ManagedModelProperty {
 
 	public SQLProperty(SQLEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
-			
-		// @BindAdapter		
+
+		// @BindAdapter
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindSqlAdapter.class);
 		if (annotationBindAdapter != null) {
 			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-			typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
-			
-			TypeElement a = BaseProcessor.elementUtils.getTypeElement(typeAdapter.adapterClazz);
-			for (Element i:BaseProcessor.elementUtils.getAllMembers(a)) {
-				if (i.getKind()==ElementKind.METHOD &&  "toData".equals(i.getSimpleName())) {
-					ExecutableElement  method=(ExecutableElement)i;
-					typeAdapter.dataType=TypeUtility.typeName(method.getReturnType()).toString();					
-				}
-			}
+			typeAdapter.dataType = detectRealtType(entity.getElement(), typeAdapter.adapterClazz);
+			SQLTransform transform = SQLTransformer.lookup(TypeUtility.typeName(typeAdapter.dataType));
 
-			SQLTransform transform=SQLTransformer.lookup(TypeUtility.typeName(typeAdapter.dataType));
-			
 			if (!transform.isTypeAdapterAware()) {
-				String msg = String.format("In class '%s', property '%s' is of type '%s' and it can not be annotated with @%s", element.asType().toString(),
-						getName(), getPropertyType().getTypeName(), BindSqlAdapter.class.getSimpleName());
+				String msg = String.format("In class '%s', property '%s' is of type '%s' and it can not be annotated with @%s", element.asType().toString(), getName(), getPropertyType().getTypeName(),
+						BindSqlAdapter.class.getSimpleName());
 				throw (new IncompatibleAnnotationException(msg));
 			}
 		}
 
 	}
-	
+
 	/**
 	 * typeName of the column
 	 */
 	public String columnName;
 
 	protected boolean nullable;
-		
-	
+
 	/**
-	 * @param primaryKey the primaryKey to set
+	 * @param primaryKey
+	 *            the primaryKey to set
 	 */
 	public void setPrimaryKey(boolean primaryKey) {
-		this.primaryKey = primaryKey;		
+		this.primaryKey = primaryKey;
 	}
 
 	/**
@@ -89,7 +76,8 @@ public class SQLProperty extends ManagedModelProperty {
 	}
 
 	/**
-	 * @param nullable the nullable to set
+	 * @param nullable
+	 *            the nullable to set
 	 */
 	public void setNullable(boolean nullable) {
 		this.nullable = nullable;
@@ -103,7 +91,7 @@ public class SQLProperty extends ManagedModelProperty {
 	}
 
 	protected boolean primaryKey;
-	
+
 	/**
 	 * type of column
 	 */
@@ -114,10 +102,8 @@ public class SQLProperty extends ManagedModelProperty {
 	 */
 	public String foreignClassName;
 
-
 	public boolean hasForeignKeyClassName() {
-		return !StringUtils.isEmpty(foreignClassName) && !NoForeignKey.class.getName().equals(foreignClassName);		
+		return !StringUtils.isEmpty(foreignClassName) && !NoForeignKey.class.getName().equals(foreignClassName);
 	}
-
 
 }

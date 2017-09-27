@@ -8,8 +8,7 @@ import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterAddress;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterBoolean;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterByte;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterByteArray;
@@ -67,10 +66,10 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
    *
    * @param bean
    * 	is used as ${bean}
-   * @return collection of bean or empty collection.
+   * @return selected bean or <code>null</code>.
    */
   @Override
-  public List<Employee> selectById(Employee bean) {
+  public Employee selectById(Employee bean) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees");
     // generation CODE_001 -- BEGIN
@@ -100,7 +99,6 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
-      LinkedList<Employee> resultList=new LinkedList<Employee>();
       Employee resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -111,6 +109,7 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
         int index3=cursor.getColumnIndex("birth_date");
         int index4=cursor.getColumnIndex("hire_date");
         int index5=cursor.getColumnIndex("address");
+        TypeAdapterAddress addressAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterAddress.class);
         int index6=cursor.getColumnIndex("field_boolean");
         TypeAdapterBoolean fieldBooleanAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterBoolean.class);
         int index7=cursor.getColumnIndex("field_byte");
@@ -132,32 +131,27 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
         int index15=cursor.getColumnIndex("field_byte_array");
         TypeAdapterByteArray fieldByteArrayAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterByteArray.class);
 
-        do
-         {
-          resultBean=new Employee();
+        resultBean=new Employee();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.lastName=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.firstName=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthDate=SQLDateUtils.read(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.hireDate=SQLDateUtils.read(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.address=EmployeeTable.parseAddress(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(cursor.getInt(index6)==0?false:true); }
-          if (!cursor.isNull(index7)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)cursor.getInt(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)cursor.getInt(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.fieldShort=fieldShortAdapter.toJava(cursor.getShort(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(cursor.getInt(index10)); }
-          if (!cursor.isNull(index11)) { resultBean.fieldLong=fieldLongAdapter.toJava(cursor.getLong(index11)); }
-          if (!cursor.isNull(index12)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(cursor.getFloat(index12)); }
-          if (!cursor.isNull(index13)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(cursor.getDouble(index13)); }
-          if (!cursor.isNull(index14)) { resultBean.fieldString=fieldStringAdapter.toJava(cursor.getString(index14)); }
-          if (!cursor.isNull(index15)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(cursor.getBlob(index15)); }
+        resultBean.id=cursor.getLong(index0);
+        if (!cursor.isNull(index1)) { resultBean.lastName=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.firstName=cursor.getString(index2); }
+        if (!cursor.isNull(index3)) { resultBean.birthDate=SQLDateUtils.read(cursor.getString(index3)); }
+        if (!cursor.isNull(index4)) { resultBean.hireDate=SQLDateUtils.read(cursor.getString(index4)); }
+        if (!cursor.isNull(index5)) { resultBean.address=addressAdapter.toJava(cursor.getString(index5)); }
+        if (!cursor.isNull(index6)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(cursor.getInt(index6)==0?false:true); }
+        if (!cursor.isNull(index7)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)cursor.getInt(index7)); }
+        if (!cursor.isNull(index8)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)cursor.getInt(index8)); }
+        if (!cursor.isNull(index9)) { resultBean.fieldShort=fieldShortAdapter.toJava(cursor.getShort(index9)); }
+        if (!cursor.isNull(index10)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(cursor.getInt(index10)); }
+        if (!cursor.isNull(index11)) { resultBean.fieldLong=fieldLongAdapter.toJava(cursor.getLong(index11)); }
+        if (!cursor.isNull(index12)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(cursor.getFloat(index12)); }
+        if (!cursor.isNull(index13)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(cursor.getDouble(index13)); }
+        if (!cursor.isNull(index14)) { resultBean.fieldString=fieldStringAdapter.toJava(cursor.getString(index14)); }
+        if (!cursor.isNull(index15)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(cursor.getBlob(index15)); }
 
-          resultList.add(resultBean);
-        } while (cursor.moveToNext());
       }
-
-      return resultList;
+      return resultBean;
     }
   }
 
@@ -193,10 +187,10 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
    *
    * @param bean
    * 	is used as ${bean}
-   * @return collection of bean or empty collection.
+   * @return selected bean or <code>null</code>.
    */
   @Override
-  public List<Employee> selectByIdJQL(Employee bean) {
+  public Employee selectByIdJQL(Employee bean) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees");
     // generation CODE_001 -- BEGIN
@@ -226,7 +220,6 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
-      LinkedList<Employee> resultList=new LinkedList<Employee>();
       Employee resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -237,6 +230,7 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
         int index3=cursor.getColumnIndex("birth_date");
         int index4=cursor.getColumnIndex("hire_date");
         int index5=cursor.getColumnIndex("address");
+        TypeAdapterAddress addressAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterAddress.class);
         int index6=cursor.getColumnIndex("field_boolean");
         TypeAdapterBoolean fieldBooleanAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterBoolean.class);
         int index7=cursor.getColumnIndex("field_byte");
@@ -258,32 +252,27 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
         int index15=cursor.getColumnIndex("field_byte_array");
         TypeAdapterByteArray fieldByteArrayAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterByteArray.class);
 
-        do
-         {
-          resultBean=new Employee();
+        resultBean=new Employee();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.lastName=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.firstName=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthDate=SQLDateUtils.read(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.hireDate=SQLDateUtils.read(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.address=EmployeeTable.parseAddress(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(cursor.getInt(index6)==0?false:true); }
-          if (!cursor.isNull(index7)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)cursor.getInt(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)cursor.getInt(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.fieldShort=fieldShortAdapter.toJava(cursor.getShort(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(cursor.getInt(index10)); }
-          if (!cursor.isNull(index11)) { resultBean.fieldLong=fieldLongAdapter.toJava(cursor.getLong(index11)); }
-          if (!cursor.isNull(index12)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(cursor.getFloat(index12)); }
-          if (!cursor.isNull(index13)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(cursor.getDouble(index13)); }
-          if (!cursor.isNull(index14)) { resultBean.fieldString=fieldStringAdapter.toJava(cursor.getString(index14)); }
-          if (!cursor.isNull(index15)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(cursor.getBlob(index15)); }
+        resultBean.id=cursor.getLong(index0);
+        if (!cursor.isNull(index1)) { resultBean.lastName=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.firstName=cursor.getString(index2); }
+        if (!cursor.isNull(index3)) { resultBean.birthDate=SQLDateUtils.read(cursor.getString(index3)); }
+        if (!cursor.isNull(index4)) { resultBean.hireDate=SQLDateUtils.read(cursor.getString(index4)); }
+        if (!cursor.isNull(index5)) { resultBean.address=addressAdapter.toJava(cursor.getString(index5)); }
+        if (!cursor.isNull(index6)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(cursor.getInt(index6)==0?false:true); }
+        if (!cursor.isNull(index7)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)cursor.getInt(index7)); }
+        if (!cursor.isNull(index8)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)cursor.getInt(index8)); }
+        if (!cursor.isNull(index9)) { resultBean.fieldShort=fieldShortAdapter.toJava(cursor.getShort(index9)); }
+        if (!cursor.isNull(index10)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(cursor.getInt(index10)); }
+        if (!cursor.isNull(index11)) { resultBean.fieldLong=fieldLongAdapter.toJava(cursor.getLong(index11)); }
+        if (!cursor.isNull(index12)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(cursor.getFloat(index12)); }
+        if (!cursor.isNull(index13)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(cursor.getDouble(index13)); }
+        if (!cursor.isNull(index14)) { resultBean.fieldString=fieldStringAdapter.toJava(cursor.getString(index14)); }
+        if (!cursor.isNull(index15)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(cursor.getBlob(index15)); }
 
-          resultList.add(resultBean);
-        } while (cursor.moveToNext());
       }
-
-      return resultList;
+      return resultBean;
     }
   }
 
@@ -329,10 +318,10 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
    *
    * @param bean
    * 	is used as ${bean}
-   * @return collection of bean or empty collection.
+   * @return selected bean or <code>null</code>.
    */
   @Override
-  public List<Employee> selectByAll(Employee bean) {
+  public Employee selectByAll(Employee bean) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees");
     // generation CODE_001 -- BEGIN
@@ -372,7 +361,6 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
-      LinkedList<Employee> resultList=new LinkedList<Employee>();
       Employee resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -383,6 +371,7 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
         int index3=cursor.getColumnIndex("birth_date");
         int index4=cursor.getColumnIndex("hire_date");
         int index5=cursor.getColumnIndex("address");
+        TypeAdapterAddress addressAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterAddress.class);
         int index6=cursor.getColumnIndex("field_boolean");
         TypeAdapterBoolean fieldBooleanAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterBoolean.class);
         int index7=cursor.getColumnIndex("field_byte");
@@ -404,32 +393,27 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
         int index15=cursor.getColumnIndex("field_byte_array");
         TypeAdapterByteArray fieldByteArrayAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterByteArray.class);
 
-        do
-         {
-          resultBean=new Employee();
+        resultBean=new Employee();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.lastName=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.firstName=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthDate=SQLDateUtils.read(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.hireDate=SQLDateUtils.read(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.address=EmployeeTable.parseAddress(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(cursor.getInt(index6)==0?false:true); }
-          if (!cursor.isNull(index7)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)cursor.getInt(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)cursor.getInt(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.fieldShort=fieldShortAdapter.toJava(cursor.getShort(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(cursor.getInt(index10)); }
-          if (!cursor.isNull(index11)) { resultBean.fieldLong=fieldLongAdapter.toJava(cursor.getLong(index11)); }
-          if (!cursor.isNull(index12)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(cursor.getFloat(index12)); }
-          if (!cursor.isNull(index13)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(cursor.getDouble(index13)); }
-          if (!cursor.isNull(index14)) { resultBean.fieldString=fieldStringAdapter.toJava(cursor.getString(index14)); }
-          if (!cursor.isNull(index15)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(cursor.getBlob(index15)); }
+        resultBean.id=cursor.getLong(index0);
+        if (!cursor.isNull(index1)) { resultBean.lastName=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.firstName=cursor.getString(index2); }
+        if (!cursor.isNull(index3)) { resultBean.birthDate=SQLDateUtils.read(cursor.getString(index3)); }
+        if (!cursor.isNull(index4)) { resultBean.hireDate=SQLDateUtils.read(cursor.getString(index4)); }
+        if (!cursor.isNull(index5)) { resultBean.address=addressAdapter.toJava(cursor.getString(index5)); }
+        if (!cursor.isNull(index6)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(cursor.getInt(index6)==0?false:true); }
+        if (!cursor.isNull(index7)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)cursor.getInt(index7)); }
+        if (!cursor.isNull(index8)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)cursor.getInt(index8)); }
+        if (!cursor.isNull(index9)) { resultBean.fieldShort=fieldShortAdapter.toJava(cursor.getShort(index9)); }
+        if (!cursor.isNull(index10)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(cursor.getInt(index10)); }
+        if (!cursor.isNull(index11)) { resultBean.fieldLong=fieldLongAdapter.toJava(cursor.getLong(index11)); }
+        if (!cursor.isNull(index12)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(cursor.getFloat(index12)); }
+        if (!cursor.isNull(index13)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(cursor.getDouble(index13)); }
+        if (!cursor.isNull(index14)) { resultBean.fieldString=fieldStringAdapter.toJava(cursor.getString(index14)); }
+        if (!cursor.isNull(index15)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(cursor.getBlob(index15)); }
 
-          resultList.add(resultBean);
-        } while (cursor.moveToNext());
       }
-
-      return resultList;
+      return resultBean;
     }
   }
 
@@ -475,10 +459,10 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
    *
    * @param bean
    * 	is used as ${bean}
-   * @return collection of bean or empty collection.
+   * @return selected bean or <code>null</code>.
    */
   @Override
-  public List<Employee> selectByAllJQL(Employee bean) {
+  public Employee selectByAllJQL(Employee bean) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees");
     // generation CODE_001 -- BEGIN
@@ -518,7 +502,6 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
-      LinkedList<Employee> resultList=new LinkedList<Employee>();
       Employee resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -529,6 +512,7 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
         int index3=cursor.getColumnIndex("birth_date");
         int index4=cursor.getColumnIndex("hire_date");
         int index5=cursor.getColumnIndex("address");
+        TypeAdapterAddress addressAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterAddress.class);
         int index6=cursor.getColumnIndex("field_boolean");
         TypeAdapterBoolean fieldBooleanAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterBoolean.class);
         int index7=cursor.getColumnIndex("field_byte");
@@ -550,32 +534,27 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
         int index15=cursor.getColumnIndex("field_byte_array");
         TypeAdapterByteArray fieldByteArrayAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterByteArray.class);
 
-        do
-         {
-          resultBean=new Employee();
+        resultBean=new Employee();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.lastName=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.firstName=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthDate=SQLDateUtils.read(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.hireDate=SQLDateUtils.read(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.address=EmployeeTable.parseAddress(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(cursor.getInt(index6)==0?false:true); }
-          if (!cursor.isNull(index7)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)cursor.getInt(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)cursor.getInt(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.fieldShort=fieldShortAdapter.toJava(cursor.getShort(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(cursor.getInt(index10)); }
-          if (!cursor.isNull(index11)) { resultBean.fieldLong=fieldLongAdapter.toJava(cursor.getLong(index11)); }
-          if (!cursor.isNull(index12)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(cursor.getFloat(index12)); }
-          if (!cursor.isNull(index13)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(cursor.getDouble(index13)); }
-          if (!cursor.isNull(index14)) { resultBean.fieldString=fieldStringAdapter.toJava(cursor.getString(index14)); }
-          if (!cursor.isNull(index15)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(cursor.getBlob(index15)); }
+        resultBean.id=cursor.getLong(index0);
+        if (!cursor.isNull(index1)) { resultBean.lastName=cursor.getString(index1); }
+        if (!cursor.isNull(index2)) { resultBean.firstName=cursor.getString(index2); }
+        if (!cursor.isNull(index3)) { resultBean.birthDate=SQLDateUtils.read(cursor.getString(index3)); }
+        if (!cursor.isNull(index4)) { resultBean.hireDate=SQLDateUtils.read(cursor.getString(index4)); }
+        if (!cursor.isNull(index5)) { resultBean.address=addressAdapter.toJava(cursor.getString(index5)); }
+        if (!cursor.isNull(index6)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(cursor.getInt(index6)==0?false:true); }
+        if (!cursor.isNull(index7)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)cursor.getInt(index7)); }
+        if (!cursor.isNull(index8)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)cursor.getInt(index8)); }
+        if (!cursor.isNull(index9)) { resultBean.fieldShort=fieldShortAdapter.toJava(cursor.getShort(index9)); }
+        if (!cursor.isNull(index10)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(cursor.getInt(index10)); }
+        if (!cursor.isNull(index11)) { resultBean.fieldLong=fieldLongAdapter.toJava(cursor.getLong(index11)); }
+        if (!cursor.isNull(index12)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(cursor.getFloat(index12)); }
+        if (!cursor.isNull(index13)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(cursor.getDouble(index13)); }
+        if (!cursor.isNull(index14)) { resultBean.fieldString=fieldStringAdapter.toJava(cursor.getString(index14)); }
+        if (!cursor.isNull(index15)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(cursor.getBlob(index15)); }
 
-          resultList.add(resultBean);
-        } while (cursor.moveToNext());
       }
-
-      return resultList;
+      return resultBean;
     }
   }
 
@@ -635,7 +614,7 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
       contentValues.putNull("hire_date");
     }
     if (bean.address!=null) {
-      contentValues.put("address", EmployeeTable.serializeAddress(bean.address));
+      contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
     } else {
       contentValues.putNull("address");
     }
@@ -899,7 +878,7 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
       contentValues.putNull("hire_date");
     }
     if (bean.address!=null) {
-      contentValues.put("address", EmployeeTable.serializeAddress(bean.address));
+      contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
     } else {
       contentValues.putNull("address");
     }
@@ -1062,7 +1041,7 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
       contentValues.putNull("hire_date");
     }
     if (bean.address!=null) {
-      contentValues.put("address", EmployeeTable.serializeAddress(bean.address));
+      contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
     } else {
       contentValues.putNull("address");
     }
@@ -1215,7 +1194,7 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
       contentValues.putNull("hire_date");
     }
     if (bean.address!=null) {
-      contentValues.put("address", EmployeeTable.serializeAddress(bean.address));
+      contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
     } else {
       contentValues.putNull("address");
     }
@@ -1318,7 +1297,7 @@ public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
       contentValues.putNull("hire_date");
     }
     if (bean.address!=null) {
-      contentValues.put("address", EmployeeTable.serializeAddress(bean.address));
+      contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
     } else {
       contentValues.putNull("address");
     }

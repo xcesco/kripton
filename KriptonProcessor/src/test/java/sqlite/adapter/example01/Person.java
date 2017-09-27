@@ -25,7 +25,7 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Person {
 
 	private long id;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -35,7 +35,7 @@ public class Person {
 	}
 
 	private String name;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -53,9 +53,9 @@ public class Person {
 	}
 
 	private String surname;
-	
-	@BindColumn("birth")	
-	@BindAdapter(adapter=DateAdapter.class, dataType = Long.class)
+
+	@BindColumn("birth")
+	@BindAdapter(adapter = DateAdapter.class)
 	private Date birthDate;
 
 	public Date getBirthDate() {

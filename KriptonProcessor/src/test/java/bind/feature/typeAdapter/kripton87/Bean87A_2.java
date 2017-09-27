@@ -22,20 +22,18 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
-import bind.feature.typeAdapter.kripton87.UrlByteArrayTypeAdapter;
-
 @BindType
 public class Bean87A_2 {
 
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
-	@BindAdapter(adapter = UrlByteArrayTypeAdapter.class, dataType = byte[].class)
+	@BindAdapter(adapter = UrlByteArrayTypeAdapter.class)
 	public URL attributeURL;
 
 	@BindXml(xmlType = XmlType.TAG)
-	@BindAdapter(adapter = UrlByteArrayTypeAdapter.class, dataType = byte[].class)
+	@BindAdapter(adapter = UrlByteArrayTypeAdapter.class)
 	public URL elementURL;
 
 	@BindXml(xmlType = XmlType.VALUE)
-	@BindAdapter(adapter = UrlByteArrayTypeAdapter.class, dataType = byte[].class)
+	@BindAdapter(adapter = UrlByteArrayTypeAdapter.class)
 	public URL dataURL;
 }

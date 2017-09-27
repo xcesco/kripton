@@ -137,11 +137,6 @@ public abstract class BindEntityBuilder {
 				// @BindAdapter
 				ModelAnnotation annotationBindAdapter = property.getAnnotation(BindAdapter.class);
 				if (annotationBindAdapter != null) {
-					// property.typeAdapter.adapterClazz =
-					// annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-					// property.typeAdapter.dataType =
-					// annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
-
 					BindTransform transform = BindTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
 
 					if (!transform.isTypeAdapterSupported()) {

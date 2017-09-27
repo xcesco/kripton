@@ -184,11 +184,11 @@ public class BindProperty extends ModelProperty {
 		inCollection = false;
 		xmlInfo = new XmlInfo();
 		jacksonInfo = new JacksonInfo();
-		
+
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindAdapter.class);
 		if (annotationBindAdapter != null) {
 			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-			typeAdapter.dataType = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.DATA_TYPE);
+			typeAdapter.dataType = detectRealtType(entity.getElement(), typeAdapter.adapterClazz);
 		}
 
 	}

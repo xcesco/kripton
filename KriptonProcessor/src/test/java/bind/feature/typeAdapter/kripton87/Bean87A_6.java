@@ -15,28 +15,24 @@
  *******************************************************************************/
 package bind.feature.typeAdapter.kripton87;
 
-import java.net.URL;
-
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
-import bind.feature.typeAdapter.kripton87.StringUrlTypeAdapter;
-
 @BindType
 public class Bean87A_6 {
-	
+
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
-	@BindAdapter(adapter = StringUrlTypeAdapter.class, dataType = URL.class)
+	@BindAdapter(adapter = StringUrlTypeAdapter.class)
 	public String attributeString;
 
 	@BindXml(xmlType = XmlType.TAG)
-	@BindAdapter(adapter = StringUrlTypeAdapter.class, dataType = URL.class)
+	@BindAdapter(adapter = StringUrlTypeAdapter.class)
 	public String elementString;
 
 	@BindXml(xmlType = XmlType.VALUE)
-	@BindAdapter(adapter = StringUrlTypeAdapter.class, dataType = URL.class)
+	@BindAdapter(adapter = StringUrlTypeAdapter.class)
 	public String dataString;
 
 }

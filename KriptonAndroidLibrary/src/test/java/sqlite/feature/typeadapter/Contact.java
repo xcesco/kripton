@@ -17,16 +17,16 @@ public class Contact {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public String surname;
 
-	@BindSqlAdapter(adapter = DateAdapterType.class, dataType = Long.class)
+	@BindSqlAdapter(adapter = DateAdapterType.class)
 	public Date birthDay;
-		
-	@BindSqlAdapter(adapter = PasswordAdapterType.class, dataType = byte[].class)
+
+	@BindSqlAdapter(adapter = PasswordAdapterType.class)
 	protected String password;
-	
-	@BindSqlAdapter(adapter = EnumAdapterType.class, dataType=Integer.class)
+
+	@BindSqlAdapter(adapter = EnumAdapterType.class)
 	public ContactType type;
 
 	public String getPassword() {
@@ -36,11 +36,11 @@ public class Contact {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public java.sql.Date updateDate;
-	
+
 	public java.sql.Time updateTime;
-	
-//	@BindSqlAdapter(adapter = AdapterType.class, dataType = Long.class)
-//	public byte[] password;
+
+	// @BindSqlAdapter(adapter = AdapterType.class, dataType = Long.class)
+	// public byte[] password;
 }

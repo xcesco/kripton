@@ -31,9 +31,9 @@ public class EmployeeTable {
    * DDL to create table employees
    * </p>
    *
-   * <pre>CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT, last_name TEXT, first_name TEXT, birth_date TEXT, hire_date TEXT, address BLOB, field_boolean INTEGER, field_byte INTEGER, field_character INTEGER, field_short INTEGER, field_integer INTEGER, field_long INTEGER, field_float REAL, field_double REAL, field_string TEXT, field_byte_array BLOB);</pre>
+   * <pre>CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT, last_name TEXT, first_name TEXT, birth_date TEXT, hire_date TEXT, address TEXT, field_boolean INTEGER, field_byte INTEGER, field_character INTEGER, field_short INTEGER, field_integer INTEGER, field_long INTEGER, field_float REAL, field_double REAL, field_string TEXT, field_byte_array BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT, last_name TEXT, first_name TEXT, birth_date TEXT, hire_date TEXT, address BLOB, field_boolean INTEGER, field_byte INTEGER, field_character INTEGER, field_short INTEGER, field_integer INTEGER, field_long INTEGER, field_float REAL, field_double REAL, field_string TEXT, field_byte_array BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT, last_name TEXT, first_name TEXT, birth_date TEXT, hire_date TEXT, address TEXT, field_boolean INTEGER, field_byte INTEGER, field_character INTEGER, field_short INTEGER, field_integer INTEGER, field_long INTEGER, field_float REAL, field_double REAL, field_string TEXT, field_byte_array BLOB);";
 
   /**
    * <p>

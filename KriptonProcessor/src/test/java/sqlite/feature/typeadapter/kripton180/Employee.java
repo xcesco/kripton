@@ -24,49 +24,48 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-@BindTable(name="employees")
-public class Employee {	
+@BindTable(name = "employees")
+public class Employee {
 	public long id;
-	
-//	
+
+	//
 	public String lastName;
 	public String firstName;
 	public Date birthDate;
 	public Date hireDate;
-	
-	@BindSqlAdapter(adapter=TypeAdapterAddress.class, dataType=String.class)
-	public Address address;	
-	
-	@BindSqlAdapter(adapter=TypeAdapterBoolean.class, dataType=Boolean.class)
-	public String fieldBoolean;
-	
-	@BindSqlAdapter(adapter=TypeAdapterByte.class, dataType=Byte.class)
-	public String fieldByte;
-	
-	@BindSqlAdapter(adapter=TypeAdapterChar.class, dataType=Character.class)
-	public String fieldCharacter;
-	
-	@BindSqlAdapter(adapter=TypeAdapterShort.class, dataType=Short.class)
-	public String fieldShort;
-	
-	@BindSqlAdapter(adapter=TypeAdapterInteger.class, dataType=Integer.class)
-	public String fieldInteger;
-	
-	@BindSqlAdapter(adapter=TypeAdapterLong.class, dataType=Long.class)
-	public String fieldLong;
-	
-	@BindSqlAdapter(adapter=TypeAdapterFloat.class, dataType=Float.class)
-	public String fieldFloat;
-	
-	@BindSqlAdapter(adapter=TypeAdapterDouble.class, dataType=Double.class)
-	public String fieldDouble;
-	
-	@BindSqlAdapter(adapter=TypeAdapterString.class, dataType=String.class)
-	public String fieldString;
-	
-	@BindSqlAdapter(adapter=TypeAdapterByteArray.class, dataType=byte[].class)
-	public String fieldByteArray;
-//	
 
-		
+	@BindSqlAdapter(adapter = TypeAdapterAddress.class)
+	public Address address;
+
+	@BindSqlAdapter(adapter = TypeAdapterBoolean.class)
+	public String fieldBoolean;
+
+	@BindSqlAdapter(adapter = TypeAdapterByte.class)
+	public String fieldByte;
+
+	@BindSqlAdapter(adapter = TypeAdapterChar.class)
+	public String fieldCharacter;
+
+	@BindSqlAdapter(adapter = TypeAdapterShort.class)
+	public String fieldShort;
+
+	@BindSqlAdapter(adapter = TypeAdapterInteger.class)
+	public String fieldInteger;
+
+	@BindSqlAdapter(adapter = TypeAdapterLong.class)
+	public String fieldLong;
+
+	@BindSqlAdapter(adapter = TypeAdapterFloat.class)
+	public String fieldFloat;
+
+	@BindSqlAdapter(adapter = TypeAdapterDouble.class)
+	public String fieldDouble;
+
+	@BindSqlAdapter(adapter = TypeAdapterString.class)
+	public String fieldString;
+
+	@BindSqlAdapter(adapter = TypeAdapterByteArray.class)
+	public String fieldByteArray;
+	//
+
 }

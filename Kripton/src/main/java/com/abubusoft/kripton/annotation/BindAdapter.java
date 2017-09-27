@@ -23,10 +23,15 @@ import java.lang.annotation.Target;
 import com.abubusoft.kripton.BindTypeAdapter;
 
 /**
- * <p>Defines TypeAdapter to use to the field.</p>
+ * <p>
+ * Defines TypeAdapter to use to the field.
+ * </p>
  * 
- * <p>This kind of adapter is applied from java to data format (JSON/XML/etc) and viceversa. <strong>It is not used in 
- * SharedPreference and SQLite generation.</strong></p>
+ * <p>
+ * This kind of adapter is applied from java to data format (JSON/XML/etc) and
+ * viceversa. <strong>It is not used in SharedPreference and SQLite
+ * generation.</strong>
+ * </p>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -38,14 +43,7 @@ public @interface BindAdapter {
 	/**
 	 * TypeAdapter used to convert data
 	 * 
-	 * @return
-	 * 		instance of class converter
+	 * @return instance of class converter
 	 */
-	public Class<? extends BindTypeAdapter<?,?>> adapter();
-		
-	/**
-	 * Type of data stored in json/xml/etc.
-	 * @return
-	 */
-	public Class<?> dataType();
+	public Class<? extends BindTypeAdapter<?, ?>> adapter();
 }
