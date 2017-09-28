@@ -1331,4 +1331,378 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     int result = database().update("employees", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
     return result;
   }
+
+  /**
+   * <h2>SQL update</h2>
+   * <pre>UPDATE employees SET first_name=:firstName WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * 	<li>first_name</li>
+   * </ul>
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>${fieldBoolean}</dt><dd>is mapped to method's parameter <strong>fieldBoolean</strong></dd>
+   * 	<dt>${fieldByte}</dt><dd>is mapped to method's parameter <strong>fieldByte</strong></dd>
+   * 	<dt>${fieldCharacter}</dt><dd>is mapped to method's parameter <strong>fieldCharacter</strong></dd>
+   * 	<dt>${fieldShort}</dt><dd>is mapped to method's parameter <strong>fieldShort</strong></dd>
+   * 	<dt>${fieldInteger}</dt><dd>is mapped to method's parameter <strong>fieldInteger</strong></dd>
+   * 	<dt>${fieldLong}</dt><dd>is mapped to method's parameter <strong>fieldLong</strong></dd>
+   * 	<dt>${fieldFloat}</dt><dd>is mapped to method's parameter <strong>fieldFloat</strong></dd>
+   * 	<dt>${fieldDouble}</dt><dd>is mapped to method's parameter <strong>fieldDouble</strong></dd>
+   * 	<dt>${fieldString}</dt><dd>is mapped to method's parameter <strong>fieldString</strong></dd>
+   * 	<dt>${fieldByteArray}</dt><dd>is mapped to method's parameter <strong>fieldByteArray</strong></dd>
+   * </dl>
+   *
+   * @param firstName
+   * 	is used as updated field <strong>firstName</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param fieldBoolean
+   * 	is used as where parameter <strong>${fieldBoolean}</strong>
+   * @param fieldByte
+   * 	is used as where parameter <strong>${fieldByte}</strong>
+   * @param fieldCharacter
+   * 	is used as where parameter <strong>${fieldCharacter}</strong>
+   * @param fieldShort
+   * 	is used as where parameter <strong>${fieldShort}</strong>
+   * @param fieldInteger
+   * 	is used as where parameter <strong>${fieldInteger}</strong>
+   * @param fieldLong
+   * 	is used as where parameter <strong>${fieldLong}</strong>
+   * @param fieldFloat
+   * 	is used as where parameter <strong>${fieldFloat}</strong>
+   * @param fieldDouble
+   * 	is used as where parameter <strong>${fieldDouble}</strong>
+   * @param fieldString
+   * 	is used as where parameter <strong>${fieldString}</strong>
+   * @param fieldByteArray
+   * 	is used as where parameter <strong>${fieldByteArray}</strong>
+   *
+   * @return number of updated records
+   */
+  @Override
+  public long update(String firstName, long id, String fieldBoolean, String fieldByte,
+      String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
+      String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+    if (firstName!=null) {
+      contentValues.put("first_name", firstName);
+    } else {
+      contentValues.putNull("first_name");
+    }
+
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    _sqlWhereParams.add(String.valueOf(id));
+    _sqlWhereParams.add((fieldBoolean==null?"":fieldBoolean));
+    _sqlWhereParams.add((fieldByte==null?"":fieldByte));
+    _sqlWhereParams.add((fieldCharacter==null?"":fieldCharacter));
+    _sqlWhereParams.add((fieldShort==null?"":fieldShort));
+    _sqlWhereParams.add((fieldInteger==null?"":fieldInteger));
+    _sqlWhereParams.add((fieldLong==null?"":fieldLong));
+    _sqlWhereParams.add((fieldFloat==null?"":fieldFloat));
+    _sqlWhereParams.add((fieldDouble==null?"":fieldDouble));
+    _sqlWhereParams.add((fieldString==null?"":fieldString));
+    _sqlWhereParams.add((fieldByteArray==null?"":fieldByteArray));
+
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // display log
+    Logger.info("UPDATE employees SET first_name=:firstName WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+    int result = database().update("employees", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    return result;
+  }
+
+  /**
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>${fieldBoolean}</dt><dd>is mapped to method's parameter <strong>fieldBoolean</strong></dd>
+   * 	<dt>${fieldByte}</dt><dd>is mapped to method's parameter <strong>fieldByte</strong></dd>
+   * 	<dt>${fieldCharacter}</dt><dd>is mapped to method's parameter <strong>fieldCharacter</strong></dd>
+   * 	<dt>${fieldShort}</dt><dd>is mapped to method's parameter <strong>fieldShort</strong></dd>
+   * 	<dt>${fieldInteger}</dt><dd>is mapped to method's parameter <strong>fieldInteger</strong></dd>
+   * 	<dt>${fieldLong}</dt><dd>is mapped to method's parameter <strong>fieldLong</strong></dd>
+   * 	<dt>${fieldFloat}</dt><dd>is mapped to method's parameter <strong>fieldFloat</strong></dd>
+   * 	<dt>${fieldDouble}</dt><dd>is mapped to method's parameter <strong>fieldDouble</strong></dd>
+   * 	<dt>${fieldString}</dt><dd>is mapped to method's parameter <strong>fieldString</strong></dd>
+   * 	<dt>${fieldByteArray}</dt><dd>is mapped to method's parameter <strong>fieldByteArray</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param fieldBoolean
+   * 	is used as where parameter <strong>${fieldBoolean}</strong>
+   * @param fieldByte
+   * 	is used as where parameter <strong>${fieldByte}</strong>
+   * @param fieldCharacter
+   * 	is used as where parameter <strong>${fieldCharacter}</strong>
+   * @param fieldShort
+   * 	is used as where parameter <strong>${fieldShort}</strong>
+   * @param fieldInteger
+   * 	is used as where parameter <strong>${fieldInteger}</strong>
+   * @param fieldLong
+   * 	is used as where parameter <strong>${fieldLong}</strong>
+   * @param fieldFloat
+   * 	is used as where parameter <strong>${fieldFloat}</strong>
+   * @param fieldDouble
+   * 	is used as where parameter <strong>${fieldDouble}</strong>
+   * @param fieldString
+   * 	is used as where parameter <strong>${fieldString}</strong>
+   * @param fieldByteArray
+   * 	is used as where parameter <strong>${fieldByteArray}</strong>
+   *
+   * @return number of deleted records
+   */
+  @Override
+  public long delete(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
+      String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
+      String fieldDouble, String fieldString, String fieldByteArray) {
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    _sqlWhereParams.add(String.valueOf(id));
+    _sqlWhereParams.add((fieldBoolean==null?"":fieldBoolean));
+    _sqlWhereParams.add((fieldByte==null?"":fieldByte));
+    _sqlWhereParams.add((fieldCharacter==null?"":fieldCharacter));
+    _sqlWhereParams.add((fieldShort==null?"":fieldShort));
+    _sqlWhereParams.add((fieldInteger==null?"":fieldInteger));
+    _sqlWhereParams.add((fieldLong==null?"":fieldLong));
+    _sqlWhereParams.add((fieldFloat==null?"":fieldFloat));
+    _sqlWhereParams.add((fieldDouble==null?"":fieldDouble));
+    _sqlWhereParams.add((fieldString==null?"":fieldString));
+    _sqlWhereParams.add((fieldByteArray==null?"":fieldByteArray));
+
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // display log
+    Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+    int result = database().delete("employees", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    return result;
+  }
+
+  /**
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>${fieldBoolean}</dt><dd>is mapped to method's parameter <strong>fieldBoolean</strong></dd>
+   * 	<dt>${fieldByte}</dt><dd>is mapped to method's parameter <strong>fieldByte</strong></dd>
+   * 	<dt>${fieldCharacter}</dt><dd>is mapped to method's parameter <strong>fieldCharacter</strong></dd>
+   * 	<dt>${fieldShort}</dt><dd>is mapped to method's parameter <strong>fieldShort</strong></dd>
+   * 	<dt>${fieldInteger}</dt><dd>is mapped to method's parameter <strong>fieldInteger</strong></dd>
+   * 	<dt>${fieldLong}</dt><dd>is mapped to method's parameter <strong>fieldLong</strong></dd>
+   * 	<dt>${fieldFloat}</dt><dd>is mapped to method's parameter <strong>fieldFloat</strong></dd>
+   * 	<dt>${fieldDouble}</dt><dd>is mapped to method's parameter <strong>fieldDouble</strong></dd>
+   * 	<dt>${fieldString}</dt><dd>is mapped to method's parameter <strong>fieldString</strong></dd>
+   * 	<dt>${fieldByteArray}</dt><dd>is mapped to method's parameter <strong>fieldByteArray</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param fieldBoolean
+   * 	is used as where parameter <strong>${fieldBoolean}</strong>
+   * @param fieldByte
+   * 	is used as where parameter <strong>${fieldByte}</strong>
+   * @param fieldCharacter
+   * 	is used as where parameter <strong>${fieldCharacter}</strong>
+   * @param fieldShort
+   * 	is used as where parameter <strong>${fieldShort}</strong>
+   * @param fieldInteger
+   * 	is used as where parameter <strong>${fieldInteger}</strong>
+   * @param fieldLong
+   * 	is used as where parameter <strong>${fieldLong}</strong>
+   * @param fieldFloat
+   * 	is used as where parameter <strong>${fieldFloat}</strong>
+   * @param fieldDouble
+   * 	is used as where parameter <strong>${fieldDouble}</strong>
+   * @param fieldString
+   * 	is used as where parameter <strong>${fieldString}</strong>
+   * @param fieldByteArray
+   * 	is used as where parameter <strong>${fieldByteArray}</strong>
+   *
+   * @return number of deleted records
+   */
+  @Override
+  public long deleteJQL(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
+      String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
+      String fieldDouble, String fieldString, String fieldByteArray) {
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    _sqlWhereParams.add(String.valueOf(id));
+    _sqlWhereParams.add((fieldBoolean==null?"":fieldBoolean));
+    _sqlWhereParams.add((fieldByte==null?"":fieldByte));
+    _sqlWhereParams.add((fieldCharacter==null?"":fieldCharacter));
+    _sqlWhereParams.add((fieldShort==null?"":fieldShort));
+    _sqlWhereParams.add((fieldInteger==null?"":fieldInteger));
+    _sqlWhereParams.add((fieldLong==null?"":fieldLong));
+    _sqlWhereParams.add((fieldFloat==null?"":fieldFloat));
+    _sqlWhereParams.add((fieldDouble==null?"":fieldDouble));
+    _sqlWhereParams.add((fieldString==null?"":fieldString));
+    _sqlWhereParams.add((fieldByteArray==null?"":fieldByteArray));
+
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // display log
+    Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+    int result = database().delete("employees", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    return result;
+  }
+
+  /**
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>${fieldBoolean}</dt><dd>is mapped to method's parameter <strong>fieldBoolean</strong></dd>
+   * 	<dt>${fieldByte}</dt><dd>is mapped to method's parameter <strong>fieldByte</strong></dd>
+   * 	<dt>${fieldCharacter}</dt><dd>is mapped to method's parameter <strong>fieldCharacter</strong></dd>
+   * 	<dt>${fieldShort}</dt><dd>is mapped to method's parameter <strong>fieldShort</strong></dd>
+   * 	<dt>${fieldInteger}</dt><dd>is mapped to method's parameter <strong>fieldInteger</strong></dd>
+   * 	<dt>${fieldLong}</dt><dd>is mapped to method's parameter <strong>fieldLong</strong></dd>
+   * 	<dt>${fieldFloat}</dt><dd>is mapped to method's parameter <strong>fieldFloat</strong></dd>
+   * 	<dt>${fieldDouble}</dt><dd>is mapped to method's parameter <strong>fieldDouble</strong></dd>
+   * 	<dt>${fieldString}</dt><dd>is mapped to method's parameter <strong>fieldString</strong></dd>
+   * 	<dt>${fieldByteArray}</dt><dd>is mapped to method's parameter <strong>fieldByteArray</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param fieldBoolean
+   * 	is used as where parameter <strong>${fieldBoolean}</strong>
+   * @param fieldByte
+   * 	is used as where parameter <strong>${fieldByte}</strong>
+   * @param fieldCharacter
+   * 	is used as where parameter <strong>${fieldCharacter}</strong>
+   * @param fieldShort
+   * 	is used as where parameter <strong>${fieldShort}</strong>
+   * @param fieldInteger
+   * 	is used as where parameter <strong>${fieldInteger}</strong>
+   * @param fieldLong
+   * 	is used as where parameter <strong>${fieldLong}</strong>
+   * @param fieldFloat
+   * 	is used as where parameter <strong>${fieldFloat}</strong>
+   * @param fieldDouble
+   * 	is used as where parameter <strong>${fieldDouble}</strong>
+   * @param fieldString
+   * 	is used as where parameter <strong>${fieldString}</strong>
+   * @param fieldByteArray
+   * 	is used as where parameter <strong>${fieldByteArray}</strong>
+   *
+   * @return number of deleted records
+   */
+  @Override
+  public long deleteJQLWithAdapter(long id, String fieldBoolean, String fieldByte,
+      String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
+      String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    _sqlWhereParams.add(String.valueOf(id));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, fieldCharacter));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterShort.class, fieldShort));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterInteger.class, fieldInteger));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterLong.class, fieldLong));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterFloat.class, fieldFloat));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterDouble.class, fieldDouble));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterString.class, fieldString));
+    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, fieldByteArray));
+
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // display log
+    Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+    int result = database().delete("employees", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    return result;
+  }
 }

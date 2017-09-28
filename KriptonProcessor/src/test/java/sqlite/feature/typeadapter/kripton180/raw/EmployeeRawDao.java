@@ -48,7 +48,20 @@ public interface EmployeeRawDao {
 	
 	@BindSqlUpdate(where = "id=${id}")
 	long updateById(long id, String fieldBoolean, String fieldByte, String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong, String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray);
-/*
+	
+	@BindSqlUpdate(where = "id=${id} and fieldBoolean=${fieldBoolean} and fieldByte=${fieldByte} and fieldCharacter=${fieldCharacter} and fieldShort=${fieldShort} and fieldInteger=${fieldInteger} and fieldLong=${fieldLong} and fieldFloat=${fieldFloat} and fieldDouble=${fieldDouble} and fieldString=${fieldString} and fieldByteArray=${fieldByteArray}")
+	long update(String firstName, long id, String fieldBoolean, String fieldByte, String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong, String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray);
+	
+	@BindSqlDelete(where = "id=${id} and fieldBoolean=${fieldBoolean} and fieldByte=${fieldByte} and fieldCharacter=${fieldCharacter} and fieldShort=${fieldShort} and fieldInteger=${fieldInteger} and fieldLong=${fieldLong} and fieldFloat=${fieldFloat} and fieldDouble=${fieldDouble} and fieldString=${fieldString} and fieldByteArray=${fieldByteArray}")
+	long delete(long id, String fieldBoolean, String fieldByte, String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong, String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray);
+	
+	@BindSqlDelete(jql = "DELETE FROM employee WHERE id=${id} and fieldBoolean=${fieldBoolean} and fieldByte=${fieldByte} and fieldCharacter=${fieldCharacter} and fieldShort=${fieldShort} and fieldInteger=${fieldInteger} and fieldLong=${fieldLong} and fieldFloat=${fieldFloat} and fieldDouble=${fieldDouble} and fieldString=${fieldString} and fieldByteArray=${fieldByteArray}")
+	long deleteJQL(long id, String fieldBoolean, String fieldByte, String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong, String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray);
+	
+	@BindSqlDelete(jql = "DELETE FROM employee WHERE id=${id} and fieldBoolean=${fieldBoolean} and fieldByte=${fieldByte} and fieldCharacter=${fieldCharacter} and fieldShort=${fieldShort} and fieldInteger=${fieldInteger} and fieldLong=${fieldLong} and fieldFloat=${fieldFloat} and fieldDouble=${fieldDouble} and fieldString=${fieldString} and fieldByteArray=${fieldByteArray}")
+	long deleteJQLWithAdapter(long id,@BindSqlParam(adapter=TypeAdapterBoolean.class) String fieldBoolean, @BindSqlParam(adapter=TypeAdapterByte.class) String fieldByte,@BindSqlParam(adapter=TypeAdapterChar.class)  String fieldCharacter, @BindSqlParam(adapter=TypeAdapterShort.class) String fieldShort, @BindSqlParam(adapter=TypeAdapterInteger.class) String fieldInteger, @BindSqlParam(adapter=TypeAdapterLong.class) String fieldLong, @BindSqlParam(adapter=TypeAdapterFloat.class) String fieldFloat, @BindSqlParam(adapter=TypeAdapterDouble.class) String fieldDouble, @BindSqlParam(adapter=TypeAdapterString.class) String fieldString, @BindSqlParam(adapter=TypeAdapterByteArray.class) String fieldByteArray);
+
+	/*
 
 	@BindSqlUpdate(where = "id=${bean.id}")
 	long updateById(Employee bean);
