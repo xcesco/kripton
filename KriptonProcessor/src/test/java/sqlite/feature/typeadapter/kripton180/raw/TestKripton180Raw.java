@@ -19,6 +19,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.typeadapter.kripton180.Address;
 import sqlite.feature.typeadapter.kripton180.Employee;
@@ -36,6 +38,8 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterLastName;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterLong;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterShort;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
+import sqlite.feature.typeadapter.kripton180.raw.err.EmployeeRawErrDao;
+import sqlite.feature.typeadapter.kripton180.raw.err.Kripton180RawErrDataSource;
 
 @RunWith(JUnit4.class)
 public class TestKripton180Raw extends AbstractBindSQLiteProcessorTest {
@@ -43,6 +47,14 @@ public class TestKripton180Raw extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testCompile() throws Throwable {
 		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeRawDao.class, Kripton180RawDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,
+				TypeAdapterBoolean.class, TypeAdapterByte.class,  TypeAdapterShort.class, TypeAdapterChar.class, TypeAdapterDouble.class, TypeAdapterFloat.class, TypeAdapterInteger.class, TypeAdapterLong.class,
+				TypeAdapterString.class, TypeAdapterByteArray.class, TypeAdapterLastName.class);
+	}
+	
+	@Test
+	public void testErrorOnRawTypeAdapter() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class);
+		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeRawErrDao.class, Kripton180RawErrDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,
 				TypeAdapterBoolean.class, TypeAdapterByte.class,  TypeAdapterShort.class, TypeAdapterChar.class, TypeAdapterDouble.class, TypeAdapterFloat.class, TypeAdapterInteger.class, TypeAdapterLong.class,
 				TypeAdapterString.class, TypeAdapterByteArray.class, TypeAdapterLastName.class);
 	}
