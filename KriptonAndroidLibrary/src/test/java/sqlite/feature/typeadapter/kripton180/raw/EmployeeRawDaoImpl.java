@@ -1186,4 +1186,149 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     long result = database().insert("employees", null, contentValues);
     return result;
   }
+
+  /**
+   * <h2>SQL update</h2>
+   * <pre>UPDATE employees SET field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=${id}</pre>
+   *
+   * <h2>Updated columns:</h2>
+   * <ul>
+   * 	<li>field_boolean</li>
+   * 	<li>field_byte</li>
+   * 	<li>field_character</li>
+   * 	<li>field_short</li>
+   * 	<li>field_integer</li>
+   * 	<li>field_long</li>
+   * 	<li>field_float</li>
+   * 	<li>field_double</li>
+   * 	<li>field_string</li>
+   * 	<li>field_byte_array</li>
+   * </ul>
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param fieldBoolean
+   * 	is used as updated field <strong>fieldBoolean</strong>
+   * @param fieldByte
+   * 	is used as updated field <strong>fieldByte</strong>
+   * @param fieldCharacter
+   * 	is used as updated field <strong>fieldCharacter</strong>
+   * @param fieldShort
+   * 	is used as updated field <strong>fieldShort</strong>
+   * @param fieldInteger
+   * 	is used as updated field <strong>fieldInteger</strong>
+   * @param fieldLong
+   * 	is used as updated field <strong>fieldLong</strong>
+   * @param fieldFloat
+   * 	is used as updated field <strong>fieldFloat</strong>
+   * @param fieldDouble
+   * 	is used as updated field <strong>fieldDouble</strong>
+   * @param fieldString
+   * 	is used as updated field <strong>fieldString</strong>
+   * @param fieldByteArray
+   * 	is used as updated field <strong>fieldByteArray</strong>
+   *
+   * @return number of updated records
+   */
+  @Override
+  public long updateById(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
+      String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
+      String fieldDouble, String fieldString, String fieldByteArray) {
+    ContentValues contentValues=contentValues();
+    contentValues.clear();
+    if (fieldBoolean!=null) {
+      contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
+    } else {
+      contentValues.putNull("field_boolean");
+    }
+    if (fieldByte!=null) {
+      contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, fieldByte));
+    } else {
+      contentValues.putNull("field_byte");
+    }
+    if (fieldCharacter!=null) {
+      contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
+    } else {
+      contentValues.putNull("field_character");
+    }
+    if (fieldShort!=null) {
+      contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
+    } else {
+      contentValues.putNull("field_short");
+    }
+    if (fieldInteger!=null) {
+      contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, fieldInteger));
+    } else {
+      contentValues.putNull("field_integer");
+    }
+    if (fieldLong!=null) {
+      contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, fieldLong));
+    } else {
+      contentValues.putNull("field_long");
+    }
+    if (fieldFloat!=null) {
+      contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, fieldFloat));
+    } else {
+      contentValues.putNull("field_float");
+    }
+    if (fieldDouble!=null) {
+      contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, fieldDouble));
+    } else {
+      contentValues.putNull("field_double");
+    }
+    if (fieldString!=null) {
+      contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, fieldString));
+    } else {
+      contentValues.putNull("field_string");
+    }
+    if (fieldByteArray!=null) {
+      contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, fieldByteArray));
+    } else {
+      contentValues.putNull("field_byte_array");
+    }
+
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    _sqlWhereParams.add(String.valueOf(id));
+
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // display log
+    Logger.info("UPDATE employees SET field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=?");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+    int result = database().update("employees", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    return result;
+  }
 }
