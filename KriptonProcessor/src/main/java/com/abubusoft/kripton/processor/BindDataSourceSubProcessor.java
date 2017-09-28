@@ -278,9 +278,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			return;
 		}
 
-		// AnnotationUtility.buildAnnotations(elementUtils, currentEntity,
-		// classAnnotationFilter);
-
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 		{
 			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLEntity, SQLProperty>() {
@@ -323,16 +320,16 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 									bindEntity.getElement().asType(), property.getName());
 						}
 
-						ForeignKeyAction onDeleteAction = ForeignKeyAction.valueOf(annotationBindColumn.getAttribute(AnnotationAttributeType.ON_DELETE));
-						ForeignKeyAction onUpdateAction = ForeignKeyAction.valueOf(annotationBindColumn.getAttribute(AnnotationAttributeType.ON_UPDATE));
+						ForeignKeyAction onDeleteAction = ForeignKeyAction.valueOf(AnnotationUtility.extractAsEnumerationValue(property, annotationBindColumn, AnnotationAttributeType.ON_DELETE));
+						ForeignKeyAction onUpdateAction = ForeignKeyAction.valueOf(AnnotationUtility.extractAsEnumerationValue(property, annotationBindColumn, AnnotationAttributeType.ON_UPDATE));
 
 						if (!property.hasForeignKeyClassName() && onDeleteAction != ForeignKeyAction.NO_ACTION) {
-							String msg = String.format("In class '%s', property '%s' defines 'onDelete' attribute but it is not foreign key", bindEntity.getElement().asType(), property.getName());
+							String msg = String.format("In class '%s', property '%s' defines 'onDelete' attribute but it is not a foreign key", bindEntity.getElement().asType(), property.getName());
 							AssertKripton.failIncompatibleAttributesInAnnotationException(msg);
 						}
 
 						if (!property.hasForeignKeyClassName() && onUpdateAction != ForeignKeyAction.NO_ACTION) {
-							String msg = String.format("In class '%s', property '%s' defines 'onUpdate' attribute but it is not foreign key", bindEntity.getElement().asType(), property.getName());
+							String msg = String.format("In class '%s', property '%s' defines 'onUpdate' attribute but it is not a foreign key", bindEntity.getElement().asType(), property.getName());
 							AssertKripton.failIncompatibleAttributesInAnnotationException(msg);
 						}
 

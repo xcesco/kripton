@@ -1,4 +1,4 @@
-package sqlite.feature.foreignkeyaction;
+package sqlite.feature.foreignkeyaction.err1;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
 

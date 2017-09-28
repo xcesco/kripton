@@ -28,6 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.One;
@@ -102,7 +103,6 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	@Override
 	public void visit(SQLEntity entity) throws Exception {
 		int indexCounter = 0;
-		// entity.buildTableName(elementUtils, model);
 
 		// generate the class name that represents the table
 		String classTableName = getTableClassName(entity);
@@ -192,6 +192,14 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				}
 
 				bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.getTableName() + "(" + reference.getPrimaryKey().columnName + ")");
+				
+				if (item.onDeleteAction!=ForeignKeyAction.NO_ACTION) {
+					bufferForeignKey.append(" ON DELETE "+item.onDeleteAction.toString().replaceAll("_", " "));	
+				}
+				
+				if (item.onUpdateAction!=ForeignKeyAction.NO_ACTION) {
+					bufferForeignKey.append(" ON UPDATE "+item.onUpdateAction.toString().replaceAll("_", " "));
+				}
 
 				// INSERT as dependency only if reference is another entity.
 				// Same entity can not be own dependency.

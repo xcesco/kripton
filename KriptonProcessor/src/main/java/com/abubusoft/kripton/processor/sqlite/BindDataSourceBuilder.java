@@ -115,6 +115,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		File schemaCreateFile = new File("schemas/" + schemaCreation).getAbsoluteFile();
 		schemaCreatePath.mkdirs();
 
+		AnnotationProcessorUtilis.infoOnGeneratedFile(BindDataSource.class, schemaCreateFile);
 		FileOutputStream fos = new FileOutputStream(schemaCreateFile);
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 

@@ -26,6 +26,7 @@ import sqlite.feat.includeFields.IncludeFieldsTestSuite;
 import sqlite.feature.contentprovider.TestContentProviderSuite;
 import sqlite.feature.dynamic.TestDynamicSuite;
 import sqlite.feature.foreignKey.TestForeignKeySuite;
+import sqlite.feature.foreignkeyaction.TestForeignKeyActionSuite;
 import sqlite.feature.generichierarchy.TestGenericHierarchySuite;
 import sqlite.feature.indexes.IndexTestSuite;
 import sqlite.feature.javadoc.TestJavadocFeatureSuite;
@@ -80,6 +81,7 @@ import sqlite.kripton63.Test63Compile;
 			IndexTestSuite.class,
 			TestTypeAdapterSuite.class,			
 			TestCompileMany2ManySuite.class,
+			TestForeignKeyActionSuite.class, 
 			
 			// bug-fix			
 			Example01Suite.class,
