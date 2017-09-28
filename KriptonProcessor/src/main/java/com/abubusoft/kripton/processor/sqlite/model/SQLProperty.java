@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
+import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
@@ -101,6 +102,10 @@ public class SQLProperty extends ManagedModelProperty {
 	 * class name of referred table
 	 */
 	public String foreignClassName;
+
+	public ForeignKeyAction onDeleteAction;
+
+	public ForeignKeyAction onUpdateAction;
 
 	public boolean hasForeignKeyClassName() {
 		return !StringUtils.isEmpty(foreignClassName) && !NoForeignKey.class.getName().equals(foreignClassName);

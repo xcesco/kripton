@@ -46,6 +46,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.NoEntity;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
@@ -321,6 +322,22 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 							AssertKripton.failIncompatibleAttributesInAnnotationException("In class '%s' property '%s' can not be defined as PRIMARY KEY and FOREIGN KEY",
 									bindEntity.getElement().asType(), property.getName());
 						}
+
+						ForeignKeyAction onDeleteAction = ForeignKeyAction.valueOf(annotationBindColumn.getAttribute(AnnotationAttributeType.ON_DELETE));
+						ForeignKeyAction onUpdateAction = ForeignKeyAction.valueOf(annotationBindColumn.getAttribute(AnnotationAttributeType.ON_UPDATE));
+
+						if (!property.hasForeignKeyClassName() && onDeleteAction != ForeignKeyAction.NO_ACTION) {
+							String msg = String.format("In class '%s', property '%s' defines 'onDelete' attribute but it is not foreign key", bindEntity.getElement().asType(), property.getName());
+							AssertKripton.failIncompatibleAttributesInAnnotationException(msg);
+						}
+
+						if (!property.hasForeignKeyClassName() && onUpdateAction != ForeignKeyAction.NO_ACTION) {
+							String msg = String.format("In class '%s', property '%s' defines 'onUpdate' attribute but it is not foreign key", bindEntity.getElement().asType(), property.getName());
+							AssertKripton.failIncompatibleAttributesInAnnotationException(msg);
+						}
+
+						property.onDeleteAction = onDeleteAction;
+						property.onUpdateAction = onUpdateAction;
 
 					} else {
 						// primary key is set in other places

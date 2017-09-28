@@ -67,6 +67,10 @@ public enum AnnotationAttributeType {
 
 	XML_ELEMENT_TAG("elementTag"), XML_TYPE("xmlType"),
 
+	ON_DELETE("onDelete"),
+
+	ON_UPDATE("onUpdate"),
+
 	MULTIPLICITY_RESULT("multiplicityResult"), JQL("jql"), ID_NAME("idName"), ENTITY_1("entity1"), ENTITY_2("entity2"), TABLE_NAME("tableName"), DAO("dao");
 
 	private String value;

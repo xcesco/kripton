@@ -21,6 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 
 /**
@@ -39,11 +40,14 @@ public @interface BindColumn {
 	static boolean NULLABLE_DEFAULT = true;
 
 	/**
-	 * If true, indicates that attribute must be binded to a column on bean's associated table
+	 * If true, indicates that attribute must be binded to a column on bean's
+	 * associated table
 	 * 
 	 * @return true to create a column for this attribute
 	 */
-	boolean enabled() default true;
+	boolean enabled()
+
+	default true;
 
 	/**
 	 * Name of the column. If not present, the column name is same of field. It
@@ -51,14 +55,18 @@ public @interface BindColumn {
 	 * 
 	 * @return name of the column
 	 */
-	public String value() default "";
+	public String value()
+
+	default "";
 
 	/**
 	 * Type of column
 	 * 
 	 * @return type of the column
 	 */
-	public ColumnType columnType() default ColumnType.STANDARD;
+	public ColumnType columnType()
+
+	default ColumnType.STANDARD;
 
 	/**
 	 * if true, column can be set to null
@@ -74,5 +82,19 @@ public @interface BindColumn {
 	 * @return foreign entity class to reference
 	 */
 	public Class<?> foreignKey() default NoForeignKey.class;
+
+	/**
+	 * Action to take on foreign key constraint during DELETE operation
+	 * 
+	 * @return action to take
+	 */
+	public ForeignKeyAction onDelete() default ForeignKeyAction.NO_ACTION;
+
+	/**
+	 * Action to take on foreign key constraint during UPDATE operation
+	 * 
+	 * @return action to take
+	 */
+	public ForeignKeyAction onUpdate() default ForeignKeyAction.NO_ACTION;
 
 }
