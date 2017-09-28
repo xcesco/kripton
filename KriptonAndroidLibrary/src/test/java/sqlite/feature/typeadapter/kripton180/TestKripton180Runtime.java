@@ -22,6 +22,9 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import base.BaseAndroidTest;
+import sqlite.feature.typeadapter.kripton180.bean.BindKripton180BeanDaoFactory;
+import sqlite.feature.typeadapter.kripton180.bean.BindKripton180BeanDataSource;
+import sqlite.feature.typeadapter.kripton180.bean.EmployeeBeanDaoImpl;
 
 /**
  * @author xcesco
@@ -47,13 +50,13 @@ public class TestKripton180Runtime extends BaseAndroidTest {
 		bean.fieldString = "a";
 		bean.hireDate = new java.sql.Date((new java.util.Date()).getTime());
 
-		BindKripton180DataSource dataSource = BindKripton180DataSource.instance();
+		BindKripton180BeanDataSource dataSource = BindKripton180BeanDataSource.instance();
 
-		dataSource.execute(new BindKripton180DataSource.SimpleTransaction() {
+		dataSource.execute(new BindKripton180BeanDataSource.SimpleTransaction() {
 
 			@Override
-			public boolean onExecute(BindKripton180DaoFactory daoFactory) throws Throwable {
-				EmployeeDaoImpl dao = daoFactory.getEmployeeDao();
+			public boolean onExecute(BindKripton180BeanDaoFactory daoFactory) throws Throwable {
+				EmployeeBeanDaoImpl dao = daoFactory.getEmployeeBeanDao();
 
 				dao.insert(bean);
 				Assert.assertTrue(bean.id > 0);
@@ -95,13 +98,13 @@ public class TestKripton180Runtime extends BaseAndroidTest {
 		bean.fieldString = "a";
 		bean.hireDate = new java.sql.Date((new java.util.Date()).getTime());
 
-		BindKripton180DataSource dataSource = BindKripton180DataSource.instance();
+		BindKripton180BeanDataSource dataSource = BindKripton180BeanDataSource.instance();
 
-		dataSource.execute(new BindKripton180DataSource.SimpleTransaction() {
+		dataSource.execute(new BindKripton180BeanDataSource.SimpleTransaction() {
 
 			@Override
-			public boolean onExecute(BindKripton180DaoFactory daoFactory) throws Throwable {
-				EmployeeDaoImpl dao = daoFactory.getEmployeeDao();
+			public boolean onExecute(BindKripton180BeanDaoFactory daoFactory) throws Throwable {
+				EmployeeBeanDaoImpl dao = daoFactory.getEmployeeBeanDao();
 
 				dao.insertJQL(bean);
 				Assert.assertTrue(bean.id > 0);

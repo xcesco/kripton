@@ -1,0 +1,22 @@
+package sqlite.feature.typeadapter.kripton180.bean;
+
+import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
+
+/**
+ * <p>
+ * Represents dao factory interface for Kripton180BeanDataSource.
+ * This class expose database interface through Dao attribute.
+ * </p>
+ *
+ * @see Kripton180BeanDataSource
+ * @see EmployeeBeanDao
+ * @see EmployeeBeanDaoImpl
+ * @see sqlite.feature.typeadapter.kripton180.Employee
+ */
+public interface BindKripton180BeanDaoFactory extends BindDaoFactory {
+  /**
+   *
+   * retrieve dao EmployeeBeanDao
+   */
+  EmployeeBeanDaoImpl getEmployeeBeanDao();
+}

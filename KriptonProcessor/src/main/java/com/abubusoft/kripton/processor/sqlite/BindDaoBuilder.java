@@ -110,7 +110,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 		{
 			// constructor
-			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addParameter(TypeUtility.className(value.getParent().getGeneratedClassName()), "dataSet");
+			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addParameter(value.getParent().getGeneratedClass(), "dataSet");
 			methodBuilder.addCode("super(dataSet);\n");
 			builder.addMethod(methodBuilder.build());
 		}

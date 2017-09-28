@@ -1,4 +1,4 @@
-package sqlite.feature.typeadapter.kripton180;
+package sqlite.feature.typeadapter.kripton180.bean;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -10,37 +10,38 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
 import java.util.List;
+import sqlite.feature.typeadapter.kripton180.EmployeeTable;
 
 /**
  * <p>
- * Represents implementation of datasource Kripton180DataSource.
+ * Represents implementation of datasource Kripton180BeanDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see Kripton180DataSource
- * @see BindKripton180DaoFactory
- * @see EmployeeDao
- * @see EmployeeDaoImpl
- * @see Employee
+ * @see Kripton180BeanDataSource
+ * @see BindKripton180BeanDaoFactory
+ * @see EmployeeBeanDao
+ * @see EmployeeBeanDaoImpl
+ * @see sqlite.feature.typeadapter.kripton180.Employee
  */
-public class BindKripton180DataSource extends AbstractDataSource implements BindKripton180DaoFactory, Kripton180DataSource {
+public class BindKripton180BeanDataSource extends AbstractDataSource implements BindKripton180BeanDaoFactory, Kripton180BeanDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindKripton180DataSource instance;
+  static BindKripton180BeanDataSource instance;
 
   /**
    * <p>dao instance</p>
    */
-  protected EmployeeDaoImpl employeeDao = new EmployeeDaoImpl(this);
+  protected EmployeeBeanDaoImpl employeeBeanDao = new EmployeeBeanDaoImpl(this);
 
-  protected BindKripton180DataSource(DataSourceOptions options) {
+  protected BindKripton180BeanDataSource(DataSourceOptions options) {
     super("kripton180.db", 1, options);
   }
 
   @Override
-  public EmployeeDaoImpl getEmployeeDao() {
-    return employeeDao;
+  public EmployeeBeanDaoImpl getEmployeeBeanDao() {
+    return employeeBeanDao;
   }
 
   /**
@@ -73,9 +74,9 @@ public class BindKripton180DataSource extends AbstractDataSource implements Bind
   /**
    * instance
    */
-  public static synchronized BindKripton180DataSource instance() {
+  public static synchronized BindKripton180BeanDataSource instance() {
     if (instance==null) {
-      instance=new BindKripton180DataSource(null);
+      instance=new BindKripton180BeanDataSource(null);
     }
     return instance;
   }
@@ -84,8 +85,8 @@ public class BindKripton180DataSource extends AbstractDataSource implements Bind
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindKripton180DataSource open() {
-    BindKripton180DataSource instance=instance();
+  public static BindKripton180BeanDataSource open() {
+    BindKripton180BeanDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -94,8 +95,8 @@ public class BindKripton180DataSource extends AbstractDataSource implements Bind
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindKripton180DataSource openReadOnly() {
-    BindKripton180DataSource instance=instance();
+  public static BindKripton180BeanDataSource openReadOnly() {
+    BindKripton180BeanDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -165,9 +166,9 @@ public class BindKripton180DataSource extends AbstractDataSource implements Bind
    * Build instance.
    * @return dataSource instance.
    */
-  public static synchronized BindKripton180DataSource build(DataSourceOptions options) {
+  public static synchronized BindKripton180BeanDataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindKripton180DataSource(options);
+      instance=new BindKripton180BeanDataSource(options);
     }
     instance.openWritableDatabase();
     return instance;
@@ -176,7 +177,7 @@ public class BindKripton180DataSource extends AbstractDataSource implements Bind
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindKripton180DaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindKripton180BeanDaoFactory> {
   }
 
   /**

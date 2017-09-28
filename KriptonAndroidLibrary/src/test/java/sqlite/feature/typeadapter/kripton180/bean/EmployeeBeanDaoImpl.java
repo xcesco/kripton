@@ -1,4 +1,4 @@
-package sqlite.feature.typeadapter.kripton180;
+package sqlite.feature.typeadapter.kripton180.bean;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -8,6 +8,7 @@ import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
+import sqlite.feature.typeadapter.kripton180.Employee;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterAddress;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterBoolean;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterByte;
@@ -19,19 +20,18 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterInteger;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterLong;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterShort;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
-import sqlite.feature.typeadapter.kripton180.bean.BindKripton180BeanDataSource;
 
 /**
  * <p>
- * DAO implementation for entity <code>Employee</code>, based on interface <code>EmployeeDao</code>
+ * DAO implementation for entity <code>Employee</code>, based on interface <code>EmployeeBeanDao</code>
  * </p>
  *
  *  @see Employee
- *  @see EmployeeDao
- *  @see EmployeeTable
+ *  @see EmployeeBeanDao
+ *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
-public class EmployeeDaoImpl extends AbstractDao implements EmployeeDao {
-  public EmployeeDaoImpl(BindKripton180BeanDataSource dataSet) {
+public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao {
+  public EmployeeBeanDaoImpl(BindKripton180BeanDataSource dataSet) {
     super(dataSet);
   }
 

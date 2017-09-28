@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.typeadapter.kripton180;
+package sqlite.feature.typeadapter.kripton180.bean;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.typeadapter.kripton180.Address;
+import sqlite.feature.typeadapter.kripton180.Employee;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterAddress;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterBirthDay;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterBoolean;
@@ -36,11 +38,11 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterShort;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
 
 @RunWith(JUnit4.class)
-public class TestKripton180 extends AbstractBindSQLiteProcessorTest {
+public class TestKripton180Bean extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testCompile() throws Throwable {
-		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeDao.class, Kripton180DataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,
+		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeBeanDao.class, Kripton180BeanDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,
 				TypeAdapterBoolean.class, TypeAdapterByte.class,  TypeAdapterShort.class, TypeAdapterChar.class, TypeAdapterDouble.class, TypeAdapterFloat.class, TypeAdapterInteger.class, TypeAdapterLong.class,
 				TypeAdapterString.class, TypeAdapterByteArray.class, TypeAdapterLastName.class);
 	}

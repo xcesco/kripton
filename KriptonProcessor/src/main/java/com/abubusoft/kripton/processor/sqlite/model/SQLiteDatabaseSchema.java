@@ -29,6 +29,8 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelBucket;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.ClassName;
 
 public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElement> {
 
@@ -182,6 +184,11 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 		return contentProvider.getUri();
 
+	}
+
+	public ClassName getGeneratedClass() {
+		String packageName=getElement().asType().toString();
+		return TypeUtility.className(packageName.substring(0, packageName.lastIndexOf("."))+"."+getGeneratedClassName());
 	}
 
 }

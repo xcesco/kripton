@@ -1,4 +1,4 @@
-package sqlite.feature.typeadapter.kripton180;
+package sqlite.feature.typeadapter.kripton180.bean;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
@@ -6,8 +6,10 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+import sqlite.feature.typeadapter.kripton180.Employee;
+
 @BindDao(Employee.class)
-public interface EmployeeDao {
+public interface EmployeeBeanDao {
 
 	@BindSqlSelect(where = "id=${bean.id}")
 	Employee selectById(Employee bean);
