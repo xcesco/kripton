@@ -1,4 +1,4 @@
-package sqlite.feature.schema.version2;
+package sqlite.feature.typeadapter.kripton180.raw.insertselect;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -10,76 +10,38 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
 import java.util.List;
+import sqlite.feature.typeadapter.kripton180.EmployeeTable;
 
 /**
  * <p>
- * Represents implementation of datasource SchoolDataSource.
+ * Represents implementation of datasource Kripton180RawInsertSelectDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see SchoolDataSource
- * @see BindSchoolDaoFactory
- * @see DaoProfessor
- * @see DaoProfessorImpl
- * @see Professor
- * @see DaoSeminar
- * @see DaoSeminarImpl
- * @see Seminar
- * @see DaoSeminar2Student
- * @see DaoSeminar2StudentImpl
- * @see Seminar2Student
- * @see DaoStudent
- * @see DaoStudentImpl
- * @see Student
+ * @see Kripton180RawInsertSelectDataSource
+ * @see BindKripton180RawInsertSelectDaoFactory
+ * @see EmployeeRawInsertSelectDao
+ * @see EmployeeRawInsertSelectDaoImpl
+ * @see sqlite.feature.typeadapter.kripton180.Employee
  */
-public class BindSchoolDataSource extends AbstractDataSource implements BindSchoolDaoFactory, SchoolDataSource {
+public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource implements BindKripton180RawInsertSelectDaoFactory, Kripton180RawInsertSelectDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindSchoolDataSource instance;
+  static BindKripton180RawInsertSelectDataSource instance;
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoProfessorImpl daoProfessor = new DaoProfessorImpl(this);
+  protected EmployeeRawInsertSelectDaoImpl employeeRawInsertSelectDao = new EmployeeRawInsertSelectDaoImpl(this);
 
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoSeminarImpl daoSeminar = new DaoSeminarImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoSeminar2StudentImpl daoSeminar2Student = new DaoSeminar2StudentImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoStudentImpl daoStudent = new DaoStudentImpl(this);
-
-  protected BindSchoolDataSource(DataSourceOptions options) {
-    super("school", 2, options);
+  protected BindKripton180RawInsertSelectDataSource(DataSourceOptions options) {
+    super("kripton180.db", 1, options);
   }
 
   @Override
-  public DaoProfessorImpl getDaoProfessor() {
-    return daoProfessor;
-  }
-
-  @Override
-  public DaoSeminarImpl getDaoSeminar() {
-    return daoSeminar;
-  }
-
-  @Override
-  public DaoSeminar2StudentImpl getDaoSeminar2Student() {
-    return daoSeminar2Student;
-  }
-
-  @Override
-  public DaoStudentImpl getDaoStudent() {
-    return daoStudent;
+  public EmployeeRawInsertSelectDaoImpl getEmployeeRawInsertSelectDao() {
+    return employeeRawInsertSelectDao;
   }
 
   /**
@@ -112,9 +74,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * instance
    */
-  public static synchronized BindSchoolDataSource instance() {
+  public static synchronized BindKripton180RawInsertSelectDataSource instance() {
     if (instance==null) {
-      instance=new BindSchoolDataSource(null);
+      instance=new BindKripton180RawInsertSelectDataSource(null);
     }
     return instance;
   }
@@ -123,8 +85,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindSchoolDataSource open() {
-    BindSchoolDataSource instance=instance();
+  public static BindKripton180RawInsertSelectDataSource open() {
+    BindKripton180RawInsertSelectDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -133,8 +95,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindSchoolDataSource openReadOnly() {
-    BindSchoolDataSource instance=instance();
+  public static BindKripton180RawInsertSelectDataSource openReadOnly() {
+    BindKripton180RawInsertSelectDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -146,14 +108,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-    database.execSQL(StudentTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
-    database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
-    database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",EmployeeTable.CREATE_TABLE_SQL);
+    database.execSQL(EmployeeTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -187,14 +143,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-      database.execSQL(StudentTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
-      database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
-      database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",EmployeeTable.CREATE_TABLE_SQL);
+      database.execSQL(EmployeeTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -207,7 +157,6 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
@@ -217,9 +166,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * Build instance.
    * @return dataSource instance.
    */
-  public static synchronized BindSchoolDataSource build(DataSourceOptions options) {
+  public static synchronized BindKripton180RawInsertSelectDataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindSchoolDataSource(options);
+      instance=new BindKripton180RawInsertSelectDataSource(options);
     }
     instance.openWritableDatabase();
     return instance;
@@ -228,7 +177,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindSchoolDaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindKripton180RawInsertSelectDaoFactory> {
   }
 
   /**

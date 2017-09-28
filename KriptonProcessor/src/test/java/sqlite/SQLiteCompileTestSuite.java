@@ -78,7 +78,7 @@ import sqlite.kripton63.Test63Compile;
 			TestDynamicSuite.class,
 			TestSchemaSuite.class,
 			IndexTestSuite.class,
-			TestTypeAdapterSuite.class,
+			TestTypeAdapterSuite.class,			
 			TestCompileMany2ManySuite.class,
 			
 			// bug-fix			

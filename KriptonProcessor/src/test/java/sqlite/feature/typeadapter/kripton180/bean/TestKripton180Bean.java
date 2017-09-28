@@ -36,6 +36,10 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterLastName;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterLong;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterShort;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
+import sqlite.feature.typeadapter.kripton180.bean.insertselect.EmployeeBeanInsertSelectDao;
+import sqlite.feature.typeadapter.kripton180.bean.insertselect.Kripton180BeanInsertSelectDataSource;
+import sqlite.feature.typeadapter.kripton180.raw.insertselect.EmployeeRawInsertSelectDao;
+import sqlite.feature.typeadapter.kripton180.raw.insertselect.Kripton180RawInsertSelectDataSource;
 
 @RunWith(JUnit4.class)
 public class TestKripton180Bean extends AbstractBindSQLiteProcessorTest {
@@ -43,6 +47,20 @@ public class TestKripton180Bean extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testCompile() throws Throwable {
 		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeBeanDao.class, Kripton180BeanDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,
+				TypeAdapterBoolean.class, TypeAdapterByte.class,  TypeAdapterShort.class, TypeAdapterChar.class, TypeAdapterDouble.class, TypeAdapterFloat.class, TypeAdapterInteger.class, TypeAdapterLong.class,
+				TypeAdapterString.class, TypeAdapterByteArray.class, TypeAdapterLastName.class);
+	}
+	
+	@Test
+	public void testBeanInsertSelect() throws Throwable {
+		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeBeanInsertSelectDao.class, Kripton180BeanInsertSelectDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,
+				TypeAdapterBoolean.class, TypeAdapterByte.class,  TypeAdapterShort.class, TypeAdapterChar.class, TypeAdapterDouble.class, TypeAdapterFloat.class, TypeAdapterInteger.class, TypeAdapterLong.class,
+				TypeAdapterString.class, TypeAdapterByteArray.class, TypeAdapterLastName.class);
+	}
+	
+	@Test
+	public void testRawInsertSelect() throws Throwable {
+		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeRawInsertSelectDao.class, Kripton180RawInsertSelectDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,
 				TypeAdapterBoolean.class, TypeAdapterByte.class,  TypeAdapterShort.class, TypeAdapterChar.class, TypeAdapterDouble.class, TypeAdapterFloat.class, TypeAdapterInteger.class, TypeAdapterLong.class,
 				TypeAdapterString.class, TypeAdapterByteArray.class, TypeAdapterLastName.class);
 	}
