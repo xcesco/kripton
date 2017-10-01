@@ -49,3 +49,4 @@ target
 /KriptonBenchmarkDemo/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin
 .gradle
 /.project
+/kripton-parent.iml
