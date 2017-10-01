@@ -26,6 +26,68 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements PersonCityOk1Da
   /**
    * <h2>Select SQL:</h2>
    *
+   * <pre>SELECT id, person_id, city_id FROM person_city_ok1</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
+   * 	<dt>city_id</dt><dd>is associated to bean's property <strong>cityId</strong></dd>
+   * </dl>
+   *
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public List<PersonCityOk1> selectAll() {
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    _sqlBuilder.append("SELECT id, person_id, city_id FROM person_city_ok1");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    String _sqlWhereStatement="";
+
+    // build where condition
+    String _sql=_sqlBuilder.toString();
+    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+      Logger.info("Rows found: %s",cursor.getCount());
+
+      LinkedList<PersonCityOk1> resultList=new LinkedList<PersonCityOk1>();
+      PersonCityOk1 resultBean=null;
+
+      if (cursor.moveToFirst()) {
+
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("person_id");
+        int index2=cursor.getColumnIndex("city_id");
+
+        do
+         {
+          resultBean=new PersonCityOk1();
+
+          resultBean.id=cursor.getLong(index0);
+          if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
+          if (!cursor.isNull(index2)) { resultBean.cityId=cursor.getLong(index2); }
+
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
    * <pre>SELECT id, person_id, city_id FROM person_city_ok1 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>

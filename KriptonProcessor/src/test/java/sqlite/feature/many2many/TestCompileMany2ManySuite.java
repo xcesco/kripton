@@ -19,12 +19,21 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
+import sqlite.feature.many2many.entity.TestCompileMany2ManyOk1;
+import sqlite.feature.many2many.err1.TestCompileMany2ManyErr1;
+import sqlite.feature.many2many.err2.TestCompileMany2ManyErr2;
+import sqlite.feature.many2many.err3.TestCompileMany2ManyErr3;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestCompileMany2Many.class
+		TestCompileMany2Many.class,
+		TestCompileMany2ManyOk1.class,
+		
+		TestCompileMany2ManyErr1.class,
+		TestCompileMany2ManyErr2.class,
+		TestCompileMany2ManyErr3.class
 		 })
 //@formatter:on
 public class TestCompileMany2ManySuite extends BaseProcessorTest {

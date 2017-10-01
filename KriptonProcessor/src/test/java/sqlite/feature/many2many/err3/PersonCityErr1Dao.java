@@ -1,4 +1,4 @@
-package sqlite.feature.many2many.entity;
+package sqlite.feature.many2many.err3;
 
 import java.util.List;
 
@@ -10,10 +10,11 @@ import sqlite.feature.many2many.City;
 import sqlite.feature.many2many.Person;
 
 
-@BindDao(PersonCityOk1.class)
+@BindDao(PersonCityErr3.class)
 @BindDaoMany2Many(entity1=Person.class, entity2=City.class)
-public interface PersonCityOk1Dao {	
+public interface PersonCityErr1Dao {
 	
-	@BindSqlSelect
-	List<PersonCityOk1> selectAll();
+	@BindSqlSelect(where="id=${id}")
+	List<PersonCityErr3> selectById(long id);
+	
 }

@@ -41,7 +41,6 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MModel;
-import com.abubusoft.kripton.processor.bind.model.many2many.M2MProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
@@ -62,8 +61,6 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 	public static final String SUFFIX = "Cursor";
 
-	private int counter;
-
 	public BindM2MBuilder(Filer filer) {
 		super(BaseProcessor.elementUtils, filer, null);
 	}
@@ -80,9 +77,6 @@ public class BindM2MBuilder extends AbstractBuilder {
 	public void generate(M2MEntity entity) throws Exception {
 		generateEntity(entity);
 		generateDaoPart(entity);
-
-		counter = 0;
-
 	}
 
 	private void generateDaoPart(M2MEntity entity) throws IOException {
@@ -296,11 +290,5 @@ public class BindM2MBuilder extends AbstractBuilder {
 		JavaFile.builder(entity.getPackageName(), typeSpec).build().writeTo(filer);
 	}
 
-
-	public void visit(M2MProperty property) throws Exception {
-		// add property index
-		classBuilder.addField(FieldSpec.builder(Integer.TYPE, "index" + (counter++), Modifier.PROTECTED).addJavadoc("Index for column $S\n", property.getName()).build());
-
-	}
 
 }

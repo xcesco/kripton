@@ -20,9 +20,9 @@ public class PersonCityOk1Table {
    * DDL to create table person_city_ok1
    * </p>
    *
-   * <pre>CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, city_id INTEGER);</pre>
+   * <pre>CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, city_id INTEGER, FOREIGN KEY(person_id) REFERENCES persons(id), FOREIGN KEY(city_id) REFERENCES cities(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, city_id INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, city_id INTEGER, FOREIGN KEY(person_id) REFERENCES persons(id), FOREIGN KEY(city_id) REFERENCES cities(id));";
 
   /**
    * <p>

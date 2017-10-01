@@ -21,6 +21,8 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
+import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.exceptions.ForeignKeyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
@@ -33,8 +35,10 @@ import com.abubusoft.kripton.processor.exceptions.UnknownClassInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownParamUsedInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
+import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -106,11 +110,6 @@ public abstract class AssertKripton {
 	 */
 	public static void fail(boolean expression, String messageFormat, Object... args) {
 		assertTrue(!expression, messageFormat, args);
-	}
-
-	public static void assertTrueOrUnsupportedFieldTypeException(boolean expression, SQLiteModelMethod method, TypeName typeName) {
-		if (!expression)
-			throw (new UnsupportedFieldTypeException(method, typeName));
 	}
 	
 	public static void assertTrueOrUnsupportedFieldTypeException(boolean expression, TypeName typeName) {
@@ -187,6 +186,22 @@ public abstract class AssertKripton {
 			String msg = String.format("In dao definition '%s' is referred a bean definition '%s' without @%s annotation", element.getSimpleName(), beanName, annotationClazz.getSimpleName());			
 			throw(new MissedAnnotationOnClass(msg));
 		}	
+	}
+
+	public static void asserTrueOrForeignKeyNotFound(boolean expression, SQLEntity currentEntity, ClassName entity) {
+		if (!expression) {
+					
+			throw(new ForeignKeyNotFoundException(currentEntity, entity));
+		}	
+		
+	}
+
+	public static void asserTrueOrMissedAnnotationOnClassException(boolean expression, SQLEntity entity, String foreignClassName) {
+		if (!expression) {
+			String msg = String.format("Entity '%s' refers a bean '%s' without @%s annotation", entity.getSimpleName(), foreignClassName, BindType.class);			
+			throw(new MissedAnnotationOnClass(msg));
+		}	
+		
 	}
 
 }

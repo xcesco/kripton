@@ -93,6 +93,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelContentProvider;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
+import com.squareup.javapoet.ClassName;
 
 public class BindDataSourceSubProcessor extends BaseProcessor {
 
@@ -210,6 +211,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				analyzeDao(globalBeanElements, globalDaoElements, findGeneratedPart(daoItem, generatedDaoParts), daoItem);
 			}
 
+			analyzeForeignKey(currentSchema);
+
 			String msg;
 			if (currentSchema.getCollection().size() == 0) {
 				msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDao.class.getSimpleName(),
@@ -224,6 +227,32 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			// logger.info(currentSchema.toString());
 
 		return true;
+	}
+
+	private void analyzeForeignKey(SQLiteDatabaseSchema schema) {
+		for (SQLEntity entity : schema.getEntities()) {
+			for (SQLProperty property : entity.getCollection()) {
+				if (property.hasForeignKeyClassName()) {
+					SQLEntity reference = schema.getEntity(property.foreignClassName);
+
+					AssertKripton.asserTrueOrMissedAnnotationOnClassException(reference != null, entity, property.foreignClassName);
+
+					if (!entity.equals(reference)) {
+						entity.referedEntities.add(reference);
+					}
+				}
+
+			}
+		}
+
+		for (SQLDaoDefinition dao : schema.getCollection()) {
+			M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(dao.getElement());
+
+			// check foreign key to entity1 and entity2
+			checkForeignKeyForM2M(dao.getEntity(), m2mEntity.entity1Name);
+			checkForeignKeyForM2M(dao.getEntity(), m2mEntity.entity2Name);
+		}
+
 	}
 
 	private TypeElement findGeneratedPart(String daoName, Set<? extends Element> generatedDaoParts) {
@@ -259,7 +288,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		BindDaoMany2Many bindMany2ManyAnnotation = daoElement.getAnnotation(BindDaoMany2Many.class);
 		AssertKripton.assertTrueOrMissedAnnotationOnClass(bindMany2ManyAnnotation != null || !TypeUtility.isEquals(NoEntity.class, beanName), daoElement, beanName, BindType.class);
-
 
 		M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(daoElement);
 
@@ -403,6 +431,18 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	/**
+	 * @param m2mEntity
+	 * @param currentEntity
+	 */
+	private void checkForeignKeyForM2M(final SQLEntity currentEntity, ClassName m2mEntity) {
+		// check for m2m relationship
+		if (m2mEntity != null) {
+			SQLEntity temp = currentSchema.getEntity(m2mEntity.toString());
+			AssertKripton.asserTrueOrForeignKeyNotFound(currentEntity.referedEntities.contains(temp), currentEntity, m2mEntity);
+		}
+	}
+
+	/**
 	 * Build classes
 	 * 
 	 * @throws Exception
@@ -421,8 +461,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			}
 		}
 	}
-
-	
 
 	/**
 	 * Create DAO definition
@@ -529,8 +567,27 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				annotationList.addAll(supportAnnotationList);
 				final SQLiteModelMethod currentMethod = new SQLiteModelMethod(currentDaoDefinition, element, annotationList);
 
+				addWithCheckMethod(currentDaoDefinition, currentMethod);
+			}
+
+			private void addWithCheckMethod(SQLDaoDefinition currentDaoDefinition, SQLiteModelMethod newMethod) {
+				SQLiteModelMethod oldMethod = currentDaoDefinition.findByName(newMethod.getName());
+
+				// ASSERT: same name and same number
+				if (oldMethod != null && oldMethod.getParameters().size() == newMethod.getParameters().size()) {
+					boolean sameParameters = true;
+					for (int i = 0; i < oldMethod.getParameters().size(); i++) {
+						if (!oldMethod.getParameters().get(i).value1.equals(newMethod.getParameters().get(i).value1)) {
+							sameParameters=false;
+							break;
+						}
+					}
+
+					AssertKripton.failWithInvalidMethodSignException(sameParameters, newMethod, "conflict between generated method and declared method.");
+				}
+
 				// add method
-				currentDaoDefinition.add(currentMethod);
+				currentDaoDefinition.add(newMethod);
 
 			}
 
@@ -541,7 +598,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @param databaseSchema
 	 * @return databaseSchema
 	 */
-	protected String createDataSource(Element databaseSchema) {
+	protected void createDataSource(Element databaseSchema) {
 		if (databaseSchema.getKind() != ElementKind.INTERFACE) {
 			String msg = String.format("Class %s: only interfaces can be annotated with @%s annotation", databaseSchema.getSimpleName().toString(), BindDataSource.class.getSimpleName());
 			throw (new InvalidKindForAnnotationException(msg));
@@ -577,7 +634,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			currentSchema.generateContentProvider = false;
 		}
 
-		return currentSchema.getName();
 	}
 
 }

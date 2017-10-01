@@ -26,8 +26,6 @@ public class M2MEntity extends M2MBase {
 
 	public String idName;
 
-	private List<M2MProperty> collection = new ArrayList<M2MProperty>();
-
 	public String getPackageName() {
 		return packageName;
 	}
@@ -48,11 +46,7 @@ public class M2MEntity extends M2MBase {
 		this.idName = idName;
 		this.name = entityName;
 		this.tableName = StringUtils.hasText(tableName) ? tableName : (CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, this.name));
-		this.needToCreate=needToCreate;
-	}
-
-	public List<M2MProperty> getCollection() {
-		return collection;
+		this.needToCreate = needToCreate;
 	}
 
 	public static String extractClassName(String fullName) {
@@ -65,6 +59,12 @@ public class M2MEntity extends M2MBase {
 		return TypeUtility.className(this.packageName, this.name);
 	}
 
+	/**
+	 * Works with @BindDaoMany2Many and @BindDao to extract entity name.
+	 * 
+	 * @param item
+	 * @return
+	 */
 	public static M2MEntity extractEntityManagedByDAO(Element item) {
 		ClassName entity1 = null;
 		ClassName entity2 = null;
@@ -73,7 +73,7 @@ public class M2MEntity extends M2MBase {
 		String entityName = null;
 		PackageElement pkg = null;
 		String packageName = null;
-		boolean needToCreate=true;
+		boolean needToCreate = true;
 
 		if (item.getAnnotation(BindDaoMany2Many.class) != null) {
 			entity1 = TypeUtility.className(AnnotationUtility.extractAsClassName(item, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1));
@@ -97,8 +97,8 @@ public class M2MEntity extends M2MBase {
 			if (StringUtils.hasText(tableTemp)) {
 				tableName = tableTemp;
 			}
-			
-			needToCreate=false;
+
+			needToCreate = false;
 		}
 
 		M2MEntity entity = new M2MEntity(packageName, entityName, TypeUtility.className(item.asType().toString()), entity1, entity2, prefixId, tableName, needToCreate);
