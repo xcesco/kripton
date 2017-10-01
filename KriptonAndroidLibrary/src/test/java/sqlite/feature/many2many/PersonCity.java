@@ -3,6 +3,7 @@ package sqlite.feature.many2many;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.annotation.BindType;
 
 /**
@@ -27,7 +28,8 @@ public class PersonCity {
    * Foreign key to Person model class
    */
   @BindColumn(
-      foreignKey = Person.class
+      foreignKey = Person.class,
+      onDelete = ForeignKeyAction.CASCADE
   )
   public long personId;
 
@@ -35,7 +37,8 @@ public class PersonCity {
    * Foreign key to City model class
    */
   @BindColumn(
-      foreignKey = City.class
+      foreignKey = City.class,
+      onDelete = ForeignKeyAction.CASCADE
   )
   public long cityId;
 }

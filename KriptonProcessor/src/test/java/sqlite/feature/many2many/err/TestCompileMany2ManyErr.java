@@ -13,22 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-/**
- * 
- */
-package com.abubusoft.kripton.processor.exceptions;
+package sqlite.feature.many2many.err;
 
-/**
- * @author Francesco Benincasa (info@abubusoft.com)
- *
- */
-public class NoDaoElementsFound extends KriptonProcessorException {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-	public NoDaoElementsFound() {
-		super("No bean with @BindDao annotation is present in to-compile sources");
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.many2many.BaseDao;
+import sqlite.feature.many2many.City;
+import sqlite.feature.many2many.Entity;
+import sqlite.feature.many2many.Person;
+
+@RunWith(JUnit4.class)
+public class TestCompileMany2ManyErr extends AbstractBindSQLiteProcessorTest {
+
+	@Test
+	public void testOK() throws Throwable {
+		buildDataSourceProcessorTest(PersonCirtyErr1DataSource.class, PersonErr1Dao.class, Person.class, CityErr1Dao.class, City.class, PersonCityErr1Dao.class,PersonCityErr1.class, Entity.class, BaseDao.class);
 	}
-	
-
-	private static final long serialVersionUID = 1L;
 
 }

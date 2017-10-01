@@ -64,17 +64,17 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		super(elementUtils, filer, model);
 	}
 
-	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) throws Exception {
-		BindCursorBuilder visitor = new BindCursorBuilder(elementUtils, filer, model);
+	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+		BindCursorBuilder visitor = new BindCursorBuilder(elementUtils, filer, schema);
 
-		for (SQLEntity item : model.getEntities()) {
-			visitor.visit(item);
+		for (SQLEntity item : schema.getEntities()) {
+			visitor.visit(schema, item);
 		}
 
 	}
 
 	@Override
-	public void visit(SQLEntity entity) throws Exception {
+	public void visit(SQLiteDatabaseSchema schema, SQLEntity entity) throws Exception {
 		String classCursorName = PREFIX+entity.getSimpleName()+SUFFIX;		
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());

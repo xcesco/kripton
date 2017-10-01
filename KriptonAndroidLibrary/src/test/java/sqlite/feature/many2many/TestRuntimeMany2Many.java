@@ -24,6 +24,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import base.BaseAndroidTest;
+import org.junit.Assert;
 
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
@@ -40,7 +41,7 @@ public class TestRuntimeMany2Many extends BaseAndroidTest {
 			PersonCityDaoImpl m2mDao = dataSource.getPersonCityDao();
 
 			// insert city
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 1; i++) {
 				City bean = new City();
 				bean.name = "city" + i;
 				cityDao.insert(bean);
@@ -49,7 +50,7 @@ public class TestRuntimeMany2Many extends BaseAndroidTest {
 			}
 
 			// insert person
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 1; i++) {
 				Person bean = new Person();
 				bean.name="person"+i;
 				personDao.insert(bean);
@@ -57,19 +58,25 @@ public class TestRuntimeMany2Many extends BaseAndroidTest {
 				persons.add(bean);
 			}
 			
+			long m2mId;
 			{
 				// m2m
 				PersonCity bean=new PersonCity();
 				bean.cityId=cities.get(0).id;
 				bean.personId=persons.get(0).id;
 				
-				m2mDao.insert(bean);
+				m2mId=m2mDao.insert(bean);
 			}
 			
 			// delete
 			{
 				personDao.deleteById(persons.get(0).id);
 			}
+			
+			// check how many personCity there are
+			Assert.assertTrue(m2mId!=0);
+			PersonCity test = m2mDao.selectById(m2mId);
+			Assert.assertTrue(test==null);
 			
 			
 		}

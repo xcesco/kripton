@@ -25,7 +25,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidForeignKeyTypeException
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
-import com.abubusoft.kripton.processor.exceptions.NoDaoElementsFound;
+import com.abubusoft.kripton.processor.exceptions.NoDaoElementFound;
 import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
@@ -50,7 +50,7 @@ public class Test81ExceptionCompile extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testErrorBindDataSource() throws IOException, InstantiationException, IllegalAccessException {
-		this.expectedException(NoDaoElementsFound.class);
+		this.expectedException(NoDaoElementFound.class);
 		buildDataSourceProcessorTest(ErrorDataSource.class);
 	}
 

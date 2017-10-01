@@ -28,7 +28,6 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.ColumnType;
@@ -55,6 +54,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -72,7 +72,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
-import com.abubusoft.kripton.processor.exceptions.NoDaoElementsFound;
+import com.abubusoft.kripton.processor.exceptions.NoDaoElementFound;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.SQLPrimaryKeyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.SQLPrimaryKeyNotValidTypeException;
@@ -184,7 +184,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		// No bind type is present
 		if (globalDaoElements.size() == 0) {
-			throw (new NoDaoElementsFound());
+			throw (new NoDaoElementFound());
 		}
 
 		// get elements for generated dao's
@@ -260,14 +260,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		BindDaoMany2Many bindMany2ManyAnnotation = daoElement.getAnnotation(BindDaoMany2Many.class);
 		AssertKripton.assertTrueOrMissedAnnotationOnClass(bindMany2ManyAnnotation != null || !TypeUtility.isEquals(NoEntity.class, beanName), daoElement, beanName, BindType.class);
 
-		if (bindMany2ManyAnnotation != null) {
-			// create name
-			String idPrefix = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ID_NAME);
 
-			beanName = extractEntityManagedByDAO(daoElement);
-		}
+		M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(daoElement);
 
-		final TypeElement beanElement = globalBeanElements.get(beanName);
+		final TypeElement beanElement = globalBeanElements.get(m2mEntity.getClassName().toString());
 
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);
@@ -426,21 +422,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 	}
 
-	public static String extractEntityManagedByDAO(Element daoElement) {
-		String entityClassName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.VALUE);
-
-		if (StringUtils.hasText(entityClassName)) {
-			return entityClassName;
-		}
-
-		String a1 = AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1);
-		String a2 = AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2);
-
-		PackageElement pkg = elementUtils.getPackageOf(daoElement);
-		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
-
-		return packageName + "." + a1.substring(a1.lastIndexOf(".") + 1) + a2.substring(a2.lastIndexOf(".") + 1);
-	}
+	
 
 	/**
 	 * Create DAO definition
@@ -458,8 +440,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			throw (new InvalidKindForAnnotationException(msg));
 		}
 
-		String entityClassName = extractEntityManagedByDAO(daoElement);
-		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, (TypeElement) daoElement, entityClassName);
+		M2MEntity entity = M2MEntity.extractEntityManagedByDAO(daoElement);
+		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, (TypeElement) daoElement, entity.getClassName().toString());
 
 		// content provider management
 		BindContentProviderPath daoContentProviderPath = daoElement.getAnnotation(BindContentProviderPath.class);

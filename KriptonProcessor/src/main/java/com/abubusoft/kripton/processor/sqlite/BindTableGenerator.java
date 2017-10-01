@@ -44,10 +44,12 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidForeignKeyTypeException;
+import com.abubusoft.kripton.processor.exceptions.NoDaoElementFound;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
+import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
@@ -88,7 +90,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		BindTableGenerator visitor = new BindTableGenerator(elementUtils, filer, schema);
 
 		for (SQLEntity item : schema.getEntities()) {
-			visitor.visit(item);
+			visitor.visit(schema, item);
 		}
 	}
 
@@ -101,7 +103,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	}
 
 	@Override
-	public void visit(SQLEntity entity) throws Exception {
+	public void visit(SQLiteDatabaseSchema schema, SQLEntity entity) throws Exception {
 		int indexCounter = 0;
 
 		// generate the class name that represents the table
@@ -182,7 +184,20 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				SQLEntity reference = model.getEntity(foreignClassName);
 
 				if (reference == null) {
-					throw new InvalidBeanTypeException(item, foreignClassName);
+					// check if we have a DAO associated into DataSource
+					// definition
+					boolean found = false;
+					for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+						if (daoDefinition.getEntityClassName().equals(foreignClassName)) {
+							found = true;
+						}
+					}
+
+					if (!found) {
+						throw new NoDaoElementFound(schema, TypeUtility.className(foreignClassName));
+					} else {
+						throw new InvalidBeanTypeException(item, foreignClassName);
+					}
 				}
 
 				// foreign key can ben used only with column type
@@ -192,13 +207,13 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				}
 
 				bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.getTableName() + "(" + reference.getPrimaryKey().columnName + ")");
-				
-				if (item.onDeleteAction!=ForeignKeyAction.NO_ACTION) {
-					bufferForeignKey.append(" ON DELETE "+item.onDeleteAction.toString().replaceAll("_", " "));	
+
+				if (item.onDeleteAction != ForeignKeyAction.NO_ACTION) {
+					bufferForeignKey.append(" ON DELETE " + item.onDeleteAction.toString().replaceAll("_", " "));
 				}
-				
-				if (item.onUpdateAction!=ForeignKeyAction.NO_ACTION) {
-					bufferForeignKey.append(" ON UPDATE "+item.onUpdateAction.toString().replaceAll("_", " "));
+
+				if (item.onUpdateAction != ForeignKeyAction.NO_ACTION) {
+					bufferForeignKey.append(" ON UPDATE " + item.onUpdateAction.toString().replaceAll("_", " "));
 				}
 
 				// INSERT as dependency only if reference is another entity.

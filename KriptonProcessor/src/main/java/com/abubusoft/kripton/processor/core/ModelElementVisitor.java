@@ -15,9 +15,10 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.core;
 
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 
 public interface ModelElementVisitor<T extends ModelClass<P>, P extends ModelProperty> {
-	void visit(T entity) throws Exception;
+	void visit(SQLiteDatabaseSchema schema, T entity) throws Exception;
 
 	void visit(P property) throws Exception;	
 }

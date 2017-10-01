@@ -55,7 +55,7 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void accept(ModelElementVisitor visitor) throws Exception {
-		visitor.visit(this);
+		visitor.visit(null, this);
 	}
 
 	public ModelAnnotation getAnnotation(Class<? extends Annotation> value) {

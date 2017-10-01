@@ -22,7 +22,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
-import com.abubusoft.kripton.processor.exceptions.NoDaoElementsFound;
+import com.abubusoft.kripton.processor.exceptions.NoDaoElementFound;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
@@ -79,7 +79,7 @@ public class Test38Compile extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testErrorNoDaoElementsFound() throws IOException, InstantiationException, IllegalAccessException {
-		this.expectedException(NoDaoElementsFound.class);
+		this.expectedException(NoDaoElementFound.class);
 		buildDataSourceProcessorTest(Dummy04DataSource.class, DaoBean04.class, Bean04.class, BaseDao.class);
 	}
 
