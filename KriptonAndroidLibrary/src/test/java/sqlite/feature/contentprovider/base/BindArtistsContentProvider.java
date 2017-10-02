@@ -100,6 +100,8 @@ public class BindArtistsContentProvider extends ContentProvider {
    * method ArtistDao.selectById
    * method ArtistDao.selectById
    * method ArtistDao.selectAll
+   * method AlbumDao.selectById
+   * method AlbumDao.selectAll
    */
   @Override
   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,

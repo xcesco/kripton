@@ -22,6 +22,9 @@ import java.util.List;
  * @see ArtistDao
  * @see ArtistDaoImpl
  * @see Artist
+ * @see AlbumDao
+ * @see AlbumDaoImpl
+ * @see Album
  */
 public class BindArtistsDataSource extends AbstractDataSource implements BindArtistsDaoFactory, ArtistsDataSource {
   /**
@@ -34,6 +37,11 @@ public class BindArtistsDataSource extends AbstractDataSource implements BindArt
    */
   protected ArtistDaoImpl artistDao = new ArtistDaoImpl(this);
 
+  /**
+   * <p>dao instance</p>
+   */
+  protected AlbumDaoImpl albumDao = new AlbumDaoImpl(this);
+
   protected BindArtistsDataSource(DataSourceOptions options) {
     super("artists.db", 1, options);
   }
@@ -41,6 +49,11 @@ public class BindArtistsDataSource extends AbstractDataSource implements BindArt
   @Override
   public ArtistDaoImpl getArtistDao() {
     return artistDao;
+  }
+
+  @Override
+  public AlbumDaoImpl getAlbumDao() {
+    return albumDao;
   }
 
   /**
@@ -109,6 +122,8 @@ public class BindArtistsDataSource extends AbstractDataSource implements BindArt
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
     Logger.info("DDL: %s",ArtistTable.CREATE_TABLE_SQL);
     database.execSQL(ArtistTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",AlbumTable.CREATE_TABLE_SQL);
+    database.execSQL(AlbumTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -144,6 +159,8 @@ public class BindArtistsDataSource extends AbstractDataSource implements BindArt
       // generate tables
       Logger.info("DDL: %s",ArtistTable.CREATE_TABLE_SQL);
       database.execSQL(ArtistTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",AlbumTable.CREATE_TABLE_SQL);
+      database.execSQL(AlbumTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);

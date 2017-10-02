@@ -12,6 +12,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see ArtistDao
  * @see ArtistDaoImpl
  * @see Artist
+ * @see AlbumDao
+ * @see AlbumDaoImpl
+ * @see Album
  */
 public interface BindArtistsDaoFactory extends BindDaoFactory {
   /**
@@ -19,4 +22,10 @@ public interface BindArtistsDaoFactory extends BindDaoFactory {
    * retrieve dao ArtistDao
    */
   ArtistDaoImpl getArtistDao();
+
+  /**
+   *
+   * retrieve dao AlbumDao
+   */
+  AlbumDaoImpl getAlbumDao();
 }

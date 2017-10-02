@@ -26,7 +26,7 @@ public class ContentProviderCompilerTest extends AbstractBindSQLiteProcessorTest
 
 	@Test
 	public void test01() throws Throwable {
-		buildDataSourceProcessorTest(Artist.class, ArtistDao.class, ArtistsDataSource.class, BaseDao.class, Entity.class);
+		buildDataSourceProcessorTest(Artist.class, ArtistDao.class, Album.class, AlbumDao.class, ArtistsDataSource.class, BaseDao.class, Entity.class);
 	}
 
 }
