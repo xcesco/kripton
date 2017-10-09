@@ -49,6 +49,7 @@ import org.unitils.reflectionassert.ReflectionAssert;
 import org.unitils.reflectionassert.ReflectionComparatorMode;
 
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.BindMany2ManyProcessor;
 import com.abubusoft.kripton.processor.BindTypeProcessor;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.testing.compile.CompileTester.CompilationResultsConsumer;
@@ -257,6 +258,12 @@ public class BaseProcessorTest {
 	protected long buildDataSourceProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
 		return buildTest(BindTypeProcessor.class, classesToTest);
 	}
+	
+	protected long buildM2MProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
+		return buildTest(BindMany2ManyProcessor.class, classesToTest);
+	}
+	
+	
 
 	/**
 	 * Build standard test

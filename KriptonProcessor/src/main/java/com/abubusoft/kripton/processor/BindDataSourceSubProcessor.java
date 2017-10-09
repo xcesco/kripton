@@ -124,7 +124,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		annotations.add(BindDataSource.class.getCanonicalName());
 		annotations.add(BindTable.class.getCanonicalName());
 		annotations.add(BindDao.class.getCanonicalName());
-		annotations.add(BindDaoMany2Many.class.getCanonicalName());
+		//annotations.add(BindDaoMany2Many.class.getCanonicalName());
+		annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
 
 		return annotations;
 	}

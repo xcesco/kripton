@@ -32,6 +32,8 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
+import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
@@ -98,7 +100,7 @@ public class BindTypeProcessor extends BaseProcessor {
 
 	private BindModel model;
 
-	private BindMany2ManySubProcessor many2ManyProcessor = new BindMany2ManySubProcessor();
+	//private BindMany2ManySubProcessor many2ManyProcessor = new BindMany2ManySubProcessor();
 
 	private BindSharedPreferencesSubProcessor sharedPreferencesProcessor = new BindSharedPreferencesSubProcessor();
 
@@ -111,7 +113,10 @@ public class BindTypeProcessor extends BaseProcessor {
 		annotations.add(BindType.class.getCanonicalName());
 		annotations.addAll(sharedPreferencesProcessor.getSupportedAnnotationTypes());
 		annotations.addAll(dataSourceProcessor.getSupportedAnnotationTypes());
-		annotations.addAll(many2ManyProcessor.getSupportedAnnotationTypes());
+		annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
+		annotations.add(BindDaoMany2Many.class.getCanonicalName());
+		
+		//annotations.addAll(many2ManyProcessor.getSupportedAnnotationTypes());
 
 		return annotations;
 	}
@@ -120,7 +125,7 @@ public class BindTypeProcessor extends BaseProcessor {
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
 
-		many2ManyProcessor.init(processingEnv);
+		//many2ManyProcessor.init(processingEnv);
 		sharedPreferencesProcessor.init(processingEnv);
 		dataSourceProcessor.init(processingEnv);
 	}
@@ -129,13 +134,14 @@ public class BindTypeProcessor extends BaseProcessor {
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
 			count++;
-			if (count == 1) {
-				many2ManyProcessor.process(annotations, roundEnv);
+			if (count > 1) {
+				//many2ManyProcessor.process(annotations, roundEnv);
+				return true;
 			}
 
 			if (roundEnv.getRootElements().size() > 0) {
 				processedElement.addRound(roundEnv);
-				return true;
+				//return true;
 			}
 
 			model = new BindModel();

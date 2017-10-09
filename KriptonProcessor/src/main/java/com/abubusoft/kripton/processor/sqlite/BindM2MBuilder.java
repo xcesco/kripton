@@ -85,7 +85,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
 		String packageName = pkg.getQualifiedName().toString();
 
-		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, daoClassName);
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoGeneratedPart.class, packageName, daoClassName);
 		//@formatter:off
 		classBuilder = TypeSpec.interfaceBuilder(daoClassName+"GeneratedPart")
 				.addModifiers(Modifier.PUBLIC)				
