@@ -3,6 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-example-01</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
 
 	<!-- Property version 1.6.2-SNAPSHOT -->
 	<properties>
@@ -15,8 +16,7 @@
 		<java.version>1.7</java.version>
 
 		<!-- dependencies version -->
-		<retrofit.version>2.2.0</retrofit.version>
-		<kripton.version>2.0.2</kripton.version>
+		<retrofit.version>2.2.0</retrofit.version>		
 	</properties>
 
 	<dependencies>
@@ -30,31 +30,31 @@
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton</artifactId>
-			<version>${kripton.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-retrofit-converter</artifactId>
-			<version>${kripton.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-dataformat-cbor</artifactId>
-			<version>${kripton.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-dataformat-properties</artifactId>
-			<version>${kripton.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-dataformat-yaml</artifactId>
-			<version>${kripton.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
@@ -86,5 +86,4 @@
 
 	</build>
 
-	<version>2.1.0</version>
 </project>

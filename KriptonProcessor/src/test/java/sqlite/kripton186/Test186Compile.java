@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.kriptonXXX;
+package sqlite.kripton186;
 
 import java.io.IOException;
 
@@ -22,24 +22,19 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.kripton56.entities.MessageEntity;
-import sqlite.kripton56.entities.OwnerType;
-import sqlite.kripton56.internal.MessageType;
-import sqlite.kripton56.persistence.DaoMessage;
-import sqlite.kripton56.persistence.WhisperDataSource;
-import sqlite.kriptonXXX.model.ActionType;
-import sqlite.kriptonXXX.model.Country;
-import sqlite.kriptonXXX.model.PhoneNumber;
-import sqlite.kriptonXXX.model.PrefixConfig;
-import sqlite.kriptonXXX.model.Translation;
-import sqlite.kriptonXXX.persistence.AbstractDao;
-import sqlite.kriptonXXX.persistence.CountryDao;
-import sqlite.kriptonXXX.persistence.PhoneDao;
-import sqlite.kriptonXXX.persistence.PrefixConfigDao;
-import sqlite.kriptonXXX.persistence.XenoDataSource;
+import sqlite.kripton186.model.ActionType;
+import sqlite.kripton186.model.Country;
+import sqlite.kripton186.model.PhoneNumber;
+import sqlite.kripton186.model.PrefixConfig;
+import sqlite.kripton186.model.Translation;
+import sqlite.kripton186.persistence.AbstractDao;
+import sqlite.kripton186.persistence.CountryDao;
+import sqlite.kripton186.persistence.PhoneDao;
+import sqlite.kripton186.persistence.PrefixConfigDao;
+import sqlite.kripton186.persistence.XenoDataSource;
 
 @RunWith(JUnit4.class)
-public class TestXXXCompile extends AbstractBindSQLiteProcessorTest {
+public class Test186Compile extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testDatabase() throws IOException, InstantiationException, IllegalAccessException {

@@ -1,4 +1,4 @@
-package sqlite.kriptonXXX.model;
+package sqlite.kripton186.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 

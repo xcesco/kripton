@@ -37,6 +37,7 @@ import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
 import sqlite.feature.schema.TestSchemaSuite;
 import sqlite.feature.typeadapter.TestTypeAdapterSuite;
 import sqlite.kripton111.TestCompile111;
+import sqlite.kripton186.Test186Suite;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
 import sqlite.kripton40.Test40Suite;
@@ -115,6 +116,7 @@ import sqlite.kripton63.Test63Compile;
 			TestForeignKeySuite.class,
 			TestUriCheckerSuite.class,
 			TestJqlCheckerSuite.class,
+			Test186Suite.class,
 						
 			TestSelectSuite.class,
 			IncludeFieldsTestSuite.class,						

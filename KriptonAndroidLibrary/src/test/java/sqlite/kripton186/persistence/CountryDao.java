@@ -1,9 +1,9 @@
-package sqlite.kriptonXXX.persistence;
+package sqlite.kripton186.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-import sqlite.kriptonXXX.model.Country;
+import sqlite.kripton186.model.Country;
 
 import java.util.List;
 

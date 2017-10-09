@@ -1,7 +1,7 @@
-package sqlite.kriptonXXX.persistence;
+package sqlite.kripton186.persistence;
 
 import android.provider.ContactsContract;
-import sqlite.kriptonXXX.model.PhoneNumber;
+import sqlite.kripton186.model.PhoneNumber;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;

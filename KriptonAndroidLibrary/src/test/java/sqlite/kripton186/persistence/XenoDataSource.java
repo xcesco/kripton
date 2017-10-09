@@ -1,4 +1,4 @@
-package sqlite.kriptonXXX.persistence;
+package sqlite.kripton186.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 

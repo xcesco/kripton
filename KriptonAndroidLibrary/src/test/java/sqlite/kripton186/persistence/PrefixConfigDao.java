@@ -1,11 +1,11 @@
-package sqlite.kriptonXXX.persistence;
+package sqlite.kripton186.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-import sqlite.kriptonXXX.model.PrefixConfig;
+import sqlite.kripton186.model.PrefixConfig;
 
 /**
  * Created by xcesco on 18/02/2017.

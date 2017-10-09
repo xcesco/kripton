@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.kriptonXXX;
+package sqlite.kripton186;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -24,9 +24,9 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestXXXCompile.class
+		Test186Compile.class
 		 })
 //@formatter:on
-public class TestXXXSuite extends BaseProcessorTest {
+public class Test186Suite extends BaseProcessorTest {
 
 }

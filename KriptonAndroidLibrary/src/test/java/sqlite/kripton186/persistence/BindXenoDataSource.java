@@ -1,4 +1,4 @@
-package sqlite.feature.many2many;
+package sqlite.kripton186.persistence;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -10,63 +10,66 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
 import java.util.List;
+import sqlite.kripton186.model.CountryTable;
+import sqlite.kripton186.model.PhoneNumberTable;
+import sqlite.kripton186.model.PrefixConfigTable;
 
 /**
  * <p>
- * Represents implementation of datasource PersonCirtyDataSource.
+ * Represents implementation of datasource XenoDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see PersonCirtyDataSource
- * @see BindPersonCirtyDaoFactory
- * @see PersonDao
- * @see PersonDaoImpl
- * @see Person
- * @see CityDao
- * @see CityDaoImpl
- * @see City
- * @see PersonCityDao
- * @see PersonCityDaoImpl
- * @see PersonCity
+ * @see XenoDataSource
+ * @see BindXenoDaoFactory
+ * @see PhoneDao
+ * @see PhoneDaoImpl
+ * @see sqlite.kripton186.model.PhoneNumber
+ * @see PrefixConfigDao
+ * @see PrefixConfigDaoImpl
+ * @see sqlite.kripton186.model.PrefixConfig
+ * @see CountryDao
+ * @see CountryDaoImpl
+ * @see sqlite.kripton186.model.Country
  */
-public class BindPersonCirtyDataSource extends AbstractDataSource implements BindPersonCirtyDaoFactory, PersonCirtyDataSource {
+public class BindXenoDataSource extends AbstractDataSource implements BindXenoDaoFactory, XenoDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindPersonCirtyDataSource instance;
+  static BindXenoDataSource instance;
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonDaoImpl personDao = new PersonDaoImpl(this);
+  protected PhoneDaoImpl phoneDao = new PhoneDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected CityDaoImpl cityDao = new CityDaoImpl(this);
+  protected PrefixConfigDaoImpl prefixConfigDao = new PrefixConfigDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonCityDaoImpl personCityDao = new PersonCityDaoImpl(this);
+  protected CountryDaoImpl countryDao = new CountryDaoImpl(this);
 
-  protected BindPersonCirtyDataSource(DataSourceOptions options) {
-    super("person.db", 1, options);
+  protected BindXenoDataSource(DataSourceOptions options) {
+    super("xeno.db", 1, options);
   }
 
   @Override
-  public PersonDaoImpl getPersonDao() {
-    return personDao;
+  public PhoneDaoImpl getPhoneDao() {
+    return phoneDao;
   }
 
   @Override
-  public CityDaoImpl getCityDao() {
-    return cityDao;
+  public PrefixConfigDaoImpl getPrefixConfigDao() {
+    return prefixConfigDao;
   }
 
   @Override
-  public PersonCityDaoImpl getPersonCityDao() {
-    return personCityDao;
+  public CountryDaoImpl getCountryDao() {
+    return countryDao;
   }
 
   /**
@@ -99,9 +102,9 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   /**
    * instance
    */
-  public static synchronized BindPersonCirtyDataSource instance() {
+  public static synchronized BindXenoDataSource instance() {
     if (instance==null) {
-      instance=new BindPersonCirtyDataSource(null);
+      instance=new BindXenoDataSource(null);
     }
     return instance;
   }
@@ -110,8 +113,8 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindPersonCirtyDataSource open() {
-    BindPersonCirtyDataSource instance=instance();
+  public static BindXenoDataSource open() {
+    BindXenoDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -120,8 +123,8 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindPersonCirtyDataSource openReadOnly() {
-    BindPersonCirtyDataSource instance=instance();
+  public static BindXenoDataSource openReadOnly() {
+    BindXenoDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -133,12 +136,12 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-    database.execSQL(CityTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PersonCityTable.CREATE_TABLE_SQL);
-    database.execSQL(PersonCityTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+    database.execSQL(CountryTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -172,12 +175,12 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-      database.execSQL(CityTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PersonCityTable.CREATE_TABLE_SQL);
-      database.execSQL(PersonCityTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+      database.execSQL(CountryTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -190,7 +193,6 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
@@ -200,9 +202,9 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
    * Build instance.
    * @return dataSource instance.
    */
-  public static synchronized BindPersonCirtyDataSource build(DataSourceOptions options) {
+  public static synchronized BindXenoDataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindPersonCirtyDataSource(options);
+      instance=new BindXenoDataSource(options);
     }
     instance.openWritableDatabase();
     return instance;
@@ -211,7 +213,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindPersonCirtyDaoFactory> {
+  public interface Transaction extends AbstractTransaction<BindXenoDaoFactory> {
   }
 
   /**

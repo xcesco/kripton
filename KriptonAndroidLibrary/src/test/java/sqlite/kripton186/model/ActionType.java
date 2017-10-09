@@ -1,4 +1,4 @@
-package sqlite.kriptonXXX.model;
+package sqlite.kripton186.model;
 
 /**
  * Created by 908099 on 16/02/2017.

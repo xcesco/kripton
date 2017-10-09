@@ -361,7 +361,12 @@ bind_parameter
  ;
  
 bind_parameter_name
- : (IDENTIFIER '.')?IDENTIFIER
+ : (parameter_identifier '.')?parameter_identifier
+ ; 
+ 
+parameter_identifier
+ : IDENTIFIER
+ | keyword
  ; 
 
 bind_dynamic_sql
