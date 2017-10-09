@@ -20,9 +20,9 @@ public class AlbumTable {
    * DDL to create table album
    * </p>
    *
-   * <pre>CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);</pre>
+   * <pre>CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, artist_id INTEGER, FOREIGN KEY(artist_id) REFERENCES artist(id) ON UPDATE CASCADE);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, artist_id INTEGER, FOREIGN KEY(artist_id) REFERENCES artist(id) ON UPDATE CASCADE);";
 
   /**
    * <p>
@@ -46,4 +46,11 @@ public class AlbumTable {
    *  @see Album#name
    */
   public static final String COLUMN_NAME = "name";
+
+  /**
+   * Entity's property <code>artistId</code> is associated to table column <code>artist_id</code>. This costant represents column name.
+   *
+   *  @see Album#artistId
+   */
+  public static final String COLUMN_ARTIST_ID = "artist_id";
 }

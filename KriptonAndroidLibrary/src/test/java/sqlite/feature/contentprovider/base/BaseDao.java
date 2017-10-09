@@ -17,15 +17,19 @@ public interface BaseDao<E> {
 	@BindSqlSelect(where = "id=${id}")
 	E selectById(long id);
 
+	@BindContentProviderEntry
 	@BindSqlSelect
 	List<E> selectAll();
 
+	@BindContentProviderEntry
 	@BindSqlInsert
 	long insert(E bean);
 
+	@BindContentProviderEntry(path = "${bean.id}")
 	@BindSqlUpdate(where = "id=${bean.id}")
 	long update(E bean);
 
+	@BindContentProviderEntry(path = "${bean.id}")
 	@BindSqlDelete(where = "id=${bean.id}")
 	long delete(E bean);
 

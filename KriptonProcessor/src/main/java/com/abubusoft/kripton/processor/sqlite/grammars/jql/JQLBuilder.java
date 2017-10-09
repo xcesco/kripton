@@ -197,7 +197,6 @@ public abstract class JQLBuilder {
 					result.staticWhereConditions = true;
 					return null;
 				}
-
 			});
 
 			// if (result.containsSelectOperation) {

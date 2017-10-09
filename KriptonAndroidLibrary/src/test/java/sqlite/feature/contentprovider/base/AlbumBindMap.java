@@ -27,6 +27,10 @@ public class AlbumBindMap extends AbstractMapper<Album> {
 
     // Serialized Field:
 
+    // field artistId (mapped with "artistId")
+    fieldCount++;
+    jacksonSerializer.writeNumberField("artistId", object.artistId);
+
     // field id (mapped with "id")
     fieldCount++;
     jacksonSerializer.writeNumberField("id", object.id);
@@ -48,6 +52,9 @@ public class AlbumBindMap extends AbstractMapper<Album> {
     int fieldCount=0;
 
     // Serialized Field:
+
+    // field artistId (mapped with "artistId")
+    jacksonSerializer.writeStringField("artistId", PrimitiveUtils.writeLong(object.artistId));
 
     // field id (mapped with "id")
     jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
@@ -73,6 +80,11 @@ public class AlbumBindMap extends AbstractMapper<Album> {
     }
 
     // Persisted fields:
+
+    // field artistId (mapped with "artistId")
+    xmlSerializer.writeStartElement("artistId");
+    xmlSerializer.writeLong(object.artistId);
+    xmlSerializer.writeEndElement();
 
     // field id (mapped with "id")
     xmlSerializer.writeStartElement("id");
@@ -111,6 +123,10 @@ public class AlbumBindMap extends AbstractMapper<Album> {
 
       // Parse fields:
       switch (fieldName) {
+          case "artistId":
+            // field artistId (mapped with "artistId")
+            instance.artistId=jacksonParser.getLongValue();
+          break;
           case "id":
             // field id (mapped with "id")
             instance.id=jacksonParser.getLongValue();
@@ -148,6 +164,10 @@ public class AlbumBindMap extends AbstractMapper<Album> {
 
       // Parse fields:
       switch (fieldName) {
+          case "artistId":
+            // field artistId (mapped with "artistId")
+            instance.artistId=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          break;
           case "id":
             // field id (mapped with "id")
             instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
@@ -195,6 +215,10 @@ public class AlbumBindMap extends AbstractMapper<Album> {
           case XmlPullParser.START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
+                case "artistId":
+                  // property artistId (mapped on "artistId")
+                  instance.artistId=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                break;
                 case "id":
                   // property id (mapped on "id")
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);

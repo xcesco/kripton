@@ -25,6 +25,12 @@ import java.util.Set;
 public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
   private static final Set<String> selectById0ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
+  private static final Set<String> selectAll1ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
+
+  private static final Set<String> insert2ColumnSet = CollectionUtils.asSet(String.class, "name");
+
+  private static final Set<String> update3ColumnSet = CollectionUtils.asSet(String.class, "name");
+
   public ArtistDaoImpl(BindArtistsDataSource dataSet) {
     super(dataSet);
   }
@@ -99,7 +105,7 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
 
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
-   * <pre>content://com.abubusoft.kripton.example/artist/#</pre>
+   * <pre>content://com.abubusoft.kripton.example/artists/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, name FROM Artist WHERE id=${id}</pre>
@@ -116,7 +122,7 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
-   * @param uri "content://com.abubusoft.kripton.example/artist/#"
+   * @param uri "content://com.abubusoft.kripton.example/artists/#"
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
@@ -144,7 +150,7 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
         if (!selectById0ColumnSet.contains(columnName)) {
-          throw new KriptonRuntimeException(String.format("For URI 'content://com.abubusoft.kripton.example/artist/#', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "artist" ));
+          throw new KriptonRuntimeException(String.format("For URI 'content://com.abubusoft.kripton.example/artists/#', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "artist" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
@@ -234,6 +240,69 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
   }
 
   /**
+   * <h1>Content provider URI (SELECT operation):</h1>
+   * <pre>content://com.abubusoft.kripton.example/artists</pre>
+   *
+   * <h2>JQL SELECT for Content Provider</h2>
+   * <pre>SELECT id, name FROM Artist</pre>
+   *
+   * <h2>SQL SELECT for Content Provider</h2>
+   * <pre>SELECT id, name FROM artist</pre>
+   *
+   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
+   *
+   * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
+   *
+   * @param uri "content://com.abubusoft.kripton.example/artists"
+   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @return number of effected rows
+   */
+  Cursor selectAll1(Uri uri, String[] projection, String selection, String[] selectionArgs,
+      String sortOrder) {
+    Logger.info("Execute SELECT for URI %s", uri.toString());
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    StringBuilder _projectionBuffer=new StringBuilder();
+    _sqlBuilder.append("SELECT %s FROM artist");
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    String _sqlWhereStatement="";
+
+    // manage projected columns
+    String _columnSeparator="";
+    if (projection!=null && projection.length>0) {
+      for (String columnName:projection) {
+        if (!selectAll1ColumnSet.contains(columnName)) {
+          throw new KriptonRuntimeException(String.format("For URI 'content://com.abubusoft.kripton.example/artists', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "artist" ));
+        }
+        _projectionBuffer.append(_columnSeparator + columnName);
+        _columnSeparator=", ";
+      }
+    } else {
+      for (String column: selectAll1ColumnSet) {
+        _projectionBuffer.append(_columnSeparator + column);
+        _columnSeparator=", ";
+      }
+    }
+
+    // manage log
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
+    Logger.info(_sql);
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+
+    // execute query
+    Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    return _result;
+  }
+
+  /**
    * <p>SQL insert:</p>
    * <pre>INSERT INTO artist (name) VALUES (${name})</pre>
    *
@@ -287,6 +356,60 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
     long result = database().insert("artist", null, contentValues);
     bean.id=result;
 
+    return result;
+  }
+
+  /**
+   * <h1>Content provider URI (INSERT operation):</h1>
+   * <pre>content://com.abubusoft.kripton.example/artists</pre>
+   *
+   * <h2>JQL INSERT for Content Provider</h2>
+   * <pre>INSERT INTO Artist (name) VALUES (${name})</pre>
+   *
+   * <h2>SQL INSERT for Content Provider</h2>
+   * <pre>INSERT INTO artist (name) VALUES (${name})</pre>
+   *
+   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
+   *
+   * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
+   *
+   * @param uri "content://com.abubusoft.kripton.example/artists"
+   * @param contentValues content values
+   * @return new row's id
+   */
+  long insert2(Uri uri, ContentValues contentValues) {
+    Logger.info("Execute INSERT for URI %s", uri.toString());
+    for (String columnName:contentValues.keySet()) {
+      if (!insert2ColumnSet.contains(columnName)) {
+        throw new KriptonRuntimeException(String.format("For URI 'content://com.abubusoft.kripton.example/artists', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "artist" ));
+      }
+    }
+
+    // log for insert -- BEGIN 
+    StringBuffer _columnNameBuffer=new StringBuffer();
+    StringBuffer _columnValueBuffer=new StringBuffer();
+    String _columnSeparator="";
+    for (String columnName:contentValues.keySet()) {
+      _columnNameBuffer.append(_columnSeparator+columnName);
+      _columnValueBuffer.append(_columnSeparator+":"+columnName);
+      _columnSeparator=", ";
+    }
+    Logger.info("INSERT INTO artist (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+    // log for insert -- END 
+
+    long result = database().insert("artist", null, contentValues);
     return result;
   }
 
@@ -361,6 +484,80 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
   }
 
   /**
+   * <h1>Content provider URI (UPDATE operation):</h1>
+   * <pre>content://com.abubusoft.kripton.example/artists/#</pre>
+   *
+   * <h2>JQL UPDATE for Content Provider</h2>
+   * <pre>UPDATE Artist SET name=${name} WHERE id=${bean.id}</pre>
+   *
+   * <h2>SQL UPDATE for Content Provider</h2>
+   * <pre>UPDATE artist SET name=${name} WHERE id=${bean.id}</pre>
+   *
+   * <h3>Path variables defined:</h3>
+   * <ul>
+   * <li><strong>${bean.id}</strong> at path segment 1</li>
+   * </ul>
+   *
+   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
+   *
+   * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
+   *
+   * @param uri "content://com.abubusoft.kripton.example/artists/#"
+   * @param contentValues content values
+   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @return number of effected rows
+   */
+  int update3(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+    Logger.info("Execute UPDATE for URI %s", uri.toString());
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    // Add parameter bean.id at path segment 1
+    _sqlWhereParams.add(uri.getPathSegments().get(1));
+    for (String columnName:contentValues.keySet()) {
+      if (!update3ColumnSet.contains(columnName)) {
+        throw new KriptonRuntimeException(String.format("For URI 'content://com.abubusoft.kripton.example/artists/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "artist" ));
+      }
+    }
+
+    // display log
+    Logger.info("UPDATE artist SET name=:name WHERE id=?");
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:contentValues.keySet()) {
+      _contentValue=contentValues.get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+
+    // execute SQL
+    int result = database().update("artist", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    return result;
+  }
+
+  /**
    * <h2>SQL delete:</h2>
    * <pre>DELETE FROM artist WHERE id=${bean.id}</pre>
    *
@@ -400,6 +597,62 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
+    int result = database().delete("artist", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    return result;
+  }
+
+  /**
+   * <h1>Content provider URI (DELETE operation):</h1>
+   * <pre>content://com.abubusoft.kripton.example/artists/#</pre>
+   *
+   * <h2>JQL DELETE for Content Provider</h2>
+   * <pre>DELETE FROM Artist WHERE id=${bean.id}</pre>
+   *
+   * <h2>SQL DELETE for Content Provider</h2>
+   * <pre>DELETE FROM artist WHERE id=${bean.id}</pre>
+   *
+   * <h3>Path variables defined:</h3>
+   * <ul>
+   * <li><strong>${bean.id}</strong> at path segment 1</li>
+   * </ul>
+   *
+   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
+   *
+   * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
+   *
+   * @param uri "content://com.abubusoft.kripton.example/artists/#"
+   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @return number of effected rows
+   */
+  int delete4(Uri uri, String selection, String[] selectionArgs) {
+    Logger.info("Execute DELETE for URI %s", uri.toString());
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    // Add parameter bean.id at path segment 1
+    _sqlWhereParams.add(uri.getPathSegments().get(1));
+
+    // display log
+    Logger.info("DELETE FROM artist WHERE id=?");
+
+    // log for where parameters -- BEGIN
+    int _whereParamCounter=0;
+    for (String _whereParamItem: _sqlWhereParams) {
+      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    }
+    // log for where parameters -- END
+
+    // execute SQL
     int result = database().delete("artist", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }

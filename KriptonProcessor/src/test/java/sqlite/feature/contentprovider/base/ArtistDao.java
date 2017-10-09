@@ -6,7 +6,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 /**
  * Created by xcesco on 02/10/2017.
  */
-@BindContentProviderPath(path = "artist")
+@BindContentProviderPath(path = "artists")
 @BindDao(Artist.class)
 public interface ArtistDao extends BaseDao<Artist> {
 

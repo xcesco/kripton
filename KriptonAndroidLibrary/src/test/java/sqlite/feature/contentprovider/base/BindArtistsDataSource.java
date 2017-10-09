@@ -173,6 +173,7 @@ public class BindArtistsDataSource extends AbstractDataSource implements BindArt
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
+    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
