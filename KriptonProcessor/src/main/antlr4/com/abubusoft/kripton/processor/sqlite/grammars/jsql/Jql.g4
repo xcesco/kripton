@@ -355,10 +355,11 @@ expr
  ;
  
 bind_parameter
- : BIND_PARAMETER
+ : '?' DIGIT*
+ | ':' IDENTIFIER 
  | '$' SPACES* '{' SPACES* bind_parameter_name SPACES* '}'
  ;
-
+ 
 bind_parameter_name
  : (IDENTIFIER '.')?IDENTIFIER
  ; 
@@ -908,10 +909,15 @@ NUMERIC_LITERAL
  | '.' DIGIT+ ( E [-+]? DIGIT+ )?
  ;
 
-BIND_PARAMETER
- : '?' DIGIT*
- | [:@$] IDENTIFIER
- ;
+//BIND_PARAMETER
+// : '?' DIGIT*
+// | [:@$] IDENTIFIER
+// ;
+ 
+//BIND_PARAMETER
+// : '?' DIGIT*
+// | [:] IDENTIFIER
+// ;
 
 STRING_LITERAL
  : '\'' ( ~'\'' | '\'\'' )* '\''
