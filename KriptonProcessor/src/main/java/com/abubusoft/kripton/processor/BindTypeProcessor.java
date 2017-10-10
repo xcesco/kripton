@@ -32,8 +32,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
-import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
@@ -71,7 +69,7 @@ public class BindTypeProcessor extends BaseProcessor {
 
 		@Override
 		public boolean processingOver() {
-			return false;
+			return true;
 		}
 
 		@Override
@@ -113,8 +111,8 @@ public class BindTypeProcessor extends BaseProcessor {
 		annotations.add(BindType.class.getCanonicalName());
 		annotations.addAll(sharedPreferencesProcessor.getSupportedAnnotationTypes());
 		annotations.addAll(dataSourceProcessor.getSupportedAnnotationTypes());
-		annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
-		annotations.add(BindDaoMany2Many.class.getCanonicalName());
+		//annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
+		//annotations.add(BindDaoMany2Many.class.getCanonicalName());
 		
 		//annotations.addAll(many2ManyProcessor.getSupportedAnnotationTypes());
 
@@ -138,6 +136,7 @@ public class BindTypeProcessor extends BaseProcessor {
 				//many2ManyProcessor.process(annotations, roundEnv);
 				return true;
 			}
+			error(null, "parser "+count);
 
 			if (roundEnv.getRootElements().size() > 0) {
 				processedElement.addRound(roundEnv);
@@ -171,7 +170,7 @@ public class BindTypeProcessor extends BaseProcessor {
 			
 			sharedPreferencesProcessor.generateClasses();
 			dataSourceProcessor.generatedClasses();
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			String msg = StringUtils.nvl(e.getMessage());
 			error(null, msg);
 

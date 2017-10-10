@@ -28,6 +28,7 @@ import javax.lang.model.element.PackageElement;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
+import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -39,6 +40,7 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.BindMany2ManyProcessor;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MModel;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -85,7 +87,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
 		String packageName = pkg.getQualifiedName().toString();
 
-		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoGeneratedPart.class, packageName, daoClassName);
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoMany2Many.class, packageName, daoClassName);
 		//@formatter:off
 		classBuilder = TypeSpec.interfaceBuilder(daoClassName+"GeneratedPart")
 				.addModifiers(Modifier.PUBLIC)				
@@ -231,7 +233,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		
 		String entityClassName = entity.name;
 
-		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, entity.getPackageName(), entityClassName);
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoMany2Many.class, entity.getPackageName(), entityClassName);
 		//@formatter:off
 		classBuilder = TypeSpec.classBuilder(entityClassName)
 				.addModifiers(Modifier.PUBLIC)

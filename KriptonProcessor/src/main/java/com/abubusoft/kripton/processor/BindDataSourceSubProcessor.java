@@ -124,7 +124,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		annotations.add(BindDataSource.class.getCanonicalName());
 		annotations.add(BindTable.class.getCanonicalName());
 		annotations.add(BindDao.class.getCanonicalName());
-		//annotations.add(BindDaoMany2Many.class.getCanonicalName());
+		annotations.add(BindDaoMany2Many.class.getCanonicalName());
 		annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
 
 		return annotations;
@@ -151,6 +151,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		model.schemaClear();
 
 		parseBindType(roundEnv);
+		error(null, "son qua");
 
 		// Put all @BindTable elements in beanElements
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
@@ -226,6 +227,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			schemas.add(currentSchema);
 		} // end foreach dataSource
 			// logger.info(currentSchema.toString());
+		error(null, "son qua2");
 
 		return true;
 	}

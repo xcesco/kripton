@@ -74,7 +74,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	/**
 	 * if we want to display debug info
 	 */
-	public static boolean DEBUG_MODE = false;
+	public static boolean DEBUG_MODE = true;
 
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
