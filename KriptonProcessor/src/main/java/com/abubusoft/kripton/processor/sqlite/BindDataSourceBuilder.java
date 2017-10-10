@@ -42,6 +42,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.Version;
+import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
 import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
@@ -54,7 +55,6 @@ import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -241,7 +241,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		generateBuild(dataSourceName, schema);
 
 		TypeSpec typeSpec = classBuilder.build();
-		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);	
 	}
 
 	private void generateBuild(String dataSourceName, SQLiteDatabaseSchema schema) {

@@ -145,13 +145,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-
 		globalDaoElements.clear();
-
 		model.schemaClear();
 
-		parseBindType(roundEnv);
-		error(null, "son qua");
+		parseBindType(roundEnv);	
 
 		// Put all @BindTable elements in beanElements
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
@@ -219,15 +216,14 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			if (currentSchema.getCollection().size() == 0) {
 				msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDao.class.getSimpleName(),
 						currentSchema.getElement().getSimpleName().toString(), BindDataSource.class.getSimpleName());
-				info(msg);
+				//info(msg);
 				error(null, msg);
 				return true;
 			}
 
 			schemas.add(currentSchema);
 		} // end foreach dataSource
-			// logger.info(currentSchema.toString());
-		error(null, "son qua2");
+			// logger.info(currentSchema.toString());		
 
 		return true;
 	}
@@ -296,8 +292,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		final TypeElement beanElement = globalBeanElements.get(m2mEntity.getClassName().toString());
 
-		error(null, "vedi "+m2mEntity.getClassName());
-		error(null, "analizzo "+beanElement);
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);
 		// assert: bean is present

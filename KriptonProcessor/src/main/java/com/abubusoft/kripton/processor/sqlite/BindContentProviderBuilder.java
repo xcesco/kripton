@@ -36,6 +36,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.MultiplicityResultType;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
@@ -50,7 +51,6 @@ import com.google.common.base.Converter;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.CodeBlock.Builder;
 import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -289,7 +289,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		generateGetType(schema);
 
 		TypeSpec typeSpec = classBuilder.build();
-		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 	}
 
 	/**

@@ -28,6 +28,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
@@ -35,7 +36,6 @@ import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -239,7 +239,7 @@ public class BindAsyncTaskBuilder {
 		//@formatter:on
 
 		TypeSpec typeSpec = builder.build();
-		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);		
 	}
 
 }

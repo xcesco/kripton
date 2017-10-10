@@ -31,6 +31,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
+import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
@@ -41,7 +42,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -128,10 +128,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 		TypeSpec typeSpec = builder.build();
 
-		JavaFile.Builder fileBuilder = JavaFile.builder(packageName, typeSpec);
-		fileBuilder.skipJavaLangImports(true);
-
-		fileBuilder.build().writeTo(filer);
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);		
 	}
 
 	/**

@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.processing.Filer;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 
@@ -29,7 +30,6 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
-import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
@@ -40,7 +40,7 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.BaseProcessor;
-import com.abubusoft.kripton.processor.BindMany2ManyProcessor;
+import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MModel;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -48,7 +48,6 @@ import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -102,8 +101,8 @@ public class BindM2MBuilder extends AbstractBuilder {
 		generateInsert(entity, packageName);
 
 
-		TypeSpec typeSpec = classBuilder.build();
-		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+		TypeSpec typeSpec = classBuilder.build();		
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);	
 
 	}
 
@@ -228,7 +227,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 * @return
 	 * @throws IOException
 	 */
-	private void generateEntity(M2MEntity entity) throws IOException {
+	private void generateEntity(M2MEntity entity) throws IOException {				
 		if(!entity.needToCreate) return;
 		
 		String entityClassName = entity.name;
@@ -289,7 +288,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		}
 
 		TypeSpec typeSpec = classBuilder.build();
-		JavaFile.builder(entity.getPackageName(), typeSpec).build().writeTo(filer);
+		JavaWriterHelper.writeJava2File(filer, entity.getPackageName(), typeSpec);
 	}
 
 

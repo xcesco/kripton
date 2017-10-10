@@ -25,6 +25,7 @@ import java.io.StringWriter;
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -35,7 +36,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.android.commons.IOUtils;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
@@ -73,7 +73,7 @@ public class BindTypeProcessor extends BaseProcessor {
 
 		@Override
 		public boolean processingOver() {
-			return true;
+			return false;
 		}
 
 		@Override
@@ -102,7 +102,7 @@ public class BindTypeProcessor extends BaseProcessor {
 
 	private BindModel model;
 
-	//private BindMany2ManySubProcessor many2ManyProcessor = new BindMany2ManySubProcessor();
+	private BindMany2ManySubProcessor many2ManyProcessor = new BindMany2ManySubProcessor();
 
 	private BindSharedPreferencesSubProcessor sharedPreferencesProcessor = new BindSharedPreferencesSubProcessor();
 
@@ -118,7 +118,7 @@ public class BindTypeProcessor extends BaseProcessor {
 		//annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
 		//annotations.add(BindDaoMany2Many.class.getCanonicalName());
 		
-		//annotations.addAll(many2ManyProcessor.getSupportedAnnotationTypes());
+		annotations.addAll(many2ManyProcessor.getSupportedAnnotationTypes());
 
 		return annotations;
 	}
@@ -127,7 +127,7 @@ public class BindTypeProcessor extends BaseProcessor {
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
 
-		//many2ManyProcessor.init(processingEnv);
+		many2ManyProcessor.init(processingEnv);
 		sharedPreferencesProcessor.init(processingEnv);
 		dataSourceProcessor.init(processingEnv);
 	}
@@ -136,17 +136,19 @@ public class BindTypeProcessor extends BaseProcessor {
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
 			count++;
-			if (count > 1) {
-				//many2ManyProcessor.process(annotations, roundEnv);
+			if (count == 1) {				
+				many2ManyProcessor.process(annotations, roundEnv);				
+			}			
+			
+			if (roundEnv.getRootElements().size() > 0) {				
+				processedElement.addRound(roundEnv);
+				dump(count);
 				return true;
 			}
-			error(null, "parser "+count);
-
-			if (roundEnv.getRootElements().size() > 0) {
-				processedElement.addRound(roundEnv);
-				//return true;
-			}
-
+			
+			
+			dump(count);
+									
 			model = new BindModel();
 			final AtomicInteger itemCounter = new AtomicInteger();
 			itemCounter.set(0);
@@ -186,8 +188,22 @@ public class BindTypeProcessor extends BaseProcessor {
 			StringWriter sw = new StringWriter();
 			e.printStackTrace(new PrintWriter(sw));
 			String exceptionAsString = sw.toString();
-			try(  PrintWriter out = new PrintWriter( "d:\filename.txt" )  ){
+			try(  PrintWriter out = new PrintWriter( "d:/filenameA.txt" )  ){
 			    out.println( exceptionAsString );
+			    
+			    for (Element item:processedElement.elements) {
+					out.println(String.format("processedElement %s", item.asType().toString()));
+				}
+			    
+			    for (Entry<String, TypeElement> entry: globalBeanElements.entrySet()) {
+			    	out.println(String.format("GLOBAL %s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
+			    }
+			    
+			    out.println("dao---");
+			    for (Entry<String, TypeElement> entry: this.dataSourceProcessor.globalBeanElements.entrySet()) {
+			    	out.println(String.format("%s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
+			    }
+			    
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -200,6 +216,28 @@ public class BindTypeProcessor extends BaseProcessor {
 		}
 
 		return true;
+	}
+	
+	private void dump(int count) {		
+		try(  PrintWriter out = new PrintWriter( "d:/filename"+count+".txt" )  ){			
+			for (Element item:processedElement.elements) {
+				out.println(String.format("processedElement %s", item.getSimpleName()));
+			}
+			
+			
+		    for (Entry<String, TypeElement> entry: globalBeanElements.entrySet()) {
+		    	out.println(String.format("GLOBAL %s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
+		    }
+		    
+		    out.println("dao---");
+		    for (Entry<String, TypeElement> entry: this.dataSourceProcessor.globalBeanElements.entrySet()) {
+		    	out.println(String.format("%s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
+		    }
+		    
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	/**

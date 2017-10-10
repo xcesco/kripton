@@ -22,12 +22,12 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
+import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -77,7 +77,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, schemaName);
 		classBuilder = buildDaoFactoryInterfaceInternal(elementUtils, filer, schema);
 		TypeSpec typeSpec = classBuilder.build();
-		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);	
 
 		return schemaName;
 	}

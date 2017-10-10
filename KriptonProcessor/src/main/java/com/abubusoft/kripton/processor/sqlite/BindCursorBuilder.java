@@ -26,9 +26,8 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
-import android.database.Cursor;
-
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.ModelElementVisitor;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -40,13 +39,14 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
+
+import android.database.Cursor;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -156,7 +156,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		}
 		
 		TypeSpec typeSpec = classBuilder.build();			
-		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 
 	}
 

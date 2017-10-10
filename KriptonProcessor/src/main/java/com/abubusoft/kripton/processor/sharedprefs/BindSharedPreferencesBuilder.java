@@ -34,11 +34,12 @@ import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
+import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
@@ -46,7 +47,6 @@ import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
@@ -140,8 +140,8 @@ public abstract class BindSharedPreferencesBuilder {
 
 		generateInstance(className);
 
-		TypeSpec typeSpec = builder.build();
-		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+		TypeSpec typeSpec = builder.build();		
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 
 		return className;
 	}

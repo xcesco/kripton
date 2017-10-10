@@ -18,12 +18,14 @@ package com.abubusoft.kripton.processor.bind;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.processing.Filer;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
@@ -34,6 +36,7 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.AbstractElementVisitor7;
 import javax.lang.model.util.Elements;
+import javax.tools.JavaFileObject;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.KriptonBinder;
@@ -67,16 +70,15 @@ public abstract class BindTypeBuilder {
 
 	// protected static
 	public static class VisitResult {
-		
-		public VisitResult(Elements elementUtils)
-		{
-			this.elementUtils=elementUtils;
+
+		public VisitResult(Elements elementUtils) {
+			this.elementUtils = elementUtils;
 		}
-		
+
 		public TypeMirror rawType;
-		
+
 		public List<? extends TypeMirror> argumentTypes;
-		
+
 		public Elements elementUtils;
 
 	}
@@ -85,43 +87,40 @@ public abstract class BindTypeBuilder {
 
 		@Override
 		public Void visitPackage(PackageElement e, VisitResult p) {
-			System.out.println("visitPackage "+e.asType());
+			System.out.println("visitPackage " + e.asType());
 			return null;
 		}
 
 		@Override
 		public Void visitType(TypeElement e, VisitResult p) {
-			System.out.println("visitType "+e.asType());
-			
+			System.out.println("visitType " + e.asType());
+
 			if (e.getSuperclass() instanceof DeclaredType) {
-		          DeclaredType superclassDeclaredType = (DeclaredType) e.getSuperclass();
-		          
-		          System.out.println("visitType parent "+superclassDeclaredType.getTypeArguments().size());		          		          
+				DeclaredType superclassDeclaredType = (DeclaredType) e.getSuperclass();
+
+				System.out.println("visitType parent " + superclassDeclaredType.getTypeArguments().size());
 			}
-						
+
 			return null;
 		}
 
 		@Override
 		public Void visitVariable(VariableElement e, VisitResult p) {
-			System.out.println("visitVariable "+e.asType());
-			
-			
-			
+			System.out.println("visitVariable " + e.asType());
+
 			return null;
 		}
 
 		@Override
 		public Void visitExecutable(ExecutableElement e, VisitResult p) {
-			System.out.println("visitExecutable "+e.asType());
+			System.out.println("visitExecutable " + e.asType());
 			return null;
 		}
 
 		@Override
 		public Void visitTypeParameter(TypeParameterElement e, VisitResult p) {
-			System.out.println("visitTypeParameter "+e.asType());
-			
-			
+			System.out.println("visitTypeParameter " + e.asType());
+
 			return null;
 		}
 
@@ -137,8 +136,8 @@ public abstract class BindTypeBuilder {
 	 * @throws IOException
 	 */
 	public static String generate(Filer filer, BindEntity item) throws IOException {
-		Elements elementUtils=BaseProcessor.elementUtils;
-		
+		Elements elementUtils = BaseProcessor.elementUtils;
+
 		String beanClassName = item.getSimpleName().toString();
 
 		boolean needSuffix = true;
@@ -216,10 +215,13 @@ public abstract class BindTypeBuilder {
 		generateParseOnXml(context, item);
 
 		TypeSpec typeSpec = builder.build();
-		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 
 		return className;
 	}
+
+
 
 	/**
 	 * <p>

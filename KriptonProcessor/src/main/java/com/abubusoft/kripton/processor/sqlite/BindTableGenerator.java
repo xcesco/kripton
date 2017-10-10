@@ -34,6 +34,7 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
+import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
@@ -57,7 +58,6 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -300,8 +300,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		model.sqlForCreate.add(bufferTable.toString());
 		model.sqlForDrop.add(bufferDropTable.toString());
 
-		TypeSpec typeSpec = classBuilder.build();
-		JavaFile.builder(packageName, typeSpec).build().writeTo(filer);
+		TypeSpec typeSpec = classBuilder.build();		
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);	
 
 	}
 
