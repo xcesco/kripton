@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.processing.Filer;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 
@@ -44,6 +43,7 @@ import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MModel;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.element.KriptonElement;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.AnnotationSpec;
@@ -102,6 +102,9 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 
 		TypeSpec typeSpec = classBuilder.build();		
+		
+		//KriptonElement
+		
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);	
 
 	}

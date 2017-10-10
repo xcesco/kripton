@@ -18,7 +18,7 @@ public class KriptonTypeMirror implements TypeMirror {
 	}
 
 	@Override
-	public <R, P> R accept(TypeVisitor<R, P> v, P p) {
+	public <R, P> R accept(TypeVisitor<R, P> v, P p) {		
 		return null;
 	}
 

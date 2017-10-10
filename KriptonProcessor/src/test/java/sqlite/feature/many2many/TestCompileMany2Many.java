@@ -25,10 +25,8 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 public class TestCompileMany2Many extends AbstractBindSQLiteProcessorTest {
 
 	@Test
-	public void testOK() throws Throwable {
-		buildM2MProcessorTest(PersonCityDao.class);
-		
-		buildDataSourceProcessorTest(PersonCity.class, PersonCityDaoGeneratedPart.class, PersonCirtyDataSource.class, PersonDao.class, Person.class, CityDao.class, City.class, PersonCityDao.class, Entity.class, BaseDao.class);
+	public void testOK() throws Throwable {				
+		buildDataSourceProcessorTest(PersonCityDao.class, PersonCity.class, PersonCityDaoGeneratedPart.class, PersonCirtyDataSource.class, PersonDao.class, Person.class, CityDao.class, City.class, PersonCityDao.class, Entity.class, BaseDao.class);
 	}
 
 }
