@@ -75,7 +75,7 @@ public abstract class BindEntityBuilder {
 		final InnerCounter counterPropertyInValue = new InnerCounter();
 		final Converter<String, String> typeNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		final TypeElement beanElement = element;
-
+				
 		final BindEntity currentEntity = new BindEntity(beanElement.getSimpleName().toString(), beanElement, AnnotationUtility.buildAnnotationList(element, classAnnotationFilter));
 
 		// tag typeName

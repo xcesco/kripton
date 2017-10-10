@@ -22,10 +22,13 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
 
+import javax.annotation.processing.Completion;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
@@ -43,6 +46,7 @@ import com.abubusoft.kripton.processor.sqlite.BindM2MBuilder;
 public class BindMany2ManyProcessor extends BaseProcessor {
 
 	private M2MModel model;
+
 
 	/*
 	 * (non-Javadoc)
@@ -73,6 +77,7 @@ public class BindMany2ManyProcessor extends BaseProcessor {
 		try {			
 			model = new M2MModel();
 			int itemCounter = 0;
+			
 
 			//parseBindType(roundEnv, elementUtils);
 

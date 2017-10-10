@@ -118,11 +118,11 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	protected Filer filer;
 	protected Messager messager;
 
-	protected void info(String msg, Object... args) {
+	public void info(String msg, Object... args) {
 		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
 	}
 
-	protected void error(Element e, String msg, Object... args) {
+	public void error(Element e, String msg, Object... args) {
 		// this must be always enabled, due control annotation processor
 		// execution status (if display an error, compiler fails).
 		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);

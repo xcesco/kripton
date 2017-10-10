@@ -296,6 +296,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		final TypeElement beanElement = globalBeanElements.get(m2mEntity.getClassName().toString());
 
+		error(null, "vedi "+m2mEntity.getClassName());
+		error(null, "analizzo "+beanElement);
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);
 		// assert: bean is present

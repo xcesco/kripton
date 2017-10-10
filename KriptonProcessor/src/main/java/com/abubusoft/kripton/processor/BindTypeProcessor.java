@@ -18,7 +18,10 @@
  */
 package com.abubusoft.kripton.processor;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -32,6 +35,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.android.commons.IOUtils;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
@@ -172,7 +176,22 @@ public class BindTypeProcessor extends BaseProcessor {
 			dataSourceProcessor.generatedClasses();
 		} catch (Throwable e) {
 			String msg = StringUtils.nvl(e.getMessage());
-			error(null, msg);
+			error(null, e.getClass().getCanonicalName()+".: "+msg);
+			StackTraceElement[] trace = e.getStackTrace();
+			for (StackTraceElement item:trace)
+			{
+				error(null, item.getClassName()+" "+item.getMethodName()+" "+item.getLineNumber());	
+			}
+			
+			StringWriter sw = new StringWriter();
+			e.printStackTrace(new PrintWriter(sw));
+			String exceptionAsString = sw.toString();
+			try(  PrintWriter out = new PrintWriter( "d:\filename.txt" )  ){
+			    out.println( exceptionAsString );
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			if (DEBUG_MODE) {
 				logger.log(Level.SEVERE, msg);
