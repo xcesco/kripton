@@ -257,7 +257,7 @@ public class BaseProcessorTest {
 	protected long buildDataSourceProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
 		return buildTest(BindTypeProcessor.class, classesToTest);
 	}
-		
+	
 
 	/**
 	 * Build standard test

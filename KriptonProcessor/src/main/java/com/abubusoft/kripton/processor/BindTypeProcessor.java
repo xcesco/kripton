@@ -96,7 +96,14 @@ public class BindTypeProcessor extends BaseProcessor {
 		public Set<? extends Element> getElementsAnnotatedWith(TypeElement a) {
 			return null;
 		}
+
+		public void addAll(Set<? extends Element> result) {
+			for (Element element : result) {
+				this.elements.add(element);
+			}
+			
 		}
+	}
 
 	private ProcessedElement processedElement = new ProcessedElement();
 
@@ -115,9 +122,9 @@ public class BindTypeProcessor extends BaseProcessor {
 		annotations.add(BindType.class.getCanonicalName());
 		annotations.addAll(sharedPreferencesProcessor.getSupportedAnnotationTypes());
 		annotations.addAll(dataSourceProcessor.getSupportedAnnotationTypes());
-		//annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
-		//annotations.add(BindDaoMany2Many.class.getCanonicalName());
-		
+		// annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
+		// annotations.add(BindDaoMany2Many.class.getCanonicalName());
+
 		annotations.addAll(many2ManyProcessor.getSupportedAnnotationTypes());
 
 		return annotations;
@@ -136,19 +143,17 @@ public class BindTypeProcessor extends BaseProcessor {
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
 			count++;
-			if (count == 1) {				
-				many2ManyProcessor.process(annotations, roundEnv);				
-			}			
-			
-			if (roundEnv.getRootElements().size() > 0) {				
-				processedElement.addRound(roundEnv);
-				dump(count);
+
+			if (count > 1) {
 				return true;
 			}
-			
-			
+
+			many2ManyProcessor.process(annotations, roundEnv);
+			processedElement.addAll(many2ManyProcessor.result);		
+
+			processedElement.addRound(roundEnv);
 			dump(count);
-									
+
 			model = new BindModel();
 			final AtomicInteger itemCounter = new AtomicInteger();
 			itemCounter.set(0);
@@ -173,37 +178,36 @@ public class BindTypeProcessor extends BaseProcessor {
 
 			sharedPreferencesProcessor.process(annotations, processedElement);
 			dataSourceProcessor.process(annotations, processedElement);
-			
+
 			sharedPreferencesProcessor.generateClasses();
 			dataSourceProcessor.generatedClasses();
 		} catch (Throwable e) {
 			String msg = StringUtils.nvl(e.getMessage());
-			error(null, e.getClass().getCanonicalName()+".: "+msg);
+			error(null, e.getClass().getCanonicalName() + ".: " + msg);
 			StackTraceElement[] trace = e.getStackTrace();
-			for (StackTraceElement item:trace)
-			{
-				error(null, item.getClassName()+" "+item.getMethodName()+" "+item.getLineNumber());	
+			for (StackTraceElement item : trace) {
+				error(null, item.getClassName() + " " + item.getMethodName() + " " + item.getLineNumber());
 			}
-			
+
 			StringWriter sw = new StringWriter();
 			e.printStackTrace(new PrintWriter(sw));
 			String exceptionAsString = sw.toString();
-			try(  PrintWriter out = new PrintWriter( "d:/filenameA.txt" )  ){
-			    out.println( exceptionAsString );
-			    
-			    for (Element item:processedElement.elements) {
+			try (PrintWriter out = new PrintWriter("d:/filenameA.txt")) {
+				out.println(exceptionAsString);
+
+				for (Element item : processedElement.elements) {
 					out.println(String.format("processedElement %s", item.asType().toString()));
 				}
-			    
-			    for (Entry<String, TypeElement> entry: globalBeanElements.entrySet()) {
-			    	out.println(String.format("GLOBAL %s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
-			    }
-			    
-			    out.println("dao---");
-			    for (Entry<String, TypeElement> entry: this.dataSourceProcessor.globalBeanElements.entrySet()) {
-			    	out.println(String.format("%s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
-			    }
-			    
+
+				for (Entry<String, TypeElement> entry : globalBeanElements.entrySet()) {
+					out.println(String.format("GLOBAL %s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
+				}
+
+				out.println("dao---");
+				for (Entry<String, TypeElement> entry : this.dataSourceProcessor.globalBeanElements.entrySet()) {
+					out.println(String.format("%s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
+				}
+
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -217,23 +221,22 @@ public class BindTypeProcessor extends BaseProcessor {
 
 		return true;
 	}
-	
-	private void dump(int count) {		
-		try(  PrintWriter out = new PrintWriter( "d:/filename"+count+".txt" )  ){			
-			for (Element item:processedElement.elements) {
+
+	private void dump(int count) {
+		try (PrintWriter out = new PrintWriter("d:/filename" + count + ".txt")) {
+			for (Element item : processedElement.elements) {
 				out.println(String.format("processedElement %s", item.getSimpleName()));
 			}
-			
-			
-		    for (Entry<String, TypeElement> entry: globalBeanElements.entrySet()) {
-		    	out.println(String.format("GLOBAL %s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
-		    }
-		    
-		    out.println("dao---");
-		    for (Entry<String, TypeElement> entry: this.dataSourceProcessor.globalBeanElements.entrySet()) {
-		    	out.println(String.format("%s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
-		    }
-		    
+
+			for (Entry<String, TypeElement> entry : globalBeanElements.entrySet()) {
+				out.println(String.format("GLOBAL %s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
+			}
+
+			out.println("dao---");
+			for (Entry<String, TypeElement> entry : this.dataSourceProcessor.globalBeanElements.entrySet()) {
+				out.println(String.format("%s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
+			}
+
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

@@ -170,7 +170,7 @@ public class StringUtils {
 
 	/**
 	 * <p>
-	 * If <code>checkString</code> has text, then return value string. Otherwise
+	 * If <code>checkString</code> has text, returns value+checkString. Otherwise
 	 * empty string was returned
 	 * </p>
 	 * 
@@ -181,6 +181,24 @@ public class StringUtils {
 	public static String ifNotEmptyAppend(String chekString, String value) {
 		if (hasText(chekString)) {
 			return value+chekString;
+		} else {
+			return "";
+		}
+	}
+	
+	/**
+	 * <p>
+	 * If <code>checkString</code> has text, returns checkString+value string. Otherwise
+	 * empty string was returned
+	 * </p>
+	 * 
+	 * @param chekString
+	 * @param value
+	 * @return
+	 */
+	public static String ifNotEmptyPrepend(String chekString, String value) {
+		if (hasText(chekString)) {
+			return chekString+value;
 		} else {
 			return "";
 		}

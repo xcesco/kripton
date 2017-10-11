@@ -44,6 +44,7 @@ import com.abubusoft.kripton.processor.sqlite.BindM2MBuilder;
 public class BindMany2ManySubProcessor extends BaseProcessor {
 
 	private M2MModel model;
+	public Set<TypeElement> result;
 
 	/*
 	 * (non-Javadoc)
@@ -71,7 +72,6 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		try {			
 			model = new M2MModel();
-			int itemCounter = 0;
 
 			//parseBindType(roundEnv, elementUtils);
 
@@ -85,12 +85,10 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 				M2MEntity entity = analyzeEntity(item);
 				
 				model.entityAdd(entity);				
-				itemCounter++;
 			}
 
-			if (itemCounter > 0) {
-				BindM2MBuilder.generate(filer, model);
-			}
+			result=BindM2MBuilder.generate(filer, model);
+			
 
 		} catch (Exception e) {
 			String msg = e.getMessage();

@@ -15,11 +15,23 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.TypeMirror;
 
+import com.abubusoft.kripton.common.StringUtils;
+import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.TypeSpec;
+
 public class KriptonTypeElement implements TypeElement {
+
+	private String packageName;
+	private TypeSpec typeSpec;
+
+	public KriptonTypeElement(String packageName, TypeSpec typeSpec) {
+		this.packageName = packageName;
+		this.typeSpec = typeSpec;
+	}
 
 	@Override
 	public TypeMirror asType() {
-		return null;
+		return new KriptonTypeMirror(this.typeSpec.name);
 	}
 
 	@Override
@@ -34,16 +46,21 @@ public class KriptonTypeElement implements TypeElement {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
-		// TODO Auto-generated method stub
+		for (AnnotationSpec item : typeSpec.annotations) {
+			if (item.type.toString().equals(annotationType.getCanonicalName())) {
+				return Class.forName(item.type.toString());
+			}
+		}
+
 		return null;
 	}
 
 	@Override
 	public Set<Modifier> getModifiers() {
-		// TODO Auto-generated method stub
-		return null;
+		return typeSpec.modifiers;
 	}
 
 	@Override
@@ -66,14 +83,12 @@ public class KriptonTypeElement implements TypeElement {
 
 	@Override
 	public Name getQualifiedName() {
-		// TODO Auto-generated method stub
-		return null;
+		return new KriptonName(StringUtils.ifNotEmptyPrepend(packageName, ".") + typeSpec.name);
 	}
 
 	@Override
 	public Name getSimpleName() {
-		// TODO Auto-generated method stub
-		return null;
+		return new KriptonName(typeSpec.name);
 	}
 
 	@Override
@@ -99,6 +114,5 @@ public class KriptonTypeElement implements TypeElement {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-}
 
+}

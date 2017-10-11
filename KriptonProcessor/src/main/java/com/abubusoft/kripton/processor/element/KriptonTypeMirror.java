@@ -6,15 +6,15 @@ import javax.lang.model.type.TypeVisitor;
 
 public class KriptonTypeMirror implements TypeMirror {
 	
-	private TypeKind typeKind;
+	
 
-	public KriptonTypeMirror(TypeKind typeKind) {
-		this.typeKind=typeKind;
+	public KriptonTypeMirror(String name) {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public TypeKind getKind() {
-		return typeKind;
+		return null;
 	}
 
 	@Override
