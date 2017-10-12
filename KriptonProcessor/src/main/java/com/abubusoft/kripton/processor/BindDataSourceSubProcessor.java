@@ -49,6 +49,7 @@ import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.NoEntity;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
@@ -67,6 +68,7 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.exceptions.DaoDefinitionWithoutAnnotatedMethodException;
 import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
@@ -109,6 +111,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	private Set<SQLiteDatabaseSchema> schemas = new HashSet<>();
 
+	public Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generatedPart;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -148,7 +152,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		globalDaoElements.clear();
 		model.schemaClear();
 
-		parseBindType(roundEnv);	
+		parseBindType(roundEnv);
 
 		// Put all @BindTable elements in beanElements
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
@@ -216,14 +220,14 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			if (currentSchema.getCollection().size() == 0) {
 				msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation", BindDao.class.getSimpleName(),
 						currentSchema.getElement().getSimpleName().toString(), BindDataSource.class.getSimpleName());
-				//info(msg);
+				// info(msg);
 				error(null, msg);
 				return true;
 			}
 
 			schemas.add(currentSchema);
 		} // end foreach dataSource
-			// logger.info(currentSchema.toString());		
+			// logger.info(currentSchema.toString());
 
 		return true;
 	}
@@ -247,9 +251,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(dao.getElement());
 
-			// check foreign key to entity1 and entity2
-			checkForeignKeyForM2M(dao.getEntity(), m2mEntity.entity1Name);
-			checkForeignKeyForM2M(dao.getEntity(), m2mEntity.entity2Name);
+			// only if dao has an entity
+			if (dao.getEntity() != null) {
+				// check foreign key to entity1 and entity2
+				checkForeignKeyForM2M(dao.getEntity(), m2mEntity.entity1Name);
+				checkForeignKeyForM2M(dao.getEntity(), m2mEntity.entity2Name);
+			}
 		}
 
 	}
@@ -264,6 +271,16 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		}
 		return null;
+	}
+
+	private boolean isGeneratedEntity(String fullName) {
+		for (GeneratedTypeElement item : this.generatedPart.value0) {
+			if (item.getQualifiedName().equals(fullName)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -289,6 +306,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		AssertKripton.assertTrueOrMissedAnnotationOnClass(bindMany2ManyAnnotation != null || !TypeUtility.isEquals(NoEntity.class, beanName), daoElement, beanName, BindType.class);
 
 		M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(daoElement);
+		String m2mEntityClassName = m2mEntity.getQualifiedName();
+
+		if (isGeneratedEntity(m2mEntityClassName)) {
+			// if generated, we don't need to recreate it
+			return;
+		}
 
 		final TypeElement beanElement = globalBeanElements.get(m2mEntity.getClassName().toString());
 
@@ -498,7 +521,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		// dao is associated to an entity is not contained in analyzed class
 		// set.
-		if (!globalBeanElements.containsKey(currentDaoDefinition.getEntityClassName())) {
+		if (!globalBeanElements.containsKey(currentDaoDefinition.getEntityClassName()) && !isGeneratedEntity(currentDaoDefinition.getEntityClassName())) {
 			throw (new InvalidBeanTypeException(currentDaoDefinition));
 		}
 
@@ -577,7 +600,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					boolean sameParameters = true;
 					for (int i = 0; i < oldMethod.getParameters().size(); i++) {
 						if (!oldMethod.getParameters().get(i).value1.equals(newMethod.getParameters().get(i).value1)) {
-							sameParameters=false;
+							sameParameters = false;
 							break;
 						}
 					}

@@ -26,7 +26,13 @@ public class TestCompileMany2Many extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testOK() throws Throwable {				
-		buildDataSourceProcessorTest(PersonCity.class, PersonCityDaoGeneratedPart.class, PersonCirtyDataSource.class, PersonDao.class, Person.class, CityDao.class, City.class, PersonCityDao.class, Entity.class, BaseDao.class);
+		//formatter:off
+		buildDataSourceProcessorTest(
+				PersonCirtyDataSource.class, 
+				Person.class, City.class, Entity.class,   
+				PersonDao.class, CityDao.class, PersonCityDao.class, 
+				BaseDao.class);
+		//formatter:on
 	}
 
 }

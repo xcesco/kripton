@@ -106,4 +106,11 @@ public class M2MEntity extends M2MBase {
 		return entity;
 	}
 
+	public String getQualifiedName() {
+		if (StringUtils.hasText(packageName)) {
+			return packageName+"."+name;
+		}
+		return name;
+	}
+
 }

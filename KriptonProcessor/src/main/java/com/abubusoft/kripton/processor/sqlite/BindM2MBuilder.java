@@ -26,7 +26,6 @@ import java.util.Set;
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
-import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
@@ -41,12 +40,13 @@ import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MModel;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.element.KriptonTypeElement;
+import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.AnnotationSpec;
@@ -65,19 +65,24 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 	public static final String SUFFIX = "Cursor";
 
-	private static Set<TypeElement> result=new HashSet<TypeElement>();
+	private static Set<GeneratedTypeElement> entityResult=new HashSet<GeneratedTypeElement>();
+	private static Set<GeneratedTypeElement> daoResult=new HashSet<GeneratedTypeElement>();
 
 	public BindM2MBuilder(Filer filer) {
 		super(BaseProcessor.elementUtils, filer, null);
 	}
 	
-	public static Set<TypeElement> generate(Filer filer, M2MModel model) throws Exception {
+	public static Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generate(Filer filer, M2MModel model) throws Exception {
 		BindM2MBuilder visitor = new BindM2MBuilder(filer);
 
 		for (M2MEntity item : model.getEntities()) {
 			visitor.generate(item);
 		}
 		
+		Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> result=new Pair<>();
+		result.value0=entityResult;
+		result.value1=daoResult;
+				
 		return result;
 	}
 
@@ -105,14 +110,13 @@ public class BindM2MBuilder extends AbstractBuilder {
 		generateSelects(entity, packageName);
 		generateDeletes(entity, packageName);
 		generateInsert(entity, packageName);
-
-		KriptonTypeElement daoPartElement=new KriptonTypeElement(packageName, classBuilder.build());		
-		result.add(daoPartElement);
-
+		
 		TypeSpec typeSpec = classBuilder.build();		
 		
-		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);	
-
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
+		
+		GeneratedTypeElement daoPartElement=new GeneratedTypeElement(packageName, classBuilder.build());		
+		daoResult.add(daoPartElement);
 	}
 
 	private void generateSelects(M2MEntity entity, String packageName) {
@@ -248,11 +252,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 				.addAnnotation(BindType.class)
 				.addAnnotation(AnnotationSpec.builder(BindTable.class).addMember("name", "$S",entity.tableName).build());
 		//@formatter:on
-		
-		KriptonTypeElement entityElement=new KriptonTypeElement(entity.getPackageName(), classBuilder.build());
-		
-		result.add(entityElement);
-
+				
 		// javadoc for class
 		classBuilder.addJavadoc("<p>");
 		classBuilder.addJavadoc("\nEntity implementation for entity <code>$L</code>\n", entity.name);
@@ -302,6 +302,9 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		TypeSpec typeSpec = classBuilder.build();
 		JavaWriterHelper.writeJava2File(filer, entity.getPackageName(), typeSpec);
+		
+		GeneratedTypeElement entityElement=new GeneratedTypeElement(entity.getPackageName(), classBuilder.build());	
+		entityResult.add(entityElement);
 	}
 
 

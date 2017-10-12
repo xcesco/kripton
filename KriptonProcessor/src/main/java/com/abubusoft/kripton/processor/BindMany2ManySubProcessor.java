@@ -30,8 +30,10 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MModel;
+import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.BindM2MBuilder;
 
@@ -44,7 +46,7 @@ import com.abubusoft.kripton.processor.sqlite.BindM2MBuilder;
 public class BindMany2ManySubProcessor extends BaseProcessor {
 
 	private M2MModel model;
-	public Set<TypeElement> result;
+	public Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> result;
 
 	/*
 	 * (non-Javadoc)

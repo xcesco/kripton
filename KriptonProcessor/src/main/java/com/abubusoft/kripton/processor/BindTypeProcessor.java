@@ -37,12 +37,14 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindModel;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 
 /**
  * Annotation processor for json/xml/etc
@@ -62,7 +64,7 @@ public class BindTypeProcessor extends BaseProcessor {
 		public Set<? extends Element> getElementsAnnotatedWith(Class<? extends Annotation> annotation) {
 			HashSet<Element> result = new HashSet<Element>();
 
-			for (Element element : this.elements) {
+			for (Element element : this.elements) {				
 				if (element.getAnnotation(annotation) != null) {
 					result.add(element);
 				}
@@ -147,14 +149,17 @@ public class BindTypeProcessor extends BaseProcessor {
 			if (count > 1) {
 				return true;
 			}
+			
+			model = new BindModel();
 
 			many2ManyProcessor.process(annotations, roundEnv);
-			processedElement.addAll(many2ManyProcessor.result);		
+						
+			Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generatedPart = many2ManyProcessor.result;
 
 			processedElement.addRound(roundEnv);
 			dump(count);
 
-			model = new BindModel();
+			
 			final AtomicInteger itemCounter = new AtomicInteger();
 			itemCounter.set(0);
 
@@ -177,6 +182,8 @@ public class BindTypeProcessor extends BaseProcessor {
 			generateFromModel();
 
 			sharedPreferencesProcessor.process(annotations, processedElement);
+			
+			dataSourceProcessor.generatedPart=generatedPart;
 			dataSourceProcessor.process(annotations, processedElement);
 
 			sharedPreferencesProcessor.generateClasses();
