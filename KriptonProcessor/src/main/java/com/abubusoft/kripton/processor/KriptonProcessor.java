@@ -18,13 +18,9 @@
  */
 package com.abubusoft.kripton.processor;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -33,7 +29,6 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
@@ -144,7 +139,7 @@ public class KriptonProcessor extends BaseProcessor {
 			
 			count++;
 			
-			dump(1, roundEnv);
+			//dump(1, roundEnv);
 			
 			if (count==1 && many2ManyProcessor.hasWorkInThisRound(roundEnv)) {
 				// generate @BindGeneratedDao
@@ -173,8 +168,8 @@ public class KriptonProcessor extends BaseProcessor {
 			
 		} catch (Throwable e) {
 			String msg = StringUtils.nvl(e.getMessage());
-			error(null, e.getClass().getCanonicalName() + ".: " + msg);
-			StackTraceElement[] trace = e.getStackTrace();			
+			error(null, e.getClass().getCanonicalName() + ": " + msg);
+			/*StackTraceElement[] trace = e.getStackTrace();			
 
 			StringWriter sw = new StringWriter();
 			e.printStackTrace(new PrintWriter(sw));
@@ -199,7 +194,7 @@ public class KriptonProcessor extends BaseProcessor {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
+*/
 			if (DEBUG_MODE) {
 				logger.log(Level.SEVERE, msg);
 				e.printStackTrace();
@@ -209,6 +204,7 @@ public class KriptonProcessor extends BaseProcessor {
 		return true;
 	}
 
+	/*
 	private void dump(int count, RoundEnvironment roundEnv) {
 		try (PrintWriter out = new PrintWriter("d:/filename" + count + ".txt")) {
 			for (Class<? extends Annotation> supportedAnnotation: getSupportedAnnotationClasses()) {
@@ -222,6 +218,6 @@ public class KriptonProcessor extends BaseProcessor {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	}
+	}*/
 
 }

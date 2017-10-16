@@ -32,7 +32,6 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -165,7 +164,7 @@ public abstract class SqlModifyBuilder {
 	 * @return
 	 */
 	public static ModifyType detectModifyType(SQLiteModelMethod method, JQLType jqlType) {
-		Elements elementUtils = BaseProcessor.elementUtils;
+		//Elements elementUtils = BaseProcessor.elementUtils;
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 

@@ -6,15 +6,13 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-
-import sqlite.feature.many2many.entity.PersonCityOk1;
-
 import java.util.List;
 
 @BindDao(PersonCity.class)
 @BindDaoGenerated(
     dao = PersonCityDao.class,
-    entity = PersonCity.class, entity1 =  PersonCityOk1.class, entity2 =  PersonCityOk1.class
+    entity1 = Person.class,
+    entity2 = City.class
 )
 public interface GeneratedPersonCityDao extends PersonCityDao {
   @BindSqlSelect(

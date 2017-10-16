@@ -10,7 +10,7 @@ import sqlite.feature.many2many.entity.PersonCityOk1;
 
 import java.util.List;
 
-@BindDaoGenerated(dao = PersonCityDao.class, entity = PersonCity.class, entity1 =  PersonCityOk1.class, entity2 =  PersonCityOk1.class)
+@BindDaoGenerated(dao = PersonCityDao.class, entity1 =  PersonCityOk1.class, entity2 =  PersonCityOk1.class)
 public interface PersonCityDaoGeneratedPart {
 	@BindSqlSelect(where = "id=${id}")
 	PersonCity selectById(@BindSqlParam("id") long id);

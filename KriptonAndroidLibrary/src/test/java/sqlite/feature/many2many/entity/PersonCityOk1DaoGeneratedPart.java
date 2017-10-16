@@ -9,7 +9,7 @@ import java.util.List;
 
 @BindDaoGenerated(
     dao = PersonCityOk1Dao.class,
-    entity = PersonCityOk1.class, entity1 =  PersonCityOk1.class, entity2 =  PersonCityOk1.class
+    entity1 =  PersonCityOk1.class, entity2 =  PersonCityOk1.class
 )
 public interface PersonCityOk1DaoGeneratedPart {
   @BindSqlSelect(

@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.processor.bind.model.many2many;
 
-import javax.lang.model.element.Element;
 import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
@@ -34,8 +34,10 @@ public class M2MEntity extends M2MBase {
 	public ClassName daoName;
 
 	public boolean needToCreate;
+	
+	public TypeElement daoElement;
 
-	public M2MEntity(String packageName, String entityName, ClassName daoClazzName, ClassName entity1ClazzName, ClassName entity2ClazzName, String idName, String tableName, boolean needToCreate) {
+	public M2MEntity(TypeElement daoElement, String packageName, String entityName, ClassName daoClazzName, ClassName entity1ClazzName, ClassName entity2ClazzName, String idName, String tableName, boolean needToCreate) {
 		this.packageName = packageName;
 		this.entity1Name = entity1ClazzName;
 		this.entity2Name = entity2ClazzName;
@@ -44,6 +46,7 @@ public class M2MEntity extends M2MBase {
 		this.name = entityName;
 		this.tableName = StringUtils.hasText(tableName) ? tableName : (CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, this.name));
 		this.needToCreate = needToCreate;
+		this.daoElement=daoElement;
 	}
 
 	public static String extractClassName(String fullName) {
@@ -62,7 +65,7 @@ public class M2MEntity extends M2MBase {
 	 * @param item
 	 * @return
 	 */
-	public static M2MEntity extractEntityManagedByDAO(Element item) {
+	public static M2MEntity extractEntityManagedByDAO(TypeElement daoElement) {
 		ClassName entity1 = null;
 		ClassName entity2 = null;
 		String prefixId = null;
@@ -72,25 +75,25 @@ public class M2MEntity extends M2MBase {
 		String packageName = null;
 		boolean needToCreate = true;
 
-		if (item.getAnnotation(BindDaoMany2Many.class) != null) {
-			entity1 = TypeUtility.className(AnnotationUtility.extractAsClassName(item, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1));
-			entity2 = TypeUtility.className(AnnotationUtility.extractAsClassName(item, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2));
-			prefixId = AnnotationUtility.extractAsString(item, BindDaoMany2Many.class, AnnotationAttributeType.ID_NAME);
-			tableName = AnnotationUtility.extractAsString(item, BindDaoMany2Many.class, AnnotationAttributeType.TABLE_NAME);
+		if (daoElement.getAnnotation(BindDaoMany2Many.class) != null) {
+			entity1 = TypeUtility.className(AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1));
+			entity2 = TypeUtility.className(AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2));
+			prefixId = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ID_NAME);
+			tableName = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.TABLE_NAME);
 			entityName = entity1.simpleName() + entity2.simpleName();
-			pkg = BaseProcessor.elementUtils.getPackageOf(item);
+			pkg = BaseProcessor.elementUtils.getPackageOf(daoElement);
 			packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 		}
 
-		if (item.getAnnotation(BindDao.class) != null) {
+		if (daoElement.getAnnotation(BindDao.class) != null) {
 			// we have @BindDao
-			String derived = AnnotationUtility.extractAsClassName(item, BindDao.class, AnnotationAttributeType.VALUE);
+			String derived = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.VALUE);
 			ClassName clazz = TypeUtility.className(derived);
 
 			packageName = clazz.packageName();
 			entityName = clazz.simpleName();
 
-			String tableTemp = AnnotationUtility.extractAsClassName(item, BindDao.class, AnnotationAttributeType.TABLE_NAME);
+			String tableTemp = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.TABLE_NAME);
 			if (StringUtils.hasText(tableTemp)) {
 				tableName = tableTemp;
 			}
@@ -98,7 +101,7 @@ public class M2MEntity extends M2MBase {
 			needToCreate = false;
 		}
 
-		M2MEntity entity = new M2MEntity(packageName, entityName, TypeUtility.className(item.asType().toString()), entity1, entity2, prefixId, tableName, needToCreate);
+		M2MEntity entity = new M2MEntity(daoElement, packageName, entityName, TypeUtility.className(daoElement.asType().toString()), entity1, entity2, prefixId, tableName, needToCreate);
 
 		return entity;
 	}

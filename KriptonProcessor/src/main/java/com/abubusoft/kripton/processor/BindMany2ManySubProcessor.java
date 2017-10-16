@@ -68,13 +68,13 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 		try {			
 			model = new M2MModel();
 
-			for (Element item : roundEnv.getElementsAnnotatedWith(BindDaoMany2Many.class)) {
-				if (item.getKind() != ElementKind.INTERFACE) {
-					String msg = String.format("%s %s, only interface can be annotated with @%s annotation", item.getKind(), item, BindDaoMany2Many.class.getSimpleName());
+			for (Element daoItem : roundEnv.getElementsAnnotatedWith(BindDaoMany2Many.class)) {
+				if (daoItem.getKind() != ElementKind.INTERFACE) {
+					String msg = String.format("%s %s, only interface can be annotated with @%s annotation", daoItem.getKind(), daoItem, BindDaoMany2Many.class.getSimpleName());
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 
-				M2MEntity entity = analyzeEntity(item);
+				M2MEntity entity =M2MEntity.extractEntityManagedByDAO((TypeElement) daoItem);
 				
 				model.entityAdd(entity);				
 			}
@@ -92,15 +92,6 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 		}
 
 		return true;
-	}
-
-	/**
-	 * @param item
-	 * @return
-	 */
-	private M2MEntity analyzeEntity(Element item) {
-		M2MEntity entity=M2MEntity.extractEntityManagedByDAO(item);
-		return entity;
 	}
 	
 }

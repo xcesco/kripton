@@ -7,7 +7,7 @@ import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 
 /**
  * <p>
- * Entity implementation for entity <code>PersonCity</code>
+ * Generated entity implementation for <code>PersonCity</code>
  * </p>
  */
 @BindTable(

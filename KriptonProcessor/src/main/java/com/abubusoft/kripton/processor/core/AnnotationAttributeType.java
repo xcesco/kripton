@@ -71,7 +71,17 @@ public enum AnnotationAttributeType {
 
 	ON_UPDATE("onUpdate"),
 
-	MULTIPLICITY_RESULT("multiplicityResult"), JQL("jql"), ID_NAME("idName"), ENTITY_1("entity1"), ENTITY_2("entity2"), TABLE_NAME("tableName"), DAO("dao");
+	MULTIPLICITY_RESULT("multiplicityResult"), JQL("jql"), ID_NAME("idName"), 
+	
+	RELATIONSHIP("relationship"),
+	
+	ENTITY_1("entity1"),
+	
+	ENTITY_2("entity2"),
+	
+	TABLE_NAME("tableName"), 
+	
+	DAO("dao");
 
 	private String value;
 

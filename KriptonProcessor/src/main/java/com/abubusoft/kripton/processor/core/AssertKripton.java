@@ -24,6 +24,7 @@ import javax.lang.model.element.VariableElement;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.exceptions.ForeignKeyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
+import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.InvalidPropertyToColumnConversion;
@@ -37,6 +38,7 @@ import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
@@ -200,6 +202,14 @@ public abstract class AssertKripton {
 		if (!expression) {
 			String msg = String.format("Entity '%s' refers a bean '%s' without @%s annotation", entity.getSimpleName(), foreignClassName, BindType.class);			
 			throw(new MissedAnnotationOnClass(msg));
+		}	
+		
+	}
+
+	public static void asserTrueOrUnspecifiedBeanException(boolean expression, SQLiteDatabaseSchema schema, SQLEntity entity, String foreignClassName) {
+		if (!expression) {
+			String msg = String.format("In dao definition '%s' is referred a bean definition '%s' that is not defined in '%s' schema", entity.getSimpleName(), foreignClassName, schema.getElement().getQualifiedName().toString());			
+			throw(new InvalidDefinition(msg));
 		}	
 		
 	}

@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
+import sqlite.feature.many2many.case4.TestCompileMany2ManyCase4;
 import sqlite.feature.many2many.entity.TestCompileMany2ManyOk1;
 import sqlite.feature.many2many.err1.TestCompileMany2ManyErr1;
 import sqlite.feature.many2many.err2.TestCompileMany2ManyErr2;
@@ -30,6 +31,7 @@ import sqlite.feature.many2many.err3.TestCompileMany2ManyErr3;
 		{ 
 		TestCompileMany2Many.class,
 		TestCompileMany2ManyOk1.class,
+		TestCompileMany2ManyCase4.class,
 		
 		TestCompileMany2ManyErr1.class,
 		TestCompileMany2ManyErr2.class,
