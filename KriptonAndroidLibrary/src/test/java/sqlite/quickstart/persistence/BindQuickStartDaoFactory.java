@@ -11,16 +11,16 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see QuickStartDataSource
  * @see UserDao
  * @see UserDaoImpl
- * @see sqlite.quickstart.model.User
+ * @see User
  * @see PostDao
  * @see PostDaoImpl
- * @see sqlite.quickstart.model.Post
+ * @see Post
  * @see CommentDao
  * @see CommentDaoImpl
- * @see sqlite.quickstart.model.Comment
+ * @see Comment
  * @see TodoDao
  * @see TodoDaoImpl
- * @see sqlite.quickstart.model.Todo
+ * @see Todo
  */
 public interface BindQuickStartDaoFactory extends BindDaoFactory {
   /**

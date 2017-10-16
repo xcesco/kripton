@@ -32,7 +32,7 @@ import javax.lang.model.util.SimpleTypeVisitor7;
 import javax.lang.model.util.Types;
 
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.BindTypeProcessor;
+import com.abubusoft.kripton.processor.BindTypeSubProcessor;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
@@ -126,12 +126,13 @@ public abstract class TypeUtility {
 	 * 
 	 * @param packageName
 	 * @param className
-	 * @param prefix
+	 * @param suffix
 	 * @return class typeName generated
 	 */
-	public static ClassName classNameWithPrefix(String packageName, String className, String prefix) {
-		return ClassName.get(packageName, className + prefix);
+	public static ClassName classNameWithSuffix(String packageName, String className, String suffix) {
+		return ClassName.get(packageName, className + suffix);
 	}
+	
 
 	/**
 	 * Generate class typeName
@@ -142,7 +143,7 @@ public abstract class TypeUtility {
 	public static ClassName className(String className) {
 		int index = className.lastIndexOf(".");
 		if (index > 0) {
-			return classNameWithPrefix(className.substring(0, index), className.substring(index + 1), "");
+			return classNameWithSuffix(className.substring(0, index), className.substring(index + 1), "");
 		}
 		return ClassName.get("", className);
 
@@ -157,7 +158,7 @@ public abstract class TypeUtility {
 	public static ClassName className(Class<?> clazz) {
 		return ClassName.get(clazz);
 	}
-	
+
 	/**
 	 * Convert a type in a typeName
 	 * 
@@ -201,13 +202,14 @@ public abstract class TypeUtility {
 	 * @return typeName
 	 */
 	public static TypeName typeName(String packageName, String typeName) {
-		return classNameWithPrefix(packageName, typeName, "");
+		return classNameWithSuffix(packageName, typeName, "");
 	}
 
-	public static TypeName mergeTypeName(TypeName typeName, String typeNamePrefix) {
+	
+	public static TypeName mergeTypeNameWithSuffix(TypeName typeName, String typeNameSuffix) {
 		ClassName className = className(typeName.toString());
 
-		return classNameWithPrefix(className.packageName(), className.simpleName(), typeNamePrefix);
+		return classNameWithSuffix(className.packageName(), className.simpleName(), typeNameSuffix);
 	}
 
 	/**
@@ -386,7 +388,7 @@ public abstract class TypeUtility {
 	}
 
 	public static ClassName className(String packageName, String className) {
-		return classNameWithPrefix(packageName, className, "");
+		return classNameWithSuffix(packageName, className, "");
 	}
 
 	public static TypeName parameterizedTypeName(ClassName rawClass, TypeName paramClass) {
@@ -428,7 +430,7 @@ public abstract class TypeUtility {
 	public static boolean isEnum(String className) {
 		try {
 			// is it an enum?
-			TypeElement element = BindTypeProcessor.elementUtils.getTypeElement(className);
+			TypeElement element = BindTypeSubProcessor.elementUtils.getTypeElement(className);
 			if (element instanceof TypeElement) {
 				TypeElement typeElement = element;
 				TypeMirror superclass = typeElement.getSuperclass();
@@ -555,5 +557,13 @@ public abstract class TypeUtility {
 		return ClassName.get(clazz1).equals(typeName(clazz2));
 	}
 
+	public static String extractPackageName(TypeElement element) {
+		String fullName = element.getQualifiedName().toString();
+
+		if (fullName.lastIndexOf(".") > 0) {
+			return fullName.substring(0, fullName.lastIndexOf("."));
+		}
+		return "";
+	}
 
 }

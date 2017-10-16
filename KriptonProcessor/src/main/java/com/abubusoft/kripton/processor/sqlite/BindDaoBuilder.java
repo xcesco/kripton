@@ -30,6 +30,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -39,6 +40,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
@@ -65,15 +67,15 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	private Builder builder;
 	private SQLDaoDefinition currentDaoDefinition;
 
-	public BindDaoBuilder(SQLiteDatabaseSchema model, Elements elementUtils, Filer filer) {
+	public BindDaoBuilder(SQLiteModel model, SQLiteDatabaseSchema schema, Elements elementUtils, Filer filer) {
 		this.elementUtils = elementUtils;
 		this.filer = filer;
 	}
 
-	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) throws Exception {
-		BindDaoBuilder visitor = new BindDaoBuilder(model, elementUtils, filer);
+	public static void generate(Elements elementUtils, Filer filer, SQLiteModel model, SQLiteDatabaseSchema schema) throws Exception {
+		BindDaoBuilder visitor = new BindDaoBuilder(model, schema, elementUtils, filer);
 
-		for (SQLDaoDefinition item : model.getCollection()) {
+		for (SQLDaoDefinition item : schema.getCollection()) {
 			item.accept(visitor);
 		}
 	}
@@ -98,15 +100,16 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		}
 
 		BindTypeContext context = new BindTypeContext(builder, TypeUtility.typeName(packageName, classTableName), Modifier.PRIVATE);
-
+		String entityName=BindDataSourceSubProcessor.generateEntityName(value, value.getEntity());
+				
 		// javadoc for class
 		builder.addJavadoc("<p>");
-		builder.addJavadoc("\nDAO implementation for entity <code>$L</code>, based on interface <code>$L</code>\n", value.getEntity().getSimpleName(), value.getElement().getSimpleName().toString());
+		builder.addJavadoc("\nDAO implementation for entity <code>$L</code>, based on interface <code>$L</code>\n", entityName, value.getElement().getSimpleName().toString());
 		builder.addJavadoc("</p>\n\n");
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc(" @see $T\n", TypeUtility.className(value.getEntityClassName()));
 		builder.addJavadoc(" @see $T\n", TypeUtility.className(value.getElement().getQualifiedName().toString()));
-		builder.addJavadoc(" @see $T\n", BindTableGenerator.tableClassName(value.getEntity()));
+		builder.addJavadoc(" @see $T\n", BindTableGenerator.tableClassName(value, value.getEntity()));
 
 		{
 			// constructor
@@ -141,12 +144,12 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		return classTableName;
 	}
 
-	public static TypeName daoTypeName(SQLDaoDefinition value) {
-		return TypeUtility.typeName(value.getElement(), SUFFIX);
+	public static TypeName daoTypeName(SQLDaoDefinition value) {				
+		return TypeUtility.mergeTypeNameWithSuffix(value.getTypeName(), SUFFIX);
 	}
 
 	public static TypeName daoInterfaceTypeName(SQLDaoDefinition value) {
-		return TypeUtility.typeName(value.getElement());
+		return value.getTypeName();
 	}
 
 	@Override

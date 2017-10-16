@@ -11,7 +11,7 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see Dummy01DataSource
  * @see DaoBean01
  * @see DaoBean01Impl
- * @see sqlite.kripton48.entities.Bean01
+ * @see Bean01
  */
 public interface BindDummy01DaoFactory extends BindDaoFactory {
   /**

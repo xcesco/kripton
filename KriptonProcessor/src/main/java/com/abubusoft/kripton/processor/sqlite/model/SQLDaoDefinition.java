@@ -25,6 +25,7 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelBucket;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
 import com.squareup.javapoet.TypeName;
 
@@ -88,7 +89,7 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 		return entitySimplyClassName;
 	}
 
-	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, TypeElement element, String entityClassName) {
+	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element, String entityClassName) {
 		super(element.getSimpleName().toString(), element);
 		this.parent = new WeakReference<SQLiteDatabaseSchema>(databaseSchema);
 		this.entityClassName = entityClassName;
@@ -104,6 +105,15 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 
 		typeVariableResolver = TypeVariableResolver.build(element);
 		implementedInterface=new HashSet<>();
+
+		
+		i = name.indexOf(".");
+		if (i > 0) {
+			this.name = name.substring(name.lastIndexOf(".") + 1);
+		} else {
+			this.name = name;
+		}
+		
 	}
 
 	public TypeName resolveTypeVariable(TypeName inputTypeName) {
@@ -190,6 +200,14 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	public void addImplementedInterface(TypeName className) {
 		this.implementedInterface.add(className);
 		
+	}
+	
+	/**
+	 * return type name of object. Note that this method support DaoGenerated case
+	 * @return
+	 */
+	public TypeName getTypeName() {
+		return TypeUtility.typeName(TypeUtility.extractPackageName(this.element), name);				
 	}
 
 }

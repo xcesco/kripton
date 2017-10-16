@@ -1,7 +1,5 @@
 package bind.kripton81ExceptionCoverage;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>PKBean</code> is associated to table <code>p_k_bean</code>

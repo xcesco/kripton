@@ -41,6 +41,7 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -178,7 +179,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
 			classBuilder.addJavadoc("@see $T\n", dao.getElement());
 			classBuilder.addJavadoc("@see $T\n", daoImplName);
-			classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(dao.getEntity().getElement()));
+			
+			String entity = BindDataSourceSubProcessor.generateEntityName(dao, dao.getEntity());
+			
+			classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(entity));
 		}
 
 		// define static fields
@@ -335,10 +339,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		for (SQLEntity item : orderedEntities) {
 			if (schema.isLogEnabled()) {
 				methodBuilder.addStatement("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL)", Logger.class,
-						BindTableGenerator.tableClassName(item));
+						BindTableGenerator.tableClassName(null, item));
 			}
 			methodBuilder.addStatement("database.execSQL($T.CREATE_TABLE_SQL)",
-					BindTableGenerator.tableClassName(item));
+					BindTableGenerator.tableClassName(null, item));
 
 			if (item.referedEntities.size() > 0) {
 				useForeignKey = true;
@@ -406,9 +410,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		for (SQLEntity item : orderedEntities) {
 			if (schema.isLogEnabled()) {
 				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class,
-						BindTableGenerator.tableClassName(item));
+						BindTableGenerator.tableClassName(null, item));
 			}
-			methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(item));
+			methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(null,item));
 		}
 
 		methodBuilder.endControlFlow();

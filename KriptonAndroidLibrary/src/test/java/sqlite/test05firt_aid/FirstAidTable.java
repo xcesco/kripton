@@ -1,7 +1,5 @@
 package sqlite.test05firt_aid;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>FirstAid</code> is associated to table <code>first_aid</code>

@@ -11,7 +11,7 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see Kripton180RawInsertSelectDataSource
  * @see EmployeeRawInsertSelectDao
  * @see EmployeeRawInsertSelectDaoImpl
- * @see sqlite.feature.typeadapter.kripton180.Employee
+ * @see Employee
  */
 public interface BindKripton180RawInsertSelectDaoFactory extends BindDaoFactory {
   /**

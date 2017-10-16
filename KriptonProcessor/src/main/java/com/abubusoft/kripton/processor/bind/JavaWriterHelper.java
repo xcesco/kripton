@@ -19,6 +19,10 @@ public abstract class JavaWriterHelper {
 
 	private static HashSet<String> values=new HashSet<>();
 	
+	public static void reset() {
+		values.clear();
+	}
+	
 	/**
 	 * @param filer
 	 * @param packageName

@@ -1,7 +1,5 @@
 package sqlite.kripton51.entities;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>MessageEntity</code> is associated to table <code>message</code>

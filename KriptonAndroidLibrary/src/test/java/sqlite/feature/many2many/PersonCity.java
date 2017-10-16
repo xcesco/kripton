@@ -4,14 +4,12 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
-import com.abubusoft.kripton.annotation.BindType;
 
 /**
  * <p>
  * Entity implementation for entity <code>PersonCity</code>
  * </p>
  */
-@BindType
 @BindTable(
     name = "person_city"
 )

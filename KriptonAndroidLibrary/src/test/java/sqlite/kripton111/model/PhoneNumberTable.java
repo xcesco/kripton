@@ -1,7 +1,5 @@
 package sqlite.kripton111.model;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>PhoneNumber</code> is associated to table <code>phone_number</code>

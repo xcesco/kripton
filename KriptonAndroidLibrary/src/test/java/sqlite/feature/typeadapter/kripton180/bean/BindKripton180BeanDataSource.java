@@ -7,8 +7,6 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Override;
-import java.lang.Throwable;
 import java.util.List;
 import sqlite.feature.typeadapter.kripton180.EmployeeTable;
 
@@ -22,7 +20,7 @@ import sqlite.feature.typeadapter.kripton180.EmployeeTable;
  * @see BindKripton180BeanDaoFactory
  * @see EmployeeBeanDao
  * @see EmployeeBeanDaoImpl
- * @see sqlite.feature.typeadapter.kripton180.Employee
+ * @see Employee
  */
 public class BindKripton180BeanDataSource extends AbstractDataSource implements BindKripton180BeanDaoFactory, Kripton180BeanDataSource {
   /**

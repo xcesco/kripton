@@ -1,7 +1,5 @@
 package sqlite.kripton111.model;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>PrefixConfig</code> is associated to table <code>prefix_config</code>

@@ -1,7 +1,5 @@
 package sqlite.stack44330452;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>User</code> is associated to table <code>user</code>

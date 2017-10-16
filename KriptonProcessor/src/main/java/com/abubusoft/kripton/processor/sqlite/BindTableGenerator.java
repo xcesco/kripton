@@ -33,6 +33,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -98,8 +99,12 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		return entity.getSimpleName() + SUFFIX;
 	}
 
-	public static ClassName tableClassName(SQLEntity entity) {
-		return TypeUtility.className(entity.getName() + SUFFIX);
+	public static ClassName tableClassName(SQLDaoDefinition dao, SQLEntity entity) {		
+		String entityName=BindDataSourceSubProcessor.generateEntityQualifiedName(dao, entity);
+		
+		//return TypeUtility.className(entity.getName() + SUFFIX);
+		return TypeUtility.className(entityName + SUFFIX);
+		
 	}
 
 	@Override

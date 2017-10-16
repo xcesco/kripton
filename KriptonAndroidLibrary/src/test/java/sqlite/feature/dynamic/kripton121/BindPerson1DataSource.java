@@ -7,8 +7,6 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Override;
-import java.lang.Throwable;
 import java.util.List;
 import sqlite.feature.dynamic.PersonTable;
 
@@ -22,7 +20,7 @@ import sqlite.feature.dynamic.PersonTable;
  * @see BindPerson1DaoFactory
  * @see Person1DAO
  * @see Person1DAOImpl
- * @see sqlite.feature.dynamic.Person
+ * @see Person
  */
 public class BindPerson1DataSource extends AbstractDataSource implements BindPerson1DaoFactory, Person1DataSource {
   /**

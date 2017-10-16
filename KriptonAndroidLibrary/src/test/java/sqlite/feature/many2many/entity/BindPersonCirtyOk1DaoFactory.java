@@ -11,10 +11,10 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see PersonCirtyOk1DataSource
  * @see PersonOk1Dao
  * @see PersonOk1DaoImpl
- * @see sqlite.feature.many2many.Person
+ * @see Person
  * @see CityOk1Dao
  * @see CityOk1DaoImpl
- * @see sqlite.feature.many2many.City
+ * @see City
  * @see PersonCityOk1Dao
  * @see PersonCityOk1DaoImpl
  * @see PersonCityOk1

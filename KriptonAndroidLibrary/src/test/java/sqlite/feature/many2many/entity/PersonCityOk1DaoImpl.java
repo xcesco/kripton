@@ -11,14 +11,14 @@ import java.util.List;
 
 /**
  * <p>
- * DAO implementation for entity <code>PersonCityOk1</code>, based on interface <code>PersonCityOk1Dao</code>
+ * DAO implementation for entity <code>PersonCityOk1</code>, based on interface <code>GeneratedPersonCityOk1Dao</code>
  * </p>
  *
  *  @see PersonCityOk1
- *  @see PersonCityOk1Dao
+ *  @see GeneratedPersonCityOk1Dao
  *  @see PersonCityOk1Table
  */
-public class PersonCityOk1DaoImpl extends AbstractDao implements PersonCityOk1Dao, PersonCityOk1DaoGeneratedPart {
+public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPersonCityOk1Dao {
   public PersonCityOk1DaoImpl(BindPersonCirtyOk1DataSource dataSet) {
     super(dataSet);
   }

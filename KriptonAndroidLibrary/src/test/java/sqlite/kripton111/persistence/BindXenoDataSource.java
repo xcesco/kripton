@@ -7,8 +7,6 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Override;
-import java.lang.Throwable;
 import java.util.List;
 import sqlite.kripton111.model.CountryTable;
 import sqlite.kripton111.model.PhoneNumberTable;
@@ -24,13 +22,13 @@ import sqlite.kripton111.model.PrefixConfigTable;
  * @see BindXenoDaoFactory
  * @see PhoneDao
  * @see PhoneDaoImpl
- * @see sqlite.kripton111.model.PhoneNumber
+ * @see PhoneNumber
  * @see PrefixConfigDao
  * @see PrefixConfigDaoImpl
- * @see sqlite.kripton111.model.PrefixConfig
+ * @see PrefixConfig
  * @see CountryDao
  * @see CountryDaoImpl
- * @see sqlite.kripton111.model.Country
+ * @see Country
  */
 public class BindXenoDataSource extends AbstractDataSource implements BindXenoDaoFactory, XenoDataSource {
   /**

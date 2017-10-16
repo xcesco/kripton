@@ -1,7 +1,5 @@
 package sqlite.kripton111.model;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>Country</code> is associated to table <code>country</code>

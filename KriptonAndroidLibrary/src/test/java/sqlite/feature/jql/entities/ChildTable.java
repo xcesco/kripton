@@ -1,7 +1,5 @@
 package sqlite.feature.jql.entities;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>Child</code> is associated to table <code>child</code>

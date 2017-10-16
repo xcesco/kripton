@@ -19,6 +19,7 @@
 package com.abubusoft.kripton.processor;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -28,6 +29,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
@@ -52,7 +54,11 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefModel;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 
 /**
- * Annotation processor for shared preferences
+ * <p>Annotation processor for shared preferences.</p>
+ * 
+ * <p>This processor is one-step processor.</p>
+ * 
+ * 
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -65,18 +71,11 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindPreference.class).build();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes
-	 * ()
-	 */
-	@Override
-	public Set<String> getSupportedAnnotationTypes() {
-		Set<String> annotations = new LinkedHashSet<String>();
+	
+	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
+		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
 
-		annotations.add(BindSharedPreferences.class.getCanonicalName());
+		annotations.add(BindSharedPreferences.class);		
 
 		return annotations;
 	}

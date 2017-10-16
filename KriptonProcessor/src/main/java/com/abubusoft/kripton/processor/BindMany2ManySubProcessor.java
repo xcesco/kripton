@@ -18,6 +18,7 @@
  */
 package com.abubusoft.kripton.processor;
 
+import java.lang.annotation.Annotation;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -28,7 +29,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
@@ -46,21 +46,14 @@ import com.abubusoft.kripton.processor.sqlite.BindM2MBuilder;
 public class BindMany2ManySubProcessor extends BaseProcessor {
 
 	private M2MModel model;
+	
 	public Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> result;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes
-	 * ()
-	 */
-	@Override
-	public Set<String> getSupportedAnnotationTypes() {
-		Set<String> annotations = new LinkedHashSet<String>();
-		
-		annotations.add(BindDaoMany2Many.class.getCanonicalName());
-		annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
+	
+	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
+		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
+
+		annotations.add(BindDaoMany2Many.class);		
 
 		return annotations;
 	}
@@ -75,9 +68,6 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 		try {			
 			model = new M2MModel();
 
-			//parseBindType(roundEnv, elementUtils);
-
-			// Put all @BindSharedPreferences elements in beanElements
 			for (Element item : roundEnv.getElementsAnnotatedWith(BindDaoMany2Many.class)) {
 				if (item.getKind() != ElementKind.INTERFACE) {
 					String msg = String.format("%s %s, only interface can be annotated with @%s annotation", item.getKind(), item, BindDaoMany2Many.class.getSimpleName());
@@ -89,8 +79,7 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 				model.entityAdd(entity);				
 			}
 
-			result=BindM2MBuilder.generate(filer, model);
-			
+			result=BindM2MBuilder.generate(filer, model);			
 
 		} catch (Exception e) {
 			String msg = e.getMessage();

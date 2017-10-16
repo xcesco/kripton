@@ -43,7 +43,7 @@ public class BindTypeContext {
 
 	public String getBindMapperName(BindTypeContext context, TypeName typeName) {
 		Converter<String, String> format = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
-		TypeName bindMapperName=TypeUtility.mergeTypeName(typeName,BindTypeBuilder.SUFFIX);
+		TypeName bindMapperName=TypeUtility.mergeTypeNameWithSuffix(typeName,BindTypeBuilder.SUFFIX);
 		String simpleName=format.convert(TypeUtility.simpleName(bindMapperName));
 	
 		if (!alreadyGeneratedMethods.contains(simpleName))

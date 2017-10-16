@@ -25,7 +25,7 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.annotation.BindTypeVariables;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.BindTypeProcessor;
+import com.abubusoft.kripton.processor.BindTypeSubProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.squareup.javapoet.ArrayTypeName;
@@ -77,7 +77,7 @@ public class TypeVariableResolver {
 			typeVariables = Arrays.asList(annotationBeanType.value());
 		}
 		
-		List<String> typeParameters = AnnotationUtility.extractAsClassNameArray(BindTypeProcessor.elementUtils, element, BindTypeVariables.class, AnnotationAttributeType.TYPE_PARAMETERS);
+		List<String> typeParameters = AnnotationUtility.extractAsClassNameArray(BindTypeSubProcessor.elementUtils, element, BindTypeVariables.class, AnnotationAttributeType.TYPE_PARAMETERS);
 
 		AssertKripton.assertTrue(typeVariables.size() >= typeParameters.size(), "%s '%s' has incorrect definition of type variables/parameters on annotation @BindTypeVariables",
 				element.getKind()==ElementKind.CLASS ? "Class" :"Interface", element.asType());

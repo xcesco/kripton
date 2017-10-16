@@ -11,7 +11,7 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see DeleteBeanPersonDataSource
  * @see DeleteBeanPersonDao
  * @see DeleteBeanPersonDaoImpl
- * @see sqlite.feature.javadoc.Person
+ * @see Person
  */
 public interface BindDeleteBeanPersonDaoFactory extends BindDaoFactory {
   /**

@@ -10,8 +10,6 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.lang.Exception;
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

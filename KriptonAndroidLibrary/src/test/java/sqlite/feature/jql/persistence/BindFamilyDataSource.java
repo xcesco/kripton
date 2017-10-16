@@ -7,8 +7,6 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Override;
-import java.lang.Throwable;
 import java.util.List;
 import sqlite.feature.jql.entities.ChildTable;
 import sqlite.feature.jql.entities.PersonTable;
@@ -23,10 +21,10 @@ import sqlite.feature.jql.entities.PersonTable;
  * @see BindFamilyDaoFactory
  * @see DaoChild
  * @see DaoChildImpl
- * @see sqlite.feature.jql.entities.Child
+ * @see Child
  * @see DaoPerson
  * @see DaoPersonImpl
- * @see sqlite.feature.jql.entities.Person
+ * @see Person
  */
 public class BindFamilyDataSource extends AbstractDataSource implements BindFamilyDaoFactory, FamilyDataSource {
   /**

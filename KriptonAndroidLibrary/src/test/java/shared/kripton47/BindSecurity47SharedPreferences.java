@@ -15,8 +15,6 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.lang.Exception;
-import java.lang.String;
 
 /**
  * This class is the shared preference binder defined for Security47

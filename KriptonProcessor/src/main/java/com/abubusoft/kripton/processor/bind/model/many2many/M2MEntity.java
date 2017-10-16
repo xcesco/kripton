@@ -1,8 +1,5 @@
 package com.abubusoft.kripton.processor.bind.model.many2many;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.lang.model.element.Element;
 import javax.lang.model.element.PackageElement;
 
@@ -110,6 +107,10 @@ public class M2MEntity extends M2MBase {
 		if (StringUtils.hasText(packageName)) {
 			return packageName+"."+name;
 		}
+		return name;
+	}
+
+	public String getSimpleName() {
 		return name;
 	}
 

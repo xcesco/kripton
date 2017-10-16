@@ -6,9 +6,6 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
-import java.lang.IllegalArgumentException;
-import java.lang.Override;
-import java.lang.String;
 
 /**
  * <p>This is the content provider generated for {@link DeleteBeanPersonDataSource}</p>

@@ -11,10 +11,10 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see FamilyDataSource
  * @see DaoChild
  * @see DaoChildImpl
- * @see sqlite.feature.jql.entities.Child
+ * @see Child
  * @see DaoPerson
  * @see DaoPersonImpl
- * @see sqlite.feature.jql.entities.Person
+ * @see Person
  */
 public interface BindFamilyDaoFactory extends BindDaoFactory {
   /**

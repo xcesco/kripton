@@ -11,13 +11,13 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see XenoDataSource
  * @see PhoneDao
  * @see PhoneDaoImpl
- * @see sqlite.kripton111.model.PhoneNumber
+ * @see PhoneNumber
  * @see PrefixConfigDao
  * @see PrefixConfigDaoImpl
- * @see sqlite.kripton111.model.PrefixConfig
+ * @see PrefixConfig
  * @see CountryDao
  * @see CountryDaoImpl
- * @see sqlite.kripton111.model.Country
+ * @see Country
  */
 public interface BindXenoDaoFactory extends BindDaoFactory {
   /**

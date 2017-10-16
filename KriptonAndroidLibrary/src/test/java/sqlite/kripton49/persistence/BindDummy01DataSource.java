@@ -7,8 +7,6 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Override;
-import java.lang.Throwable;
 import java.util.List;
 import sqlite.kripton49.entities.Bean01EntityTable;
 
@@ -22,7 +20,7 @@ import sqlite.kripton49.entities.Bean01EntityTable;
  * @see BindDummy01DaoFactory
  * @see DaoBean01
  * @see DaoBean01Impl
- * @see sqlite.kripton49.entities.Bean01Entity
+ * @see Bean01Entity
  */
 public class BindDummy01DataSource extends AbstractDataSource implements BindDummy01DaoFactory, Dummy01DataSource {
   /**

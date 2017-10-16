@@ -1,7 +1,5 @@
 package sqlite.feature.typeadapter;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>Contact</code> is associated to table <code>contact</code>

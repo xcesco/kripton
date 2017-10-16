@@ -1,7 +1,5 @@
 package sqlite.feature.jql.kripton164;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>CollegeStudent</code> is associated to table <code>students</code>

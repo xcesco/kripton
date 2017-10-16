@@ -1,7 +1,5 @@
 package sqlite.example01;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>Channel</code> is associated to table <code>channel</code>

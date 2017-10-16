@@ -11,7 +11,7 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see UpdateBeanPersonDataSource
  * @see UpdateBeanPersonDao
  * @see UpdateBeanPersonDaoImpl
- * @see sqlite.feature.javadoc.Person
+ * @see Person
  */
 public interface BindUpdateBeanPersonDaoFactory extends BindDaoFactory {
   /**

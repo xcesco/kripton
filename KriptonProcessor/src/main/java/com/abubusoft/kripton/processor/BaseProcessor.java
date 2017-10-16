@@ -15,9 +15,11 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -39,7 +41,7 @@ import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 
 public abstract class BaseProcessor extends AbstractProcessor {
 
-	protected int count;
+	protected int count=0;
 
 	/**
 	 * build bindType elements map
@@ -55,6 +57,36 @@ public abstract class BaseProcessor extends AbstractProcessor {
 			globalBeanElements.put(item.toString(), (TypeElement) item);
 		}
 
+	}
+	
+	public boolean hasWorkInThisRound(RoundEnvironment roundEnv) {
+		if (this.filter(roundEnv).size()>0) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	protected abstract Set<Class<? extends Annotation>> getSupportedAnnotationClasses();
+	
+	@Override
+	public Set<String> getSupportedAnnotationTypes() {		
+		Set<String> result=new HashSet<String>();		
+		for (Class<? extends Annotation> annotation: getSupportedAnnotationClasses()) {
+			result.add(annotation.getCanonicalName());	
+		}
+				
+		return result;
+	}
+	
+	public Set<Element> filter(RoundEnvironment roundEnv) {
+		Set<Element> result=new HashSet<Element>();		
+		for (Class<? extends Annotation> annotation: getSupportedAnnotationClasses()) {
+			result.addAll(roundEnv.getElementsAnnotatedWith(annotation));	
+		}
+		
+		return result;
+		
 	}
 
 	/**
@@ -96,6 +128,8 @@ public abstract class BaseProcessor extends AbstractProcessor {
 		excludedMethods.add("equals");
 		excludedMethods.add("hashCode");
 		excludedMethods.add("getClass");
+		
+		count=0;
 	}
 
 	/*

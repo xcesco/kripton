@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,7 +37,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
+import com.abubusoft.kripton.android.annotation.BindDaoGenerated;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
@@ -113,23 +114,16 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	public Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generatedPart;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes
-	 * ()
-	 */
-	@Override
-	public Set<String> getSupportedAnnotationTypes() {
-		Set<String> annotations = new LinkedHashSet<String>();
+	
+	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
+		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
 
-		annotations.add(BindType.class.getCanonicalName());
-		annotations.add(BindDataSource.class.getCanonicalName());
-		annotations.add(BindTable.class.getCanonicalName());
-		annotations.add(BindDao.class.getCanonicalName());
-		annotations.add(BindDaoMany2Many.class.getCanonicalName());
-		annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
+		annotations.add(BindType.class);
+		annotations.add(BindDataSource.class);
+		annotations.add(BindTable.class);
+		annotations.add(BindDao.class);
+		annotations.add(BindDaoMany2Many.class);
+		annotations.add(BindDaoGenerated.class);
 
 		return annotations;
 	}
@@ -151,7 +145,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		globalDaoElements.clear();
 		model.schemaClear();
-
+						
 		parseBindType(roundEnv);
 
 		// Put all @BindTable elements in beanElements
@@ -165,6 +159,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		// Put all @BindDao elements in daoElements
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindDao.class)) {
+			// dao generated will used to replace original dao, so it can not be inserted like others.
+			if (item.getAnnotation(BindDaoGenerated.class)!=null) continue;
+			
 			if (item.getKind() != ElementKind.INTERFACE) {
 				String msg = String.format("%s %s can not be annotated with @%s annotation, because it is not an interface", item.getKind(), item, BindDao.class.getSimpleName());
 				throw (new InvalidKindForAnnotationException(msg));
@@ -176,8 +173,14 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			if (item.getKind() != ElementKind.INTERFACE) {
 				String msg = String.format("%s %s can not be annotated with @%s annotation, because it is not an interface", item.getKind(), item, BindDaoMany2Many.class.getSimpleName());
 				throw (new InvalidKindForAnnotationException(msg));
-			}
+			}						
 			globalDaoElements.put(item.toString(), (TypeElement) item);
+		}
+		
+		Set<? extends Element> generatedDaos = roundEnv.getElementsAnnotatedWith(BindDaoGenerated.class);
+		for (Element item: generatedDaos) {
+			String keyToReplace=AnnotationUtility.extractAsClassName(item, BindDaoGenerated.class, AnnotationAttributeType.DAO);
+			globalDaoElements.put(keyToReplace, (TypeElement) item);
 		}
 
 		// Get all database schema definitions
@@ -192,7 +195,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 
 		// get elements for generated dao's
-		Set<? extends Element> generatedDaoParts = roundEnv.getElementsAnnotatedWith(BindDaoGeneratedPart.class);
+		//Set<? extends Element> generatedDaoParts = roundEnv.getElementsAnnotatedWith(BindDaoGenerated.class);
 
 		for (Element dataSource : dataSets) {
 			createDataSource(dataSource);
@@ -210,8 +213,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 			// DAO analysis
 			// Get all dao definitions
-			for (String daoItem : daoIntoDataSource) {
-				analyzeDao(globalBeanElements, globalDaoElements, findGeneratedPart(daoItem, generatedDaoParts), daoItem);
+			for (String generatedDaoItem : daoIntoDataSource) {
+				analyzeDao(globalBeanElements, globalDaoElements, generatedDaoItem);
 			}
 
 			analyzeForeignKey(currentSchema);
@@ -249,21 +252,25 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(dao.getElement());
+			if (dao.getElement().getAnnotation(BindDaoGenerated.class)!=null) {
+				M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(dao.getElement());
 
-			// only if dao has an entity
-			if (dao.getEntity() != null) {
-				// check foreign key to entity1 and entity2
-				checkForeignKeyForM2M(dao.getEntity(), m2mEntity.entity1Name);
-				checkForeignKeyForM2M(dao.getEntity(), m2mEntity.entity2Name);
+				// only if dao has an entity
+				if (dao.getEntity() != null) {
+					// check foreign key to entity1 and entity2
+					checkForeignKeyForM2M(dao.getEntity(), m2mEntity.entity1Name);
+					checkForeignKeyForM2M(dao.getEntity(), m2mEntity.entity2Name);
+				}	
 			}
+			
+			
 		}
 
 	}
 
 	private TypeElement findGeneratedPart(String daoName, Set<? extends Element> generatedDaoParts) {
 		for (Element item : generatedDaoParts) {
-			String dao = AnnotationUtility.extractAsClassName(item, BindDaoGeneratedPart.class, AnnotationAttributeType.DAO);
+			String dao = AnnotationUtility.extractAsClassName(item, BindDaoGenerated.class, AnnotationAttributeType.DAO);
 
 			if (dao.equals(daoName)) {
 				return (TypeElement) item;
@@ -302,7 +309,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		ModelProperty property;
 		String beanName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.VALUE);
 
-		BindDaoMany2Many bindMany2ManyAnnotation = daoElement.getAnnotation(BindDaoMany2Many.class);
+		/*BindDaoMany2Many bindMany2ManyAnnotation = daoElement.getAnnotation(BindDaoMany2Many.class);
 		AssertKripton.assertTrueOrMissedAnnotationOnClass(bindMany2ManyAnnotation != null || !TypeUtility.isEquals(NoEntity.class, beanName), daoElement, beanName, BindType.class);
 
 		M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(daoElement);
@@ -311,9 +318,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		if (isGeneratedEntity(m2mEntityClassName)) {
 			// if generated, we don't need to recreate it
 			return;
-		}
+		}*/
 
-		final TypeElement beanElement = globalBeanElements.get(m2mEntity.getClassName().toString());
+		final TypeElement beanElement = globalBeanElements.get(beanName);
 
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);
@@ -472,7 +479,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	protected void generatedClasses() throws Exception {
 		for (SQLiteDatabaseSchema currentSchema : schemas) {
 			BindTableGenerator.generate(elementUtils, filer, currentSchema);
-			BindDaoBuilder.generate(elementUtils, filer, currentSchema);
+			BindDaoBuilder.generate(elementUtils, filer, model, currentSchema);
 			if (currentSchema.generateCursor)
 				BindCursorBuilder.generate(elementUtils, filer, currentSchema);
 			if (currentSchema.generateAsyncTask)
@@ -492,7 +499,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @param generatedDaoParts
 	 * @param daoItem
 	 */
-	protected void analyzeDao(final Map<String, TypeElement> globalBeanElements, final Map<String, TypeElement> globalDaoElements, TypeElement generatedDaoPart, String daoItem) {
+	protected void analyzeDao(final Map<String, TypeElement> globalBeanElements, final Map<String, TypeElement> globalDaoElements, String daoItem) {
 		Element daoElement = globalDaoElements.get(daoItem);
 
 		if (daoElement.getKind() != ElementKind.INTERFACE) {
@@ -501,7 +508,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 
 		M2MEntity entity = M2MEntity.extractEntityManagedByDAO(daoElement);
-		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, (TypeElement) daoElement, entity.getClassName().toString());
+		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, daoItem, (TypeElement) daoElement, entity.getClassName().toString());
 
 		// content provider management
 		BindContentProviderPath daoContentProviderPath = daoElement.getAnnotation(BindContentProviderPath.class);
@@ -528,10 +535,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		currentSchema.add(currentDaoDefinition);
 
 		fillMethods(currentDaoDefinition, daoElement);
-		if (generatedDaoPart != null) {
+		/*if (generatedDaoPart != null) {
 			currentDaoDefinition.addImplementedInterface(TypeUtility.typeName(generatedDaoPart));
 			fillMethods(currentDaoDefinition, generatedDaoPart);
-		}
+		}*/
 
 		// get @annotation associated to many 2 many relationship
 		BindDaoMany2Many daoMany2Many = daoElement.getAnnotation(BindDaoMany2Many.class);
@@ -656,6 +663,34 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			currentSchema.generateContentProvider = false;
 		}
 
+	}
+
+	/**
+	 * dao or entity can be null
+	 * @param dao
+	 * @param entity
+	 * @return
+	 */
+	public static String generateEntityName(SQLDaoDefinition dao, SQLEntity entity) {
+		String entityName;
+		if (entity==null) {
+			M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(dao.getElement());			
+			entityName=m2mEntity.getSimpleName();
+		} else {
+			entityName=entity.getSimpleName();
+		}
+		return entityName;
+	}
+
+	public static String generateEntityQualifiedName(SQLDaoDefinition dao, SQLEntity entity) {
+		String entityName;
+		if (entity==null) {
+			M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(dao.getElement());			
+			entityName=m2mEntity.getQualifiedName();
+		} else {
+			entityName=entity.getName().toString();
+		}
+		return entityName;
 	}
 
 }

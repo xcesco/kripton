@@ -7,8 +7,6 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Override;
-import java.lang.Throwable;
 import java.util.List;
 import sqlite.kripton56.entities.MessageEntityTable;
 
@@ -22,7 +20,7 @@ import sqlite.kripton56.entities.MessageEntityTable;
  * @see BindWhisperDaoFactory
  * @see DaoMessage
  * @see DaoMessageImpl
- * @see sqlite.kripton56.entities.MessageEntity
+ * @see MessageEntity
  */
 public class BindWhisperDataSource extends AbstractDataSource implements BindWhisperDaoFactory, WhisperDataSource {
   /**

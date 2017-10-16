@@ -1,7 +1,5 @@
 package sqlite.quickstart.model;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>Todo</code> is associated to table <code>todo</code>

@@ -7,8 +7,6 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Override;
-import java.lang.Throwable;
 import java.util.List;
 import sqlite.select.PersonTable;
 
@@ -22,7 +20,7 @@ import sqlite.select.PersonTable;
  * @see BindPersonDaoFactory
  * @see PersonDAO
  * @see PersonDAOImpl
- * @see sqlite.select.Person
+ * @see Person
  */
 public class BindPersonDataSource extends AbstractDataSource implements BindPersonDaoFactory, PersonDataSource {
   /**

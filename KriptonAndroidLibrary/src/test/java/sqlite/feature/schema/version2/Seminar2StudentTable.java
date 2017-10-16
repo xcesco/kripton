@@ -1,7 +1,5 @@
 package sqlite.feature.schema.version2;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>Seminar2Student</code> is associated to table <code>seminar_2_student</code>

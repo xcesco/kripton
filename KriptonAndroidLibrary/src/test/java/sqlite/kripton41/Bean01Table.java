@@ -1,7 +1,5 @@
 package sqlite.kripton41;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>Bean01</code> is associated to table <code>bean01</code>

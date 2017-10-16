@@ -22,6 +22,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
+import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
@@ -115,7 +116,10 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 			
 			classBuilder.addJavadoc("@see $T\n", daoName);
 			classBuilder.addJavadoc("@see $T\n", daoImplName);
-			classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(dao.getEntity().getElement()));
+			
+			String entity = BindDataSourceSubProcessor.generateEntityName(dao, dao.getEntity());
+			
+			classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(entity));
 		}
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {

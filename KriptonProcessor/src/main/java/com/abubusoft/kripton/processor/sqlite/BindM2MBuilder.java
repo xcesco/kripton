@@ -29,7 +29,8 @@ import javax.lang.model.element.PackageElement;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindDaoGeneratedPart;
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindDaoGenerated;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -65,24 +66,24 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 	public static final String SUFFIX = "Cursor";
 
-	private static Set<GeneratedTypeElement> entityResult=new HashSet<GeneratedTypeElement>();
-	private static Set<GeneratedTypeElement> daoResult=new HashSet<GeneratedTypeElement>();
+	private static Set<GeneratedTypeElement> entityResult = new HashSet<GeneratedTypeElement>();
+	private static Set<GeneratedTypeElement> daoResult = new HashSet<GeneratedTypeElement>();
 
 	public BindM2MBuilder(Filer filer) {
 		super(BaseProcessor.elementUtils, filer, null);
 	}
-	
+
 	public static Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generate(Filer filer, M2MModel model) throws Exception {
 		BindM2MBuilder visitor = new BindM2MBuilder(filer);
 
 		for (M2MEntity item : model.getEntities()) {
 			visitor.generate(item);
 		}
-		
-		Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> result=new Pair<>();
-		result.value0=entityResult;
-		result.value1=daoResult;
-				
+
+		Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> result = new Pair<>();
+		result.value0 = entityResult;
+		result.value1 = daoResult;
+
 		return result;
 	}
 
@@ -96,32 +97,43 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
 		String packageName = pkg.getQualifiedName().toString();
+		String generatedDaoClassName="Generated"+daoClassName;
+		
 
-		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoMany2Many.class, packageName, daoClassName);
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoMany2Many.class, packageName, generatedDaoClassName);
 		//@formatter:off
-		classBuilder = TypeSpec.interfaceBuilder(daoClassName+"GeneratedPart")
+		classBuilder = TypeSpec.interfaceBuilder(generatedDaoClassName)
 				.addModifiers(Modifier.PUBLIC)				
-				.addAnnotation(AnnotationSpec.builder(BindDaoGeneratedPart.class)
+				.addAnnotation(AnnotationSpec.builder(BindDao.class)
+						.addMember("value", "$T.class",TypeUtility.className(packageName, entity.name)).build())
+				.addAnnotation(AnnotationSpec.builder(BindDaoGenerated.class)
 						.addMember("dao", "$T.class",TypeUtility.className(packageName, daoClassName))
-						.addMember("entity", "$T.class",TypeUtility.className(packageName, entity.name)).build()
-						)
-						;						
-
+						.addMember("entity", "$T.class",TypeUtility.className(packageName, entity.name))
+						.addMember("entityChild0", "$T.class",entity.entity1Name)
+						.addMember("entityChild1", "$T.class",entity.entity2Name)
+						.build())
+				
+				
+				
+				.addSuperinterface(TypeUtility.typeName(packageName, daoClassName));
+				;
+		
+		//@formatter:on
 		generateSelects(entity, packageName);
 		generateDeletes(entity, packageName);
 		generateInsert(entity, packageName);
-		
-		TypeSpec typeSpec = classBuilder.build();		
-		
+
+		TypeSpec typeSpec = classBuilder.build();
+
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
-		
-		GeneratedTypeElement daoPartElement=new GeneratedTypeElement(packageName, classBuilder.build());		
+
+		GeneratedTypeElement daoPartElement = new GeneratedTypeElement(packageName, classBuilder.build());
 		daoResult.add(daoPartElement);
 	}
 
 	private void generateSelects(M2MEntity entity, String packageName) {
-		String idPart=CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
-		
+		String idPart = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
+
 		{
 		//@formatter:off
 		MethodSpec methodSpec = MethodSpec.methodBuilder("selectBy"+idPart)
@@ -240,19 +252,20 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 * @return
 	 * @throws IOException
 	 */
-	private void generateEntity(M2MEntity entity) throws IOException {				
-		if(!entity.needToCreate) return;
-		
+	private void generateEntity(M2MEntity entity) throws IOException {
+		if (!entity.needToCreate)
+			return;
+
 		String entityClassName = entity.name;
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoMany2Many.class, entity.getPackageName(), entityClassName);
 		//@formatter:off
 		classBuilder = TypeSpec.classBuilder(entityClassName)
 				.addModifiers(Modifier.PUBLIC)
-				.addAnnotation(BindType.class)
+				//.addAnnotation(BindType.class)
 				.addAnnotation(AnnotationSpec.builder(BindTable.class).addMember("name", "$S",entity.tableName).build());
 		//@formatter:on
-				
+
 		// javadoc for class
 		classBuilder.addJavadoc("<p>");
 		classBuilder.addJavadoc("\nEntity implementation for entity <code>$L</code>\n", entity.name);
@@ -302,10 +315,9 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		TypeSpec typeSpec = classBuilder.build();
 		JavaWriterHelper.writeJava2File(filer, entity.getPackageName(), typeSpec);
-		
-		GeneratedTypeElement entityElement=new GeneratedTypeElement(entity.getPackageName(), classBuilder.build());	
+
+		GeneratedTypeElement entityElement = new GeneratedTypeElement(entity.getPackageName(), classBuilder.build());
 		entityResult.add(entityElement);
 	}
-
 
 }

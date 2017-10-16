@@ -11,7 +11,7 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see Kripton180BeanDataSource
  * @see EmployeeBeanDao
  * @see EmployeeBeanDaoImpl
- * @see sqlite.feature.typeadapter.kripton180.Employee
+ * @see Employee
  */
 public interface BindKripton180BeanDaoFactory extends BindDaoFactory {
   /**

@@ -3,9 +3,6 @@ package sqlite.kripton93;
 import android.os.AsyncTask;
 import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
-import java.lang.Override;
-import java.lang.SuppressWarnings;
-import java.lang.Throwable;
 import java.util.concurrent.Executor;
 
 /**

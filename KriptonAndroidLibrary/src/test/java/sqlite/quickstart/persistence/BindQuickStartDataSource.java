@@ -7,8 +7,6 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Override;
-import java.lang.Throwable;
 import java.util.List;
 import sqlite.quickstart.model.CommentTable;
 import sqlite.quickstart.model.PostTable;
@@ -25,16 +23,16 @@ import sqlite.quickstart.model.UserTable;
  * @see BindQuickStartDaoFactory
  * @see UserDao
  * @see UserDaoImpl
- * @see sqlite.quickstart.model.User
+ * @see User
  * @see PostDao
  * @see PostDaoImpl
- * @see sqlite.quickstart.model.Post
+ * @see Post
  * @see CommentDao
  * @see CommentDaoImpl
- * @see sqlite.quickstart.model.Comment
+ * @see Comment
  * @see TodoDao
  * @see TodoDaoImpl
- * @see sqlite.quickstart.model.Todo
+ * @see Todo
  */
 public class BindQuickStartDataSource extends AbstractDataSource implements BindQuickStartDaoFactory, QuickStartDataSource {
   /**

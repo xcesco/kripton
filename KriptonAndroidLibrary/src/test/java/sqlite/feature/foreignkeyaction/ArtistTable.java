@@ -1,7 +1,5 @@
 package sqlite.feature.foreignkeyaction;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>Artist</code> is associated to table <code>artist</code>

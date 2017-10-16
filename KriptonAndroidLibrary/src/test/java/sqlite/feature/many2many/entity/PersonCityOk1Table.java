@@ -1,7 +1,5 @@
 package sqlite.feature.many2many.entity;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>PersonCityOk1</code> is associated to table <code>person_city_ok1</code>

@@ -27,7 +27,9 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface BindDaoGeneratedPart {
+public @interface BindDaoGenerated {	
 	Class<?> dao();
 	Class<?> entity();
+	Class<?> entity1();
+	Class<?> entity2();
 }

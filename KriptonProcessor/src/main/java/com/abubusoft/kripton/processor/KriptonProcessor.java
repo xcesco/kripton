@@ -19,7 +19,6 @@
 package com.abubusoft.kripton.processor;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.annotation.Annotation;
@@ -27,23 +26,17 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
-import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
-import com.abubusoft.kripton.processor.bind.model.BindEntity;
-import com.abubusoft.kripton.processor.bind.model.BindModel;
-import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 
 /**
@@ -52,7 +45,7 @@ import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class BindTypeProcessor extends BaseProcessor {
+public class KriptonProcessor extends BaseProcessor {
 
 	public static class ProcessedElement implements RoundEnvironment {
 		HashSet<Element> elements = new HashSet<>();
@@ -109,25 +102,23 @@ public class BindTypeProcessor extends BaseProcessor {
 
 	private ProcessedElement processedElement = new ProcessedElement();
 
-	private BindModel model;
+	//private BindModel model;
 
 	private BindMany2ManySubProcessor many2ManyProcessor = new BindMany2ManySubProcessor();
 
 	private BindSharedPreferencesSubProcessor sharedPreferencesProcessor = new BindSharedPreferencesSubProcessor();
 
 	private BindDataSourceSubProcessor dataSourceProcessor = new BindDataSourceSubProcessor();
+	
+	private BindTypeSubProcessor typeProcessor = new BindTypeSubProcessor();
+	
+	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
+		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
 
-	@Override
-	public Set<String> getSupportedAnnotationTypes() {
-		Set<String> annotations = new LinkedHashSet<String>();
-
-		annotations.add(BindType.class.getCanonicalName());
-		annotations.addAll(sharedPreferencesProcessor.getSupportedAnnotationTypes());
-		annotations.addAll(dataSourceProcessor.getSupportedAnnotationTypes());
-		// annotations.add(BindDaoGeneratedPart.class.getCanonicalName());
-		// annotations.add(BindDaoMany2Many.class.getCanonicalName());
-
-		annotations.addAll(many2ManyProcessor.getSupportedAnnotationTypes());
+		annotations.addAll(typeProcessor.getSupportedAnnotationClasses());
+		annotations.addAll(sharedPreferencesProcessor.getSupportedAnnotationClasses());
+		annotations.addAll(dataSourceProcessor.getSupportedAnnotationClasses());
+		annotations.addAll(many2ManyProcessor.getSupportedAnnotationClasses());		
 
 		return annotations;
 	}
@@ -136,65 +127,54 @@ public class BindTypeProcessor extends BaseProcessor {
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
 
+		typeProcessor.init(processingEnv);
 		many2ManyProcessor.init(processingEnv);
 		sharedPreferencesProcessor.init(processingEnv);
 		dataSourceProcessor.init(processingEnv);
+		
+		count=0;
+		JavaWriterHelper.reset();
 	}
+	
+	Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generatedPart=new Pair<>();
 
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
+			
 			count++;
+			
+			dump(1, roundEnv);
+			
+			if (count==1 && many2ManyProcessor.hasWorkInThisRound(roundEnv)) {
+				// generate @BindGeneratedDao
+				many2ManyProcessor.process(annotations, roundEnv);
+				generatedPart = many2ManyProcessor.result;
+			}			
 
-			if (count > 1) {
-				return true;
+			if (count==1 && typeProcessor.hasWorkInThisRound(roundEnv)) {
+				// generate bindmap
+				typeProcessor.process(annotations, roundEnv);
 			}
 			
-			model = new BindModel();
-
-			many2ManyProcessor.process(annotations, roundEnv);
-						
-			Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generatedPart = many2ManyProcessor.result;
-
-			processedElement.addRound(roundEnv);
-			dump(count);
-
-			
-			final AtomicInteger itemCounter = new AtomicInteger();
-			itemCounter.set(0);
-
-			parseBindType(processedElement);
-
-			// Build model
-			for (Element element : processedElement.getElementsAnnotatedWith(BindType.class)) {
-				final Element item = element;
-
-				AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
-				BindEntityBuilder.parse(model, (TypeElement) item);
-				itemCounter.addAndGet(1);
+			if (count==1 && sharedPreferencesProcessor.hasWorkInThisRound(roundEnv)) {
+				sharedPreferencesProcessor.process(annotations, roundEnv);				
+				sharedPreferencesProcessor.generateClasses();
 			}
-
-			if (itemCounter.get() == 0) {
-				info("No class with @%s annotation was found", BindType.class.getSimpleName());
-			}
-
-			// Generate classes for model
-			generateFromModel();
-
-			sharedPreferencesProcessor.process(annotations, processedElement);
 			
-			dataSourceProcessor.generatedPart=generatedPart;
-			dataSourceProcessor.process(annotations, processedElement);
-
-			sharedPreferencesProcessor.generateClasses();
-			dataSourceProcessor.generatedClasses();
+			if ((count==1 || !many2ManyProcessor.hasWorkInThisRound(roundEnv)) &&  dataSourceProcessor.hasWorkInThisRound(roundEnv)) {
+				processedElement.addRound(roundEnv);
+			} else {				
+				dataSourceProcessor.generatedPart=generatedPart;
+				dataSourceProcessor.process(annotations, processedElement);
+				dataSourceProcessor.generatedClasses();
+			}
+			
+			
 		} catch (Throwable e) {
 			String msg = StringUtils.nvl(e.getMessage());
 			error(null, e.getClass().getCanonicalName() + ".: " + msg);
-			StackTraceElement[] trace = e.getStackTrace();
-			for (StackTraceElement item : trace) {
-				error(null, item.getClassName() + " " + item.getMethodName() + " " + item.getLineNumber());
-			}
+			StackTraceElement[] trace = e.getStackTrace();			
 
 			StringWriter sw = new StringWriter();
 			e.printStackTrace(new PrintWriter(sw));
@@ -229,35 +209,18 @@ public class BindTypeProcessor extends BaseProcessor {
 		return true;
 	}
 
-	private void dump(int count) {
+	private void dump(int count, RoundEnvironment roundEnv) {
 		try (PrintWriter out = new PrintWriter("d:/filename" + count + ".txt")) {
-			for (Element item : processedElement.elements) {
-				out.println(String.format("processedElement %s", item.getSimpleName()));
+			for (Class<? extends Annotation> supportedAnnotation: getSupportedAnnotationClasses()) {
+				out.println(String.format("annotation= %s\n--------------------\n", supportedAnnotation.getCanonicalName()));
+				for (Element item : roundEnv.getElementsAnnotatedWith(supportedAnnotation)) {					
+					out.println(String.format("processedElement %s", ((TypeElement)item).getQualifiedName().toString()));
+				}
 			}
-
-			for (Entry<String, TypeElement> entry : globalBeanElements.entrySet()) {
-				out.println(String.format("GLOBAL %s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
-			}
-
-			out.println("dao---");
-			for (Entry<String, TypeElement> entry : this.dataSourceProcessor.globalBeanElements.entrySet()) {
-				out.println(String.format("%s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
-			}
-
+			
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
-	}
-
-	/**
-	 * @throws IOException
-	 */
-	private void generateFromModel() throws IOException {
-		for (BindEntity entity : model.getEntities()) {
-			final BindEntity item = entity;
-
-			BindTypeBuilder.generate(filer, item);
 		}
 	}
 

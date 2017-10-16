@@ -36,7 +36,7 @@ public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform
 
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
-		methodBuilder.addCode("$T.serialize$L($L)", TypeUtility.mergeTypeName(beanClass, "Table"), formatter.convert(property.getName()), getter(beanName, beanClass, property));
+		methodBuilder.addCode("$T.serialize$L($L)", TypeUtility.mergeTypeNameWithSuffix(beanClass, "Table"), formatter.convert(property.getName()), getter(beanName, beanClass, property));
 	}
 	
 	@Override
@@ -62,7 +62,7 @@ public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform
 
 	@Override
 	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
-		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.parse$L($L.getBlob($L))"), TypeUtility.mergeTypeName(beanClass, "Table"), formatter.convert(property.getName()), cursorName,
+		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.parse$L($L.getBlob($L))"), TypeUtility.mergeTypeNameWithSuffix(beanClass, "Table"), formatter.convert(property.getName()), cursorName,
 				indexName);
 	}
 

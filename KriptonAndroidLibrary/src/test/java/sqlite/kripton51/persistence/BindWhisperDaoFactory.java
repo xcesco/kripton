@@ -11,7 +11,7 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  * @see WhisperDataSource
  * @see DaoMessage
  * @see DaoMessageImpl
- * @see sqlite.kripton51.entities.MessageEntity
+ * @see MessageEntity
  */
 public interface BindWhisperDaoFactory extends BindDaoFactory {
   /**

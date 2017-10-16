@@ -46,7 +46,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public PaginatedResult<Person> selectPagedStatic1() {
-    PaginatedResult2 paginatedResult=new PaginatedResult2();
+    PaginatedResult4 paginatedResult=new PaginatedResult4();
     return paginatedResult;
   }
 
@@ -68,7 +68,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	handler of paginated result
    * @return result list
    */
-  private List<Person> selectPagedStatic1(PaginatedResult2 paginatedResult) {
+  private List<Person> selectPagedStatic1(PaginatedResult4 paginatedResult) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
@@ -155,7 +155,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public PaginatedResult<Person> selectPagedStatic2(int pageSize) {
-    PaginatedResult3 paginatedResult=new PaginatedResult3(pageSize);
+    PaginatedResult5 paginatedResult=new PaginatedResult5(pageSize);
     return paginatedResult;
   }
 
@@ -184,7 +184,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	handler of paginated result
    * @return result list
    */
-  private List<Person> selectPagedStatic2(int pageSize, PaginatedResult3 paginatedResult) {
+  private List<Person> selectPagedStatic2(int pageSize, PaginatedResult5 paginatedResult) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
@@ -618,8 +618,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
   }
 
-  public class PaginatedResult2 extends PaginatedResult<Person> {
-    PaginatedResult2() {
+  public class PaginatedResult4 extends PaginatedResult<Person> {
+    PaginatedResult4() {
       this.pageSize=20;
     }
 
@@ -629,8 +629,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
   }
 
-  public class PaginatedResult3 extends PaginatedResult<Person> {
-    PaginatedResult3(int pageSize) {
+  public class PaginatedResult5 extends PaginatedResult<Person> {
+    PaginatedResult5(int pageSize) {
       this.pageSize=pageSize;
     }
 

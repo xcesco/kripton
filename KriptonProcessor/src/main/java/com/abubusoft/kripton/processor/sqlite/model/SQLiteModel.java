@@ -17,10 +17,17 @@ package com.abubusoft.kripton.processor.sqlite.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 
 public class SQLiteModel {
 
 	protected List<SQLiteDatabaseSchema> schemas = new ArrayList<SQLiteDatabaseSchema>();
+	
+	//public Set<GeneratedTypeElement> generatedEntities;
+
+	//public Set<GeneratedTypeElement> generatedDaos;
 
 	public void schemaAdd(SQLiteDatabaseSchema schema) {
 		schemas.add(schema);

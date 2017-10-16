@@ -1,7 +1,5 @@
 package sqlite.feature.contentprovider.kripton35.entities;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>City</code> is associated to table <code>city</code>
