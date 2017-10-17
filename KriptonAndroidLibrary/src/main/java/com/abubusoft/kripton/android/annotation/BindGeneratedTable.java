@@ -23,5 +23,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface BindGenerated {		
+public @interface BindGeneratedTable {
+	Class<?> dataSource();	
 }

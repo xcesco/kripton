@@ -33,7 +33,8 @@ import javax.lang.model.element.PackageElement;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDaoGenerated;
+import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
+import com.abubusoft.kripton.android.annotation.BindGeneratedTable;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -110,7 +111,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 				.addModifiers(Modifier.PUBLIC)				
 				.addAnnotation(AnnotationSpec.builder(BindDao.class)
 						.addMember("value", "$T.class",TypeUtility.className(packageName, entity.name)).build())
-				.addAnnotation(AnnotationSpec.builder(BindDaoGenerated.class)
+				.addAnnotation(AnnotationSpec.builder(BindGeneratedDao.class)
 						.addMember("dao", "$T.class",TypeUtility.className(packageName, daoClassName))						
 						.addMember("entity1", "$T.class",entity.entity1Name)
 						.addMember("entity2", "$T.class",entity.entity2Name)
@@ -304,7 +305,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		//@formatter:off
 		classBuilder = TypeSpec.classBuilder(entityClassName)
 				.addModifiers(Modifier.PUBLIC)
-				//.addAnnotation(BindType.class)
+				.addAnnotation(BindGeneratedTable.class)
 				.addAnnotation(AnnotationSpec.builder(BindTable.class).addMember("name", "$S",entity.tableName).build());
 		//@formatter:on
 

@@ -46,14 +46,13 @@ import com.abubusoft.kripton.processor.sqlite.BindM2MBuilder;
 public class BindMany2ManySubProcessor extends BaseProcessor {
 
 	private M2MModel model;
-	
+
 	public Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> result;
 
-	
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
 		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
 
-		annotations.add(BindDaoMany2Many.class);		
+		annotations.add(BindDaoMany2Many.class);
 
 		return annotations;
 	}
@@ -62,10 +61,10 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
 	}
-	
+
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-		try {			
+		try {
 			model = new M2MModel();
 
 			for (Element daoItem : roundEnv.getElementsAnnotatedWith(BindDaoMany2Many.class)) {
@@ -74,12 +73,12 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 					throw (new InvalidKindForAnnotationException(msg));
 				}
 
-				M2MEntity entity =M2MEntity.extractEntityManagedByDAO((TypeElement) daoItem);
-				
-				model.entityAdd(entity);				
+				M2MEntity entity = M2MEntity.extractEntityManagedByDAO((TypeElement) daoItem);
+
+				model.entityAdd(entity);
 			}
 
-			result=BindM2MBuilder.generate(filer, model);			
+			result = BindM2MBuilder.generate(filer, model);
 
 		} catch (Exception e) {
 			String msg = e.getMessage();
@@ -93,5 +92,5 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 
 		return true;
 	}
-	
+
 }

@@ -37,7 +37,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDaoGenerated;
+import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
@@ -122,7 +122,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		annotations.add(BindTable.class);
 		annotations.add(BindDao.class);
 		annotations.add(BindDaoMany2Many.class);
-		annotations.add(BindDaoGenerated.class);
+		annotations.add(BindGeneratedDao.class);
 		
 		return annotations;
 	}
@@ -160,7 +160,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindDao.class)) {
 			// dao generated will used to replace original dao, so it can not be
 			// inserted like others.
-			if (item.getAnnotation(BindDaoGenerated.class) != null)
+			if (item.getAnnotation(BindGeneratedDao.class) != null)
 				continue;
 
 			if (item.getKind() != ElementKind.INTERFACE) {
@@ -178,9 +178,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			globalDaoElements.put(item.toString(), (TypeElement) item);
 		}
 
-		Set<? extends Element> generatedDaos = roundEnv.getElementsAnnotatedWith(BindDaoGenerated.class);
+		Set<? extends Element> generatedDaos = roundEnv.getElementsAnnotatedWith(BindGeneratedDao.class);
 		for (Element item : generatedDaos) {
-			String keyToReplace = AnnotationUtility.extractAsClassName(item, BindDaoGenerated.class, AnnotationAttributeType.DAO);
+			String keyToReplace = AnnotationUtility.extractAsClassName(item, BindGeneratedDao.class, AnnotationAttributeType.DAO);
 			globalDaoElements.put(keyToReplace, (TypeElement) item);
 		}
 
@@ -254,9 +254,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			if (dao.getElement().getAnnotation(BindDaoGenerated.class) != null) {
-				ClassName entity1 = TypeUtility.className(AnnotationUtility.extractAsClassName(dao.getElement(), BindDaoGenerated.class, AnnotationAttributeType.ENTITY_1));
-				ClassName entity2 = TypeUtility.className(AnnotationUtility.extractAsClassName(dao.getElement(), BindDaoGenerated.class, AnnotationAttributeType.ENTITY_2));
+			if (dao.getElement().getAnnotation(BindGeneratedDao.class) != null) {
+				ClassName entity1 = TypeUtility.className(AnnotationUtility.extractAsClassName(dao.getElement(), BindGeneratedDao.class, AnnotationAttributeType.ENTITY_1));
+				ClassName entity2 = TypeUtility.className(AnnotationUtility.extractAsClassName(dao.getElement(), BindGeneratedDao.class, AnnotationAttributeType.ENTITY_2));
 
 				// only if dao has an entity
 				if (dao.getEntity() != null) {
@@ -302,7 +302,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		//isGeneratedEntity(fullName)
 
 		final TypeElement beanElement = globalBeanElements.get(beanName);
-		this.isGeneratedEntity(beanName);
+		//this.isGeneratedEntity(beanName);
 
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);

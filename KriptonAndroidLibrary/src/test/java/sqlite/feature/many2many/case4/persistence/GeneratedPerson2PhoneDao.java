@@ -1,7 +1,7 @@
 package sqlite.feature.many2many.case4.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDaoGenerated;
+import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
@@ -11,7 +11,7 @@ import sqlite.feature.many2many.case4.model.Person;
 import sqlite.feature.many2many.case4.model.PhoneNumber;
 
 @BindDao(PersonPhoneNumber.class)
-@BindDaoGenerated(
+@BindGeneratedDao(
     dao = Person2PhoneDao.class,
     entity1 = Person.class,
     entity2 = PhoneNumber.class
