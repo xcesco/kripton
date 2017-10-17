@@ -30,7 +30,7 @@ import sqlite.feature.many2many.case4.model.PrefixConfigTable;
  * @see CountryDao
  * @see CountryDaoImpl
  * @see Country
- * @see GeneratedPerson2PhoneDao
+ * @see Person2PhoneDao
  * @see Person2PhoneDaoImpl
  * @see PersonPhoneNumber
  * @see PersonDao
@@ -165,12 +165,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
-    database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -208,12 +206,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
-      database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -226,7 +222,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }

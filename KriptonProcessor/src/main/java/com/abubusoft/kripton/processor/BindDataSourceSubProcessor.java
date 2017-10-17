@@ -123,7 +123,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		annotations.add(BindDao.class);
 		annotations.add(BindDaoMany2Many.class);
 		annotations.add(BindDaoGenerated.class);
-
+		
 		return annotations;
 	}
 
@@ -296,8 +296,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		ModelProperty property;
 		String beanName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.VALUE);
+		
+		if (!StringUtils.hasText(beanName)) return;
+		
+		//isGeneratedEntity(fullName)
 
 		final TypeElement beanElement = globalBeanElements.get(beanName);
+		this.isGeneratedEntity(beanName);
 
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);

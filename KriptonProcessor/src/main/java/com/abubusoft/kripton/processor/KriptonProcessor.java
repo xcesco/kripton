@@ -52,7 +52,7 @@ public class KriptonProcessor extends BaseProcessor {
 		public Set<? extends Element> getElementsAnnotatedWith(Class<? extends Annotation> annotation) {
 			HashSet<Element> result = new HashSet<Element>();
 
-			for (Element element : this.elements) {				
+			for (Element element : this.elements) {
 				if (element.getAnnotation(annotation) != null) {
 					result.add(element);
 				}
@@ -91,29 +91,29 @@ public class KriptonProcessor extends BaseProcessor {
 			for (Element element : result) {
 				this.elements.add(element);
 			}
-			
+
 		}
 	}
 
 	private ProcessedElement processedElement = new ProcessedElement();
 
-	//private BindModel model;
+	// private BindModel model;
 
 	private BindMany2ManySubProcessor many2ManyProcessor = new BindMany2ManySubProcessor();
 
 	private BindSharedPreferencesSubProcessor sharedPreferencesProcessor = new BindSharedPreferencesSubProcessor();
 
 	private BindDataSourceSubProcessor dataSourceProcessor = new BindDataSourceSubProcessor();
-	
+
 	private BindTypeSubProcessor typeProcessor = new BindTypeSubProcessor();
-	
+
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
 		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
 
 		annotations.addAll(typeProcessor.getSupportedAnnotationClasses());
 		annotations.addAll(sharedPreferencesProcessor.getSupportedAnnotationClasses());
 		annotations.addAll(dataSourceProcessor.getSupportedAnnotationClasses());
-		annotations.addAll(many2ManyProcessor.getSupportedAnnotationClasses());		
+		annotations.addAll(many2ManyProcessor.getSupportedAnnotationClasses());
 
 		return annotations;
 	}
@@ -126,75 +126,67 @@ public class KriptonProcessor extends BaseProcessor {
 		many2ManyProcessor.init(processingEnv);
 		sharedPreferencesProcessor.init(processingEnv);
 		dataSourceProcessor.init(processingEnv);
-		
-		count=0;
+
+		count = 0;
 		JavaWriterHelper.reset();
 	}
-	
-	Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generatedPart=new Pair<>();
+
+	Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generatedPart = new Pair<>();
 
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
-			
-			count++;
-			
-			//dump(1, roundEnv);
-			
-			if (count==1 && many2ManyProcessor.hasWorkInThisRound(roundEnv)) {
-				// generate @BindGeneratedDao
-				many2ManyProcessor.process(annotations, roundEnv);
-				generatedPart = many2ManyProcessor.result;
-			}			
 
-			if (count==1 && typeProcessor.hasWorkInThisRound(roundEnv)) {
-				// generate bindmap
-				typeProcessor.process(annotations, roundEnv);
+			count++;
+
+			if (count > 1) {
+				return false;
 			}
-			
-			if (count==1 && sharedPreferencesProcessor.hasWorkInThisRound(roundEnv)) {
-				sharedPreferencesProcessor.process(annotations, roundEnv);				
-				sharedPreferencesProcessor.generateClasses();
-			}
-			
-			if ((count==1 || !many2ManyProcessor.hasWorkInThisRound(roundEnv)) &&  dataSourceProcessor.hasWorkInThisRound(roundEnv)) {
-				processedElement.addRound(roundEnv);
-			} else {				
-				dataSourceProcessor.generatedPart=generatedPart;
-				dataSourceProcessor.process(annotations, processedElement);
-				dataSourceProcessor.generatedClasses();
-			}
-			
-			
+
+			// dump(1, roundEnv);
+
+			// generate @BindGeneratedDao
+			many2ManyProcessor.process(annotations, roundEnv);
+			generatedPart = many2ManyProcessor.result;
+
+			// generate bindmap
+			typeProcessor.process(annotations, roundEnv);
+
+			sharedPreferencesProcessor.process(annotations, roundEnv);
+			sharedPreferencesProcessor.generateClasses();
+
+			dataSourceProcessor.generatedPart = generatedPart;
+			dataSourceProcessor.process(annotations, roundEnv);
+			dataSourceProcessor.generatedClasses();
+
 		} catch (Throwable e) {
 			String msg = StringUtils.nvl(e.getMessage());
 			error(null, e.getClass().getCanonicalName() + ": " + msg);
-			/*StackTraceElement[] trace = e.getStackTrace();			
-
-			StringWriter sw = new StringWriter();
-			e.printStackTrace(new PrintWriter(sw));
-			String exceptionAsString = sw.toString();
-			try (PrintWriter out = new PrintWriter("d:/filenameA.txt")) {
-				out.println(exceptionAsString);
-
-				for (Element item : processedElement.elements) {
-					out.println(String.format("processedElement %s", item.asType().toString()));
-				}
-
-				for (Entry<String, TypeElement> entry : globalBeanElements.entrySet()) {
-					out.println(String.format("GLOBAL %s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
-				}
-
-				out.println("dao---");
-				for (Entry<String, TypeElement> entry : this.dataSourceProcessor.globalBeanElements.entrySet()) {
-					out.println(String.format("%s = %s", entry.getKey(), entry.getValue().getSimpleName().toString()));
-				}
-
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-*/
+			/*
+			 * StackTraceElement[] trace = e.getStackTrace();
+			 * 
+			 * StringWriter sw = new StringWriter(); e.printStackTrace(new
+			 * PrintWriter(sw)); String exceptionAsString = sw.toString(); try
+			 * (PrintWriter out = new PrintWriter("d:/filenameA.txt")) {
+			 * out.println(exceptionAsString);
+			 * 
+			 * for (Element item : processedElement.elements) {
+			 * out.println(String.format("processedElement %s",
+			 * item.asType().toString())); }
+			 * 
+			 * for (Entry<String, TypeElement> entry :
+			 * globalBeanElements.entrySet()) {
+			 * out.println(String.format("GLOBAL %s = %s", entry.getKey(),
+			 * entry.getValue().getSimpleName().toString())); }
+			 * 
+			 * out.println("dao---"); for (Entry<String, TypeElement> entry :
+			 * this.dataSourceProcessor.globalBeanElements.entrySet()) {
+			 * out.println(String.format("%s = %s", entry.getKey(),
+			 * entry.getValue().getSimpleName().toString())); }
+			 * 
+			 * } catch (FileNotFoundException e1) { // TODO Auto-generated catch
+			 * block e1.printStackTrace(); }
+			 */
 			if (DEBUG_MODE) {
 				logger.log(Level.SEVERE, msg);
 				e.printStackTrace();
@@ -205,19 +197,18 @@ public class KriptonProcessor extends BaseProcessor {
 	}
 
 	/*
-	private void dump(int count, RoundEnvironment roundEnv) {
-		try (PrintWriter out = new PrintWriter("d:/filename" + count + ".txt")) {
-			for (Class<? extends Annotation> supportedAnnotation: getSupportedAnnotationClasses()) {
-				out.println(String.format("annotation= %s\n--------------------\n", supportedAnnotation.getCanonicalName()));
-				for (Element item : roundEnv.getElementsAnnotatedWith(supportedAnnotation)) {					
-					out.println(String.format("processedElement %s", ((TypeElement)item).getQualifiedName().toString()));
-				}
-			}
-			
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}*/
+	 * private void dump(int count, RoundEnvironment roundEnv) { try
+	 * (PrintWriter out = new PrintWriter("d:/filename" + count + ".txt")) { for
+	 * (Class<? extends Annotation> supportedAnnotation:
+	 * getSupportedAnnotationClasses()) {
+	 * out.println(String.format("annotation= %s\n--------------------\n",
+	 * supportedAnnotation.getCanonicalName())); for (Element item :
+	 * roundEnv.getElementsAnnotatedWith(supportedAnnotation)) {
+	 * out.println(String.format("processedElement %s",
+	 * ((TypeElement)item).getQualifiedName().toString())); } }
+	 * 
+	 * } catch (FileNotFoundException e1) { // TODO Auto-generated catch block
+	 * e1.printStackTrace(); } }
+	 */
 
 }
