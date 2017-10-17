@@ -78,7 +78,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, schemaName);
 		classBuilder = buildDaoFactoryInterfaceInternal(elementUtils, filer, schema);
 		TypeSpec typeSpec = classBuilder.build();
-		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);	
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 
 		return schemaName;
 	}
@@ -113,12 +113,12 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			TypeName daoName = BindDaoBuilder.daoInterfaceTypeName(dao);
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
-			
+
 			classBuilder.addJavadoc("@see $T\n", daoName);
 			classBuilder.addJavadoc("@see $T\n", daoImplName);
-			
+
 			String entity = BindDataSourceSubProcessor.generateEntityName(dao, dao.getEntity());
-			
+
 			classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(entity));
 		}
 
