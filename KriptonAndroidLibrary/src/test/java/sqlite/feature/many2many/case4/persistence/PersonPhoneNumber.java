@@ -31,7 +31,7 @@ public class PersonPhoneNumber {
       foreignKey = Person.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long person_id;
+  public long personId;
 
   /**
    * Foreign key to PhoneNumber model class
@@ -40,5 +40,5 @@ public class PersonPhoneNumber {
       foreignKey = PhoneNumber.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long phone_number_id;
+  public long phoneNumberId;
 }

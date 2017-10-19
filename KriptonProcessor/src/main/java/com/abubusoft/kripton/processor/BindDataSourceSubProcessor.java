@@ -153,7 +153,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			} // end foreach bean
 
 			// DAO analysis
-			// Get all dao definitions
+			// Get all generated dao definitions
 			for (String generatedDaoItem : daoIntoDataSource) {
 				createSQLDaoDefinition(globalBeanElements, globalDaoElements, generatedDaoItem);
 			}
@@ -461,7 +461,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 */
 	protected void generatedClasses(RoundEnvironment roundEnv) throws Exception {
 		for (SQLiteDatabaseSchema currentSchema : schemas) {
-			BindTableGenerator.generate(elementUtils, filer, currentSchema, this.generatedEntities);
+			BindTableGenerator.generate(elementUtils, filer, currentSchema, currentSchema.generatedEntities);
 			BindDaoBuilder.generate(elementUtils, filer, currentSchema);
 			if (currentSchema.generateCursor)
 				BindCursorBuilder.generate(elementUtils, filer, currentSchema);

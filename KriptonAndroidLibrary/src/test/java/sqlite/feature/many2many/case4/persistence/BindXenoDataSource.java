@@ -165,10 +165,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
     database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
     database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
@@ -208,10 +208,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
       database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
       database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
     }

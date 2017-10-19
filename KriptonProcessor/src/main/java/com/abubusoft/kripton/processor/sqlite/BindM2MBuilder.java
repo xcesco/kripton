@@ -337,7 +337,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		String fk2Name = converterField2ColumnName.convert(entity.entity2Name.simpleName() + fkPrefix);
 
 		String field1Name = converterFieldName.convert(entity.entity1Name.simpleName() + fkPrefix);
-		String field2Name = converterFieldName.convert(entity.entity1Name.simpleName() + fkPrefix);
+		String field2Name = converterFieldName.convert(entity.entity2Name.simpleName() + fkPrefix);
 		{
 		//@formatter:off
 		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, field1Name, Modifier.PUBLIC)

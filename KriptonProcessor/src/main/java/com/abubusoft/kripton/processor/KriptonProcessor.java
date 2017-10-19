@@ -112,19 +112,4 @@ public class KriptonProcessor extends BaseProcessor {
 		return false;
 	}
 
-	/*
-	 * private void dump(int count, RoundEnvironment roundEnv) { try
-	 * (PrintWriter out = new PrintWriter("d:/filename" + count + ".txt")) { for
-	 * (Class<? extends Annotation> supportedAnnotation:
-	 * getSupportedAnnotationClasses()) {
-	 * out.println(String.format("annotation= %s\n--------------------\n",
-	 * supportedAnnotation.getCanonicalName())); for (Element item :
-	 * roundEnv.getElementsAnnotatedWith(supportedAnnotation)) {
-	 * out.println(String.format("processedElement %s",
-	 * ((TypeElement)item).getQualifiedName().toString())); } }
-	 * 
-	 * } catch (FileNotFoundException e1) { // TODO Auto-generated catch block
-	 * e1.printStackTrace(); } }
-	 */
-
 }
