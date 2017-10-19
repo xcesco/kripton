@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -37,9 +36,9 @@ import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -49,7 +48,6 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
@@ -90,7 +88,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelContentProvider;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.google.common.base.CaseFormat;
@@ -101,17 +98,19 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	private SQLiteDatabaseSchema currentSchema;
 
-	private SQLiteModel model;
+	//private SQLiteModel model;
 
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).add(BindSqlAdapter.class).build();
 
 	private final Map<String, TypeElement> globalDaoElements = new HashMap<String, TypeElement>();
 
-	private Set<? extends Element> dataSets;
+	private Set<TypeElement> dataSets;
 
-	private Set<SQLiteDatabaseSchema> schemas = new HashSet<>();
+	private LinkedHashSet<SQLiteDatabaseSchema> schemas = new LinkedHashSet<>();
 
-	public Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generatedPart;
+	public Set<GeneratedTypeElement> generatedDaos;
+
+	public Set<GeneratedTypeElement> generatedEntities;
 
 	@Override
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
@@ -123,82 +122,24 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		annotations.add(BindDao.class);
 		annotations.add(BindDaoMany2Many.class);
 		annotations.add(BindGeneratedDao.class);
-		
+
 		return annotations;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.annotation.processing.AbstractProcessor#init(javax.annotation.
-	 * processing.ProcessingEnvironment)
-	 */
-	@Override
-	public synchronized void init(ProcessingEnvironment processingEnv) {
-		super.init(processingEnv);
-
-		model = new SQLiteModel();
+	
+	public void clear() {
+		super.clear();
+		
+		//model = new SQLiteModel();
+		currentSchema=null;
+		dataSets = new HashSet<>();
+		generatedDaos=new LinkedHashSet<>();
+		generatedEntities=new LinkedHashSet<>();
+		globalDaoElements.clear();			
+		schemas=new LinkedHashSet<>();		
 	}
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-		globalDaoElements.clear();
-		model.schemaClear();
-
-		parseBindType(roundEnv);
-
-		// Put all @BindTable elements in beanElements
-		for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
-			if (item.getKind() != ElementKind.CLASS) {
-				String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindTable.class.getSimpleName());
-				throw (new InvalidKindForAnnotationException(msg));
-			}
-			globalBeanElements.put(item.toString(), (TypeElement) item);
-		}
-
-		// Put all @BindDao elements in daoElements
-		for (Element item : roundEnv.getElementsAnnotatedWith(BindDao.class)) {
-			// dao generated will used to replace original dao, so it can not be
-			// inserted like others.
-			if (item.getAnnotation(BindGeneratedDao.class) != null)
-				continue;
-
-			if (item.getKind() != ElementKind.INTERFACE) {
-				String msg = String.format("%s %s can not be annotated with @%s annotation, because it is not an interface", item.getKind(), item, BindDao.class.getSimpleName());
-				throw (new InvalidKindForAnnotationException(msg));
-			}
-			globalDaoElements.put(item.toString(), (TypeElement) item);
-		}
-
-		for (Element item : roundEnv.getElementsAnnotatedWith(BindDaoMany2Many.class)) {
-			if (item.getKind() != ElementKind.INTERFACE) {
-				String msg = String.format("%s %s can not be annotated with @%s annotation, because it is not an interface", item.getKind(), item, BindDaoMany2Many.class.getSimpleName());
-				throw (new InvalidKindForAnnotationException(msg));
-			}
-			globalDaoElements.put(item.toString(), (TypeElement) item);
-		}
-
-		Set<? extends Element> generatedDaos = roundEnv.getElementsAnnotatedWith(BindGeneratedDao.class);
-		for (Element item : generatedDaos) {
-			String keyToReplace = AnnotationUtility.extractAsClassName(item, BindGeneratedDao.class, AnnotationAttributeType.DAO);
-			globalDaoElements.put(keyToReplace, (TypeElement) item);
-		}
-
-		// Get all database schema definitions
-		dataSets = roundEnv.getElementsAnnotatedWith(BindDataSource.class);
-		// exit without error
-		if (dataSets.size() == 0)
-			return true;
-
-		// No bind type is present
-		if (globalDaoElements.size() == 0) {
-			throw (new NoDaoElementFound());
-		}
-
-		// get elements for generated dao's
-		// Set<? extends Element> generatedDaoParts =
-		// roundEnv.getElementsAnnotatedWith(BindDaoGenerated.class);
-
 		for (Element dataSource : dataSets) {
 			createDataSource(dataSource);
 
@@ -232,9 +173,68 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 			schemas.add(currentSchema);
 		} // end foreach dataSource
-			// logger.info(currentSchema.toString());
 
 		return true;
+	}
+
+	public boolean analyzeRound(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+		parseBindType(roundEnv);
+
+		// Put all @BindTable elements in beanElements
+		for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
+			if (item.getKind() != ElementKind.CLASS) {
+				String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(), item, BindTable.class.getSimpleName());
+				throw (new InvalidKindForAnnotationException(msg));
+			}
+			globalBeanElements.put(item.toString(), (TypeElement) item);
+		}
+		// we have generated bean too.
+
+		// Put all @BindDao elements in daoElements
+		for (Element item : roundEnv.getElementsAnnotatedWith(BindDao.class)) {
+			// dao generated will used to replace original dao, so it can not be
+			// inserted like others.
+			if (item.getAnnotation(BindGeneratedDao.class) != null)
+				continue;
+
+			if (item.getKind() != ElementKind.INTERFACE) {
+				String msg = String.format("%s %s can not be annotated with @%s annotation, because it is not an interface", item.getKind(), item, BindDao.class.getSimpleName());
+				throw (new InvalidKindForAnnotationException(msg));
+			}
+			globalDaoElements.put(item.toString(), (TypeElement) item);
+		}
+
+		for (Element item : roundEnv.getElementsAnnotatedWith(BindDaoMany2Many.class)) {
+			if (item.getKind() != ElementKind.INTERFACE) {
+				String msg = String.format("%s %s can not be annotated with @%s annotation, because it is not an interface", item.getKind(), item, BindDaoMany2Many.class.getSimpleName());
+				throw (new InvalidKindForAnnotationException(msg));
+			}
+
+			globalDaoElements.put(item.toString(), (TypeElement) item);
+		}
+
+		Set<? extends Element> generatedDaos = roundEnv.getElementsAnnotatedWith(BindGeneratedDao.class);
+		for (Element item : generatedDaos) {
+			String keyToReplace = AnnotationUtility.extractAsClassName(item, BindGeneratedDao.class, AnnotationAttributeType.DAO);
+			globalDaoElements.put(keyToReplace, (TypeElement) item);
+		}
+
+		// Get all database schema definitions
+		for (Element item : roundEnv.getElementsAnnotatedWith(BindDataSource.class)) {
+			dataSets.add((TypeElement) item);
+		}
+
+		// exit without error
+		if (dataSets.size() == 0)
+			return false;
+
+		// No bind type is present
+		if (globalDaoElements.size() == 0) {
+			throw (new NoDaoElementFound());
+		}
+
+		return false;
+
 	}
 
 	private void analyzeForeignKey(SQLiteDatabaseSchema schema) {
@@ -269,7 +269,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	private boolean isGeneratedEntity(String fullName) {
-		for (GeneratedTypeElement item : this.generatedPart.value0) {
+		for (GeneratedTypeElement item : this.generatedEntities) {
 			if (item.getQualifiedName().equals(fullName)) {
 				return true;
 			}
@@ -286,7 +286,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @param dataSource
 	 * @param daoName
 	 */
-	private void createSQLEntityFromDao(Element dataSource, String daoName) {
+	private boolean createSQLEntityFromDao(Element dataSource, String daoName) {
 		TypeElement daoElement = globalDaoElements.get(daoName);
 
 		if (daoElement == null) {
@@ -296,13 +296,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		ModelProperty property;
 		String beanName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class, AnnotationAttributeType.VALUE);
-		
-		if (!StringUtils.hasText(beanName)) return;
-		
-		//isGeneratedEntity(fullName)
+
+		if (!StringUtils.hasText(beanName)) {
+			return false;
+		}
 
 		final TypeElement beanElement = globalBeanElements.get(beanName);
-		//this.isGeneratedEntity(beanName);
+		// this.isGeneratedEntity(beanName);
 
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);
@@ -310,7 +310,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		final SQLEntity currentEntity = new SQLEntity(currentSchema, bindEntity);
 		if (currentSchema.contains(currentEntity.getName())) {
 			// bean already defined in datasource
-			return;
+			return true;
 		}
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
@@ -439,6 +439,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// add entity to schema after properties definition!
 		currentSchema.addEntity(currentEntity);
 
+		return true;
 	}
 
 	/**
@@ -456,35 +457,24 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	/**
 	 * Build classes
 	 * 
+	 * @param roundEnv
+	 * 
 	 * @throws Exception
 	 */
-	protected void generatedClasses() throws Exception {
+	protected void generatedClasses(RoundEnvironment roundEnv) throws Exception {
 		for (SQLiteDatabaseSchema currentSchema : schemas) {
-			BindTableGenerator.generate(elementUtils, filer, currentSchema);
-			BindDaoBuilder.generate(elementUtils, filer, model, currentSchema);
+			BindTableGenerator.generate(elementUtils, filer, currentSchema, this.generatedEntities);
+			BindDaoBuilder.generate(elementUtils, filer, currentSchema);
 			if (currentSchema.generateCursor)
 				BindCursorBuilder.generate(elementUtils, filer, currentSchema);
 			if (currentSchema.generateAsyncTask)
 				BindAsyncTaskBuilder.generate(elementUtils, filer, currentSchema);
-			BindDataSourceBuilder.generate(elementUtils, filer, currentSchema);
-			if (currentSchema.generateContentProvider) {
-				BindContentProviderBuilder.generate(elementUtils, filer, currentSchema);
-			}
-		}
-	}
 
-	protected void generatedClassesPhase2() throws Exception {
-		for (SQLiteDatabaseSchema currentSchema : schemas) {
-			BindTableGenerator.generate(elementUtils, filer, currentSchema);
-			BindDaoBuilder.generate(elementUtils, filer, model, currentSchema);
-			if (currentSchema.generateCursor)
-				BindCursorBuilder.generate(elementUtils, filer, currentSchema);
-			if (currentSchema.generateAsyncTask)
-				BindAsyncTaskBuilder.generate(elementUtils, filer, currentSchema);
 			BindDataSourceBuilder.generate(elementUtils, filer, currentSchema);
 			if (currentSchema.generateContentProvider) {
 				BindContentProviderBuilder.generate(elementUtils, filer, currentSchema);
 			}
+
 		}
 	}
 
@@ -505,6 +495,14 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 
 		M2MEntity entity = M2MEntity.extractEntityManagedByDAO((TypeElement) daoElement);
+		
+		// add to current schema generated entities too
+		for (GeneratedTypeElement genItem : this.generatedEntities) {
+			if (genItem.getQualifiedName().equals(entity.getQualifiedName())) {
+				currentSchema.generatedEntities.add(genItem);
+			}
+		}
+
 		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, daoItem, (TypeElement) daoElement, entity.getClassName().toString());
 
 		// content provider management
@@ -647,8 +645,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_ASYNC_TASK);
 		boolean generateCursorWrapper = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_CURSOR_WRAPPER);
 
-		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper);
-		model.schemaAdd(currentSchema);
+		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper);		
 
 		// manage for content provider generation
 		BindContentProvider contentProviderAnnotation = databaseSchema.getAnnotation(BindContentProvider.class);
@@ -661,6 +658,17 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			currentSchema.generateContentProvider = false;
 		}
 
+	}
+
+	/**
+	 * dao or entity can be null
+	 * 
+	 * @param dao
+	 * @param entity
+	 * @return
+	 */
+	public static M2MEntity generateEntityFromDao(TypeElement daoElement) {
+		return M2MEntity.extractEntityManagedByDAO(daoElement);
 	}
 
 	/**

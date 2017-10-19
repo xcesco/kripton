@@ -23,7 +23,7 @@ import java.util.List;
  * @see CityDao
  * @see CityDaoImpl
  * @see City
- * @see GeneratedPersonCityDao
+ * @see PersonCityDao
  * @see PersonCityDaoImpl
  * @see PersonCity
  */

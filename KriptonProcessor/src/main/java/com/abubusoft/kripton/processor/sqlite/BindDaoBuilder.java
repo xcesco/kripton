@@ -40,7 +40,6 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModel;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
@@ -67,13 +66,13 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	private Builder builder;
 	private SQLDaoDefinition currentDaoDefinition;
 
-	public BindDaoBuilder(SQLiteModel model, SQLiteDatabaseSchema schema, Elements elementUtils, Filer filer) {
+	public BindDaoBuilder(Elements elementUtils, Filer filer) {
 		this.elementUtils = elementUtils;
 		this.filer = filer;
 	}
 
-	public static void generate(Elements elementUtils, Filer filer, SQLiteModel model, SQLiteDatabaseSchema schema) throws Exception {
-		BindDaoBuilder visitor = new BindDaoBuilder(model, schema, elementUtils, filer);
+	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+		BindDaoBuilder visitor = new BindDaoBuilder(elementUtils, filer);
 
 		for (SQLDaoDefinition item : schema.getCollection()) {
 			item.accept(visitor);

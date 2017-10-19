@@ -48,9 +48,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	 * 
 	 * @param roundEnv
 	 */
-	protected void parseBindType(RoundEnvironment roundEnv) {
-		// Put all @BindType elements in beanElements
-		globalBeanElements.clear();
+	protected void parseBindType(RoundEnvironment roundEnv) {		
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
 			AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
 
@@ -107,6 +105,12 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	 * if we want to display debug info
 	 */
 	public static boolean DEBUG_MODE = true;
+	
+	public void clear() {		
+		// Put all @BindType elements in beanElements
+		globalBeanElements.clear();
+		
+	}
 
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -130,6 +134,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 		excludedMethods.add("getClass");
 		
 		count=0;
+		clear();
 	}
 
 	/*

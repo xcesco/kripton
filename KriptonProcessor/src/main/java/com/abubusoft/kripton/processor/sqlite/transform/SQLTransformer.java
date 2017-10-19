@@ -429,7 +429,7 @@ public abstract class SQLTransformer {
 		}
 		return transform.getColumnTypeAsString();
 
-	}
+	}		
 
 	public static SQLColumnType columnType(ModelProperty property) {
 		SQLTransform transform = lookup(property.getElement().asType());

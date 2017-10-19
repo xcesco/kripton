@@ -19,13 +19,12 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.processing.Filer;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
@@ -33,9 +32,8 @@ import javax.lang.model.element.PackageElement;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
-import com.abubusoft.kripton.android.annotation.BindGeneratedTable;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
+import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
@@ -54,6 +52,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoun
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
@@ -102,8 +101,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
 		String packageName = pkg.getQualifiedName().toString();
-		String generatedDaoClassName="Generated"+daoClassName;
-		
+		String generatedDaoClassName = "Generated" + daoClassName;
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoMany2Many.class, packageName, generatedDaoClassName);
 		//@formatter:off
@@ -121,9 +119,9 @@ public class BindM2MBuilder extends AbstractBuilder {
 				
 				.addSuperinterface(TypeUtility.typeName(packageName, daoClassName));		
 		//@formatter:on
-		
+
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
-		
+
 		generateSelects(entity, packageName);
 		generateDeletes(entity, packageName);
 		generateInsert(entity, packageName);
@@ -132,18 +130,18 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 
-		GeneratedTypeElement daoPartElement = new GeneratedTypeElement(packageName, classBuilder.build());
+		GeneratedTypeElement daoPartElement = new GeneratedTypeElement(packageName, classBuilder.build(), null, null);
 		daoResult.add(daoPartElement);
 	}
 
 	private void generateSelects(M2MEntity entity, String packageName) {
 		String idPart = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
 
-		String methodName="";
-		String workId="";
-		
-		methodName="selectBy"+idPart;
-		if (!isMethodAlreadyDefined(entity, methodName)){										
+		String methodName = "";
+		String workId = "";
+
+		methodName = "selectBy" + idPart;
+		if (!isMethodAlreadyDefined(entity, methodName)) {
 			//@formatter:off
 			MethodSpec methodSpec = MethodSpec.methodBuilder(methodName)
 					.addModifiers(Modifier.PUBLIC)
@@ -157,10 +155,10 @@ public class BindM2MBuilder extends AbstractBuilder {
 			classBuilder.addMethod(methodSpec);
 		}
 
-		methodName=entity.entity1Name.simpleName() + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
+		methodName = entity.entity1Name.simpleName() + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
 		workId = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, methodName);
-		methodName="selectBy"+methodName;
-		if (!isMethodAlreadyDefined(entity, methodName)){							
+		methodName = "selectBy" + methodName;
+		if (!isMethodAlreadyDefined(entity, methodName)) {
 			//@formatter:off
 			MethodSpec methodSpec = MethodSpec.methodBuilder(methodName)
 					.addModifiers(Modifier.PUBLIC)
@@ -176,9 +174,9 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		methodName = entity.entity2Name.simpleName() + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
 		workId = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, methodName);
-		methodName="selectBy"+methodName;
-		if (!isMethodAlreadyDefined(entity, methodName)){				
-			
+		methodName = "selectBy" + methodName;
+		if (!isMethodAlreadyDefined(entity, methodName)) {
+
 			//@formatter:off
 			MethodSpec methodSpec = MethodSpec.methodBuilder(methodName)
 					.addModifiers(Modifier.PUBLIC)
@@ -195,35 +193,36 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 	/**
 	 * analyze DAO definition to check if method is already defined
+	 * 
 	 * @param entity
 	 * @param methodName
 	 * @return
 	 */
 	private boolean isMethodAlreadyDefined(M2MEntity entity, final String methodName) {
-		
-		final One<Boolean> found=new One<Boolean>(false);
+
+		final One<Boolean> found = new One<Boolean>(false);
 		SqlBuilderHelper.forEachMethods(entity.daoElement, new MethodFoundListener() {
-			
+
 			@Override
 			public void onMethod(ExecutableElement executableMethod) {
 				if (executableMethod.getSimpleName().toString().equals(methodName)) {
-					found.value0=true;
+					found.value0 = true;
 				}
-				
+
 			}
 		});
-		
+
 		return found.value0;
 	}
 
 	private void generateDeletes(M2MEntity entity, String packageName) {
 		String idPart = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
-		
-		String methodName="";
-		String workId="";
 
-		methodName="deleteBy"+idPart;
-		if (!isMethodAlreadyDefined(entity, methodName)){	
+		String methodName = "";
+		String workId = "";
+
+		methodName = "deleteBy" + idPart;
+		if (!isMethodAlreadyDefined(entity, methodName)) {
 		//@formatter:off
 		MethodSpec methodSpec = MethodSpec.methodBuilder(methodName)
 				.addModifiers(Modifier.PUBLIC)
@@ -239,10 +238,9 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		methodName = entity.entity1Name.simpleName() + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
 		workId = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, methodName);
-		methodName="deleteBy"+methodName;
-		if (!isMethodAlreadyDefined(entity, methodName)){	
-			
-			
+		methodName = "deleteBy" + methodName;
+		if (!isMethodAlreadyDefined(entity, methodName)) {
+
 			//@formatter:off
 			MethodSpec methodSpec = MethodSpec.methodBuilder(methodName)
 					.addModifiers(Modifier.PUBLIC)
@@ -256,10 +254,10 @@ public class BindM2MBuilder extends AbstractBuilder {
 			classBuilder.addMethod(methodSpec);
 		}
 
-		methodName=entity.entity2Name.simpleName() + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
+		methodName = entity.entity2Name.simpleName() + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
 		workId = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, methodName);
-		methodName="deleteBy"+methodName;
-		if (!isMethodAlreadyDefined(entity, methodName)){	
+		methodName = "deleteBy" + methodName;
+		if (!isMethodAlreadyDefined(entity, methodName)) {
 			//@formatter:off
 			MethodSpec methodSpec = MethodSpec.methodBuilder(methodName)
 					.addModifiers(Modifier.PUBLIC)
@@ -275,7 +273,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 	}
 
 	private void generateInsert(M2MEntity entity, String packageName) {
-		if (!isMethodAlreadyDefined(entity, "insert")){	
+		if (!isMethodAlreadyDefined(entity, "insert")) {
 		//@formatter:off
 		MethodSpec methodSpec = MethodSpec.methodBuilder("insert")
 				.addModifiers(Modifier.PUBLIC)
@@ -299,14 +297,14 @@ public class BindM2MBuilder extends AbstractBuilder {
 		if (!entity.needToCreate)
 			return;
 
+		String tableName = entity.tableName;
 		String entityClassName = entity.name;
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoMany2Many.class, entity.getPackageName(), entityClassName);
 		//@formatter:off
 		classBuilder = TypeSpec.classBuilder(entityClassName)
-				.addModifiers(Modifier.PUBLIC)
-				.addAnnotation(BindGeneratedTable.class)
-				.addAnnotation(AnnotationSpec.builder(BindTable.class).addMember("name", "$S",entity.tableName).build());
+				.addModifiers(Modifier.PUBLIC)				
+				.addAnnotation(AnnotationSpec.builder(BindTable.class).addMember("name", "$S",tableName).build());
 		//@formatter:on
 
 		// javadoc for class
@@ -329,12 +327,16 @@ public class BindM2MBuilder extends AbstractBuilder {
 		}
 
 		Converter<String, String> converterFK = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-		Converter<String, String> converterClassName = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
+		//Converter<String, String> converterFieldName = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
+		Converter<String, String> converterField2ColumnName = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 		String fkPrefix = converterFK.convert(entity.idName);
+
+		String fk1Name = converterField2ColumnName.convert(entity.entity1Name.simpleName() + fkPrefix);
+		String fk2Name = converterField2ColumnName.convert(entity.entity2Name.simpleName() + fkPrefix);
 
 		{
 		//@formatter:off
-		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(entity.entity1Name.simpleName()+fkPrefix), Modifier.PUBLIC)
+		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, fk1Name, Modifier.PUBLIC)
 				.addJavadoc("Foreign key to $T model class\n", entity.entity1Name)
 				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
 						.addMember("foreignKey","$T.class", entity.entity1Name)
@@ -346,7 +348,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		{
 		//@formatter:off
-		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, converterClassName.convert(entity.entity2Name.simpleName()+fkPrefix), Modifier.PUBLIC)
+		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, fk2Name, Modifier.PUBLIC)
 				.addJavadoc("Foreign key to $T model class\n", entity.entity2Name)
 				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
 						.addMember("foreignKey","$T.class", entity.entity2Name)
@@ -359,7 +361,42 @@ public class BindM2MBuilder extends AbstractBuilder {
 		TypeSpec typeSpec = classBuilder.build();
 		JavaWriterHelper.writeJava2File(filer, entity.getPackageName(), typeSpec);
 
-		GeneratedTypeElement entityElement = new GeneratedTypeElement(entity.getPackageName(), classBuilder.build());
+		List<SQLProperty> properties = new ArrayList<SQLProperty>();
+
+		{
+			SQLProperty property = new SQLProperty(null, null, null);
+			property.columnType = ColumnType.PRIMARY_KEY;
+			property.columnName = entity.idName;
+			property.setNullable(false);
+			property.setPrimaryKey(true);
+			property.foreignClassName = null;
+			properties.add(property);
+		}
+		
+		{
+			SQLProperty property = new SQLProperty(null, null, null);
+			property.columnType = ColumnType.INDEXED;
+			property.columnName = fk1Name;
+			property.setNullable(false);
+			property.setPrimaryKey(false);
+			property.onDeleteAction=ForeignKeyAction.CASCADE; 
+			property.foreignClassName = entity.entity1Name.toString();
+			properties.add(property);
+		}
+		
+		{
+			SQLProperty property = new SQLProperty(null, null, null);
+			property.columnType = ColumnType.INDEXED;
+			property.columnName = fk2Name;
+			property.setNullable(false);
+			property.setPrimaryKey(false);
+			property.onDeleteAction=ForeignKeyAction.CASCADE;
+			property.foreignClassName = entity.entity2Name.toString();
+			properties.add(property);
+		}
+
+		GeneratedTypeElement entityElement = new GeneratedTypeElement(entity.getPackageName(), classBuilder.build(), tableName, fk1Name + ", " + fk2Name);
+		entityElement.properties=properties;
 		entityResult.add(entityElement);
 	}
 

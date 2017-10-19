@@ -25,7 +25,7 @@ import sqlite.feature.many2many.PersonTable;
  * @see CityErr1Dao
  * @see CityErr1DaoImpl
  * @see City
- * @see GeneratedPersonCityErr1Dao
+ * @see PersonCityErr1Dao
  * @see PersonCityErr1DaoImpl
  * @see PersonCityErr1
  */

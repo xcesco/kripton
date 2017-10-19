@@ -51,6 +51,9 @@ public class SQLProperty extends ManagedModelProperty {
 				throw (new IncompatibleAnnotationException(msg));
 			}
 		}
+		
+		onDeleteAction=ForeignKeyAction.NO_ACTION;
+		onUpdateAction=ForeignKeyAction.NO_ACTION;
 
 	}
 

@@ -47,6 +47,7 @@ public class SQLEntity extends ModelClass<SQLProperty> implements Finder<SQLProp
 		buildTableName(BaseProcessor.elementUtils, model);
 	}
 
+
 	/**
 	 * Check how many PK are defined in entity. Only one field can be PK.
 	 * 

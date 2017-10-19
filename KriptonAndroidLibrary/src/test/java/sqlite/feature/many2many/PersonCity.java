@@ -29,7 +29,7 @@ public class PersonCity {
       foreignKey = Person.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long personId;
+  public long person_id;
 
   /**
    * Foreign key to City model class
@@ -38,5 +38,5 @@ public class PersonCity {
       foreignKey = City.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long cityId;
+  public long city_id;
 }

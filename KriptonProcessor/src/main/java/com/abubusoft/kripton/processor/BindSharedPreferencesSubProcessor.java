@@ -23,7 +23,6 @@ import java.lang.annotation.Annotation;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -77,11 +76,6 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 		annotations.add(BindSharedPreferences.class);		
 
 		return annotations;
-	}
-
-	@Override
-	public synchronized void init(ProcessingEnvironment processingEnv) {
-		super.init(processingEnv);
 	}
 
 	@Override

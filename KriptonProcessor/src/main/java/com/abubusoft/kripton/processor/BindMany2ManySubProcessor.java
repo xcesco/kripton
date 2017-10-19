@@ -23,7 +23,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
 
-import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -44,6 +43,14 @@ import com.abubusoft.kripton.processor.sqlite.BindM2MBuilder;
  *
  */
 public class BindMany2ManySubProcessor extends BaseProcessor {
+	
+	public void clear() {		
+		super.clear();
+		
+		result=null;
+		model=null;
+		
+	}	
 
 	private M2MModel model;
 
@@ -55,11 +62,6 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 		annotations.add(BindDaoMany2Many.class);
 
 		return annotations;
-	}
-
-	@Override
-	public synchronized void init(ProcessingEnvironment processingEnv) {
-		super.init(processingEnv);
 	}
 
 	@Override
@@ -92,5 +94,6 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 
 		return true;
 	}
+
 
 }

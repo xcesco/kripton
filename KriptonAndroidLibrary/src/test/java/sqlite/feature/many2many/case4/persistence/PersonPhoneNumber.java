@@ -2,7 +2,6 @@ package sqlite.feature.many2many.case4.persistence;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindGeneratedTable;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import sqlite.feature.many2many.case4.model.Person;
@@ -13,24 +12,33 @@ import sqlite.feature.many2many.case4.model.PhoneNumber;
  * Generated entity implementation for <code>PersonPhoneNumber</code>
  * </p>
  */
-@BindGeneratedTable()
-@BindTable(name = "person_phone_number")
+@BindTable(
+    name = "person_phone_number"
+)
 public class PersonPhoneNumber {
-	/**
-	 * Primary key
-	 */
-	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
-	public long id;
+  /**
+   * Primary key
+   */
+  @BindColumn(
+      columnType = ColumnType.PRIMARY_KEY
+  )
+  public long id;
 
-	/**
-	 * Foreign key to Person model class
-	 */
-	@BindColumn(foreignKey = Person.class, onDelete = ForeignKeyAction.CASCADE)
-	public long personId;
+  /**
+   * Foreign key to Person model class
+   */
+  @BindColumn(
+      foreignKey = Person.class,
+      onDelete = ForeignKeyAction.CASCADE
+  )
+  public long person_id;
 
-	/**
-	 * Foreign key to PhoneNumber model class
-	 */
-	@BindColumn(foreignKey = PhoneNumber.class, onDelete = ForeignKeyAction.CASCADE)
-	public long phoneNumberId;
+  /**
+   * Foreign key to PhoneNumber model class
+   */
+  @BindColumn(
+      foreignKey = PhoneNumber.class,
+      onDelete = ForeignKeyAction.CASCADE
+  )
+  public long phone_number_id;
 }

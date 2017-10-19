@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,6 +31,7 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelBucket;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.squareup.javapoet.ClassName;
 
 public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElement> {
@@ -66,6 +68,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	public boolean generateCursor;
 
 	public boolean generateSchema;
+	
+	public LinkedHashSet<GeneratedTypeElement> generatedEntities;
 
 	/**
 	 * if <code>true</code>, content provider is generated.
@@ -88,6 +92,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		this.generatedClassName = "Bind" + getName();
 		this.generateContentProvider = false;
 		this.contentProvider = null;
+		this.generatedEntities=new LinkedHashSet<GeneratedTypeElement>();
 
 	}
 
@@ -110,7 +115,6 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 			checkName(listEntity, p);
 			listEntity.add(p);
 			propertyBySimpleName.put(p.getName().toLowerCase(), listEntity);
-
 		}
 	}
 

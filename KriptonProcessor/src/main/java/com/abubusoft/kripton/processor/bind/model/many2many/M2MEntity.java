@@ -116,5 +116,9 @@ public class M2MEntity extends M2MBase {
 	public String getSimpleName() {
 		return name;
 	}
+	
+	public String getDaoQualifiedName() {
+		return daoElement.getQualifiedName().toString();
+	}
 
 }
