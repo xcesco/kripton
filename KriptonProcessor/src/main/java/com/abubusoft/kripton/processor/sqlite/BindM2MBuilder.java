@@ -78,6 +78,8 @@ public class BindM2MBuilder extends AbstractBuilder {
 	}
 
 	public static Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generate(Filer filer, M2MModel model) throws Exception {
+		entityResult.clear();
+		daoResult.clear();
 		BindM2MBuilder visitor = new BindM2MBuilder(filer);
 
 		for (M2MEntity item : model.getEntities()) {
@@ -91,10 +93,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		return result;
 	}
 
-	public void generate(M2MEntity entity) throws Exception {
-		daoResult.clear();
-		entityResult.clear();
-		
+	public void generate(M2MEntity entity) throws Exception {				
 		generateEntity(entity);
 		generateDaoPart(entity);
 	}

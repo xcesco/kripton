@@ -17,10 +17,10 @@ import com.squareup.javapoet.TypeSpec;
  */
 public abstract class JavaWriterHelper {
 
-	private static HashSet<String> values=new HashSet<>();
+	//private static HashSet<String> values=new HashSet<>();
 	
 	public static void reset() {
-		values.clear();
+		//values.clear();
 	}
 	
 	/**
@@ -33,10 +33,10 @@ public abstract class JavaWriterHelper {
 		String fileName = packageName.isEmpty()   ? typeSpec.name     : packageName + "." + typeSpec.name;
 		JavaFile target = JavaFile.builder(packageName, typeSpec).skipJavaLangImports(true).build();
 								
-		if (!values.contains(fileName)) {			
+		//if (!values.contains(fileName)) {			
 			target.writeTo(filer);
-			values.add(fileName);
-		}
+			//values.add(fileName);
+		//}
 	}
 	
 }
