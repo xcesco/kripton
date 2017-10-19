@@ -92,6 +92,9 @@ public class BindM2MBuilder extends AbstractBuilder {
 	}
 
 	public void generate(M2MEntity entity) throws Exception {
+		daoResult.clear();
+		entityResult.clear();
+		
 		generateEntity(entity);
 		generateDaoPart(entity);
 	}

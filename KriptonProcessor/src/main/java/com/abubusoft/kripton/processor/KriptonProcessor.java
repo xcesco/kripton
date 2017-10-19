@@ -109,7 +109,7 @@ public class KriptonProcessor extends BaseProcessor {
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	/*
