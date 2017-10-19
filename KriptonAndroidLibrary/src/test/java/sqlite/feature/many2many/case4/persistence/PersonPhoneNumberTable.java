@@ -30,4 +30,25 @@ public class PersonPhoneNumberTable {
    * <pre> DROP INDEX IF EXISTS idx_person_phone_number_person_id; DROP INDEX IF EXISTS idx_person_phone_number_phone_number_id; DROP INDEX IF EXISTS idx_person_phone_number_1;DROP TABLE IF EXISTS person_phone_number;</pre>
    */
   public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_person_phone_number_person_id; DROP INDEX IF EXISTS idx_person_phone_number_phone_number_id; DROP INDEX IF EXISTS idx_person_phone_number_1;DROP TABLE IF EXISTS person_phone_number;";
+
+  /**
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   *
+   *  @see PersonPhoneNumber#id
+   */
+  public static final String COLUMN_ID = "id";
+
+  /**
+   * Entity's property <code>personId</code> is associated to table column <code>person_id</code>. This costant represents column name.
+   *
+   *  @see PersonPhoneNumber#personId
+   */
+  public static final String COLUMN_PERSON_ID = "person_id";
+
+  /**
+   * Entity's property <code>phoneNumberId</code> is associated to table column <code>phone_number_id</code>. This costant represents column name.
+   *
+   *  @see PersonPhoneNumber#phoneNumberId
+   */
+  public static final String COLUMN_PHONE_NUMBER_ID = "phone_number_id";
 }

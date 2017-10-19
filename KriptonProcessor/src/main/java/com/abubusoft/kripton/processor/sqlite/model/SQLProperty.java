@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.lang.model.element.Element;
 
+import com.squareup.javapoet.TypeName;
 import org.apache.commons.lang3.StringUtils;
 
 import com.abubusoft.kripton.android.ColumnType;
@@ -35,8 +36,28 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 
 public class SQLProperty extends ManagedModelProperty {
 
+    /**
+     * Construtor used for generated fields.
+     *
+     * @param name
+     *      name of property
+     * @param parentTypeName
+     *      class name of parent type
+     */
+    public SQLProperty(String name, TypeName parentTypeName) {
+        super(null, null, null);
+
+        this.name=name;
+        this.parentTypeName = parentTypeName;
+
+        onDeleteAction=ForeignKeyAction.NO_ACTION;
+        onUpdateAction=ForeignKeyAction.NO_ACTION;
+    }
+
 	public SQLProperty(SQLEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
+
+        parentTypeName=TypeUtility.className(getParent().getName());
 
 		// @BindAdapter
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindSqlAdapter.class);
@@ -101,6 +122,8 @@ public class SQLProperty extends ManagedModelProperty {
 	 */
 	public ColumnType columnType;
 
+	protected TypeName parentTypeName;
+
 	/**
 	 * class name of referred table
 	 */
@@ -114,4 +137,7 @@ public class SQLProperty extends ManagedModelProperty {
 		return !StringUtils.isEmpty(foreignClassName) && !NoForeignKey.class.getName().equals(foreignClassName);
 	}
 
+	public TypeName getParentTypeName() {
+		return parentTypeName;
+	}
 }

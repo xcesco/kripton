@@ -278,6 +278,10 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			classBuilder.addField(fieldSpec);
 		}
 
+		// define column typeName set
+		for (ModelProperty item : entity.getCollection()) {
+			item.accept(this);
+		}
 
 		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.BYTE, true, Modifier.STATIC, Modifier.PUBLIC);
 
@@ -614,7 +618,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				.addJavadoc("Entity's property <code>$L</code> is associated to table column <code>$L</code>. This costant represents column name.\n",
 						kriptonProperty.getName(),
 						kriptonProperty.columnName)
-				.addJavadoc("\n @see $T#$L\n", TypeUtility.className(kriptonProperty.getParent().getName()), kriptonProperty.getName())
+				.addJavadoc("\n @see $T#$L\n", kriptonProperty.getParentTypeName(), kriptonProperty.getName())
 				.build();
 		//@formatter:on
 		classBuilder.addField(fieldSpec);

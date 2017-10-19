@@ -368,7 +368,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		List<SQLProperty> properties = new ArrayList<SQLProperty>();
 
 		{
-			SQLProperty property = new SQLProperty(null, null, null);
+			SQLProperty property = new SQLProperty(entity.idName, entity.getClassName());
 			property.columnType = ColumnType.PRIMARY_KEY;
 			property.columnName = entity.idName;
 			property.setNullable(false);
@@ -378,7 +378,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		}
 
 		{
-			SQLProperty property = new SQLProperty(null, null, null);
+			SQLProperty property = new SQLProperty(field1Name, entity.getClassName());
 			property.columnType = ColumnType.INDEXED;
 			property.columnName = fk1Name;
 			property.setNullable(false);
@@ -389,7 +389,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		}
 
 		{
-			SQLProperty property = new SQLProperty(null, null, null);
+			SQLProperty property = new SQLProperty(field2Name, entity.getClassName());
 			property.columnType = ColumnType.INDEXED;
 			property.columnName = fk2Name;
 			property.setNullable(false);
