@@ -71,6 +71,12 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 
 	private String entitySimplyClassName;
 
+	public boolean isGenerated() {
+		return generated;
+	}
+
+	private boolean generated;
+
 	/**
 	 * @return the entitySimplyClassName
 	 */
@@ -90,7 +96,12 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	}
 
 	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element, String entityClassName) {
+		this(databaseSchema, name, element, entityClassName, false);
+	}
+
+	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element, String entityClassName, boolean generated) {
 		super(element.getSimpleName().toString(), element);
+		this.generated=generated;
 		this.parent = new WeakReference<SQLiteDatabaseSchema>(databaseSchema);
 		this.entityClassName = entityClassName;
 

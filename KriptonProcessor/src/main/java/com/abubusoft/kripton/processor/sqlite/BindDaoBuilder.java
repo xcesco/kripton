@@ -79,6 +79,16 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		}
 	}
 
+	public static void generateSecondRound(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
+		BindDaoBuilder visitor = new BindDaoBuilder(elementUtils, filer);
+
+		for (SQLDaoDefinition item : schema.getCollection()) {
+			if (item.isGenerated()) {
+				item.accept(visitor);
+			}
+		}
+	}
+
 	@Override
 	public void visit(SQLDaoDefinition value) throws Exception {
 		currentDaoDefinition = value;

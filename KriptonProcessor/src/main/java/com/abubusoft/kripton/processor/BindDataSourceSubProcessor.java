@@ -175,6 +175,16 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		return true;
 	}
 
+	public boolean analyzeSecondRound(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+		Set<? extends Element> generatedDaos = roundEnv.getElementsAnnotatedWith(BindGeneratedDao.class);
+		for (Element item : generatedDaos) {
+			String keyToReplace = AnnotationUtility.extractAsClassName(item, BindGeneratedDao.class, AnnotationAttributeType.DAO);
+			globalDaoElements.put(keyToReplace, (TypeElement) item);
+		}
+
+		return false;
+	}
+
 	public boolean analyzeRound(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		parseBindType(roundEnv);
 
@@ -211,11 +221,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			globalDaoElements.put(item.toString(), (TypeElement) item);
 		}
 
-		Set<? extends Element> generatedDaos = roundEnv.getElementsAnnotatedWith(BindGeneratedDao.class);
-		for (Element item : generatedDaos) {
-			String keyToReplace = AnnotationUtility.extractAsClassName(item, BindGeneratedDao.class, AnnotationAttributeType.DAO);
-			globalDaoElements.put(keyToReplace, (TypeElement) item);
-		}
 
 		// Get all database schema definitions
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindDataSource.class)) {
@@ -477,6 +482,19 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	/**
+	 * Build classes
+	 *
+	 * @param roundEnv
+	 *
+	 * @throws Exception
+	 */
+	protected void generatedClassesSecondRound(RoundEnvironment roundEnv) throws Exception {
+		for (SQLiteDatabaseSchema currentSchema : schemas) {
+			BindDaoBuilder.generateSecondRound(elementUtils, filer, currentSchema);
+		}
+	}
+
+	/**
 	 * Create DAO definition
 	 * 
 	 * @param globalBeanElements
@@ -501,7 +519,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			}
 		}
 
-		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, daoItem, (TypeElement) daoElement, entity.getClassName().toString());
+		boolean generated=daoElement.getAnnotation(BindGeneratedDao.class)!=null;
+
+		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(currentSchema, daoItem, (TypeElement) daoElement, entity.getClassName().toString(), generated);
 
 		// content provider management
 		BindContentProviderPath daoContentProviderPath = daoElement.getAnnotation(BindContentProviderPath.class);

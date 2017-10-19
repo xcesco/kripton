@@ -73,30 +73,33 @@ public class KriptonProcessor extends BaseProcessor {
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
 			count++;			
-			if (count > 1) {
-				return false;
+			if (count ==1) {
+
+
+				many2ManyProcessor.clear();
+				typeProcessor.clear();
+				sharedPreferencesProcessor.clear();
+				dataSourceProcessor.clear();
+
+				// generate @BindGeneratedDao
+				many2ManyProcessor.process(annotations, roundEnv);
+
+				// generate bindmap
+				typeProcessor.process(annotations, roundEnv);
+
+				sharedPreferencesProcessor.process(annotations, roundEnv);
+				sharedPreferencesProcessor.generateClasses();
+
+				dataSourceProcessor.generatedEntities = many2ManyProcessor.result.value0;
+				dataSourceProcessor.generatedDaos = many2ManyProcessor.result.value1;
+				// dump(1, roundEnv);
+				dataSourceProcessor.analyzeRound(annotations, roundEnv);
+				dataSourceProcessor.process(annotations, roundEnv);
+				dataSourceProcessor.generatedClasses(roundEnv);
+			} else if (count==2) {
+				dataSourceProcessor.analyzeSecondRound(annotations, roundEnv);
+				dataSourceProcessor.generatedClassesSecondRound(roundEnv);
 			}
-			
-			many2ManyProcessor.clear();
-			typeProcessor.clear();
-			sharedPreferencesProcessor.clear();
-			dataSourceProcessor.clear();
-
-			// generate @BindGeneratedDao
-			many2ManyProcessor.process(annotations, roundEnv);
-
-			// generate bindmap
-			typeProcessor.process(annotations, roundEnv);
-
-			sharedPreferencesProcessor.process(annotations, roundEnv);
-			sharedPreferencesProcessor.generateClasses();
-
-			dataSourceProcessor.generatedEntities = many2ManyProcessor.result.value0;
-			dataSourceProcessor.generatedDaos = many2ManyProcessor.result.value1;
-			// dump(1, roundEnv);
-			dataSourceProcessor.analyzeRound(annotations, roundEnv);
-			dataSourceProcessor.process(annotations, roundEnv);
-			dataSourceProcessor.generatedClasses(roundEnv);
 
 			return false;
 		} catch (Throwable e) {
