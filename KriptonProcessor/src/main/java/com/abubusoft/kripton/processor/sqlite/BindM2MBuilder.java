@@ -93,7 +93,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		return result;
 	}
 
-	public void generate(M2MEntity entity) throws Exception {				
+	public void generate(M2MEntity entity) throws Exception {
 		generateEntity(entity);
 		generateDaoPart(entity);
 	}
@@ -329,16 +329,18 @@ public class BindM2MBuilder extends AbstractBuilder {
 		}
 
 		Converter<String, String> converterFK = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-		//Converter<String, String> converterFieldName = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
+		Converter<String, String> converterFieldName = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		Converter<String, String> converterField2ColumnName = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 		String fkPrefix = converterFK.convert(entity.idName);
 
 		String fk1Name = converterField2ColumnName.convert(entity.entity1Name.simpleName() + fkPrefix);
 		String fk2Name = converterField2ColumnName.convert(entity.entity2Name.simpleName() + fkPrefix);
 
+		String field1Name = converterFieldName.convert(entity.entity1Name.simpleName() + fkPrefix);
+		String field2Name = converterFieldName.convert(entity.entity1Name.simpleName() + fkPrefix);
 		{
 		//@formatter:off
-		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, fk1Name, Modifier.PUBLIC)
+		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, field1Name, Modifier.PUBLIC)
 				.addJavadoc("Foreign key to $T model class\n", entity.entity1Name)
 				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
 						.addMember("foreignKey","$T.class", entity.entity1Name)
@@ -350,7 +352,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		{
 		//@formatter:off
-		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, fk2Name, Modifier.PUBLIC)
+		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, field2Name, Modifier.PUBLIC)
 				.addJavadoc("Foreign key to $T model class\n", entity.entity2Name)
 				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
 						.addMember("foreignKey","$T.class", entity.entity2Name)
@@ -374,31 +376,31 @@ public class BindM2MBuilder extends AbstractBuilder {
 			property.foreignClassName = null;
 			properties.add(property);
 		}
-		
+
 		{
 			SQLProperty property = new SQLProperty(null, null, null);
 			property.columnType = ColumnType.INDEXED;
 			property.columnName = fk1Name;
 			property.setNullable(false);
 			property.setPrimaryKey(false);
-			property.onDeleteAction=ForeignKeyAction.CASCADE; 
+			property.onDeleteAction = ForeignKeyAction.CASCADE;
 			property.foreignClassName = entity.entity1Name.toString();
 			properties.add(property);
 		}
-		
+
 		{
 			SQLProperty property = new SQLProperty(null, null, null);
 			property.columnType = ColumnType.INDEXED;
 			property.columnName = fk2Name;
 			property.setNullable(false);
 			property.setPrimaryKey(false);
-			property.onDeleteAction=ForeignKeyAction.CASCADE;
+			property.onDeleteAction = ForeignKeyAction.CASCADE;
 			property.foreignClassName = entity.entity2Name.toString();
 			properties.add(property);
 		}
 
 		GeneratedTypeElement entityElement = new GeneratedTypeElement(entity.getPackageName(), classBuilder.build(), tableName, fk1Name + ", " + fk2Name);
-		entityElement.properties=properties;
+		entityElement.properties = properties;
 		entityResult.add(entityElement);
 	}
 

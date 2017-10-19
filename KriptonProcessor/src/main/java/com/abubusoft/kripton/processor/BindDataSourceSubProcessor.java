@@ -98,8 +98,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	private SQLiteDatabaseSchema currentSchema;
 
-	//private SQLiteModel model;
-
 	private final AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).add(BindSqlAdapter.class).build();
 
 	public final Map<String, TypeElement> globalDaoElements = new HashMap<String, TypeElement>();
@@ -125,16 +123,17 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		return annotations;
 	}
-	
+
+	@Override
 	public void clear() {
 		super.clear();
-		
-		currentSchema=null;
+
+		currentSchema = null;
 		dataSets = new HashSet<>();
-		generatedDaos=null;
-		generatedEntities=null;
-		globalDaoElements.clear();			
-		schemas=new LinkedHashSet<>();						
+		generatedDaos = null;
+		generatedEntities = null;
+		globalDaoElements.clear();
+		schemas = new LinkedHashSet<>();
 	}
 
 	@Override
@@ -253,9 +252,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
-			if (dao.getElement().getAnnotation(BindGeneratedDao.class) != null) {
-				ClassName entity1 = TypeUtility.className(AnnotationUtility.extractAsClassName(dao.getElement(), BindGeneratedDao.class, AnnotationAttributeType.ENTITY_1));
-				ClassName entity2 = TypeUtility.className(AnnotationUtility.extractAsClassName(dao.getElement(), BindGeneratedDao.class, AnnotationAttributeType.ENTITY_2));
+			if (dao.getElement().getAnnotation(BindDaoMany2Many.class) != null) {
+				ClassName entity1 = TypeUtility.className(AnnotationUtility.extractAsClassName(dao.getElement(), BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1));
+				ClassName entity2 = TypeUtility.className(AnnotationUtility.extractAsClassName(dao.getElement(), BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2));
 
 				// only if dao has an entity
 				if (dao.getEntity() != null) {
@@ -494,7 +493,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 
 		M2MEntity entity = M2MEntity.extractEntityManagedByDAO((TypeElement) daoElement);
-		
+
 		// add to current schema generated entities too
 		for (GeneratedTypeElement genItem : this.generatedEntities) {
 			if (genItem.getQualifiedName().equals(entity.getQualifiedName())) {
@@ -644,7 +643,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_ASYNC_TASK);
 		boolean generateCursorWrapper = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_CURSOR_WRAPPER);
 
-		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper);		
+		currentSchema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper);
 
 		// manage for content provider generation
 		BindContentProvider contentProviderAnnotation = databaseSchema.getAnnotation(BindContentProvider.class);
