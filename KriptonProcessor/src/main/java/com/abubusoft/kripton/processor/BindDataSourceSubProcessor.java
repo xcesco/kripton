@@ -100,13 +100,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	//private SQLiteModel model;
 
-	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).add(BindSqlAdapter.class).build();
+	private final AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).add(BindSqlAdapter.class).build();
 
-	private final Map<String, TypeElement> globalDaoElements = new HashMap<String, TypeElement>();
+	public final Map<String, TypeElement> globalDaoElements = new HashMap<String, TypeElement>();
 
-	private Set<TypeElement> dataSets;
+	public Set<TypeElement> dataSets;
 
-	private LinkedHashSet<SQLiteDatabaseSchema> schemas = new LinkedHashSet<>();
+	public LinkedHashSet<SQLiteDatabaseSchema> schemas = new LinkedHashSet<>();
 
 	public Set<GeneratedTypeElement> generatedDaos;
 
@@ -129,13 +129,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	public void clear() {
 		super.clear();
 		
-		//model = new SQLiteModel();
 		currentSchema=null;
 		dataSets = new HashSet<>();
-		generatedDaos=new LinkedHashSet<>();
-		generatedEntities=new LinkedHashSet<>();
+		generatedDaos=null;
+		generatedEntities=null;
 		globalDaoElements.clear();			
-		schemas=new LinkedHashSet<>();		
+		schemas=new LinkedHashSet<>();						
 	}
 
 	@Override

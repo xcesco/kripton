@@ -50,7 +50,6 @@ public class BindTypeSubProcessor extends BaseProcessor {
 
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
 		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
-
 		annotations.add(BindType.class);		
 
 		return annotations;

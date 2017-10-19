@@ -48,8 +48,7 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 		super.clear();
 		
 		result=null;
-		model=null;
-		
+		model=null;		
 	}	
 
 	private M2MModel model;

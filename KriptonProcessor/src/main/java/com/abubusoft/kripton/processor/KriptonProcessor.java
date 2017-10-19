@@ -37,9 +37,6 @@ import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
  *
  */
 public class KriptonProcessor extends BaseProcessor {
-
-	// private BindModel model;
-
 	private BindMany2ManySubProcessor many2ManyProcessor = new BindMany2ManySubProcessor();
 
 	private BindSharedPreferencesSubProcessor sharedPreferencesProcessor = new BindSharedPreferencesSubProcessor();

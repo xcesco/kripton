@@ -41,42 +41,50 @@ import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 
 public abstract class BaseProcessor extends AbstractProcessor {
 
-	protected int count=0;
+	/**
+	 * if we want to display debug info
+	 */
+	public static boolean DEBUG_MODE = true;
+
+	public static Elements elementUtils;
+	
+	/**
+	 * if true we are in a test
+	 */
+	public static boolean JUNIT_TEST_MODE = false;
+	
+	/**
+	 * logger
+	 */
+	protected static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
+	protected int count;
+	
+	protected HashSet<String> excludedMethods;
+
+	protected Filer filer;
 
 	/**
-	 * build bindType elements map
-	 * 
-	 * @param roundEnv
+	 * define which annotation the annotation processor is interested in
 	 */
-	protected void parseBindType(RoundEnvironment roundEnv) {		
-		for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
-			AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
+	protected final Map<String, TypeElement> globalBeanElements = new HashMap<String, TypeElement>();
 
-			globalBeanElements.put(item.toString(), (TypeElement) item);
-		}
+	protected Messager messager;
 
-	}
-	
-	public boolean hasWorkInThisRound(RoundEnvironment roundEnv) {
-		if (this.filter(roundEnv).size()>0) {
-			return true;
-		}
+	protected Types typeUtils;
+
+	public void clear() {		
+		// Put all @BindType elements in beanElements
+		globalBeanElements.clear();
 		
-		return false;
 	}
 	
-	protected abstract Set<Class<? extends Annotation>> getSupportedAnnotationClasses();
-	
-	@Override
-	public Set<String> getSupportedAnnotationTypes() {		
-		Set<String> result=new HashSet<String>();		
-		for (Class<? extends Annotation> annotation: getSupportedAnnotationClasses()) {
-			result.add(annotation.getCanonicalName());	
-		}
-				
-		return result;
+	public void error(Element e, String msg, Object... args) {
+		// this must be always enabled, due control annotation processor
+		// execution status (if display an error, compiler fails).
+		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
 	}
-	
+
 	public Set<Element> filter(RoundEnvironment roundEnv) {
 		Set<Element> result=new HashSet<Element>();		
 		for (Class<? extends Annotation> annotation: getSupportedAnnotationClasses()) {
@@ -87,29 +95,37 @@ public abstract class BaseProcessor extends AbstractProcessor {
 		
 	}
 
-	/**
-	 * define which annotation the annotation processor is interested in
+	protected abstract Set<Class<? extends Annotation>> getSupportedAnnotationClasses();
+
+	@Override
+	public Set<String> getSupportedAnnotationTypes() {		
+		Set<String> result=new HashSet<String>();		
+		for (Class<? extends Annotation> annotation: getSupportedAnnotationClasses()) {
+			result.add(annotation.getCanonicalName());	
+		}
+				
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * javax.annotation.processing.AbstractProcessor#getSupportedSourceVersion()
 	 */
-	protected final Map<String, TypeElement> globalBeanElements = new HashMap<String, TypeElement>();
-
-	protected HashSet<String> excludedMethods;
-
-	protected Types typeUtils;
-
-	/**
-	 * if true we are in a test
-	 */
-	public static boolean JUNIT_TEST_MODE = false;
-
-	/**
-	 * if we want to display debug info
-	 */
-	public static boolean DEBUG_MODE = true;
-	
-	public void clear() {		
-		// Put all @BindType elements in beanElements
-		globalBeanElements.clear();
+	@Override
+	public SourceVersion getSupportedSourceVersion() {
+		return SourceVersion.latestSupported();
+	}
+	public boolean hasWorkInThisRound(RoundEnvironment roundEnv) {
+		if (this.filter(roundEnv).size()>0) {
+			return true;
+		}
 		
+		return false;
+	}
+	public void info(String msg, Object... args) {
+		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
 	}
 
 	@Override
@@ -137,34 +153,18 @@ public abstract class BaseProcessor extends AbstractProcessor {
 		clear();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.annotation.processing.AbstractProcessor#getSupportedSourceVersion()
-	 */
-	@Override
-	public SourceVersion getSupportedSourceVersion() {
-		return SourceVersion.latestSupported();
-	}
-
 	/**
-	 * logger
+	 * build bindType elements map
+	 * 
+	 * @param roundEnv
 	 */
-	protected static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	protected void parseBindType(RoundEnvironment roundEnv) {		
+		for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {
+			AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
 
-	public static Elements elementUtils;
-	protected Filer filer;
-	protected Messager messager;
+			globalBeanElements.put(item.toString(), (TypeElement) item);
+		}
 
-	public void info(String msg, Object... args) {
-		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
-	}
-
-	public void error(Element e, String msg, Object... args) {
-		// this must be always enabled, due control annotation processor
-		// execution status (if display an error, compiler fails).
-		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
 	}
 
 }
