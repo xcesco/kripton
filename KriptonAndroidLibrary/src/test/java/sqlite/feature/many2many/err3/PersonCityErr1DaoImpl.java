@@ -1,4 +1,4 @@
-package sqlite.feature.many2many.entity;
+package sqlite.feature.many2many.err3;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -11,84 +11,22 @@ import java.util.List;
 
 /**
  * <p>
- * DAO implementation for entity <code>PersonCityOk1</code>, based on interface <code>GeneratedPersonCityOk1Dao</code>
+ * DAO implementation for entity <code>PersonCityErr3</code>, based on interface <code>GeneratedPersonCityErr1Dao</code>
  * </p>
  *
- *  @see PersonCityOk1
- *  @see GeneratedPersonCityOk1Dao
- *  @see PersonCityOk1Table
+ *  @see PersonCityErr3
+ *  @see GeneratedPersonCityErr1Dao
+ *  @see PersonCityErr3Table
  */
-public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPersonCityOk1Dao {
-  public PersonCityOk1DaoImpl(BindPersonCirtyOk1DataSource dataSet) {
+public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPersonCityErr1Dao {
+  public PersonCityErr1DaoImpl(BindPersonCirtyErr3DataSource dataSet) {
     super(dataSet);
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, city_id FROM person_city_ok1</pre>
-   *
-   * <h2>Projected columns:</h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
-   * 	<dt>city_id</dt><dd>is associated to bean's property <strong>cityId</strong></dd>
-   * </dl>
-   *
-   * @return collection of bean or empty collection.
-   */
-  @Override
-  public List<PersonCityOk1> selectAll() {
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, person_id, city_id FROM person_city_ok1");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    String _sqlWhereStatement="";
-
-    // build where condition
-    String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-    Logger.info(_sql);
-
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
-    }
-    // log for where parameters -- END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
-
-      LinkedList<PersonCityOk1> resultList=new LinkedList<PersonCityOk1>();
-      PersonCityOk1 resultBean=null;
-
-      if (cursor.moveToFirst()) {
-
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_id");
-        int index2=cursor.getColumnIndex("city_id");
-
-        do
-         {
-          resultBean=new PersonCityOk1();
-
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.cityId=cursor.getLong(index2); }
-
-          resultList.add(resultBean);
-        } while (cursor.moveToNext());
-      }
-
-      return resultList;
-    }
-  }
-
-  /**
-   * <h2>Select SQL:</h2>
-   *
-   * <pre>SELECT id, person_id, city_id FROM person_city_ok1 WHERE id=${id}</pre>
+   * <pre>SELECT id, person_id, city_id FROM person_city_err3 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -104,12 +42,12 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
    *
    * @param id
    * 	is binded to <code>${id}</code>
-   * @return selected bean or <code>null</code>.
+   * @return collection of bean or empty collection.
    */
   @Override
-  public PersonCityOk1 selectById(long id) {
+  public List<PersonCityErr3> selectById(long id) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, person_id, city_id FROM person_city_ok1");
+    _sqlBuilder.append("SELECT id, person_id, city_id FROM person_city_err3");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -137,7 +75,8 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
-      PersonCityOk1 resultBean=null;
+      LinkedList<PersonCityErr3> resultList=new LinkedList<PersonCityErr3>();
+      PersonCityErr3 resultBean=null;
 
       if (cursor.moveToFirst()) {
 
@@ -145,21 +84,26 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
         int index1=cursor.getColumnIndex("person_id");
         int index2=cursor.getColumnIndex("city_id");
 
-        resultBean=new PersonCityOk1();
+        do
+         {
+          resultBean=new PersonCityErr3();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.cityId=cursor.getLong(index2); }
+          resultBean.id=cursor.getLong(index0);
+          if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
+          if (!cursor.isNull(index2)) { resultBean.cityId=cursor.getLong(index2); }
 
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
       }
-      return resultBean;
+
+      return resultList;
     }
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, city_id FROM person_city_ok1 WHERE person_id=${personId}</pre>
+   * <pre>SELECT id, person_id, city_id FROM person_city_err3 WHERE person_id=${personId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -178,9 +122,9 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<PersonCityOk1> selectByPersonId(long personId) {
+  public List<PersonCityErr3> selectByPersonId(long personId) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, person_id, city_id FROM person_city_ok1");
+    _sqlBuilder.append("SELECT id, person_id, city_id FROM person_city_err3");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -208,8 +152,8 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
-      LinkedList<PersonCityOk1> resultList=new LinkedList<PersonCityOk1>();
-      PersonCityOk1 resultBean=null;
+      LinkedList<PersonCityErr3> resultList=new LinkedList<PersonCityErr3>();
+      PersonCityErr3 resultBean=null;
 
       if (cursor.moveToFirst()) {
 
@@ -219,7 +163,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
 
         do
          {
-          resultBean=new PersonCityOk1();
+          resultBean=new PersonCityErr3();
 
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
@@ -236,7 +180,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, city_id FROM person_city_ok1 WHERE city_id=${cityId}</pre>
+   * <pre>SELECT id, person_id, city_id FROM person_city_err3 WHERE city_id=${cityId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -255,9 +199,9 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<PersonCityOk1> selectByCityId(long cityId) {
+  public List<PersonCityErr3> selectByCityId(long cityId) {
     StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, person_id, city_id FROM person_city_ok1");
+    _sqlBuilder.append("SELECT id, person_id, city_id FROM person_city_err3");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     ArrayList<String> _sqlWhereParams=getWhereParamsArray();
@@ -285,8 +229,8 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       Logger.info("Rows found: %s",cursor.getCount());
 
-      LinkedList<PersonCityOk1> resultList=new LinkedList<PersonCityOk1>();
-      PersonCityOk1 resultBean=null;
+      LinkedList<PersonCityErr3> resultList=new LinkedList<PersonCityErr3>();
+      PersonCityErr3 resultBean=null;
 
       if (cursor.moveToFirst()) {
 
@@ -296,7 +240,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
 
         do
          {
-          resultBean=new PersonCityOk1();
+          resultBean=new PersonCityErr3();
 
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
@@ -312,7 +256,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person_city_ok1 WHERE id=${id}</pre>
+   * <pre>DELETE FROM person_city_err3 WHERE id=${id}</pre>
    *
    *
    * <h2>Where parameters:</h2>
@@ -343,7 +287,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM person_city_ok1 WHERE id=?");
+    Logger.info("DELETE FROM person_city_err3 WHERE id=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -351,13 +295,13 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person_city_ok1", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person_city_err3", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person_city_ok1 WHERE person_id=${personId}</pre>
+   * <pre>DELETE FROM person_city_err3 WHERE person_id=${personId}</pre>
    *
    *
    * <h2>Where parameters:</h2>
@@ -388,7 +332,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM person_city_ok1 WHERE person_id=?");
+    Logger.info("DELETE FROM person_city_err3 WHERE person_id=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -396,13 +340,13 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person_city_ok1", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person_city_err3", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person_city_ok1 WHERE city_id=${cityId}</pre>
+   * <pre>DELETE FROM person_city_err3 WHERE city_id=${cityId}</pre>
    *
    *
    * <h2>Where parameters:</h2>
@@ -433,7 +377,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
     // manage WHERE arguments -- END
 
     // display log
-    Logger.info("DELETE FROM person_city_ok1 WHERE city_id=?");
+    Logger.info("DELETE FROM person_city_err3 WHERE city_id=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
@@ -441,13 +385,13 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person_city_ok1", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person_city_err3", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
     return result;
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person_city_ok1 (person_id, city_id) VALUES (${personId}, ${cityId})</pre>
+   * <pre>INSERT INTO person_city_err3 (person_id, city_id) VALUES (${personId}, ${cityId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -463,7 +407,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
    * @return <strong>id</strong> of inserted record
    */
   @Override
-  public int insert(PersonCityOk1 bean) {
+  public int insert(PersonCityErr3 bean) {
     ContentValues contentValues=contentValues();
     contentValues.clear();
 
@@ -479,7 +423,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
     }
-    Logger.info("INSERT INTO person_city_ok1 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+    Logger.info("INSERT INTO person_city_err3 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -494,7 +438,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person_city_ok1", null, contentValues);
+    long result = database().insert("person_city_err3", null, contentValues);
     bean.id=result;
 
     return (int)result;
