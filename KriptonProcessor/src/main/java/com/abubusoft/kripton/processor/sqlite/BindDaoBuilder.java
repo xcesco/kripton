@@ -25,6 +25,8 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
+import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
@@ -92,7 +94,12 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	@Override
 	public void visit(SQLDaoDefinition value) throws Exception {
 		currentDaoDefinition = value;
-
+		
+		// check if we need to generate or not
+		if (value.getElement().getAnnotation(BindDaoMany2Many.class)!=null && value.getElement().getAnnotation(BindGeneratedDao.class)==null) {
+			return;
+		}
+				
 		String classTableName = daoName(value);
 
 		PackageElement pkg = elementUtils.getPackageOf(value.getElement());

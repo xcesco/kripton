@@ -80,7 +80,13 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	private Map<String, Set<SQLProperty>> propertyBySimpleName = new HashMap<>();
 
-	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log, boolean asyncTask, boolean generateCursor) {
+	private List<String> daoNameSet;
+
+	public List<String> getDaoNameSet() {
+		return daoNameSet;
+	}
+
+	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log, boolean asyncTask, boolean generateCursor, List<String> daoIntoDataSource) {
 		super(item.getSimpleName().toString(), item);
 
 		this.fileName = schemaFileName;
@@ -93,6 +99,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		this.generateContentProvider = false;
 		this.contentProvider = null;
 		this.generatedEntities=new LinkedHashSet<GeneratedTypeElement>();
+		this.daoNameSet=daoIntoDataSource;
 
 	}
 

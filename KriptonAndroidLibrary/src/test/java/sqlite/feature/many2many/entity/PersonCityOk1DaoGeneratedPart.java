@@ -1,5 +1,6 @@
 package sqlite.feature.many2many.entity;
 
+import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -8,9 +9,9 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import java.util.List;
 
 @BindGeneratedDao(
-    dao = PersonCityOk1Dao.class,
-    entity1 =  PersonCityOk1.class, entity2 =  PersonCityOk1.class
+    dao = PersonCityOk1Dao.class    
 )
+@BindDaoMany2Many(entity1 =  PersonCityOk1.class, entity2 =  PersonCityOk1.class)
 public interface PersonCityOk1DaoGeneratedPart {
   @BindSqlSelect(
       where = "id=${id}"

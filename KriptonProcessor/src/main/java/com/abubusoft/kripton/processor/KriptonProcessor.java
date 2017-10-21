@@ -98,6 +98,7 @@ public class KriptonProcessor extends BaseProcessor {
 				dataSourceProcessor.generatedClasses(roundEnv);
 			} else if (count==2) {
 				dataSourceProcessor.analyzeSecondRound(annotations, roundEnv);
+				dataSourceProcessor.processSecondRound(annotations, roundEnv);
 				dataSourceProcessor.generatedClassesSecondRound(roundEnv);
 			}
 
