@@ -9,9 +9,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import java.util.List;
 
 
-/**
- * Created by 908099 on 16/02/2017.
- */
 @BindDao(PhoneNumber.class)
 public interface PhoneDao extends AbstractDao<PhoneNumber> {
 

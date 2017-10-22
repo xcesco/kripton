@@ -9,9 +9,6 @@ import sqlite.feature.many2many.case4.model.PhoneNumber;
 import sqlite.feature.many2many.case4.persistence.AbstractDao;
 
 
-/**
- * Created by 908099 on 16/02/2017.
- */
 @BindDao(PhoneNumber.class)
 public interface PhoneDao extends AbstractDao<PhoneNumber> {
 
