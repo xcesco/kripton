@@ -10,18 +10,20 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.One;
 
 import base.BaseAndroidTest;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
-import sqlite.feature.rx.RxDataSource.AsyncTransaction;
+import sqlite.feature.rx.RxDataSource.ObservableTransaction;
 import sqlite.feature.rx.model.Country;
 import sqlite.feature.rx.persistence.BindXenoDaoFactory;
 import sqlite.feature.rx.persistence.CountryDaoImpl;
@@ -48,14 +50,51 @@ public class TestRx extends BaseAndroidTest {
 	}
 
 	@Test
-	public void testRunAsync() {
+	public void testDatabase() {
+		RxDataSource ds = prepareDataSource();
+		
+		ds.execute(new ObservableTransaction<Country>() {
+
+			@Override
+			public TransactionResult onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<Country> emitter) {
+				log("onExecute "+Thread.currentThread().getName());
+				CountryDaoImpl dao = daoFactory.getCountryDao();
+				
+				List<Country> list = dao.selectAll();
+								
+				for (Country item:list) {
+					emitter.onNext(item);
+				}
+				
+				return TransactionResult.COMMIT;
+			}
+		}).subscribeOn(Schedulers.computation()).observeOn(Schedulers.io()).subscribe(new Consumer<Country>() {
+
+			@Override
+			public void accept(Country t) throws Exception {
+				log("accept "+Thread.currentThread().getName());
+				log(" country "+t.name);
+				
+			}
+		});
+		
+		try {
+			Thread.currentThread().sleep(5000);
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public RxDataSource prepareDataSource() {
 		RxDataSource dataSource = RxDataSource.instance();
 
-		dataSource.execute(new RxDataSource.SimpleTransaction() {
+		dataSource.executeInTransaction(new RxDataSource.Executable() {		
 			@Override
-			public boolean onExecute(BindXenoDaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindXenoDaoFactory daoFactory) throws Throwable {
 				CountryDaoImpl dao = daoFactory.getCountryDao();
-
+				
+				
 				for (int i = 0; i < COUNTER; i++) {
 					Country bean = new Country();
 					bean.code = "code" + i;
@@ -65,15 +104,22 @@ public class TestRx extends BaseAndroidTest {
 					dao.insert(bean);
 				}
 
-				dao.selectAll();
+				//dao.selectAll();
 				return true;
 			}
 		});
 
-		/*Disposable disposable=*/dataSource.executeAsync(new AsyncTransaction<Country>() {
+		return dataSource;
+	}
+
+	@Test
+	public void testRunAsync() {
+		RxDataSource dataSource = prepareDataSource();
+
+		/* Disposable disposable= */dataSource.execute(new ObservableTransaction<Country>() {
 
 			@Override
-			public boolean onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<Country> emitter) {
+			public TransactionResult onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<Country> emitter) {
 
 				CountryDaoImpl dao = daoFactory.getCountryDao();
 				List<Country> list = dao.selectAll();
@@ -82,38 +128,38 @@ public class TestRx extends BaseAndroidTest {
 					emitter.onNext(item);
 				}
 
-				return true;
+				return TransactionResult.COMMIT;
 			}
 		}).subscribeOn(Schedulers.newThread()).subscribe(
-		
-		new Observer<Country>() {
 
-			@Override
-			public void onSubscribe(Disposable d) {
-				System.out.println(Thread.currentThread().getName()+" onSubscribe");
+				new Observer<Country>() {
 
-			}
+					@Override
+					public void onSubscribe(Disposable d) {
+						System.out.println(Thread.currentThread().getName() + " onSubscribe");
 
-			@Override
-			public void onNext(Country t) {
-				System.out.println(Thread.currentThread().getName()+" onNext "+t.name);
+					}
 
-			}
+					@Override
+					public void onNext(Country t) {
+						System.out.println(Thread.currentThread().getName() + " onNext " + t.name);
 
-			@Override
-			public void onError(Throwable e) {
-				System.out.println(Thread.currentThread().getName()+" onNext");
+					}
 
-			}
+					@Override
+					public void onError(Throwable e) {
+						System.out.println(Thread.currentThread().getName() + " onNext");
 
-			@Override
-			public void onComplete() {
-				System.out.println(Thread.currentThread().getName()+" onComplete");
+					}
 
-			}
-		});
-		System.out.println(Thread.currentThread().getName()+" Finished");
-		
+					@Override
+					public void onComplete() {
+						System.out.println(Thread.currentThread().getName() + " onComplete");
+
+					}
+				});
+		System.out.println(Thread.currentThread().getName() + " Finished");
+
 		try {
 			Thread.currentThread().sleep(5000);
 		} catch (Throwable e1) {
@@ -126,7 +172,7 @@ public class TestRx extends BaseAndroidTest {
 	public void testRunSyncWithListener() {
 		RxDataSource dataSource = RxDataSource.instance();
 
-		dataSource.execute(new RxDataSource.SimpleTransaction() {
+		dataSource.executeTransaction(new RxDataSource.SimpleTransaction() {
 			@Override
 			public boolean onExecute(BindXenoDaoFactory daoFactory) throws Throwable {
 				CountryDaoImpl dao = daoFactory.getCountryDao();
@@ -145,18 +191,18 @@ public class TestRx extends BaseAndroidTest {
 			}
 		});
 
-		dataSource.execute(new RxDataSource.SimpleTransaction() {
+		dataSource.executeTransaction(new RxDataSource.SimpleTransaction() {
 
 			@Override
 			public boolean onExecute(BindXenoDaoFactory daoFactory) throws Throwable {
 				System.out.println("onSubscribe");
 				CountryDaoImpl dao = daoFactory.getCountryDao();
 				dao.selectAll(new OnReadBeanListener<Country>() {
-					
+
 					@Override
 					public void onRead(Country bean, int row, int rowCount) {
 						System.out.println("onNext" + bean);
-						
+
 					}
 				});
 
@@ -166,12 +212,12 @@ public class TestRx extends BaseAndroidTest {
 			}
 		});
 	}
-	
+
 	@Test
 	public void testRunSync() {
 		RxDataSource dataSource = RxDataSource.instance();
 
-		dataSource.execute(new RxDataSource.SimpleTransaction() {
+		dataSource.executeTransaction(new RxDataSource.SimpleTransaction() {
 			@Override
 			public boolean onExecute(BindXenoDaoFactory daoFactory) throws Throwable {
 				CountryDaoImpl dao = daoFactory.getCountryDao();
@@ -190,7 +236,7 @@ public class TestRx extends BaseAndroidTest {
 			}
 		});
 
-		dataSource.execute(new RxDataSource.SimpleTransaction() {
+		dataSource.executeTransaction(new RxDataSource.SimpleTransaction() {
 
 			@Override
 			public boolean onExecute(BindXenoDaoFactory daoFactory) throws Throwable {

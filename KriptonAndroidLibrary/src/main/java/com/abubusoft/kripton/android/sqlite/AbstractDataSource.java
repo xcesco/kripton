@@ -61,7 +61,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		 * @exception any
 		 *                exception
 		 */
-		boolean onExecute(E daoFactory) throws Throwable;
+		TransactionResult onExecute(E daoFactory) throws Throwable;
 	}
 
 	enum TypeStatus {
@@ -341,7 +341,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		} finally {
 			lockDb.unlock();
 			lockReadWriteAccess.lock();
-
 		}
 
 		return database;

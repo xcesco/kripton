@@ -1,10 +1,22 @@
 package sqlite.feature.rx;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+import io.reactivex.BackpressureOverflowStrategy;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.Maybe;
+import io.reactivex.MaybeEmitter;
+import io.reactivex.MaybeOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Cancellable;
 
@@ -13,6 +25,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 import sqlite.feature.rx.model.CountryTable;
@@ -57,7 +70,7 @@ public class RxDataSource extends BindXenoDataSource {
 	}
 
 
-	public <T> Observable<T> executeAsync(final AsyncTransaction<T> transaction) {
+	public <T> Observable<T> execute(final ObservableExecutable<T> transaction) {
 		ObservableOnSubscribe<T> emitter = new ObservableOnSubscribe<T>() {
 
 			@Override
@@ -66,10 +79,10 @@ public class RxDataSource extends BindXenoDataSource {
 				try {
 					System.out.println(Thread.currentThread().getName()+" TRANSACTION");
 					connection.beginTransaction();
-					if (transaction != null && transaction.onExecute(RxDataSource.this, emitter)) {
-						connection.setTransactionSuccessful();
-						emitter.onComplete();
+					if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(RxDataSource.this, emitter)) {
+						connection.setTransactionSuccessful();						
 					}
+					emitter.onComplete();
 				} catch (Throwable e) {					
 					Logger.error(e.getMessage());
 					e.printStackTrace();					
@@ -91,6 +104,111 @@ public class RxDataSource extends BindXenoDataSource {
 
 	}
 	
+	public <T> Maybe<T> execute(final MaybeExecutable<T> transaction) {
+		MaybeOnSubscribe<T> emitter = new MaybeOnSubscribe<T>() {
+
+			@Override
+			public void subscribe(MaybeEmitter<T> emitter) throws Exception {
+				SQLiteDatabase connection = openWritableDatabase();				
+				try {
+					System.out.println(Thread.currentThread().getName()+" TRANSACTION");
+					connection.beginTransaction();
+					if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(RxDataSource.this, emitter)) {
+						connection.setTransactionSuccessful();						
+					}
+					emitter.onComplete();
+				} catch (Throwable e) {					
+					Logger.error(e.getMessage());
+					e.printStackTrace();					
+					
+					emitter.onError(e);
+				} finally {
+					try {
+						connection.endTransaction();
+					} catch (Throwable e) {
+						Logger.warn("error closing transaction %s", e.getMessage());
+					}
+					close();
+				}
+			}
+
+		};
+
+		return Maybe.create(emitter);
+
+	}
+	
+	public <T> Flowable<T> execute(final FlowableExecutable<T> transaction, BackpressureStrategy strategy) {
+		FlowableOnSubscribe<T> emitter = new FlowableOnSubscribe<T>() {
+
+			@Override
+			public void subscribe(FlowableEmitter<T> emitter) throws Exception {
+				SQLiteDatabase connection = openWritableDatabase();
+				try {
+					System.out.println(Thread.currentThread().getName()+" TRANSACTION");
+					connection.beginTransaction();
+					if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(RxDataSource.this, emitter)) {
+						connection.setTransactionSuccessful();						
+					}				
+					emitter.onComplete();
+				} catch (Throwable e) {					
+					Logger.error(e.getMessage());
+					e.printStackTrace();					
+					
+					emitter.onError(e);
+				} finally {
+					try {
+						connection.endTransaction();
+					} catch (Throwable e) {
+						Logger.warn("error closing transaction %s", e.getMessage());
+					}
+					close();
+				}
+				
+			}
+
+		};
+
+		return Flowable.create(emitter, strategy);
+ 
+	}
+	
+	public <T> Single<T> execute(final SingleExecutable<T> executable) {
+		SingleOnSubscribe<T> emitter = new SingleOnSubscribe<T>() {
+						
+			@Override
+			public void subscribe(SingleEmitter<T> emitter) throws Exception {
+				SQLiteDatabase connection = openWritableDatabase();
+				try {
+					System.out.println(Thread.currentThread().getName()+" TRANSACTION");
+					connection.beginTransaction();
+					if (executable != null && TransactionResult.COMMIT==executable.onExecute(RxDataSource.this, emitter)) {
+						connection.setTransactionSuccessful();						
+					}					
+				} catch (Throwable e) {					
+					Logger.error(e.getMessage());
+					e.printStackTrace();					
+					
+					emitter.onError(e);
+				} finally {
+					try {
+						connection.endTransaction();
+					} catch (Throwable e) {
+						Logger.warn("error closing transaction %s", e.getMessage());
+					}
+					close();
+				}
+				
+			}
+
+			
+
+		};
+
+		return Single.create(emitter);
+
+	}
+	
 
 	/**
 	 * instance
@@ -98,7 +216,8 @@ public class RxDataSource extends BindXenoDataSource {
 	public static synchronized RxDataSource instance() {
 		if (instance == null) {
 			instance = new RxDataSource(null);
-		}
+		}	
+		
 		return instance;
 	}
 
@@ -121,7 +240,31 @@ public class RxDataSource extends BindXenoDataSource {
 	 * interface to define transactions
 	 * @param <T>
 	 */
-	public interface AsyncTransaction<T> {
-		boolean onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<T> emitter);
+	public interface ObservableExecutable<T> {
+		TransactionResult onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<T> emitter);
+	}
+	
+	/**
+	 * interface to define transactions
+	 * @param <T>
+	 */
+	public interface FlowableExecutable<T> {
+		TransactionResult onExecute(BindXenoDaoFactory daoFactory, FlowableEmitter<T> emitter);
+	}
+	
+	/**
+	 * interface to define transactions
+	 * @param <T>
+	 */
+	public interface MaybeExecutable<T> {
+		TransactionResult onExecute(BindXenoDaoFactory daoFactory, MaybeEmitter<T> emitter);
+	}
+	
+	/**
+	 * interface to define transactions
+	 * @param <T>
+	 */
+	public interface SingleExecutable<T> {
+		TransactionResult onExecute(BindXenoDaoFactory daoFactory, SingleEmitter<T> emitter);
 	}
 }
