@@ -19,6 +19,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 import sqlite.feature.rx.RxDataSource.AsyncTransaction;
 import sqlite.feature.rx.model.Country;
 import sqlite.feature.rx.persistence.BindXenoDaoFactory;
@@ -82,20 +83,7 @@ public class TestRx extends BaseAndroidTest {
 
 				return true;
 			}
-		}).filter(new Predicate<Country>() {
-
-			@Override
-			public boolean test(Country t) throws Exception {				
-				return t.id%2==0;
-			}
-		}).map(new Function<Country, Country>() {
-
-			@Override
-			public Country apply(Country t) throws Exception {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		}).subscribe(new Consumer<Country>() {
+		}).subscribeOn(Schedulers.newThread()).observeOn(Schedulers.newThread()).subscribe(new Consumer<Country>() {
 
 			@Override
 			public void accept(Country t) throws Exception {
@@ -131,6 +119,7 @@ public class TestRx extends BaseAndroidTest {
 
 			}
 		});*/
+		System.out.println("Finished");
 	}
 
 	@Test
