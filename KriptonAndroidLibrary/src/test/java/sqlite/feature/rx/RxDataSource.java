@@ -64,6 +64,7 @@ public class RxDataSource extends BindXenoDataSource {
 			public void subscribe(ObservableEmitter<T> emitter) throws Exception {
 				SQLiteDatabase connection = openWritableDatabase();
 				try {
+					System.out.println(Thread.currentThread().getName()+" TRANSACTION");
 					connection.beginTransaction();
 					if (transaction != null && transaction.onExecute(RxDataSource.this, emitter)) {
 						connection.setTransactionSuccessful();

@@ -15,6 +15,7 @@ import com.abubusoft.kripton.common.One;
 import base.BaseAndroidTest;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -69,7 +70,7 @@ public class TestRx extends BaseAndroidTest {
 			}
 		});
 
-		Disposable disposable=dataSource.executeAsync(new AsyncTransaction<Country>() {
+		/*Disposable disposable=*/dataSource.executeAsync(new AsyncTransaction<Country>() {
 
 			@Override
 			public boolean onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<Country> emitter) {
@@ -83,43 +84,42 @@ public class TestRx extends BaseAndroidTest {
 
 				return true;
 			}
-		}).subscribeOn(Schedulers.newThread()).observeOn(Schedulers.newThread()).subscribe(new Consumer<Country>() {
-
-			@Override
-			public void accept(Country t) throws Exception {
-				System.out.println("onNext "+t.name);				
-			}
-		}); 
+		}).subscribeOn(Schedulers.newThread()).subscribe(
 		
-		disposable.dispose();
-		
-		/*new Observer<Country>() {
+		new Observer<Country>() {
 
 			@Override
 			public void onSubscribe(Disposable d) {
-				System.out.println("onSubscribe");
+				System.out.println(Thread.currentThread().getName()+" onSubscribe");
 
 			}
 
 			@Override
 			public void onNext(Country t) {
-				System.out.println("onNext "+t.name);
+				System.out.println(Thread.currentThread().getName()+" onNext "+t.name);
 
 			}
 
 			@Override
 			public void onError(Throwable e) {
-				System.out.println("onNext");
+				System.out.println(Thread.currentThread().getName()+" onNext");
 
 			}
 
 			@Override
 			public void onComplete() {
-				System.out.println("onComplete");
+				System.out.println(Thread.currentThread().getName()+" onComplete");
 
 			}
-		});*/
-		System.out.println("Finished");
+		});
+		System.out.println(Thread.currentThread().getName()+" Finished");
+		
+		try {
+			Thread.currentThread().sleep(5000);
+		} catch (Throwable e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	@Test
