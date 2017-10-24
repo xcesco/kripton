@@ -23,6 +23,8 @@ import java.util.List;
 import org.junit.Test;
 import org.robolectric.util.Logger;
 
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import base.BaseAndroidTest;
 import sqlite.kripton58.list.BindLongDataSource.Transaction;
 
@@ -39,7 +41,7 @@ public class Test58Runtime extends BaseAndroidTest {
 		dataSource.execute(new Transaction() {
 
 			@Override
-			public boolean onExecute(BindLongDaoFactory daoFactory) {
+			public TransactionResult onExecute(BindLongDaoFactory daoFactory) {
 				LongDaoImpl dao = daoFactory.getLongDao();
 
 				ArrayList<Long> value = new ArrayList<Long>();
@@ -54,7 +56,7 @@ public class Test58Runtime extends BaseAndroidTest {
 				List<LongBean> result = dao.selectList(value);
 				assertTrue(result.size() == 1);
 
-				return true;
+				return TransactionResult.COMMIT;
 			}
 
 			@Override

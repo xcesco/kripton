@@ -13,16 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.kripton81ExceptionCoverage;
+package sqlite.feature.typeadapter.kripton180;
 
-import java.util.List;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import sqlite.feature.typeadapter.kripton180.bean.TestKripton180Bean;
+import sqlite.feature.typeadapter.kripton180.raw.TestKripton180Raw;
 
-@BindDao(Error9Bean.class)
-public interface Error9Dao {
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{
+			TestKripton180Bean.class,
+			TestKripton180Raw.class
+			})
+//@formatter:on
+public class Test180Suite {
 
-	@BindSqlSelect()
-	public List<Error9Bean> selectAll();
 }

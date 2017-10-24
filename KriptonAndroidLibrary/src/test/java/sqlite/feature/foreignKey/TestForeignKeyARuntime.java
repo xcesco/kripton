@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import base.BaseAndroidTest;
@@ -41,7 +42,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 		dataSource.execute(new Transaction() {
 
 			@Override
-			public boolean onExecute(BindDummyDaoFactory daoFactory) {
+			public TransactionResult onExecute(BindDummyDaoFactory daoFactory) {
 				DaoBeanA_1Impl dao = daoFactory.getDaoBeanA_1();
 
 				BeanA_2 beanParent = new BeanA_2();
@@ -60,7 +61,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 				// Assert.assertEquals("not equals", true,
 				// list.get(0).equals(bean));
 
-				return true;
+				return TransactionResult.COMMIT;
 			}
 
 			@Override
@@ -79,7 +80,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 		dataSource.execute(new Transaction() {
 
 			@Override
-			public boolean onExecute(BindDummyDaoFactory daoFactory) {
+			public TransactionResult onExecute(BindDummyDaoFactory daoFactory) {
 				DaoBeanA_1Impl dao = daoFactory.getDaoBeanA_1();
 
 				BeanA_2 beanParent = new BeanA_2();
@@ -98,7 +99,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 				// Assert.assertEquals("not equals", true,
 				// list.get(0).equals(bean));
 
-				return true;
+				return TransactionResult.COMMIT;
 			}
 
 			@Override
@@ -117,7 +118,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 		dataSource.execute(new Transaction() {
 
 			@Override
-			public boolean onExecute(BindDummyDaoFactory daoFactory) {
+			public TransactionResult onExecute(BindDummyDaoFactory daoFactory) {
 				DaoBeanA_1Impl dao = daoFactory.getDaoBeanA_1();
 
 				BeanA_2 beanParent = new BeanA_2();
@@ -136,7 +137,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 				// Assert.assertEquals("not equals", true,
 				// list.get(0).equals(bean));
 
-				return true;
+				return TransactionResult.COMMIT;
 			}
 
 			@Override
@@ -155,7 +156,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 		dataSource.execute(new Transaction() {
 
 			@Override
-			public boolean onExecute(BindDummyDaoFactory daoFactory) {
+			public TransactionResult onExecute(BindDummyDaoFactory daoFactory) {
 				DaoBeanA_1Impl dao = daoFactory.getDaoBeanA_1();
 
 				BeanA_2 beanParent = new BeanA_2();
@@ -174,7 +175,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 				// Assert.assertEquals("not equals", true,
 				// list.get(0).equals(bean));
 
-				return true;
+				return TransactionResult.COMMIT;
 			}
 
 			@Override

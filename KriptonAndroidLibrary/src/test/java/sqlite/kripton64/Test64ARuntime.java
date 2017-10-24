@@ -23,6 +23,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import base.BaseAndroidTest;
 import sqlite.kripton64.BindBean64ADataSource.Transaction;
 
@@ -39,7 +41,7 @@ public class Test64ARuntime extends BaseAndroidTest {
 		dataSource.execute(new Transaction() {
 
 			@Override
-			public boolean onExecute(BindBean64ADaoFactory daoFactory) {
+			public TransactionResult onExecute(BindBean64ADaoFactory daoFactory) {
 				Bean64ADaoImpl dao = daoFactory.getBean64ADao();
 
 				Bean64A bean = new Bean64A();
@@ -57,7 +59,7 @@ public class Test64ARuntime extends BaseAndroidTest {
 
 				Assert.assertEquals("not set", 1, list.get(0).valueSetString.size());
 
-				return true;
+				return TransactionResult.COMMIT;
 			}
 
 			@Override

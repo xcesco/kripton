@@ -34,8 +34,11 @@ import sqlite.feature.jql.TestJQLFeatureSuite;
 import sqlite.feature.many2many.TestCompileMany2ManySuite;
 import sqlite.feature.multithread.TestCompileMultithreadSuite;
 import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
+import sqlite.feature.performance.TestPerformanceSuite;
+import sqlite.feature.rx.TestRXSuite;
 import sqlite.feature.schema.TestSchemaSuite;
 import sqlite.feature.typeadapter.TestTypeAdapterSuite;
+import sqlite.feature.typeadapter.kripton180.Test180Suite;
 import sqlite.kripton111.TestCompile111;
 import sqlite.kripton186.Test186Suite;
 import sqlite.kripton33.Test33Suite;
@@ -57,6 +60,8 @@ import sqlite.kripton96.Test96Suite;
 import sqlite.quickstart.TestQuickstartSuite;
 import sqlite.select.TestSelectSuite;
 import sqlite.stack44330452.TestStack44330452Suite;
+import sqlite.stack44633883.TestStack44633883Suite;
+import sqlite.stack45184504.TestStack45184504Suite;
 import sqlite.test01.Test01Suite;
 import sqlite.test02.Test02Suite;
 import sqlite.test02.TestDao01;
@@ -83,6 +88,7 @@ import sqlite.kripton63.Test63Compile;
 			TestTypeAdapterSuite.class,			
 			TestCompileMany2ManySuite.class,
 			TestForeignKeyActionSuite.class, 
+			TestRXSuite.class,
 			
 			// bug-fix			
 			Example01Suite.class,
@@ -117,7 +123,11 @@ import sqlite.kripton63.Test63Compile;
 			TestUriCheckerSuite.class,
 			TestJqlCheckerSuite.class,
 			Test186Suite.class,
+			Test180Suite.class,
+			TestStack44633883Suite.class,
+			TestStack45184504Suite.class,
 						
+			TestPerformanceSuite.class,
 			TestSelectSuite.class,
 			IncludeFieldsTestSuite.class,						
 			TestJQLFeatureSuite.class,

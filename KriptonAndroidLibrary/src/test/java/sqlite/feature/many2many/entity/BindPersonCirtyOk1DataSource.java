@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 import sqlite.feature.many2many.CityTable;
@@ -79,7 +80,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
-      if (transaction!=null && transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -91,6 +92,33 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
         connection.endTransaction();
       } catch (Throwable e) {
         Logger.warn("error closing transaction %s", e.getMessage());
+      }
+      close();
+    }
+  }
+
+  /**
+   * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
+   *
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
+   */
+  public void execute(Batch commands, boolean writeMode) {
+    if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
+    try {
+      if (commands!=null) {
+        commands.onExecute(this);
+      }
+    } catch(Throwable e) {
+      Logger.error(e.getMessage());
+      e.printStackTrace();
+      if (commands!=null) commands.onError(e);
+    } finally {
+      try {
+      } catch (Throwable e) {
+        Logger.warn("error closing connection %s", e.getMessage());
       }
       close();
     }
@@ -209,15 +237,48 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   }
 
   /**
-   * interface to define transactions
+   * Rapresents transational operation.
    */
-  public interface Transaction extends AbstractTransaction<BindPersonCirtyOk1DaoFactory> {
+  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindPersonCirtyOk1DaoFactory> {
+    /**
+     * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
+     * or {@link TransactionResult#ROLLBACK} to rollback.
+     * If exception is thrown, a rollback will be done.
+     *
+     * @param daoFactory
+     * @return
+     * @throws Throwable
+     */
+    TransactionResult onExecute(BindPersonCirtyOk1DaoFactory daoFactory);
   }
 
   /**
-   * Simple class implements interface to define transactions
+   * Simple class implements interface to define transactions.In this class a simple <code>onError</code> method is implemented.
    */
   public abstract static class SimpleTransaction implements Transaction {
+    @Override
+    public void onError(Throwable e) {
+      throw(new KriptonRuntimeException(e));
+    }
+  }
+
+  /**
+   * Rapresents batch operation.
+   */
+  public interface Batch extends AbstractDataSource.AbstractExecutable<BindPersonCirtyOk1DaoFactory> {
+    /**
+     * Execute batch operations.
+     *
+     * @param daoFactory
+     * @throws Throwable
+     */
+    void onExecute(BindPersonCirtyOk1DaoFactory daoFactory);
+  }
+
+  /**
+   * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
+   */
+  public abstract static class SimpleBatch implements Batch {
     @Override
     public void onError(Throwable e) {
       throw(new KriptonRuntimeException(e));

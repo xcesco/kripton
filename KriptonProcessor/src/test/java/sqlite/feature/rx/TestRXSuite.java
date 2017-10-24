@@ -13,11 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.indexes;
+package sqlite.feature.rx;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-@BindDataSource(daoSet= { Err1PersonDAO.class }, fileName = "person.db", generateLog=true)
-public interface Err1PersonDataSource {
+import base.BaseProcessorTest;
+
+@RunWith(Suite.class)
+// @formatter:off
+@Suite.SuiteClasses({ TestRx.class })
+// @formatter:on
+public class TestRXSuite extends BaseProcessorTest {
 
 }

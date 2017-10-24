@@ -22,6 +22,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import base.BaseAndroidTest;
 import sqlite.feature.performance.simple.BindSimpleDaoFactory;
 import sqlite.feature.performance.simple.BindSimpleDataSource;
@@ -47,7 +49,7 @@ public class TestPerformanceRuntime extends BaseAndroidTest {
 		dataSource.execute(new BindSimpleDataSource.SimpleTransaction() {
 
 			@Override
-			public boolean onExecute(BindSimpleDaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindSimpleDaoFactory daoFactory) {
 				TrickedSimpleAddressDaoImpl dao = new TrickedSimpleAddressDaoImpl(dataSource);
 
 				dao.deleteAll();
@@ -86,7 +88,7 @@ public class TestPerformanceRuntime extends BaseAndroidTest {
 					log("insert OPTIMIZED duration: %s", insertOptimizedDuration);
 				}
 				// end
-				return true;
+				return TransactionResult.COMMIT;
 			}
 
 		});

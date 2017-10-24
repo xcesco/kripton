@@ -21,6 +21,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import base.BaseAndroidTest;
 import sqlite.feature.jql.entities.Child;
 import sqlite.feature.jql.entities.Person;
@@ -41,7 +43,7 @@ public class TestFeatJQLRuntime extends BaseAndroidTest {
 		dataSource.execute(new BindFamilyDataSource.SimpleTransaction() {
 
 			@Override
-			public boolean onExecute(BindFamilyDaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindFamilyDaoFactory daoFactory) {
 				// TODO Auto-generated method stub
 				Person person = new Person();
 				person.name = "Tonj Manero";
@@ -62,7 +64,7 @@ public class TestFeatJQLRuntime extends BaseAndroidTest {
 					assertTrue(list.get(i).name.equals("Luna"));
 				}
 
-				return true;
+				return TransactionResult.COMMIT;
 			}
 		});
 

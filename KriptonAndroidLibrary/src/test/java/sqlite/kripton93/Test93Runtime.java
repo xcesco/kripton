@@ -24,6 +24,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import android.database.sqlite.SQLiteConstraintException;
 import base.BaseAndroidTest;
 
@@ -43,12 +45,12 @@ public class Test93Runtime extends BaseAndroidTest {
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
-			public boolean onExecute(BindBean93DaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 
 				dao.insertDefault(bean);
 				assertTrue(dao.selectAll().size() == 1);
-				return false;
+				return TransactionResult.ROLLBACK;
 			}
 		});
 	}
@@ -62,12 +64,12 @@ public class Test93Runtime extends BaseAndroidTest {
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
-			public boolean onExecute(BindBean93DaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
 				dao.insertAbort(bean);
 				assertTrue(dao.selectAll().size() == 1);
-				return false;
+				return TransactionResult.ROLLBACK;
 			}
 		});
 	}
@@ -81,12 +83,12 @@ public class Test93Runtime extends BaseAndroidTest {
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
-			public boolean onExecute(BindBean93DaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
 				dao.insertFail(bean);
 				assertTrue(dao.selectAll().size() == 1);
-				return false;
+				return TransactionResult.ROLLBACK;
 			}
 		});
 	}
@@ -99,12 +101,12 @@ public class Test93Runtime extends BaseAndroidTest {
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
-			public boolean onExecute(BindBean93DaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
 				dao.insertIgnore(bean);
 				assertTrue(dao.selectAll().size() == 1);
-				return false;
+				return TransactionResult.ROLLBACK;
 			}
 		});
 	}
@@ -117,12 +119,12 @@ public class Test93Runtime extends BaseAndroidTest {
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
-			public boolean onExecute(BindBean93DaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
 				dao.insertReplace(bean);
 				assertTrue(dao.selectAll().size() == 1);
-				return false;
+				return TransactionResult.ROLLBACK;
 			}
 		});
 	}
@@ -136,12 +138,12 @@ public class Test93Runtime extends BaseAndroidTest {
 
 		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
 			@Override
-			public boolean onExecute(BindBean93DaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
 				dao.insertDefault(bean);
 				dao.insertRollback(bean);
 				assertTrue(dao.selectAll().size() == 0);
-				return false;
+				return TransactionResult.ROLLBACK;
 			}
 		});
 	}

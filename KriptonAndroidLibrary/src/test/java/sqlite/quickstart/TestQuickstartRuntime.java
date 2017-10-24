@@ -17,6 +17,8 @@ package sqlite.quickstart;
 
 import org.junit.Test;
 
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import base.BaseAndroidTest;
 import sqlite.quickstart.model.Comment;
 import sqlite.quickstart.model.Post;
@@ -37,7 +39,7 @@ public class TestQuickstartRuntime extends BaseAndroidTest {
 		dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
 			
 			@Override
-			public boolean onExecute(BindQuickStartDaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindQuickStartDaoFactory daoFactory) {
 				User user=new User();
 				user.id=1;
 				user.name="user";
@@ -55,7 +57,7 @@ public class TestQuickstartRuntime extends BaseAndroidTest {
 				comment.id=3;
 				comment.postId=post.id;
 				daoFactory.getCommentDao().insert(comment);
-				return true;
+				return TransactionResult.COMMIT;
 			}
 		});
 	}

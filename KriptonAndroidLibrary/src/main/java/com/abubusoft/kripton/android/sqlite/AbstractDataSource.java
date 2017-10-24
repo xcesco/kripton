@@ -43,26 +43,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 public abstract class AbstractDataSource implements AutoCloseable {
 
 	/**
-	 * Interface for database transactions.
+	 * Interface for database operations.
 	 * 
-	 * @author Francesco Benincasa (info@abubusoft.com)
 	 *
 	 * @param <E>
 	 */
-	public interface AbstractTransaction<E extends BindDaoFactory> {
-		void onError(Throwable e);
-
+	public interface AbstractExecutable<E extends BindDaoFactory> {
 		/**
-		 * Execute transaction. Connection is managed from DataSource
+		 * Manages error situations.
 		 * 
-		 * @param daoFactory
-		 * @return true to commit, false to rollback
-		 * 
-		 * @exception any
-		 *                exception
+		 * @param e
+		 * 		exception
 		 */
-		TransactionResult onExecute(E daoFactory) throws Throwable;
+		void onError(Throwable e);
 	}
+
 
 	enum TypeStatus {
 		CLOSED, READ_AND_WRITE_OPENED, READ_ONLY_OPENED
@@ -199,7 +194,9 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		}
 
 		if (previousVersion != currentVersion) {
-			throw (new KriptonRuntimeException(String.format("Can not find version update task from version %s to version %s", previousVersion, currentVersion)));
+			throw (new KriptonRuntimeException(
+					String.format("Can not find version update task from version %s to version %s", previousVersion,
+							currentVersion)));
 		}
 
 		return result;
@@ -208,9 +205,11 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	protected void createHelper(DataSourceOptions options) {
 		if (KriptonLibrary.context() == null)
-			throw new KriptonRuntimeException("Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
+			throw new KriptonRuntimeException(
+					"Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
 
-		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version, options.errorHandler) {
+		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version,
+				options.errorHandler) {
 
 			@Override
 			public void onConfigure(SQLiteDatabase database) {
@@ -244,7 +243,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 */
 	public SQLiteDatabase database() {
 		if (database == null)
-			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
+			throw (new KriptonRuntimeException(
+					"No database connection is opened before use " + this.getClass().getCanonicalName()));
 		return database;
 	}
 
@@ -292,7 +292,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @return read only database
 	 */
 	public SQLiteDatabase openReadOnlyDatabase() {
-		lockDb.lock();		
+		lockDb.lock();
 		try {
 			if (sqliteHelper == null)
 				createHelper(options);
@@ -323,7 +323,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @return writable database
 	 */
 	public SQLiteDatabase openWritableDatabase() {
-		lockDb.lock();		
+		lockDb.lock();
 		try {
 			if (sqliteHelper == null)
 				createHelper(options);

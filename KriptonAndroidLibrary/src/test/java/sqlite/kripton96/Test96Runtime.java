@@ -24,6 +24,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import base.BaseAndroidTest;
 import sqlite.kripton93.BindBean93DataSource;
 
@@ -47,7 +49,7 @@ public class Test96Runtime extends BaseAndroidTest {
 		dataSource.execute(new BindBean96DataSource.SimpleTransaction() {
 			
 			@Override
-			public boolean onExecute(BindBean96DaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindBean96DaoFactory daoFactory) {
 				Bean96DaoImpl dao = daoFactory.getBean96Dao();
 				
 				dao.insert(bean);
@@ -55,7 +57,7 @@ public class Test96Runtime extends BaseAndroidTest {
 				Bean96 result = dao.selectByBean("all");
 				assertTrue(result!=null);
 				
-				return true;
+				return TransactionResult.COMMIT;
 			}
 		});
 	}

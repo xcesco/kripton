@@ -21,6 +21,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import base.BaseAndroidTest;
 import sqlite.feature.typeadapter.kripton180.bean.BindKripton180BeanDaoFactory;
 import sqlite.feature.typeadapter.kripton180.bean.BindKripton180BeanDataSource;
@@ -55,7 +57,7 @@ public class TestKripton180Runtime extends BaseAndroidTest {
 		dataSource.execute(new BindKripton180BeanDataSource.SimpleTransaction() {
 
 			@Override
-			public boolean onExecute(BindKripton180BeanDaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindKripton180BeanDaoFactory daoFactory) {
 				EmployeeBeanDaoImpl dao = daoFactory.getEmployeeBeanDao();
 
 				dao.insert(bean);
@@ -76,7 +78,7 @@ public class TestKripton180Runtime extends BaseAndroidTest {
 				// (type.toString(), list, list2,
 				// ReflectionComparatorMode.LENIENT_ORDER);
 
-				return false;
+				return TransactionResult.ROLLBACK;
 			}
 		});
 
@@ -103,7 +105,7 @@ public class TestKripton180Runtime extends BaseAndroidTest {
 		dataSource.execute(new BindKripton180BeanDataSource.SimpleTransaction() {
 
 			@Override
-			public boolean onExecute(BindKripton180BeanDaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindKripton180BeanDaoFactory daoFactory) {
 				EmployeeBeanDaoImpl dao = daoFactory.getEmployeeBeanDao();
 
 				dao.insertJQL(bean);
@@ -124,7 +126,7 @@ public class TestKripton180Runtime extends BaseAndroidTest {
 				// (type.toString(), list, list2,
 				// ReflectionComparatorMode.LENIENT_ORDER);
 
-				return false;
+				return TransactionResult.ROLLBACK;
 			}
 		});
 

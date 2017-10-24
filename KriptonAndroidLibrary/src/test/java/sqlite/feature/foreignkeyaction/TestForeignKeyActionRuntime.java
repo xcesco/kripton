@@ -18,6 +18,8 @@ package sqlite.feature.foreignkeyaction;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import base.BaseAndroidTest;
 import sqlite.feature.foreignkeyaction.BindArtistDataSource.Transaction;
 
@@ -34,7 +36,7 @@ public class TestForeignKeyActionRuntime extends BaseAndroidTest {
 		dataSource.execute(new Transaction() {
 			
 			@Override
-			public boolean onExecute(BindArtistDaoFactory daoFactory) throws Throwable {
+			public TransactionResult onExecute(BindArtistDaoFactory daoFactory) {
 				ArtistDaoImpl daoArtist = daoFactory.getArtistDao();
 				AlbumDaoImpl daoAlbum = daoFactory.getAlbumDao();
 				
@@ -53,7 +55,7 @@ public class TestForeignKeyActionRuntime extends BaseAndroidTest {
 				daoArtist.deleteById(bean.id);
 				Assert.assertTrue(daoArtist.selectAll().size()==0);
 				
-				return true;
+				return TransactionResult.COMMIT;
 			}
 			
 			@Override

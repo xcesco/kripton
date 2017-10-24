@@ -6,8 +6,13 @@ import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.android.sqlite.AbstractDataSource.AbstractExecutable;
+import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
+
+import sqlite.feature.multithread.BindPersonDataSource.Transaction;
 import sqlite.feature.rx.model.CountryTable;
 import sqlite.feature.rx.model.PersonTable;
 import sqlite.feature.rx.model.PhoneNumberTable;
@@ -112,27 +117,25 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
 	/**
 	 * <p>
 	 * Executes a transaction. This method <strong>is thread safe</strong> to
-	 * avoid concurrent problems. Thedrawback is only one transaction at time
+	 * avoid concurrent problems. The drawback is only one transaction at time
 	 * can be executed. The database will be open in write mode.
 	 * </p>
 	 *
 	 * @param transaction
 	 *            transaction to execute
 	 */
-	public void executeInTransaction(Executable commands) {
+	public void execute(Transaction transaction) {
 		SQLiteDatabase connection = openWritableDatabase();
 		try {
 			connection.beginTransaction();
-
-			if (commands != null && commands.onExecute(this)) {
+			if (transaction != null && TransactionResult.COMMIT == transaction.onExecute(this)) {
 				connection.setTransactionSuccessful();
 			}
-
 		} catch (Throwable e) {
 			Logger.error(e.getMessage());
 			e.printStackTrace();
-			if (commands != null)
-				commands.onError(e);
+			if (transaction != null)
+				transaction.onError(e);
 		} finally {
 			try {
 				connection.endTransaction();
@@ -143,8 +146,23 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
 		}
 	}
 
-	public void execute(Executable commands) {
-		openWritableDatabase();
+	/**
+	 * <p>
+	 * Executes a batch. This method <strong>is thread safe</strong> to
+	 * avoid concurrent problems. if <code>writeMode</code> is set to false, multiple
+	 * batch operations is allowed.
+	 * </p>
+	 *
+	 * @param commands
+	 * 		batch to execute
+	 * @param writeMode
+	 * 		true to open connection in write mode, false to open connection in read only mode
+	 */
+	public void execute(Batch commands, boolean writeMode) {
+		if (writeMode)
+			openWritableDatabase();
+		else
+			openReadOnlyDatabase();
 		try {
 			if (commands != null) {
 				commands.onExecute(this);
@@ -284,18 +302,63 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
 	}
 
 	/**
-	 * interface to define transactions
+	 * Rapresents batch operations will be executed sharing same connection.
+	 * 
+	 * @author Francesco Benincasa (info@abubusoft.com)
+	 *
+	 * @param <E>
 	 */
-	public interface Executable extends AbstractTransaction<BindXenoDaoFactory> {
+	public interface Batch extends AbstractExecutable<BindXenoDaoFactory> {
+
+		/**
+		 * Execution of batch operations.
+		 * 
+		 * @param daoFactory
+		 * @throws Throwable
+		 */
+		void onExecute(BindXenoDaoFactory daoFactory) throws Throwable;
 	}
 
 	/**
-	 * Simple class implements interface to define transactions
+	 * Rapresents transational operation.
+	 * 
+	 * @author Francesco Benincasa (info@abubusoft.com)
+	 *
+	 * @param <E>
 	 */
-	public abstract static class SimpleExecutable implements Executable {
+	public interface Transaction extends AbstractExecutable<BindXenoDaoFactory> {
+		/**
+		 * Execute transation. Method need to return
+		 * {@link TransactionResult#COMMIT} to commit results or @link
+		 * {@link TransactionResult#ROLLBACK} to rollback.
+		 * 
+		 * If exception is thrown, a rollback will be done.
+		 * 
+		 * @param daoFactory
+		 * @return
+		 * @throws Throwable
+		 */
+		TransactionResult onExecute(BindXenoDaoFactory daoFactory) throws Throwable;
+	}
+
+	/**
+	 * Simple class implements interface to define batch
+	 */
+	public abstract static class SimpleBatch implements Batch {
 		@Override
 		public void onError(Throwable e) {
 			throw (new KriptonRuntimeException(e));
 		}
 	}
+
+	/**
+	 * Simple class implements interface to define transactions
+	 */
+	public abstract static class SimpleTransaction implements Transaction {
+		@Override
+		public void onError(Throwable e) {
+			throw (new KriptonRuntimeException(e));
+		}
+	}
+
 }

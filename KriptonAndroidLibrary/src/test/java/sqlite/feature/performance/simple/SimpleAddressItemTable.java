@@ -1,7 +1,5 @@
 package sqlite.feature.performance.simple;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>SimpleAddressItem</code> is associated to table <code>simple_address_item</code>

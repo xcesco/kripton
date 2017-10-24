@@ -25,6 +25,7 @@ import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import base.BaseAndroidTest;
 
@@ -175,7 +176,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 						dataSource.execute(new BindPersonDataSource.SimpleTransaction() {
 
 							@Override
-							public boolean onExecute(BindPersonDaoFactory daoFactory) throws Throwable {
+							public TransactionResult onExecute(BindPersonDaoFactory daoFactory) {
 								PersonDAOImpl dao = daoFactory.getPersonDAO();
 								Person bean = new Person();
 
@@ -189,8 +190,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 										e.printStackTrace();
 									}
 								}
-
-								return true;
+								return TransactionResult.COMMIT;
 							}
 						});
 						Logger.info("End thread-" + id + " T3");
@@ -232,8 +232,8 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 				dataSource.execute(new BindPersonDataSource.SimpleTransaction() {
 					
 					@Override
-					public boolean onExecute(BindPersonDaoFactory daoFactory) throws Throwable {						
-						return false;
+					public TransactionResult onExecute(BindPersonDaoFactory daoFactory) {						
+						return TransactionResult.ROLLBACK;
 					}
 				});
 				

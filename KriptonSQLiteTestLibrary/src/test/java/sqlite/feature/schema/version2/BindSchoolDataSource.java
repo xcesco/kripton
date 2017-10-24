@@ -228,7 +228,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * interface to define transactions
    */
-  public interface Transaction extends AbstractTransaction<BindSchoolDaoFactory> {
+  public interface Transaction extends Executable<BindSchoolDaoFactory> {
   }
 
   /**
