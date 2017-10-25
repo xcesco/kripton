@@ -17,7 +17,7 @@ package sqlite.select.scalarlist;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-@BindDataSource(daoSet= { Err1PersonDAO.class }, fileName = "person.db", generateLog=true)
+@BindDataSource(daoSet= { Err1PersonDAO.class }, fileName = "person.db", log=true)
 public interface Err1PersonDataSource {
 
 }

@@ -17,7 +17,7 @@ package sqlite.feature.dynamic.update;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-@BindDataSource(daoSet= { Err2UpdateDAO.class }, fileName = "person.db", generateLog=true)
+@BindDataSource(daoSet= { Err2UpdateDAO.class }, fileName = "person.db", log=true)
 public interface Err2UpdateDataSource {
 
 }

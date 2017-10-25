@@ -62,7 +62,7 @@ public @interface BindDataSource {
 	 * @return
 	 * 		true if you want to produce log code
 	 */
-	boolean generateLog() default true;
+	boolean log() default true;
 	
 	/**
 	 * <p>if true, generate schema sql file, in <code>schema/</code> folder.</p>
@@ -81,7 +81,7 @@ public @interface BindDataSource {
 	 * 
 	 * @return
 	 */
-	boolean generateSchema() default false;
+	boolean schema() default false;
 	
 	/**
 	 * if true, generate async task
@@ -89,7 +89,7 @@ public @interface BindDataSource {
 	 * @return
 	 * 		true if you want to generate async task class
 	 */
-	boolean generateAsyncTask() default false;
+	boolean asyncTask() default false;
 
 	/**
 	 * if true, generate cursor wrapper
@@ -97,7 +97,7 @@ public @interface BindDataSource {
 	 * @return
 	 * 		true if you want to generate cursor wrapper
 	 */
-	boolean generateCursorWrapper() default false;
+	boolean cursorWrapper() default false;
 	
 	
 }

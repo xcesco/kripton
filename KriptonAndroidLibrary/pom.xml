@@ -41,6 +41,7 @@
 		<!-- dependencies version -->
 		<jackson.version>2.9.0</jackson.version>
 		<retrofit.version>2.1.0</retrofit.version>
+		<rx.version>2.1.5</rx.version>
 		
 		<kripton.debug>false</kripton.debug>
 
@@ -232,12 +233,14 @@
 	</build>
 
 	<dependencies>
+	
+		<!-- RX dependencies - BEGIN -->
 		<dependency>
 			<groupId>io.reactivex.rxjava2</groupId>
 			<artifactId>rxjava</artifactId>
-			<version>2.1.5</version>
-			<optional>true</optional>					
+			<version>${rx.version}</version>							
 		</dependency>
+		<!-- RX dependencies - END -->
 		
 		<dependency>
 			<groupId>com.abubusoft</groupId>

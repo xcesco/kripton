@@ -17,7 +17,7 @@ package sqlite.feature.dynamic.select;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-@BindDataSource(daoSet= { PersonDAO2.class }, fileName = "person.db", generateLog=true)
+@BindDataSource(daoSet= { PersonDAO2.class }, fileName = "person.db", log=true)
 public interface Person2DataSource {
 
 }

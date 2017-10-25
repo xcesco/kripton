@@ -352,6 +352,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 			if (daoDefinition.isLogEnabled()) {
 				// manage log
+				methodBuilder.addComment("manage log");
 				methodBuilder.addStatement("$T.info(_sql)", Logger.class);
 			}
 

@@ -125,7 +125,7 @@ import sqlite.kripton63.Test63Compile;
 			Test186Suite.class,
 			Test180Suite.class,
 			TestStack44633883Suite.class,
-			TestStack45184504Suite.class,
+			TestStack45184504Suite.class,			
 						
 			TestPerformanceSuite.class,
 			TestSelectSuite.class,

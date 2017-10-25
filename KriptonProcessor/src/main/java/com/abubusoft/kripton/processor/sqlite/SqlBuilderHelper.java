@@ -274,11 +274,10 @@ public abstract class SqlBuilderHelper {
 	 * @param method
 	 * @param methodBuilder
 	 */
-	static void generateLogForSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+	static void generateLogForSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {		
 		// manage log
 		if (method.getParent().getParent().generateLog) {
-			methodBuilder.addCode("\n// manage log\n");
-			methodBuilder.addStatement("String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString())");
+			methodBuilder.addCode("\n// manage log\n");			
 			methodBuilder.addStatement("$T.info(_sql)", Logger.class);
 		}
 	}

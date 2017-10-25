@@ -22,6 +22,9 @@ import org.junit.runners.JUnit4;
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.contentprovider.kripton35.entities.City;
 import sqlite.feature.contentprovider.kripton35.entities.Person;
+import sqlite.feature.contentprovider.kripton35.nolog.City2DAO;
+import sqlite.feature.contentprovider.kripton35.nolog.Person2DAO;
+import sqlite.feature.contentprovider.kripton35.nolog.Person2DataSource;
 import sqlite.feature.contentprovider.kripton35.persistence.CityDAO;
 import sqlite.feature.contentprovider.kripton35.persistence.PersonDAO;
 import sqlite.feature.contentprovider.kripton35.persistence.PersonDataSource;
@@ -29,14 +32,19 @@ import sqlite.feature.contentprovider.kripton35.persistence.PersonDataSource;
 @RunWith(JUnit4.class)
 public class TestContentProvider extends AbstractBindSQLiteProcessorTest {
 
+	@Test
+	public void testCompile01() throws Throwable {
+		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, CityDAO.class,Person.class, City.class);
+	}
+	
 	/**
 	 * No @BindType is put in bean definition
 	 * 
 	 * @throws Throwable
 	 */
 	@Test
-	public void testCompile01() throws Throwable {
-		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, CityDAO.class,Person.class, City.class);
+	public void testCompileWithNoLog() throws Throwable {
+		buildDataSourceProcessorTest(Person2DataSource.class, Person2DAO.class, City2DAO.class,Person.class, City.class);
 	}
 
 }

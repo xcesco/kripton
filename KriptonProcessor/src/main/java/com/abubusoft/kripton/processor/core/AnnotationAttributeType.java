@@ -37,7 +37,7 @@ public enum AnnotationAttributeType {
 
 	FIELDS("fields"), FILENAME("fileName"), FOREIGN_KEY("foreignKey"),
 
-	GENERATE_ASYNC_TASK("generateAsyncTask"), GENERATE_CURSOR_WRAPPER("generateCursorWrapper"), GENERATE_LOG("generateLog"), GENERATE_SCHEMA("generateSchema"), GROUP_BY("groupBy"),
+	GENERATE_ASYNC_TASK("asyncTask"), GENERATE_CURSOR_WRAPPER("cursorWrapper"), GENERATE_LOG("log"), GENERATE_SCHEMA("schema"), GROUP_BY("groupBy"),
 
 	HAVING("having"),
 

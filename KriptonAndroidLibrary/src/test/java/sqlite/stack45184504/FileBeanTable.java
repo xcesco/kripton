@@ -1,7 +1,5 @@
 package sqlite.stack45184504;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>FileBean</code> is associated to table <code>files</code>

@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.Override;
 import java.lang.Throwable;
@@ -92,7 +93,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
-      if (transaction!=null && transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT==transaction.onExecute(this)) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -228,7 +229,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * interface to define transactions
    */
-  public interface Transaction extends Executable<BindSchoolDaoFactory> {
+  public interface Transaction extends AbstractExecutable<BindSchoolDaoFactory> {
+	  
+	  TransactionResult onExecute(BindSchoolDaoFactory daoFactory);
   }
 
   /**

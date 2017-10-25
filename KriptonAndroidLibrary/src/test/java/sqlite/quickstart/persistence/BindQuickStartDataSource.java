@@ -113,6 +113,16 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   }
 
   /**
+   * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
+   *
+   * @param commands
+   * 	batch to execute
+   */
+  public void execute(Batch commands) {
+    execute(commands, false);
+  }
+
+  /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
    * @param commands
@@ -131,10 +141,6 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
       e.printStackTrace();
       if (commands!=null) commands.onError(e);
     } finally {
-      try {
-      } catch (Throwable e) {
-        Logger.warn("error closing connection %s", e.getMessage());
-      }
       close();
     }
   }

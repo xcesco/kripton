@@ -13,13 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.rx.model;
+package sqlite.feature.rx;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.rx.model.ActionType;
+import sqlite.feature.rx.model.Country;
+import sqlite.feature.rx.model.Person;
+import sqlite.feature.rx.model.PhoneNumber;
+import sqlite.feature.rx.model.PrefixConfig;
+import sqlite.feature.rx.model.Translation;
 import sqlite.feature.rx.persistence.AbstractDao;
 import sqlite.feature.rx.persistence.CountryDao;
 import sqlite.feature.rx.persistence.Person2PhoneDao;
@@ -37,8 +43,7 @@ public class TestCompileRX extends AbstractBindSQLiteProcessorTest {
 				Country.class,
 				Person.class,
 				PhoneNumber.class,
-				PrefixConfig.class,
-				SMS.class,
+				PrefixConfig.class,				
 				Translation.class,
 				AbstractDao.class,
 				CountryDao.class,

@@ -69,15 +69,44 @@ public class RxDataSource extends BindXenoDataSource {
 		super(options);
 	}
 
+	public <T> Observable<T> execute(final ObservableBatch<T> batch) {
+		return execute(batch, false);
+	}
 
-	public <T> Observable<T> execute(final ObservableExecutable<T> transaction) {
+	public <T> Observable<T> execute(final ObservableBatch<T> batch, final boolean writeMode) {
 		ObservableOnSubscribe<T> emitter = new ObservableOnSubscribe<T>() {
 
 			@Override
 			public void subscribe(ObservableEmitter<T> emitter) throws Exception {
 				SQLiteDatabase connection = openWritableDatabase();
-				try {
-					System.out.println(Thread.currentThread().getName()+" TRANSACTION");
+				try {					
+					connection.beginTransaction();
+					if (batch != null) {
+						batch.onExecute(RxDataSource.this, emitter);		
+					}
+					emitter.onComplete();
+				} catch (Throwable e) {					
+					Logger.error(e.getMessage());
+					e.printStackTrace();					
+					
+					emitter.onError(e);
+				} finally {					
+					close();
+				}
+			}
+		};
+
+		return Observable.create(emitter);
+
+	}
+	
+	public <T> Observable<T> execute(final ObservableTransaction<T> transaction) {
+		ObservableOnSubscribe<T> emitter = new ObservableOnSubscribe<T>() {
+
+			@Override
+			public void subscribe(ObservableEmitter<T> emitter) throws Exception {
+				SQLiteDatabase connection = openWritableDatabase();
+				try {					
 					connection.beginTransaction();
 					if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(RxDataSource.this, emitter)) {
 						connection.setTransactionSuccessful();						
@@ -138,7 +167,44 @@ public class RxDataSource extends BindXenoDataSource {
 
 	}
 	
-	public <T> Flowable<T> execute(final FlowableExecutable<T> transaction, BackpressureStrategy strategy) {
+	public <T> Flowable<T> execute(final FlowableBatch<T> commands) {
+		return execute(commands, false);
+	}
+	
+	public <T> Flowable<T> execute(final FlowableBatch<T> commands, final boolean writeMode) {
+		FlowableOnSubscribe<T> emitter = new FlowableOnSubscribe<T>() {
+
+			@Override
+			public void subscribe(FlowableEmitter<T> emitter) throws Exception {
+				if (writeMode) open(); else openReadOnly();
+				try {
+					System.out.println(Thread.currentThread().getName()+" TRANSACTION");					
+					if (commands != null) {
+						commands.onExecute(RxDataSource.this, emitter);								
+					}				
+					emitter.onComplete();
+				} catch (Throwable e) {					
+					Logger.error(e.getMessage());
+					e.printStackTrace();					
+					
+					emitter.onError(e);
+				} finally {
+					try {						
+					} catch (Throwable e) {
+						Logger.warn("error closing transaction %s", e.getMessage());
+					}
+					close();
+				}
+				
+			}
+
+		};
+
+		return Flowable.create(emitter, BackpressureStrategy.BUFFER);
+ 
+	}
+	
+	public <T> Flowable<T> execute(final FlowableTransaction<T> transaction) {
 		FlowableOnSubscribe<T> emitter = new FlowableOnSubscribe<T>() {
 
 			@Override
@@ -169,7 +235,7 @@ public class RxDataSource extends BindXenoDataSource {
 
 		};
 
-		return Flowable.create(emitter, strategy);
+		return Flowable.create(emitter, BackpressureStrategy.BUFFER);
  
 	}
 	
@@ -236,11 +302,11 @@ public class RxDataSource extends BindXenoDataSource {
 	}
 
 	
-	/**
-	 * interface to define transactions
-	 * @param <T>
-	 */
-	public interface ObservableExecutable<T> {
+	public interface ObservableBatch<T> {
+		void onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<T> emitter);
+	}
+	
+	public interface ObservableTransaction<T> {
 		TransactionResult onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<T> emitter);
 	}
 	
@@ -248,8 +314,12 @@ public class RxDataSource extends BindXenoDataSource {
 	 * interface to define transactions
 	 * @param <T>
 	 */
-	public interface FlowableExecutable<T> {
+	public interface FlowableTransaction<T> {
 		TransactionResult onExecute(BindXenoDaoFactory daoFactory, FlowableEmitter<T> emitter);
+	}
+	
+	public interface FlowableBatch<T> {
+		void onExecute(BindXenoDaoFactory daoFactory, FlowableEmitter<T> emitter);
 	}
 	
 	/**

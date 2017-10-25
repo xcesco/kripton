@@ -20,9 +20,9 @@ import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
 
-@RunWith(Suite.class)
+@RunWith(Suite.class) 
 // @formatter:off
-@Suite.SuiteClasses({ TestRx.class })
+@Suite.SuiteClasses({ TestCompileRX.class })
 // @formatter:on
 public class TestRXSuite extends BaseProcessorTest {
 

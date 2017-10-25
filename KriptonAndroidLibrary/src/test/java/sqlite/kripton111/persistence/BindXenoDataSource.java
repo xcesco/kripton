@@ -99,6 +99,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   /**
+   * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
+   *
+   * @param commands
+   * 	batch to execute
+   */
+  public void execute(Batch commands) {
+    execute(commands, false);
+  }
+
+  /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
    * @param commands
@@ -117,10 +127,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       e.printStackTrace();
       if (commands!=null) commands.onError(e);
     } finally {
-      try {
-      } catch (Throwable e) {
-        Logger.warn("error closing connection %s", e.getMessage());
-      }
       close();
     }
   }
@@ -162,12 +168,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+    Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -201,12 +207,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);

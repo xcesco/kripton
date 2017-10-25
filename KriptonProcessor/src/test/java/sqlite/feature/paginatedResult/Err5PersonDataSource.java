@@ -17,7 +17,7 @@ package sqlite.feature.paginatedResult;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-@BindDataSource(daoSet = { Err5PersonDAO.class }, fileName = "person.db", generateLog = true)
+@BindDataSource(daoSet = { Err5PersonDAO.class }, fileName = "person.db", log = true)
 public interface Err5PersonDataSource {
 
 }

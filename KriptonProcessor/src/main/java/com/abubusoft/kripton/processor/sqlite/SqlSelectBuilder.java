@@ -286,6 +286,8 @@ public abstract class SqlSelectBuilder {
 			}
 		}
 
+		// _sql must be always defined
+		methodBuilder.addStatement("String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString())");
 		SqlBuilderHelper.generateLogForSQL(method, methodBuilder);
 
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);

@@ -64,6 +64,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -135,6 +136,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     _sqlWhereParams.add(String.valueOf(personId));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -212,6 +214,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     _sqlWhereParams.add(String.valueOf(phoneNumberId));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
