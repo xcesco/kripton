@@ -68,7 +68,9 @@ import com.squareup.javapoet.TypeVariableName;
 import android.database.sqlite.SQLiteDatabase;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.MaybeEmitter;
+import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.SingleEmitter;
 
 /**
@@ -484,6 +486,54 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		return sorder.order();
 	}
+	
+	
+	public void generatExecuteObservable(String daoFactory) {		
+		
+		boolean transaction=true;
+		String parameterName="transaction";
+		Class<?> rxReturnType=Observable.class;
+		Class<?> rxParameter=ObservableEmitter.class;
+		Class<?> rxObservable=ObservableOnSubscribe.class;
+		ParameterizedTypeName returnTypeName = ParameterizedTypeName.get(ClassName.get(rxReturnType), TypeVariableName.get("T"));
+		ParameterizedTypeName parameterTypeName = ParameterizedTypeName.get(ClassName.get(rxParameter), TypeVariableName.get("T"));
+		ParameterizedTypeName observableTypeName = ParameterizedTypeName.get(ClassName.get(rxObservable), TypeVariableName.get("T"));
+				
+		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC)
+				.addTypeVariable(TypeVariableName.get("T"))
+				.addParameter(parameterTypeName, parameterName).returns(returnTypeName);
+
+		executeMethod.addStatement("$T emitter=null", observableTypeName);
+		
+		
+		/*executeMethod.addCode("$T connection=openWritableDatabase();\n", SQLiteDatabase.class);
+
+		executeMethod.beginControlFlow("try");
+		executeMethod.addCode("connection.beginTransaction();\n");
+
+		executeMethod.beginControlFlow("if (transaction!=null && $T.$L == transaction.onExecute(this))", TransactionResult.class, TransactionResult.COMMIT);
+		executeMethod.addCode("connection.setTransactionSuccessful();\n");
+		executeMethod.endControlFlow();
+
+		executeMethod.nextControlFlow("catch($T e)", Throwable.class);
+
+		executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
+		executeMethod.addStatement("e.printStackTrace()");
+		executeMethod.addStatement("if (transaction!=null) transaction.onError(e)");
+
+		executeMethod.nextControlFlow("finally");
+		executeMethod.beginControlFlow("try");
+		executeMethod.addStatement("connection.endTransaction()");
+		executeMethod.nextControlFlow("catch ($T e)", Throwable.class);
+		executeMethod.addStatement("$T.warn(\"error closing transaction %s\", e.getMessage())", Logger.class);
+		executeMethod.endControlFlow();
+		executeMethod.addStatement("close()");
+		executeMethod.endControlFlow();*/
+		
+		executeMethod.addStatement("return $T.create(emitter)", rxReturnType);
+
+		classBuilder.addMethod(executeMethod.build());
+	}
 
 	/**
 	 * <p>
@@ -504,6 +554,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		
 		generateRxInterface(daoFactory, RxInterfaceType.BATCH, MaybeEmitter.class);
 		generateRxInterface(daoFactory, RxInterfaceType.TRANSACTION, MaybeEmitter.class);
+		
+		generatExecuteObservable(daoFactory);
 
 		/*
 		// create SimpleTransaction class

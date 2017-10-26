@@ -100,7 +100,7 @@ public class RxDataSource extends BindXenoDataSource {
 
 	}
 	
-	public <T> Observable<T> execute(final ObservableTransaction<T> transaction) {
+	public <T> Observable<T> execute(final ObservableTransaction<T> transaction) {		
 		ObservableOnSubscribe<T> emitter = new ObservableOnSubscribe<T>() {
 
 			@Override
@@ -130,7 +130,6 @@ public class RxDataSource extends BindXenoDataSource {
 		};
 
 		return Observable.create(emitter);
-
 	}
 	
 	public <T> Maybe<T> execute(final MaybeExecutable<T> transaction) {
@@ -266,8 +265,6 @@ public class RxDataSource extends BindXenoDataSource {
 				}
 				
 			}
-
-			
 
 		};
 

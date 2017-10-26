@@ -10,7 +10,9 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.MaybeEmitter;
+import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.SingleEmitter;
 import java.util.List;
 import sqlite.feature.rx.model.CountryTable;
@@ -100,6 +102,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   @Override
   public PersonDaoImpl getPersonDao() {
     return personDao;
+  }
+
+  public <T> Observable<T> execute(ObservableEmitter<T> transaction) {
+    ObservableOnSubscribe<T> emitter=null;
+    return Observable.create(emitter);
   }
 
   /**
@@ -201,12 +208,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
     Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
     database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
-    database.execSQL(CountryTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+    database.execSQL(CountryTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
     database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
@@ -244,12 +251,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
       database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
-      database.execSQL(CountryTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+      database.execSQL(CountryTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
       database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
     }
