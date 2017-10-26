@@ -7,6 +7,6 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 @BindDataSource(daoSet = {
 		PhoneDao.class, PrefixConfigDao.class,
 		CountryDao.class, Person2PhoneDao.class, 
-		PersonDao.class}, fileName = "xeno.db", asyncTask = true, schema = true)
+		PersonDao.class}, fileName = "xeno.db", asyncTask = true, schema = true, rx=true)
 public interface XenoDataSource {
 }

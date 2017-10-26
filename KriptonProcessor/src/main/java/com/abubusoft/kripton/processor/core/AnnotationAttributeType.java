@@ -81,7 +81,9 @@ public enum AnnotationAttributeType {
 	
 	TABLE_NAME("tableName"), 
 	
-	DAO("dao");
+	DAO("dao"),
+	
+	GENERATE_RX("rx");
 
 	private String value;
 

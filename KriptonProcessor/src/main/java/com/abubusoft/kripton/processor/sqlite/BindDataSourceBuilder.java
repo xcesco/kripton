@@ -66,11 +66,14 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 
 import android.database.sqlite.SQLiteDatabase;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
+import io.reactivex.Maybe;
 import io.reactivex.MaybeEmitter;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 
 /**
@@ -212,7 +215,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			}
 		}
 
-		generateObservable(dataSourceName);
+		if (schema.generateRx) {
+			generateRx(className(dataSourceName), daoFactoryName);	
+		}
+		
 
 		// interface
 		generateMethodExecuteTransaction(daoFactoryName);
@@ -486,53 +492,103 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		return sorder.order();
 	}
-	
-	
-	public void generatExecuteObservable(String daoFactory) {		
+
+	public void generatExecuteTransactionRx(ClassName dataSourceName, String daoFactory, RxType rxType) {
+		String parameterName = "transaction";
+		ParameterizedTypeName returnTypeName = ParameterizedTypeName.get(ClassName.get(rxType.clazz), TypeVariableName.get("T"));
+		ParameterizedTypeName observableTypeName = ParameterizedTypeName.get(TypeUtility.className(rxType.clazz.getPackage().getName(), rxType.clazz.getSimpleName() + "OnSubscribe"),
+				TypeVariableName.get("T"));
+		ParameterizedTypeName emitterTypeName = ParameterizedTypeName.get(TypeUtility.className(rxType.clazz.getPackage().getName(), rxType.clazz.getSimpleName() + "Emitter"),
+				TypeVariableName.get("T"));
+
+		TypeSpec innerEmitter = TypeSpec.anonymousClassBuilder("").addSuperinterface(observableTypeName)
+				.addMethod(MethodSpec.methodBuilder("subscribe").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addParameter(emitterTypeName, "emitter").returns(Void.TYPE)
+						.addStatement("$T connection=openWritableDatabase()", SQLiteDatabase.class).beginControlFlow("try").addStatement("connection.beginTransaction()")
+						.beginControlFlow("if (transaction != null && $T.$L==transaction.onExecute($L.this, emitter))", TransactionResult.class, TransactionResult.COMMIT, dataSourceName.simpleName())
+						.addStatement("connection.setTransactionSuccessful()").endControlFlow().addStatement(rxType.onComplete ? "emitter.onComplete()" : "// no onComplete")
+						.nextControlFlow("catch($T e)", Throwable.class).addStatement("$T.error(e.getMessage())", Logger.class).addStatement("e.printStackTrace()").addStatement("emitter.onError(e)")
+						.nextControlFlow("finally").beginControlFlow("try").addStatement("connection.endTransaction()").nextControlFlow("catch($T e)", Throwable.class).endControlFlow()
+						.addStatement("close()").endControlFlow().addStatement("return").build())
+				.build();
+
+		{
+			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addTypeVariable(TypeVariableName.get("T"))
+					.addParameter(ParameterizedTypeName.get(TypeUtility.className(dataSourceName.toString(), rxType.clazz.getSimpleName() + "Transaction"), TypeVariableName.get("T")), parameterName,
+							Modifier.FINAL)
+					.returns(returnTypeName);
+
+			executeMethod.addStatement("$T emitter=$L", observableTypeName, innerEmitter);
+
+			if (rxType == RxType.FLOWABLE) {
+				executeMethod.addStatement("return $T.create(emitter, $T.BUFFER)", rxType.clazz, BackpressureStrategy.class);
+			} else {
+				executeMethod.addStatement("return $T.create(emitter)", rxType.clazz);
+			}
+
+			classBuilder.addMethod(executeMethod.build());
+		}
+
+	}
+
+	public void generatExecuteBatchRx(ClassName dataSourceName, String daoFactory, RxType rxType) {
+		String parameterName = "batch";
+		//@formatter:off
+		ParameterizedTypeName returnTypeName = ParameterizedTypeName.get(ClassName.get(rxType.clazz), TypeVariableName.get("T"));
+		ParameterizedTypeName observableTypeName = ParameterizedTypeName.get(TypeUtility.className(rxType.clazz.getPackage().getName(), rxType.clazz.getSimpleName() + "OnSubscribe"),
+				TypeVariableName.get("T"));
+		ParameterizedTypeName emitterTypeName = ParameterizedTypeName.get(TypeUtility.className(rxType.clazz.getPackage().getName(), rxType.clazz.getSimpleName() + "Emitter"),
+				TypeVariableName.get("T"));
+
+		TypeSpec innerEmitter = TypeSpec.anonymousClassBuilder("")
+				.addSuperinterface(observableTypeName)
+				.addMethod(MethodSpec.methodBuilder("subscribe")
+						.addAnnotation(Override.class)
+				.addModifiers(Modifier.PUBLIC)
+				.addParameter(emitterTypeName, "emitter")
+				.returns(Void.TYPE)
+				.addStatement("if (writeMode) open(); else openReadOnly()")
+					.beginControlFlow("try")
+						.addCode("if ($L != null) { $L.onExecute($L.this, emitter); }\n", parameterName, parameterName, dataSourceName.simpleName())
+						.addStatement(rxType.onComplete ? "emitter.onComplete()" : "// no onComplete")
+					.nextControlFlow("catch($T e)", Throwable.class)
+						.addStatement("$T.error(e.getMessage())", Logger.class)
+						.addStatement("e.printStackTrace()")
+						.addStatement("emitter.onError(e)")
+					.nextControlFlow("finally")
+						.addStatement("close()")
+					.endControlFlow()
+				.addStatement("return")
+				.build())
+			.build();
+
+		{
+			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addTypeVariable(TypeVariableName.get("T"))
+					.addParameter(ParameterizedTypeName.get(TypeUtility.className(dataSourceName.toString(), rxType.clazz.getSimpleName() + "Batch"), TypeVariableName.get("T")), parameterName,
+							Modifier.FINAL)
+					.addParameter(TypeName.BOOLEAN, "writeMode", Modifier.FINAL).returns(returnTypeName);
+
+			executeMethod.addStatement("$T emitter=$L", observableTypeName, innerEmitter);
+
+			if (rxType == RxType.FLOWABLE) {
+				executeMethod.addStatement("return $T.create(emitter, $T.BUFFER)", rxType.clazz, BackpressureStrategy.class);
+			} else {
+				executeMethod.addStatement("return $T.create(emitter)", rxType.clazz);
+			}
+
+			classBuilder.addMethod(executeMethod.build());
+		}
 		
-		boolean transaction=true;
-		String parameterName="transaction";
-		Class<?> rxReturnType=Observable.class;
-		Class<?> rxParameter=ObservableEmitter.class;
-		Class<?> rxObservable=ObservableOnSubscribe.class;
-		ParameterizedTypeName returnTypeName = ParameterizedTypeName.get(ClassName.get(rxReturnType), TypeVariableName.get("T"));
-		ParameterizedTypeName parameterTypeName = ParameterizedTypeName.get(ClassName.get(rxParameter), TypeVariableName.get("T"));
-		ParameterizedTypeName observableTypeName = ParameterizedTypeName.get(ClassName.get(rxObservable), TypeVariableName.get("T"));
-				
-		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC)
-				.addTypeVariable(TypeVariableName.get("T"))
-				.addParameter(parameterTypeName, parameterName).returns(returnTypeName);
+		{
+			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addTypeVariable(TypeVariableName.get("T"))
+					.addParameter(ParameterizedTypeName.get(TypeUtility.className(dataSourceName.toString(), rxType.clazz.getSimpleName() + "Batch"), TypeVariableName.get("T")), parameterName,
+							Modifier.FINAL)
+					.returns(returnTypeName);
 
-		executeMethod.addStatement("$T emitter=null", observableTypeName);
-		
-		
-		/*executeMethod.addCode("$T connection=openWritableDatabase();\n", SQLiteDatabase.class);
+			executeMethod.addStatement("return execute($L, false)", parameterName);
 
-		executeMethod.beginControlFlow("try");
-		executeMethod.addCode("connection.beginTransaction();\n");
-
-		executeMethod.beginControlFlow("if (transaction!=null && $T.$L == transaction.onExecute(this))", TransactionResult.class, TransactionResult.COMMIT);
-		executeMethod.addCode("connection.setTransactionSuccessful();\n");
-		executeMethod.endControlFlow();
-
-		executeMethod.nextControlFlow("catch($T e)", Throwable.class);
-
-		executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
-		executeMethod.addStatement("e.printStackTrace()");
-		executeMethod.addStatement("if (transaction!=null) transaction.onError(e)");
-
-		executeMethod.nextControlFlow("finally");
-		executeMethod.beginControlFlow("try");
-		executeMethod.addStatement("connection.endTransaction()");
-		executeMethod.nextControlFlow("catch ($T e)", Throwable.class);
-		executeMethod.addStatement("$T.warn(\"error closing transaction %s\", e.getMessage())", Logger.class);
-		executeMethod.endControlFlow();
-		executeMethod.addStatement("close()");
-		executeMethod.endControlFlow();*/
-		
-		executeMethod.addStatement("return $T.create(emitter)", rxReturnType);
-
-		classBuilder.addMethod(executeMethod.build());
+			classBuilder.addMethod(executeMethod.build());
+		}
+		//@formatter:on
 	}
 
 	/**
@@ -540,76 +596,50 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * Generate RX observable support
 	 * </p>
 	 * 
+	 * @param dataSourceName
+	 * 
 	 * @param dataSource
 	 */
-	public void generateObservable(String daoFactory) {
+	public void generateRx(ClassName dataSourceName, String daoFactory) {
 		generateRxInterface(daoFactory, RxInterfaceType.BATCH, ObservableEmitter.class);
 		generateRxInterface(daoFactory, RxInterfaceType.TRANSACTION, ObservableEmitter.class);
-		
+
 		generateRxInterface(daoFactory, RxInterfaceType.BATCH, SingleEmitter.class);
 		generateRxInterface(daoFactory, RxInterfaceType.TRANSACTION, SingleEmitter.class);
-		
+
 		generateRxInterface(daoFactory, RxInterfaceType.BATCH, FlowableEmitter.class);
 		generateRxInterface(daoFactory, RxInterfaceType.TRANSACTION, FlowableEmitter.class);
-		
+
 		generateRxInterface(daoFactory, RxInterfaceType.BATCH, MaybeEmitter.class);
 		generateRxInterface(daoFactory, RxInterfaceType.TRANSACTION, MaybeEmitter.class);
-		
-		generatExecuteObservable(daoFactory);
 
-		/*
-		// create SimpleTransaction class
-		String simpleTransactionClassName = "Simple" + transationExecutorName;
-		// @formatter:off
-		classBuilder.addType(TypeSpec.classBuilder(simpleTransactionClassName)
-				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
-				.addSuperinterface(className(transationExecutorName))
-				.addJavadoc("Simple class implements interface to define transactions.")
-				.addJavadoc("In this class a simple <code>onError</code> method is implemented.\n")
-				.addMethod(MethodSpec.methodBuilder("onError").addAnnotation(Override.class).returns(Void.TYPE)
-						.addModifiers(Modifier.PUBLIC).addParameter(Throwable.class, "e")
-						.addStatement("throw(new $T(e))", KriptonRuntimeException.class).build())
-				.build());
+		generatExecuteTransactionRx(dataSourceName, daoFactory, RxType.OBSERVABLE);
+		generatExecuteTransactionRx(dataSourceName, daoFactory, RxType.SINGLE);
+		generatExecuteTransactionRx(dataSourceName, daoFactory, RxType.FLOWABLE);
+		generatExecuteTransactionRx(dataSourceName, daoFactory, RxType.MAYBE);
 
-		// @formatter:on
+		generatExecuteBatchRx(dataSourceName, daoFactory, RxType.OBSERVABLE);
+		generatExecuteBatchRx(dataSourceName, daoFactory, RxType.SINGLE);
+		generatExecuteBatchRx(dataSourceName, daoFactory, RxType.FLOWABLE);
+		generatExecuteBatchRx(dataSourceName, daoFactory, RxType.MAYBE);
 
-		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName), "transaction");
-
-		executeMethod.addCode("$T connection=openWritableDatabase();\n", SQLiteDatabase.class);
-
-		executeMethod.beginControlFlow("try");
-		executeMethod.addCode("connection.beginTransaction();\n");
-
-		executeMethod.beginControlFlow("if (transaction!=null && $T.$L == transaction.onExecute(this))", TransactionResult.class, TransactionResult.COMMIT);
-		executeMethod.addCode("connection.setTransactionSuccessful();\n");
-		executeMethod.endControlFlow();
-
-		executeMethod.nextControlFlow("catch($T e)", Throwable.class);
-
-		executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
-		executeMethod.addStatement("e.printStackTrace()");
-		executeMethod.addStatement("if (transaction!=null) transaction.onError(e)");
-
-		executeMethod.nextControlFlow("finally");
-		executeMethod.beginControlFlow("try");
-		executeMethod.addStatement("connection.endTransaction()");
-		executeMethod.nextControlFlow("catch ($T e)", Throwable.class);
-		executeMethod.addStatement("$T.warn(\"error closing transaction %s\", e.getMessage())", Logger.class);
-		executeMethod.endControlFlow();
-		executeMethod.addStatement("close()");
-		executeMethod.endControlFlow();
-
-		// generate javadoc
-		executeMethod.addJavadoc("<p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The"
-				+ "drawback is only one transaction at time can be executed. The database will be open in write mode.</p>\n");
-		executeMethod.addJavadoc("\n");
-		executeMethod.addJavadoc("@param transaction\n\ttransaction to execute\n");
-
-		classBuilder.addMethod(executeMethod.build());*/
 	}
 
 	private enum RxInterfaceType {
 		BATCH, TRANSACTION
+	}
+
+	private enum RxType {
+		OBSERVABLE(Observable.class, true), SINGLE(Single.class, false), MAYBE(Maybe.class, false), FLOWABLE(Flowable.class, true);
+
+		private RxType(Class<?> clazz, boolean onComplete) {
+			this.clazz = clazz;
+			this.onComplete = onComplete;
+		}
+
+		public Class<?> clazz;
+		public boolean onComplete;
+
 	}
 
 	private void generateRxInterface(String daoFactory, RxInterfaceType interfaceType, Class<?> clazz) {

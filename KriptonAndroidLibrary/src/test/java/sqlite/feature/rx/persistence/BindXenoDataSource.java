@@ -8,12 +8,19 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.Maybe;
 import io.reactivex.MaybeEmitter;
+import io.reactivex.MaybeOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
 import java.util.List;
 import sqlite.feature.rx.model.CountryTable;
 import sqlite.feature.rx.model.PersonTable;
@@ -104,9 +111,220 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return personDao;
   }
 
-  public <T> Observable<T> execute(ObservableEmitter<T> transaction) {
-    ObservableOnSubscribe<T> emitter=null;
+  public <T> Observable<T> execute(final BindXenoDataSource.ObservableTransaction<T> transaction) {
+    ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
+      @Override
+      public void subscribe(ObservableEmitter<T> emitter) {
+        SQLiteDatabase connection=openWritableDatabase();
+        try {
+          connection.beginTransaction();
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
+            connection.setTransactionSuccessful();
+          }
+          emitter.onComplete();
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          try {
+            connection.endTransaction();
+          } catch(Throwable e) {
+          }
+          close();
+        }
+        return;
+      }
+    };
     return Observable.create(emitter);
+  }
+
+  public <T> Single<T> execute(final BindXenoDataSource.SingleTransaction<T> transaction) {
+    SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
+      @Override
+      public void subscribe(SingleEmitter<T> emitter) {
+        SQLiteDatabase connection=openWritableDatabase();
+        try {
+          connection.beginTransaction();
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
+            connection.setTransactionSuccessful();
+          }
+          // no onComplete;
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          try {
+            connection.endTransaction();
+          } catch(Throwable e) {
+          }
+          close();
+        }
+        return;
+      }
+    };
+    return Single.create(emitter);
+  }
+
+  public <T> Flowable<T> execute(final BindXenoDataSource.FlowableTransaction<T> transaction) {
+    FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
+      @Override
+      public void subscribe(FlowableEmitter<T> emitter) {
+        SQLiteDatabase connection=openWritableDatabase();
+        try {
+          connection.beginTransaction();
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
+            connection.setTransactionSuccessful();
+          }
+          emitter.onComplete();
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          try {
+            connection.endTransaction();
+          } catch(Throwable e) {
+          }
+          close();
+        }
+        return;
+      }
+    };
+    return Flowable.create(emitter, BackpressureStrategy.BUFFER);
+  }
+
+  public <T> Maybe<T> execute(final BindXenoDataSource.MaybeTransaction<T> transaction) {
+    MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
+      @Override
+      public void subscribe(MaybeEmitter<T> emitter) {
+        SQLiteDatabase connection=openWritableDatabase();
+        try {
+          connection.beginTransaction();
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
+            connection.setTransactionSuccessful();
+          }
+          // no onComplete;
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          try {
+            connection.endTransaction();
+          } catch(Throwable e) {
+          }
+          close();
+        }
+        return;
+      }
+    };
+    return Maybe.create(emitter);
+  }
+
+  public <T> Observable<T> execute(final BindXenoDataSource.ObservableBatch<T> batch,
+      final boolean writeMode) {
+    ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
+      @Override
+      public void subscribe(ObservableEmitter<T> emitter) {
+        if (writeMode) open(); else openReadOnly();
+        try {
+          if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
+          emitter.onComplete();
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          close();
+        }
+        return;
+      }
+    };
+    return Observable.create(emitter);
+  }
+
+  public <T> Observable<T> execute(final BindXenoDataSource.ObservableBatch<T> batch) {
+    return execute(batch, false);
+  }
+
+  public <T> Single<T> execute(final BindXenoDataSource.SingleBatch<T> batch,
+      final boolean writeMode) {
+    SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
+      @Override
+      public void subscribe(SingleEmitter<T> emitter) {
+        if (writeMode) open(); else openReadOnly();
+        try {
+          if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
+          // no onComplete;
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          close();
+        }
+        return;
+      }
+    };
+    return Single.create(emitter);
+  }
+
+  public <T> Single<T> execute(final BindXenoDataSource.SingleBatch<T> batch) {
+    return execute(batch, false);
+  }
+
+  public <T> Flowable<T> execute(final BindXenoDataSource.FlowableBatch<T> batch,
+      final boolean writeMode) {
+    FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
+      @Override
+      public void subscribe(FlowableEmitter<T> emitter) {
+        if (writeMode) open(); else openReadOnly();
+        try {
+          if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
+          emitter.onComplete();
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          close();
+        }
+        return;
+      }
+    };
+    return Flowable.create(emitter, BackpressureStrategy.BUFFER);
+  }
+
+  public <T> Flowable<T> execute(final BindXenoDataSource.FlowableBatch<T> batch) {
+    return execute(batch, false);
+  }
+
+  public <T> Maybe<T> execute(final BindXenoDataSource.MaybeBatch<T> batch,
+      final boolean writeMode) {
+    MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
+      @Override
+      public void subscribe(MaybeEmitter<T> emitter) {
+        if (writeMode) open(); else openReadOnly();
+        try {
+          if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
+          // no onComplete;
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          close();
+        }
+        return;
+      }
+    };
+    return Maybe.create(emitter);
+  }
+
+  public <T> Maybe<T> execute(final BindXenoDataSource.MaybeBatch<T> batch) {
+    return execute(batch, false);
   }
 
   /**
@@ -208,12 +426,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
     Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
     database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
     database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
@@ -251,12 +469,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
       database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
       database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
     }
@@ -290,35 +508,35 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   public interface ObservableBatch<T> {
-    void onExecute(BindXenoDataSource daoFactory, ObservableEmitter<T> emitter);
+    void onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<T> emitter);
   }
 
   public interface ObservableTransaction<T> {
-    TransactionResult onExecute(BindXenoDataSource daoFactory, ObservableEmitter<T> emitter);
+    TransactionResult onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<T> emitter);
   }
 
   public interface SingleBatch<T> {
-    void onExecute(BindXenoDataSource daoFactory, SingleEmitter<T> emitter);
+    void onExecute(BindXenoDaoFactory daoFactory, SingleEmitter<T> emitter);
   }
 
   public interface SingleTransaction<T> {
-    TransactionResult onExecute(BindXenoDataSource daoFactory, SingleEmitter<T> emitter);
+    TransactionResult onExecute(BindXenoDaoFactory daoFactory, SingleEmitter<T> emitter);
   }
 
   public interface FlowableBatch<T> {
-    void onExecute(BindXenoDataSource daoFactory, FlowableEmitter<T> emitter);
+    void onExecute(BindXenoDaoFactory daoFactory, FlowableEmitter<T> emitter);
   }
 
   public interface FlowableTransaction<T> {
-    TransactionResult onExecute(BindXenoDataSource daoFactory, FlowableEmitter<T> emitter);
+    TransactionResult onExecute(BindXenoDaoFactory daoFactory, FlowableEmitter<T> emitter);
   }
 
   public interface MaybeBatch<T> {
-    void onExecute(BindXenoDataSource daoFactory, MaybeEmitter<T> emitter);
+    void onExecute(BindXenoDaoFactory daoFactory, MaybeEmitter<T> emitter);
   }
 
   public interface MaybeTransaction<T> {
-    TransactionResult onExecute(BindXenoDataSource daoFactory, MaybeEmitter<T> emitter);
+    TransactionResult onExecute(BindXenoDaoFactory daoFactory, MaybeEmitter<T> emitter);
   }
 
   /**

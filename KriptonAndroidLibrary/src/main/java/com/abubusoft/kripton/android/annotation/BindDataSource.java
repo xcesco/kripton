@@ -99,5 +99,13 @@ public @interface BindDataSource {
 	 */
 	boolean cursorWrapper() default false;
 	
+	/**
+	 * if true, generate rx support
+	 * 
+	 * @return
+	 * 		true if you want to generate rx support
+	 */
+	boolean rx() default false;
+	
 	
 }
