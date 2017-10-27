@@ -1091,6 +1091,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1174,6 +1175,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(updateTimeA));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1257,6 +1259,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(updateTimeA));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1314,6 +1317,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(updateTimeA));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1400,6 +1404,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(updateTimeA));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1464,6 +1469,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(updateTimeA));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1543,6 +1549,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(value.getUpdateTime()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1604,6 +1611,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(value.getUpdateTime()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1678,6 +1686,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(value.getUpdateTime()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1738,6 +1747,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(value.getUpdateTime()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1790,6 +1800,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(value.getUpdateTime()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1855,6 +1866,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(value.getUpdateTime()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1926,6 +1938,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(value.getUpdateTime()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1997,6 +2010,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlWhereParams.add(String.valueOf(value.getUpdateTime()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

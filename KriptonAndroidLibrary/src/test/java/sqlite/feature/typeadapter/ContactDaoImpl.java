@@ -73,6 +73,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, dummy));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -165,6 +166,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _sqlWhereParams.add((dummy==null?"":dummy));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -440,6 +442,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -537,6 +540,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -633,6 +637,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -721,6 +726,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -817,6 +823,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

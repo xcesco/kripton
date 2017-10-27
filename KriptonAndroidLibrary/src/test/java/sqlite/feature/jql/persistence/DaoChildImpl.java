@@ -50,6 +50,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -185,6 +186,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _sqlWhereParams.add(String.valueOf(parentId));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -260,6 +262,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _sqlWhereParams.add(String.valueOf(parentId));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -322,6 +325,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _sqlWhereParams.add(String.valueOf(parentId));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

@@ -9,9 +9,11 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.android.SQLOperationType;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.One;
+import com.abubusoft.kripton.common.Pair;
 
 import base.BaseAndroidTest;
 import io.reactivex.Observable;
@@ -50,7 +52,16 @@ public class TestRx extends BaseAndroidTest {
 	@Test
 	public void testDatabase() {
 		BindXenoDataSource ds = prepareDataSource();
-
+						
+		ds.getCountryDao().subject().subscribe(new Consumer<Pair<SQLOperationType, Long>>() {
+ 
+			@Override
+			public void accept(Pair<SQLOperationType, Long> t) throws Exception {
+				log("S1 ---------------------- receive country %s %s",t.value0 , t.value1);	
+				
+			}
+		});
+/*
 		ds.execute(new ObservableTransaction<Country>() {
 
 			@Override
@@ -75,6 +86,33 @@ public class TestRx extends BaseAndroidTest {
 
 			}
 		});
+		*/
+		ds.getCountryDao().subject().subscribe(new Consumer<Pair<SQLOperationType, Long>>() {
+			 
+			@Override
+			public void accept(Pair<SQLOperationType, Long> t) throws Exception {
+				log("S2 ---------------------- receive country %s %s",t.value0 , t.value1);	
+				
+			}
+		});
+		
+		ds.execute(new BindXenoDataSource.SimpleBatch() {
+							
+			@Override
+			public void onExecute(BindXenoDaoFactory daoFactory) {
+				Country bean=new Country();
+				int i=110;
+				bean.code = "code" + i;
+				bean.callingCode = "" + i;
+				bean.name = "name" + i;
+				
+				daoFactory.getCountryDao().insert(bean);
+				
+			}
+		}); 
+		
+
+		
 
 		try {
 			Thread.currentThread().sleep(5000);

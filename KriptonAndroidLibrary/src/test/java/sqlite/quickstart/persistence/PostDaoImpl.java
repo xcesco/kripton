@@ -130,6 +130,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
     _sqlWhereParams.add(String.valueOf(userId));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -210,6 +211,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
     _sqlWhereParams.add(String.valueOf(userId));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

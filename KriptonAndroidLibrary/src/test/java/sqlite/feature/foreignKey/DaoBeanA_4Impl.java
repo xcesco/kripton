@@ -49,6 +49,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -126,6 +127,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -201,6 +203,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     _sqlWhereParams.add((value==null?"":value));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

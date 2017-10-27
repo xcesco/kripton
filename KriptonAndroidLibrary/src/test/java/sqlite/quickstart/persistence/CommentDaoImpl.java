@@ -137,6 +137,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     _sqlWhereParams.add(String.valueOf(postId));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -220,6 +221,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     _sqlWhereParams.add(String.valueOf(postId));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

@@ -73,6 +73,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -157,9 +158,9 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
         _columnSeparator=", ";
       }
     }
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -213,6 +214,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     _sqlWhereParams.add(String.valueOf(bean.id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -294,9 +296,9 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     }
     // Add parameter love.id at path segment 2
     _sqlWhereParams.add(uri.getPathSegments().get(2));
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -353,6 +355,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     _sqlWhereParams.add(String.valueOf(benza.id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -445,9 +448,9 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     }
     // Add parameter bean.id at path segment 1
     _sqlWhereParams.add(uri.getPathSegments().get(1));
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -510,6 +513,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     _sqlWhereParams.add(String.valueOf(bean.id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -596,9 +600,9 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     }
     // Add parameter bean.id at path segment 2
     _sqlWhereParams.add(uri.getPathSegments().get(2));
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -673,6 +677,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     _sqlWhereParams.add(String.valueOf(bean.id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -772,9 +777,9 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     }
     // Add parameter bean.id at path segment 2
     _sqlWhereParams.add(uri.getPathSegments().get(2));
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -844,6 +849,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -942,9 +948,9 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     }
     // Add parameter bean.id at path segment 2
     _sqlWhereParams.add(uri.getPathSegments().get(2));
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1016,6 +1022,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1121,9 +1128,9 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     }
     // Add parameter bean.id at path segment 2
     _sqlWhereParams.add(uri.getPathSegments().get(2));
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1180,6 +1187,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     _sqlWhereParams.add(String.valueOf(bean.id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1272,9 +1280,9 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     }
     // Add parameter bean.id at path segment 2
     _sqlWhereParams.add(uri.getPathSegments().get(2));
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1331,6 +1339,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     _sqlWhereParams.add(String.valueOf(bean.id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1423,9 +1432,9 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     }
     // Add parameter bean.id at path segment 2
     _sqlWhereParams.add(uri.getPathSegments().get(2));
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

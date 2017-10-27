@@ -76,6 +76,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     _sqlWhereParams.add(String.valueOf(param1));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -144,6 +145,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     _sqlWhereParams.add((param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

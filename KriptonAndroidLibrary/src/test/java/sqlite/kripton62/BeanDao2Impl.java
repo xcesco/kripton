@@ -73,6 +73,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -172,6 +173,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -286,6 +288,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -357,6 +360,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -761,6 +765,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     _sqlWhereParams.add((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

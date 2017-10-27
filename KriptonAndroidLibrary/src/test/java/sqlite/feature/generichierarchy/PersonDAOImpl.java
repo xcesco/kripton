@@ -67,6 +67,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlWhereParams.add(String.valueOf(bean.id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -345,6 +346,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -419,6 +421,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -500,6 +503,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

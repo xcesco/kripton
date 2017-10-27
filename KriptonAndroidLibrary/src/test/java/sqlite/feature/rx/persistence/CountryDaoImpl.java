@@ -2,9 +2,14 @@ package sqlite.feature.rx.persistence;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
+
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.SQLOperationType;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,6 +30,11 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   public CountryDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);
   }
+  
+ protected Subject<Pair<SQLOperationType, Long>> subject=PublishSubject.create();
+  
+  public Subject<Pair<SQLOperationType, Long>> subject() { return subject; }
+
 
   /**
    * <p>SQL insert:</p>
@@ -107,6 +117,8 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     long result = database().insertWithOnConflict("country", null, contentValues, 5);
     bean.id=result;
 
+    subject.onNext(new Pair<SQLOperationType, Long>(SQLOperationType.INSERT,result));
+    
     return (int)result;
   }
 
@@ -190,6 +202,9 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
         if (!cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(cursor.getBlob(index6)); }
 
       }
+      
+      
+      
       return resultBean;
     }
   }
@@ -236,6 +251,9 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     }
     // log for where parameters -- END
     int result = database().delete("country", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    
+    subject.onNext(null);
+    
     return result!=0;
   }
 
@@ -280,6 +298,9 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     }
     // log for where parameters -- END
     int result = database().delete("country", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    
+    subject.onNext(null);
+    
     return result!=0;
   }
 

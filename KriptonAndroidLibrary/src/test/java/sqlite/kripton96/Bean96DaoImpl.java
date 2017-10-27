@@ -62,6 +62,7 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
     _sqlWhereParams.add((name==null?"":name));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

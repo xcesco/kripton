@@ -1344,6 +1344,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1464,9 +1465,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // Add parameter nameTemp at path segment 1
     _sqlWhereParams.add(uri.getPathSegments().get(1));
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1546,6 +1547,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1658,9 +1660,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         _columnSeparator=", ";
       }
     }
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1734,6 +1736,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1846,9 +1849,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // Add parameter data.name at path segment 1
     _sqlWhereParams.add(uri.getPathSegments().get(1));
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1894,6 +1897,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1986,9 +1990,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         _columnSeparator=", ";
       }
     }
+    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -2057,6 +2061,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

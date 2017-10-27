@@ -2,6 +2,9 @@ package sqlite.feature.rx.persistence;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
+
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.common.StringUtils;
@@ -24,6 +27,10 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
   public PhoneDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);
   }
+  
+  protected Subject<Void> subject=PublishSubject.create();
+  
+  public Subject<Void> subject() { return subject; }
 
   /**
    * <p>SQL insert:</p>
@@ -103,6 +110,8 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // conflict algorithm REPLACE
     long result = database().insertWithOnConflict("phone_number", null, contentValues, 5);
     bean.id=result;
+    
+    subject.onNext(null);
 
     return (int)result;
   }
@@ -230,6 +239,9 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     }
     // log for where parameters -- END
     int result = database().delete("phone_number", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    
+    subject.onNext(null);
+    
     return result!=0;
   }
 
@@ -274,6 +286,9 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     }
     // log for where parameters -- END
     int result = database().delete("phone_number", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    
+    subject.onNext(null);
+    
     return result!=0;
   }
 

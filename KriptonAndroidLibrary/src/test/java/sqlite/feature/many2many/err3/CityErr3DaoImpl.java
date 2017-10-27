@@ -49,6 +49,7 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -180,6 +181,7 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

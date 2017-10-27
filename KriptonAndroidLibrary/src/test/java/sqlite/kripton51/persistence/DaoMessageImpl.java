@@ -74,6 +74,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     _sqlWhereParams.add(String.valueOf(channelId));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -376,6 +377,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     _sqlWhereParams.add((uid==null?"":uid));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

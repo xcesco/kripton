@@ -154,6 +154,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -317,6 +318,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
 
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -406,6 +408,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     _sqlWhereParams.add((callingCode==null?"":callingCode));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -489,6 +492,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     _sqlWhereParams.add((code==null?"":code));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

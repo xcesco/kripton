@@ -80,6 +80,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((id==null?"":String.valueOf(id)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -162,6 +163,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((bean.getText()==null?"":bean.getText()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -242,6 +244,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -323,6 +326,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((text==null?"":text));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -391,6 +395,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((text==null?"":text));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -457,6 +462,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((id==null?"":String.valueOf(id)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -523,6 +529,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((id==null?"":String.valueOf(id)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -613,6 +620,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add((id==null?"":String.valueOf(id)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -679,6 +687,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -1277,6 +1286,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN

@@ -3410,6 +3410,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -3589,6 +3590,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -3777,6 +3779,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -3965,6 +3968,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toString()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -4153,6 +4157,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf(valueBoolType));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -4341,6 +4346,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueBool==null?"":String.valueOf(valueBool)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -4530,6 +4536,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -4764,6 +4771,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -4865,6 +4873,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -5053,6 +5062,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -5241,6 +5251,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -5429,6 +5440,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueByte==null?"":String.valueOf(valueByte)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -5617,6 +5629,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf(valueByteType));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -5805,6 +5818,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -5993,6 +6007,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueChar==null?"":String.valueOf((int)valueChar)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -6181,6 +6196,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf((int)valueCharType));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -6369,6 +6385,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -6557,6 +6574,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueDate==null?"":DateUtils.write(valueDate)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -6745,6 +6763,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueDouble==null?"":String.valueOf(valueDouble)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -6933,6 +6952,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf(valueDoubleType));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -7121,6 +7141,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueEnumType==null?"":valueEnumType.toString()));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -7309,6 +7330,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueFloat==null?"":String.valueOf(valueFloat)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -7497,6 +7519,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf(valueFloatType));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -7685,6 +7708,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueInt==null?"":String.valueOf(valueInt)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -7873,6 +7897,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf(valueIntType));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -8061,6 +8086,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -8249,6 +8275,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueLocale==null?"":CalendarUtils.write(valueLocale)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -8437,6 +8464,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueLong==null?"":String.valueOf(valueLong)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -8625,6 +8653,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf(valueLongType));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -8813,6 +8842,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueShort==null?"":String.valueOf((int)valueShort)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -9001,6 +9031,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add(String.valueOf((int)valueShortType));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -9189,6 +9220,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueString==null?"":valueString));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -9377,6 +9409,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueTime==null?"":SQLTimeUtils.write(valueTime)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -9565,6 +9598,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -9753,6 +9787,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     _sqlWhereParams.add((valueUrl==null?"":UrlUtils.write(valueUrl)));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -9885,6 +9920,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -9930,6 +9966,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -9975,6 +10012,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10020,6 +10058,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10065,6 +10104,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10110,6 +10150,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10155,6 +10196,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10200,6 +10242,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10245,6 +10288,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10290,6 +10334,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10335,6 +10380,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10380,6 +10426,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10425,6 +10472,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10470,6 +10518,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10515,6 +10564,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10560,6 +10610,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
@@ -10605,6 +10656,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // build where condition
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
