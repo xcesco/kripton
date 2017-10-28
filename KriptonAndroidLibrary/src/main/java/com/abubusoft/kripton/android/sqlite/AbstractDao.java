@@ -45,8 +45,10 @@ public abstract class AbstractDao implements AutoCloseable {
 	 */
 	protected SQLiteDatabase database() {
 		SQLiteDatabase database = dataSource.database;
-		if (database == null)
+		if (database == null) {
 			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
+		}
+			
 		return database;
 	}
 
@@ -73,6 +75,7 @@ public abstract class AbstractDao implements AutoCloseable {
 		}
 
 	};
+
 
 	/**
 	 * Thread safe array for query parameters. It's used to avoid creation of

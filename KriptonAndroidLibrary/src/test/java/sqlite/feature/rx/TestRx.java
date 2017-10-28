@@ -9,8 +9,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import com.abubusoft.kripton.android.SQLOperationType;
+import com.abubusoft.kripton.android.SQLiteModificationType;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
@@ -19,13 +20,14 @@ import base.BaseAndroidTest;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import sqlite.feature.rx.model.Country;
 import sqlite.feature.rx.persistence.BindXenoDaoFactory;
 import sqlite.feature.rx.persistence.BindXenoDataSource;
-import sqlite.feature.rx.persistence.BindXenoDataSource.ObservableTransaction;
 import sqlite.feature.rx.persistence.CountryDaoImpl;
 
 @Config(manifest = Config.NONE)
@@ -51,13 +53,13 @@ public class TestRx extends BaseAndroidTest {
 
 	@Test
 	public void testDatabase() {
-		BindXenoDataSource ds = prepareDataSource();
+		final BindXenoDataSource ds = prepareDataSource();
 						
-		ds.getCountryDao().subject().subscribe(new Consumer<Pair<SQLOperationType, Long>>() {
+		Disposable s1=ds.getCountryDao().subject().subscribe(new Consumer<SQLiteModification>() {
  
 			@Override
-			public void accept(Pair<SQLOperationType, Long> t) throws Exception {
-				log("S1 ---------------------- receive country %s %s",t.value0 , t.value1);	
+			public void accept(SQLiteModification t) throws Exception {
+				log("S1 ---------------------- receive country %s %s",t.operationType , t.value);	
 				
 			}
 		});
@@ -87,39 +89,69 @@ public class TestRx extends BaseAndroidTest {
 			}
 		});
 		*/
-		ds.getCountryDao().subject().subscribe(new Consumer<Pair<SQLOperationType, Long>>() {
-			 
-			@Override
-			public void accept(Pair<SQLOperationType, Long> t) throws Exception {
-				log("S2 ---------------------- receive country %s %s",t.value0 , t.value1);	
-				
-			}
-		});
+		
 		
 		ds.execute(new BindXenoDataSource.SimpleBatch() {
 							
 			@Override
 			public void onExecute(BindXenoDaoFactory daoFactory) {
-				Country bean=new Country();
-				int i=110;
-				bean.code = "code" + i;
-				bean.callingCode = "" + i;
-				bean.name = "name" + i;
 				
-				daoFactory.getCountryDao().insert(bean);
+				for (int i=100; i<102;i++) {
+					Country bean=new Country();				
+					bean.code = "code" + i;
+					bean.callingCode = "" + i;
+					bean.name = "name" + i;
+					daoFactory.getCountryDao().insert(bean);
+				}
+			}
+		});
+		
+		Disposable s2 = ds.getCountryDao().subject().observeOn(Schedulers.io()).map(new Function<SQLiteModification, List<Country>>() {
+
+			@Override
+			public List<Country> apply(SQLiteModification t) throws Exception {
+				log("MAP "+Thread.currentThread().getName());
+				ds.openReadOnlyDatabase();
+				List<Country> result = ds.getCountryDao().selectAll();
+				ds.close();
+				
+				return result;
+			}
+		}).observeOn(Schedulers.computation()).subscribe(new Consumer<List<Country>>() {
+			 
+			@Override
+			public void accept(List<Country> t) throws Exception {				
+				log("S2 "+Thread.currentThread().getName());
+				//log("S2 ---------------------- receive country %s %s",t.operationType , t.value);
+			//	ds.getCountryDao().selectAll();
 				
 			}
+		});
+		
+		ds.execute(new BindXenoDataSource.SimpleBatch() {
+			
+			@Override
+			public void onExecute(BindXenoDaoFactory daoFactory) {
+				
+				for (int i=200; i<202;i++) {
+					Country bean=new Country();				
+					bean.code = "code" + i;
+					bean.callingCode = "" + i;
+					bean.name = "name" + i;
+					daoFactory.getCountryDao().insert(bean);
+				}
+			}
+			
 		}); 
-		
-
-		
 
 		try {
 			Thread.currentThread().sleep(5000);
 		} catch (Throwable e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		s1.dispose();
+		s2.dispose();
 	}
 
 	public BindXenoDataSource prepareDataSource() {

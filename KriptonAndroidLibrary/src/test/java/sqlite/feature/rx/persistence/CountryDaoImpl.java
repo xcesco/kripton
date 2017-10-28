@@ -6,9 +6,10 @@ import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.SQLOperationType;
+import com.abubusoft.kripton.android.SQLiteModificationType;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
@@ -31,9 +32,9 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     super(dataSet);
   }
   
- protected Subject<Pair<SQLOperationType, Long>> subject=PublishSubject.create();
+ protected Subject<SQLiteModification> subject=PublishSubject.create();
   
-  public Subject<Pair<SQLOperationType, Long>> subject() { return subject; }
+  public Subject<SQLiteModification> subject() { return subject; }
 
 
   /**
@@ -117,7 +118,9 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     long result = database().insertWithOnConflict("country", null, contentValues, 5);
     bean.id=result;
 
-    subject.onNext(new Pair<SQLOperationType, Long>(SQLOperationType.INSERT,result));
+    subject.onNext(new SQLiteModification(SQLiteModificationType.INSERT,result));
+    
+   // subject.onComplete();
     
     return (int)result;
   }
