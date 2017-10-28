@@ -28,6 +28,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -362,6 +363,10 @@ public abstract class SqlModifyBuilder {
 		case DELETE_BEAN:
 		case DELETE_RAW:
 			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))", daoDefinition.getEntity().getTableName());
+			
+			if (method.getParent().getParent().generateRx) {
+				methodBuilder.addStatement("subject.onNext($T.createDelete(result))", SQLiteModification.class);
+			}
 			break;
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
@@ -373,6 +378,11 @@ public abstract class SqlModifyBuilder {
 				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]), $L)",
 						daoDefinition.getEntity().getTableName(), method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}
+			
+			if (method.getParent().getParent().generateRx) {
+				methodBuilder.addStatement("subject.onNext($T.createUpdate(result))", SQLiteModification.class);
+			}
+			
 			break;
 		}
 

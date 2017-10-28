@@ -91,10 +91,10 @@ public class TestRx extends BaseAndroidTest {
 		*/
 		
 		
-		ds.execute(new BindXenoDataSource.SimpleBatch() {
+		ds.execute(new BindXenoDataSource.SimpleBatch<Void>() {
 							
 			@Override
-			public void onExecute(BindXenoDaoFactory daoFactory) {
+			public Void onExecute(BindXenoDaoFactory daoFactory) {
 				
 				for (int i=100; i<102;i++) {
 					Country bean=new Country();				
@@ -103,35 +103,42 @@ public class TestRx extends BaseAndroidTest {
 					bean.name = "name" + i;
 					daoFactory.getCountryDao().insert(bean);
 				}
+				
+				return null;
 			}
 		});
 		
-		Disposable s2 = ds.getCountryDao().subject().observeOn(Schedulers.io()).map(new Function<SQLiteModification, List<Country>>() {
+		Disposable s2 = ds.countrySubject().observeOn(Schedulers.io()).map(new Function<SQLiteModification, List<Country>>() {
 
 			@Override
 			public List<Country> apply(SQLiteModification t) throws Exception {
-				log("MAP "+Thread.currentThread().getName());
-				ds.openReadOnlyDatabase();
-				List<Country> result = ds.getCountryDao().selectAll();
-				ds.close();
+				log("---->  MAP "+Thread.currentThread().getName());
 				
-				return result;
+				return ds.execute(new BindXenoDataSource.SimpleBatch<List<Country>>() {
+															
+					@Override
+					public List<Country> onExecute(BindXenoDaoFactory daoFactory) {
+						return daoFactory.getCountryDao().selectAll();
+						
+					}
+				});				
+								
 			}
-		}).observeOn(Schedulers.computation()).subscribe(new Consumer<List<Country>>() {
+		}).subscribe(new Consumer<List<Country>>() {
 			 
 			@Override
 			public void accept(List<Country> t) throws Exception {				
-				log("S2 "+Thread.currentThread().getName());
+				log("---->  S2 "+Thread.currentThread().getName());
 				//log("S2 ---------------------- receive country %s %s",t.operationType , t.value);
 			//	ds.getCountryDao().selectAll();
 				
 			}
 		});
 		
-		ds.execute(new BindXenoDataSource.SimpleBatch() {
+		ds.execute(new BindXenoDataSource.SimpleBatch<Void>() {
 			
 			@Override
-			public void onExecute(BindXenoDaoFactory daoFactory) {
+			public Void onExecute(BindXenoDaoFactory daoFactory) {
 				
 				for (int i=200; i<202;i++) {
 					Country bean=new Country();				
@@ -140,6 +147,8 @@ public class TestRx extends BaseAndroidTest {
 					bean.name = "name" + i;
 					daoFactory.getCountryDao().insert(bean);
 				}
+				
+				return null;
 			}
 			
 		}); 
@@ -157,10 +166,10 @@ public class TestRx extends BaseAndroidTest {
 	public BindXenoDataSource prepareDataSource() {
 		BindXenoDataSource dataSource = BindXenoDataSource.instance();
 
-		dataSource.execute(new BindXenoDataSource.SimpleBatch() {
+		dataSource.execute(new BindXenoDataSource.SimpleBatch<Void>() {
 
 			@Override
-			public void onExecute(BindXenoDaoFactory daoFactory) {
+			public Void onExecute(BindXenoDaoFactory daoFactory) {
 				CountryDaoImpl dao = daoFactory.getCountryDao();
 
 				for (int i = 0; i < COUNTER; i++) {
@@ -171,6 +180,8 @@ public class TestRx extends BaseAndroidTest {
 					// Object bean = new
 					dao.insert(bean);
 				}
+				
+				return null;
 
 				// dao.selectAll();
 

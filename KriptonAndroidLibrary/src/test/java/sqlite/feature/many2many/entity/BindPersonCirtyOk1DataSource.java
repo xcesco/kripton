@@ -103,8 +103,8 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
    * @param commands
    * 	batch to execute
    */
-  public void execute(Batch commands) {
-    execute(commands, false);
+  public <T> T execute(Batch<T> commands) {
+    return execute(commands, false);
   }
 
   /**
@@ -115,11 +115,11 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
    * @param writeMode
    * 	true to open connection in write mode, false to open connection in read only mode
    */
-  public void execute(Batch commands, boolean writeMode) {
+  public <T> T execute(Batch<T> commands, boolean writeMode) {
     if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
     try {
       if (commands!=null) {
-        commands.onExecute(this);
+        return commands.onExecute(this);
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -128,6 +128,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     } finally {
       close();
     }
+    return null;
   }
 
   /**
@@ -167,10 +168,10 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
     database.execSQL(CityTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PersonCityOk1Table.CREATE_TABLE_SQL);
     database.execSQL(PersonCityOk1Table.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
@@ -206,10 +207,10 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
       database.execSQL(CityTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PersonCityOk1Table.CREATE_TABLE_SQL);
       database.execSQL(PersonCityOk1Table.CREATE_TABLE_SQL);
     }
@@ -271,20 +272,20 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   /**
    * Rapresents batch operation.
    */
-  public interface Batch extends AbstractDataSource.AbstractExecutable<BindPersonCirtyOk1DaoFactory> {
+  public interface Batch<T> extends AbstractDataSource.AbstractExecutable<BindPersonCirtyOk1DaoFactory> {
     /**
      * Execute batch operations.
      *
      * @param daoFactory
      * @throws Throwable
      */
-    void onExecute(BindPersonCirtyOk1DaoFactory daoFactory);
+    T onExecute(BindPersonCirtyOk1DaoFactory daoFactory);
   }
 
   /**
    * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
    */
-  public abstract static class SimpleBatch implements Batch {
+  public abstract static class SimpleBatch<T> implements Batch<T> {
     @Override
     public void onError(Throwable e) {
       throw(new KriptonRuntimeException(e));

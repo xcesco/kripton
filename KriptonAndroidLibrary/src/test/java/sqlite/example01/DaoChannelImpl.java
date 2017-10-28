@@ -389,8 +389,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    int result = (int)database().insert("channel", null, contentValues);
-    return result;
+    long result = database().insert("channel", null, contentValues);
+    return (int)result;
   }
 
   /**

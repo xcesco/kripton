@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.StringUtils;
+import io.reactivex.subjects.PublishSubject;
 import java.util.ArrayList;
 import sqlite.feature.rx.model.PrefixConfig;
 
@@ -18,6 +20,8 @@ import sqlite.feature.rx.model.PrefixConfig;
  *  @see sqlite.feature.rx.model.PrefixConfigTable
  */
 public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao {
+  protected PublishSubject<SQLiteModification> subject = PublishSubject.create();
+
   public PrefixConfigDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);
   }
@@ -85,6 +89,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
     // conflict algorithm REPLACE
     long result = database().insertWithOnConflict("prefix_config", null, contentValues, 5);
+    subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
     return (int)result;
@@ -210,6 +215,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     }
     // log for where parameters -- END
     int result = database().delete("prefix_config", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
 
@@ -254,6 +260,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     }
     // log for where parameters -- END
     int result = database().delete("prefix_config", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
 
@@ -397,6 +404,11 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     }
     // log for where parameters -- END
     int result = database().update("prefix_config", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    subject.onNext(SQLiteModification.createUpdate(result));
     return result;
+  }
+
+  public PublishSubject<SQLiteModification> subject() {
+    return subject;
   }
 }

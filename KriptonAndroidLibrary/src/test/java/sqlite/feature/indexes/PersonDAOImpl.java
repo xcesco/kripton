@@ -98,7 +98,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    database().insert("person", null, contentValues);
+    long result = database().insert("person", null, contentValues);
   }
 
   /**

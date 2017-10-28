@@ -22,6 +22,7 @@ import java.util.Set;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -104,18 +105,19 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 			}
 
+			methodBuilder.addCode("long result = database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
+			if (method.getParent().getParent().generateRx) {
+				methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);
+			}
+			
 			// define return value
 			if (returnType == TypeName.VOID) {
-				methodBuilder.addCode("database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 			} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
-				methodBuilder.addCode("long result = database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 				methodBuilder.addCode("return result!=-1;\n");
 			} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
-				methodBuilder.addCode("long result = database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 				methodBuilder.addCode("return result;\n");
-			} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
-				methodBuilder.addCode("int result = (int)database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
-				methodBuilder.addCode("return result;\n");
+			} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {				
+				methodBuilder.addCode("return (int)result;\n");
 			} else {
 				// more than one listener found
 				throw (new InvalidMethodSignException(method, "invalid return type"));

@@ -39,6 +39,7 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource.AbstractExecutable;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -75,6 +76,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Generates database class
@@ -216,7 +218,15 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		}
 
 		if (schema.generateRx) {
-			generateRx(className(dataSourceName), daoFactoryName);	
+			generateRx(className(dataSourceName), daoFactoryName);
+			
+			for (SQLDaoDefinition dao:schema.getCollection()) {
+				// subject				
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getEntitySimplyClassName()+"Subject")).addModifiers(Modifier.PUBLIC);
+				methodBuilder.addStatement("return $L.subject()", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, convert.convert(dao.getName())))
+				.returns(ParameterizedTypeName.get(PublishSubject.class,SQLiteModification.class));
+				classBuilder.addMethod(methodBuilder.build());
+			}
 		}
 		
 
@@ -762,7 +772,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// @formatter:off
 		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className(AbstractExecutable.class),
 				className(daoFactory));
-		classBuilder.addType(TypeSpec.interfaceBuilder(transationExecutorName).addModifiers(Modifier.PUBLIC)
+		classBuilder.addType(TypeSpec.interfaceBuilder(transationExecutorName)
+				.addModifiers(Modifier.PUBLIC)
+				.addTypeVariable(TypeVariableName.get("T"))
 				.addSuperinterface(parameterizedTypeName)
 				.addJavadoc("Rapresents batch operation.\n")
 				.addMethod(MethodSpec.methodBuilder("onExecute")
@@ -770,7 +782,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 								"Execute batch operations.")						
 						.addJavadoc("\n\n@param daoFactory\n@throws Throwable\n")
 						.addParameter(className(daoFactory), "daoFactory")						
-						.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).returns(Void.TYPE).build())
+						.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).returns(TypeVariableName.get("T")).build())
 				.build());
 		// @formatter:on
 
@@ -779,7 +791,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// @formatter:off
 		classBuilder.addType(TypeSpec.classBuilder(simpleTransactionClassName)
 				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
-				.addSuperinterface(className(transationExecutorName))
+				.addTypeVariable(TypeVariableName.get("T"))
+				.addSuperinterface(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")))				
 				.addJavadoc("Simple class implements interface to define batch.")
 				.addJavadoc("In this class a simple <code>onError</code> method is implemented.\n")
 				.addMethod(MethodSpec.methodBuilder("onError").addAnnotation(Override.class).returns(Void.TYPE)
@@ -793,10 +806,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			// execute read/write mode
 			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute")
 					// generate javadoc
+					.addTypeVariable(TypeVariableName.get("T"))
 					.addJavadoc("<p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>\n\n")
-					.addJavadoc("@param commands\n\tbatch to execute\n").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName), "commands");
+					.addJavadoc("@param commands\n\tbatch to execute\n").addModifiers(Modifier.PUBLIC)
+					.addParameter(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")), "commands")
+					.returns(TypeVariableName.get("T"));
+					
 
-			executeMethod.addStatement("execute(commands, false)");
+			executeMethod.addStatement("return execute(commands, false)");
 			classBuilder.addMethod(executeMethod.build());
 		}
 
@@ -806,16 +823,18 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 					// generate javadoc
 					.addJavadoc("<p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The"
 							+ "drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>\n")
+					.addTypeVariable(TypeVariableName.get("T"))
 					.addJavadoc("\n").addJavadoc("@param commands\n\tbatch to execute\n")
 					.addJavadoc("@param writeMode\n\ttrue to open connection in write mode, false to open connection in read only mode\n").addModifiers(Modifier.PUBLIC)
-					.addParameter(className(transationExecutorName), "commands").addParameter(Boolean.TYPE, "writeMode");
+					.addParameter(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")), "commands").addParameter(Boolean.TYPE, "writeMode")
+					.returns(TypeVariableName.get("T"));
 
 			executeMethod.addCode("if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }\n", SQLiteDatabase.class);
 
 			executeMethod.beginControlFlow("try");
 
 			executeMethod.beginControlFlow("if (commands!=null)");
-			executeMethod.addStatement("commands.onExecute(this)");
+			executeMethod.addStatement("return commands.onExecute(this)");
 			executeMethod.endControlFlow();
 
 			executeMethod.nextControlFlow("catch($T e)", Throwable.class);
@@ -827,6 +846,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			executeMethod.nextControlFlow("finally");
 			executeMethod.addStatement("close()");
 			executeMethod.endControlFlow();
+			executeMethod.addStatement("return null");
 
 			classBuilder.addMethod(executeMethod.build());
 		}

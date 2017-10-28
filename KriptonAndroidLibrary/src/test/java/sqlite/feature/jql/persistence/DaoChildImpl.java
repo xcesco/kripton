@@ -511,8 +511,8 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for content values -- END
     // log for insert -- END 
 
-    int result = (int)database().insert("child", null, contentValues);
-    return result;
+    long result = database().insert("child", null, contentValues);
+    return (int)result;
   }
 
   /**

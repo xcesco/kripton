@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.StringUtils;
+import io.reactivex.subjects.PublishSubject;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.List;
  *  @see PersonPhoneNumberTable
  */
 public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2PhoneDao {
+  protected PublishSubject<SQLiteModification> subject = PublishSubject.create();
+
   public Person2PhoneDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);
   }
@@ -293,6 +297,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     }
     // log for where parameters -- END
     int result = database().delete("person_phone_number", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    subject.onNext(SQLiteModification.createDelete(result));
     return result;
   }
 
@@ -338,6 +343,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     }
     // log for where parameters -- END
     int result = database().delete("person_phone_number", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    subject.onNext(SQLiteModification.createDelete(result));
     return result;
   }
 
@@ -383,6 +389,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     }
     // log for where parameters -- END
     int result = database().delete("person_phone_number", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    subject.onNext(SQLiteModification.createDelete(result));
     return result;
   }
 
@@ -436,8 +443,13 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // log for insert -- END 
 
     long result = database().insert("person_phone_number", null, contentValues);
+    subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
     return (int)result;
+  }
+
+  public PublishSubject<SQLiteModification> subject() {
+    return subject;
   }
 }

@@ -75,8 +75,8 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
    * @param commands
    * 	batch to execute
    */
-  public void execute(Batch commands) {
-    execute(commands, false);
+  public <T> T execute(Batch<T> commands) {
+    return execute(commands, false);
   }
 
   /**
@@ -87,11 +87,11 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
    * @param writeMode
    * 	true to open connection in write mode, false to open connection in read only mode
    */
-  public void execute(Batch commands, boolean writeMode) {
+  public <T> T execute(Batch<T> commands, boolean writeMode) {
     if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
     try {
       if (commands!=null) {
-        commands.onExecute(this);
+        return commands.onExecute(this);
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -100,6 +100,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
     } finally {
       close();
     }
+    return null;
   }
 
   /**
@@ -234,20 +235,20 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
   /**
    * Rapresents batch operation.
    */
-  public interface Batch extends AbstractDataSource.AbstractExecutable<BindSchoolLunchDaoFactory> {
+  public interface Batch<T> extends AbstractDataSource.AbstractExecutable<BindSchoolLunchDaoFactory> {
     /**
      * Execute batch operations.
      *
      * @param daoFactory
      * @throws Throwable
      */
-    void onExecute(BindSchoolLunchDaoFactory daoFactory);
+    T onExecute(BindSchoolLunchDaoFactory daoFactory);
   }
 
   /**
    * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
    */
-  public abstract static class SimpleBatch implements Batch {
+  public abstract static class SimpleBatch<T> implements Batch<T> {
     @Override
     public void onError(Throwable e) {
       throw(new KriptonRuntimeException(e));

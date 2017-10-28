@@ -118,8 +118,8 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @param commands
    * 	batch to execute
    */
-  public void execute(Batch commands) {
-    execute(commands, false);
+  public <T> T execute(Batch<T> commands) {
+    return execute(commands, false);
   }
 
   /**
@@ -130,11 +130,11 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @param writeMode
    * 	true to open connection in write mode, false to open connection in read only mode
    */
-  public void execute(Batch commands, boolean writeMode) {
+  public <T> T execute(Batch<T> commands, boolean writeMode) {
     if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
     try {
       if (commands!=null) {
-        commands.onExecute(this);
+        return commands.onExecute(this);
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -143,6 +143,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     } finally {
       close();
     }
+    return null;
   }
 
   /**
@@ -290,20 +291,20 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * Rapresents batch operation.
    */
-  public interface Batch extends AbstractDataSource.AbstractExecutable<BindQuickStartDaoFactory> {
+  public interface Batch<T> extends AbstractDataSource.AbstractExecutable<BindQuickStartDaoFactory> {
     /**
      * Execute batch operations.
      *
      * @param daoFactory
      * @throws Throwable
      */
-    void onExecute(BindQuickStartDaoFactory daoFactory);
+    T onExecute(BindQuickStartDaoFactory daoFactory);
   }
 
   /**
    * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
    */
-  public abstract static class SimpleBatch implements Batch {
+  public abstract static class SimpleBatch<T> implements Batch<T> {
     @Override
     public void onError(Throwable e) {
       throw(new KriptonRuntimeException(e));

@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -21,6 +22,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
+import io.reactivex.subjects.PublishSubject;
 import java.util.List;
 import sqlite.feature.rx.model.CountryTable;
 import sqlite.feature.rx.model.PersonTable;
@@ -327,6 +329,26 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return execute(batch, false);
   }
 
+  public PublishSubject<SQLiteModification> phoneNumberSubject() {
+    return phoneDao.subject();
+  }
+
+  public PublishSubject<SQLiteModification> prefixConfigSubject() {
+    return prefixConfigDao.subject();
+  }
+
+  public PublishSubject<SQLiteModification> countrySubject() {
+    return countryDao.subject();
+  }
+
+  public PublishSubject<SQLiteModification> personPhoneNumberSubject() {
+    return person2PhoneDao.subject();
+  }
+
+  public PublishSubject<SQLiteModification> personSubject() {
+    return personDao.subject();
+  }
+
   /**
    * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
    *
@@ -360,8 +382,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @param commands
    * 	batch to execute
    */
-  public void execute(Batch commands) {
-    execute(commands, false);
+  public <T> T execute(Batch<T> commands) {
+    return execute(commands, false);
   }
 
   /**
@@ -372,11 +394,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @param writeMode
    * 	true to open connection in write mode, false to open connection in read only mode
    */
-  public void execute(Batch commands, boolean writeMode) {
+  public <T> T execute(Batch<T> commands, boolean writeMode) {
     if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
     try {
       if (commands!=null) {
-        commands.onExecute(this);
+        return commands.onExecute(this);
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -385,6 +407,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     } finally {
       close();
     }
+    return null;
   }
 
   /**
@@ -568,20 +591,20 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * Rapresents batch operation.
    */
-  public interface Batch extends AbstractDataSource.AbstractExecutable<BindXenoDaoFactory> {
+  public interface Batch<T> extends AbstractDataSource.AbstractExecutable<BindXenoDaoFactory> {
     /**
      * Execute batch operations.
      *
      * @param daoFactory
      * @throws Throwable
      */
-    void onExecute(BindXenoDaoFactory daoFactory);
+    T onExecute(BindXenoDaoFactory daoFactory);
   }
 
   /**
    * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
    */
-  public abstract static class SimpleBatch implements Batch {
+  public abstract static class SimpleBatch<T> implements Batch<T> {
     @Override
     public void onError(Throwable e) {
       throw(new KriptonRuntimeException(e));

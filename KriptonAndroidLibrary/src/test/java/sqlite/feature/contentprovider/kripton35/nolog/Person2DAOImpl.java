@@ -157,7 +157,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       contentValues.putNull("name");
     }
 
-    database().insert("person", null, contentValues);
+    long result = database().insert("person", null, contentValues);
   }
 
   /**

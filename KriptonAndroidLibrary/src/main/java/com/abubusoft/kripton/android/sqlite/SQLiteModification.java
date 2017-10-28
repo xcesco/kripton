@@ -22,4 +22,16 @@ public class SQLiteModification {
 
 	public final SQLiteModificationType operationType;
 	public final long value;
+
+	public static SQLiteModification createInsert(long result) {
+		return new SQLiteModification(SQLiteModificationType.INSERT, result);
+	}
+
+	public static SQLiteModification createUpdate(long result) {
+		return new SQLiteModification(SQLiteModificationType.UPDATE, result);
+	}
+
+	public static SQLiteModification createDelete(long result) {
+		return new SQLiteModification(SQLiteModificationType.DELETE, result);
+	}
 }

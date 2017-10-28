@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.StringUtils;
+import io.reactivex.subjects.PublishSubject;
 import java.util.ArrayList;
 import sqlite.feature.rx.model.Person;
 
@@ -18,6 +20,8 @@ import sqlite.feature.rx.model.Person;
  *  @see sqlite.feature.rx.model.PersonTable
  */
 public class PersonDaoImpl extends AbstractDao implements PersonDao {
+  protected PublishSubject<SQLiteModification> subject = PublishSubject.create();
+
   public PersonDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);
   }
@@ -77,6 +81,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
     // conflict algorithm REPLACE
     long result = database().insertWithOnConflict("person", null, contentValues, 5);
+    subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
     return (int)result;
@@ -196,6 +201,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
 
@@ -240,6 +246,11 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     }
     // log for where parameters -- END
     int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
+  }
+
+  public PublishSubject<SQLiteModification> subject() {
+    return subject;
   }
 }

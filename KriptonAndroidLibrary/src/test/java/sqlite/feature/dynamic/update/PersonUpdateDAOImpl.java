@@ -530,6 +530,6 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log for insert -- END 
 
     // conflict algorithm IGNORE
-    database().insertWithOnConflict("person", null, contentValues, 4);
+    long result = database().insertWithOnConflict("person", null, contentValues, 4);
   }
 }

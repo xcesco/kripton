@@ -32,6 +32,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
@@ -45,10 +46,15 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
+
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Dao generator
@@ -144,7 +150,22 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			ManagedPropertyPersistenceHelper.generateParamSerializer(context, item.getValue(), item.getKey(), PersistType.BYTE);
 			ManagedPropertyPersistenceHelper.generateParamParser(context, item.getValue(), item.getKey(), PersistType.BYTE);
 		}
-
+		
+		// generate subject
+		if (currentDaoDefinition.getParent().generateRx) {			
+			ParameterizedTypeName subjectTypeName=ParameterizedTypeName.get(ClassName.get(PublishSubject.class), ClassName.get(SQLiteModification.class));
+			
+			// subject
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("subject").addModifiers(Modifier.PUBLIC);
+			methodBuilder.addStatement("return subject").returns(subjectTypeName);
+			builder.addMethod(methodBuilder.build());
+			
+			// subject instance
+			FieldSpec.Builder fieldBuilder = FieldSpec.builder(subjectTypeName, "subject", Modifier.PROTECTED).initializer("$T.create()",ClassName.get(PublishSubject.class));			
+			builder.addField(fieldBuilder.build());
+		}
+		
+		
 		TypeSpec typeSpec = builder.build();
 
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);		

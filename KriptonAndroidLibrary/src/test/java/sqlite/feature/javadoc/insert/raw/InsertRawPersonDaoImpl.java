@@ -87,8 +87,8 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for content values -- END
     // log for insert -- END 
 
-    int result = (int)database().insert("person", null, contentValues);
-    return result;
+    long result = database().insert("person", null, contentValues);
+    return (int)result;
   }
 
   /**
@@ -195,8 +195,8 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for insert -- END 
 
     // conflict algorithm REPLACE
-    int result = (int)database().insertWithOnConflict("person", null, contentValues, 5);
-    return result;
+    long result = database().insertWithOnConflict("person", null, contentValues, 5);
+    return (int)result;
   }
 
   /**
@@ -303,8 +303,8 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for content values -- END
     // log for insert -- END 
 
-    int result = (int)database().insert("person", null, contentValues);
-    return result;
+    long result = database().insert("person", null, contentValues);
+    return (int)result;
   }
 
   /**
