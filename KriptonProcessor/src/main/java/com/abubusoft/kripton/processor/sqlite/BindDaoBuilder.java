@@ -161,7 +161,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			builder.addMethod(methodBuilder.build());
 			
 			// subject instance
-			FieldSpec.Builder fieldBuilder = FieldSpec.builder(subjectTypeName, "subject", Modifier.PROTECTED).initializer("$T.create()",ClassName.get(PublishSubject.class));			
+			FieldSpec.Builder fieldBuilder = FieldSpec.builder(subjectTypeName, "subject", Modifier.PROTECTED, Modifier.FINAL).initializer("$T.create()",ClassName.get(PublishSubject.class));			
 			builder.addField(fieldBuilder.build());
 		}
 		
