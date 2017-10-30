@@ -73,7 +73,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 		String schemaName = generateDaoFactoryName(schema);
 
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
-		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
+		String packageName = pkg.isUnnamed() ? "" : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, schemaName);
 		classBuilder = buildDaoFactoryInterfaceInternal(elementUtils, filer, schema);

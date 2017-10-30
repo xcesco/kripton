@@ -144,7 +144,7 @@ public abstract class BindTypeBuilder {
 		String className = PREFIX + beanClassName + (needSuffix ? SUFFIX : "");
 
 		PackageElement pkg = elementUtils.getPackageOf(item.getElement());
-		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
+		String packageName = pkg.isUnnamed() ? "" : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindType.class, packageName, className);
 

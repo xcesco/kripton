@@ -81,9 +81,12 @@ public abstract class SQLTransformer {
 	 * @param beanName
 	 * @param property
 	 */
-	public static void javaProperty2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {		
-		TypeName typeName = property.getPropertyType().getTypeName();
-		// TypeName typeName = beanClass;
+	public static void javaProperty2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
+		TypeName typeName = null;
+
+		if (property.getPropertyType() != null) {
+			typeName = property.getPropertyType().getTypeName();
+		}
 
 		if (property != null && property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);
@@ -95,7 +98,7 @@ public abstract class SQLTransformer {
 	}
 
 	/**
-	 * Used to convert a property of managed bean to where conditino
+	 * Used to convert a property of managed bean to where condition
 	 * 
 	 * @param methodBuilder
 	 * @param paramName
@@ -106,17 +109,20 @@ public abstract class SQLTransformer {
 		if (property != null && property.hasTypeAdapter()) {
 			methodBuilder.addCode(AbstractSQLTransform.PRE_TYPE_ADAPTER_TO_STRING + "$L" + AbstractSQLTransform.POST_TYPE_ADAPTER, SQLTypeAdapterUtils.class,
 					typeName(property.typeAdapter.adapterClazz), PropertyUtility.getter(paramName, paramType, property));
-		} else {
-			//SQLTransform transform = (property != null && property.hasTypeAdapter()) ? lookup(property.typeAdapter.getDataTypeTypename()) : lookup(property.getPropertyType().getTypeName());
+		} else if (property!=null) {
 			SQLTransform transform = lookup(property.getPropertyType().getTypeName());
 
 			AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, paramType);
 			transform.generateWriteProperty2WhereCondition(methodBuilder, paramName, paramType, property);
+		} else {
+			AssertKripton.assertTrueOrUnsupportedFieldTypeException(false, paramType);
 		}
 	}
 
 	/**
-	 * Used to convert a method's parameter to contentValues. It can not have a type adpter, because it eventually use the one define in associated bean's attribute
+	 * Used to convert a method's parameter to contentValues. It can not have a
+	 * type adpter, because it eventually use the one define in associated
+	 * bean's attribute
 	 * 
 	 * @param methodBuilder
 	 * @param paramName
@@ -247,7 +253,7 @@ public abstract class SQLTransformer {
 		if (Time.class.getName().equals(typeName.toString())) {
 			return new SQLTimeSQLTransform();
 		}
-		
+
 		if (java.sql.Date.class.getName().equals(typeName.toString())) {
 			return new SQLDateSQLTransform();
 		}
@@ -429,7 +435,7 @@ public abstract class SQLTransformer {
 		}
 		return transform.getColumnTypeAsString();
 
-	}		
+	}
 
 	public static SQLColumnType columnType(ModelProperty property) {
 		SQLTransform transform = lookup(property.getElement().asType());

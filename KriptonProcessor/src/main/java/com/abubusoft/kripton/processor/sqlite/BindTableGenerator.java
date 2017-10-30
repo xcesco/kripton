@@ -215,7 +215,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 				// INSERT as dependency only if reference is another entity.
 				// Same entity can not be own dependency.
-				if (!entity.equals(reference)) {
+				if (!entity.getClassName().equals(TypeUtility.typeName(reference.getElement()))) {
 					entity.referedEntities.add(reference);
 				}
 

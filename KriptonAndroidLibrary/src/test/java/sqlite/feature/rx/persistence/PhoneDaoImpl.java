@@ -23,7 +23,7 @@ import sqlite.feature.rx.model.PhoneNumber;
  *  @see sqlite.feature.rx.model.PhoneNumberTable
  */
 public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
-  protected PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
   public PhoneDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);

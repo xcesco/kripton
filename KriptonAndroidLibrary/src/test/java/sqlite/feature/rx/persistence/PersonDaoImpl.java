@@ -20,7 +20,7 @@ import sqlite.feature.rx.model.Person;
  *  @see sqlite.feature.rx.model.PersonTable
  */
 public class PersonDaoImpl extends AbstractDao implements PersonDao {
-  protected PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
   public PersonDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);

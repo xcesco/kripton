@@ -21,7 +21,7 @@ import java.util.List;
  *  @see PersonPhoneNumberTable
  */
 public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2PhoneDao {
-  protected PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
   public Person2PhoneDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);

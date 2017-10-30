@@ -109,7 +109,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		String classTableName = daoName(value);
 
 		PackageElement pkg = elementUtils.getPackageOf(value.getElement());
-		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
+		String packageName = pkg.isUnnamed() ? "" : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDao.class, packageName, classTableName);
 

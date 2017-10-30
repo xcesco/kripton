@@ -78,7 +78,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		String classCursorName = PREFIX+entity.getSimpleName()+SUFFIX;		
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
-		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
+		String packageName = pkg.isUnnamed() ? "" : pkg.getQualifiedName().toString();
 		
 		ClassName className=TypeUtility.className(packageName,classCursorName);
 

@@ -24,7 +24,7 @@ import sqlite.feature.rx.model.CountryTable;
  *  @see CountryTable
  */
 public class CountryDaoImpl extends AbstractDao implements CountryDao {
-  protected PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
   public CountryDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);

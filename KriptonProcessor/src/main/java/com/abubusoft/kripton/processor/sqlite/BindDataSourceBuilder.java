@@ -173,7 +173,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		dataSourceName = PREFIX + dataSourceName;
 
 		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
-		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
+		String packageName = pkg.isUnnamed() ? "" : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, dataSourceName);
 		classBuilder = TypeSpec.classBuilder(dataSourceName).addModifiers(Modifier.PUBLIC).superclass(AbstractDataSource.class).addSuperinterface(daoFactoryClazz)

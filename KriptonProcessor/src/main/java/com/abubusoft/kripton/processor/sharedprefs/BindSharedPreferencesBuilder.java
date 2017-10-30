@@ -96,7 +96,7 @@ public abstract class BindSharedPreferencesBuilder {
 		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.VALUE);
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
-		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
+		String packageName = pkg.isUnnamed() ? "" : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindSharedPreferences.class, packageName, className);
 		//@formatter:off

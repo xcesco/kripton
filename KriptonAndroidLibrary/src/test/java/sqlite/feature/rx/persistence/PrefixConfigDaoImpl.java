@@ -20,7 +20,7 @@ import sqlite.feature.rx.model.PrefixConfig;
  *  @see sqlite.feature.rx.model.PrefixConfigTable
  */
 public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao {
-  protected PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
   public PrefixConfigDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);
