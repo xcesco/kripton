@@ -59,6 +59,7 @@ public class TestRx extends BaseAndroidTest {
  
 			@Override
 			public void accept(SQLiteModification t) throws Exception {
+				log("---->  MAP "+Thread.currentThread().getName());
 				log("S1 ---------------------- receive country %s %s",t.operationType , t.value);	
 				
 			}
