@@ -19,9 +19,12 @@ import java.lang.annotation.Annotation;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
+import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.ForeignKeyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
@@ -113,7 +116,7 @@ public abstract class AssertKripton {
 	public static void fail(boolean expression, String messageFormat, Object... args) {
 		assertTrue(!expression, messageFormat, args);
 	}
-	
+
 	public static void assertTrueOrUnsupportedFieldTypeException(boolean expression, TypeName typeName) {
 		if (!expression)
 			throw (new UnsupportedFieldTypeException(typeName));
@@ -169,49 +172,57 @@ public abstract class AssertKripton {
 		}
 	}
 
-	public static void failUnknownPropertyInJQLException(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
-			AnnotationAttributeType attribute, String fieldName) {
-		throw(new UnknownPropertyInJQLException(method,annotationClazz, attribute, fieldName));
-		
+	public static void failUnknownPropertyInJQLException(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, AnnotationAttributeType attribute, String fieldName) {
+		throw (new UnknownPropertyInJQLException(method, annotationClazz, attribute, fieldName));
+
 	}
 
 	public static void assertTrueOrInvalidPropertyName(boolean expression, SQLProperty item1, SQLProperty item2) {
 		if (!expression) {
 			String msg = String.format("Properties '%s#%s' and '%s#%s' must have same column name", item1.getParent().name, item1.name, item2.getParent().name, item2.name);
-			throw(new InvalidPropertyToColumnConversion(msg));
+			throw (new InvalidPropertyToColumnConversion(msg));
 		}
-		
+
 	}
 
 	public static void assertTrueOrMissedAnnotationOnClass(boolean expression, Element element, String beanName, Class<? extends Annotation> annotationClazz) {
 		if (!expression) {
-			String msg = String.format("In dao definition '%s' is referred a bean definition '%s' without @%s annotation", element.getSimpleName(), beanName, annotationClazz.getSimpleName());			
-			throw(new MissedAnnotationOnClass(msg));
-		}	
+			String msg = String.format("In dao definition '%s' is referred a bean definition '%s' without @%s annotation", element.getSimpleName(), beanName, annotationClazz.getSimpleName());
+			throw (new MissedAnnotationOnClass(msg));
+		}
 	}
 
 	public static void asserTrueOrForeignKeyNotFound(boolean expression, SQLEntity currentEntity, ClassName entity) {
 		if (!expression) {
-					
-			throw(new ForeignKeyNotFoundException(currentEntity, entity));
-		}	
-		
+
+			throw (new ForeignKeyNotFoundException(currentEntity, entity));
+		}
+
 	}
 
 	public static void asserTrueOrMissedAnnotationOnClassException(boolean expression, SQLEntity entity, String foreignClassName) {
 		if (!expression) {
-			String msg = String.format("Entity '%s' refers a bean '%s' without @%s annotation", entity.getSimpleName(), foreignClassName, BindType.class);			
-			throw(new MissedAnnotationOnClass(msg));
-		}	
-		
+			String msg = String.format("Entity '%s' refers a bean '%s' without @%s annotation", entity.getSimpleName(), foreignClassName, BindType.class.getSimpleName());
+			throw (new MissedAnnotationOnClass(msg));
+		}
+	}
+
+	public static void asserTrueOrMissedAnnotationOnClassException(boolean expression, TypeElement daoElement, String entityName) {
+		if (!expression) {
+			String msg = String.format("Dao '%s' referes a bean '%s' without @%s or @%s annotation", daoElement.getQualifiedName(), TypeUtility.className(entityName), BindType.class.getSimpleName(),
+					BindTable.class.getSimpleName());
+			throw (new MissedAnnotationOnClass(msg));
+		}
+
 	}
 
 	public static void asserTrueOrUnspecifiedBeanException(boolean expression, SQLiteDatabaseSchema schema, SQLEntity entity, String foreignClassName) {
 		if (!expression) {
-			String msg = String.format("In dao definition '%s' is referred a bean definition '%s' that is not defined in '%s' schema", entity.getSimpleName(), foreignClassName, schema.getElement().getQualifiedName().toString());			
-			throw(new InvalidDefinition(msg));
-		}	
-		
+			String msg = String.format("In dao definition '%s' is referred a bean definition '%s' that is not defined in '%s' schema", entity.getSimpleName(), foreignClassName,
+					schema.getElement().getQualifiedName().toString());
+			throw (new InvalidDefinition(msg));
+		}
+
 	}
 
 }

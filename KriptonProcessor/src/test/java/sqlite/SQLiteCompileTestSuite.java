@@ -51,7 +51,9 @@ import sqlite.kripton51.Test51Suite;
 import sqlite.kripton56.Test56Suite;
 import sqlite.kripton58.Test58Suite;
 import sqlite.kripton60.Test60Suite;
+import sqlite.kripton62.Test62Compile;
 import sqlite.kripton62.Test62Suite;
+import sqlite.kripton63.Test63Compile;
 import sqlite.kripton63.Test63Suite;
 import sqlite.kripton64.Test64Suite;
 import sqlite.kripton84.Test84Suite;
@@ -67,10 +69,9 @@ import sqlite.test02.Test02Suite;
 import sqlite.test02.TestDao01;
 import sqlite.test03.Test03;
 import sqlite.test03.Test03Suite;
+import sqlite.test04.v1.Test04;
 import sqlite.test05firt_aid.Test05Suite;
 import sqlite.test05firt_aid.TestFirstAid;
-import sqlite.kripton62.Test62Compile;
-import sqlite.kripton63.Test63Compile;
 
 @RunWith(Suite.class)
 //@formatter:off
@@ -118,6 +119,7 @@ import sqlite.kripton63.Test63Compile;
 			TestQuickstartSuite.class, 
 			TestDao01.class, 
 			Test03.class, 
+			Test04.class,
 			TestFirstAid.class,			
 			TestForeignKeySuite.class,
 			TestUriCheckerSuite.class,

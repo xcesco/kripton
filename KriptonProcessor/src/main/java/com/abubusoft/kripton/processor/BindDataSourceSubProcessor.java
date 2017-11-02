@@ -96,7 +96,7 @@ import com.squareup.javapoet.ClassName;
 
 public class BindDataSourceSubProcessor extends BaseProcessor {
 
-	//private SQLiteDatabaseSchema currentSchema;
+	// private SQLiteDatabaseSchema currentSchema;
 
 	private final AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).add(BindSqlAdapter.class).build();
 
@@ -130,7 +130,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	public void clear() {
 		super.clear();
 
-		//currentSchema = null;
+		// currentSchema = null;
 		dataSets = new HashSet<>();
 		generatedDaos = null;
 		generatedEntities = null;
@@ -203,7 +203,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			}
 			globalBeanElements.put(item.toString(), (TypeElement) item);
 		}
-		
+
 		Set<? extends Element> generatedDaos = roundEnv.getElementsAnnotatedWith(BindGeneratedDao.class);
 		for (Element item : generatedDaos) {
 			String keyToReplace = AnnotationUtility.extractAsClassName(item, BindGeneratedDao.class, AnnotationAttributeType.DAO);
@@ -334,6 +334,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		final TypeElement beanElement = globalBeanElements.get(beanName);
 		// this.isGeneratedEntity(beanName);
+
+		AssertKripton.asserTrueOrMissedAnnotationOnClassException(beanElement != null, daoElement, beanName);
 
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);
@@ -530,7 +532,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @param generatedDaoParts
 	 * @param daoItem
 	 */
-	protected void createSQLDaoDefinition(SQLiteDatabaseSchema schema,  final Map<String, TypeElement> globalBeanElements, final Map<String, TypeElement> globalDaoElements, String daoItem) {
+	protected void createSQLDaoDefinition(SQLiteDatabaseSchema schema, final Map<String, TypeElement> globalBeanElements, final Map<String, TypeElement> globalDaoElements, String daoItem) {
 		Element daoElement = globalDaoElements.get(daoItem);
 
 		if (daoElement.getKind() != ElementKind.INTERFACE) {
@@ -694,8 +696,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// get all dao used within SQLDatabaseSchema annotation
 		List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.DAO_SET);
 
-		SQLiteDatabaseSchema schema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper, generateRx,
-				daoIntoDataSource);
+		SQLiteDatabaseSchema schema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper,
+				generateRx, daoIntoDataSource);
 
 		// manage for content provider generation
 		BindContentProvider contentProviderAnnotation = databaseSchema.getAnnotation(BindContentProvider.class);
