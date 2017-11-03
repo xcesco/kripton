@@ -197,14 +197,20 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindWhisperDataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindWhisperDataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

@@ -197,14 +197,20 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindPerson2DataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPerson2DataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

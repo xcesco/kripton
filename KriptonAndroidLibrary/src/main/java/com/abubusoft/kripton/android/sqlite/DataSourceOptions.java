@@ -93,14 +93,14 @@ public class DataSourceOptions {
 
 				@Override
 				public void execute(SQLiteDatabase database) {
-					for(String item: sqlList) {
+					for (String item : sqlList) {
 						Logger.info(item);
 						database.execSQL(item);
 					}
-//					sqlList.forEach(item -> {
-//						Logger.info(item);
-//						database.execSQL(item);
-//					});
+					// sqlList.forEach(item -> {
+					// Logger.info(item);
+					// database.execSQL(item);
+					// });
 
 				}
 			};
@@ -131,7 +131,7 @@ public class DataSourceOptions {
 
 			return this;
 		}
-		
+
 		/**
 		 * task to execute upgrade from currentVersion-1 to currentVersion.
 		 * 
@@ -154,8 +154,7 @@ public class DataSourceOptions {
 		}
 	}
 
-	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler,
-			DatabaseLifecycleHandler databaseLifecycleHandler, List<SQLiteUpdateTask> updateTasks) {
+	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<SQLiteUpdateTask> updateTasks) {
 		this.factory = factory;
 		this.errorHandler = errorHandler;
 		this.databaseLifecycleHandler = databaseLifecycleHandler;

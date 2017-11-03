@@ -74,6 +74,7 @@ import io.reactivex.Maybe;
 import io.reactivex.MaybeEmitter;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.subjects.PublishSubject;
@@ -219,16 +220,16 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		if (schema.generateRx) {
 			generateRx(className(dataSourceName), daoFactoryName);
-			
-			for (SQLDaoDefinition dao:schema.getCollection()) {
-				// subject				
-				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getEntitySimplyClassName()+"Subject")).addModifiers(Modifier.PUBLIC);
+
+			for (SQLDaoDefinition dao : schema.getCollection()) {
+				// subject
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getEntitySimplyClassName() + "Subject"))
+						.addModifiers(Modifier.PUBLIC);
 				methodBuilder.addStatement("return $L.subject()", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, convert.convert(dao.getName())))
-				.returns(ParameterizedTypeName.get(PublishSubject.class,SQLiteModification.class));
+						.returns(ParameterizedTypeName.get(PublishSubject.class, SQLiteModification.class));
 				classBuilder.addMethod(methodBuilder.build());
 			}
 		}
-		
 
 		// interface
 		generateMethodExecuteTransaction(daoFactoryName);
@@ -270,19 +271,32 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	private void generateBuild(String dataSourceName, SQLiteDatabaseSchema schema) {
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("build").addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).addParameter(DataSourceOptions.class, "options")
-				.returns(TypeUtility.mergeTypeName(PREFIX, schema.getElement()));
+		{ // build with parameter
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("build").addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).addParameter(DataSourceOptions.class, "options")
+					.returns(TypeUtility.mergeTypeName(PREFIX, schema.getElement()));
 
-		methodBuilder.addJavadoc("Build instance.\n");
-		methodBuilder.addJavadoc("@return dataSource instance.\n");
+			methodBuilder.addJavadoc("Build instance.\n");
+			methodBuilder.addJavadoc("@return dataSource instance.\n");
 
-		methodBuilder.beginControlFlow("if (instance==null)");
-		methodBuilder.addStatement("instance=new $L(options)", dataSourceName);
-		methodBuilder.endControlFlow();
-		methodBuilder.addStatement("instance.openWritableDatabase()");
-		methodBuilder.addCode("return instance;\n");
+			methodBuilder.beginControlFlow("if (instance==null)");
+			methodBuilder.addStatement("instance=new $L(options)", dataSourceName);
+			methodBuilder.endControlFlow();
+			methodBuilder.addStatement("instance.openWritableDatabase()");
+			methodBuilder.addStatement("instance.close()");
+			methodBuilder.addCode("return instance;\n");
 
-		classBuilder.addMethod(methodBuilder.build());
+			classBuilder.addMethod(methodBuilder.build());
+		}
+
+		{ // build without parameter
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("build").returns(TypeUtility.mergeTypeName(PREFIX, schema.getElement())).addModifiers(Modifier.PUBLIC, Modifier.STATIC,
+					Modifier.SYNCHRONIZED);
+
+			methodBuilder.addJavadoc("Build instance with default config.\n");
+			methodBuilder.addStatement("return build(DataSourceOptions.builder().build())");
+
+			classBuilder.addMethod(methodBuilder.build());
+		}
 
 	}
 
@@ -530,10 +544,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			executeMethod.addStatement("$T emitter=$L", observableTypeName, innerEmitter);
 
 			if (rxType == RxType.FLOWABLE) {
-				executeMethod.addStatement("return $T.create(emitter, $T.BUFFER)", rxType.clazz, BackpressureStrategy.class);
+				executeMethod.addStatement("$T result=$T.create(emitter, $T.BUFFER)", returnTypeName, rxType.clazz, BackpressureStrategy.class);
 			} else {
-				executeMethod.addStatement("return $T.create(emitter)", rxType.clazz);
+				executeMethod.addStatement("$T result=$T.create(emitter)", returnTypeName, rxType.clazz);
 			}
+			executeMethod.addStatement("if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn)");
+			executeMethod.addStatement("if (globalObserveOn!=null) result.observeOn(globalObserveOn)");
+
+			executeMethod.addStatement("return result");
 
 			classBuilder.addMethod(executeMethod.build());
 		}
@@ -580,10 +598,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			executeMethod.addStatement("$T emitter=$L", observableTypeName, innerEmitter);
 
 			if (rxType == RxType.FLOWABLE) {
-				executeMethod.addStatement("return $T.create(emitter, $T.BUFFER)", rxType.clazz, BackpressureStrategy.class);
+				executeMethod.addStatement("$T result=$T.create(emitter, $T.BUFFER)", returnTypeName, rxType.clazz, BackpressureStrategy.class);
 			} else {
-				executeMethod.addStatement("return $T.create(emitter)", rxType.clazz);
+				executeMethod.addStatement("$T result=$T.create(emitter)", returnTypeName, rxType.clazz);
 			}
+			executeMethod.addStatement("if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn)");
+			executeMethod.addStatement("if (globalObserveOn!=null) result.observeOn(globalObserveOn)");
+
+			executeMethod.addStatement("return result");
 
 			classBuilder.addMethod(executeMethod.build());
 		}
@@ -611,6 +633,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * @param dataSource
 	 */
 	public void generateRx(ClassName dataSourceName, String daoFactory) {
+		classBuilder.addField(FieldSpec.builder(Scheduler.class, "globalSubscribeOn", Modifier.PROTECTED).build());
+		classBuilder.addMethod(MethodSpec.methodBuilder("globalSubscribeOn").returns(dataSourceName).addParameter(Scheduler.class, "scheduler").addModifiers(Modifier.PUBLIC)
+				.addStatement("this.globalSubscribeOn=scheduler").addStatement("return this").build());
+
+		classBuilder.addField(FieldSpec.builder(Scheduler.class, "globalObserveOn", Modifier.PROTECTED).build());
+		classBuilder.addMethod(MethodSpec.methodBuilder("globalObserveOn").addParameter(Scheduler.class, "scheduler").returns(dataSourceName).addModifiers(Modifier.PUBLIC)
+				.addStatement("this.globalObserveOn=scheduler").addStatement("return this").build());
+
 		generateRxInterface(daoFactory, RxInterfaceType.BATCH, ObservableEmitter.class);
 		generateRxInterface(daoFactory, RxInterfaceType.TRANSACTION, ObservableEmitter.class);
 
@@ -809,9 +839,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 					.addTypeVariable(TypeVariableName.get("T"))
 					.addJavadoc("<p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>\n\n")
 					.addJavadoc("@param commands\n\tbatch to execute\n").addModifiers(Modifier.PUBLIC)
-					.addParameter(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")), "commands")
-					.returns(TypeVariableName.get("T"));
-					
+					.addParameter(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")), "commands").returns(TypeVariableName.get("T"));
 
 			executeMethod.addStatement("return execute(commands, false)");
 			classBuilder.addMethod(executeMethod.build());
@@ -823,8 +851,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 					// generate javadoc
 					.addJavadoc("<p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The"
 							+ "drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>\n")
-					.addTypeVariable(TypeVariableName.get("T"))
-					.addJavadoc("\n").addJavadoc("@param commands\n\tbatch to execute\n")
+					.addTypeVariable(TypeVariableName.get("T")).addJavadoc("\n").addJavadoc("@param commands\n\tbatch to execute\n")
 					.addJavadoc("@param writeMode\n\ttrue to open connection in write mode, false to open connection in read only mode\n").addModifiers(Modifier.PUBLIC)
 					.addParameter(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")), "commands").addParameter(Boolean.TYPE, "writeMode")
 					.returns(TypeVariableName.get("T"));

@@ -231,14 +231,20 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindPersonCirtyDataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPersonCirtyDataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

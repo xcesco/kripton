@@ -9,18 +9,15 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import com.abubusoft.kripton.android.SQLiteModificationType;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.One;
-import com.abubusoft.kripton.common.Pair;
 
 import base.BaseAndroidTest;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -36,6 +33,7 @@ public class TestRx extends BaseAndroidTest {
 
 	private static final int COUNTER = 10;
 
+	// .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 	@Test
 	public void test() {
 		final One<String> result = new One<String>("");
@@ -54,112 +52,108 @@ public class TestRx extends BaseAndroidTest {
 	@Test
 	public void testDatabase() {
 		final BindXenoDataSource ds = prepareDataSource();
-						
-		Disposable s1=ds.getCountryDao().subject().subscribe(new Consumer<SQLiteModification>() {
- 
+
+		Disposable s1 = ds.getCountryDao().subject().subscribe(new Consumer<SQLiteModification>() {
+
 			@Override
 			public void accept(SQLiteModification t) throws Exception {
-				log("---->  MAP "+Thread.currentThread().getName());
-				log("S1 ---------------------- receive country %s %s",t.operationType , t.value);	
-				
-			}
-		});
-/*
-		ds.execute(new ObservableTransaction<Country>() {
-
-			@Override
-			public TransactionResult onExecute(BindXenoDaoFactory daoFactory, ObservableEmitter<Country> emitter) {
-				log("onExecute " + Thread.currentThread().getName());
-				CountryDaoImpl dao = daoFactory.getCountryDao();
-
-				List<Country> list = dao.selectAll();
-
-				for (Country item : list) {
-					emitter.onNext(item);
-				}
-
-				return TransactionResult.COMMIT;
-			}
-		}).subscribeOn(Schedulers.computation()).observeOn(Schedulers.io()).subscribe(new Consumer<Country>() {
-
-			@Override
-			public void accept(Country t) throws Exception {
-				log("accept " + Thread.currentThread().getName());
-				log(" country " + t.name);
+				log("---->  MAP " + Thread.currentThread().getName());
+				log("S1 ---------------------- receive country %s %s", t.operationType, t.value);
 
 			}
 		});
-		*/
-		
-		
+		/*
+		 * ds.execute(new ObservableTransaction<Country>() {
+		 * 
+		 * @Override public TransactionResult onExecute(BindXenoDaoFactory
+		 * daoFactory, ObservableEmitter<Country> emitter) { log("onExecute " +
+		 * Thread.currentThread().getName()); CountryDaoImpl dao =
+		 * daoFactory.getCountryDao();
+		 * 
+		 * List<Country> list = dao.selectAll();
+		 * 
+		 * for (Country item : list) { emitter.onNext(item); }
+		 * 
+		 * return TransactionResult.COMMIT; }
+		 * }).subscribeOn(Schedulers.computation()).observeOn(Schedulers.io()).
+		 * subscribe(new Consumer<Country>() {
+		 * 
+		 * @Override public void accept(Country t) throws Exception {
+		 * log("accept " + Thread.currentThread().getName()); log(" country " +
+		 * t.name);
+		 * 
+		 * } });
+		 */
+
 		ds.execute(new BindXenoDataSource.SimpleBatch<Void>() {
-							
+
 			@Override
 			public Void onExecute(BindXenoDaoFactory daoFactory) {
-				
-				for (int i=100; i<102;i++) {
-					Country bean=new Country();				
+
+				for (int i = 100; i < 102; i++) {
+					Country bean = new Country();
 					bean.code = "code" + i;
 					bean.callingCode = "" + i;
 					bean.name = "name" + i;
 					daoFactory.getCountryDao().insert(bean);
 				}
-				
+
 				return null;
 			}
 		});
-		
+
 		Disposable s2 = ds.countrySubject().observeOn(Schedulers.io()).map(new Function<SQLiteModification, List<Country>>() {
 
 			@Override
 			public List<Country> apply(SQLiteModification t) throws Exception {
-				log("---->  MAP "+Thread.currentThread().getName());
-				
+				log("---->  MAP " + Thread.currentThread().getName());
+
 				return ds.execute(new BindXenoDataSource.SimpleBatch<List<Country>>() {
-															
+
 					@Override
 					public List<Country> onExecute(BindXenoDaoFactory daoFactory) {
 						return daoFactory.getCountryDao().selectAll();
-						
+
 					}
-				});				
-								
+				});
+
 			}
 		}).subscribe(new Consumer<List<Country>>() {
-			 
+
 			@Override
-			public void accept(List<Country> t) throws Exception {				
-				log("---->  S2 "+Thread.currentThread().getName());
-				//log("S2 ---------------------- receive country %s %s",t.operationType , t.value);
-			//	ds.getCountryDao().selectAll();
-				
+			public void accept(List<Country> t) throws Exception {
+				log("---->  S2 " + Thread.currentThread().getName());
+				// log("S2 ---------------------- receive country %s
+				// %s",t.operationType , t.value);
+				// ds.getCountryDao().selectAll();
+
 			}
 		});
-		
+
 		ds.execute(new BindXenoDataSource.SimpleBatch<Void>() {
-			
+
 			@Override
 			public Void onExecute(BindXenoDaoFactory daoFactory) {
-				
-				for (int i=200; i<202;i++) {
-					Country bean=new Country();				
+
+				for (int i = 200; i < 202; i++) {
+					Country bean = new Country();
 					bean.code = "code" + i;
 					bean.callingCode = "" + i;
 					bean.name = "name" + i;
 					daoFactory.getCountryDao().insert(bean);
 				}
-				
+
 				return null;
 			}
-			
-		}); 
+
+		});
 
 		try {
 			Thread.currentThread().sleep(5000);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		
+
 		s1.dispose();
 		s2.dispose();
 	}
@@ -181,7 +175,7 @@ public class TestRx extends BaseAndroidTest {
 					// Object bean = new
 					dao.insert(bean);
 				}
-				
+
 				return null;
 
 				// dao.selectAll();
@@ -253,7 +247,7 @@ public class TestRx extends BaseAndroidTest {
 
 		dataSource.execute(new BindXenoDataSource.SimpleTransaction() {
 			@Override
-			public TransactionResult onExecute(BindXenoDaoFactory daoFactory){
+			public TransactionResult onExecute(BindXenoDaoFactory daoFactory) {
 				CountryDaoImpl dao = daoFactory.getCountryDao();
 
 				for (int i = 0; i < COUNTER; i++) {

@@ -196,14 +196,20 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindContactDataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindContactDataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

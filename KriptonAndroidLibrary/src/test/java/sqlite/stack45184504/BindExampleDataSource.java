@@ -196,14 +196,20 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindExampleDataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindExampleDataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

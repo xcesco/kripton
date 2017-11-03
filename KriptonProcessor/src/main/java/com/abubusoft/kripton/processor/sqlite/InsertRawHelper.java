@@ -49,7 +49,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	@Override
 	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();				
+		final SQLEntity entity = daoDefinition.getEntity();
 
 		boolean nullable;
 
@@ -57,8 +57,8 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		generateJavaDoc(methodBuilder, method, returnType);
 
 		if (method.jql.containsSelectOperation) {
-			// INSERT-SELECT		
-			GenericSQLHelper.generateGenericExecSQL(methodBuilder, method);		    
+			// INSERT-SELECT
+			GenericSQLHelper.generateGenericExecSQL(methodBuilder, method);
 		} else {
 			// standard INSERT
 			methodBuilder.addStatement("$T contentValues=contentValues()", ContentValues.class);
@@ -82,14 +82,14 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				methodBuilder.addCode("contentValues.put($S, ", property.columnName);
 				// it does not need to be converted in string
 
-				SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, item.value1, property);				
+				SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, item.value1, property);
 				methodBuilder.addCode(");\n");
 				if (nullable) {
 					methodBuilder.nextControlFlow("else");
 					methodBuilder.addCode("contentValues.putNull($S);\n", property.columnName);
 					methodBuilder.endControlFlow();
 				}
-				
+
 			}
 			methodBuilder.addCode("\n");
 
@@ -101,7 +101,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 			if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
 				conflictString1 = "WithOnConflict";
-				conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();				
+				conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 			}
 
@@ -109,14 +109,14 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			if (method.getParent().getParent().generateRx) {
 				methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);
 			}
-			
+
 			// define return value
 			if (returnType == TypeName.VOID) {
 			} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
 				methodBuilder.addCode("return result!=-1;\n");
 			} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
 				methodBuilder.addCode("return result;\n");
-			} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {				
+			} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
 				methodBuilder.addCode("return (int)result;\n");
 			} else {
 				// more than one listener found
@@ -124,7 +124,6 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			}
 		}
 	}
-
 
 	/**
 	 * @param methodBuilder
@@ -135,11 +134,11 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();		
+		final SQLEntity entity = daoDefinition.getEntity();
 		final One<Boolean> inColumnValues = new One<Boolean>(false);
 		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
-		
+
 		// transform JQL to SQL
 		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 
@@ -155,13 +154,13 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 			@Override
 			public String onColumnName(String columnName) {
-				Set<SQLProperty> property = schema.getPropertyBySimpleName(columnName);				
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(property!=null, method, columnName);
-				
-				SQLProperty tempProperty=property.iterator().next();				
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty!=null, method, columnName);
-								
-				return tempProperty.columnName;			
+				Set<SQLProperty> property = schema.getPropertyBySimpleName(columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(property != null, method, columnName);
+
+				SQLProperty tempProperty = property.iterator().next();
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
+				return tempProperty.columnName;
 			}
 
 			@Override
@@ -234,9 +233,9 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 * @param methodBuilder
 	 * @param returnType
 	 */
-	public static void generateJavaDocReturnType(MethodSpec.Builder methodBuilder, TypeName returnType) {		
+	public static void generateJavaDocReturnType(MethodSpec.Builder methodBuilder, TypeName returnType) {
 		if (returnType == TypeName.VOID) {
-			
+
 		} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
 			methodBuilder.addJavadoc("\n");
 			methodBuilder.addJavadoc("@return <code>true</code> if record is inserted, <code>false</code> otherwise");

@@ -197,14 +197,20 @@ public class BindSelectRawPersonDataSource extends AbstractDataSource implements
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindSelectRawPersonDataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindSelectRawPersonDataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

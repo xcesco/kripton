@@ -196,14 +196,20 @@ public class BindBean64DataSource extends AbstractDataSource implements BindBean
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindBean64DataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindBean64DataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

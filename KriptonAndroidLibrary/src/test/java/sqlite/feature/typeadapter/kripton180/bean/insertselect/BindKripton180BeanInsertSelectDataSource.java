@@ -197,14 +197,20 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindKripton180BeanInsertSelectDataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindKripton180BeanInsertSelectDataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

@@ -192,14 +192,20 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindSimpleDataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindSimpleDataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

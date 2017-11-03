@@ -19,6 +19,7 @@ import io.reactivex.MaybeOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
@@ -84,6 +85,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    */
   protected PersonDaoImpl personDao = new PersonDaoImpl(this);
 
+  protected Scheduler globalSubscribeOn;
+
+  protected Scheduler globalObserveOn;
+
   protected BindXenoDataSource(DataSourceOptions options) {
     super("xeno.db", 1, options);
   }
@@ -113,6 +118,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return personDao;
   }
 
+  public BindXenoDataSource globalSubscribeOn(Scheduler scheduler) {
+    this.globalSubscribeOn=scheduler;
+    return this;
+  }
+
+  public BindXenoDataSource globalObserveOn(Scheduler scheduler) {
+    this.globalObserveOn=scheduler;
+    return this;
+  }
+
   public <T> Observable<T> execute(final BindXenoDataSource.ObservableTransaction<T> transaction) {
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
@@ -138,7 +153,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         return;
       }
     };
-    return Observable.create(emitter);
+    Observable<T> result=Observable.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    return result;
   }
 
   public <T> Single<T> execute(final BindXenoDataSource.SingleTransaction<T> transaction) {
@@ -166,7 +184,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         return;
       }
     };
-    return Single.create(emitter);
+    Single<T> result=Single.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    return result;
   }
 
   public <T> Flowable<T> execute(final BindXenoDataSource.FlowableTransaction<T> transaction) {
@@ -194,7 +215,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         return;
       }
     };
-    return Flowable.create(emitter, BackpressureStrategy.BUFFER);
+    Flowable<T> result=Flowable.create(emitter, BackpressureStrategy.BUFFER);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    return result;
   }
 
   public <T> Maybe<T> execute(final BindXenoDataSource.MaybeTransaction<T> transaction) {
@@ -222,7 +246,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         return;
       }
     };
-    return Maybe.create(emitter);
+    Maybe<T> result=Maybe.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    return result;
   }
 
   public <T> Observable<T> execute(final BindXenoDataSource.ObservableBatch<T> batch,
@@ -244,7 +271,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         return;
       }
     };
-    return Observable.create(emitter);
+    Observable<T> result=Observable.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    return result;
   }
 
   public <T> Observable<T> execute(final BindXenoDataSource.ObservableBatch<T> batch) {
@@ -270,7 +300,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         return;
       }
     };
-    return Single.create(emitter);
+    Single<T> result=Single.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    return result;
   }
 
   public <T> Single<T> execute(final BindXenoDataSource.SingleBatch<T> batch) {
@@ -296,7 +329,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         return;
       }
     };
-    return Flowable.create(emitter, BackpressureStrategy.BUFFER);
+    Flowable<T> result=Flowable.create(emitter, BackpressureStrategy.BUFFER);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    return result;
   }
 
   public <T> Flowable<T> execute(final BindXenoDataSource.FlowableBatch<T> batch) {
@@ -322,7 +358,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         return;
       }
     };
-    return Maybe.create(emitter);
+    Maybe<T> result=Maybe.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    return result;
   }
 
   public <T> Maybe<T> execute(final BindXenoDataSource.MaybeBatch<T> batch) {
@@ -527,7 +566,15 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       instance=new BindXenoDataSource(options);
     }
     instance.openWritableDatabase();
+    instance.close();
     return instance;
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized BindXenoDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   public interface ObservableBatch<T> {

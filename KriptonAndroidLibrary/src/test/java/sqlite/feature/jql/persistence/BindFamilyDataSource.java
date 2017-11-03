@@ -216,14 +216,20 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindFamilyDataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindFamilyDataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

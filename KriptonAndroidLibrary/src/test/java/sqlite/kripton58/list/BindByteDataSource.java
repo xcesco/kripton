@@ -196,14 +196,20 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindByteDataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindByteDataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**

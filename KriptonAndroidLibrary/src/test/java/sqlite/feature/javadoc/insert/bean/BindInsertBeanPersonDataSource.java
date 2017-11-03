@@ -197,14 +197,20 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
 
   /**
    * Build instance.
-   * @return dataSource instance.
    */
-  public static synchronized BindInsertBeanPersonDataSource build(DataSourceOptions options) {
+  public static synchronized void build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindInsertBeanPersonDataSource(options);
     }
     instance.openWritableDatabase();
-    return instance;
+    instance.close();
+  }
+
+  /**
+   * Build instance with default config.
+   */
+  public static synchronized void build() {
+    build(DataSourceOptions.builder().build());
   }
 
   /**
