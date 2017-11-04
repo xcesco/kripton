@@ -15,6 +15,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.One;
 
 import base.BaseAndroidTest;
+import io.reactivex.FlowableEmitter;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.Observer;
@@ -85,7 +86,7 @@ public class TestRx extends BaseAndroidTest {
 		 * } });
 		 */
 
-		ds.execute(new BindXenoDataSource.SimpleBatch<Void>() {
+		ds.executeBatch(new BindXenoDataSource.Batch<Void>() {
 
 			@Override
 			public Void onExecute(BindXenoDaoFactory daoFactory) {
@@ -108,7 +109,7 @@ public class TestRx extends BaseAndroidTest {
 			public List<Country> apply(SQLiteModification t) throws Exception {
 				log("---->  MAP " + Thread.currentThread().getName());
 
-				return ds.execute(new BindXenoDataSource.SimpleBatch<List<Country>>() {
+				return ds.executeBatch(new BindXenoDataSource.Batch<List<Country>>() {
 
 					@Override
 					public List<Country> onExecute(BindXenoDaoFactory daoFactory) {
@@ -129,8 +130,18 @@ public class TestRx extends BaseAndroidTest {
 
 			}
 		});
+		
+		ds.execute(new BindXenoDataSource.FlowableTransaction<Country>() {
 
-		ds.execute(new BindXenoDataSource.SimpleBatch<Void>() {
+			@Override
+			public TransactionResult onExecute(BindXenoDaoFactory daoFactory, FlowableEmitter<Country> emitter) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+		});
+
+		ds.executeBatch(new BindXenoDataSource.Batch<Void>() {
 
 			@Override
 			public Void onExecute(BindXenoDaoFactory daoFactory) {
@@ -161,7 +172,7 @@ public class TestRx extends BaseAndroidTest {
 	public BindXenoDataSource prepareDataSource() {
 		BindXenoDataSource dataSource = BindXenoDataSource.instance();
 
-		dataSource.execute(new BindXenoDataSource.SimpleBatch<Void>() {
+		dataSource.executeBatch(new BindXenoDataSource.Batch<Void>() {
 
 			@Override
 			public Void onExecute(BindXenoDaoFactory daoFactory) {
