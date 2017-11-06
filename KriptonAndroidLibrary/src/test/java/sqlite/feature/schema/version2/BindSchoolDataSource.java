@@ -114,8 +114,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * @param commands
    * 	batch to execute
    */
-  public <T> T execute(Batch<T> commands) {
-    return execute(commands, false);
+  public <T> T executeBatch(Batch<T> commands) {
+    return executeBatch(commands, false);
   }
 
   /**
@@ -126,7 +126,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * @param writeMode
    * 	true to open connection in write mode, false to open connection in read only mode
    */
-  public <T> T execute(Batch<T> commands, boolean writeMode) {
+  public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
     try {
       if (commands!=null) {
@@ -135,7 +135,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
-      if (commands!=null) commands.onError(e);
+      throw(e);
     } finally {
       close();
     }
@@ -179,10 +179,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-    database.execSQL(StudentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
     database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+    database.execSQL(StudentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
     database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
@@ -220,10 +220,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-      database.execSQL(StudentTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
       database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+      database.execSQL(StudentTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
       database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
@@ -295,7 +295,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * Rapresents batch operation.
    */
-  public interface Batch<T> extends AbstractDataSource.AbstractExecutable<BindSchoolDaoFactory> {
+  public interface Batch<T> {
     /**
      * Execute batch operations.
      *
@@ -303,15 +303,5 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
      * @throws Throwable
      */
     T onExecute(BindSchoolDaoFactory daoFactory);
-  }
-
-  /**
-   * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
-   */
-  public abstract static class SimpleBatch<T> implements Batch<T> {
-    @Override
-    public void onError(Throwable e) {
-      throw(new KriptonRuntimeException(e));
-    }
   }
 }

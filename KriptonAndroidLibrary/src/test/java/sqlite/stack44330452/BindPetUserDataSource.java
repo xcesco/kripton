@@ -88,8 +88,8 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * @param commands
    * 	batch to execute
    */
-  public <T> T execute(Batch<T> commands) {
-    return execute(commands, false);
+  public <T> T executeBatch(Batch<T> commands) {
+    return executeBatch(commands, false);
   }
 
   /**
@@ -100,7 +100,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * @param writeMode
    * 	true to open connection in write mode, false to open connection in read only mode
    */
-  public <T> T execute(Batch<T> commands, boolean writeMode) {
+  public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
     try {
       if (commands!=null) {
@@ -109,7 +109,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
-      if (commands!=null) commands.onError(e);
+      throw(e);
     } finally {
       close();
     }
@@ -261,7 +261,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   /**
    * Rapresents batch operation.
    */
-  public interface Batch<T> extends AbstractDataSource.AbstractExecutable<BindPetUserDaoFactory> {
+  public interface Batch<T> {
     /**
      * Execute batch operations.
      *
@@ -269,15 +269,5 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
      * @throws Throwable
      */
     T onExecute(BindPetUserDaoFactory daoFactory);
-  }
-
-  /**
-   * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
-   */
-  public abstract static class SimpleBatch<T> implements Batch<T> {
-    @Override
-    public void onError(Throwable e) {
-      throw(new KriptonRuntimeException(e));
-    }
   }
 }

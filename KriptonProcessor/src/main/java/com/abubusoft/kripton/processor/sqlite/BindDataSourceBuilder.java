@@ -590,7 +590,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			.build();
 
 		{
-			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addTypeVariable(TypeVariableName.get("T"))
+			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("executeBatch").addModifiers(Modifier.PUBLIC).addTypeVariable(TypeVariableName.get("T"))
 					.addParameter(ParameterizedTypeName.get(TypeUtility.className(dataSourceName.toString(), rxType.clazz.getSimpleName() + "Batch"), TypeVariableName.get("T")), parameterName,
 							Modifier.FINAL)
 					.addParameter(TypeName.BOOLEAN, "writeMode", Modifier.FINAL).returns(returnTypeName);
@@ -611,12 +611,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		}
 		
 		{
-			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addTypeVariable(TypeVariableName.get("T"))
+			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("executeBatch").addModifiers(Modifier.PUBLIC).addTypeVariable(TypeVariableName.get("T"))
 					.addParameter(ParameterizedTypeName.get(TypeUtility.className(dataSourceName.toString(), rxType.clazz.getSimpleName() + "Batch"), TypeVariableName.get("T")), parameterName,
 							Modifier.FINAL)
 					.returns(returnTypeName);
 
-			executeMethod.addStatement("return execute($L, false)", parameterName);
+			executeMethod.addStatement("return executeBatch($L, false)", parameterName);
 
 			classBuilder.addMethod(executeMethod.build());
 		}
@@ -800,12 +800,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// create interface
 		String transationExecutorName = "Batch";
 		// @formatter:off
-		ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className(AbstractExecutable.class),
-				className(daoFactory));
+		//ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className(AbstractExecutable.class),
+			//	className(daoFactory));
 		classBuilder.addType(TypeSpec.interfaceBuilder(transationExecutorName)
 				.addModifiers(Modifier.PUBLIC)
 				.addTypeVariable(TypeVariableName.get("T"))
-				.addSuperinterface(parameterizedTypeName)
+				//.addSuperinterface(parameterizedTypeName)
 				.addJavadoc("Rapresents batch operation.\n")
 				.addMethod(MethodSpec.methodBuilder("onExecute")
 						.addJavadoc(
@@ -816,38 +816,38 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 				.build());
 		// @formatter:on
 
-		// create SimpleTransaction class
-		String simpleTransactionClassName = "Simple" + transationExecutorName;
-		// @formatter:off
-		classBuilder.addType(TypeSpec.classBuilder(simpleTransactionClassName)
-				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
-				.addTypeVariable(TypeVariableName.get("T"))
-				.addSuperinterface(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")))				
-				.addJavadoc("Simple class implements interface to define batch.")
-				.addJavadoc("In this class a simple <code>onError</code> method is implemented.\n")
-				.addMethod(MethodSpec.methodBuilder("onError").addAnnotation(Override.class).returns(Void.TYPE)
-						.addModifiers(Modifier.PUBLIC).addParameter(Throwable.class, "e")
-						.addStatement("throw(new $T(e))", KriptonRuntimeException.class).build())
-				.build());
+//		// create SimpleTransaction class
+//		String simpleTransactionClassName = "Simple" + transationExecutorName;
+//		// @formatter:off
+//		classBuilder.addType(TypeSpec.classBuilder(simpleTransactionClassName)
+//				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
+//				.addTypeVariable(TypeVariableName.get("T"))
+//				.addSuperinterface(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")))				
+//				.addJavadoc("Simple class implements interface to define batch.")
+//				.addJavadoc("In this class a simple <code>onError</code> method is implemented.\n")
+//				.addMethod(MethodSpec.methodBuilder("onError").addAnnotation(Override.class).returns(Void.TYPE)
+//						.addModifiers(Modifier.PUBLIC).addParameter(Throwable.class, "e")
+//						.addStatement("throw(new $T(e))", KriptonRuntimeException.class).build())
+//				.build());
 
 		// @formatter:on
 
 		{
 			// execute read/write mode
-			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute")
+			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("executeBatch")
 					// generate javadoc
 					.addTypeVariable(TypeVariableName.get("T"))
 					.addJavadoc("<p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>\n\n")
 					.addJavadoc("@param commands\n\tbatch to execute\n").addModifiers(Modifier.PUBLIC)
 					.addParameter(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")), "commands").returns(TypeVariableName.get("T"));
 
-			executeMethod.addStatement("return execute(commands, false)");
+			executeMethod.addStatement("return executeBatch(commands, false)");
 			classBuilder.addMethod(executeMethod.build());
 		}
 
 		{
 			// execute read/write mode
-			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute")
+			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("executeBatch")
 					// generate javadoc
 					.addJavadoc("<p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The"
 							+ "drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>\n")
@@ -868,7 +868,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 			executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
 			executeMethod.addStatement("e.printStackTrace()");
-			executeMethod.addStatement("if (commands!=null) commands.onError(e)");
+			//executeMethod.addStatement("if (commands!=null) commands.onError(e)");
+			executeMethod.addStatement("throw(e)");
 
 			executeMethod.nextControlFlow("finally");
 			executeMethod.addStatement("close()");
