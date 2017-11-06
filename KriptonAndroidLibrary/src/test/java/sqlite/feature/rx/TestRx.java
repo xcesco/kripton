@@ -85,7 +85,7 @@ public class TestRx extends BaseAndroidTest {
 		 * } });
 		 */
 
-		ds.execute(new BindXenoDataSource.SimpleBatch<Void>() {
+		ds.executeBatch(new BindXenoDataSource.Batch<Void>() {
 
 			@Override
 			public Void onExecute(BindXenoDaoFactory daoFactory) {
@@ -108,7 +108,7 @@ public class TestRx extends BaseAndroidTest {
 			public List<Country> apply(SQLiteModification t) throws Exception {
 				log("---->  MAP " + Thread.currentThread().getName());
 
-				return ds.execute(new BindXenoDataSource.SimpleBatch<List<Country>>() {
+				return ds.executeBatch(new BindXenoDataSource.Batch<List<Country>>() {
 
 					@Override
 					public List<Country> onExecute(BindXenoDaoFactory daoFactory) {
@@ -130,7 +130,7 @@ public class TestRx extends BaseAndroidTest {
 			}
 		});
 
-		ds.execute(new BindXenoDataSource.SimpleBatch<Void>() {
+		ds.executeBatch(new BindXenoDataSource.Batch<Void>() {
 
 			@Override
 			public Void onExecute(BindXenoDaoFactory daoFactory) {
@@ -161,7 +161,7 @@ public class TestRx extends BaseAndroidTest {
 	public BindXenoDataSource prepareDataSource() {
 		BindXenoDataSource dataSource = BindXenoDataSource.instance();
 
-		dataSource.execute(new BindXenoDataSource.SimpleBatch<Void>() {
+		dataSource.executeBatch(new BindXenoDataSource.Batch<Void>() {
 
 			@Override
 			public Void onExecute(BindXenoDaoFactory daoFactory) {

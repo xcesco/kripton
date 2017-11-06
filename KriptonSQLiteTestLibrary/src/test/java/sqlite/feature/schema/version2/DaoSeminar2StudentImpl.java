@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -39,7 +40,8 @@ public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2St
    */
   @Override
   public long insert(Seminar2Student bean) {
-    ContentValues contentValues=contentValues();
+	  KriptonContentValues contentValues=contentValues();
+	    //contentValues.clear();
     contentValues.clear();
 
     contentValues.put("student_id", bean.studentId);
@@ -70,7 +72,7 @@ public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2St
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("seminar_2_student", null, contentValues);
+    long result = database().insert("seminar_2_student", null, contentValues.values());
     bean.id=result;
 
     return result;

@@ -1,9 +1,9 @@
 package sqlite.feature.typeadapter.kripton180.bean.insertselect;
 
-import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import sqlite.feature.typeadapter.kripton180.Employee;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterBoolean;
@@ -57,65 +57,63 @@ public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements Empl
    */
   @Override
   public void insertJQL(Employee bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.fieldBoolean!=null) {
-      contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
+      _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     } else {
-      contentValues.putNull("field_boolean");
+      _contentValues.putNull("field_boolean");
     }
     if (bean.fieldByte!=null) {
-      contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, bean.fieldByte));
+      _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, bean.fieldByte));
     } else {
-      contentValues.putNull("field_byte");
+      _contentValues.putNull("field_byte");
     }
     if (bean.fieldCharacter!=null) {
-      contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
+      _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
     } else {
-      contentValues.putNull("field_character");
+      _contentValues.putNull("field_character");
     }
     if (bean.fieldShort!=null) {
-      contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
+      _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
     } else {
-      contentValues.putNull("field_short");
+      _contentValues.putNull("field_short");
     }
     if (bean.fieldInteger!=null) {
-      contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, bean.fieldInteger));
+      _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, bean.fieldInteger));
     } else {
-      contentValues.putNull("field_integer");
+      _contentValues.putNull("field_integer");
     }
     if (bean.fieldLong!=null) {
-      contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, bean.fieldLong));
+      _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, bean.fieldLong));
     } else {
-      contentValues.putNull("field_long");
+      _contentValues.putNull("field_long");
     }
     if (bean.fieldFloat!=null) {
-      contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
+      _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
     } else {
-      contentValues.putNull("field_float");
+      _contentValues.putNull("field_float");
     }
     if (bean.fieldDouble!=null) {
-      contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, bean.fieldDouble));
+      _contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, bean.fieldDouble));
     } else {
-      contentValues.putNull("field_double");
+      _contentValues.putNull("field_double");
     }
     if (bean.fieldString!=null) {
-      contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, bean.fieldString));
+      _contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, bean.fieldString));
     } else {
-      contentValues.putNull("field_string");
+      _contentValues.putNull("field_string");
     }
     if (bean.fieldByteArray!=null) {
-      contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, bean.fieldByteArray));
+      _contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, bean.fieldByteArray));
     } else {
-      contentValues.putNull("field_byte_array");
+      _contentValues.putNull("field_byte_array");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -124,8 +122,8 @@ public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements Empl
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -135,7 +133,7 @@ public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements Empl
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("employees", null, contentValues);
+    long result = database().insert("employees", null, _contentValues.values());
     bean.id=result;
   }
 }

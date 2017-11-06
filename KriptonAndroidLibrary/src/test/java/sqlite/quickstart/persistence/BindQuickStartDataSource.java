@@ -252,20 +252,22 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindQuickStartDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindQuickStartDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindQuickStartDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

@@ -1,8 +1,8 @@
 package bind.kripton81ExceptionCoverage;
 
-import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -37,21 +37,19 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
    */
   @Override
   public void insert(PKBean bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("id", bean.id);
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("id", bean.id);
     if (bean.description!=null) {
-      contentValues.put("description", bean.description);
+      _contentValues.put("description", bean.description);
     } else {
-      contentValues.putNull("description");
+      _contentValues.putNull("description");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -60,8 +58,8 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -71,7 +69,7 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("p_k_bean", null, contentValues);
+    long result = database().insert("p_k_bean", null, _contentValues.values());
     bean.id=result;
   }
 }

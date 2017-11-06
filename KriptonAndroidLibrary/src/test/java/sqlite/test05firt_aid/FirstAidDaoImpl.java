@@ -1,11 +1,10 @@
 package sqlite.test05firt_aid;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,12 +57,12 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    */
   @Override
   public List<FirstAid> selectAll() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=null;
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -73,13 +72,13 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -163,7 +162,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    */
   @Override
   public int deleteAll() {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    KriptonContentValues _contentValues=contentValues();
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -182,11 +181,11 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("first_aid", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("first_aid", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -228,88 +227,86 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    */
   @Override
   public int insert(FirstAid bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.uid!=null) {
-      contentValues.put("uid", bean.uid);
+      _contentValues.put("uid", bean.uid);
     } else {
-      contentValues.putNull("uid");
+      _contentValues.putNull("uid");
     }
     if (bean.description!=null) {
-      contentValues.put("description", bean.description);
+      _contentValues.put("description", bean.description);
     } else {
-      contentValues.putNull("description");
+      _contentValues.putNull("description");
     }
     if (bean.info!=null) {
-      contentValues.put("info", bean.info);
+      _contentValues.put("info", bean.info);
     } else {
-      contentValues.putNull("info");
+      _contentValues.putNull("info");
     }
     if (bean.longitude!=null) {
-      contentValues.put("longitude", bean.longitude);
+      _contentValues.put("longitude", bean.longitude);
     } else {
-      contentValues.putNull("longitude");
+      _contentValues.putNull("longitude");
     }
     if (bean.latitude!=null) {
-      contentValues.put("latitude", bean.latitude);
+      _contentValues.put("latitude", bean.latitude);
     } else {
-      contentValues.putNull("latitude");
+      _contentValues.putNull("latitude");
     }
     if (bean.address!=null) {
-      contentValues.put("address", bean.address);
+      _contentValues.put("address", bean.address);
     } else {
-      contentValues.putNull("address");
+      _contentValues.putNull("address");
     }
     if (bean.address2!=null) {
-      contentValues.put("address2", bean.address2);
+      _contentValues.put("address2", bean.address2);
     } else {
-      contentValues.putNull("address2");
+      _contentValues.putNull("address2");
     }
     if (bean.city!=null) {
-      contentValues.put("city", bean.city);
+      _contentValues.put("city", bean.city);
     } else {
-      contentValues.putNull("city");
+      _contentValues.putNull("city");
     }
     if (bean.phone!=null) {
-      contentValues.put("phone", bean.phone);
+      _contentValues.put("phone", bean.phone);
     } else {
-      contentValues.putNull("phone");
+      _contentValues.putNull("phone");
     }
-    contentValues.put("total_patient_count", bean.totalPatientCount);
-    contentValues.put("white_waiting_patients", bean.whiteWaitingPatients);
-    contentValues.put("white_visiting_patients", bean.whiteVisitingPatients);
+    _contentValues.put("total_patient_count", bean.totalPatientCount);
+    _contentValues.put("white_waiting_patients", bean.whiteWaitingPatients);
+    _contentValues.put("white_visiting_patients", bean.whiteVisitingPatients);
     if (bean.whiteAverageWaitingTime!=null) {
-      contentValues.put("white_average_waiting_time", bean.whiteAverageWaitingTime);
+      _contentValues.put("white_average_waiting_time", bean.whiteAverageWaitingTime);
     } else {
-      contentValues.putNull("white_average_waiting_time");
+      _contentValues.putNull("white_average_waiting_time");
     }
-    contentValues.put("green_waiting_patients", bean.greenWaitingPatients);
-    contentValues.put("green_visiting_patients", bean.greenVisitingPatients);
+    _contentValues.put("green_waiting_patients", bean.greenWaitingPatients);
+    _contentValues.put("green_visiting_patients", bean.greenVisitingPatients);
     if (bean.greenAverageWaitingTime!=null) {
-      contentValues.put("green_average_waiting_time", bean.greenAverageWaitingTime);
+      _contentValues.put("green_average_waiting_time", bean.greenAverageWaitingTime);
     } else {
-      contentValues.putNull("green_average_waiting_time");
+      _contentValues.putNull("green_average_waiting_time");
     }
-    contentValues.put("yellow_waiting_patients", bean.yellowWaitingPatients);
-    contentValues.put("yellow_visiting_patients", bean.yellowVisitingPatients);
+    _contentValues.put("yellow_waiting_patients", bean.yellowWaitingPatients);
+    _contentValues.put("yellow_visiting_patients", bean.yellowVisitingPatients);
     if (bean.yellowAverageWaitingTime!=null) {
-      contentValues.put("yellow_average_waiting_time", bean.yellowAverageWaitingTime);
+      _contentValues.put("yellow_average_waiting_time", bean.yellowAverageWaitingTime);
     } else {
-      contentValues.putNull("yellow_average_waiting_time");
+      _contentValues.putNull("yellow_average_waiting_time");
     }
-    contentValues.put("red_waiting_patients", bean.redWaitingPatients);
+    _contentValues.put("red_waiting_patients", bean.redWaitingPatients);
     if (bean.redAverageWaitingTime!=null) {
-      contentValues.put("red_average_waiting_time", bean.redAverageWaitingTime);
+      _contentValues.put("red_average_waiting_time", bean.redAverageWaitingTime);
     } else {
-      contentValues.putNull("red_average_waiting_time");
+      _contentValues.putNull("red_average_waiting_time");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -318,8 +315,8 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -329,7 +326,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("first_aid", null, contentValues);
+    long result = database().insert("first_aid", null, _contentValues.values());
     bean.id=result;
 
     return (int)result;

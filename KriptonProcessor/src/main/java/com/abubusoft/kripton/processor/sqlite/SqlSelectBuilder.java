@@ -28,6 +28,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -223,6 +224,7 @@ public abstract class SqlSelectBuilder {
 			}
 		}
 
+		methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
 		methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
 		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, "selection", "selectionArgs");
 
@@ -270,7 +272,9 @@ public abstract class SqlSelectBuilder {
 				TypeName methodParameterType = method.findParameterTypeByAliasOrName(variable.value);
 
 				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
-				methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				//methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				methodBuilder.addStatement("_contentValues.addWhereArgs(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				
 
 				if (entityProperty != null) {
 
@@ -293,7 +297,8 @@ public abstract class SqlSelectBuilder {
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 
 		methodBuilder.addCode("\n// execute query\n");
-		methodBuilder.addStatement("Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))");
+		//methodBuilder.addStatement("Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))");
+		methodBuilder.addStatement("Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray())");
 
 		methodBuilder.addStatement("return _result");
 

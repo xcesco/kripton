@@ -25,6 +25,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -51,6 +52,9 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 		// String sqlInsert;
+		
+		// retrieve content values
+		methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
 
 		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlInsert.class);
 		CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, method, BindSqlInsert.class, methodBuilder, null);
@@ -72,7 +76,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 		}
 								
-		methodBuilder.addStatement("long result = database().insert$L($S, null, contentValues$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);				
+		methodBuilder.addStatement("long result = database().insert$L($S, null, _contentValues.values()$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);				
 		if (method.getParent().getParent().generateRx) {
 			methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);
 		}

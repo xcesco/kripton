@@ -1,13 +1,12 @@
 package sqlite.feature.rx.persistence;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import io.reactivex.subjects.PublishSubject;
-import java.util.ArrayList;
 import sqlite.feature.rx.model.Person;
 
 /**
@@ -45,21 +44,19 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    */
   @Override
   public int insert(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
-    contentValues.put("age", bean.age);
+    _contentValues.put("age", bean.age);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -68,8 +65,8 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -80,7 +77,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     // log for insert -- END 
 
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("person", null, contentValues, 5);
+    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
     subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
@@ -110,11 +107,11 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    */
   @Override
   public Person selectById(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, age FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -125,15 +122,15 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -176,8 +173,8 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    */
   @Override
   public boolean deleteById(long id) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(id));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -196,11 +193,11 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -221,8 +218,8 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    */
   @Override
   public boolean updateById(Person bean) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.id));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -241,11 +238,11 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }

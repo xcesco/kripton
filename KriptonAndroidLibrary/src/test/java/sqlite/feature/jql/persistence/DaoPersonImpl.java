@@ -1,11 +1,10 @@
 package sqlite.feature.jql.persistence;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.feature.jql.entities.Person;
@@ -40,22 +39,22 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
    */
   @Override
   public List<Person> selectAll() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT _id, name, image FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -105,25 +104,23 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
    */
   @Override
   public Person insertBean(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.image!=null) {
-      contentValues.put("image", bean.image);
+      _contentValues.put("image", bean.image);
     } else {
-      contentValues.putNull("image");
+      _contentValues.putNull("image");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -132,8 +129,8 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -143,7 +140,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, contentValues);
+    long result = database().insert("person", null, _contentValues.values());
     bean.id=result;
 
     return bean;

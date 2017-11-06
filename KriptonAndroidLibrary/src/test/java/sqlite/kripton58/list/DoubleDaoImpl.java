@@ -1,6 +1,5 @@
 package sqlite.kripton58.list;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
@@ -8,6 +7,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -51,22 +51,22 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public DoubleBean selectOne() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -115,11 +115,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public DoubleBean selectOne(List<Double> value) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -130,15 +130,15 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -188,11 +188,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public void selectOne(List<Double> value, OnReadBeanListener<DoubleBean> listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -203,15 +203,15 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -267,11 +267,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public void selectOne(List<Double> value, OnReadCursorListener listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -282,15 +282,15 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -330,11 +330,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public List<DoubleBean> selectList(List<Double> value) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM double_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -345,15 +345,15 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -411,17 +411,15 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public long updateOne(List<Double> value, Double id, List<Double> paramValue) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
     if (value!=null) {
-      contentValues.put("value", serializer1(value));
+      _contentValues.put("value", serializer1(value));
     } else {
-      contentValues.putNull("value");
+      _contentValues.putNull("value");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((id==null?"":String.valueOf(id)));
-    _sqlWhereParams.add((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
+    _contentValues.addWhereArgs((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -440,8 +438,8 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -452,11 +450,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("double_bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("double_bean", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result;
   }
 
@@ -479,21 +477,20 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public long insert(long id, List<Double> value) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
 
-    contentValues.put("id", id);
+    _contentValues.put("id", id);
     if (value!=null) {
-      contentValues.put("value", serializer1(value));
+      _contentValues.put("value", serializer1(value));
     } else {
-      contentValues.putNull("value");
+      _contentValues.putNull("value");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -502,8 +499,8 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -513,7 +510,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("double_bean", null, contentValues);
+    long result = database().insert("double_bean", null, _contentValues.values());
     return result;
   }
 
@@ -536,25 +533,23 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public long insert(DoubleBean bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.value!=null) {
-      contentValues.put("value", DoubleBeanTable.serializeValue(bean.value));
+      _contentValues.put("value", DoubleBeanTable.serializeValue(bean.value));
     } else {
-      contentValues.putNull("value");
+      _contentValues.putNull("value");
     }
     if (bean.value2!=null) {
-      contentValues.put("value2", DoubleBeanTable.serializeValue2(bean.value2));
+      _contentValues.put("value2", DoubleBeanTable.serializeValue2(bean.value2));
     } else {
-      contentValues.putNull("value2");
+      _contentValues.putNull("value2");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -563,8 +558,8 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -574,7 +569,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("double_bean", null, contentValues);
+    long result = database().insert("double_bean", null, _contentValues.values());
     bean.id=result;
 
     return result;
@@ -597,8 +592,8 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
    */
   @Override
   public long delete(List<Double> paramValue) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -617,11 +612,11 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("double_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("double_bean", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 

@@ -1,10 +1,9 @@
 package sqlite.kripton56.persistence;
 
-import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import sqlite.kripton56.entities.OwnerType;
 
 /**
@@ -44,16 +43,14 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public boolean updateById(long id, OwnerType ownerType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
     if (ownerType!=null) {
-      contentValues.put("owner_type", ownerType.toString());
+      _contentValues.put("owner_type", ownerType.toString());
     } else {
-      contentValues.putNull("owner_type");
+      _contentValues.putNull("owner_type");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -72,8 +69,8 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -84,11 +81,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("message", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("message", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result!=0;
   }
 }

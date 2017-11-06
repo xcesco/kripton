@@ -1,11 +1,11 @@
 package sqlite.kripton84;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -61,22 +61,22 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectAll() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -158,11 +158,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectById(long uid) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -173,15 +173,15 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(uid));
+    _contentValues.addWhereArgs(String.valueOf(uid));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -273,11 +273,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
   @Override
   public List<Bean84A> selectWhere(List<String> param1, Map<Integer, String> param2,
       Character[] param3, char[] param4) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -288,18 +288,18 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((param2==null?"":new String(serializer2(param2),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((param3==null?"":new String(serializer3(param3),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((param4==null?"":new String(serializer4(param4),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((param2==null?"":new String(serializer2(param2),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((param3==null?"":new String(serializer3(param3),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((param4==null?"":new String(serializer4(param4),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -377,70 +377,68 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public boolean insertAll(Bean84A bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.param1!=null) {
-      contentValues.put("param1", bean.param1);
+      _contentValues.put("param1", bean.param1);
     } else {
-      contentValues.putNull("param1");
+      _contentValues.putNull("param1");
     }
     if (bean.param2!=null) {
-      contentValues.put("param2", bean.param2);
+      _contentValues.put("param2", bean.param2);
     } else {
-      contentValues.putNull("param2");
+      _contentValues.putNull("param2");
     }
     if (bean.param3!=null) {
-      contentValues.put("param3", bean.param3);
+      _contentValues.put("param3", bean.param3);
     } else {
-      contentValues.putNull("param3");
+      _contentValues.putNull("param3");
     }
     if (bean.param4!=null) {
-      contentValues.put("param4", bean.param4);
+      _contentValues.put("param4", bean.param4);
     } else {
-      contentValues.putNull("param4");
+      _contentValues.putNull("param4");
     }
     if (bean.columnListString!=null) {
-      contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
+      _contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
     } else {
-      contentValues.putNull("column_list_string");
+      _contentValues.putNull("column_list_string");
     }
     if (bean.columnMapIntegerString!=null) {
-      contentValues.put("column_map_integer_string", Bean84ATable.serializeColumnMapIntegerString(bean.columnMapIntegerString));
+      _contentValues.put("column_map_integer_string", Bean84ATable.serializeColumnMapIntegerString(bean.columnMapIntegerString));
     } else {
-      contentValues.putNull("column_map_integer_string");
+      _contentValues.putNull("column_map_integer_string");
     }
     if (bean.columnArrayChar!=null) {
-      contentValues.put("column_array_char", Bean84ATable.serializeColumnArrayChar(bean.columnArrayChar));
+      _contentValues.put("column_array_char", Bean84ATable.serializeColumnArrayChar(bean.columnArrayChar));
     } else {
-      contentValues.putNull("column_array_char");
+      _contentValues.putNull("column_array_char");
     }
     if (bean.columnArrayCharType!=null) {
-      contentValues.put("column_array_char_type", Bean84ATable.serializeColumnArrayCharType(bean.columnArrayCharType));
+      _contentValues.put("column_array_char_type", Bean84ATable.serializeColumnArrayCharType(bean.columnArrayCharType));
     } else {
-      contentValues.putNull("column_array_char_type");
+      _contentValues.putNull("column_array_char_type");
     }
     if (bean.columnBean!=null) {
-      contentValues.put("column_bean", Bean84ATable.serializeColumnBean(bean.columnBean));
+      _contentValues.put("column_bean", Bean84ATable.serializeColumnBean(bean.columnBean));
     } else {
-      contentValues.putNull("column_bean");
+      _contentValues.putNull("column_bean");
     }
     if (bean.columnArrayByteType!=null) {
-      contentValues.put("column_array_byte_type", bean.columnArrayByteType);
+      _contentValues.put("column_array_byte_type", bean.columnArrayByteType);
     } else {
-      contentValues.putNull("column_array_byte_type");
+      _contentValues.putNull("column_array_byte_type");
     }
     if (bean.valueString!=null) {
-      contentValues.put("value_string", bean.valueString);
+      _contentValues.put("value_string", bean.valueString);
     } else {
-      contentValues.putNull("value_string");
+      _contentValues.putNull("value_string");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -449,8 +447,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -460,7 +458,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean84_a", null, contentValues);
+    long result = database().insert("bean84_a", null, _contentValues.values());
     bean.id=result;
 
     return result!=-1;
@@ -482,20 +480,19 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public boolean insert(List<String> param1) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
 
     if (param1!=null) {
-      contentValues.put("column_list_string", serializer1(param1));
+      _contentValues.put("column_list_string", serializer1(param1));
     } else {
-      contentValues.putNull("column_list_string");
+      _contentValues.putNull("column_list_string");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -504,8 +501,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -515,7 +512,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean84_a", null, contentValues);
+    long result = database().insert("bean84_a", null, _contentValues.values());
     return result!=-1;
   }
 
@@ -545,66 +542,63 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public boolean updateAll(Bean84A bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.param1!=null) {
-      contentValues.put("param1", bean.param1);
+      _contentValues.put("param1", bean.param1);
     } else {
-      contentValues.putNull("param1");
+      _contentValues.putNull("param1");
     }
     if (bean.param2!=null) {
-      contentValues.put("param2", bean.param2);
+      _contentValues.put("param2", bean.param2);
     } else {
-      contentValues.putNull("param2");
+      _contentValues.putNull("param2");
     }
     if (bean.param3!=null) {
-      contentValues.put("param3", bean.param3);
+      _contentValues.put("param3", bean.param3);
     } else {
-      contentValues.putNull("param3");
+      _contentValues.putNull("param3");
     }
     if (bean.param4!=null) {
-      contentValues.put("param4", bean.param4);
+      _contentValues.put("param4", bean.param4);
     } else {
-      contentValues.putNull("param4");
+      _contentValues.putNull("param4");
     }
     if (bean.columnListString!=null) {
-      contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
+      _contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
     } else {
-      contentValues.putNull("column_list_string");
+      _contentValues.putNull("column_list_string");
     }
     if (bean.columnMapIntegerString!=null) {
-      contentValues.put("column_map_integer_string", Bean84ATable.serializeColumnMapIntegerString(bean.columnMapIntegerString));
+      _contentValues.put("column_map_integer_string", Bean84ATable.serializeColumnMapIntegerString(bean.columnMapIntegerString));
     } else {
-      contentValues.putNull("column_map_integer_string");
+      _contentValues.putNull("column_map_integer_string");
     }
     if (bean.columnArrayChar!=null) {
-      contentValues.put("column_array_char", Bean84ATable.serializeColumnArrayChar(bean.columnArrayChar));
+      _contentValues.put("column_array_char", Bean84ATable.serializeColumnArrayChar(bean.columnArrayChar));
     } else {
-      contentValues.putNull("column_array_char");
+      _contentValues.putNull("column_array_char");
     }
     if (bean.columnArrayCharType!=null) {
-      contentValues.put("column_array_char_type", Bean84ATable.serializeColumnArrayCharType(bean.columnArrayCharType));
+      _contentValues.put("column_array_char_type", Bean84ATable.serializeColumnArrayCharType(bean.columnArrayCharType));
     } else {
-      contentValues.putNull("column_array_char_type");
+      _contentValues.putNull("column_array_char_type");
     }
     if (bean.columnBean!=null) {
-      contentValues.put("column_bean", Bean84ATable.serializeColumnBean(bean.columnBean));
+      _contentValues.put("column_bean", Bean84ATable.serializeColumnBean(bean.columnBean));
     } else {
-      contentValues.putNull("column_bean");
+      _contentValues.putNull("column_bean");
     }
     if (bean.columnArrayByteType!=null) {
-      contentValues.put("column_array_byte_type", bean.columnArrayByteType);
+      _contentValues.put("column_array_byte_type", bean.columnArrayByteType);
     } else {
-      contentValues.putNull("column_array_byte_type");
+      _contentValues.putNull("column_array_byte_type");
     }
     if (bean.valueString!=null) {
-      contentValues.put("value_string", bean.valueString);
+      _contentValues.put("value_string", bean.valueString);
     } else {
-      contentValues.putNull("value_string");
+      _contentValues.putNull("value_string");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -615,8 +609,8 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -627,11 +621,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean84_a", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("bean84_a", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result!=0;
   }
 
@@ -646,7 +640,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
    */
   @Override
   public boolean deleteAll(Bean84A bean) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    KriptonContentValues _contentValues=contentValues();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -657,11 +651,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean84_a", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("bean84_a", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result!=0;
   }
 

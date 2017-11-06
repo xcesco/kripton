@@ -1,12 +1,11 @@
 package sqlite.feat.includeFields;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,12 +45,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectIncludeOne(Person bean) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT name, id FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=null;
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -62,20 +61,20 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((bean.name==null?"":bean.name));
+    _contentValues.addWhereArgs((bean.name==null?"":bean.name));
     // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name";
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -122,12 +121,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public List<Person> selectExcludeOne() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT surname, birth_city, birth_day, type_name FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=null;
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -137,13 +136,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -195,21 +194,19 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertIncludeOne(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
-    contentValues.put("id", bean.id);
+    _contentValues.put("id", bean.id);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -218,8 +215,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -229,7 +226,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, contentValues);
+    long result = database().insert("person", null, _contentValues.values());
     bean.id=result;
   }
 
@@ -253,35 +250,33 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertExcludeOne(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
+      _contentValues.put("surname", bean.surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
     if (bean.birthCity!=null) {
-      contentValues.put("birth_city", bean.birthCity);
+      _contentValues.put("birth_city", bean.birthCity);
     } else {
-      contentValues.putNull("birth_city");
+      _contentValues.putNull("birth_city");
     }
     if (bean.birthDay!=null) {
-      contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+      _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
     } else {
-      contentValues.putNull("birth_day");
+      _contentValues.putNull("birth_day");
     }
     if (bean.typeName!=null) {
-      contentValues.put("type_name", bean.typeName);
+      _contentValues.put("type_name", bean.typeName);
     } else {
-      contentValues.putNull("type_name");
+      _contentValues.putNull("type_name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -290,8 +285,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -301,7 +296,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, contentValues);
+    long result = database().insert("person", null, _contentValues.values());
     bean.id=result;
   }
 
@@ -320,17 +315,14 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void updateIncludeOne(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
-    contentValues.put("id", bean.id);
+    _contentValues.put("id", bean.id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -341,8 +333,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -353,11 +345,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
   }
 
   /**
@@ -377,31 +369,28 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void updateExcludeOne(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
+      _contentValues.put("surname", bean.surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
     if (bean.birthCity!=null) {
-      contentValues.put("birth_city", bean.birthCity);
+      _contentValues.put("birth_city", bean.birthCity);
     } else {
-      contentValues.putNull("birth_city");
+      _contentValues.putNull("birth_city");
     }
     if (bean.birthDay!=null) {
-      contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+      _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
     } else {
-      contentValues.putNull("birth_day");
+      _contentValues.putNull("birth_day");
     }
     if (bean.typeName!=null) {
-      contentValues.put("type_name", bean.typeName);
+      _contentValues.put("type_name", bean.typeName);
     } else {
-      contentValues.putNull("type_name");
+      _contentValues.putNull("type_name");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -412,8 +401,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -424,11 +413,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
   }
 
   /**
@@ -440,7 +429,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteIncludeOne(Person bean) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    KriptonContentValues _contentValues=contentValues();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -451,11 +440,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
   }
 
   /**
@@ -467,7 +456,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteExcludeOne(Person bean) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    KriptonContentValues _contentValues=contentValues();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -478,10 +467,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
   }
 }

@@ -197,20 +197,22 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindPersonUpdateDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPersonUpdateDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindPersonUpdateDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

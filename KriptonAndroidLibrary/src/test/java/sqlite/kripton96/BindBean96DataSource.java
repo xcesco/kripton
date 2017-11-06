@@ -196,20 +196,22 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindBean96DataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindBean96DataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindBean96DataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

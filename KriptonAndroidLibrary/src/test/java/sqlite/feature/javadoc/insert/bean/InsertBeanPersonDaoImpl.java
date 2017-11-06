@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -50,26 +51,24 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBean(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
+      _contentValues.put("surname", bean.getSurname());
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
-    contentValues.put("student", bean.isStudent());
+    _contentValues.put("student", bean.isStudent());
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -78,8 +77,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -89,7 +88,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, contentValues);
+    long result = database().insert("person", null, _contentValues.values());
     bean.id=result;
 
     return (int)result;
@@ -115,7 +114,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   long insertOneBean0(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    for (String columnName:contentValues.keySet()) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
+    for (String columnName:_contentValues.keySet()) {
       if (!insertOneBean0ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
@@ -125,7 +125,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -134,8 +134,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -145,7 +145,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, contentValues);
+    long result = database().insert("person", null, _contentValues.values());
     return result;
   }
 
@@ -167,20 +167,18 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBeanFieldName(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -189,8 +187,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -201,7 +199,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for insert -- END 
 
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("person", null, contentValues, 5);
+    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
     bean.id=result;
 
     return (int)result;
@@ -227,7 +225,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   long insertOneBeanFieldName1(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    for (String columnName:contentValues.keySet()) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
+    for (String columnName:_contentValues.keySet()) {
       if (!insertOneBeanFieldName1ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/name', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
@@ -237,7 +236,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -246,8 +245,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -258,7 +257,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for insert -- END 
 
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("person", null, contentValues, 5);
+    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
     return result;
   }
 
@@ -281,21 +280,19 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBeanFieldSurname(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
+      _contentValues.put("surname", bean.getSurname());
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
-    contentValues.put("student", bean.isStudent());
+    _contentValues.put("student", bean.isStudent());
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -304,8 +301,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -316,7 +313,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for insert -- END 
 
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("person", null, contentValues, 5);
+    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
     bean.id=result;
 
     return (int)result;
@@ -342,7 +339,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   long insertOneBeanFieldSurname2(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    for (String columnName:contentValues.keySet()) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
+    for (String columnName:_contentValues.keySet()) {
       if (!insertOneBeanFieldSurname2ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/surname', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
@@ -352,7 +350,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -361,8 +359,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -373,7 +371,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for insert -- END 
 
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("person", null, contentValues, 5);
+    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
     return result;
   }
 
@@ -394,20 +392,18 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public void insertBeanFromSelect(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -416,8 +412,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -427,7 +423,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, contentValues);
+    long result = database().insert("person", null, _contentValues.values());
     bean.id=result;
   }
 }

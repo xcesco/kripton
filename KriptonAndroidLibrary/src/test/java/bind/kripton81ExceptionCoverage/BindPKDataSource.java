@@ -196,20 +196,22 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindPKDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPKDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindPKDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

@@ -197,20 +197,22 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindKripton180RawDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindKripton180RawDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindKripton180RawDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

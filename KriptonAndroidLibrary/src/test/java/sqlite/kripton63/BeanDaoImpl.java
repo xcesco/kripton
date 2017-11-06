@@ -1,6 +1,5 @@
 package sqlite.kripton63;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
@@ -8,6 +7,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -17,7 +17,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,22 +53,22 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean63 selectOne() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -122,11 +121,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean63> listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -137,15 +136,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -205,11 +204,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -220,15 +219,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -269,11 +268,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public List<Bean63> selectList(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -284,15 +283,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -349,27 +348,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long updateOne(Bean63 value) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (value.value!=null) {
-      contentValues.put("value", value.value);
+      _contentValues.put("value", value.value);
     } else {
-      contentValues.putNull("value");
+      _contentValues.putNull("value");
     }
     if (value.valueMapStringByte!=null) {
-      contentValues.put("value_map_string_byte", Bean63Table.serializeValueMapStringByte(value.valueMapStringByte));
+      _contentValues.put("value_map_string_byte", Bean63Table.serializeValueMapStringByte(value.valueMapStringByte));
     } else {
-      contentValues.putNull("value_map_string_byte");
+      _contentValues.putNull("value_map_string_byte");
     }
     if (value.valueMapEnumByte!=null) {
-      contentValues.put("value_map_enum_byte", Bean63Table.serializeValueMapEnumByte(value.valueMapEnumByte));
+      _contentValues.put("value_map_enum_byte", Bean63Table.serializeValueMapEnumByte(value.valueMapEnumByte));
     } else {
-      contentValues.putNull("value_map_enum_byte");
+      _contentValues.putNull("value_map_enum_byte");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(value.id));
+    _contentValues.addWhereArgs(String.valueOf(value.id));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -388,8 +384,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -400,11 +396,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean63", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("bean63", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result;
   }
 
@@ -428,30 +424,28 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long insert(Bean63 bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.value!=null) {
-      contentValues.put("value", bean.value);
+      _contentValues.put("value", bean.value);
     } else {
-      contentValues.putNull("value");
+      _contentValues.putNull("value");
     }
     if (bean.valueMapStringByte!=null) {
-      contentValues.put("value_map_string_byte", Bean63Table.serializeValueMapStringByte(bean.valueMapStringByte));
+      _contentValues.put("value_map_string_byte", Bean63Table.serializeValueMapStringByte(bean.valueMapStringByte));
     } else {
-      contentValues.putNull("value_map_string_byte");
+      _contentValues.putNull("value_map_string_byte");
     }
     if (bean.valueMapEnumByte!=null) {
-      contentValues.put("value_map_enum_byte", Bean63Table.serializeValueMapEnumByte(bean.valueMapEnumByte));
+      _contentValues.put("value_map_enum_byte", Bean63Table.serializeValueMapEnumByte(bean.valueMapEnumByte));
     } else {
-      contentValues.putNull("value_map_enum_byte");
+      _contentValues.putNull("value_map_enum_byte");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -460,8 +454,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -471,7 +465,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean63", null, contentValues);
+    long result = database().insert("bean63", null, _contentValues.values());
     bean.id=result;
 
     return result;
@@ -493,20 +487,19 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long insert(Map<String, Byte> valueMapStringByte) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
 
     if (valueMapStringByte!=null) {
-      contentValues.put("value_map_string_byte", serializer1(valueMapStringByte));
+      _contentValues.put("value_map_string_byte", serializer1(valueMapStringByte));
     } else {
-      contentValues.putNull("value_map_string_byte");
+      _contentValues.putNull("value_map_string_byte");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -515,8 +508,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -526,7 +519,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean63", null, contentValues);
+    long result = database().insert("bean63", null, _contentValues.values());
     return result;
   }
 
@@ -554,11 +547,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean63 selectOne(Map<String, Byte> valueMapStringByte) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -569,15 +562,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -622,8 +615,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(Map<String, Byte> valueMapStringByte) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -642,11 +635,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean63", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("bean63", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -673,12 +666,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long updateOne(long id, Map<String, Byte> valueMapStringByte) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -697,8 +688,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -709,11 +700,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean63", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("bean63", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result;
   }
 
@@ -733,20 +724,19 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long insert(HashMap<EnumType, Byte> valueMapEnumByte) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
 
     if (valueMapEnumByte!=null) {
-      contentValues.put("value_map_enum_byte", serializer2(valueMapEnumByte));
+      _contentValues.put("value_map_enum_byte", serializer2(valueMapEnumByte));
     } else {
-      contentValues.putNull("value_map_enum_byte");
+      _contentValues.putNull("value_map_enum_byte");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -755,8 +745,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -766,7 +756,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean63", null, contentValues);
+    long result = database().insert("bean63", null, _contentValues.values());
     return result;
   }
 
@@ -794,11 +784,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Bean63 selectOne(HashMap<EnumType, Byte> valueMapEnumByte) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -809,15 +799,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -869,11 +859,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public Cursor selectCursorOne(HashMap<EnumType, Byte> valueMapEnumByte) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -884,15 +874,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -927,11 +917,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte,
       OnReadBeanListener<Bean63> listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -942,15 +932,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -1011,11 +1001,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte,
       OnReadCursorListener listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1026,15 +1016,15 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -1068,8 +1058,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(HashMap<EnumType, Byte> valueMapEnumByte) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1088,11 +1078,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean63", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("bean63", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1119,12 +1109,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long updateOne(long id, HashMap<EnumType, Byte> valueMapEnumByte) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1143,8 +1131,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -1155,11 +1143,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean63", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("bean63", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result;
   }
 
@@ -1177,22 +1165,22 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public List<Bean63> selectMapEnumByteOne() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -1234,22 +1222,22 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public List<String> selectMapEnumByteOneString() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_map_enum_byte FROM bean63");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END

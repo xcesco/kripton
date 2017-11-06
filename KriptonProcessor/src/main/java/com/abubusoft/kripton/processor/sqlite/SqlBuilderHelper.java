@@ -203,8 +203,8 @@ public abstract class SqlBuilderHelper {
 	public static void generateLogForContentValues(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		methodBuilder.addCode("\n// log for content values -- BEGIN\n");
 		methodBuilder.addStatement("Object _contentValue");
-		methodBuilder.beginControlFlow("for (String _contentKey:contentValues.keySet())");
-		methodBuilder.addStatement("_contentValue=contentValues.get(_contentKey)");
+		methodBuilder.beginControlFlow("for (String _contentKey:_contentValues.keySet())");
+		methodBuilder.addStatement("_contentValue=_contentValues.get(_contentKey)");
 		methodBuilder.beginControlFlow("if (_contentValue==null)");
 		methodBuilder.addStatement("$T.info(\"==> :%s = <null>\", _contentKey)", Logger.class);
 		methodBuilder.nextControlFlow("else");
@@ -243,7 +243,8 @@ public abstract class SqlBuilderHelper {
 		if (method.getParent().getParent().generateLog) {
 			methodBuilder.addCode("\n// log for where parameters -- BEGIN\n");
 			methodBuilder.addStatement("int _whereParamCounter=0");
-			methodBuilder.beginControlFlow("for (String _whereParamItem: _sqlWhereParams)");
+			//methodBuilder.beginControlFlow("for (String _whereParamItem: _sqlWhereParams)");
+			methodBuilder.beginControlFlow("for (String _whereParamItem: _contentValues.whereArgs())");
 			methodBuilder.addStatement("$T.info(\"==> param%s: '%s'\",(_whereParamCounter++), $T.checkSize(_whereParamItem))", Logger.class, StringUtils.class);
 			methodBuilder.endControlFlow();
 			methodBuilder.addCode("// log for where parameters -- END\n");
@@ -364,7 +365,7 @@ public abstract class SqlBuilderHelper {
 
 		// we need always this
 		if (!sqlWhereParamsAlreadyDefined) {
-			methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
+			//methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
 		}
 
 		if (jql.isWhereConditions()) {
@@ -461,7 +462,9 @@ public abstract class SqlBuilderHelper {
 
 			if (method.hasDynamicWhereConditions()) {
 				methodBuilder.beginControlFlow("for (String _arg: _sqlDynamicWhereArgs)");
-				methodBuilder.addStatement("_sqlWhereParams.add(_arg)");
+				//methodBuilder.addStatement("_sqlWhereParams.add(_arg)");
+				methodBuilder.addStatement("_contentValues.addWhereArgs(_arg)");
+				
 				methodBuilder.endControlFlow();
 			}
 
@@ -486,7 +489,7 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.addStatement("$T _columnValueBuffer=new $T()", StringBuffer.class, StringBuffer.class);
 			methodBuilder.addStatement("String _columnSeparator=$S", "");
 
-			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "contentValues.keySet()", false, new OnColumnListener() {
+			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.keySet()", false, new OnColumnListener() {
 
 				@Override
 				public void onColumnCheck(MethodSpec.Builder methodBuilder, String columNameVariable) {

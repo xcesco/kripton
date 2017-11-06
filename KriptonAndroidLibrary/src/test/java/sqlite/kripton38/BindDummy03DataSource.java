@@ -196,20 +196,22 @@ public class BindDummy03DataSource extends AbstractDataSource implements BindDum
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindDummy03DataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindDummy03DataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindDummy03DataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

@@ -1,10 +1,9 @@
 package sqlite.kripton41;
 
-import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 
 /**
  * <p>
@@ -46,17 +45,15 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
    */
   @Override
   public boolean updateDistance(long id, Double value, long test) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("id", id);
     if (value!=null) {
-      contentValues.put("value", value);
+      _contentValues.put("value", value);
     } else {
-      contentValues.putNull("value");
+      _contentValues.putNull("value");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(test));
+    _contentValues.addWhereArgs(String.valueOf(test));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -75,8 +72,8 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -87,11 +84,11 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean01", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("bean01", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result!=0;
   }
 }

@@ -196,20 +196,22 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindCharDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindCharDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindCharDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

@@ -25,6 +25,7 @@ import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
@@ -35,8 +36,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
-
-import android.content.ContentValues;
 
 public abstract class CodeBuilderUtility {
 
@@ -85,8 +84,8 @@ public abstract class CodeBuilderUtility {
 		
 		AssertKripton.assertTrueOrInvalidMethodSignException(!method.hasAdapterForParam(entityName), method, "method's parameter '%s' can not use a type adapter", entityName);
 
-		methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
-		methodBuilder.addCode("contentValues.clear();\n\n");
+		//methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
+		//methodBuilder.addCode("_contentValues.clear();\n\n");
 
 		Set<String> updateColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);
 		SQLProperty item;
@@ -99,13 +98,13 @@ public abstract class CodeBuilderUtility {
 			}
 
 			// add property to list of used properties
-			methodBuilder.addCode("contentValues.put($S, ", item.columnName);
+			methodBuilder.addCode("_contentValues.put($S, ", item.columnName);
 			SQLTransformer.javaProperty2ContentValues(methodBuilder, entityClassName, entityName, item);
 			methodBuilder.addCode(");\n");
 
 			if (TypeUtility.isNullable(item)) {
 				methodBuilder.nextControlFlow("else");
-				methodBuilder.addCode("contentValues.putNull($S);\n", item.columnName);
+				methodBuilder.addCode("_contentValues.putNull($S);\n", item.columnName);
 				methodBuilder.endControlFlow();
 			}
 		}

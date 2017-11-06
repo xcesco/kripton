@@ -1,8 +1,8 @@
 package sqlite.kripton41;
 
-import android.content.ContentValues;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -38,21 +38,20 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
    */
   @Override
   public boolean insertDistance(long id, Double value) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
 
-    contentValues.put("id", id);
+    _contentValues.put("id", id);
     if (value!=null) {
-      contentValues.put("value", value);
+      _contentValues.put("value", value);
     } else {
-      contentValues.putNull("value");
+      _contentValues.putNull("value");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -61,8 +60,8 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -72,7 +71,7 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean01", null, contentValues);
+    long result = database().insert("bean01", null, _contentValues.values());
     return result!=-1;
   }
 }

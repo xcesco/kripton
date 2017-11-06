@@ -1,11 +1,10 @@
 package sqlite.stack45184504;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,30 +42,28 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
    */
   @Override
   public long insert(FileBean bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.content!=null) {
-      contentValues.put("content", bean.content);
+      _contentValues.put("content", bean.content);
     } else {
-      contentValues.putNull("content");
+      _contentValues.putNull("content");
     }
     if (bean.contentType!=null) {
-      contentValues.put("content_type", bean.contentType);
+      _contentValues.put("content_type", bean.contentType);
     } else {
-      contentValues.putNull("content_type");
+      _contentValues.putNull("content_type");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -75,8 +72,8 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -86,7 +83,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("files", null, contentValues);
+    long result = database().insert("files", null, _contentValues.values());
     bean.id=result;
 
     return result;
@@ -114,30 +111,29 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
    */
   @Override
   public long insert(String name, String contentType, byte[] content) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
 
     if (name!=null) {
-      contentValues.put("name", name);
+      _contentValues.put("name", name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (contentType!=null) {
-      contentValues.put("content_type", contentType);
+      _contentValues.put("content_type", contentType);
     } else {
-      contentValues.putNull("content_type");
+      _contentValues.putNull("content_type");
     }
     if (content!=null) {
-      contentValues.put("content", content);
+      _contentValues.put("content", content);
     } else {
-      contentValues.putNull("content");
+      _contentValues.putNull("content");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -146,8 +142,8 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -157,7 +153,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("files", null, contentValues);
+    long result = database().insert("files", null, _contentValues.values());
     return result;
   }
 
@@ -185,11 +181,11 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
    */
   @Override
   public List<FileBean> selectById(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, content, content_type FROM files");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -200,15 +196,15 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END

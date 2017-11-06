@@ -155,7 +155,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Observable<T> result=Observable.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
@@ -186,7 +186,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Single<T> result=Single.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
@@ -217,7 +217,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Flowable<T> result=Flowable.create(emitter, BackpressureStrategy.BUFFER);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
@@ -248,7 +248,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Maybe<T> result=Maybe.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
@@ -273,7 +273,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Observable<T> result=Observable.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
@@ -302,7 +302,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Single<T> result=Single.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
@@ -331,7 +331,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Flowable<T> result=Flowable.create(emitter, BackpressureStrategy.BUFFER);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
@@ -360,7 +360,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Maybe<T> result=Maybe.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 

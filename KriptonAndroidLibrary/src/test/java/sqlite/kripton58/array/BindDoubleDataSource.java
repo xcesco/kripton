@@ -196,20 +196,22 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindDoubleDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindDoubleDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindDoubleDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

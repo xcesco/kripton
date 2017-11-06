@@ -1,6 +1,5 @@
 package sqlite.kripton58.array;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
@@ -8,6 +7,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -52,22 +52,22 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public LongBean selectOne() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -119,11 +119,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public LongBean selectOne(long[] value, Long[] value2) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -134,16 +134,16 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -196,11 +196,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public void selectOne(long[] value, Long[] value2, OnReadBeanListener<LongBean> listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -211,16 +211,16 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -279,11 +279,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public void selectOne(long[] value, Long[] value2, OnReadCursorListener listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -294,16 +294,16 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -346,11 +346,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public List<LongBean> selectList(long[] value, Long[] value2) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, value, value2 FROM long_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -361,16 +361,16 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -428,13 +428,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long updateOne(long id, long[] value, Long[] value2) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -453,8 +451,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -465,11 +463,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("long_bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("long_bean", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result;
   }
 
@@ -495,26 +493,25 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long insert(long id, long[] value, Long[] value2) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
 
-    contentValues.put("id", id);
+    _contentValues.put("id", id);
     if (value!=null) {
-      contentValues.put("value", serializer1(value));
+      _contentValues.put("value", serializer1(value));
     } else {
-      contentValues.putNull("value");
+      _contentValues.putNull("value");
     }
     if (value2!=null) {
-      contentValues.put("value2", serializer2(value2));
+      _contentValues.put("value2", serializer2(value2));
     } else {
-      contentValues.putNull("value2");
+      _contentValues.putNull("value2");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -523,8 +520,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -534,7 +531,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("long_bean", null, contentValues);
+    long result = database().insert("long_bean", null, _contentValues.values());
     return result;
   }
 
@@ -557,25 +554,23 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long insert(LongBean bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.value!=null) {
-      contentValues.put("value", LongBeanTable.serializeValue(bean.value));
+      _contentValues.put("value", LongBeanTable.serializeValue(bean.value));
     } else {
-      contentValues.putNull("value");
+      _contentValues.putNull("value");
     }
     if (bean.value2!=null) {
-      contentValues.put("value2", LongBeanTable.serializeValue2(bean.value2));
+      _contentValues.put("value2", LongBeanTable.serializeValue2(bean.value2));
     } else {
-      contentValues.putNull("value2");
+      _contentValues.putNull("value2");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -584,8 +579,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -595,7 +590,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("long_bean", null, contentValues);
+    long result = database().insert("long_bean", null, _contentValues.values());
     bean.id=result;
 
     return result;
@@ -621,9 +616,9 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long delete(long[] value, Long[] value2) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
-    _sqlWhereParams.add((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -642,11 +637,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("long_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("long_bean", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 

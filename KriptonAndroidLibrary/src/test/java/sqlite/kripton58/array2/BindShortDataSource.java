@@ -196,20 +196,22 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindShortDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindShortDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindShortDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

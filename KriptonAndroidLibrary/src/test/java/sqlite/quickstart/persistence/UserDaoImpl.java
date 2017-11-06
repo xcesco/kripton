@@ -1,11 +1,10 @@
 package sqlite.quickstart.persistence;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.quickstart.model.User;
@@ -49,51 +48,49 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    */
   @Override
   public void insert(User bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("id", bean.id);
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("id", bean.id);
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.username!=null) {
-      contentValues.put("username", bean.username);
+      _contentValues.put("username", bean.username);
     } else {
-      contentValues.putNull("username");
+      _contentValues.putNull("username");
     }
     if (bean.email!=null) {
-      contentValues.put("email", bean.email);
+      _contentValues.put("email", bean.email);
     } else {
-      contentValues.putNull("email");
+      _contentValues.putNull("email");
     }
     if (bean.address!=null) {
-      contentValues.put("address", UserTable.serializeAddress(bean.address));
+      _contentValues.put("address", UserTable.serializeAddress(bean.address));
     } else {
-      contentValues.putNull("address");
+      _contentValues.putNull("address");
     }
     if (bean.phone!=null) {
-      contentValues.put("phone", bean.phone);
+      _contentValues.put("phone", bean.phone);
     } else {
-      contentValues.putNull("phone");
+      _contentValues.putNull("phone");
     }
     if (bean.website!=null) {
-      contentValues.put("website", bean.website);
+      _contentValues.put("website", bean.website);
     } else {
-      contentValues.putNull("website");
+      _contentValues.putNull("website");
     }
     if (bean.company!=null) {
-      contentValues.put("company", UserTable.serializeCompany(bean.company));
+      _contentValues.put("company", UserTable.serializeCompany(bean.company));
     } else {
-      contentValues.putNull("company");
+      _contentValues.putNull("company");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -102,8 +99,8 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -113,7 +110,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("user", null, contentValues);
+    long result = database().insert("user", null, _contentValues.values());
     bean.id=result;
   }
 
@@ -138,12 +135,12 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    */
   @Override
   public List<User> selectAll() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, username, email, address, phone, website, company FROM user");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=null;
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -153,13 +150,13 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -229,11 +226,11 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    */
   @Override
   public User selectById(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, username, email, address, phone, website, company FROM user");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -244,15 +241,15 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END

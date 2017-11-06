@@ -196,20 +196,22 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindCollegeStudentsDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindCollegeStudentsDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindCollegeStudentsDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

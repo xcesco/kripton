@@ -1,11 +1,10 @@
 package sqlite.feature.many2many.case4.persistence;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,11 +45,11 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public PersonPhoneNumber selectById(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, person_id, phone_number_id FROM person_phone_number");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -61,15 +60,15 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -118,11 +117,11 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public List<PersonPhoneNumber> selectByPersonId(long personId) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, person_id, phone_number_id FROM person_phone_number");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -133,15 +132,15 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(personId));
+    _contentValues.addWhereArgs(String.valueOf(personId));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -196,11 +195,11 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public List<PersonPhoneNumber> selectByPhoneNumberId(long phoneNumberId) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, person_id, phone_number_id FROM person_phone_number");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -211,15 +210,15 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(phoneNumberId));
+    _contentValues.addWhereArgs(String.valueOf(phoneNumberId));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -268,8 +267,8 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int deleteById(long id) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(id));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -288,11 +287,11 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person_phone_number", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person_phone_number", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -313,8 +312,8 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int deleteByPersonId(long personId) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(personId));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(personId));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -333,11 +332,11 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person_phone_number", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person_phone_number", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -358,8 +357,8 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int deleteByPhoneNumberId(long phoneNumberId) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(phoneNumberId));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(phoneNumberId));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -378,11 +377,11 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person_phone_number", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("person_phone_number", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -405,17 +404,15 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int insert(PersonPhoneNumber bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("person_id", bean.personId);
-    contentValues.put("phone_number_id", bean.phoneNumberId);
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("person_id", bean.personId);
+    _contentValues.put("phone_number_id", bean.phoneNumberId);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -424,8 +421,8 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -435,7 +432,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person_phone_number", null, contentValues);
+    long result = database().insert("person_phone_number", null, _contentValues.values());
     bean.id=result;
 
     return (int)result;

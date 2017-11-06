@@ -196,20 +196,22 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindStringDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindStringDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindStringDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

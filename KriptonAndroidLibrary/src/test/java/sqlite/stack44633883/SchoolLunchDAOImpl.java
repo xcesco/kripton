@@ -1,11 +1,10 @@
 package sqlite.stack44633883;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,12 +39,12 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
    */
   @Override
   public List<SchoolLunch> get1() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT * FROM SchoolLunches");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=null;
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
@@ -55,13 +54,13 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -112,22 +111,22 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
    */
   @Override
   public List<SchoolLunch> getAll() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT lunch_id, fresh, contains_meat, fruits FROM SchoolLunches");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -180,22 +179,20 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
    */
   @Override
   public void insertAll(SchoolLunch schoolLunches) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("fresh", schoolLunches.isFresh());
-    contentValues.put("contains_meat", schoolLunches.isContainsMeat());
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("fresh", schoolLunches.isFresh());
+    _contentValues.put("contains_meat", schoolLunches.isContainsMeat());
     if (schoolLunches.getFruits()!=null) {
-      contentValues.put("fruits", SchoolLunchTable.serializeFruits(schoolLunches.getFruits()));
+      _contentValues.put("fruits", SchoolLunchTable.serializeFruits(schoolLunches.getFruits()));
     } else {
-      contentValues.putNull("fruits");
+      _contentValues.putNull("fruits");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -204,8 +201,8 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -215,7 +212,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("SchoolLunches", null, contentValues);
+    long result = database().insert("SchoolLunches", null, _contentValues.values());
     schoolLunches.setLunchId(result);
   }
 
@@ -231,7 +228,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
    */
   @Override
   public void deleteAll() {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    KriptonContentValues _contentValues=contentValues();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -242,10 +239,10 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("SchoolLunches", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("SchoolLunches", _sqlWhereStatement, _contentValues.whereArgsAsArray());
   }
 }

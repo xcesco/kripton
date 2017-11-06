@@ -23,6 +23,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -42,8 +43,6 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
-import android.content.ContentValues;
-
 public class InsertRawHelper implements InsertCodeGenerator {
 
 	@Override
@@ -55,14 +54,15 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 		// generate javadoc
 		generateJavaDoc(methodBuilder, method, returnType);
+		
+		// standard INSERT
+		methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
 
 		if (method.jql.containsSelectOperation) {
 			// INSERT-SELECT
 			GenericSQLHelper.generateGenericExecSQL(methodBuilder, method);
-		} else {
-			// standard INSERT
-			methodBuilder.addStatement("$T contentValues=contentValues()", ContentValues.class);
-			methodBuilder.addStatement("contentValues.clear()");
+		} else {			
+			//methodBuilder.addStatement("_contentValues.clear()");
 			methodBuilder.addCode("\n");
 			for (Pair<String, TypeName> item : method.getParameters()) {
 				String propertyName = method.findParameterAliasByName(item.value0);
@@ -79,14 +79,14 @@ public class InsertRawHelper implements InsertCodeGenerator {
 					// it use raw method param's typeName
 					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 				}
-				methodBuilder.addCode("contentValues.put($S, ", property.columnName);
+				methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
 				// it does not need to be converted in string
 
 				SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, item.value1, property);
 				methodBuilder.addCode(");\n");
 				if (nullable) {
 					methodBuilder.nextControlFlow("else");
-					methodBuilder.addCode("contentValues.putNull($S);\n", property.columnName);
+					methodBuilder.addCode("_contentValues.putNull($S);\n", property.columnName);
 					methodBuilder.endControlFlow();
 				}
 
@@ -105,7 +105,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 			}
 
-			methodBuilder.addCode("long result = database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
+			methodBuilder.addCode("long result = database().insert$L($S, null, _contentValues.values()$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 			if (method.getParent().getParent().generateRx) {
 				methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);
 			}

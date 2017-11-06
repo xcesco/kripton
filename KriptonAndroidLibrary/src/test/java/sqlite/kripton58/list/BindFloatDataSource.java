@@ -196,20 +196,22 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindFloatDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindFloatDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindFloatDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

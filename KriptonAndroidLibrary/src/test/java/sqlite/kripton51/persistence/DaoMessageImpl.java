@@ -1,11 +1,10 @@
 package sqlite.kripton51.persistence;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.kripton51.entities.MessageEntity;
@@ -56,11 +55,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public List<MessageEntity> selectByChannel(long channelId) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -71,15 +70,15 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(channelId));
+    _contentValues.addWhereArgs(String.valueOf(channelId));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -154,49 +153,46 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public boolean updateById(MessageEntity bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("channel_id", bean.channelId);
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("channel_id", bean.channelId);
     if (bean.ownerType!=null) {
-      contentValues.put("owner_type", bean.ownerType.toString());
+      _contentValues.put("owner_type", bean.ownerType.toString());
     } else {
-      contentValues.putNull("owner_type");
+      _contentValues.putNull("owner_type");
     }
     if (bean.uid!=null) {
-      contentValues.put("uid", bean.uid);
+      _contentValues.put("uid", bean.uid);
     } else {
-      contentValues.putNull("uid");
+      _contentValues.putNull("uid");
     }
     if (bean.faceUid!=null) {
-      contentValues.put("face_uid", bean.faceUid);
+      _contentValues.put("face_uid", bean.faceUid);
     } else {
-      contentValues.putNull("face_uid");
+      _contentValues.putNull("face_uid");
     }
     if (bean.text!=null) {
-      contentValues.put("text", bean.text);
+      _contentValues.put("text", bean.text);
     } else {
-      contentValues.putNull("text");
+      _contentValues.putNull("text");
     }
     if (bean.ownerUid!=null) {
-      contentValues.put("owner_uid", bean.ownerUid);
+      _contentValues.put("owner_uid", bean.ownerUid);
     } else {
-      contentValues.putNull("owner_uid");
+      _contentValues.putNull("owner_uid");
     }
     if (bean.channelUid!=null) {
-      contentValues.put("channel_uid", bean.channelUid);
+      _contentValues.put("channel_uid", bean.channelUid);
     } else {
-      contentValues.putNull("channel_uid");
+      _contentValues.putNull("channel_uid");
     }
-    contentValues.put("update_time", bean.updateTime);
+    _contentValues.put("update_time", bean.updateTime);
     if (bean.type!=null) {
-      contentValues.put("type", bean.type.toString());
+      _contentValues.put("type", bean.type.toString());
     } else {
-      contentValues.putNull("type");
+      _contentValues.putNull("type");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.id));
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -215,8 +211,8 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -227,11 +223,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("message", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("message", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result!=0;
   }
 
@@ -260,52 +256,50 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public void insert(MessageEntity bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("channel_id", bean.channelId);
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("channel_id", bean.channelId);
     if (bean.ownerType!=null) {
-      contentValues.put("owner_type", bean.ownerType.toString());
+      _contentValues.put("owner_type", bean.ownerType.toString());
     } else {
-      contentValues.putNull("owner_type");
+      _contentValues.putNull("owner_type");
     }
     if (bean.uid!=null) {
-      contentValues.put("uid", bean.uid);
+      _contentValues.put("uid", bean.uid);
     } else {
-      contentValues.putNull("uid");
+      _contentValues.putNull("uid");
     }
     if (bean.faceUid!=null) {
-      contentValues.put("face_uid", bean.faceUid);
+      _contentValues.put("face_uid", bean.faceUid);
     } else {
-      contentValues.putNull("face_uid");
+      _contentValues.putNull("face_uid");
     }
     if (bean.text!=null) {
-      contentValues.put("text", bean.text);
+      _contentValues.put("text", bean.text);
     } else {
-      contentValues.putNull("text");
+      _contentValues.putNull("text");
     }
     if (bean.ownerUid!=null) {
-      contentValues.put("owner_uid", bean.ownerUid);
+      _contentValues.put("owner_uid", bean.ownerUid);
     } else {
-      contentValues.putNull("owner_uid");
+      _contentValues.putNull("owner_uid");
     }
     if (bean.channelUid!=null) {
-      contentValues.put("channel_uid", bean.channelUid);
+      _contentValues.put("channel_uid", bean.channelUid);
     } else {
-      contentValues.putNull("channel_uid");
+      _contentValues.putNull("channel_uid");
     }
-    contentValues.put("update_time", bean.updateTime);
+    _contentValues.put("update_time", bean.updateTime);
     if (bean.type!=null) {
-      contentValues.put("type", bean.type.toString());
+      _contentValues.put("type", bean.type.toString());
     } else {
-      contentValues.putNull("type");
+      _contentValues.putNull("type");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -314,8 +308,8 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -325,7 +319,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("message", null, contentValues);
+    long result = database().insert("message", null, _contentValues.values());
     bean.id=result;
   }
 
@@ -359,11 +353,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public MessageEntity selectByUid(String uid) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -374,15 +368,15 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((uid==null?"":uid));
+    _contentValues.addWhereArgs((uid==null?"":uid));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END

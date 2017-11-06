@@ -29,6 +29,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -295,6 +296,13 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "selectionArgs").build());
 		methodBuilder.returns(Integer.TYPE);
 
+		// retrieve content values
+		if (updateResultType == ModifyType.UPDATE_BEAN || updateResultType == ModifyType.UPDATE_RAW) {
+			methodBuilder.addStatement("$T _contentValues=contentValues(contentValues)", KriptonContentValues.class);
+		} else {
+			methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
+		}
+		
 		SqlBuilderHelper.generateLogForContentProviderBeginning(method, methodBuilder);
 
 		// query builder
@@ -316,7 +324,8 @@ public abstract class SqlModifyBuilder {
 
 			if (entityProperty != null) {
 				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
-				methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				//methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				methodBuilder.addStatement("_contentValues.addWhereArgs(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
 				AssertKripton.assertTrue(TypeUtility.isTypeIncludedIn(entityProperty.getPropertyType().getTypeName(), String.class, Long.class, Long.TYPE),
 						"In '%s.%s' content provider URI path variables %s must be String of Long type", daoDefinition.getName(), method.getName(), entityProperty.getName());
 			}
@@ -329,8 +338,9 @@ public abstract class SqlModifyBuilder {
 			methodBuilder.beginControlFlow("if ($T.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null)", StringUtils.class);
 
 			if (method.hasDynamicWhereConditions()) {
-				methodBuilder.beginControlFlow("for (String _arg: _sqlDynamicWhereArgs)");
-				methodBuilder.addStatement("_sqlWhereParams.add(_arg)");
+				methodBuilder.beginControlFlow("for (String _arg: _sqlDynamicWhereArgs)");				
+				//methodBuilder.addStatement("_sqlWhereParams.add(_arg)");
+				methodBuilder.addStatement("_contentValues.addWhereArgs(_arg)");
 				methodBuilder.endControlFlow();
 			}
 
@@ -342,7 +352,7 @@ public abstract class SqlModifyBuilder {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
 			SqlBuilderHelper.generateColumnCheckSet(builder, method, columns);
-			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "contentValues.keySet()", true, null);
+			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.keySet()", true, null);
 			break;
 		default:
 			break;
@@ -362,7 +372,8 @@ public abstract class SqlModifyBuilder {
 		switch (updateResultType) {
 		case DELETE_BEAN:
 		case DELETE_RAW:
-			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))", daoDefinition.getEntity().getTableName());
+			//methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))", daoDefinition.getEntity().getTableName());
+			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _contentValues.whereArgsAsArray())", daoDefinition.getEntity().getTableName());
 			
 			if (method.getParent().getParent().generateRx) {
 				methodBuilder.addStatement("subject.onNext($T.createDelete(result))", SQLiteModification.class);
@@ -371,11 +382,16 @@ public abstract class SqlModifyBuilder {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
 			if (method.jql.conflictAlgorithmType == ConflictAlgorithmType.NONE) {
-				methodBuilder.addStatement("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))",
+//				methodBuilder.addStatement("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))",
+//						daoDefinition.getEntity().getTableName());
+				methodBuilder.addStatement("int result = database().update($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray())",
 						daoDefinition.getEntity().getTableName());
 			} else {
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]), $L)",
+				
+//				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]), $L)",
+//						daoDefinition.getEntity().getTableName(), method.jql.conflictAlgorithmType.getConflictAlgorithm());				
+				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray()), $L)",
 						daoDefinition.getEntity().getTableName(), method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}
 			

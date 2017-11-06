@@ -1,6 +1,5 @@
 package sqlite.kripton38;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
@@ -8,6 +7,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -17,7 +17,6 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -62,11 +61,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public Bean05 selectOne(Long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -77,15 +76,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((id==null?"":String.valueOf(id)));
+    _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -144,11 +143,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public Bean05 selectOne(Bean05 bean) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -159,16 +158,16 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(bean.getPk()));
-    _sqlWhereParams.add((bean.getText()==null?"":bean.getText()));
+    _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
+    _contentValues.addWhereArgs((bean.getText()==null?"":bean.getText()));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -226,11 +225,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public List<Bean05> selectAll(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -241,15 +240,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -308,11 +307,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public List<Long> selectPK(String text) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -323,15 +322,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((text==null?"":text));
+    _contentValues.addWhereArgs((text==null?"":text));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -377,11 +376,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public Long selectCount(String text) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT count(*) FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -392,15 +391,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((text==null?"":text));
+    _contentValues.addWhereArgs((text==null?"":text));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -444,11 +443,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void selectCursorListener(Long id, OnReadCursorListener listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -459,15 +458,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((id==null?"":String.valueOf(id)));
+    _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -511,11 +510,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -526,15 +525,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((id==null?"":String.valueOf(id)));
+    _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -602,11 +601,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void selectOne(Long id, OnReadCursorListener listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -617,15 +616,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((id==null?"":String.valueOf(id)));
+    _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -669,11 +668,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void selectOne(long id, OnReadBeanListener<Bean05> listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -684,15 +683,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -755,30 +754,29 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long insertRaw(String text, byte[] content, Date creationTime) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
 
     if (text!=null) {
-      contentValues.put("text", text);
+      _contentValues.put("text", text);
     } else {
-      contentValues.putNull("text");
+      _contentValues.putNull("text");
     }
     if (content!=null) {
-      contentValues.put("content", content);
+      _contentValues.put("content", content);
     } else {
-      contentValues.putNull("content");
+      _contentValues.putNull("content");
     }
     if (creationTime!=null) {
-      contentValues.put("creation_time", DateUtils.write(creationTime));
+      _contentValues.put("creation_time", DateUtils.write(creationTime));
     } else {
-      contentValues.putNull("creation_time");
+      _contentValues.putNull("creation_time");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -787,8 +785,8 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -798,7 +796,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("ws_bean", null, contentValues);
+    long result = database().insert("ws_bean", null, _contentValues.values());
     return result;
   }
 
@@ -823,36 +821,34 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void insert(Bean05 bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("number", bean.getNumber());
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("number", bean.getNumber());
     if (bean.getBeanType()!=null) {
-      contentValues.put("bean_type", bean.getBeanType().toString());
+      _contentValues.put("bean_type", bean.getBeanType().toString());
     } else {
-      contentValues.putNull("bean_type");
+      _contentValues.putNull("bean_type");
     }
     if (bean.getText()!=null) {
-      contentValues.put("text", bean.getText());
+      _contentValues.put("text", bean.getText());
     } else {
-      contentValues.putNull("text");
+      _contentValues.putNull("text");
     }
     if (bean.getContent()!=null) {
-      contentValues.put("content", bean.getContent());
+      _contentValues.put("content", bean.getContent());
     } else {
-      contentValues.putNull("content");
+      _contentValues.putNull("content");
     }
     if (bean.getCreationTime()!=null) {
-      contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
+      _contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
     } else {
-      contentValues.putNull("creation_time");
+      _contentValues.putNull("creation_time");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -861,8 +857,8 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -872,7 +868,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("ws_bean", null, contentValues);
+    long result = database().insert("ws_bean", null, _contentValues.values());
     bean.setPk(result);
   }
 
@@ -903,35 +899,32 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long updateOne(Bean05 bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("number", bean.getNumber());
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.put("number", bean.getNumber());
     if (bean.getBeanType()!=null) {
-      contentValues.put("bean_type", bean.getBeanType().toString());
+      _contentValues.put("bean_type", bean.getBeanType().toString());
     } else {
-      contentValues.putNull("bean_type");
+      _contentValues.putNull("bean_type");
     }
     if (bean.getText()!=null) {
-      contentValues.put("text", bean.getText());
+      _contentValues.put("text", bean.getText());
     } else {
-      contentValues.putNull("text");
+      _contentValues.putNull("text");
     }
     if (bean.getContent()!=null) {
-      contentValues.put("content", bean.getContent());
+      _contentValues.put("content", bean.getContent());
     } else {
-      contentValues.putNull("content");
+      _contentValues.putNull("content");
     }
     if (bean.getCreationTime()!=null) {
-      contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
+      _contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
     } else {
-      contentValues.putNull("creation_time");
+      _contentValues.putNull("creation_time");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.getPk()));
-    _sqlWhereParams.add((bean.getText()==null?"":bean.getText()));
-    _sqlWhereParams.add((bean.getCreationTime()==null?"":DateUtils.write(bean.getCreationTime())));
+    _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
+    _contentValues.addWhereArgs((bean.getText()==null?"":bean.getText()));
+    _contentValues.addWhereArgs((bean.getCreationTime()==null?"":DateUtils.write(bean.getCreationTime())));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -950,8 +943,8 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -962,11 +955,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("ws_bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("ws_bean", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result;
   }
 
@@ -1002,23 +995,21 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long updateOne(byte[] content, String text, long uid, Date validoIn, Date valido) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValues();
     if (content!=null) {
-      contentValues.put("content", content);
+      _contentValues.put("content", content);
     } else {
-      contentValues.putNull("content");
+      _contentValues.putNull("content");
     }
     if (text!=null) {
-      contentValues.put("text", text);
+      _contentValues.put("text", text);
     } else {
-      contentValues.putNull("text");
+      _contentValues.putNull("text");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(uid));
-    _sqlWhereParams.add((valido==null?"":DateUtils.write(valido)));
-    _sqlWhereParams.add((validoIn==null?"":DateUtils.write(validoIn)));
+    _contentValues.addWhereArgs(String.valueOf(uid));
+    _contentValues.addWhereArgs((valido==null?"":DateUtils.write(valido)));
+    _contentValues.addWhereArgs((validoIn==null?"":DateUtils.write(validoIn)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1037,8 +1028,8 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -1049,11 +1040,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("ws_bean", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("ws_bean", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result;
   }
 
@@ -1075,10 +1066,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(Bean05 bean) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.getPk()));
-    _sqlWhereParams.add((bean.getText()==null?"":bean.getText()));
-    _sqlWhereParams.add((bean.getCreationTime()==null?"":DateUtils.write(bean.getCreationTime())));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
+    _contentValues.addWhereArgs((bean.getText()==null?"":bean.getText()));
+    _contentValues.addWhereArgs((bean.getCreationTime()==null?"":DateUtils.write(bean.getCreationTime())));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1097,11 +1088,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("ws_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("ws_bean", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1128,10 +1119,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(long uid, Date validoIn, Date valido) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(uid));
-    _sqlWhereParams.add((valido==null?"":DateUtils.write(valido)));
-    _sqlWhereParams.add((validoIn==null?"":DateUtils.write(validoIn)));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(uid));
+    _contentValues.addWhereArgs((valido==null?"":DateUtils.write(valido)));
+    _contentValues.addWhereArgs((validoIn==null?"":DateUtils.write(validoIn)));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1150,11 +1141,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("ws_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("ws_bean", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1175,8 +1166,8 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(long id) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(id));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1195,11 +1186,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("ws_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("ws_bean", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1219,8 +1210,8 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteBean(Bean05 va) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(va.getPk()));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(va.getPk()));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1239,11 +1230,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("ws_bean", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("ws_bean", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1268,11 +1259,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public byte[] getOne(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT content FROM ws_bean");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1283,15 +1274,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END

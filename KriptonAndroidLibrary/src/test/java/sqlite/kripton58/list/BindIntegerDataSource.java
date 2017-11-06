@@ -196,20 +196,22 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
 
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindIntegerDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindIntegerDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindIntegerDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**

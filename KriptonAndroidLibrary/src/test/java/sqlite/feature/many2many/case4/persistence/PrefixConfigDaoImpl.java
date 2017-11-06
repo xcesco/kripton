@@ -1,11 +1,10 @@
 package sqlite.feature.many2many.case4.persistence;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import sqlite.feature.many2many.case4.model.PrefixConfig;
 
 /**
@@ -43,27 +42,25 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public int insert(PrefixConfig bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.defaultCountry!=null) {
-      contentValues.put("default_country", bean.defaultCountry);
+      _contentValues.put("default_country", bean.defaultCountry);
     } else {
-      contentValues.putNull("default_country");
+      _contentValues.putNull("default_country");
     }
     if (bean.dualBillingPrefix!=null) {
-      contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
+      _contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
     } else {
-      contentValues.putNull("dual_billing_prefix");
+      _contentValues.putNull("dual_billing_prefix");
     }
-    contentValues.put("enabled", bean.enabled);
-    contentValues.put("dialog_timeout", bean.dialogTimeout);
+    _contentValues.put("enabled", bean.enabled);
+    _contentValues.put("dialog_timeout", bean.dialogTimeout);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keySet()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -72,8 +69,8 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -84,7 +81,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log for insert -- END 
 
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("prefix_config", null, contentValues, 5);
+    long result = database().insertWithOnConflict("prefix_config", null, _contentValues.values(), 5);
     bean.id=result;
 
     return (int)result;
@@ -115,11 +112,11 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public PrefixConfig selectById(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -130,15 +127,15 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -185,8 +182,8 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public boolean deleteById(long id) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(id));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -205,11 +202,11 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("prefix_config", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("prefix_config", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result!=0;
   }
 
@@ -229,8 +226,8 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public boolean updateById(PrefixConfig bean) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.id));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -249,11 +246,11 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("prefix_config", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("prefix_config", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result!=0;
   }
 
@@ -275,22 +272,22 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public PrefixConfig selectOne() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -344,24 +341,21 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public int update(PrefixConfig bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValues();
     if (bean.defaultCountry!=null) {
-      contentValues.put("default_country", bean.defaultCountry);
+      _contentValues.put("default_country", bean.defaultCountry);
     } else {
-      contentValues.putNull("default_country");
+      _contentValues.putNull("default_country");
     }
     if (bean.dualBillingPrefix!=null) {
-      contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
+      _contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
     } else {
-      contentValues.putNull("dual_billing_prefix");
+      _contentValues.putNull("dual_billing_prefix");
     }
-    contentValues.put("enabled", bean.enabled);
-    contentValues.put("dialog_timeout", bean.dialogTimeout);
+    _contentValues.put("enabled", bean.enabled);
+    _contentValues.put("dialog_timeout", bean.dialogTimeout);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.id));
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -380,8 +374,8 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.keySet()) {
+      _contentValue=_contentValues.get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -392,11 +386,11 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("prefix_config", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = database().update("prefix_config", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
     return result;
   }
 }

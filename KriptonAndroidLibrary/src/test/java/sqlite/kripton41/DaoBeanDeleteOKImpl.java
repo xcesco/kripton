@@ -2,8 +2,8 @@ package sqlite.kripton41;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 
 /**
  * <p>
@@ -36,8 +36,8 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
    */
   @Override
   public boolean deleteDistance(double value) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(value));
+    KriptonContentValues _contentValues=contentValues();
+    _contentValues.addWhereArgs(String.valueOf(value));
 
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -56,11 +56,11 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean01", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().delete("bean01", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result!=0;
   }
 }

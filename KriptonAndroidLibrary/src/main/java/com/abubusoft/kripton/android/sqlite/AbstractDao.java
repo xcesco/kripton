@@ -15,9 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
-import java.util.ArrayList;
-
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.ContentValues;
@@ -58,8 +57,18 @@ public abstract class AbstractDao implements AutoCloseable {
 
 	}
 
-	protected ContentValues contentValues() {
-		return contentValues.get();
+	protected KriptonContentValues contentValues() {
+		KriptonContentValues content=contentValues.get();
+		content.clear();		
+		
+		return content;
+	}
+	
+	protected KriptonContentValues contentValues(ContentValues values) {
+		KriptonContentValues content=contentValues.get();
+		content.clear(values);		
+		
+		return content;
 	}
 
 	/**
@@ -67,25 +76,11 @@ public abstract class AbstractDao implements AutoCloseable {
 	 * ContentValues used to fill query parameters. Thread safe
 	 * </p>
 	 */
-	private static final ThreadLocal<ContentValues> contentValues = new ThreadLocal<ContentValues>() {
+	private static final ThreadLocal<KriptonContentValues> contentValues = new ThreadLocal<KriptonContentValues>() {
 
 		@Override
-		protected ContentValues initialValue() {
-			return new ContentValues();
-		}
-
-	};
-
-
-	/**
-	 * Thread safe array for query parameters. It's used to avoid creation of
-	 * new array everytime a query is invoked.
-	 */
-	private ThreadLocal<ArrayList<String>> whereParamsArray = new ThreadLocal<ArrayList<String>>() {
-
-		@Override
-		protected ArrayList<String> initialValue() {
-			return new ArrayList<String>();
+		protected KriptonContentValues initialValue() {
+			return new KriptonContentValues();
 		}
 
 	};
@@ -98,18 +93,6 @@ public abstract class AbstractDao implements AutoCloseable {
 		}
 
 	};
-
-	/**
-	 * retrieve whereParamsArray attribute that allow to work with where
-	 * parameters
-	 * 
-	 * @return
-	 */
-	protected ArrayList<String> getWhereParamsArray() {
-		ArrayList<String> array = whereParamsArray.get();
-		array.clear();
-		return array;
-	}
 
 	protected StringBuilder getSQLStringBuilder() {
 		StringBuilder builder = this.sqlStringBuilder.get();
