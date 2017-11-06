@@ -121,6 +121,9 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM bean03 WHERE id=?");
+
     // display log
     Logger.info("DELETE FROM bean03 WHERE id=?");
 

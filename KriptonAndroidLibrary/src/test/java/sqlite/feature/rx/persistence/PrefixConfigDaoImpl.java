@@ -3,6 +3,7 @@ package sqlite.feature.rx.persistence;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
@@ -84,8 +85,12 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log for content values -- END
     // log for insert -- END 
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR REPLACE INTO prefix_config (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("prefix_config", null, _contentValues.values(), 5);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
@@ -202,6 +207,9 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM prefix_config WHERE id = ?");
+
     // display log
     Logger.info("DELETE FROM prefix_config WHERE id = ?");
 
@@ -246,6 +254,9 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM prefix_config WHERE id = ?");
 
     // display log
     Logger.info("DELETE FROM prefix_config WHERE id = ?");
@@ -375,6 +386,9 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE prefix_config SET default_country=?, dual_billing_prefix=?, enabled=?, dialog_timeout=? WHERE id = ? ");
 
     // display log
     Logger.info("UPDATE prefix_config SET default_country=:defaultCountry, dual_billing_prefix=:dualBillingPrefix, enabled=:enabled, dialog_timeout=:dialogTimeout WHERE id = ? ");

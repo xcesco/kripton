@@ -3,6 +3,7 @@ package sqlite.feature.dynamic.update;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -151,6 +152,9 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+
     // display log
     Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
@@ -200,6 +204,9 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -266,6 +273,9 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -357,6 +367,9 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, birth_city=?, birth_day=? WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -522,7 +535,11 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log for content values -- END
     // log for insert -- END 
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR IGNORE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm IGNORE
-    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 4);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
   }
 }

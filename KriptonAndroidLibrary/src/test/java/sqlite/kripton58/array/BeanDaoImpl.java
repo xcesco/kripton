@@ -6,6 +6,7 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
@@ -454,6 +455,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE bean_bean SET id=? WHERE value=? and value2=?");
+
     // display log
     Logger.info("UPDATE bean_bean SET id=:id WHERE value=? and value2=?");
 
@@ -539,7 +543,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean_bean", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO bean_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -598,7 +606,11 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean_bean", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO bean_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result;
@@ -639,6 +651,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM bean_bean WHERE value=? and value2=?");
 
     // display log
     Logger.info("DELETE FROM bean_bean WHERE value=? and value2=?");

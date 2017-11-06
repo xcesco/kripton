@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -86,7 +87,11 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return (int)result;
   }
 
@@ -141,6 +146,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for content values -- END
     // log for insert -- END 
 
+    // insert operation
     long result = database().insert("person", null, _contentValues.values());
     return result;
   }
@@ -193,8 +199,12 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for content values -- END
     // log for insert -- END 
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return (int)result;
   }
 
@@ -250,6 +260,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for insert -- END 
 
     // conflict algorithm REPLACE
+    // insert operation
     long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
     return result;
   }
@@ -302,7 +313,11 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return (int)result;
   }
 
@@ -357,6 +372,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for content values -- END
     // log for insert -- END 
 
+    // insert operation
     long result = database().insert("person", null, _contentValues.values());
     return result;
   }

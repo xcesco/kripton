@@ -200,7 +200,7 @@ public class TestUriChecker extends BaseProcessorTest {
 		Finder<SQLProperty> finder = new Finder<SQLProperty>() {
 
 			@Override
-			public SQLProperty findByName(String name) {
+			public SQLProperty findPropertyByName(String name) {
 				//SQLEntity entity=new SQLEntity(null, null);
 				//entity.
 				//SQLProperty properties = new SQLProperty(entity, null, null);

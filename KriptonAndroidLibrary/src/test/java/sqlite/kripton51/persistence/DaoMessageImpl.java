@@ -3,6 +3,7 @@ package sqlite.kripton51.persistence;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
@@ -206,6 +207,9 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE message SET channel_id=?, owner_type=?, uid=?, face_uid=?, text=?, owner_uid=?, channel_uid=?, update_time=?, type=? WHERE id = ?");
+
     // display log
     Logger.info("UPDATE message SET channel_id=:channelId, owner_type=:ownerType, uid=:uid, face_uid=:faceUid, text=:text, owner_uid=:ownerUid, channel_uid=:channelUid, update_time=:updateTime, type=:type WHERE id = ?");
 
@@ -319,7 +323,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("message", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO message (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
   }
 

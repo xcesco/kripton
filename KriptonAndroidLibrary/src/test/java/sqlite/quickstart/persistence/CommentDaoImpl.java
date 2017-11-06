@@ -3,6 +3,7 @@ package sqlite.quickstart.persistence;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
@@ -87,7 +88,11 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("comment", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO comment (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
   }
 

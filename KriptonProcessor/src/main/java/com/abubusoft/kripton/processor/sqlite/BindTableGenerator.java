@@ -549,7 +549,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				@Override
 				public String onColumnName(String columnName) {
 					fieldCounter.value0++;
-					SQLProperty property = entity.findByName(columnName);
+					SQLProperty property = entity.findPropertyByName(columnName);
 
 					AssertKripton.assertTrue(property != null, "class '%s' in @%s(indexes) use unknown property '%s'", entity.getName(), BindTable.class.getSimpleName(), columnName);
 					return property.columnName;

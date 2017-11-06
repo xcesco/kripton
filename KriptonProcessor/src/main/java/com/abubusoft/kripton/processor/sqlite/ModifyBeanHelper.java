@@ -122,7 +122,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		// generate where condition
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, true);
-
+				
+		// generate SQL
+		SqlModifyBuilder.generateSQL(method, methodBuilder);
+		
+		// generate log
 		SqlModifyBuilder.generateLogForModifiers(method, methodBuilder);
 
 		if (method.jql.operationType == JQLType.UPDATE) {
@@ -177,7 +181,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		//methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
 
 		for (String item : analyzer.getUsedBeanPropertyNames()) {
-			property = entity.findByName(item);
+			property = entity.findPropertyByName(item);
 			//methodBuilder.addCode("_sqlWhereParams.add(");
 			methodBuilder.addCode("_contentValues.addWhereArgs(");
 			nullable = TypeUtility.isNullable(property);
@@ -363,12 +367,12 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
-				return entity.findByName(columnName).columnName;
+				return entity.findPropertyByName(columnName).columnName;
 			}
 
 			@Override
 			public String onColumnName(String columnName) {
-				return entity.findByName(columnName).columnName;
+				return entity.findPropertyByName(columnName).columnName;
 			}
 
 			@Override

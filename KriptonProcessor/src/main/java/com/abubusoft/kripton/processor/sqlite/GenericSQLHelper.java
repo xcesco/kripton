@@ -32,7 +32,7 @@ public abstract class GenericSQLHelper {
 		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 			@Override
 			public String onColumnName(String columnName) {
-				String resolvedName = schema.getExactPropertyBySimpleName(method, columnName);
+				String resolvedName = schema.findColumnNameByPropertyName(method, columnName);
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName != null, method, columnName);
 
 				return resolvedName;
@@ -56,7 +56,7 @@ public abstract class GenericSQLHelper {
 		String sqlForLog = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 			@Override
 			public String onColumnName(String columnName) {
-				String resolvedName = schema.getExactPropertyBySimpleName(method, columnName);
+				String resolvedName = schema.findColumnNameByPropertyName(method, columnName);
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName != null, method, columnName);
 
 				return resolvedName;

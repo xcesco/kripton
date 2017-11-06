@@ -78,7 +78,7 @@ public class SQLEntity extends ModelClass<SQLProperty> implements Finder<SQLProp
 		}
 
 		// try to get id
-		SQLProperty id = findByName("id");
+		SQLProperty id = findPropertyByName("id");
 
 		return id;
 	}

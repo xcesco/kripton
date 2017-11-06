@@ -3,6 +3,7 @@ package sqlite.feature.many2many.entity;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
@@ -345,6 +346,9 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM person_city_ok1 WHERE id=?");
+
     // display log
     Logger.info("DELETE FROM person_city_ok1 WHERE id=?");
 
@@ -390,6 +394,9 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM person_city_ok1 WHERE person_id=?");
+
     // display log
     Logger.info("DELETE FROM person_city_ok1 WHERE person_id=?");
 
@@ -434,6 +441,9 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person_city_ok1 WHERE city_id=?");
 
     // display log
     Logger.info("DELETE FROM person_city_ok1 WHERE city_id=?");
@@ -495,7 +505,11 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person_city_ok1", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO person_city_ok1 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return (int)result;

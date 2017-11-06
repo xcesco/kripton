@@ -33,6 +33,8 @@ public final class KriptonContentValues {
 	private ContentValues values;
 
 	private ArrayList<ParamType> valueType;
+	
+	private ArrayList<String> names;
 
 	private ArrayList<Object> args;
 	
@@ -50,6 +52,7 @@ public final class KriptonContentValues {
 		// consumption by applications.
 		values = new ContentValues();
 		valueType = new ArrayList<>(8);
+		names = new ArrayList<>(8);
 		args = new ArrayList<>(4);
 		whereArgs=new ArrayList<>(4);
 	}
@@ -64,8 +67,9 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, String value) {
+		names.add(key);
 		values.put(key, value);
-		args.add(value);
+		args.add(value);		
 		valueType.add(ParamType.STRING);
 	}
 
@@ -78,8 +82,9 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Byte value) {
+		names.add(key);
 		values.put(key, value);
-		args.add(value);
+		args.add(value);		
 		valueType.add(ParamType.BYTE);
 	}
 
@@ -92,6 +97,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Short value) {
+		names.add(key);
 		values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.SHORT);
@@ -106,6 +112,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Integer value) {
+		names.add(key);
 		values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.INTEGER);
@@ -120,6 +127,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Long value) {
+		names.add(key);
 		values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.LONG);
@@ -134,6 +142,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Float value) {
+		names.add(key);
 		values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.FLOAT);
@@ -148,6 +157,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Double value) {
+		names.add(key);
 		values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.DOUBLE);
@@ -162,6 +172,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Boolean value) {
+		names.add(key);
 		values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.BOOLEAN);
@@ -176,6 +187,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, byte[] value) {
+		names.add(key);
 		values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.BYTE_ARRAY);
@@ -188,6 +200,7 @@ public final class KriptonContentValues {
 	 *            the name of the value to make null
 	 */
 	public void putNull(String key) {
+		names.add(key);
 		values.putNull(key);
 		args.add(null);
 		valueType.add(ParamType.NULL);
@@ -204,7 +217,7 @@ public final class KriptonContentValues {
 		statement.clearBindings();
 		
 		for (Object value : args) {
-			switch (valueType.get(index)) {
+			switch (valueType.get(index-1)) {
 			case BOOLEAN:
 			case BYTE:
 			case SHORT:
@@ -257,6 +270,7 @@ public final class KriptonContentValues {
 	 * Removes all values.
 	 */
 	public void clear() {
+		names.clear();
 		values.clear();
 		valueType.clear();
 		args.clear();
@@ -505,6 +519,31 @@ public final class KriptonContentValues {
 	public Set<String> keySet() {
 		return values.keySet();
 	}
+	
+	public String keyList() {
+		String separator="";
+		StringBuilder buffer=new StringBuilder();
+		
+		for (String item: names) {
+			buffer.append(separator+item);
+			separator=", ";
+		}
+		
+		return buffer.toString();
+	}
+	
+	public String keyValueList() {
+		String separator="";
+		StringBuilder buffer=new StringBuilder();
+		
+		for (int i=0; i<names.size();i++) {
+			buffer.append(separator+"?");
+			separator=", ";
+		}
+		
+		return buffer.toString();
+	}	
+	
 
 	public ContentValues values() {
 		return values;

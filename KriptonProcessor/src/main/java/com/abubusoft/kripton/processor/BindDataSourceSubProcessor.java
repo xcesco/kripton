@@ -644,7 +644,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			}
 
 			private void addWithCheckMethod(SQLDaoDefinition currentDaoDefinition, SQLiteModelMethod newMethod) {
-				SQLiteModelMethod oldMethod = currentDaoDefinition.findByName(newMethod.getName());
+				SQLiteModelMethod oldMethod = currentDaoDefinition.findPropertyByName(newMethod.getName());
 
 				// ASSERT: same name and same number
 				if (oldMethod != null && oldMethod.getParameters().size() == newMethod.getParameters().size()) {

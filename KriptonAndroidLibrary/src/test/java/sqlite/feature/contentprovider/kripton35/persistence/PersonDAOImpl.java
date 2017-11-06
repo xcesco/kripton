@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
@@ -120,8 +121,12 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR FAIL INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm FAIL
-    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 3);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
   }
 
@@ -177,6 +182,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for insert -- END 
 
     // conflict algorithm FAIL
+    // insert operation
     long result = database().insertWithOnConflict("person", null, _contentValues.values(), 3);
     return result;
   }
@@ -228,7 +234,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
   }
 
   /**
@@ -289,6 +299,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
+    // insert operation
     long result = database().insert("person", null, _contentValues.values());
     return result;
   }
@@ -324,6 +335,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id = ?");
 
     // display log
     Logger.info("DELETE FROM person WHERE id = ?");
@@ -447,6 +461,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       }
     }
 
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+
     // display log
     Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
@@ -558,6 +575,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id = ?");
 
     // display log
     Logger.info("DELETE FROM person WHERE id = ?");
@@ -671,6 +691,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? WHERE id=?");
 
     // display log
     Logger.info("UPDATE person SET name=:name WHERE id=?");
@@ -826,6 +849,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -990,6 +1016,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         _contentValues.addWhereArgs(_arg);
       }
     }
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -1167,6 +1196,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET alias_parent_id=?, city=?, birth_city=?, birth_day=?, value=?, name=?, surname=? WHERE id=?");
 
     // display log
     Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");

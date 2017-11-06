@@ -89,6 +89,7 @@ public abstract class SqlBuilderHelper {
 	 * <p>
 	 * Generate column check
 	 * </p>
+	 * 
 	 * @param methodBuilder
 	 * @param method
 	 * @param columnSetString
@@ -243,7 +244,8 @@ public abstract class SqlBuilderHelper {
 		if (method.getParent().getParent().generateLog) {
 			methodBuilder.addCode("\n// log for where parameters -- BEGIN\n");
 			methodBuilder.addStatement("int _whereParamCounter=0");
-			//methodBuilder.beginControlFlow("for (String _whereParamItem: _sqlWhereParams)");
+			// methodBuilder.beginControlFlow("for (String _whereParamItem:
+			// _sqlWhereParams)");
 			methodBuilder.beginControlFlow("for (String _whereParamItem: _contentValues.whereArgs())");
 			methodBuilder.addStatement("$T.info(\"==> param%s: '%s'\",(_whereParamCounter++), $T.checkSize(_whereParamItem))", Logger.class, StringUtils.class);
 			methodBuilder.endControlFlow();
@@ -275,10 +277,10 @@ public abstract class SqlBuilderHelper {
 	 * @param method
 	 * @param methodBuilder
 	 */
-	static void generateLogForSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {		
+	static void generateLogForSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		// manage log
 		if (method.getParent().getParent().generateLog) {
-			methodBuilder.addCode("\n// manage log\n");			
+			methodBuilder.addCode("\n// manage log\n");
 			methodBuilder.addStatement("$T.info(_sql)", Logger.class);
 		}
 	}
@@ -365,7 +367,8 @@ public abstract class SqlBuilderHelper {
 
 		// we need always this
 		if (!sqlWhereParamsAlreadyDefined) {
-			//methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
+			// methodBuilder.addStatement("$T<String>
+			// _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
 		}
 
 		if (jql.isWhereConditions()) {
@@ -462,9 +465,9 @@ public abstract class SqlBuilderHelper {
 
 			if (method.hasDynamicWhereConditions()) {
 				methodBuilder.beginControlFlow("for (String _arg: _sqlDynamicWhereArgs)");
-				//methodBuilder.addStatement("_sqlWhereParams.add(_arg)");
+				// methodBuilder.addStatement("_sqlWhereParams.add(_arg)");
 				methodBuilder.addStatement("_contentValues.addWhereArgs(_arg)");
-				
+
 				methodBuilder.endControlFlow();
 			}
 
@@ -532,6 +535,46 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.addCode("// log for insert -- END \n\n");
 		}
 
+	}
+
+	/**
+	 * <p>
+	 * Generate log for INSERT operations
+	 * </p>
+	 * 
+	 * @param method
+	 * @param methodBuilder
+	 */
+	public static void generateSQLForInsert(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		// SQLDaoDefinition daoDefinition = method.getParent();
+		methodBuilder.addComment("// generate SQL for insert\n");
+		JQLChecker checker = JQLChecker.getInstance();
+
+		// replace the table name, other pieces will be removed
+		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+
+			@Override
+			public String onTableName(String tableName) {
+
+				return method.getParent().getEntity().getTableName();
+			}
+
+		});
+
+		sql = checker.replaceVariableStatements(method, sql, new JQLReplaceVariableStatementListenerImpl() {
+
+			@Override
+			public String onColumnNameSet(String statement) {
+				return "%s";
+			}
+
+			@Override
+			public String onColumnValueSet(String statement) {
+				return "%s";
+			}
+		});
+
+		methodBuilder.addStatement("String _sql=String.format($S, _contentValues.keyList(), _contentValues.keyValueList())", sql);
 	}
 
 }

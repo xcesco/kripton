@@ -3,6 +3,7 @@ package sqlite.feature.foreignkeyaction;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
@@ -193,6 +194,9 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE artist SET name=? WHERE id=?");
+
     // display log
     Logger.info("UPDATE artist SET name=:name WHERE id=?");
 
@@ -267,7 +271,11 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("artist", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO artist (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result;
@@ -304,6 +312,9 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM artist WHERE id=?");
 
     // display log
     Logger.info("DELETE FROM artist WHERE id=?");

@@ -5,6 +5,7 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
@@ -458,7 +459,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean84_a", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO bean84_a (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -512,7 +517,11 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean84_a", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO bean84_a (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return result!=-1;
   }
 
@@ -604,6 +613,9 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
 
+    // generate sql
+    String _sql=String.format("UPDATE bean84_a SET param1=?, param2=?, param3=?, param4=?, column_list_string=?, column_map_integer_string=?, column_array_char=?, column_array_char_type=?, column_bean=?, column_array_byte_type=?, value_string=?");
+
     // display log
     Logger.info("UPDATE bean84_a SET param1=:param1, param2=:param2, param3=:param3, param4=:param4, column_list_string=:columnListString, column_map_integer_string=:columnMapIntegerString, column_array_char=:columnArrayChar, column_array_char_type=:columnArrayCharType, column_bean=:columnBean, column_array_byte_type=:columnArrayByteType, value_string=:valueString");
 
@@ -645,6 +657,9 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
+
+    // generate sql
+    String _sql=String.format("DELETE FROM bean84_a");
 
     // display log
     Logger.info("DELETE FROM bean84_a");

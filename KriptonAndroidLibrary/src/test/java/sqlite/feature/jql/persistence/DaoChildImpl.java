@@ -3,6 +3,7 @@ package sqlite.feature.jql.persistence;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
@@ -136,7 +137,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("child", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return bean;
@@ -449,7 +454,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("child", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("insert into child (%s) values (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
   }
 
@@ -505,7 +514,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("child", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return (int)result;
   }
 
@@ -550,6 +563,9 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("update or replace child set name=? where parent_id=?");
 
     // display log
     Logger.info("update or replace child set name=:name where parent_id=?");

@@ -5,6 +5,7 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
@@ -433,6 +434,9 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE integer_bean SET value=? WHERE id=? and value=?");
+
     // display log
     Logger.info("UPDATE integer_bean SET value=:value WHERE id=? and value=?");
 
@@ -510,7 +514,11 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("integer_bean", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO integer_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -569,7 +577,11 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("integer_bean", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO integer_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result;
@@ -606,6 +618,9 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM integer_bean WHERE value=?");
 
     // display log
     Logger.info("DELETE FROM integer_bean WHERE value=?");

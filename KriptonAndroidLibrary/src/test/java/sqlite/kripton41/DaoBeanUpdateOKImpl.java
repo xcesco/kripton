@@ -67,6 +67,9 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE bean01 SET id=?, value=? WHERE id=?");
+
     // display log
     Logger.info("UPDATE bean01 SET id=:id, value=:value WHERE id=?");
 

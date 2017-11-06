@@ -134,6 +134,9 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE bean01 SET text=? WHERE id=?");
+
     // display log
     Logger.info("UPDATE bean01 SET text=:text WHERE id=?");
 

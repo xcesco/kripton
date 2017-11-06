@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -52,7 +53,11 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
       _contentValues.putNull("name");
     }
 
-    long result = database().insert("city", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO city (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
   }
 
@@ -82,6 +87,7 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
       }
     }
 
+    // insert operation
     long result = database().insert("city", null, _contentValues.values());
     return result;
   }

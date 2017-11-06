@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
@@ -96,8 +97,12 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       _contentValues.putNull("surname");
     }
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR FAIL INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm FAIL
-    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 3);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
   }
 
@@ -128,6 +133,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     }
 
     // conflict algorithm FAIL
+    // insert operation
     long result = database().insertWithOnConflict("person", null, _contentValues.values(), 3);
     return result;
   }
@@ -155,7 +161,11 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       _contentValues.putNull("name");
     }
 
-    long result = database().insert("person", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
   }
 
   /**
@@ -191,6 +201,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
     // Add parameter name at path segment 1
     contentValues.put("name", uri.getPathSegments().get(1));
+    // insert operation
     long result = database().insert("person", null, _contentValues.values());
     return result;
   }
@@ -226,6 +237,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id = ?");
     int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
@@ -327,6 +341,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
         _contentValues.addWhereArgs(_arg);
       }
     }
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result!=0;
   }
@@ -418,6 +435,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id = ?");
     int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
@@ -510,6 +530,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -644,6 +667,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -787,6 +813,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
         _contentValues.addWhereArgs(_arg);
       }
     }
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
     Object _contentValue;
@@ -943,6 +972,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET alias_parent_id=?, city=?, birth_city=?, birth_day=?, value=?, name=?, surname=? WHERE id=?");
 
     // log for content values -- BEGIN
     Object _contentValue;

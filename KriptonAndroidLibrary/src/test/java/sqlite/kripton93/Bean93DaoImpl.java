@@ -3,6 +3,7 @@ package sqlite.kripton93;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
@@ -224,7 +225,11 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean93", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -293,8 +298,12 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR ABORT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm ABORT
-    long result = database().insertWithOnConflict("bean93", null, _contentValues.values(), 2);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -363,8 +372,12 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR FAIL INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm FAIL
-    long result = database().insertWithOnConflict("bean93", null, _contentValues.values(), 3);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -433,8 +446,12 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR IGNORE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm IGNORE
-    long result = database().insertWithOnConflict("bean93", null, _contentValues.values(), 4);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -503,8 +520,12 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR REPLACE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("bean93", null, _contentValues.values(), 5);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -573,8 +594,12 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR ROLLBACK INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm ROLLBACK
-    long result = database().insertWithOnConflict("bean93", null, _contentValues.values(), 1);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result!=-1;

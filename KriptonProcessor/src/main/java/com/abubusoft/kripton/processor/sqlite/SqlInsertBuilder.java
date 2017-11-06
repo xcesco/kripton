@@ -267,6 +267,8 @@ public abstract class SqlInsertBuilder {
 			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
 			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 		}
+		
+		methodBuilder.addComment("insert operation");
 		methodBuilder.addStatement("long result = database().insert$L($S, null, _contentValues.values()$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 		if (method.getParent().getParent().generateRx) {
 			methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);

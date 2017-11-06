@@ -5,6 +5,7 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
@@ -796,7 +797,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("ws_bean", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO ws_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -868,7 +873,11 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("ws_bean", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO ws_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.setPk(result);
   }
 
@@ -937,6 +946,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE ws_bean SET number=?, bean_type=?, text=?, content=?, creation_time=? WHERE pk=? and text=? and creation_time=?");
 
     // display log
     Logger.info("UPDATE ws_bean SET number=:number, bean_type=:beanType, text=:text, content=:content, creation_time=:creationTime WHERE pk=? and text=? and creation_time=?");
@@ -1023,6 +1035,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE ws_bean SET content=?, text=? WHERE pk=? and creation_time=? and creation_time=?");
+
     // display log
     Logger.info("UPDATE ws_bean SET content=:content, text=:text WHERE pk=? and creation_time=? and creation_time=?");
 
@@ -1083,6 +1098,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM ws_bean WHERE pk=? and text=? and creation_time=?");
+
     // display log
     Logger.info("DELETE FROM ws_bean WHERE pk=? and text=? and creation_time=?");
 
@@ -1136,6 +1154,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM ws_bean WHERE pk=? and creation_time=? and creation_time=?");
+
     // display log
     Logger.info("DELETE FROM ws_bean WHERE pk=? and creation_time=? and creation_time=?");
 
@@ -1181,6 +1202,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM ws_bean WHERE pk=?");
+
     // display log
     Logger.info("DELETE FROM ws_bean WHERE pk=?");
 
@@ -1224,6 +1248,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM ws_bean WHERE pk=?");
 
     // display log
     Logger.info("DELETE FROM ws_bean WHERE pk=?");

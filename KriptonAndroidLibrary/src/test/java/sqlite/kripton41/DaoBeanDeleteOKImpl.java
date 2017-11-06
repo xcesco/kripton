@@ -51,6 +51,9 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM bean01 WHERE id=?");
+
     // display log
     Logger.info("DELETE FROM bean01 WHERE id=?");
 

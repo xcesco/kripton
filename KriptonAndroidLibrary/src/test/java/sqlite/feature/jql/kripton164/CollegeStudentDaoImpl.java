@@ -2,6 +2,7 @@ package sqlite.feature.jql.kripton164;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 
@@ -67,7 +68,11 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("students", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO students (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     student.id=result;
   }
 
@@ -119,7 +124,11 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("students", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR REPLACE INTO students (%s) SELECT surname FROM students WHERE surname=${bean.surname}", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
   }
 }

@@ -3,6 +3,7 @@ package sqlite.stack44633883;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
@@ -212,7 +213,11 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("SchoolLunches", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO SchoolLunches (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     schoolLunches.setLunchId(result);
   }
 
@@ -233,6 +238,9 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
+
+    // generate sql
+    String _sql=String.format("DELETE FROM SchoolLunches");
 
     // display log
     Logger.info("DELETE FROM SchoolLunches");

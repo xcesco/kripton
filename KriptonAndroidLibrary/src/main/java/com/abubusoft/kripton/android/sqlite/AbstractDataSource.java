@@ -20,6 +20,7 @@ package com.abubusoft.kripton.android.sqlite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -27,10 +28,12 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.sqlite.database.LRUCache;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 /**
  * <p>
@@ -67,6 +70,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * database instance
 	 */
 	SQLiteDatabase database;
+	
+	protected LRUCache<String, SQLiteStatement> preparedStatements=new LRUCache<>(16);
 
 	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
 

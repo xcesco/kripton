@@ -2,6 +2,7 @@ package sqlite.test03;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 
@@ -84,7 +85,11 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean01", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.setId(result);
 
     return result;
@@ -138,7 +143,11 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean01", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -173,6 +182,9 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM bean01 WHERE id=?");
 
     // display log
     Logger.info("DELETE FROM bean01 WHERE id=?");
@@ -217,6 +229,9 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM bean01 WHERE id=?");
 
     // display log
     Logger.info("DELETE FROM bean01 WHERE id=?");
@@ -270,6 +285,9 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE bean01 SET value=? WHERE id>?");
 
     // display log
     Logger.info("UPDATE bean01 SET value=:value WHERE id>?");
@@ -353,6 +371,9 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE bean01 SET lista=?, message_date=?, message_text=?, bean_list=?, value=? WHERE value=?");
 
     // display log
     Logger.info("UPDATE bean01 SET lista=:lista, message_date=:messageDate, message_text=:messageText, bean_list=:beanList, value=:value WHERE value=?");

@@ -52,6 +52,9 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id=?");
+
     // display log
     Logger.info("DELETE FROM person WHERE id=?");
 
@@ -152,6 +155,9 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE name=? AND surname=? AND student = 0");
+
     // display log
     Logger.info("DELETE FROM person WHERE name=? AND surname=? AND student = 0");
 
@@ -196,6 +202,9 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE surname=? and student = (select student from person where name=?)");
 
     // display log
     Logger.info("DELETE FROM person WHERE surname=? and student = (select student from person where name=?)");
@@ -299,6 +308,9 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id=?");
 
     // display log
     Logger.info("DELETE FROM person WHERE id=?");
@@ -408,6 +420,9 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -526,6 +541,9 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
         _contentValues.addWhereArgs(_arg);
       }
     }
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));

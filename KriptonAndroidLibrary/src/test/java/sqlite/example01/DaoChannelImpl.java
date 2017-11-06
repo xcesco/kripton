@@ -5,6 +5,7 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
@@ -67,6 +68,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM channel WHERE owner_uid=?");
+
     // display log
     Logger.info("DELETE FROM channel WHERE owner_uid=?");
 
@@ -110,6 +114,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM channel WHERE owner_uid=?");
 
     // display log
     Logger.info("DELETE FROM channel WHERE owner_uid=?");
@@ -160,6 +167,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM channel WHERE owner_uid=? and id=?");
+
     // display log
     Logger.info("DELETE FROM channel WHERE owner_uid=? and id=?");
 
@@ -208,6 +218,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM channel WHERE owner_uid=? and id=?");
 
     // display log
     Logger.info("DELETE FROM channel WHERE owner_uid=? and id=?");
@@ -274,7 +287,11 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("channel", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -330,7 +347,11 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("channel", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return result!=-1;
   }
 
@@ -386,7 +407,11 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("channel", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return (int)result;
   }
 
@@ -453,7 +478,11 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("channel", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.setId(result);
 
     return (int)result;
@@ -522,7 +551,11 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("channel", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.setId(result);
 
     return result!=-1;
@@ -567,6 +600,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE channel SET id=? WHERE id=?");
 
     // display log
     Logger.info("UPDATE channel SET id=:id WHERE id=?");
@@ -632,6 +668,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE channel SET id=? WHERE id=?");
 
     // display log
     Logger.info("UPDATE channel SET id=:id WHERE id=?");
@@ -702,6 +741,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE channel SET owner_uid=? WHERE id=?");
+
     // display log
     Logger.info("UPDATE channel SET owner_uid=:ownerUid WHERE id=?");
 
@@ -770,6 +812,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE channel SET owner_uid=? WHERE id=?");
 
     // display log
     Logger.info("UPDATE channel SET owner_uid=:ownerUid WHERE id=?");
@@ -852,6 +897,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?");
+
     // display log
     Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
 
@@ -933,6 +981,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?");
+
     // display log
     Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
 
@@ -1013,6 +1064,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?");
 
     // display log
     Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");

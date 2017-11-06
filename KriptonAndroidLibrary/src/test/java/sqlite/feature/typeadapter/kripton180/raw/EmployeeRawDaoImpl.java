@@ -3,6 +3,7 @@ package sqlite.feature.typeadapter.kripton180.raw;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.SQLDateUtils;
@@ -1060,7 +1061,11 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("employees", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO employees (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1186,7 +1191,11 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("employees", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO employees (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1308,6 +1317,9 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE employees SET field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=?");
+
     // display log
     Logger.info("UPDATE employees SET field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=?");
 
@@ -1419,6 +1431,9 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE employees SET first_name=? WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+
     // display log
     Logger.info("UPDATE employees SET first_name=:firstName WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
@@ -1518,6 +1533,9 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
@@ -1605,6 +1623,9 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
@@ -1691,6 +1712,9 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");

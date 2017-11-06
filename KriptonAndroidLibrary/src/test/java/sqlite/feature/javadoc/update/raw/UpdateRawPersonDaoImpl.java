@@ -66,6 +66,9 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
 
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?");
+
     // display log
     Logger.info("UPDATE person SET name=:name");
 
@@ -136,6 +139,9 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET student = ?, name=?  where surname=?");
 
     // display log
     Logger.info("UPDATE person SET student = :student, name=:name  where surname=?");
@@ -319,6 +325,9 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? where student= (select student from person where surname=?)");
+
     // display log
     Logger.info("UPDATE person SET name=:name where student= (select student from person where surname=?)");
 
@@ -461,6 +470,9 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? WHERE id=?");
 
     // display log
     Logger.info("UPDATE person SET name=:name WHERE id=?");
@@ -616,6 +628,9 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -781,6 +796,9 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
         _contentValues.addWhereArgs(_arg);
       }
     }
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));

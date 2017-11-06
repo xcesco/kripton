@@ -64,6 +64,9 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE message SET owner_type=? WHERE id = ?");
+
     // display log
     Logger.info("UPDATE message SET owner_type=:ownerType WHERE id = ?");
 

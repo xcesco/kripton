@@ -140,7 +140,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 			}
 
 			@Override
-			public SQLProperty findByName(String name) {
+			public SQLProperty findPropertyByName(String name) {
 				// TODO Auto-generated method stub
 				return null;
 			}
@@ -214,7 +214,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 			}
 
 			@Override
-			public SQLProperty findByName(String name) {
+			public SQLProperty findPropertyByName(String name) {
 				// TODO Auto-generated method stub
 				return null;
 			}

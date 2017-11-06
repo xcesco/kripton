@@ -187,7 +187,7 @@ public class JQLChecker {
 
 					String jqlColumnName = ctx.expr().column_name().getText();
 					builder.column(jqlColumnName);
-					builder.property(entity.findByName(jqlColumnName));
+					builder.property(entity.findPropertyByName(jqlColumnName));
 
 					builder.type(ProjectionType.COLUMN);
 				} else {

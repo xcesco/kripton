@@ -3,6 +3,7 @@ package sqlite.feature.foreignkeyaction;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
@@ -189,6 +190,9 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE track SET album_id=? WHERE id=?");
+
     // display log
     Logger.info("UPDATE track SET album_id=:albumId WHERE id=?");
 
@@ -259,7 +263,11 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("track", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO track (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result;
@@ -296,6 +304,9 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM track WHERE id=?");
 
     // display log
     Logger.info("DELETE FROM track WHERE id=?");

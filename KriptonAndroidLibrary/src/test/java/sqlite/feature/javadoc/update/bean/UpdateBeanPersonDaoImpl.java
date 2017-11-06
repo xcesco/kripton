@@ -77,6 +77,9 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
 
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, student=?");
+
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student");
 
@@ -212,6 +215,9 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?");
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?");
@@ -371,6 +377,9 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -540,6 +549,9 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       }
     }
 
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
@@ -680,6 +692,9 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
 
+    // generate sql
+    String _sql=String.format("UPDATE person SET surname=?, student = ?");
+
     // display log
     Logger.info("UPDATE person SET surname=:surname, student = :student");
 
@@ -801,6 +816,9 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, student = (select student from person where id=0)");
+
     // display log
     Logger.info("UPDATE person SET name=:name, student = (select student from person where id=0)");
 
@@ -866,6 +884,9 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=? where student = (select student from person where id=?)");
 
     // display log
     Logger.info("UPDATE person SET name=:name where student = (select student from person where id=?)");
@@ -1025,6 +1046,9 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -1193,6 +1217,9 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
         _contentValues.addWhereArgs(_arg);
       }
     }
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));

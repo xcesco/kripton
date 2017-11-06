@@ -3,6 +3,7 @@ package sqlite.feature.rx.persistence;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
@@ -104,8 +105,12 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     // log for content values -- END
     // log for insert -- END 
 
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT OR REPLACE INTO country (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("country", null, _contentValues.values(), 5);
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
@@ -228,6 +233,9 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("DELETE FROM country WHERE id = ?");
+
     // display log
     Logger.info("DELETE FROM country WHERE id = ?");
 
@@ -272,6 +280,9 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM country WHERE id = ?");
 
     // display log
     Logger.info("DELETE FROM country WHERE id = ?");

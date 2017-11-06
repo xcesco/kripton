@@ -5,6 +5,7 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
@@ -433,6 +434,9 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE long_bean SET value=? WHERE id=? and CAST(value AS TEXT)=?");
+
     // display log
     Logger.info("UPDATE long_bean SET value=:value WHERE id=? and CAST(value AS TEXT)=?");
 
@@ -510,7 +514,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("long_bean", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO long_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -569,7 +577,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("long_bean", null, _contentValues.values());
+    // // generate SQL for insert
+
+    String _sql=String.format("INSERT INTO long_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
     bean.id=result;
 
     return result;
@@ -606,6 +618,9 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM long_bean WHERE CAST(value AS TEXT)=?");
 
     // display log
     Logger.info("DELETE FROM long_bean WHERE CAST(value AS TEXT)=?");
