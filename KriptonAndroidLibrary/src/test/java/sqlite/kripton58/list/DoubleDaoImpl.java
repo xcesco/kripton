@@ -458,7 +458,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("double_bean", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
+    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -631,7 +631,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("double_bean", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
     return result;
   }
 

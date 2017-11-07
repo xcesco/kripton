@@ -589,7 +589,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     // log for where parameters -- END
     // conflict algorithm REPLACE
-    int result = database().updateWithOnConflict("child", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray(),5);
+    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
   }
 
   /**

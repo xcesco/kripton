@@ -295,7 +295,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person_phone_number", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -343,7 +343,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person_phone_number", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -391,7 +391,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("person_phone_number", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
     return result;
   }
 

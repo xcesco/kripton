@@ -355,7 +355,7 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean_a_3", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
+    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
     return result;
   }
 }

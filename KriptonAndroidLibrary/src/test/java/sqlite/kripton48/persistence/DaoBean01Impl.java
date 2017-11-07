@@ -3,6 +3,7 @@ package sqlite.kripton48.persistence;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import sqlite.kripton48.entities.Bean01;
@@ -158,7 +159,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean01", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
+    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
     return result;
   }
 }

@@ -13,14 +13,21 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class LRUCache<K, V> {
 
+	public interface OnRemoveListener<V> {
+		void onRemove(V value);
+	}
+
 	private final int maxSize;
 
 	private ConcurrentHashMap<K, V> map;
 
 	private ConcurrentLinkedQueue<K> queue;
 
-	public LRUCache(final int maxSize) {
+	private OnRemoveListener<V> listener;
+
+	public LRUCache(final int maxSize, OnRemoveListener<V> listener) {
 		this.maxSize = maxSize;
+		this.listener = listener;
 		map = new ConcurrentHashMap<K, V>(maxSize);
 		queue = new ConcurrentLinkedQueue<K>();
 	}
@@ -28,13 +35,17 @@ public class LRUCache<K, V> {
 	public void put(final K key, final V value) {
 		if (map.containsKey(key)) {
 			// remove the key from the FIFO queue
-			queue.remove(key);
+			queue.remove(key);			
 		}
 
 		while (queue.size() >= maxSize) {
 			K oldestKey = queue.poll();
 			if (null != oldestKey) {
-				map.remove(oldestKey);
+				if (listener!=null) {
+				listener.onRemove(map.remove(oldestKey));
+				} else {
+					map.remove(oldestKey);
+				}
 			}
 		}
 		queue.add(key);

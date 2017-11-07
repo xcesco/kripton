@@ -2,6 +2,7 @@ package sqlite.kripton56.persistence;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import sqlite.kripton56.entities.OwnerType;
@@ -88,7 +89,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("message", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
+    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
     return result!=0;
   }
 }

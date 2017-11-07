@@ -245,7 +245,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("country", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -293,7 +293,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("country", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }

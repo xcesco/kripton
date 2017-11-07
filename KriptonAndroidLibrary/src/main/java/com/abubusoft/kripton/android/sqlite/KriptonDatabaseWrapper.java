@@ -19,7 +19,7 @@ public abstract class KriptonDatabaseWrapper {
 
 				return ps.executeInsert();
 			} finally {
-				ps.close();
+				//ps.close();
 			}
 		}
 
@@ -39,7 +39,7 @@ public abstract class KriptonDatabaseWrapper {
 
 				return ps.executeUpdateDelete();
 			} finally {
-				ps.close();
+				//ps.close();
 			}
 		}
 					
@@ -58,7 +58,7 @@ public abstract class KriptonDatabaseWrapper {
 
 				return ps.executeUpdateDelete();
 			} finally {
-				ps.close();
+				//ps.close();
 			}
 		}
 	}

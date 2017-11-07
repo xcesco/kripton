@@ -240,7 +240,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
     // generate sql
     String _sql=String.format("DELETE FROM person WHERE id = ?");
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -344,7 +344,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
     // generate sql
     String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -438,7 +438,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
     // generate sql
     String _sql=String.format("DELETE FROM person WHERE id = ?");
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -545,7 +545,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       }
     }
     // log for content values -- END
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
+    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -682,7 +682,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       }
     }
     // log for content values -- END
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
+    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -828,7 +828,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       }
     }
     // log for content values -- END
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
+    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -987,7 +987,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       }
     }
     // log for content values -- END
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());;
+    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
     return result;
   }
 

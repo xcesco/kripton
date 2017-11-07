@@ -26,6 +26,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.One;
@@ -139,14 +140,13 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		if (updateMode) {
 			if (method.jql.conflictAlgorithmType == ConflictAlgorithmType.NONE) {
-				//methodBuilder.addStatement("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));", tableName);
-				methodBuilder.addStatement("int result = database().update($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());", tableName);
+				//methodBuilder.addStatement("int result = database().update($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());", tableName);				
+				methodBuilder.addStatement("int result = $T.update(dataSource, _sql, _contentValues)",KriptonDatabaseWrapper.class);
 			} else {
-				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-				//methodBuilder.addStatement("int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),$L)",
-					//	tableName, method.jql.conflictAlgorithmType.getConflictAlgorithm());				
-				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray(),$L)",
-						tableName, method.jql.conflictAlgorithmType.getConflictAlgorithm());
+				methodBuilder.addComment("conflict algorithm $L", method.jql.conflictAlgorithmType);
+				methodBuilder.addStatement("int result = $T.update(dataSource, _sql, _contentValues)",KriptonDatabaseWrapper.class);
+//				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray(),$L)",
+//						tableName, method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}
 			
 			if (method.getParent().getParent().generateRx) {
@@ -154,8 +154,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			}
 
 		} else {
-			//methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))", tableName);
-			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _contentValues.whereArgsAsArray())", tableName);
+			methodBuilder.addStatement("int result = $T.delete(dataSource, _sql, _contentValues)",KriptonDatabaseWrapper.class);
+			//methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _contentValues.whereArgsAsArray())", tableName);
 			
 			if (method.getParent().getParent().generateRx) {
 				methodBuilder.addStatement("subject.onNext($T.createDelete(result))", SQLiteModification.class);

@@ -111,7 +111,7 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
 
     // generate sql
     String _sql=String.format("DELETE FROM simple_address_item");
-    int result = database().delete("simple_address_item", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
   }
 
   /**

@@ -28,6 +28,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.One;
@@ -372,11 +373,7 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addCode("\n// execute SQL\n");
 		switch (updateResultType) {
 		case DELETE_BEAN:
-		case DELETE_RAW:
-			// methodBuilder.addStatement("int result = database().delete($S,
-			// _sqlWhereStatement, _sqlWhereParams.toArray(new
-			// String[_sqlWhereParams.size()]))",
-			// daoDefinition.getEntity().getTableName());
+		case DELETE_RAW:			
 			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _contentValues.whereArgsAsArray())", daoDefinition.getEntity().getTableName());
 
 			if (method.getParent().getParent().generateRx) {
@@ -386,22 +383,10 @@ public abstract class SqlModifyBuilder {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
 			if (method.jql.conflictAlgorithmType == ConflictAlgorithmType.NONE) {
-				// methodBuilder.addStatement("int result =
-				// database().update($S, contentValues, _sqlWhereStatement,
-				// _sqlWhereParams.toArray(new
-				// String[_sqlWhereParams.size()]))",
-				// daoDefinition.getEntity().getTableName());
 				methodBuilder.addStatement("int result = database().update($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray())",
-						daoDefinition.getEntity().getTableName());
+						daoDefinition.getEntity().getTableName());				
 			} else {
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-
-				// methodBuilder.addStatement("int result =
-				// database().updateWithOnConflict($S, contentValues,
-				// _sqlWhereStatement, _sqlWhereParams.toArray(new
-				// String[_sqlWhereParams.size()]), $L)",
-				// daoDefinition.getEntity().getTableName(),
-				// method.jql.conflictAlgorithmType.getConflictAlgorithm());
 				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray()), $L)",
 						daoDefinition.getEntity().getTableName(), method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}
