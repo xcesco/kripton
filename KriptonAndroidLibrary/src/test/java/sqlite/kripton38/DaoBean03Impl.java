@@ -3,8 +3,8 @@ package sqlite.kripton38;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -123,7 +123,7 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean03 WHERE id=?");
+    String _sql="DELETE FROM bean03 WHERE id=?";
 
     // display log
     Logger.info("DELETE FROM bean03 WHERE id=?");

@@ -3,8 +3,8 @@ package sqlite.kripton93;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -225,8 +225,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -298,8 +297,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT OR ABORT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm ABORT
     // insert operation
@@ -372,8 +370,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT OR FAIL INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm FAIL
     // insert operation
@@ -446,8 +443,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT OR IGNORE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm IGNORE
     // insert operation
@@ -520,8 +516,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT OR REPLACE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm REPLACE
     // insert operation
@@ -594,8 +589,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT OR ROLLBACK INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm ROLLBACK
     // insert operation

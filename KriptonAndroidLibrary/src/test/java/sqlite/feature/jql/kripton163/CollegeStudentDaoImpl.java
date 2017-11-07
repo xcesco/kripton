@@ -3,7 +3,7 @@ package sqlite.feature.jql.kripton163;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;

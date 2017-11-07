@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package com.abubusoft.kripton.android.sqlite.database;
+package com.abubusoft.kripton.android.sqlite;
 
 import java.util.ArrayList;
 import java.util.Set;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
 
 public final class KriptonContentValues {
 	enum ParamType {
 		BOOLEAN, BYTE_ARRAY, DOUBLE, FLOAT, INTEGER, LONG, SHORT, STRING, NULL, BYTE
 	};
-
-	public static final String TAG = "ContentValues";
 
 	private ContentValues values;
 
@@ -309,8 +306,7 @@ public final class KriptonContentValues {
 	 * @return the String for the value
 	 */
 	public String getAsString(String key) {
-		Object value = values.get(key);
-		return value != null ? value.toString() : null;
+		return values.getAsString(key);		
 	}
 
 	/**
@@ -322,22 +318,7 @@ public final class KriptonContentValues {
 	 *         converted
 	 */
 	public Long getAsLong(String key) {
-		Object value = values.get(key);
-		try {
-			return value != null ? ((Number) value).longValue() : null;
-		} catch (ClassCastException e) {
-			if (value instanceof CharSequence) {
-				try {
-					return Long.valueOf(value.toString());
-				} catch (NumberFormatException e2) {
-					Log.e(TAG, "Cannot parse Long value for " + value + " at key " + key);
-					return null;
-				}
-			} else {
-				Log.e(TAG, "Cannot cast value for " + key + " to a Long: " + value, e);
-				return null;
-			}
-		}
+		return values.getAsLong(key);		
 	}
 
 	/**
@@ -349,22 +330,7 @@ public final class KriptonContentValues {
 	 *         converted
 	 */
 	public Integer getAsInteger(String key) {
-		Object value = values.get(key);
-		try {
-			return value != null ? ((Number) value).intValue() : null;
-		} catch (ClassCastException e) {
-			if (value instanceof CharSequence) {
-				try {
-					return Integer.valueOf(value.toString());
-				} catch (NumberFormatException e2) {
-					Log.e(TAG, "Cannot parse Integer value for " + value + " at key " + key);
-					return null;
-				}
-			} else {
-				Log.e(TAG, "Cannot cast value for " + key + " to a Integer: " + value, e);
-				return null;
-			}
-		}
+		return values.getAsInteger(key);		
 	}
 
 	/**
@@ -376,22 +342,7 @@ public final class KriptonContentValues {
 	 *         converted
 	 */
 	public Short getAsShort(String key) {
-		Object value = values.get(key);
-		try {
-			return value != null ? ((Number) value).shortValue() : null;
-		} catch (ClassCastException e) {
-			if (value instanceof CharSequence) {
-				try {
-					return Short.valueOf(value.toString());
-				} catch (NumberFormatException e2) {
-					Log.e(TAG, "Cannot parse Short value for " + value + " at key " + key);
-					return null;
-				}
-			} else {
-				Log.e(TAG, "Cannot cast value for " + key + " to a Short: " + value, e);
-				return null;
-			}
-		}
+		return values.getAsShort(key);		
 	}
 
 	/**
@@ -403,22 +354,7 @@ public final class KriptonContentValues {
 	 *         converted
 	 */
 	public Byte getAsByte(String key) {
-		Object value = values.get(key);
-		try {
-			return value != null ? ((Number) value).byteValue() : null;
-		} catch (ClassCastException e) {
-			if (value instanceof CharSequence) {
-				try {
-					return Byte.valueOf(value.toString());
-				} catch (NumberFormatException e2) {
-					Log.e(TAG, "Cannot parse Byte value for " + value + " at key " + key);
-					return null;
-				}
-			} else {
-				Log.e(TAG, "Cannot cast value for " + key + " to a Byte: " + value, e);
-				return null;
-			}
-		}
+		return values.getAsByte(key);		
 	}
 
 	/**
@@ -430,22 +366,7 @@ public final class KriptonContentValues {
 	 *         converted
 	 */
 	public Double getAsDouble(String key) {
-		Object value = values.get(key);
-		try {
-			return value != null ? ((Number) value).doubleValue() : null;
-		} catch (ClassCastException e) {
-			if (value instanceof CharSequence) {
-				try {
-					return Double.valueOf(value.toString());
-				} catch (NumberFormatException e2) {
-					Log.e(TAG, "Cannot parse Double value for " + value + " at key " + key);
-					return null;
-				}
-			} else {
-				Log.e(TAG, "Cannot cast value for " + key + " to a Double: " + value, e);
-				return null;
-			}
-		}
+		return values.getAsDouble(key);		
 	}
 
 	/**
@@ -457,22 +378,7 @@ public final class KriptonContentValues {
 	 *         converted
 	 */
 	public Float getAsFloat(String key) {
-		Object value = values.get(key);
-		try {
-			return value != null ? ((Number) value).floatValue() : null;
-		} catch (ClassCastException e) {
-			if (value instanceof CharSequence) {
-				try {
-					return Float.valueOf(value.toString());
-				} catch (NumberFormatException e2) {
-					Log.e(TAG, "Cannot parse Float value for " + value + " at key " + key);
-					return null;
-				}
-			} else {
-				Log.e(TAG, "Cannot cast value for " + key + " to a Float: " + value, e);
-				return null;
-			}
-		}
+		return values.getAsFloat(key);		
 	}
 
 	/**
@@ -484,19 +390,7 @@ public final class KriptonContentValues {
 	 *         converted
 	 */
 	public Boolean getAsBoolean(String key) {
-		Object value = values.get(key);
-		try {
-			return (Boolean) value;
-		} catch (ClassCastException e) {
-			if (value instanceof CharSequence) {
-				return Boolean.valueOf(value.toString());
-			} else if (value instanceof Number) {
-				return ((Number) value).intValue() != 0;
-			} else {
-				Log.e(TAG, "Cannot cast value for " + key + " to a Boolean: " + value, e);
-				return null;
-			}
-		}
+		return values.getAsBoolean(key);		
 	}
 
 	/**
@@ -508,12 +402,7 @@ public final class KriptonContentValues {
 	 * @return the byte[] value, or null is the value is missing or not a byte[]
 	 */
 	public byte[] getAsByteArray(String key) {
-		Object value = values.get(key);
-		if (value instanceof byte[]) {
-			return (byte[]) value;
-		} else {
-			return null;
-		}
+		return values.getAsByteArray(key);		
 	}
 
 	public Set<String> keySet() {

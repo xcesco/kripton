@@ -3,9 +3,9 @@ package sqlite.feature.typeadapter.kripton180.bean;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import sqlite.feature.typeadapter.kripton180.Employee;
@@ -696,8 +696,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO employees (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -809,8 +808,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO employees (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -964,7 +962,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+    String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
     // display log
     Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1118,7 +1116,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=?");
+    String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=?";
 
     // display log
     Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=?");
@@ -1230,7 +1228,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+    String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
     // display log
     Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1324,7 +1322,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=?");
+    String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=?";
 
     // display log
     Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address WHERE id=?");
@@ -1401,7 +1399,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+    String _sql="DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1466,7 +1464,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+    String _sql="DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1513,7 +1511,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM employees WHERE id=?");
+    String _sql="DELETE FROM employees WHERE id=?";
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=?");

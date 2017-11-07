@@ -3,8 +3,8 @@ package sqlite.kripton186.persistence;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -98,8 +98,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT OR REPLACE INTO phone_number (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // conflict algorithm REPLACE
     // insert operation
@@ -223,7 +222,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM phone_number WHERE id = ?");
+    String _sql="DELETE FROM phone_number WHERE id = ?";
 
     // display log
     Logger.info("DELETE FROM phone_number WHERE id = ?");

@@ -6,8 +6,8 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -223,8 +223,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean84_b (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -262,7 +261,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     String _sqlWhereStatement="";
 
     // generate sql
-    String _sql=String.format("UPDATE bean84_b SET column_bean=?");
+    String _sql="UPDATE bean84_b SET column_bean=?";
 
     // display log
     Logger.info("UPDATE bean84_b SET column_bean=:columnBean");
@@ -307,7 +306,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     String _sqlWhereStatement="";
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean84_b");
+    String _sql="DELETE FROM bean84_b";
 
     // display log
     Logger.info("DELETE FROM bean84_b");

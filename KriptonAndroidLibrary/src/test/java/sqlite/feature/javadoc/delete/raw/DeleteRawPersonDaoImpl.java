@@ -3,8 +3,8 @@ package sqlite.feature.javadoc.delete.raw;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -54,7 +54,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE id=?");
+    String _sql="DELETE FROM person WHERE id=?";
 
     // display log
     Logger.info("DELETE FROM person WHERE id=?");
@@ -162,7 +162,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE name=? and surname=? AND student = 0");
+    String _sql="DELETE FROM person WHERE name=? and surname=? AND student = 0";
 
     // display log
     Logger.info("DELETE FROM person WHERE name=? and surname=? AND student = 0");
@@ -212,7 +212,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE surname=? and student = (select student from person where name=?)");
+    String _sql="DELETE FROM person WHERE surname=? and student = (select student from person where name=?)";
 
     // display log
     Logger.info("DELETE FROM person WHERE surname=? and student = (select student from person where name=?)");
@@ -318,7 +318,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE id=?");
+    String _sql="DELETE FROM person WHERE id=?";
 
     // display log
     Logger.info("DELETE FROM person WHERE id=?");

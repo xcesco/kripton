@@ -6,10 +6,10 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.CalendarUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.CurrencyUtils;
@@ -93,7 +93,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_big_decimal=?");
+    String _sql="DELETE FROM bean WHERE value_big_decimal=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_big_decimal=?");
@@ -141,7 +141,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_big_decimal=?");
+    String _sql="DELETE FROM bean WHERE value_big_decimal=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_big_decimal=?");
@@ -189,7 +189,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_bool_type=?");
+    String _sql="DELETE FROM bean WHERE value_bool_type=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_bool_type=?");
@@ -237,7 +237,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_bool=?");
+    String _sql="DELETE FROM bean WHERE value_bool=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_bool=?");
@@ -285,7 +285,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_bean_array=?");
+    String _sql="DELETE FROM bean WHERE value_bean_array=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_bean_array=?");
@@ -333,7 +333,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_long_array=?");
+    String _sql="DELETE FROM bean WHERE value_long_array=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_long_array=?");
@@ -381,7 +381,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_long_type_array=?");
+    String _sql="DELETE FROM bean WHERE value_long_type_array=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_long_type_array=?");
@@ -429,7 +429,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_byte=?");
+    String _sql="DELETE FROM bean WHERE value_byte=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_byte=?");
@@ -477,7 +477,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_byte_type=?");
+    String _sql="DELETE FROM bean WHERE value_byte_type=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_byte_type=?");
@@ -525,7 +525,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_calendar=?");
+    String _sql="DELETE FROM bean WHERE value_calendar=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_calendar=?");
@@ -573,7 +573,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_char_type=?");
+    String _sql="DELETE FROM bean WHERE value_char_type=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_char_type=?");
@@ -621,7 +621,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_char_type=?");
+    String _sql="DELETE FROM bean WHERE value_char_type=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_char_type=?");
@@ -669,7 +669,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_currency=?");
+    String _sql="DELETE FROM bean WHERE value_currency=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_currency=?");
@@ -717,7 +717,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_date=?");
+    String _sql="DELETE FROM bean WHERE value_date=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_date=?");
@@ -765,7 +765,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_double=?");
+    String _sql="DELETE FROM bean WHERE value_double=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_double=?");
@@ -813,7 +813,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_double_type=?");
+    String _sql="DELETE FROM bean WHERE value_double_type=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_double_type=?");
@@ -861,7 +861,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_enum_type=?");
+    String _sql="DELETE FROM bean WHERE value_enum_type=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_enum_type=?");
@@ -909,7 +909,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_float=?");
+    String _sql="DELETE FROM bean WHERE value_float=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_float=?");
@@ -957,7 +957,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_float_type=?");
+    String _sql="DELETE FROM bean WHERE value_float_type=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_float_type=?");
@@ -1005,7 +1005,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_int=?");
+    String _sql="DELETE FROM bean WHERE value_int=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_int=?");
@@ -1053,7 +1053,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_int_type=?");
+    String _sql="DELETE FROM bean WHERE value_int_type=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_int_type=?");
@@ -1101,7 +1101,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_long_list=?");
+    String _sql="DELETE FROM bean WHERE value_long_list=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_long_list=?");
@@ -1149,7 +1149,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_locale=?");
+    String _sql="DELETE FROM bean WHERE value_locale=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_locale=?");
@@ -1197,7 +1197,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_long=?");
+    String _sql="DELETE FROM bean WHERE value_long=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_long=?");
@@ -1245,7 +1245,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_long_type=?");
+    String _sql="DELETE FROM bean WHERE value_long_type=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_long_type=?");
@@ -1293,7 +1293,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_short=?");
+    String _sql="DELETE FROM bean WHERE value_short=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_short=?");
@@ -1341,7 +1341,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_short_type=?");
+    String _sql="DELETE FROM bean WHERE value_short_type=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_short_type=?");
@@ -1389,7 +1389,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_string=?");
+    String _sql="DELETE FROM bean WHERE value_string=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_string=?");
@@ -1437,7 +1437,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_time=?");
+    String _sql="DELETE FROM bean WHERE value_time=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_time=?");
@@ -1485,7 +1485,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_time_zone=?");
+    String _sql="DELETE FROM bean WHERE value_time_zone=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_time_zone=?");
@@ -1533,7 +1533,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean WHERE value_url=?");
+    String _sql="DELETE FROM bean WHERE value_url=?";
 
     // display log
     Logger.info("DELETE FROM bean WHERE value_url=?");
@@ -1805,8 +1805,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -1863,8 +1862,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -1919,8 +1917,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -1971,8 +1968,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2027,8 +2023,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2083,8 +2078,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2139,8 +2133,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2195,8 +2188,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2251,8 +2243,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2303,8 +2294,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2359,8 +2349,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2415,8 +2404,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2467,8 +2455,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2523,8 +2510,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2579,8 +2565,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2635,8 +2620,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2687,8 +2671,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2743,8 +2726,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2799,8 +2781,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2851,8 +2832,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2907,8 +2887,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -2959,8 +2938,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -3015,8 +2993,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -3071,8 +3048,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -3127,8 +3103,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -3179,8 +3154,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -3235,8 +3209,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -3287,8 +3260,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -3343,8 +3315,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -3399,8 +3370,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -3455,8 +3425,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -3511,8 +3480,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -11118,7 +11086,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET value_bool_type=?, value_bool=?, value_byte_type=?, value_byte=?, value_short_type=?, value_short=?, value_int_type=?, value_int=?, value_string=?, value_char_type=?, value_char=?, value_float_type=?, value_float=?, value_big_integer=?, value_big_decimal=?, value_enum_type=?, value_long_type=?, value_long=?, value_double_type=?, value_double=?, value_locale=?, value_calendar=?, value_date=?, value_url=?, value_time=?, value_currency=?, value_time_zone=?, value_time_list=?, value_strin_list=?, value_long_list=?, value_byte_array=?, value_long_type_array=?, value_long_array=?, value_bean_array=?, value_string_array=?, value_char_list=?, value_char_type_array=?, value_char_array=?, value_map_string_bean=?, value_linked_map_string_bean=?, value_set_string=? WHERE id=?");
+    String _sql="UPDATE bean SET value_bool_type=?, value_bool=?, value_byte_type=?, value_byte=?, value_short_type=?, value_short=?, value_int_type=?, value_int=?, value_string=?, value_char_type=?, value_char=?, value_float_type=?, value_float=?, value_big_integer=?, value_big_decimal=?, value_enum_type=?, value_long_type=?, value_long=?, value_double_type=?, value_double=?, value_locale=?, value_calendar=?, value_date=?, value_url=?, value_time=?, value_currency=?, value_time_zone=?, value_time_list=?, value_strin_list=?, value_long_list=?, value_byte_array=?, value_long_type_array=?, value_long_array=?, value_bean_array=?, value_string_array=?, value_char_list=?, value_char_type_array=?, value_char_array=?, value_map_string_bean=?, value_linked_map_string_bean=?, value_set_string=? WHERE id=?";
 
     // display log
     Logger.info("UPDATE bean SET value_bool_type=:valueBoolType, value_bool=:valueBool, value_byte_type=:valueByteType, value_byte=:valueByte, value_short_type=:valueShortType, value_short=:valueShort, value_int_type=:valueIntType, value_int=:valueInt, value_string=:valueString, value_char_type=:valueCharType, value_char=:valueChar, value_float_type=:valueFloatType, value_float=:valueFloat, value_big_integer=:valueBigInteger, value_big_decimal=:valueBigDecimal, value_enum_type=:valueEnumType, value_long_type=:valueLongType, value_long=:valueLong, value_double_type=:valueDoubleType, value_double=:valueDouble, value_locale=:valueLocale, value_calendar=:valueCalendar, value_date=:valueDate, value_url=:valueUrl, value_time=:valueTime, value_currency=:valueCurrency, value_time_zone=:valueTimeZone, value_time_list=:valueTimeList, value_strin_list=:valueStrinList, value_long_list=:valueLongList, value_byte_array=:valueByteArray, value_long_type_array=:valueLongTypeArray, value_long_array=:valueLongArray, value_bean_array=:valueBeanArray, value_string_array=:valueStringArray, value_char_list=:valueCharList, value_char_type_array=:valueCharTypeArray, value_char_array=:valueCharArray, value_map_string_bean=:valueMapStringBean, value_linked_map_string_bean=:valueLinkedMapStringBean, value_set_string=:valueSetString WHERE id=?");
@@ -11186,7 +11154,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_big_decimal=?");
+    String _sql="UPDATE bean SET id=? WHERE value_big_decimal=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_big_decimal=?");
@@ -11254,7 +11222,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_big_decimal=?");
+    String _sql="UPDATE bean SET id=? WHERE value_big_decimal=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_big_decimal=?");
@@ -11322,7 +11290,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_bool_type=?");
+    String _sql="UPDATE bean SET id=? WHERE value_bool_type=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_bool_type=?");
@@ -11390,7 +11358,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_bool=?");
+    String _sql="UPDATE bean SET id=? WHERE value_bool=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_bool=?");
@@ -11462,7 +11430,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET value_set_string=? WHERE id=?");
+    String _sql="UPDATE bean SET value_set_string=? WHERE id=?";
 
     // display log
     Logger.info("UPDATE bean SET value_set_string=:valueSetString WHERE id=?");
@@ -11530,7 +11498,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_bean_array=?");
+    String _sql="UPDATE bean SET id=? WHERE value_bean_array=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_bean_array=?");
@@ -11598,7 +11566,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_long_array=?");
+    String _sql="UPDATE bean SET id=? WHERE value_long_array=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_long_array=?");
@@ -11666,7 +11634,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_long_type_array=?");
+    String _sql="UPDATE bean SET id=? WHERE value_long_type_array=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_long_type_array=?");
@@ -11734,7 +11702,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_byte=?");
+    String _sql="UPDATE bean SET id=? WHERE value_byte=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_byte=?");
@@ -11802,7 +11770,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_byte_type=?");
+    String _sql="UPDATE bean SET id=? WHERE value_byte_type=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_byte_type=?");
@@ -11870,7 +11838,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_calendar=?");
+    String _sql="UPDATE bean SET id=? WHERE value_calendar=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_calendar=?");
@@ -11938,7 +11906,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_char_type=?");
+    String _sql="UPDATE bean SET id=? WHERE value_char_type=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_char_type=?");
@@ -12006,7 +11974,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_char_type=?");
+    String _sql="UPDATE bean SET id=? WHERE value_char_type=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_char_type=?");
@@ -12074,7 +12042,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_currency=?");
+    String _sql="UPDATE bean SET id=? WHERE value_currency=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_currency=?");
@@ -12142,7 +12110,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_date=?");
+    String _sql="UPDATE bean SET id=? WHERE value_date=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_date=?");
@@ -12210,7 +12178,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_double=?");
+    String _sql="UPDATE bean SET id=? WHERE value_double=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_double=?");
@@ -12278,7 +12246,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_double_type=?");
+    String _sql="UPDATE bean SET id=? WHERE value_double_type=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_double_type=?");
@@ -12346,7 +12314,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_enum_type=?");
+    String _sql="UPDATE bean SET id=? WHERE value_enum_type=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_enum_type=?");
@@ -12414,7 +12382,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_float=?");
+    String _sql="UPDATE bean SET id=? WHERE value_float=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_float=?");
@@ -12482,7 +12450,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_float_type=?");
+    String _sql="UPDATE bean SET id=? WHERE value_float_type=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_float_type=?");
@@ -12550,7 +12518,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_int=?");
+    String _sql="UPDATE bean SET id=? WHERE value_int=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_int=?");
@@ -12618,7 +12586,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_int_type=?");
+    String _sql="UPDATE bean SET id=? WHERE value_int_type=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_int_type=?");
@@ -12686,7 +12654,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_long_list=?");
+    String _sql="UPDATE bean SET id=? WHERE value_long_list=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_long_list=?");
@@ -12754,7 +12722,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_locale=?");
+    String _sql="UPDATE bean SET id=? WHERE value_locale=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_locale=?");
@@ -12822,7 +12790,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_long=?");
+    String _sql="UPDATE bean SET id=? WHERE value_long=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_long=?");
@@ -12890,7 +12858,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_long_type=?");
+    String _sql="UPDATE bean SET id=? WHERE value_long_type=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_long_type=?");
@@ -12958,7 +12926,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_short=?");
+    String _sql="UPDATE bean SET id=? WHERE value_short=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_short=?");
@@ -13026,7 +12994,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_short_type=?");
+    String _sql="UPDATE bean SET id=? WHERE value_short_type=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_short_type=?");
@@ -13094,7 +13062,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_string=?");
+    String _sql="UPDATE bean SET id=? WHERE value_string=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_string=?");
@@ -13162,7 +13130,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_time=?");
+    String _sql="UPDATE bean SET id=? WHERE value_time=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_time=?");
@@ -13230,7 +13198,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_time_zone=?");
+    String _sql="UPDATE bean SET id=? WHERE value_time_zone=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_time_zone=?");
@@ -13298,7 +13266,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean SET id=? WHERE value_url=?");
+    String _sql="UPDATE bean SET id=? WHERE value_url=?";
 
     // display log
     Logger.info("UPDATE bean SET id=:id WHERE value_url=?");
@@ -13466,73 +13434,6 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * for param serializer5 serialization
-   */
-  private byte[] serializer5(Set<String> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (String item: value) {
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeString(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser5 parsing
-   */
-  private Set<String> parser5(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Set<String> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getText();
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
    * for param serializer4 serialization
    */
   private byte[] serializer4(LinkedList<Long> value) {
@@ -13661,6 +13562,73 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           collection.add(item);
         }
         result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param serializer5 serialization
+   */
+  private byte[] serializer5(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser5 parsing
+   */
+  private Set<String> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
       }
       return result;
     } catch(Exception e) {

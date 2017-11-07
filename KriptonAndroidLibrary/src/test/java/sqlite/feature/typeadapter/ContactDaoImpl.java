@@ -3,10 +3,10 @@ package sqlite.feature.typeadapter;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.SQLTimeUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -246,7 +246,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM contact WHERE id=? and type=?");
+    String _sql="DELETE FROM contact WHERE id=? and type=?";
 
     // display log
     Logger.info("DELETE FROM contact WHERE id=? and type=?");
@@ -295,7 +295,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM contact WHERE password=? and type=?");
+    String _sql="DELETE FROM contact WHERE password=? and type=?";
 
     // display log
     Logger.info("DELETE FROM contact WHERE password=? and type=?");
@@ -341,7 +341,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM contact WHERE id=? and type=?");
+    String _sql="DELETE FROM contact WHERE id=? and type=?";
 
     // display log
     Logger.info("DELETE FROM contact WHERE id=? and type=?");
@@ -392,7 +392,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM contact WHERE id=? and type=?");
+    String _sql="DELETE FROM contact WHERE id=? and type=?";
 
     // display log
     Logger.info("DELETE FROM contact WHERE id=? and type=?");
@@ -932,7 +932,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE contact SET id=?, type=? WHERE id=?  and password=? and type=?");
+    String _sql="UPDATE contact SET id=?, type=? WHERE id=?  and password=? and type=?";
 
     // display log
     Logger.info("UPDATE contact SET id=:id, type=:type WHERE id=?  and password=? and type=?");
@@ -1012,7 +1012,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE contact SET password=?, type=? WHERE id=?");
+    String _sql="UPDATE contact SET password=?, type=? WHERE id=?";
 
     // display log
     Logger.info("UPDATE contact SET password=:password, type=:type WHERE id=?");
@@ -1092,7 +1092,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE contact SET birth_day=?, id=? WHERE password=? and type=?");
+    String _sql="UPDATE contact SET birth_day=?, id=? WHERE password=? and type=?";
 
     // display log
     Logger.info("UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=? and type=?");
@@ -1176,7 +1176,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE contact SET birth_day=?, password=?, type=? WHERE type=?  and type=?");
+    String _sql="UPDATE contact SET birth_day=?, password=?, type=? WHERE type=?  and type=?";
 
     // display log
     Logger.info("UPDATE contact SET birth_day=:birthDay, password=:password, type=:type WHERE type=?  and type=?");
@@ -1256,7 +1256,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE contact SET birth_day=?, id=? WHERE password=? and type=?");
+    String _sql="UPDATE contact SET birth_day=?, id=? WHERE password=? and type=?";
 
     // display log
     Logger.info("UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=? and type=?");
@@ -1343,8 +1343,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -1402,8 +1401,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -1469,8 +1467,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -1544,8 +1541,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);

@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.android.sqlite.database;
+package com.abubusoft.kripton.android.commons;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;

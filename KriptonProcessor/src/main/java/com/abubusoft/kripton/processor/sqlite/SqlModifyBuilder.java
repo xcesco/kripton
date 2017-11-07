@@ -28,9 +28,8 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -536,7 +535,7 @@ public abstract class SqlModifyBuilder {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 
 		methodBuilder.addCode("\n// generate sql\n");
-		String sqlForLog = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
 				// only entity's columns
@@ -564,10 +563,11 @@ public abstract class SqlModifyBuilder {
 		});
 
 		if (method.jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_WHERE)) {
-			methodBuilder.addStatement("String _sql=String.format($S, $L)",sqlForLog.replace(method.jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE), "%s"),
+			methodBuilder.addStatement("String _sql=String.format($S, $L)",sql.replace(method.jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE), "%s"),
 					"StringUtils.ifNotEmptyAppend(_sqlDynamicWhere,\" AND \")");
 		} else {
-			methodBuilder.addStatement("String _sql=String.format($S)", sqlForLog);
+			//methodBuilder.addStatement("String _sql=String.format($S)", sql);
+			methodBuilder.addStatement("String _sql=$S", sql);
 		}
 	}
 

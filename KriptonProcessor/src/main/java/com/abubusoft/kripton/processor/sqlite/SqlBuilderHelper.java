@@ -547,7 +547,7 @@ public abstract class SqlBuilderHelper {
 	 */
 	public static void generateSQLForInsert(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		// SQLDaoDefinition daoDefinition = method.getParent();
-		methodBuilder.addComment("// generate SQL for insert\n");
+		methodBuilder.addComment("generate SQL for insert");
 		JQLChecker checker = JQLChecker.getInstance();
 
 		// replace the table name, other pieces will be removed

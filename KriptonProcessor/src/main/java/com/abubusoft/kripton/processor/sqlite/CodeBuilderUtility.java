@@ -25,7 +25,6 @@ import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;

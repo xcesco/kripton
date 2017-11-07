@@ -3,7 +3,7 @@ package sqlite.feature.performance.simple;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 
 import android.content.ContentValues;
 import android.database.Cursor;

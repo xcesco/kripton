@@ -3,8 +3,8 @@ package sqlite.feature.many2many.entity;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -133,8 +133,7 @@ public class CityOk1DaoImpl extends AbstractDao implements CityOk1Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO cities (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
@@ -245,7 +244,7 @@ public class CityOk1DaoImpl extends AbstractDao implements CityOk1Dao {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM cities WHERE id=?");
+    String _sql="DELETE FROM cities WHERE id=?";
 
     // display log
     Logger.info("DELETE FROM cities WHERE id=?");

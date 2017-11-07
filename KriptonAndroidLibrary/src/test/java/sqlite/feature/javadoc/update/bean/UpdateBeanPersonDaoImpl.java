@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -79,7 +79,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     String _sqlWhereStatement="";
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=?, surname=?, student=?");
+    String _sql="UPDATE person SET name=?, surname=?, student=?";
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student");
@@ -218,7 +218,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?");
+    String _sql="UPDATE person SET name=?, surname=?, student=? WHERE id=?";
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?");
@@ -694,7 +694,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     String _sqlWhereStatement="";
 
     // generate sql
-    String _sql=String.format("UPDATE person SET surname=?, student = ?");
+    String _sql="UPDATE person SET surname=?, student = ?";
 
     // display log
     Logger.info("UPDATE person SET surname=:surname, student = :student");
@@ -818,7 +818,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=?, student = (select student from person where id=0)");
+    String _sql="UPDATE person SET name=?, student = (select student from person where id=0)";
 
     // display log
     Logger.info("UPDATE person SET name=:name, student = (select student from person where id=0)");
@@ -887,7 +887,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=? where student = (select student from person where id=?)");
+    String _sql="UPDATE person SET name=? where student = (select student from person where id=?)";
 
     // display log
     Logger.info("UPDATE person SET name=:name where student = (select student from person where id=?)");

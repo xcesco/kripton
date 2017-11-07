@@ -2,8 +2,8 @@ package sqlite.feature.performance.simple;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import java.util.ArrayList;
 
 /**
@@ -110,7 +110,7 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
     String _sqlWhereStatement="";
 
     // generate sql
-    String _sql=String.format("DELETE FROM simple_address_item");
+    String _sql="DELETE FROM simple_address_item";
     int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
   }
 
@@ -220,8 +220,7 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
     }
     _contentValues.put("phone", bean.getPhone());
 
-    // // generate SQL for insert
-
+    // generate SQL for insert
     String _sql=String.format("INSERT INTO simple_address_item (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
     long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);

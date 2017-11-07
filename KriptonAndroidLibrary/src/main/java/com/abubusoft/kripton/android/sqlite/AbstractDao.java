@@ -16,7 +16,6 @@
 package com.abubusoft.kripton.android.sqlite;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.ContentValues;

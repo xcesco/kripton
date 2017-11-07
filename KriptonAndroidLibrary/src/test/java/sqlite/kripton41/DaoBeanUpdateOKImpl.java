@@ -2,8 +2,8 @@ package sqlite.kripton41;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -69,7 +69,7 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean01 SET id=?, value=? WHERE id=?");
+    String _sql="UPDATE bean01 SET id=?, value=? WHERE id=?";
 
     // display log
     Logger.info("UPDATE bean01 SET id=:id, value=:value WHERE id=?");

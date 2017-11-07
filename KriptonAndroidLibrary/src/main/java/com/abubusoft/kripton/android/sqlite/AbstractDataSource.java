@@ -20,7 +20,6 @@ package com.abubusoft.kripton.android.sqlite;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -28,7 +27,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.database.LRUCache;
+import com.abubusoft.kripton.android.commons.LRUCache;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.database.sqlite.SQLiteDatabase;

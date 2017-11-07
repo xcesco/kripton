@@ -2,8 +2,8 @@ package sqlite.kripton41;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -53,7 +53,7 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM bean01 WHERE id=?");
+    String _sql="DELETE FROM bean01 WHERE id=?";
 
     // display log
     Logger.info("DELETE FROM bean01 WHERE id=?");

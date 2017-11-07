@@ -3,8 +3,8 @@ package sqlite.kripton48.persistence;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.database.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
 import sqlite.kripton48.entities.Bean01;
 
@@ -136,7 +136,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE bean01 SET text=? WHERE id=?");
+    String _sql="UPDATE bean01 SET text=? WHERE id=?";
 
     // display log
     Logger.info("UPDATE bean01 SET text=:text WHERE id=?");
