@@ -145,8 +145,6 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			} else {
 				methodBuilder.addComment("conflict algorithm $L", method.jql.conflictAlgorithmType);
 				methodBuilder.addStatement("int result = $T.update(dataSource, _sql, _contentValues)",KriptonDatabaseWrapper.class);
-//				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray(),$L)",
-//						tableName, method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}
 			
 			if (method.getParent().getParent().generateRx) {

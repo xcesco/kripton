@@ -34,7 +34,7 @@ public abstract class KriptonDatabaseWrapper {
 		synchronized (ps) {
 			try {
 				contentValues.bind(ps);
-
+				ps.acquireReference();			
 				return ps.executeUpdateDelete();
 			} finally {
 				//ps.close();

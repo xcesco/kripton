@@ -21,7 +21,6 @@ import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
@@ -99,15 +98,15 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			// generate SQL for insert
 			SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);
 
-			ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
-			String conflictString1 = "";
-			String conflictString2 = "";
-
-			if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
-				conflictString1 = "WithOnConflict";
-				conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
-				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-			}
+//			ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
+//			String conflictString1 = "";
+//			String conflictString2 = "";
+//
+//			if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
+//				conflictString1 = "WithOnConflict";
+//				conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
+//				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
+//			}
 
 			methodBuilder.addComment("insert operation");
 			//methodBuilder.addCode("long result = database().insert$L($S, null, _contentValues.values()$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);

@@ -16,9 +16,11 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
@@ -203,17 +205,16 @@ public abstract class SqlBuilderHelper {
 	 */
 	public static void generateLogForContentValues(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		methodBuilder.addCode("\n// log for content values -- BEGIN\n");
-		methodBuilder.addStatement("Object _contentValue");
-		methodBuilder.beginControlFlow("for (String _contentKey:_contentValues.keySet())");
-		methodBuilder.addStatement("_contentValue=_contentValues.get(_contentKey)");
-		methodBuilder.beginControlFlow("if (_contentValue==null)");
-		methodBuilder.addStatement("$T.info(\"==> :%s = <null>\", _contentKey)", Logger.class);
+		methodBuilder.addStatement("$T<String, Object, $T> _contentValue", Triple.class, KriptonContentValues.ParamType.class);
+		methodBuilder.beginControlFlow("for (int i = 0; i < _contentValues.size(); i++)");
+		methodBuilder.addStatement("_contentValue = _contentValues.get(i)");
+		methodBuilder.beginControlFlow("if (_contentValue.value1==null)");
+		methodBuilder.addStatement("$T.info(\"==> :%s = <null>\", _contentValue.value0)", Logger.class);
 		methodBuilder.nextControlFlow("else");
-		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' (%s)\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getCanonicalName())", Logger.class, StringUtils.class);
+		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' (%s)\", _contentValue.value0, $T.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName())", Logger.class, StringUtils.class);
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 		methodBuilder.addCode("// log for content values -- END\n");
-
 	}
 
 	/**
@@ -492,7 +493,7 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.addStatement("$T _columnValueBuffer=new $T()", StringBuffer.class, StringBuffer.class);
 			methodBuilder.addStatement("String _columnSeparator=$S", "");
 
-			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.keySet()", false, new OnColumnListener() {
+			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.keys()", false, new OnColumnListener() {
 
 				@Override
 				public void onColumnCheck(MethodSpec.Builder methodBuilder, String columNameVariable) {
@@ -575,6 +576,21 @@ public abstract class SqlBuilderHelper {
 		});
 
 		methodBuilder.addStatement("String _sql=String.format($S, _contentValues.keyList(), _contentValues.keyValueList())", sql);
+	}
+
+	public static void generateLogForContentValuesContentProvider(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		methodBuilder.addCode("\n// log for content values -- BEGIN\n");
+		methodBuilder.addStatement("Object _contentValue");
+		methodBuilder.beginControlFlow("for (String _contentKey:_contentValues.values().keySet())");
+		methodBuilder.addStatement("_contentValue=_contentValues.values().get(_contentKey)");
+		methodBuilder.beginControlFlow("if (_contentValue==null)");
+		methodBuilder.addStatement("$T.info(\"==> :%s = <null>\", _contentKey)", Logger.class);
+		methodBuilder.nextControlFlow("else");
+		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' (%s)\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getCanonicalName())", Logger.class, StringUtils.class);
+		methodBuilder.endControlFlow();
+		methodBuilder.endControlFlow();
+		methodBuilder.addCode("// log for content values -- END\n");
+		
 	}
 
 }

@@ -17,13 +17,15 @@
 package com.abubusoft.kripton.android.sqlite;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
+
+import com.abubusoft.kripton.common.Triple;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteStatement;
 
 public final class KriptonContentValues {
-	enum ParamType {
+	public enum ParamType {
 		BOOLEAN, BYTE_ARRAY, DOUBLE, FLOAT, INTEGER, LONG, SHORT, STRING, NULL, BYTE
 	};
 
@@ -47,7 +49,7 @@ public final class KriptonContentValues {
 	public KriptonContentValues() {
 		// Choosing a default size of 8 based on analysis of typical
 		// consumption by applications.
-		values = new ContentValues();
+		//values = new ContentValues();
 		valueType = new ArrayList<>(8);
 		names = new ArrayList<>(8);
 		args = new ArrayList<>(4);
@@ -64,8 +66,13 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, String value) {
+		if (values!=null) {
+			values.put(key, value);
+			return;
+		}
+		
 		names.add(key);
-		values.put(key, value);
+		//values.put(key, value);
 		args.add(value);		
 		valueType.add(ParamType.STRING);
 	}
@@ -79,8 +86,13 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Byte value) {
+		if (values!=null) {
+			values.put(key, value);
+			return;
+		}
+		
 		names.add(key);
-		values.put(key, value);
+		//values.put(key, value);
 		args.add(value);		
 		valueType.add(ParamType.BYTE);
 	}
@@ -94,8 +106,13 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Short value) {
+		if (values!=null) {
+			values.put(key, value);
+			return;
+		}
+		
 		names.add(key);
-		values.put(key, value);
+		//values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.SHORT);
 	}
@@ -109,8 +126,13 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Integer value) {
+		if (values!=null) {
+			values.put(key, value);
+			return;
+		}
+		
 		names.add(key);
-		values.put(key, value);
+		//values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.INTEGER);
 	}
@@ -124,8 +146,13 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Long value) {
+		if (values!=null) {
+			values.put(key, value);
+			return;
+		}
+		
 		names.add(key);
-		values.put(key, value);
+		//values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.LONG);
 	}
@@ -139,8 +166,13 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Float value) {
+		if (values!=null) {
+			values.put(key, value);
+			return;
+		}
+		
 		names.add(key);
-		values.put(key, value);
+		//values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.FLOAT);
 	}
@@ -154,8 +186,13 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Double value) {
+		if (values!=null) {
+			values.put(key, value);
+			return;
+		}
+		
 		names.add(key);
-		values.put(key, value);
+		//values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.DOUBLE);
 	}
@@ -169,8 +206,12 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, Boolean value) {
+		if (values!=null) {
+			values.put(key, value);
+			return;
+		}
+		
 		names.add(key);
-		values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.BOOLEAN);
 	}
@@ -184,8 +225,13 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String key, byte[] value) {
+		if (values!=null) {
+			values.put(key, value);
+			return;
+		}
+		
 		names.add(key);
-		values.put(key, value);
+		//values.put(key, value);
 		args.add(value);
 		valueType.add(ParamType.BYTE_ARRAY);
 	}
@@ -197,8 +243,13 @@ public final class KriptonContentValues {
 	 *            the name of the value to make null
 	 */
 	public void putNull(String key) {
+		if (values!=null) {
+			values.putNull(key);
+			return;
+		}
+		
 		names.add(key);
-		values.putNull(key);
+		//values.putNull(key);
 		args.add(null);
 		valueType.add(ParamType.NULL);
 	}
@@ -216,6 +267,8 @@ public final class KriptonContentValues {
 		for (Object value : args) {
 			switch (valueType.get(index-1)) {
 			case BOOLEAN:
+				statement.bindLong(index, (long)(((Boolean)value)==true?1:0));
+				break;
 			case BYTE:
 			case SHORT:
 			case INTEGER:
@@ -250,17 +303,7 @@ public final class KriptonContentValues {
 	 * @return the number of values
 	 */
 	public int size() {
-		return values.size();
-	}
-
-	/**
-	 * Remove a single value.
-	 *
-	 * @param key
-	 *            the name of the value to remove
-	 */
-	public void remove(String key) {
-		values.remove(key);
+		return names.size();
 	}
 
 	/**
@@ -268,145 +311,20 @@ public final class KriptonContentValues {
 	 */
 	public void clear() {
 		names.clear();
-		values.clear();
+		values=null;
 		valueType.clear();
 		args.clear();
 		whereArgs.clear();
 		
 	}
-
-	/**
-	 * Returns true if this object has the named value.
-	 *
-	 * @param key
-	 *            the value to check for
-	 * @return {@code true} if the value is present, {@code false} otherwise
-	 */
-	public boolean containsKey(String key) {
-		return values.containsKey(key);
-	}
-
-	/**
-	 * Gets a value. Valid value types are {@link String}, {@link Boolean}, and
-	 * {@link Number} implementations.
-	 *
-	 * @param key
-	 *            the value to get
-	 * @return the data for the value
-	 */
-	public Object get(String key) {
-		return values.get(key);
-	}
-
-	/**
-	 * Gets a value and converts it to a String.
-	 *
-	 * @param key
-	 *            the value to get
-	 * @return the String for the value
-	 */
-	public String getAsString(String key) {
-		return values.getAsString(key);		
-	}
-
-	/**
-	 * Gets a value and converts it to a Long.
-	 *
-	 * @param key
-	 *            the value to get
-	 * @return the Long value, or null if the value is missing or cannot be
-	 *         converted
-	 */
-	public Long getAsLong(String key) {
-		return values.getAsLong(key);		
-	}
-
-	/**
-	 * Gets a value and converts it to an Integer.
-	 *
-	 * @param key
-	 *            the value to get
-	 * @return the Integer value, or null if the value is missing or cannot be
-	 *         converted
-	 */
-	public Integer getAsInteger(String key) {
-		return values.getAsInteger(key);		
-	}
-
-	/**
-	 * Gets a value and converts it to a Short.
-	 *
-	 * @param key
-	 *            the value to get
-	 * @return the Short value, or null if the value is missing or cannot be
-	 *         converted
-	 */
-	public Short getAsShort(String key) {
-		return values.getAsShort(key);		
-	}
-
-	/**
-	 * Gets a value and converts it to a Byte.
-	 *
-	 * @param key
-	 *            the value to get
-	 * @return the Byte value, or null if the value is missing or cannot be
-	 *         converted
-	 */
-	public Byte getAsByte(String key) {
-		return values.getAsByte(key);		
-	}
-
-	/**
-	 * Gets a value and converts it to a Double.
-	 *
-	 * @param key
-	 *            the value to get
-	 * @return the Double value, or null if the value is missing or cannot be
-	 *         converted
-	 */
-	public Double getAsDouble(String key) {
-		return values.getAsDouble(key);		
-	}
-
-	/**
-	 * Gets a value and converts it to a Float.
-	 *
-	 * @param key
-	 *            the value to get
-	 * @return the Float value, or null if the value is missing or cannot be
-	 *         converted
-	 */
-	public Float getAsFloat(String key) {
-		return values.getAsFloat(key);		
-	}
-
-	/**
-	 * Gets a value and converts it to a Boolean.
-	 *
-	 * @param key
-	 *            the value to get
-	 * @return the Boolean value, or null if the value is missing or cannot be
-	 *         converted
-	 */
-	public Boolean getAsBoolean(String key) {
-		return values.getAsBoolean(key);		
-	}
-
-	/**
-	 * Gets a value that is a byte array. Note that this method will not convert
-	 * any other types to byte arrays.
-	 *
-	 * @param key
-	 *            the value to get
-	 * @return the byte[] value, or null is the value is missing or not a byte[]
-	 */
-	public byte[] getAsByteArray(String key) {
-		return values.getAsByteArray(key);		
-	}
-
-	public Set<String> keySet() {
-		return values.keySet();
+	
+	protected Triple<String, Object, ParamType> triple=new Triple<>();
+	
+	public Triple<String, Object, ParamType> get(int index) {
+		triple.value0=names.get(index);
+		triple.value1=args.get(index);
+		triple.value2=valueType.get(index);
+		return triple;
 	}
 	
 	public String keyList() {
@@ -444,8 +362,12 @@ public final class KriptonContentValues {
 
 	public void clear(ContentValues values) {		
 		clear();
-		this.values.putAll(values);
-		
+		this.values=values;
+		//this.values.putAll(values);				
+	}
+
+	public List<String> keys() {
+		return names;
 	}
 
 

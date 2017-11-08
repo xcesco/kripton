@@ -353,7 +353,7 @@ public abstract class SqlModifyBuilder {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
 			SqlBuilderHelper.generateColumnCheckSet(builder, method, columns);
-			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.keySet()", true, null);
+			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.values().keySet()", true, null);
 			break;
 		default:
 			break;

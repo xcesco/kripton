@@ -37,6 +37,8 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 	@Test
 	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
+		BindDummyDataSource.instance().clearPreparedStatement();
+		
 		BindDummyDataSource dataSource = BindDummyDataSource.instance();
 
 		dataSource.execute(new Transaction() {
@@ -75,6 +77,8 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 	@Test
 	public void testRunSqlite2() throws IOException, InstantiationException, IllegalAccessException {
+		BindDummyDataSource.instance().clearPreparedStatement();
+		
 		BindDummyDataSource dataSource = BindDummyDataSource.instance();
 
 		dataSource.execute(new Transaction() {
@@ -85,14 +89,14 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 				BeanA_2 beanParent = new BeanA_2();
 				beanParent.valueString2 = "parent";
-				// daoFactory.getDaoBeanA_2().insert(beanParent);
+				daoFactory.getDaoBeanA_2().insert(beanParent);
 
 				BeanA_1 bean = new BeanA_1();
 				bean.valueString = "hello";
 				bean.beanA2Id = beanParent.id;
 
 				dao.insert(bean);
-				assertEquals(-1, bean.id);
+				assertEquals(1, bean.id);
 				// List<BeanA_1> list = dao.selectById(bean.id);
 
 				// Assert.assertEquals("not one ", 1, list.size());
@@ -113,6 +117,8 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 	@Test
 	public void testRunSqlite3() throws IOException, InstantiationException, IllegalAccessException {
+		BindDummyDataSource.instance().clearPreparedStatement();
+		
 		BindDummyDataSource dataSource = BindDummyDataSource.instance();
 
 		dataSource.execute(new Transaction() {
@@ -123,14 +129,14 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 				BeanA_2 beanParent = new BeanA_2();
 				beanParent.valueString2 = "parent";
-				// daoFactory.getDaoBeanA_2().insert(beanParent);
+				daoFactory.getDaoBeanA_2().insert(beanParent);
 
 				BeanA_1 bean = new BeanA_1();
 				bean.valueString = "hello";
 				bean.beanA2Id = beanParent.id;
 
 				dao.insert(bean);
-				assertEquals(-1, bean.id);
+				assertEquals(1, bean.id);
 				// List<BeanA_1> list = dao.selectById(bean.id);
 
 				// Assert.assertEquals("not one ", 1, list.size());
@@ -151,6 +157,8 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 	@Test
 	public void testRunSqlite4() throws IOException, InstantiationException, IllegalAccessException {
+		BindDummyDataSource.instance().clearPreparedStatement();
+		
 		BindDummyDataSource dataSource = BindDummyDataSource.instance();
 
 		dataSource.execute(new Transaction() {
@@ -161,14 +169,14 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 				BeanA_2 beanParent = new BeanA_2();
 				beanParent.valueString2 = "parent";
-				// daoFactory.getDaoBeanA_2().insert(beanParent);
+				daoFactory.getDaoBeanA_2().insert(beanParent);
 
 				BeanA_1 bean = new BeanA_1();
 				bean.valueString = "hello";
 				bean.beanA2Id = beanParent.id;
 
 				dao.insert(bean);
-				assertEquals(-1, bean.id);
+				assertEquals(1, bean.id);
 				// List<BeanA_1> list = dao.selectById(bean.id);
 
 				// Assert.assertEquals("not one ", 1, list.size());

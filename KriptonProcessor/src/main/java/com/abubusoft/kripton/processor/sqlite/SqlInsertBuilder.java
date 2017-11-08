@@ -235,7 +235,7 @@ public abstract class SqlInsertBuilder {
 		methodBuilder.addStatement("$T _contentValues=contentValues(contentValues)", KriptonContentValues.class);
 		
 		// generate column check
-		SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.keySet()", true, null);
+		SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.values().keySet()", true, null);
 
 		methodBuilder.addCode("\n");
 
@@ -257,7 +257,7 @@ public abstract class SqlInsertBuilder {
 		}
 
 		// generate log for inser operation
-		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
+		SqlBuilderHelper.generateLogForContentValuesContentProvider(method, methodBuilder);
 
 		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
 		String conflictString1 = "";

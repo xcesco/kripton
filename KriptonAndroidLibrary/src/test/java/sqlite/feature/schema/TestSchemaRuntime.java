@@ -70,6 +70,7 @@ public class TestSchemaRuntime extends BaseAndroidTest {
 			for (int i = 0; i < 10; i++) {
 				Professor professor = new Professor();
 				professor.name = String.format("professor%03d", i);
+				professor.surname="surname"+i;
 				professor.birthDate = new Date();
 				dao.insert(professor);
 			}

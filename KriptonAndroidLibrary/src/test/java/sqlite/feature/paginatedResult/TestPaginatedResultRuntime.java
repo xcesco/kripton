@@ -26,6 +26,7 @@ import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 
 import base.BaseAndroidTest;
 
@@ -39,9 +40,9 @@ public class TestPaginatedResultRuntime extends BaseAndroidTest {
 
 	@Test
 	public void testCycle() {
+		BindPersonDataSource.instance().clearPreparedStatement();
+		
 		try (BindPersonDataSource dataSource = BindPersonDataSource.open(); PersonDAOImpl dao = dataSource.getPersonDAO()) {
-			// dataSource.execute(transaction);
-			
 			dao.deleteAll();
 			
 			for (int i = 0; i < 100; i++) {
@@ -70,9 +71,9 @@ public class TestPaginatedResultRuntime extends BaseAndroidTest {
 
 	@Test
 	public void testGotoPage() {
+		BindPersonDataSource.instance().clearPreparedStatement();
+		
 		try (BindPersonDataSource dataSource = BindPersonDataSource.open(); PersonDAOImpl dao = dataSource.getPersonDAO()) {
-			// dataSource.execute(transaction);
-			
 			dao.deleteAll();
 			
 			for (int i = 0; i < 100; i++) {

@@ -70,6 +70,13 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 */
 	SQLiteDatabase database;
 	
+	/**
+	 * used to clear prepared statements
+	 */
+	public void clearPreparedStatement() {
+		preparedStatements.clear();
+	}
+	
 	protected LRUCache<String, SQLiteStatement> preparedStatements=new LRUCache<>(16, new LRUCache.OnRemoveListener<SQLiteStatement>() {
 
 		@Override
@@ -143,7 +150,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		try {
 			if (openCounter.decrementAndGet() <= 0) {
 				// Closing database
-				if (database != null) {
+				if (database != null) {	
+					clearPreparedStatement();
 					database.close();
 				}
 				database = null;

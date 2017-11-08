@@ -3,10 +3,12 @@ package sqlite.feature.contentprovider.kripton35.nolog;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.CollectionUtils;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.Set;
 import sqlite.feature.contentprovider.kripton35.entities.City;
@@ -80,12 +82,24 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
    */
   long insertBean0(Uri uri, ContentValues contentValues) {
     KriptonContentValues _contentValues=contentValues(contentValues);
-    for (String columnName:_contentValues.keySet()) {
+    for (String columnName:_contentValues.values().keySet()) {
       if (!insertBean0ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/cities', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "city" ));
       }
     }
 
+
+    // log for content values -- BEGIN
+    Object _contentValue;
+    for (String _contentKey:_contentValues.values().keySet()) {
+      _contentValue=_contentValues.values().get(_contentKey);
+      if (_contentValue==null) {
+        Logger.info("==> :%s = <null>", _contentKey);
+      } else {
+        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+      }
+    }
+    // log for content values -- END
     // insert operation
     long result = database().insert("city", null, _contentValues.values());
     return result;

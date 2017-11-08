@@ -70,15 +70,15 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		// generate SQL for insert
 		SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);		
 
-		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
-		String conflictString1 = "";
-		String conflictString2 = "";
-
-		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
-			conflictString1 = "WithOnConflict";
-			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
-			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-		}
+		//ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
+//		String conflictString1 = "";
+//		String conflictString2 = "";
+//
+//		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
+//			conflictString1 = "WithOnConflict";
+//			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
+//			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
+//		}
 		
 		methodBuilder.addComment("insert operation");
 		//methodBuilder.addStatement("long result = database().insert$L($S, null, _contentValues.values()$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
@@ -124,7 +124,6 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	public void generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
-		//final SQLEntity entity = daoDefinition.getEntity();
 
 		// transform JQL to SQL
 		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {

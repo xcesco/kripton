@@ -35,14 +35,14 @@ public class LRUCache<K, V> {
 	public void put(final K key, final V value) {
 		if (map.containsKey(key)) {
 			// remove the key from the FIFO queue
-			queue.remove(key);			
+			queue.remove(key);
 		}
 
 		while (queue.size() >= maxSize) {
 			K oldestKey = queue.poll();
 			if (null != oldestKey) {
-				if (listener!=null) {
-				listener.onRemove(map.remove(oldestKey));
+				if (listener != null) {
+					listener.onRemove(map.remove(oldestKey));
 				} else {
 					map.remove(oldestKey);
 				}
@@ -53,12 +53,23 @@ public class LRUCache<K, V> {
 	}
 
 	public V get(final K key) {
-
 		if (map.containsKey(key)) {
 			// remove from queue and add it again in FIFO queue
 			queue.remove(key);
 			queue.add(key);
 		}
 		return map.get(key);
+	}
+
+	public void clear() {
+		queue.clear();
+
+		if (listener != null) {
+			for (V item : map.values()) {
+				listener.onRemove(item);
+			}
+		}
+
+		map.clear();
 	}
 }
