@@ -24,7 +24,9 @@ import sqlite.kripton51.internal.MessageType;
  *  @see sqlite.kripton51.entities.MessageEntityTable
  */
 public class DaoMessageImpl extends AbstractDao implements DaoMessage {
-  private SQLiteStatement insertPreparedStatement0;
+  private SQLiteStatement updateByIdPreparedStatement0;
+
+  private SQLiteStatement insertPreparedStatement1;
 
   public DaoMessageImpl(BindWhisperDataSource dataSet) {
     super(dataSet);
@@ -158,7 +160,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public boolean updateById(MessageEntity bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("channel_id", bean.channelId);
     if (bean.ownerType!=null) {
       _contentValues.put("owner_type", bean.ownerType.toString());
@@ -199,20 +201,23 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateByIdPreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id = ?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id = ?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE message SET channel_id=?, owner_type=?, uid=?, face_uid=?, text=?, owner_uid=?, channel_uid=?, update_time=?, type=? WHERE id = ?";
+      // generate sql
+      String _sql="UPDATE message SET channel_id=?, owner_type=?, uid=?, face_uid=?, text=?, owner_uid=?, channel_uid=?, update_time=?, type=? WHERE id = ?";
+      updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE message SET channel_id=:channelId, owner_type=:ownerType, uid=:uid, face_uid=:faceUid, text=:text, owner_uid=:ownerUid, channel_uid=:channelUid, update_time=:updateTime, type=:type WHERE id = ?");
@@ -235,7 +240,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement0, _contentValues);
     return result!=0;
   }
 
@@ -264,7 +269,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public void insert(MessageEntity bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("channel_id", bean.channelId);
     if (bean.ownerType!=null) {
       _contentValues.put("owner_type", bean.ownerType.toString());
@@ -328,12 +333,12 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // log for insert -- END 
 
     // insert operation
-    if (insertPreparedStatement0==null) {
+    if (insertPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO message (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
     bean.id=result;
   }
 
@@ -431,9 +436,13 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   }
 
   public void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    if (updateByIdPreparedStatement0!=null) {
+      updateByIdPreparedStatement0.close();
+      updateByIdPreparedStatement0=null;
+    }
+    if (insertPreparedStatement1!=null) {
+      insertPreparedStatement1.close();
+      insertPreparedStatement1=null;
     }
   }
 }

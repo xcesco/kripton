@@ -48,7 +48,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertThread1(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -124,7 +124,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertThread2(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {

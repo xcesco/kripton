@@ -139,14 +139,14 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    */
   @Override
   public void deleteRaw(String nameValue, String where) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs((nameValue==null?"":nameValue));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -192,14 +192,14 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    */
   @Override
   public void deleteBean(Person bean, String where) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -255,7 +255,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    */
   @Override
   public void updateRaw(String name, String nameValue, String where) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (name!=null) {
       _contentValues.put("name", name);
     } else {
@@ -264,11 +264,11 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
 
     _contentValues.addWhereArgs((nameValue==null?"":nameValue));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -334,7 +334,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    */
   @Override
   public void updateBean(Person bean, String where) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -358,11 +358,11 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -492,7 +492,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (name!=null) {
       _contentValues.put("name", name);

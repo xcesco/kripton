@@ -23,7 +23,7 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 		final One<Long> start=new One<>();
 		final One<Long> end=new One<>();
 		
-		final int COUNTER = 10000;
+		final int COUNTER = 200000;
 
 		final BindPersonDataSource ds = BindPersonDataSource.build();
 

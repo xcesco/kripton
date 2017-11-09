@@ -27,6 +27,10 @@ import sqlite.feature.rx.model.PhoneNumber;
 public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
   private SQLiteStatement insertPreparedStatement0;
 
+  private SQLiteStatement deleteByIdPreparedStatement1;
+
+  private SQLiteStatement updateByIdPreparedStatement2;
+
   protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
   public PhoneDaoImpl(BindXenoDataSource dataSet) {
@@ -55,7 +59,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public int insert(PhoneNumber bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.action!=null) {
       _contentValues.put("action", bean.action.toString());
     } else {
@@ -217,23 +221,26 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public boolean deleteById(long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteByIdPreparedStatement1==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id = ?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id = ?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM phone_number WHERE id = ?";
+      // generate sql
+      String _sql="DELETE FROM phone_number WHERE id = ?";
+      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM phone_number WHERE id = ?");
@@ -244,7 +251,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement1, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -265,23 +272,26 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public boolean updateById(PhoneNumber bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateByIdPreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id = ?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id = ?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM phone_number WHERE id = ?";
+      // generate sql
+      String _sql="DELETE FROM phone_number WHERE id = ?";
+      updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM phone_number WHERE id = ?");
@@ -292,7 +302,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement2, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -464,6 +474,14 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;
+    }
+    if (deleteByIdPreparedStatement1!=null) {
+      deleteByIdPreparedStatement1.close();
+      deleteByIdPreparedStatement1=null;
+    }
+    if (updateByIdPreparedStatement2!=null) {
+      updateByIdPreparedStatement2.close();
+      updateByIdPreparedStatement2=null;
     }
   }
 }

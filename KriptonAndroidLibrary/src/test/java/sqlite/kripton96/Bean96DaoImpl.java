@@ -116,7 +116,7 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
    */
   @Override
   public boolean insert(Bean96 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {

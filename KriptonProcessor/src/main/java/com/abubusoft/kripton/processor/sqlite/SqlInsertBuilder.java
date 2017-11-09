@@ -21,7 +21,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
-import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
@@ -99,7 +98,7 @@ public abstract class SqlInsertBuilder {
 	 * @param builder
 	 * @param method
 	 */
-	public static void generate(Elements elementUtils, TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
+	public static void generate(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 		InsertType insertResultType = detectInsertType(method);
 
 		// if true, field must be associate to ben attributes

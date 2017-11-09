@@ -198,7 +198,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertDefault(Bean93 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -272,7 +272,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertAbort(Bean93 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("id", bean.id);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -347,7 +347,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertFail(Bean93 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("id", bean.id);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -422,7 +422,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertIgnore(Bean93 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("id", bean.id);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -497,7 +497,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertReplace(Bean93 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("id", bean.id);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -572,7 +572,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertRollback(Bean93 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("id", bean.id);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);

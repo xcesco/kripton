@@ -32,6 +32,10 @@ import java.nio.charset.StandardCharsets;
 public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   private SQLiteStatement insertPreparedStatement0;
 
+  private SQLiteStatement updateAllPreparedStatement1;
+
+  private SQLiteStatement deleteAllPreparedStatement2;
+
   /**
    * Bean84B2BindMap */
   private Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
@@ -196,7 +200,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    */
   @Override
   public boolean insert(Bean84B bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.columnBean!=null) {
       _contentValues.put("column_bean", Bean84BTable.serializeColumnBean(bean.columnBean));
     } else {
@@ -255,7 +259,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    */
   @Override
   public boolean updateAll(Bean84B bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.columnBean!=null) {
       _contentValues.put("column_bean", Bean84BTable.serializeColumnBean(bean.columnBean));
     } else {
@@ -265,10 +269,13 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (updateAllPreparedStatement1==null) {
+      String _sqlWhereStatement="";
 
-    // generate sql
-    String _sql="UPDATE bean84_b SET column_bean=?";
+      // generate sql
+      String _sql="UPDATE bean84_b SET column_bean=?";
+      updateAllPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean84_b SET column_bean=:columnBean");
@@ -291,7 +298,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateAllPreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -306,14 +313,17 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    */
   @Override
   public boolean deleteAll(Bean84B bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (deleteAllPreparedStatement2==null) {
+      String _sqlWhereStatement="";
 
-    // generate sql
-    String _sql="DELETE FROM bean84_b";
+      // generate sql
+      String _sql="DELETE FROM bean84_b";
+      deleteAllPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean84_b");
@@ -324,7 +334,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllPreparedStatement2, _contentValues);
     return result!=0;
   }
 
@@ -377,6 +387,14 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;
+    }
+    if (updateAllPreparedStatement1!=null) {
+      updateAllPreparedStatement1.close();
+      updateAllPreparedStatement1=null;
+    }
+    if (deleteAllPreparedStatement2!=null) {
+      deleteAllPreparedStatement2.close();
+      deleteAllPreparedStatement2=null;
     }
   }
 }

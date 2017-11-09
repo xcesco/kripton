@@ -101,8 +101,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 						
 			methodBuilder.addComment("insert operation");
 			if (method.jql.hasDynamicParts()) {
-				// does not memorize compiled statement, it can vary every time
-				// generate SQL for insert
+				// does not memorize compiled statement, it can vary every time generate SQL for insert
 				SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);	
 				
 				methodBuilder.addStatement("long result = $T.insert(dataSource, _sql, _contentValues)", KriptonDatabaseWrapper.class);
@@ -117,8 +116,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				methodBuilder.endControlFlow();
 				
 				methodBuilder.addStatement("long result = $T.insert(dataSource, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);		
-			}
-			
+			}			
 			
 			if (method.getParent().getParent().generateRx) {
 				methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);

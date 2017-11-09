@@ -37,6 +37,20 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
 
   private SQLiteStatement insertJQLPreparedStatement1;
 
+  private SQLiteStatement updatePreparedStatement2;
+
+  private SQLiteStatement updateByIdPreparedStatement3;
+
+  private SQLiteStatement updateJQLPreparedStatement4;
+
+  private SQLiteStatement updateByIdJQLPreparedStatement5;
+
+  private SQLiteStatement deletePreparedStatement6;
+
+  private SQLiteStatement deleteJQLPreparedStatement7;
+
+  private SQLiteStatement deleteByIdPreparedStatement8;
+
   public EmployeeBeanDaoImpl(BindKripton180BeanDataSource dataSet) {
     super(dataSet);
   }
@@ -601,7 +615,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long insert(Employee bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.lastName!=null) {
       _contentValues.put("last_name", bean.lastName);
     } else {
@@ -741,7 +755,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long insertJQL(Employee bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.fieldBoolean!=null) {
       _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     } else {
@@ -873,7 +887,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long update(Employee bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.lastName!=null) {
       _contentValues.put("last_name", bean.lastName);
     } else {
@@ -961,20 +975,23 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, bean.fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, bean.fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updatePreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      // generate sql
+      String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      updatePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -997,7 +1014,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updatePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -1036,7 +1053,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long updateById(Employee bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.lastName!=null) {
       _contentValues.put("last_name", bean.lastName);
     } else {
@@ -1115,20 +1132,23 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateByIdPreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=?";
+      // generate sql
+      String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=?";
+      updateByIdPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=?");
@@ -1151,7 +1171,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -1189,7 +1209,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long updateJQL(Employee bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.lastName!=null) {
       _contentValues.put("last_name", bean.lastName);
     } else {
@@ -1227,20 +1247,23 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, bean.fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, bean.fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateJQLPreparedStatement4==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      // generate sql
+      String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      updateJQLPreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1263,7 +1286,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateJQLPreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1292,7 +1315,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long updateByIdJQL(Employee bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.lastName!=null) {
       _contentValues.put("last_name", bean.lastName);
     } else {
@@ -1321,20 +1344,23 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateByIdJQLPreparedStatement5==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=?";
+      // generate sql
+      String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=?";
+      updateByIdJQLPreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address WHERE id=?");
@@ -1357,7 +1383,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdJQLPreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1386,7 +1412,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long delete(Employee bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, bean.fieldByte));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, bean.fieldCharacter));
@@ -1398,20 +1424,23 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, bean.fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, bean.fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement6==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      // generate sql
+      String _sql="DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      deletePreparedStatement6 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1422,7 +1451,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement6, _contentValues);
     return result;
   }
 
@@ -1451,7 +1480,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long deleteJQL(Employee bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, bean.fieldByte));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, bean.fieldCharacter));
@@ -1463,20 +1492,23 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, bean.fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, bean.fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteJQLPreparedStatement7==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      // generate sql
+      String _sql="DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      deleteJQLPreparedStatement7 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1487,7 +1519,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteJQLPreparedStatement7, _contentValues);
     return result;
   }
 
@@ -1507,23 +1539,26 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long deleteById(Employee bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteByIdPreparedStatement8==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM employees WHERE id=?";
+      // generate sql
+      String _sql="DELETE FROM employees WHERE id=?";
+      deleteByIdPreparedStatement8 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=?");
@@ -1534,7 +1569,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement8, _contentValues);
     return result;
   }
 
@@ -1546,6 +1581,34 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     if (insertJQLPreparedStatement1!=null) {
       insertJQLPreparedStatement1.close();
       insertJQLPreparedStatement1=null;
+    }
+    if (updatePreparedStatement2!=null) {
+      updatePreparedStatement2.close();
+      updatePreparedStatement2=null;
+    }
+    if (updateByIdPreparedStatement3!=null) {
+      updateByIdPreparedStatement3.close();
+      updateByIdPreparedStatement3=null;
+    }
+    if (updateJQLPreparedStatement4!=null) {
+      updateJQLPreparedStatement4.close();
+      updateJQLPreparedStatement4=null;
+    }
+    if (updateByIdJQLPreparedStatement5!=null) {
+      updateByIdJQLPreparedStatement5.close();
+      updateByIdJQLPreparedStatement5=null;
+    }
+    if (deletePreparedStatement6!=null) {
+      deletePreparedStatement6.close();
+      deletePreparedStatement6=null;
+    }
+    if (deleteJQLPreparedStatement7!=null) {
+      deleteJQLPreparedStatement7.close();
+      deleteJQLPreparedStatement7=null;
+    }
+    if (deleteByIdPreparedStatement8!=null) {
+      deleteByIdPreparedStatement8.close();
+      deleteByIdPreparedStatement8=null;
     }
   }
 }

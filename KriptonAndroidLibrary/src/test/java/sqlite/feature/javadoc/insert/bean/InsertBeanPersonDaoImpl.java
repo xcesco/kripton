@@ -62,7 +62,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBean(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
     } else {
@@ -173,7 +173,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBeanFieldName(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
     } else {
@@ -280,7 +280,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBeanFieldSurname(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getSurname()!=null) {
       _contentValues.put("surname", bean.getSurname());
     } else {
@@ -386,7 +386,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public void insertBeanFromSelect(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
     } else {

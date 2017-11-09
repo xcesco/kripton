@@ -37,6 +37,16 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
 
   private SQLiteStatement insertWithAdapterPreparedStatement1;
 
+  private SQLiteStatement updateByIdPreparedStatement2;
+
+  private SQLiteStatement updatePreparedStatement3;
+
+  private SQLiteStatement deletePreparedStatement4;
+
+  private SQLiteStatement deleteJQLPreparedStatement5;
+
+  private SQLiteStatement deleteJQLWithAdapterPreparedStatement6;
+
   public EmployeeRawDaoImpl(BindKripton180RawDataSource dataSet) {
     super(dataSet);
   }
@@ -990,7 +1000,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long insert(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (fieldBoolean!=null) {
       _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
@@ -1122,7 +1132,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long insertWithAdapter(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (fieldBoolean!=null) {
       _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
@@ -1261,7 +1271,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long updateById(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (fieldBoolean!=null) {
       _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
     } else {
@@ -1315,20 +1325,23 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateByIdPreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE employees SET field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=?";
+      // generate sql
+      String _sql="UPDATE employees SET field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=?";
+      updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE employees SET field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=?");
@@ -1351,7 +1364,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -1410,7 +1423,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long update(String firstName, long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (firstName!=null) {
       _contentValues.put("first_name", firstName);
     } else {
@@ -1429,20 +1442,23 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     _contentValues.addWhereArgs((fieldString==null?"":fieldString));
     _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updatePreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE employees SET first_name=? WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      // generate sql
+      String _sql="UPDATE employees SET first_name=? WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      updatePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE employees SET first_name=:firstName WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1465,7 +1481,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updatePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -1518,7 +1534,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long delete(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
     _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
@@ -1531,20 +1547,23 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     _contentValues.addWhereArgs((fieldString==null?"":fieldString));
     _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement4==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      // generate sql
+      String _sql="DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      deletePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1555,7 +1574,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1608,7 +1627,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long deleteJQL(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
     _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
@@ -1621,20 +1640,23 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     _contentValues.addWhereArgs((fieldString==null?"":fieldString));
     _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteJQLPreparedStatement5==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      // generate sql
+      String _sql="DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      deleteJQLPreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1645,7 +1667,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteJQLPreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1698,7 +1720,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long deleteJQLWithAdapter(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));
@@ -1711,20 +1733,23 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteJQLWithAdapterPreparedStatement6==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      // generate sql
+      String _sql="DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      deleteJQLWithAdapterPreparedStatement6 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
@@ -1735,7 +1760,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteJQLWithAdapterPreparedStatement6, _contentValues);
     return result;
   }
 
@@ -1747,6 +1772,26 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     if (insertWithAdapterPreparedStatement1!=null) {
       insertWithAdapterPreparedStatement1.close();
       insertWithAdapterPreparedStatement1=null;
+    }
+    if (updateByIdPreparedStatement2!=null) {
+      updateByIdPreparedStatement2.close();
+      updateByIdPreparedStatement2=null;
+    }
+    if (updatePreparedStatement3!=null) {
+      updatePreparedStatement3.close();
+      updatePreparedStatement3=null;
+    }
+    if (deletePreparedStatement4!=null) {
+      deletePreparedStatement4.close();
+      deletePreparedStatement4=null;
+    }
+    if (deleteJQLPreparedStatement5!=null) {
+      deleteJQLPreparedStatement5.close();
+      deleteJQLPreparedStatement5=null;
+    }
+    if (deleteJQLWithAdapterPreparedStatement6!=null) {
+      deleteJQLWithAdapterPreparedStatement6.close();
+      deleteJQLWithAdapterPreparedStatement6=null;
     }
   }
 }

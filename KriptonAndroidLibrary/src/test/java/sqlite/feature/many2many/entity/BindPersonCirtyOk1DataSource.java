@@ -168,10 +168,10 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
     database.execSQL(CityTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PersonCityOk1Table.CREATE_TABLE_SQL);
     database.execSQL(PersonCityOk1Table.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
@@ -207,10 +207,10 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
       database.execSQL(CityTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PersonCityOk1Table.CREATE_TABLE_SQL);
       database.execSQL(PersonCityOk1Table.CREATE_TABLE_SQL);
     }

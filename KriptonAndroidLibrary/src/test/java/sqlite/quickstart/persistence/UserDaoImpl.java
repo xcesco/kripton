@@ -53,7 +53,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
    */
   @Override
   public void insert(User bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("id", bean.id);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);

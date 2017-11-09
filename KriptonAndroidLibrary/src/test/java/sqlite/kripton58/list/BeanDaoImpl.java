@@ -37,17 +37,21 @@ import sqlite.kripton58.BeanInnerBindMap;
  *  @see BeanBeanTable
  */
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private SQLiteStatement updateOnePreparedStatement0;
 
   private SQLiteStatement insertPreparedStatement1;
 
-  /**
-   * BeanBeanBindMap */
-  private BeanBeanBindMap beanBeanBindMap = BinderUtils.mapperFor(BeanBean.class);
+  private SQLiteStatement insertPreparedStatement2;
+
+  private SQLiteStatement deletePreparedStatement3;
 
   /**
    * BeanInnerBindMap */
   private BeanInnerBindMap beanInnerBindMap = BinderUtils.mapperFor(BeanInner.class);
+
+  /**
+   * BeanBeanBindMap */
+  private BeanBeanBindMap beanBeanBindMap = BinderUtils.mapperFor(BeanBean.class);
 
   public BeanDaoImpl(BindBeanDataSource dataSet) {
     super(dataSet);
@@ -429,7 +433,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public boolean updateOne(List<BeanInner> value, long id, List<BeanInner> paramValue) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (value!=null) {
       _contentValues.put("value", serializer2(value));
     } else {
@@ -439,20 +443,23 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs((paramValue==null?"":new String(serializer2(paramValue),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and value=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and value=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE bean_bean SET value=? WHERE id=? and value=?";
+      // generate sql
+      String _sql="UPDATE bean_bean SET value=? WHERE id=? and value=?";
+      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean_bean SET value=:value WHERE id=? and value=?");
@@ -475,7 +482,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement0, _contentValues);
     return result!=0;
   }
 
@@ -498,7 +505,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long insert(long id, List<BeanInner> value) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     _contentValues.put("id", id);
     if (value!=null) {
@@ -532,12 +539,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for insert -- END 
 
     // insert operation
-    if (insertPreparedStatement0==null) {
+    if (insertPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -560,7 +567,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long insert(BeanBean bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.value!=null) {
       _contentValues.put("value", BeanBeanTable.serializeValue(bean.value));
     } else {
@@ -597,12 +604,12 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log for insert -- END 
 
     // insert operation
-    if (insertPreparedStatement1==null) {
+    if (insertPreparedStatement2==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement2, _contentValues);
     bean.id=result;
 
     return result;
@@ -625,23 +632,26 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
    */
   @Override
   public long delete(List<BeanInner> paramValue) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs((paramValue==null?"":new String(serializer2(paramValue),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM bean_bean WHERE value=?";
+      // generate sql
+      String _sql="DELETE FROM bean_bean WHERE value=?";
+      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean_bean WHERE value=?");
@@ -652,78 +662,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement3, _contentValues);
     return result;
-  }
-
-  /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(List<BeanBean> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.size();
-        BeanBean item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value.get(i);
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            beanBeanBindMap.serializeOnJackson(item, jacksonSerializer);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private List<BeanBean> parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      List<BeanBean> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<BeanBean> collection=new ArrayList<>();
-        BeanBean item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=beanBeanBindMap.parseOnJackson(jacksonParser);
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
   }
 
   /**
@@ -796,14 +736,92 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
   }
 
+  /**
+   * for param serializer1 serialization
+   */
+  private byte[] serializer1(List<BeanBean> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.size();
+        BeanBean item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            beanBeanBindMap.serializeOnJackson(item, jacksonSerializer);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser1 parsing
+   */
+  private List<BeanBean> parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      List<BeanBean> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<BeanBean> collection=new ArrayList<>();
+        BeanBean item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=beanBeanBindMap.parseOnJackson(jacksonParser);
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
   public void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    if (updateOnePreparedStatement0!=null) {
+      updateOnePreparedStatement0.close();
+      updateOnePreparedStatement0=null;
     }
     if (insertPreparedStatement1!=null) {
       insertPreparedStatement1.close();
       insertPreparedStatement1=null;
+    }
+    if (insertPreparedStatement2!=null) {
+      insertPreparedStatement2.close();
+      insertPreparedStatement2=null;
+    }
+    if (deletePreparedStatement3!=null) {
+      deletePreparedStatement3.close();
+      deletePreparedStatement3=null;
     }
   }
 }

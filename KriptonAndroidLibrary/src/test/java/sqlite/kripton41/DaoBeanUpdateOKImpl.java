@@ -1,5 +1,6 @@
 package sqlite.kripton41;
 
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -17,6 +18,8 @@ import com.abubusoft.kripton.common.Triple;
  *  @see Bean01Table
  */
 public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK {
+  private SQLiteStatement updateDistancePreparedStatement0;
+
   public DaoBeanUpdateOKImpl(BindDummy06DataSource dataSet) {
     super(dataSet);
   }
@@ -47,7 +50,7 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
    */
   @Override
   public boolean updateDistance(long id, Double value, long test) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("id", id);
     if (value!=null) {
       _contentValues.put("value", value);
@@ -57,20 +60,23 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
 
     _contentValues.addWhereArgs(String.valueOf(test));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateDistancePreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE bean01 SET id=?, value=? WHERE id=?";
+      // generate sql
+      String _sql="UPDATE bean01 SET id=?, value=? WHERE id=?";
+      updateDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean01 SET id=:id, value=:value WHERE id=?");
@@ -93,10 +99,14 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateDistancePreparedStatement0, _contentValues);
     return result!=0;
   }
 
   public void clearCompiledStatements() {
+    if (updateDistancePreparedStatement0!=null) {
+      updateDistancePreparedStatement0.close();
+      updateDistancePreparedStatement0=null;
+    }
   }
 }

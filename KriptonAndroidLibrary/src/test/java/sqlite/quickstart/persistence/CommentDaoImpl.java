@@ -49,7 +49,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    */
   @Override
   public void insert(Comment bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("post_id", bean.postId);
     _contentValues.put("id", bean.id);
     if (bean.name!=null) {

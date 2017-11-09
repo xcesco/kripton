@@ -17,7 +17,9 @@ import java.util.ArrayList;
  *  @see SimpleAddressItemTable
  */
 public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private SQLiteStatement deleteAllPreparedStatement0;
+
+  private SQLiteStatement insertPreparedStatement1;
 
   public SimpleAddressDaoImpl(BindSimpleDataSource dataSet) {
     super(dataSet);
@@ -106,15 +108,18 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
    */
   @Override
   public void deleteAll() {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (deleteAllPreparedStatement0==null) {
+      String _sqlWhereStatement="";
 
-    // generate sql
-    String _sql="DELETE FROM simple_address_item";
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+      // generate sql
+      String _sql="DELETE FROM simple_address_item";
+      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllPreparedStatement0, _contentValues);
   }
 
   /**
@@ -200,7 +205,7 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
    */
   @Override
   public void insert(SimpleAddressItem bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
     } else {
@@ -224,19 +229,23 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
     _contentValues.put("phone", bean.getPhone());
 
     // insert operation
-    if (insertPreparedStatement0==null) {
+    if (insertPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO simple_address_item (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
     bean.setId(result);
   }
 
   public void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    if (deleteAllPreparedStatement0!=null) {
+      deleteAllPreparedStatement0.close();
+      deleteAllPreparedStatement0=null;
+    }
+    if (insertPreparedStatement1!=null) {
+      insertPreparedStatement1.close();
+      insertPreparedStatement1=null;
     }
   }
 }

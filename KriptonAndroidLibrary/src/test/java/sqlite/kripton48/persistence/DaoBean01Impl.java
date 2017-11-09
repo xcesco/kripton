@@ -1,6 +1,7 @@
 package sqlite.kripton48.persistence;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -19,6 +20,8 @@ import sqlite.kripton48.entities.Bean01;
  *  @see sqlite.kripton48.entities.Bean01Table
  */
 public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
+  private SQLiteStatement updateOnePreparedStatement0;
+
   public DaoBean01Impl(BindDummy01DataSource dataSet) {
     super(dataSet);
   }
@@ -115,7 +118,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long updateOne(String text, long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (text!=null) {
       _contentValues.put("text", text);
     } else {
@@ -124,20 +127,23 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE bean01 SET text=? WHERE id=?";
+      // generate sql
+      String _sql="UPDATE bean01 SET text=? WHERE id=?";
+      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean01 SET text=:text WHERE id=?");
@@ -160,10 +166,14 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement0, _contentValues);
     return result;
   }
 
   public void clearCompiledStatements() {
+    if (updateOnePreparedStatement0!=null) {
+      updateOnePreparedStatement0.close();
+      updateOnePreparedStatement0=null;
+    }
   }
 }

@@ -22,9 +22,13 @@ import sqlite.kripton49.entities.Bean01Entity;
  *  @see sqlite.kripton49.entities.Bean01EntityTable
  */
 public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
-  private SQLiteStatement insertOnePreparedStatement0;
+  private SQLiteStatement updateOnePreparedStatement0;
 
-  private SQLiteStatement insertOnePreparedStatement1;
+  private SQLiteStatement deleteOnePreparedStatement1;
+
+  private SQLiteStatement insertOnePreparedStatement2;
+
+  private SQLiteStatement insertOnePreparedStatement3;
 
   public DaoBean01Impl(BindDummy01DataSource dataSet) {
     super(dataSet);
@@ -197,7 +201,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long updateOne(String text, Long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (text!=null) {
       _contentValues.put("text", text);
     } else {
@@ -206,20 +210,23 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE bean01 SET text=? WHERE id=?";
+      // generate sql
+      String _sql="UPDATE bean01 SET text=? WHERE id=?";
+      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean01 SET text=:text WHERE id=?");
@@ -242,7 +249,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -263,23 +270,26 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long deleteOne(Long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteOnePreparedStatement1==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM bean01 WHERE id=?";
+      // generate sql
+      String _sql="DELETE FROM bean01 WHERE id=?";
+      deleteOnePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean01 WHERE id=?");
@@ -290,7 +300,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteOnePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -310,7 +320,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long insertOne(Long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (id!=null) {
       _contentValues.put("id", id);
@@ -343,12 +353,12 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // log for insert -- END 
 
     // insert operation
-    if (insertOnePreparedStatement0==null) {
+    if (insertOnePreparedStatement2==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertOnePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -370,7 +380,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long insertOne(Bean01Entity bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getText()!=null) {
       _contentValues.put("text", bean.getText());
     } else {
@@ -402,25 +412,33 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // log for insert -- END 
 
     // insert operation
-    if (insertOnePreparedStatement1==null) {
+    if (insertOnePreparedStatement3==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOnePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertOnePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement3, _contentValues);
     bean.setId(result);
 
     return result;
   }
 
   public void clearCompiledStatements() {
-    if (insertOnePreparedStatement0!=null) {
-      insertOnePreparedStatement0.close();
-      insertOnePreparedStatement0=null;
+    if (updateOnePreparedStatement0!=null) {
+      updateOnePreparedStatement0.close();
+      updateOnePreparedStatement0=null;
     }
-    if (insertOnePreparedStatement1!=null) {
-      insertOnePreparedStatement1.close();
-      insertOnePreparedStatement1=null;
+    if (deleteOnePreparedStatement1!=null) {
+      deleteOnePreparedStatement1.close();
+      deleteOnePreparedStatement1=null;
+    }
+    if (insertOnePreparedStatement2!=null) {
+      insertOnePreparedStatement2.close();
+      insertOnePreparedStatement2=null;
+    }
+    if (insertOnePreparedStatement3!=null) {
+      insertOnePreparedStatement3.close();
+      insertOnePreparedStatement3=null;
     }
   }
 }

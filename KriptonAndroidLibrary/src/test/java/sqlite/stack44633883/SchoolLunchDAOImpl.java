@@ -23,6 +23,8 @@ import java.util.List;
 public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
   private SQLiteStatement insertAllPreparedStatement0;
 
+  private SQLiteStatement deleteAllPreparedStatement1;
+
   public SchoolLunchDAOImpl(BindSchoolLunchDataSource dataSet) {
     super(dataSet);
   }
@@ -184,7 +186,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
    */
   @Override
   public void insertAll(SchoolLunch schoolLunches) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("fresh", schoolLunches.isFresh());
     _contentValues.put("contains_meat", schoolLunches.isContainsMeat());
     if (schoolLunches.getFruits()!=null) {
@@ -239,14 +241,17 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
    */
   @Override
   public void deleteAll() {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (deleteAllPreparedStatement1==null) {
+      String _sqlWhereStatement="";
 
-    // generate sql
-    String _sql="DELETE FROM SchoolLunches";
+      // generate sql
+      String _sql="DELETE FROM SchoolLunches";
+      deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM SchoolLunches");
@@ -257,13 +262,17 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllPreparedStatement1, _contentValues);
   }
 
   public void clearCompiledStatements() {
     if (insertAllPreparedStatement0!=null) {
       insertAllPreparedStatement0.close();
       insertAllPreparedStatement0=null;
+    }
+    if (deleteAllPreparedStatement1!=null) {
+      deleteAllPreparedStatement1.close();
+      deleteAllPreparedStatement1=null;
     }
   }
 }

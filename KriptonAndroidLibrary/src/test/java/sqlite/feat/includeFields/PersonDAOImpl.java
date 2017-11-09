@@ -26,6 +26,14 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
   private SQLiteStatement insertExcludeOnePreparedStatement1;
 
+  private SQLiteStatement updateIncludeOnePreparedStatement2;
+
+  private SQLiteStatement updateExcludeOnePreparedStatement3;
+
+  private SQLiteStatement deleteIncludeOnePreparedStatement4;
+
+  private SQLiteStatement deleteExcludeOnePreparedStatement5;
+
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
   }
@@ -201,7 +209,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertIncludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -263,7 +271,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertExcludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.surname!=null) {
       _contentValues.put("surname", bean.surname);
     } else {
@@ -334,7 +342,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void updateIncludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -345,10 +353,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (updateIncludeOnePreparedStatement2==null) {
+      String _sqlWhereStatement="";
 
-    // generate sql
-    String _sql="UPDATE person SET name=?, id=?";
+      // generate sql
+      String _sql="UPDATE person SET name=?, id=?";
+      updateIncludeOnePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE person SET name=:name, id=:id");
@@ -371,7 +382,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateIncludeOnePreparedStatement2, _contentValues);
   }
 
   /**
@@ -391,7 +402,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void updateExcludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.surname!=null) {
       _contentValues.put("surname", bean.surname);
     } else {
@@ -416,10 +427,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (updateExcludeOnePreparedStatement3==null) {
+      String _sqlWhereStatement="";
 
-    // generate sql
-    String _sql="UPDATE person SET surname=?, birth_city=?, birth_day=?, type_name=?";
+      // generate sql
+      String _sql="UPDATE person SET surname=?, birth_city=?, birth_day=?, type_name=?";
+      updateExcludeOnePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE person SET surname=:surname, birth_city=:birthCity, birth_day=:birthDay, type_name=:typeName");
@@ -442,7 +456,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateExcludeOnePreparedStatement3, _contentValues);
   }
 
   /**
@@ -454,14 +468,17 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteIncludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (deleteIncludeOnePreparedStatement4==null) {
+      String _sqlWhereStatement="";
 
-    // generate sql
-    String _sql="DELETE FROM person";
+      // generate sql
+      String _sql="DELETE FROM person";
+      deleteIncludeOnePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM person");
@@ -472,7 +489,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteIncludeOnePreparedStatement4, _contentValues);
   }
 
   /**
@@ -484,14 +501,17 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteExcludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (deleteExcludeOnePreparedStatement5==null) {
+      String _sqlWhereStatement="";
 
-    // generate sql
-    String _sql="DELETE FROM person";
+      // generate sql
+      String _sql="DELETE FROM person";
+      deleteExcludeOnePreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM person");
@@ -502,7 +522,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteExcludeOnePreparedStatement5, _contentValues);
   }
 
   public void clearCompiledStatements() {
@@ -513,6 +533,22 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     if (insertExcludeOnePreparedStatement1!=null) {
       insertExcludeOnePreparedStatement1.close();
       insertExcludeOnePreparedStatement1=null;
+    }
+    if (updateIncludeOnePreparedStatement2!=null) {
+      updateIncludeOnePreparedStatement2.close();
+      updateIncludeOnePreparedStatement2=null;
+    }
+    if (updateExcludeOnePreparedStatement3!=null) {
+      updateExcludeOnePreparedStatement3.close();
+      updateExcludeOnePreparedStatement3=null;
+    }
+    if (deleteIncludeOnePreparedStatement4!=null) {
+      deleteIncludeOnePreparedStatement4.close();
+      deleteIncludeOnePreparedStatement4=null;
+    }
+    if (deleteExcludeOnePreparedStatement5!=null) {
+      deleteExcludeOnePreparedStatement5.close();
+      deleteExcludeOnePreparedStatement5=null;
     }
   }
 }

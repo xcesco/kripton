@@ -43,7 +43,7 @@ public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2St
    */
   @Override
   public long insert(Seminar2Student bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("student_id", bean.studentId);
     _contentValues.put("seminar_id", bean.seminarId);
 

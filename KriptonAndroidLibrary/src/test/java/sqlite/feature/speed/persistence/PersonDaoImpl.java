@@ -2,12 +2,9 @@ package sqlite.feature.speed.persistence;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
-import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.common.Triple;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.feature.speed.model.Person;
@@ -23,6 +20,10 @@ import sqlite.feature.speed.model.Person;
  */
 public class PersonDaoImpl extends AbstractDao implements PersonDao {
   private SQLiteStatement insertPreparedStatement0;
+
+  private SQLiteStatement updatePreparedStatement1;
+
+  private SQLiteStatement deletePreparedStatement2;
 
   public PersonDaoImpl(BindPersonDataSource dataSet) {
     super(dataSet);
@@ -105,6 +106,8 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
   @Override
   public Person selectById(long id) {
     KriptonContentValues _contentValues=contentValues();
+    
+    
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname FROM person");
     // generation CODE_001 -- BEGIN
@@ -116,12 +119,13 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     String _sqlWhereStatement=" WHERE id=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+    // manage WHERE arguments -- END    
 
     // build where condition
     _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
       Person resultBean=null;
@@ -221,33 +225,24 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updatePreparedStatement1==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
-
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
-      }
+      // generate sql
+      String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
+      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    // log for content values -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updatePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -270,21 +265,24 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM person WHERE id=?";
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+      // generate sql
+      String _sql="DELETE FROM person WHERE id=?";
+      deletePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -292,6 +290,14 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;
+    }
+    if (updatePreparedStatement1!=null) {
+      updatePreparedStatement1.close();
+      updatePreparedStatement1=null;
+    }
+    if (deletePreparedStatement2!=null) {
+      deletePreparedStatement2.close();
+      deletePreparedStatement2=null;
     }
   }
 }

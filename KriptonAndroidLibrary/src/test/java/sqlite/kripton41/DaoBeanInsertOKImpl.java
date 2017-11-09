@@ -43,7 +43,7 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
    */
   @Override
   public boolean insertDistance(long id, Double value) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     _contentValues.put("id", id);
     if (value!=null) {

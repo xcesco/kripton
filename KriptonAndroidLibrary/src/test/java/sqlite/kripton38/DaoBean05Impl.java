@@ -38,6 +38,18 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
 
   private SQLiteStatement insertPreparedStatement1;
 
+  private SQLiteStatement updateOnePreparedStatement2;
+
+  private SQLiteStatement updateOnePreparedStatement3;
+
+  private SQLiteStatement deleteOnePreparedStatement4;
+
+  private SQLiteStatement deleteOnePreparedStatement5;
+
+  private SQLiteStatement deleteOnePreparedStatement6;
+
+  private SQLiteStatement deleteBeanPreparedStatement7;
+
   public DaoBean05Impl(BindDummy05DataSource dataSet) {
     super(dataSet);
   }
@@ -761,7 +773,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long insertRaw(String text, byte[] content, Date creationTime) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (text!=null) {
       _contentValues.put("text", text);
@@ -834,7 +846,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void insert(Bean05 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("number", bean.getNumber());
     if (bean.getBeanType()!=null) {
       _contentValues.put("bean_type", bean.getBeanType().toString());
@@ -918,7 +930,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long updateOne(Bean05 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("number", bean.getNumber());
     if (bean.getBeanType()!=null) {
       _contentValues.put("bean_type", bean.getBeanType().toString());
@@ -945,20 +957,23 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _contentValues.addWhereArgs((bean.getText()==null?"":bean.getText()));
     _contentValues.addWhereArgs((bean.getCreationTime()==null?"":DateUtils.write(bean.getCreationTime())));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" pk=? and text=? and creation_time=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" pk=? and text=? and creation_time=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE ws_bean SET number=?, bean_type=?, text=?, content=?, creation_time=? WHERE pk=? and text=? and creation_time=?";
+      // generate sql
+      String _sql="UPDATE ws_bean SET number=?, bean_type=?, text=?, content=?, creation_time=? WHERE pk=? and text=? and creation_time=?";
+      updateOnePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE ws_bean SET number=:number, bean_type=:beanType, text=:text, content=:content, creation_time=:creationTime WHERE pk=? and text=? and creation_time=?");
@@ -981,7 +996,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -1017,7 +1032,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long updateOne(byte[] content, String text, long uid, Date validoIn, Date valido) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (content!=null) {
       _contentValues.put("content", content);
     } else {
@@ -1033,20 +1048,23 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     _contentValues.addWhereArgs((valido==null?"":DateUtils.write(valido)));
     _contentValues.addWhereArgs((validoIn==null?"":DateUtils.write(validoIn)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" pk=? and creation_time=? and creation_time=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" pk=? and creation_time=? and creation_time=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE ws_bean SET content=?, text=? WHERE pk=? and creation_time=? and creation_time=?";
+      // generate sql
+      String _sql="UPDATE ws_bean SET content=?, text=? WHERE pk=? and creation_time=? and creation_time=?";
+      updateOnePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE ws_bean SET content=:content, text=:text WHERE pk=? and creation_time=? and creation_time=?");
@@ -1069,7 +1087,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -1091,25 +1109,28 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(Bean05 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
     _contentValues.addWhereArgs((bean.getText()==null?"":bean.getText()));
     _contentValues.addWhereArgs((bean.getCreationTime()==null?"":DateUtils.write(bean.getCreationTime())));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteOnePreparedStatement4==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" pk=? and text=? and creation_time=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" pk=? and text=? and creation_time=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM ws_bean WHERE pk=? and text=? and creation_time=?";
+      // generate sql
+      String _sql="DELETE FROM ws_bean WHERE pk=? and text=? and creation_time=?";
+      deleteOnePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM ws_bean WHERE pk=? and text=? and creation_time=?");
@@ -1120,7 +1141,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteOnePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1147,25 +1168,28 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(long uid, Date validoIn, Date valido) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(uid));
     _contentValues.addWhereArgs((valido==null?"":DateUtils.write(valido)));
     _contentValues.addWhereArgs((validoIn==null?"":DateUtils.write(validoIn)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteOnePreparedStatement5==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" pk=? and creation_time=? and creation_time=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" pk=? and creation_time=? and creation_time=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM ws_bean WHERE pk=? and creation_time=? and creation_time=?";
+      // generate sql
+      String _sql="DELETE FROM ws_bean WHERE pk=? and creation_time=? and creation_time=?";
+      deleteOnePreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM ws_bean WHERE pk=? and creation_time=? and creation_time=?");
@@ -1176,7 +1200,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteOnePreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1197,23 +1221,26 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteOnePreparedStatement6==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" pk=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" pk=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM ws_bean WHERE pk=?";
+      // generate sql
+      String _sql="DELETE FROM ws_bean WHERE pk=?";
+      deleteOnePreparedStatement6 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM ws_bean WHERE pk=?");
@@ -1224,7 +1251,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteOnePreparedStatement6, _contentValues);
     return result;
   }
 
@@ -1244,23 +1271,26 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteBean(Bean05 va) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(va.getPk()));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteBeanPreparedStatement7==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" pk=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" pk=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM ws_bean WHERE pk=?";
+      // generate sql
+      String _sql="DELETE FROM ws_bean WHERE pk=?";
+      deleteBeanPreparedStatement7 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM ws_bean WHERE pk=?");
@@ -1271,7 +1301,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteBeanPreparedStatement7, _contentValues);
     return result;
   }
 
@@ -1391,6 +1421,30 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     if (insertPreparedStatement1!=null) {
       insertPreparedStatement1.close();
       insertPreparedStatement1=null;
+    }
+    if (updateOnePreparedStatement2!=null) {
+      updateOnePreparedStatement2.close();
+      updateOnePreparedStatement2=null;
+    }
+    if (updateOnePreparedStatement3!=null) {
+      updateOnePreparedStatement3.close();
+      updateOnePreparedStatement3=null;
+    }
+    if (deleteOnePreparedStatement4!=null) {
+      deleteOnePreparedStatement4.close();
+      deleteOnePreparedStatement4=null;
+    }
+    if (deleteOnePreparedStatement5!=null) {
+      deleteOnePreparedStatement5.close();
+      deleteOnePreparedStatement5=null;
+    }
+    if (deleteOnePreparedStatement6!=null) {
+      deleteOnePreparedStatement6.close();
+      deleteOnePreparedStatement6=null;
+    }
+    if (deleteBeanPreparedStatement7!=null) {
+      deleteBeanPreparedStatement7.close();
+      deleteBeanPreparedStatement7=null;
     }
   }
 }

@@ -43,7 +43,7 @@ public class DaoStudentImpl extends AbstractDao implements DaoStudent {
    */
   @Override
   public long insert(Student bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {

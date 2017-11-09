@@ -36,9 +36,15 @@ import java.util.List;
  *  @see Bean2Table
  */
 public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
-  private SQLiteStatement insertPreparedStatement0;
+  private SQLiteStatement updateOnePreparedStatement0;
 
   private SQLiteStatement insertPreparedStatement1;
+
+  private SQLiteStatement insertPreparedStatement2;
+
+  private SQLiteStatement deletePreparedStatement3;
+
+  private SQLiteStatement updateOnePreparedStatement4;
 
   public BeanDao2Impl(BindBean2DataSource dataSet) {
     super(dataSet);
@@ -452,7 +458,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long updateOne(Bean2 value) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (value.value!=null) {
       _contentValues.put("value", value.value);
     } else {
@@ -511,20 +517,23 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
 
     _contentValues.addWhereArgs(String.valueOf(value.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE bean2 SET value=?, value_byte_set=?, value_short_set=?, value_integer_set=?, value_string_set=?, value_character_set=?, value_float_set=?, value_double_set=?, value_big_decimal_set=?, value_bean_set=?, value_enum_type_set=? WHERE id=?";
+      // generate sql
+      String _sql="UPDATE bean2 SET value=?, value_byte_set=?, value_short_set=?, value_integer_set=?, value_string_set=?, value_character_set=?, value_float_set=?, value_double_set=?, value_big_decimal_set=?, value_bean_set=?, value_enum_type_set=? WHERE id=?";
+      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean2 SET value=:value, value_byte_set=:valueByteSet, value_short_set=:valueShortSet, value_integer_set=:valueIntegerSet, value_string_set=:valueStringSet, value_character_set=:valueCharacterSet, value_float_set=:valueFloatSet, value_double_set=:valueDoubleSet, value_big_decimal_set=:valueBigDecimalSet, value_bean_set=:valueBeanSet, value_enum_type_set=:valueEnumTypeSet WHERE id=?");
@@ -547,7 +556,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -579,7 +588,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long insert(Bean2 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.value!=null) {
       _contentValues.put("value", bean.value);
     } else {
@@ -661,12 +670,12 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for insert -- END 
 
     // insert operation
-    if (insertPreparedStatement0==null) {
+    if (insertPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean2 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
     bean.id=result;
 
     return result;
@@ -688,7 +697,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long insert(HashSet<BigDecimal> valueBigDecimalSet) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueBigDecimalSet!=null) {
       _contentValues.put("value_big_decimal_set", serializer1(valueBigDecimalSet));
@@ -721,12 +730,12 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     // log for insert -- END 
 
     // insert operation
-    if (insertPreparedStatement1==null) {
+    if (insertPreparedStatement2==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean2 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -846,23 +855,26 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long delete(HashSet<BigDecimal> valueBigDecimalSet) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM bean2 WHERE value=?";
+      // generate sql
+      String _sql="DELETE FROM bean2 WHERE value=?";
+      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean2 WHERE value=?");
@@ -873,7 +885,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -900,25 +912,28 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long updateOne(long id, HashSet<BigDecimal> valueBigDecimalSet) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement4==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE bean2 SET id=? WHERE value=?";
+      // generate sql
+      String _sql="UPDATE bean2 SET id=? WHERE value=?";
+      updateOnePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean2 SET id=:id WHERE value=?");
@@ -941,7 +956,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1013,13 +1028,25 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
   }
 
   public void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    if (updateOnePreparedStatement0!=null) {
+      updateOnePreparedStatement0.close();
+      updateOnePreparedStatement0=null;
     }
     if (insertPreparedStatement1!=null) {
       insertPreparedStatement1.close();
       insertPreparedStatement1=null;
+    }
+    if (insertPreparedStatement2!=null) {
+      insertPreparedStatement2.close();
+      insertPreparedStatement2=null;
+    }
+    if (deletePreparedStatement3!=null) {
+      deletePreparedStatement3.close();
+      deletePreparedStatement3=null;
+    }
+    if (updateOnePreparedStatement4!=null) {
+      updateOnePreparedStatement4.close();
+      updateOnePreparedStatement4=null;
     }
   }
 }

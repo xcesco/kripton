@@ -31,6 +31,7 @@ import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -86,7 +87,7 @@ public abstract class SqlSelectBuilder {
 	 * @param method
 	 * @throws ClassNotFoundException
 	 */
-	public static void generateSelect(Elements elementUtils, Builder builder, SQLiteModelMethod method) throws ClassNotFoundException {
+	public static void generateSelect(Builder builder, SQLiteModelMethod method) throws ClassNotFoundException {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -159,11 +160,11 @@ public abstract class SqlSelectBuilder {
 		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method, "'%s' as return type is not supported", returnTypeName);
 
 		// generate select method
-		selectResultType.generate(elementUtils, builder, method, returnTypeName);
+		selectResultType.generate(BaseProcessor.elementUtils, builder, method, returnTypeName);
 
 		if (method.contentProviderEntryPathEnabled) {
 			// we need to generate UPDATE or DELETE for content provider to
-			generateSelectForContentProvider(elementUtils, builder, method, selectResultType);
+			generateSelectForContentProvider(BaseProcessor.elementUtils, builder, method, selectResultType);
 		}
 	}
 

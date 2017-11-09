@@ -1,6 +1,7 @@
 package sqlite.kripton38;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -17,6 +18,8 @@ import com.abubusoft.kripton.common.StringUtils;
  *  @see Bean02Table
  */
 public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
+  private SQLiteStatement deleteOnePreparedStatement0;
+
   public DaoBean02Impl(BindDummy02DataSource dataSet) {
     super(dataSet);
   }
@@ -107,23 +110,26 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
    */
   @Override
   public long deleteOne(long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteOnePreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM bean02 WHERE id=?";
+      // generate sql
+      String _sql="DELETE FROM bean02 WHERE id=?";
+      deleteOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean02 WHERE id=?");
@@ -134,10 +140,14 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteOnePreparedStatement0, _contentValues);
     return result;
   }
 
   public void clearCompiledStatements() {
+    if (deleteOnePreparedStatement0!=null) {
+      deleteOnePreparedStatement0.close();
+      deleteOnePreparedStatement0=null;
+    }
   }
 }

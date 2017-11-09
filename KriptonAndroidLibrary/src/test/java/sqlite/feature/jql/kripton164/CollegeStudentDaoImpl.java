@@ -43,7 +43,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
    */
   @Override
   public void insert(CollegeStudent student) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (student.surname!=null) {
       _contentValues.put("surname", student.surname);
     } else {
@@ -101,7 +101,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
    */
   @Override
   public void insertBeanFromSelect(CollegeStudent bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.surname!=null) {
       _contentValues.put("surname", bean.surname);
     } else {

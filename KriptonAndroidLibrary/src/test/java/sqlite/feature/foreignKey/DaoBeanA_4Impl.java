@@ -23,6 +23,8 @@ import java.util.List;
 public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
   private SQLiteStatement insertPreparedStatement0;
 
+  private SQLiteStatement updatePreparedStatement1;
+
   public DaoBeanA_4Impl(BindDummy2DataSource dataSet) {
     super(dataSet);
   }
@@ -259,7 +261,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
    */
   @Override
   public int insert(BeanA_4 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("bean_a2_id", bean.beanA2Id);
     if (bean.valueString!=null) {
       _contentValues.put("value_string", bean.valueString);
@@ -325,7 +327,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
    */
   @Override
   public int update(BeanA_4 bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("bean_a2_id", bean.beanA2Id);
     if (bean.valueString!=null) {
       _contentValues.put("value_string", bean.valueString);
@@ -335,20 +337,23 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
 
     _contentValues.addWhereArgs((bean.valueString==null?"":bean.valueString));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updatePreparedStatement1==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_string=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_string=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE bean_a_4 SET bean_a2_id=?, value_string=? WHERE value_string=?";
+      // generate sql
+      String _sql="UPDATE bean_a_4 SET bean_a2_id=?, value_string=? WHERE value_string=?";
+      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean_a_4 SET bean_a2_id=:beanA2Id, value_string=:valueString WHERE value_string=?");
@@ -371,7 +376,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updatePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -379,6 +384,10 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;
+    }
+    if (updatePreparedStatement1!=null) {
+      updatePreparedStatement1.close();
+      updatePreparedStatement1=null;
     }
   }
 }

@@ -204,6 +204,7 @@ public abstract class SqlBuilderHelper {
 	 * @param methodBuilder
 	 */
 	public static void generateLogForContentValues(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		
 		methodBuilder.addCode("\n// log for content values -- BEGIN\n");
 		methodBuilder.addStatement("$T<String, Object, $T> _contentValue", Triple.class, KriptonContentValues.ParamType.class);
 		methodBuilder.beginControlFlow("for (int i = 0; i < _contentValues.size(); i++)");

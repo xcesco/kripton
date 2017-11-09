@@ -58,7 +58,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOneRaw(String name, String surname) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (name!=null) {
       _contentValues.put("name", name);
@@ -165,7 +165,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOneRawFieldName(String name) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (name!=null) {
       _contentValues.put("name", name);
@@ -268,7 +268,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOne2RawFieldName(String name) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (name!=null) {
       _contentValues.put("name", name);
@@ -369,7 +369,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public void insertRawFromSelect(String name) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // build where condition
     _contentValues.addWhereArgs((name==null?"":name));

@@ -21,7 +21,9 @@ import java.util.List;
  *  @see FirstAidTable
  */
 public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private SQLiteStatement deleteAllPreparedStatement0;
+
+  private SQLiteStatement insertPreparedStatement1;
 
   public FirstAidDaoImpl(BindFirstAidDataSource dataSet) {
     super(dataSet);
@@ -167,22 +169,25 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    */
   @Override
   public int deleteAll() {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteAllPreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" 1=1";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" 1=1";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM first_aid WHERE 1=1";
+      // generate sql
+      String _sql="DELETE FROM first_aid WHERE 1=1";
+      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM first_aid WHERE 1=1");
@@ -193,7 +198,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -235,7 +240,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    */
   @Override
   public int insert(FirstAid bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.uid!=null) {
       _contentValues.put("uid", bean.uid);
     } else {
@@ -335,21 +340,25 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     // log for insert -- END 
 
     // insert operation
-    if (insertPreparedStatement0==null) {
+    if (insertPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO first_aid (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
     bean.id=result;
 
     return (int)result;
   }
 
   public void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    if (deleteAllPreparedStatement0!=null) {
+      deleteAllPreparedStatement0.close();
+      deleteAllPreparedStatement0=null;
+    }
+    if (insertPreparedStatement1!=null) {
+      insertPreparedStatement1.close();
+      insertPreparedStatement1=null;
     }
   }
 }

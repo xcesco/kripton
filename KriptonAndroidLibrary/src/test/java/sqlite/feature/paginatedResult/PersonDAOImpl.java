@@ -29,6 +29,8 @@ import java.util.List;
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   private SQLiteStatement insertOnePreparedStatement0;
 
+  private SQLiteStatement deleteAllPreparedStatement1;
+
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
   }
@@ -282,7 +284,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (name!=null) {
       _contentValues.put("name", name);
@@ -427,14 +429,17 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public int deleteAll() {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (deleteAllPreparedStatement1==null) {
+      String _sqlWhereStatement="";
 
-    // generate sql
-    String _sql="DELETE FROM person";
+      // generate sql
+      String _sql="DELETE FROM person";
+      deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM person");
@@ -445,7 +450,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -640,6 +645,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     if (insertOnePreparedStatement0!=null) {
       insertOnePreparedStatement0.close();
       insertOnePreparedStatement0=null;
+    }
+    if (deleteAllPreparedStatement1!=null) {
+      deleteAllPreparedStatement1.close();
+      deleteAllPreparedStatement1=null;
     }
   }
 

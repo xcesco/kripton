@@ -52,7 +52,7 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
    */
   @Override
   public void insertBean(City bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {

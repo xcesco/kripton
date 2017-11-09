@@ -24,6 +24,8 @@ import sqlite.feature.many2many.City;
 public class CityOk1DaoImpl extends AbstractDao implements CityOk1Dao {
   private SQLiteStatement insertPreparedStatement0;
 
+  private SQLiteStatement deleteByIdPreparedStatement1;
+
   public CityOk1DaoImpl(BindPersonCirtyOk1DataSource dataSet) {
     super(dataSet);
   }
@@ -106,7 +108,7 @@ public class CityOk1DaoImpl extends AbstractDao implements CityOk1Dao {
    */
   @Override
   public long insert(City bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -235,23 +237,26 @@ public class CityOk1DaoImpl extends AbstractDao implements CityOk1Dao {
    */
   @Override
   public int deleteById(long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteByIdPreparedStatement1==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM cities WHERE id=?";
+      // generate sql
+      String _sql="DELETE FROM cities WHERE id=?";
+      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM cities WHERE id=?");
@@ -262,7 +267,7 @@ public class CityOk1DaoImpl extends AbstractDao implements CityOk1Dao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -270,6 +275,10 @@ public class CityOk1DaoImpl extends AbstractDao implements CityOk1Dao {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;
+    }
+    if (deleteByIdPreparedStatement1!=null) {
+      deleteByIdPreparedStatement1.close();
+      deleteByIdPreparedStatement1=null;
     }
   }
 }

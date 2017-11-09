@@ -45,7 +45,7 @@ public class DaoProfessorImpl extends AbstractDao implements DaoProfessor {
    */
   @Override
   public long insert(Professor bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {

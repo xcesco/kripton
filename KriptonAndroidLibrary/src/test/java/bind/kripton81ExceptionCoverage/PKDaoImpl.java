@@ -42,7 +42,7 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
    */
   @Override
   public void insert(PKBean bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("id", bean.id);
     if (bean.description!=null) {
       _contentValues.put("description", bean.description);
@@ -85,7 +85,9 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
   }
 
   public void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) { insertPreparedStatement0.close(); }
-    insertPreparedStatement0=null;
+    if (insertPreparedStatement0!=null) {
+      insertPreparedStatement0.close();
+      insertPreparedStatement0=null;
+    }
   }
 }

@@ -21,7 +21,11 @@ import java.util.List;
  *  @see TrackTable
  */
 public class TrackDaoImpl extends AbstractDao implements TrackDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private SQLiteStatement updatePreparedStatement0;
+
+  private SQLiteStatement insertPreparedStatement1;
+
+  private SQLiteStatement deleteByIdPreparedStatement2;
 
   public TrackDaoImpl(BindArtistDataSource dataSet) {
     super(dataSet);
@@ -177,25 +181,28 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
    */
   @Override
   public long update(Track bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("album_id", bean.albumId);
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updatePreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE track SET album_id=? WHERE id=?";
+      // generate sql
+      String _sql="UPDATE track SET album_id=? WHERE id=?";
+      updatePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE track SET album_id=:albumId WHERE id=?");
@@ -218,7 +225,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updatePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -240,7 +247,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
    */
   @Override
   public long insert(Track bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("album_id", bean.albumId);
 
     // log for insert -- BEGIN 
@@ -268,12 +275,12 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
     // log for insert -- END 
 
     // insert operation
-    if (insertPreparedStatement0==null) {
+    if (insertPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO track (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
     bean.id=result;
 
     return result;
@@ -296,23 +303,26 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
    */
   @Override
   public long deleteById(long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteByIdPreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM track WHERE id=?";
+      // generate sql
+      String _sql="DELETE FROM track WHERE id=?";
+      deleteByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM track WHERE id=?");
@@ -323,14 +333,22 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement2, _contentValues);
     return result;
   }
 
   public void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    if (updatePreparedStatement0!=null) {
+      updatePreparedStatement0.close();
+      updatePreparedStatement0=null;
+    }
+    if (insertPreparedStatement1!=null) {
+      insertPreparedStatement1.close();
+      insertPreparedStatement1=null;
+    }
+    if (deleteByIdPreparedStatement2!=null) {
+      deleteByIdPreparedStatement2.close();
+      deleteByIdPreparedStatement2=null;
     }
   }
 }

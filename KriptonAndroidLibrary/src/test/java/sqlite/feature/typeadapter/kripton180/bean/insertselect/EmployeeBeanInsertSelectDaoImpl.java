@@ -62,7 +62,7 @@ public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements Empl
    */
   @Override
   public void insertJQL(Employee bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.fieldBoolean!=null) {
       _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     } else {

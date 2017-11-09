@@ -34,9 +34,13 @@ import java.util.List;
  *  @see FloatBeanTable
  */
 public class FloatDaoImpl extends AbstractDao implements FloatDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private SQLiteStatement updateOnePreparedStatement0;
 
   private SQLiteStatement insertPreparedStatement1;
+
+  private SQLiteStatement insertPreparedStatement2;
+
+  private SQLiteStatement deletePreparedStatement3;
 
   public FloatDaoImpl(BindFloatDataSource dataSet) {
     super(dataSet);
@@ -418,7 +422,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    */
   @Override
   public long updateOne(List<Float> value, long id, List<Float> paramValue) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (value!=null) {
       _contentValues.put("value", serializer1(value));
     } else {
@@ -428,20 +432,23 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and value=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and value=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE float_bean SET value=? WHERE id=? and value=?";
+      // generate sql
+      String _sql="UPDATE float_bean SET value=? WHERE id=? and value=?";
+      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE float_bean SET value=:value WHERE id=? and value=?");
@@ -464,7 +471,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -487,7 +494,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    */
   @Override
   public long insert(long id, List<Float> value) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     _contentValues.put("id", id);
     if (value!=null) {
@@ -521,12 +528,12 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     // log for insert -- END 
 
     // insert operation
-    if (insertPreparedStatement0==null) {
+    if (insertPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO float_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -549,7 +556,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    */
   @Override
   public long insert(FloatBean bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.value!=null) {
       _contentValues.put("value", FloatBeanTable.serializeValue(bean.value));
     } else {
@@ -586,12 +593,12 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
     // log for insert -- END 
 
     // insert operation
-    if (insertPreparedStatement1==null) {
+    if (insertPreparedStatement2==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO float_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement2, _contentValues);
     bean.id=result;
 
     return result;
@@ -614,23 +621,26 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    */
   @Override
   public long delete(List<Float> paramValue) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM float_bean WHERE value=?";
+      // generate sql
+      String _sql="DELETE FROM float_bean WHERE value=?";
+      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM float_bean WHERE value=?");
@@ -641,7 +651,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -716,13 +726,21 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   }
 
   public void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    if (updateOnePreparedStatement0!=null) {
+      updateOnePreparedStatement0.close();
+      updateOnePreparedStatement0=null;
     }
     if (insertPreparedStatement1!=null) {
       insertPreparedStatement1.close();
       insertPreparedStatement1=null;
+    }
+    if (insertPreparedStatement2!=null) {
+      insertPreparedStatement2.close();
+      insertPreparedStatement2=null;
+    }
+    if (deletePreparedStatement3!=null) {
+      deletePreparedStatement3.close();
+      deletePreparedStatement3=null;
     }
   }
 }

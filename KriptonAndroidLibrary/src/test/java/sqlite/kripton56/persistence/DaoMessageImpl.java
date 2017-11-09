@@ -1,5 +1,6 @@
 package sqlite.kripton56.persistence;
 
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -18,6 +19,8 @@ import sqlite.kripton56.entities.OwnerType;
  *  @see sqlite.kripton56.entities.MessageEntityTable
  */
 public class DaoMessageImpl extends AbstractDao implements DaoMessage {
+  private SQLiteStatement updateByIdPreparedStatement0;
+
   public DaoMessageImpl(BindWhisperDataSource dataSet) {
     super(dataSet);
   }
@@ -45,7 +48,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public boolean updateById(long id, OwnerType ownerType) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (ownerType!=null) {
       _contentValues.put("owner_type", ownerType.toString());
     } else {
@@ -54,20 +57,23 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateByIdPreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id = ?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id = ?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE message SET owner_type=? WHERE id = ?";
+      // generate sql
+      String _sql="UPDATE message SET owner_type=? WHERE id = ?";
+      updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE message SET owner_type=:ownerType WHERE id = ?");
@@ -90,10 +96,14 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement0, _contentValues);
     return result!=0;
   }
 
   public void clearCompiledStatements() {
+    if (updateByIdPreparedStatement0!=null) {
+      updateByIdPreparedStatement0.close();
+      updateByIdPreparedStatement0=null;
+    }
   }
 }

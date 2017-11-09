@@ -34,6 +34,7 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -59,6 +60,7 @@ import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.content.ContentValues;
@@ -98,14 +100,14 @@ public abstract class SqlModifyBuilder {
 			}
 		}
 
-		public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
-			codeGenerator.generate(elementUtils, methodBuilder, isUpdate(), method, returnType);
+		public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
+			codeGenerator.generate(classBuilder, methodBuilder, isUpdate(), method, returnType);
 
 		}
 	}
 
 	public interface ModifyCodeGenerator {
-		void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
+		void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**
@@ -115,7 +117,7 @@ public abstract class SqlModifyBuilder {
 	 * @param method
 	 * @param updateMode
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
+	public static void generate(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 
 		ModifyType updateResultType = detectModifyType(method, method.jql.operationType);
 
@@ -136,10 +138,10 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.returns(returnType);
 
 		// generate inner code
-		updateResultType.generate(elementUtils, methodBuilder, method, returnType);
+		updateResultType.generate(classBuilder, methodBuilder, method, returnType);
 
 		MethodSpec methodSpec = methodBuilder.build();
-		builder.addMethod(methodSpec);
+		classBuilder.addMethod(methodSpec);
 
 		if (method.contentProviderEntryPathEnabled) {
 			// delete-select, update-select can be used with content provider
@@ -150,7 +152,7 @@ public abstract class SqlModifyBuilder {
 			// SQL with inner SELECT can not be used in content provider");
 			// }
 
-			generateModifierForContentProvider(elementUtils, builder, method, updateResultType);
+			generateModifierForContentProvider(BaseProcessor.elementUtils, classBuilder, method, updateResultType);
 
 		}
 
@@ -566,7 +568,6 @@ public abstract class SqlModifyBuilder {
 			methodBuilder.addStatement("String _sql=String.format($S, $L)",sql.replace(method.jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE), "%s"),
 					"StringUtils.ifNotEmptyAppend(_sqlDynamicWhere,\" AND \")");
 		} else {
-			//methodBuilder.addStatement("String _sql=String.format($S)", sql);
 			methodBuilder.addStatement("String _sql=$S", sql);
 		}
 	}

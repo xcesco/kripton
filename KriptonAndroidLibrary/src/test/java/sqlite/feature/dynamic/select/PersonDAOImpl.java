@@ -55,7 +55,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (name!=null) {
       _contentValues.put("name", name);

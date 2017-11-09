@@ -20,8 +20,6 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.isNullabl
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.lang.model.util.Elements;
-
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
@@ -44,11 +42,12 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 public class ModifyRawHelper implements ModifyCodeGenerator {
 
 	@Override
-	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -155,7 +154,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			generateWhereCondition(methodBuilder, method, where);
 			methodBuilder.addCode("\n");
 
-			ModifyBeanHelper.generateModifyQueryCommonPart(method, methodBuilder);
+			ModifyBeanHelper.generateModifyQueryCommonPart(method, classBuilder, methodBuilder);
 
 			// return management
 			// if true, field must be associate to ben attributes

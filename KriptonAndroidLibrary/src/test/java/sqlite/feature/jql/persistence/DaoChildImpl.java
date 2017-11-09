@@ -28,6 +28,8 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
   private SQLiteStatement insertByCopyPreparedStatement2;
 
+  private SQLiteStatement updateJQLPreparedStatement3;
+
   public DaoChildImpl(BindFamilyDataSource dataSet) {
     super(dataSet);
   }
@@ -113,7 +115,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public Child insertBean(Child bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -395,7 +397,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void insertByCopy(long parentId, long aliasParentId, long parent) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // build where condition
     _contentValues.addWhereArgs(String.valueOf(parentId));
@@ -432,7 +434,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void insertByCopy3(Child bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -493,7 +495,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public int insertByCopy(long parentId, String name) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     _contentValues.put("parent_id", parentId);
     if (name!=null) {
@@ -557,7 +559,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void updateJQL(long parentId, String name) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (name!=null) {
       _contentValues.put("name", name);
     } else {
@@ -566,20 +568,23 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
     _contentValues.addWhereArgs(String.valueOf(parentId));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateJQLPreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" where parent_id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" where parent_id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="update or replace child set name=? where parent_id=?";
+      // generate sql
+      String _sql="update or replace child set name=? where parent_id=?";
+      updateJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("update or replace child set name=:name where parent_id=?");
@@ -602,7 +607,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateJQLPreparedStatement3, _contentValues);
   }
 
   /**
@@ -627,7 +632,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void updateJQL2(long parentId) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // build where condition
     _contentValues.addWhereArgs(String.valueOf(parentId));
@@ -658,6 +663,10 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     if (insertByCopyPreparedStatement2!=null) {
       insertByCopyPreparedStatement2.close();
       insertByCopyPreparedStatement2=null;
+    }
+    if (updateJQLPreparedStatement3!=null) {
+      updateJQLPreparedStatement3.close();
+      updateJQLPreparedStatement3=null;
     }
   }
 }

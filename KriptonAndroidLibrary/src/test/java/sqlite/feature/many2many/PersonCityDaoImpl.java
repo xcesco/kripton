@@ -21,7 +21,13 @@ import java.util.List;
  *  @see PersonCityTable
  */
 public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCityDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private SQLiteStatement deleteByIdPreparedStatement0;
+
+  private SQLiteStatement deleteByPersonIdPreparedStatement1;
+
+  private SQLiteStatement deleteByCityIdPreparedStatement2;
+
+  private SQLiteStatement insertPreparedStatement3;
 
   public PersonCityDaoImpl(BindPersonCirtyDataSource dataSet) {
     super(dataSet);
@@ -272,23 +278,26 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
    */
   @Override
   public int deleteById(long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteByIdPreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM person_city WHERE id=?";
+      // generate sql
+      String _sql="DELETE FROM person_city WHERE id=?";
+      deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM person_city WHERE id=?");
@@ -299,7 +308,7 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -320,23 +329,26 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
    */
   @Override
   public int deleteByPersonId(long personId) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(personId));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteByPersonIdPreparedStatement1==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" person_id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" person_id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM person_city WHERE person_id=?";
+      // generate sql
+      String _sql="DELETE FROM person_city WHERE person_id=?";
+      deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM person_city WHERE person_id=?");
@@ -347,7 +359,7 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByPersonIdPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -368,23 +380,26 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
    */
   @Override
   public int deleteByCityId(long cityId) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(cityId));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteByCityIdPreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" city_id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" city_id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM person_city WHERE city_id=?";
+      // generate sql
+      String _sql="DELETE FROM person_city WHERE city_id=?";
+      deleteByCityIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM person_city WHERE city_id=?");
@@ -395,7 +410,7 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByCityIdPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -418,7 +433,7 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
    */
   @Override
   public int insert(PersonCity bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("person_id", bean.personId);
     _contentValues.put("city_id", bean.cityId);
 
@@ -447,21 +462,33 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
     // log for insert -- END 
 
     // insert operation
-    if (insertPreparedStatement0==null) {
+    if (insertPreparedStatement3==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO person_city (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement3, _contentValues);
     bean.id=result;
 
     return (int)result;
   }
 
   public void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    if (deleteByIdPreparedStatement0!=null) {
+      deleteByIdPreparedStatement0.close();
+      deleteByIdPreparedStatement0=null;
+    }
+    if (deleteByPersonIdPreparedStatement1!=null) {
+      deleteByPersonIdPreparedStatement1.close();
+      deleteByPersonIdPreparedStatement1=null;
+    }
+    if (deleteByCityIdPreparedStatement2!=null) {
+      deleteByCityIdPreparedStatement2.close();
+      deleteByCityIdPreparedStatement2=null;
+    }
+    if (insertPreparedStatement3!=null) {
+      insertPreparedStatement3.close();
+      insertPreparedStatement3=null;
     }
   }
 }

@@ -552,6 +552,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
 		return StringUtils.hasText(dynamicWhereParameterName) && parameterName.equals(dynamicWhereParameterName);
 	}
+	
+	public boolean isLogEnabled() {
+		return getParent().isLogEnabled();
+	}
 
 	public boolean isThisDynamicPageSizeName(String parameterName) {
 		return StringUtils.hasText(dynamicPageSizeName) && parameterName.equals(dynamicPageSizeName);

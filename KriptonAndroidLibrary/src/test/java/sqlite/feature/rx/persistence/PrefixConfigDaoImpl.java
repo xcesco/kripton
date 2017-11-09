@@ -24,6 +24,12 @@ import sqlite.feature.rx.model.PrefixConfig;
 public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao {
   private SQLiteStatement insertPreparedStatement0;
 
+  private SQLiteStatement deleteByIdPreparedStatement1;
+
+  private SQLiteStatement updateByIdPreparedStatement2;
+
+  private SQLiteStatement updatePreparedStatement3;
+
   protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
   public PrefixConfigDaoImpl(BindXenoDataSource dataSet) {
@@ -51,7 +57,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public int insert(PrefixConfig bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.defaultCountry!=null) {
       _contentValues.put("default_country", bean.defaultCountry);
     } else {
@@ -197,23 +203,26 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public boolean deleteById(long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteByIdPreparedStatement1==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id = ?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id = ?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM prefix_config WHERE id = ?";
+      // generate sql
+      String _sql="DELETE FROM prefix_config WHERE id = ?";
+      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM prefix_config WHERE id = ?");
@@ -224,7 +233,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement1, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -245,23 +254,26 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public boolean updateById(PrefixConfig bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateByIdPreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id = ?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id = ?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="DELETE FROM prefix_config WHERE id = ?";
+      // generate sql
+      String _sql="DELETE FROM prefix_config WHERE id = ?";
+      updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM prefix_config WHERE id = ?");
@@ -272,7 +284,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement2, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -364,7 +376,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public int update(PrefixConfig bean) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.defaultCountry!=null) {
       _contentValues.put("default_country", bean.defaultCountry);
     } else {
@@ -380,20 +392,23 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updatePreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id = ?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id = ?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
 
-    // generate sql
-    String _sql="UPDATE prefix_config SET default_country=?, dual_billing_prefix=?, enabled=?, dialog_timeout=? WHERE id = ? ";
+      // generate sql
+      String _sql="UPDATE prefix_config SET default_country=?, dual_billing_prefix=?, enabled=?, dialog_timeout=? WHERE id = ? ";
+      updatePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE prefix_config SET default_country=:defaultCountry, dual_billing_prefix=:dualBillingPrefix, enabled=:enabled, dialog_timeout=:dialogTimeout WHERE id = ? ");
@@ -416,7 +431,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updatePreparedStatement3, _contentValues);
     subject.onNext(SQLiteModification.createUpdate(result));
     return result;
   }
@@ -429,6 +444,18 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;
+    }
+    if (deleteByIdPreparedStatement1!=null) {
+      deleteByIdPreparedStatement1.close();
+      deleteByIdPreparedStatement1=null;
+    }
+    if (updateByIdPreparedStatement2!=null) {
+      updateByIdPreparedStatement2.close();
+      updateByIdPreparedStatement2=null;
+    }
+    if (updatePreparedStatement3!=null) {
+      updatePreparedStatement3.close();
+      updatePreparedStatement3=null;
     }
   }
 }
