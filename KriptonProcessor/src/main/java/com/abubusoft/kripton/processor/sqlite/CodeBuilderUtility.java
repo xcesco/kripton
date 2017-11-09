@@ -83,9 +83,6 @@ public abstract class CodeBuilderUtility {
 		
 		AssertKripton.assertTrueOrInvalidMethodSignException(!method.hasAdapterForParam(entityName), method, "method's parameter '%s' can not use a type adapter", entityName);
 
-		//methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
-		//methodBuilder.addCode("_contentValues.clear();\n\n");
-
 		Set<String> updateColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);
 		SQLProperty item;
 		for (String columnName : updateColumns) {

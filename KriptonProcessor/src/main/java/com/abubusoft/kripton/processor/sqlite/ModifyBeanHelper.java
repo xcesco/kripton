@@ -74,7 +74,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		analyzer.execute(elementUtils, method, whereCondition);
 
 		// retrieve content values
-		methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
+		methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
 
 		List<SQLProperty> listUsedProperty;
 		if (updateMode) {

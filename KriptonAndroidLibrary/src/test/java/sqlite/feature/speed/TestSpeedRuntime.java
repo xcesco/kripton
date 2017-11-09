@@ -6,6 +6,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.common.One;
 
 import base.BaseAndroidTest;
 import sqlite.feature.speed.model.Person;
@@ -19,7 +20,8 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 
 	@Test
 	public void testProfile() {
-		long start=System.currentTimeMillis();
+		final One<Long> start=new One<>();
+		final One<Long> end=new One<>();
 		
 		final int COUNTER = 10000;
 
@@ -29,6 +31,7 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 
 			@Override
 			public TransactionResult onExecute(BindPersonDaoFactory daoFactory) {
+				start.value0=System.currentTimeMillis();
 				PersonDaoImpl dao = daoFactory.getPersonDao();
 				for (int i = 0; i < COUNTER; i++) {
 					Person bean = new Person();
@@ -38,14 +41,15 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 					dao.insert(bean);
 				}
 
+				end.value0=System.currentTimeMillis();
 				return TransactionResult.COMMIT;
 			}
 		});
 		
-		long end=System.currentTimeMillis();
+		
 		
 		//3100
-		System.out.println("Esecuzione terminata in "+(end-start)+" ms");
+		System.out.println("Esecuzione terminata in "+(end.value0-start.value0)+" ms");
 
 	}
 }

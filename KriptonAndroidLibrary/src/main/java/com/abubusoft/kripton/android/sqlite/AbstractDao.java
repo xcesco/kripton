@@ -46,7 +46,7 @@ public abstract class AbstractDao implements AutoCloseable {
 		if (database == null) {
 			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
 		}
-			
+
 		return database;
 	}
 
@@ -57,18 +57,26 @@ public abstract class AbstractDao implements AutoCloseable {
 	}
 
 	protected KriptonContentValues contentValues() {
-		KriptonContentValues content=contentValues.get();
-		content.clear();		
-		
+		KriptonContentValues content = contentValues.get();
+		content.clear();
+
 		return content;
 	}
-	
+
+	protected KriptonContentValues contentValuesForUpdate() {
+		contentValuesForUpdate.clear();
+
+		return contentValuesForUpdate;
+	}
+
 	protected KriptonContentValues contentValues(ContentValues values) {
-		KriptonContentValues content=contentValues.get();
-		content.clear(values);		
-		
+		KriptonContentValues content = contentValues.get();
+		content.clear(values);
+
 		return content;
 	}
+
+	private static final KriptonContentValues contentValuesForUpdate = new KriptonContentValues();
 
 	/**
 	 * <p>

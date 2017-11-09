@@ -60,7 +60,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		// String sqlInsert;
 		
 		// retrieve content values
-		methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
+		methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
 
 		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlInsert.class);
 		CodeBuilderUtility.generateContentValuesFromEntity(BaseProcessor.elementUtils, method, BindSqlInsert.class, methodBuilder, null);

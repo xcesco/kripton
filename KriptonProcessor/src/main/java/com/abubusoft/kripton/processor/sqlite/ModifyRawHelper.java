@@ -89,7 +89,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		}
 
 		// clear contentValues
-		methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
+		methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
 		
 		if (method.jql.containsSelectOperation) {
 			generateJavaDoc(method, methodBuilder, updateMode);

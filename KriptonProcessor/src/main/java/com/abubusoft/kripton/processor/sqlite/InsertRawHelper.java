@@ -60,7 +60,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		generateJavaDoc(methodBuilder, method, returnType);
 		
 		// standard INSERT
-		methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
+		methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
 
 		if (method.jql.containsSelectOperation) {
 			// INSERT-SELECT
