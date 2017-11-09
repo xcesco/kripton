@@ -81,6 +81,8 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
       return resultList;
     }
   }
+  
+  protected String selectByIdSQL;
 
   /**
    * <h2>Select SQL:</h2>
@@ -105,28 +107,30 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    */
   @Override
   public Person selectById(long id) {
-    KriptonContentValues _contentValues=contentValues();
+    KriptonContentValues _contentValues=contentValues();    
     
-    
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, name, surname FROM person");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END    
-
-    // build where condition
-    _contentValues.addWhereArgs(String.valueOf(id));
-    String _sql=_sqlBuilder.toString();
+    if (selectByIdSQL==null) {
+	    StringBuilder _sqlBuilder=getSQLStringBuilder();
+	    _sqlBuilder.append("SELECT id, name, surname FROM person");
+	    // generation CODE_001 -- BEGIN
+	    // generation CODE_001 -- END
+	
+	    // manage WHERE arguments -- BEGIN
+	
+	    // manage WHERE statement
+	    String _sqlWhereStatement=" WHERE id=?";
+	    _sqlBuilder.append(_sqlWhereStatement);
+	
+	    // manage WHERE arguments -- END    
+	
+	    // build where condition
+	    _contentValues.addWhereArgs(String.valueOf(id));
+	    String _sql=_sqlBuilder.toString();
+	    selectByIdSQL=_sql;
+    } 
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor cursor = database().rawQuery(selectByIdSQL, _sqlArgs)) {
 
       Person resultBean=null;
 
