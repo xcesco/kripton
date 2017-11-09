@@ -103,7 +103,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -242,7 +242,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -404,7 +404,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -575,7 +575,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -718,7 +718,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
   }
 
   /**
@@ -842,7 +842,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
   }
 
   /**
@@ -911,7 +911,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1073,7 +1073,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1244,7 +1244,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1333,5 +1333,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // execute SQL
     int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
+  }
+
+  public void clearCompiledStatements() {
   }
 }

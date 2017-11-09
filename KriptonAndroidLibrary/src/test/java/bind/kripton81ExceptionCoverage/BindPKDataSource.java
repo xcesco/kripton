@@ -194,6 +194,10 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
     }
   }
 
+  public void clearCompiledStatements() {
+    pKDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

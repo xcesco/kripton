@@ -65,7 +65,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -173,7 +173,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -223,7 +223,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
   }
 
   /**
@@ -329,7 +329,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -445,7 +445,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -570,7 +570,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -640,5 +640,8 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // execute SQL
     int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
+  }
+
+  public void clearCompiledStatements() {
   }
 }

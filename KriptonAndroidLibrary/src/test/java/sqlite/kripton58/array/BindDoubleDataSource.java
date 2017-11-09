@@ -194,6 +194,10 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
     }
   }
 
+  public void clearCompiledStatements() {
+    doubleDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

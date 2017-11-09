@@ -1,6 +1,7 @@
 package sqlite.kripton64;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -20,6 +21,8 @@ import java.util.List;
  *  @see Bean64ATable
  */
 public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
+  private SQLiteStatement insertPreparedStatement0;
+
   public Bean64ADaoImpl(BindBean64ADataSource dataSet) {
     super(dataSet);
   }
@@ -232,12 +235,22 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO bean64_a (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64_a (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertPreparedStatement0!=null) {
+      insertPreparedStatement0.close();
+      insertPreparedStatement0=null;
+    }
   }
 }

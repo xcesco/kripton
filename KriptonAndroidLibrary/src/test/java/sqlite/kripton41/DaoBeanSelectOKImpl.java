@@ -84,4 +84,7 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
       return result;
     }
   }
+
+  public void clearCompiledStatements() {
+  }
 }

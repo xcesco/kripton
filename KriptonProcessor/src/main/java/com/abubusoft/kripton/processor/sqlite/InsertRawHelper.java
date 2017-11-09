@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.util.Elements;
+import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
@@ -40,13 +40,17 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
+
+import android.database.sqlite.SQLiteStatement;
 
 public class InsertRawHelper implements InsertCodeGenerator {
 
 	@Override
-	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
+	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 
@@ -94,23 +98,28 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addCode("\n");
 
 			SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
-			
-			// generate SQL for insert
-			SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);
-
-//			ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
-//			String conflictString1 = "";
-//			String conflictString2 = "";
-//
-//			if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
-//				conflictString1 = "WithOnConflict";
-//				conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
-//				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-//			}
-
+						
 			methodBuilder.addComment("insert operation");
-			//methodBuilder.addCode("long result = database().insert$L($S, null, _contentValues.values()$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
-			methodBuilder.addStatement("long result = $T.insert(dataSource, _sql, _contentValues)", KriptonDatabaseWrapper.class);
+			if (method.jql.hasDynamicParts()) {
+				// does not memorize compiled statement, it can vary every time
+				// generate SQL for insert
+				SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);	
+				
+				methodBuilder.addStatement("long result = $T.insert(dataSource, _sql, _contentValues)", KriptonDatabaseWrapper.class);
+			} else {
+				String psName=method.buildPreparedStatementName();
+				// generate SQL for insert
+				classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE).build());
+				
+				methodBuilder.beginControlFlow("if ($L==null)", psName);
+				SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);
+				methodBuilder.addStatement("$L = $T.compile(dataSource, _sql)", psName, KriptonDatabaseWrapper.class);
+				methodBuilder.endControlFlow();
+				
+				methodBuilder.addStatement("long result = $T.insert(dataSource, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);		
+			}
+			
+			
 			if (method.getParent().getParent().generateRx) {
 				methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);
 			}

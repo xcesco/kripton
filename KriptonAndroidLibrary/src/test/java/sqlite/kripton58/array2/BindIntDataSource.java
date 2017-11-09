@@ -194,6 +194,10 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
     }
   }
 
+  public void clearCompiledStatements() {
+    intDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

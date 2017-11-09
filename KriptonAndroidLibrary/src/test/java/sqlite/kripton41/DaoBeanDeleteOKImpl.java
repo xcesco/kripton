@@ -64,7 +64,10 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
+  }
+
+  public void clearCompiledStatements() {
   }
 }

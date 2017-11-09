@@ -1,6 +1,7 @@
 package sqlite.kripton84;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
@@ -29,6 +30,8 @@ import java.nio.charset.StandardCharsets;
  *  @see Bean84BTable
  */
 public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
+  private SQLiteStatement insertPreparedStatement0;
+
   /**
    * Bean84B2BindMap */
   private Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
@@ -224,10 +227,13 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO bean84_b (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean84_b (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -285,7 +291,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -318,7 +324,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -364,6 +370,13 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  public void clearCompiledStatements() {
+    if (insertPreparedStatement0!=null) {
+      insertPreparedStatement0.close();
+      insertPreparedStatement0=null;
     }
   }
 }

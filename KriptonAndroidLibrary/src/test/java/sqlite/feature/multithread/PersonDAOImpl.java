@@ -1,6 +1,7 @@
 package sqlite.feature.multithread;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -19,6 +20,10 @@ import com.abubusoft.kripton.common.Triple;
  *  @see PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
+  private SQLiteStatement insertThread1PreparedStatement0;
+
+  private SQLiteStatement insertThread2PreparedStatement1;
+
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
   }
@@ -89,10 +94,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertThread1PreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertThread1PreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertThread1PreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -162,10 +170,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertThread2PreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertThread2PreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertThread2PreparedStatement1, _contentValues);
     bean.id=result;
   }
 
@@ -292,6 +303,17 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
       }
       return resultBean;
+    }
+  }
+
+  public void clearCompiledStatements() {
+    if (insertThread1PreparedStatement0!=null) {
+      insertThread1PreparedStatement0.close();
+      insertThread1PreparedStatement0=null;
+    }
+    if (insertThread2PreparedStatement1!=null) {
+      insertThread2PreparedStatement1.close();
+      insertThread2PreparedStatement1=null;
     }
   }
 }

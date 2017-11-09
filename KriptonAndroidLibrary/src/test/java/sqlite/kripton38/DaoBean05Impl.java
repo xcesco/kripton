@@ -1,6 +1,7 @@
 package sqlite.kripton38;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -33,6 +34,10 @@ import java.util.List;
  *  @see Bean05Table
  */
 public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
+  private SQLiteStatement insertRawPreparedStatement0;
+
+  private SQLiteStatement insertPreparedStatement1;
+
   public DaoBean05Impl(BindDummy05DataSource dataSet) {
     super(dataSet);
   }
@@ -798,10 +803,13 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO ws_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertRawPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO ws_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertRawPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertRawPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -873,10 +881,13 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO ws_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertPreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO ws_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
     bean.setPk(result);
   }
 
@@ -970,7 +981,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1058,7 +1069,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1109,7 +1120,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1165,7 +1176,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1213,7 +1224,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1260,7 +1271,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1369,6 +1380,17 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  public void clearCompiledStatements() {
+    if (insertRawPreparedStatement0!=null) {
+      insertRawPreparedStatement0.close();
+      insertRawPreparedStatement0=null;
+    }
+    if (insertPreparedStatement1!=null) {
+      insertPreparedStatement1.close();
+      insertPreparedStatement1=null;
     }
   }
 }

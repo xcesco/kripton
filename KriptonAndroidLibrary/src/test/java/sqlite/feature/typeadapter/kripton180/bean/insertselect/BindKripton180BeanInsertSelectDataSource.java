@@ -195,6 +195,10 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     }
   }
 
+  public void clearCompiledStatements() {
+    employeeBeanInsertSelectDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

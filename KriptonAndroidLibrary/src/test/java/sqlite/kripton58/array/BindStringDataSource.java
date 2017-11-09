@@ -194,6 +194,10 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
     }
   }
 
+  public void clearCompiledStatements() {
+    stringDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

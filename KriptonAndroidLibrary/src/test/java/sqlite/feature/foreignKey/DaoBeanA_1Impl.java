@@ -1,6 +1,7 @@
 package sqlite.feature.foreignKey;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -20,6 +21,8 @@ import java.util.List;
  *  @see BeanA_1Table
  */
 public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
+  private SQLiteStatement insertPreparedStatement0;
+
   public DaoBeanA_1Impl(BindDummyDataSource dataSet) {
     super(dataSet);
   }
@@ -288,10 +291,13 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO bean_a_1 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean_a_1 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return (int)result;
@@ -365,7 +371,14 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertPreparedStatement0!=null) {
+      insertPreparedStatement0.close();
+      insertPreparedStatement0=null;
+    }
   }
 }

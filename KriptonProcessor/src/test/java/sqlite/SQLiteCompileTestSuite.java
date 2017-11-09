@@ -37,6 +37,7 @@ import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
 import sqlite.feature.performance.TestPerformanceSuite;
 import sqlite.feature.rx.TestRXSuite;
 import sqlite.feature.schema.TestSchemaSuite;
+import sqlite.feature.speed.TestCompileSpeed;
 import sqlite.feature.typeadapter.TestTypeAdapterSuite;
 import sqlite.feature.typeadapter.kripton180.Test180Suite;
 import sqlite.kripton111.TestCompile111;
@@ -90,6 +91,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestCompileMany2ManySuite.class,
 			TestForeignKeyActionSuite.class, 
 			TestRXSuite.class,
+			TestCompileSpeed.class,
 			
 			// bug-fix			
 			Example01Suite.class,

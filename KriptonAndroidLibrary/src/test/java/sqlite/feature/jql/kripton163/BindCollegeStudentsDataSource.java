@@ -194,6 +194,10 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
     }
   }
 
+  public void clearCompiledStatements() {
+    collegeStudentDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

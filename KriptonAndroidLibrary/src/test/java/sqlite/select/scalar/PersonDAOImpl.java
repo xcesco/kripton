@@ -125,4 +125,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       return result;
     }
   }
+
+  public void clearCompiledStatements() {
+  }
 }

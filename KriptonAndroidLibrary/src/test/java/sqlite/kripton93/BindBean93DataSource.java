@@ -194,6 +194,10 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
     }
   }
 
+  public void clearCompiledStatements() {
+    bean93Dao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

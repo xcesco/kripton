@@ -1,6 +1,7 @@
 package sqlite.feature.jql.persistence;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -21,6 +22,8 @@ import sqlite.feature.jql.entities.Person;
  *  @see sqlite.feature.jql.entities.PersonTable
  */
 public class DaoPersonImpl extends AbstractDao implements DaoPerson {
+  private SQLiteStatement insertBeanPreparedStatement0;
+
   public DaoPersonImpl(BindFamilyDataSource dataSet) {
     super(dataSet);
   }
@@ -142,12 +145,22 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertBeanPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
     return bean;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertBeanPreparedStatement0!=null) {
+      insertBeanPreparedStatement0.close();
+      insertBeanPreparedStatement0=null;
+    }
   }
 }

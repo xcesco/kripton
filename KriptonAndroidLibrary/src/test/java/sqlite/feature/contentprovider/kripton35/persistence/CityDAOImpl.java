@@ -2,6 +2,7 @@ package sqlite.feature.contentprovider.kripton35.persistence;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
@@ -27,6 +28,8 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
   private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static final Set<String> selectCityFromPerson1ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
+
+  private SQLiteStatement insertBeanPreparedStatement0;
 
   public CityDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
@@ -80,10 +83,13 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO city (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertBeanPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO city (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -275,5 +281,12 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
     // execute query
     Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertBeanPreparedStatement0!=null) {
+      insertBeanPreparedStatement0.close();
+      insertBeanPreparedStatement0=null;
+    }
   }
 }

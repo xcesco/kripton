@@ -1,6 +1,7 @@
 package sqlite.feature.rx.persistence;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -22,6 +23,8 @@ import java.util.List;
  *  @see PersonPhoneNumberTable
  */
 public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2PhoneDao {
+  private SQLiteStatement insertPreparedStatement0;
+
   protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
   public Person2PhoneDaoImpl(BindXenoDataSource dataSet) {
@@ -300,7 +303,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result;
   }
@@ -349,7 +352,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result;
   }
@@ -398,7 +401,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result;
   }
@@ -450,10 +453,13 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO person_phone_number (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person_phone_number (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
     subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
@@ -462,5 +468,12 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
 
   public PublishSubject<SQLiteModification> subject() {
     return subject;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertPreparedStatement0!=null) {
+      insertPreparedStatement0.close();
+      insertPreparedStatement0=null;
+    }
   }
 }

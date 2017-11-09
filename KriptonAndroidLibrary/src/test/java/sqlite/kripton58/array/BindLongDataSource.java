@@ -194,6 +194,10 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
     }
   }
 
+  public void clearCompiledStatements() {
+    longDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

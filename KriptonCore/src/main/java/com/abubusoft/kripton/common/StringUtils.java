@@ -210,4 +210,9 @@ public class StringUtils {
 		return input;
 	}
 
+	public static String printIf(boolean test, String value) {
+		if(test) return value;
+		return "";
+	}
+
 }

@@ -1,6 +1,7 @@
 package sqlite.kripton84;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -34,6 +35,10 @@ import java.util.Map;
  *  @see Bean84ATable
  */
 public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
+  private SQLiteStatement insertAllPreparedStatement0;
+
+  private SQLiteStatement insertPreparedStatement1;
+
   public Bean84ADaoImpl(BindBean84ADataSource dataSet) {
     super(dataSet);
   }
@@ -460,10 +465,13 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO bean84_a (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertAllPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean84_a (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertAllPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertAllPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -517,10 +525,13 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO bean84_a (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertPreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean84_a (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
     return result!=-1;
   }
 
@@ -636,7 +647,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -669,7 +680,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -955,6 +966,17 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  public void clearCompiledStatements() {
+    if (insertAllPreparedStatement0!=null) {
+      insertAllPreparedStatement0.close();
+      insertAllPreparedStatement0=null;
+    }
+    if (insertPreparedStatement1!=null) {
+      insertPreparedStatement1.close();
+      insertPreparedStatement1=null;
     }
   }
 }

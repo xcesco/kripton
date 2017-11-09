@@ -194,6 +194,10 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     }
   }
 
+  public void clearCompiledStatements() {
+    personDAO.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

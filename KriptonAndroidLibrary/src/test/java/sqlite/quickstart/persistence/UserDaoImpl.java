@@ -1,6 +1,7 @@
 package sqlite.quickstart.persistence;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -22,6 +23,8 @@ import sqlite.quickstart.model.UserTable;
  *  @see UserTable
  */
 public class UserDaoImpl extends AbstractDao implements UserDao {
+  private SQLiteStatement insertPreparedStatement0;
+
   public UserDaoImpl(BindQuickStartDataSource dataSet) {
     super(dataSet);
   }
@@ -112,10 +115,13 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO user (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO user (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -287,6 +293,13 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
       }
       return resultBean;
+    }
+  }
+
+  public void clearCompiledStatements() {
+    if (insertPreparedStatement0!=null) {
+      insertPreparedStatement0.close();
+      insertPreparedStatement0=null;
     }
   }
 }

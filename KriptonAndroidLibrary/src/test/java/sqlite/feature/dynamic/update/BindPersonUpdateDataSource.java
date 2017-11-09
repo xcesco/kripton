@@ -195,6 +195,10 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
     }
   }
 
+  public void clearCompiledStatements() {
+    personUpdateDAO.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

@@ -81,4 +81,7 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
       return resultList;
     }
   }
+
+  public void clearCompiledStatements() {
+  }
 }

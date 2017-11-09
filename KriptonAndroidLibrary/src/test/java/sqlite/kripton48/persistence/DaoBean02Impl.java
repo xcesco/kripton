@@ -135,7 +135,10 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
+  }
+
+  public void clearCompiledStatements() {
   }
 }

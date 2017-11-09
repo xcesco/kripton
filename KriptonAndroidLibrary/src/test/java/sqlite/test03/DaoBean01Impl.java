@@ -100,4 +100,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       return resultList;
     }
   }
+
+  public void clearCompiledStatements() {
+  }
 }

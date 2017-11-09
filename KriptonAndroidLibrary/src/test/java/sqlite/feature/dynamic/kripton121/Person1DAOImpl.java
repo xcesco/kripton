@@ -117,4 +117,7 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
       return resultList;
     }
   }
+
+  public void clearCompiledStatements() {
+  }
 }

@@ -195,6 +195,10 @@ public class BindInsertRawPersonDataSource extends AbstractDataSource implements
     }
   }
 
+  public void clearCompiledStatements() {
+    insertRawPersonDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

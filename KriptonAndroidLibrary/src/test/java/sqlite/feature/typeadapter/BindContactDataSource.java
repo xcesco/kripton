@@ -194,6 +194,10 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
     }
   }
 
+  public void clearCompiledStatements() {
+    contactDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

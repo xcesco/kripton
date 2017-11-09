@@ -131,6 +131,10 @@ public class JQL {
 	public boolean isDynamicOrderBy() {
 		return dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_ORDER_BY);
 	}
+	
+	public boolean hasDynamicParts() {
+		return dynamicReplace.size()>0;
+	}
 
 	public boolean isOrderBy() {
 		return isStaticOrderBy() || isDynamicOrderBy();

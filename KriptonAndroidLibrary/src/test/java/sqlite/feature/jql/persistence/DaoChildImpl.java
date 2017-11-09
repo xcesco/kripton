@@ -1,6 +1,7 @@
 package sqlite.feature.jql.persistence;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -21,6 +22,12 @@ import sqlite.feature.jql.entities.Child;
  *  @see sqlite.feature.jql.entities.ChildTable
  */
 public class DaoChildImpl extends AbstractDao implements DaoChild {
+  private SQLiteStatement insertBeanPreparedStatement0;
+
+  private SQLiteStatement insertByCopy3PreparedStatement1;
+
+  private SQLiteStatement insertByCopyPreparedStatement2;
+
   public DaoChildImpl(BindFamilyDataSource dataSet) {
     super(dataSet);
   }
@@ -138,10 +145,13 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertBeanPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
     return bean;
@@ -454,10 +464,13 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("insert into child (%s) values (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertByCopy3PreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("insert into child (%s) values (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertByCopy3PreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertByCopy3PreparedStatement1, _contentValues);
     bean.id=result;
   }
 
@@ -513,10 +526,13 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertByCopyPreparedStatement2==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertByCopyPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertByCopyPreparedStatement2, _contentValues);
     return (int)result;
   }
 
@@ -586,8 +602,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    // conflict algorithm REPLACE
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
   }
 
   /**
@@ -629,5 +644,20 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log for where parameters -- END
 
     database().execSQL("update or replace child set parentId=?, name=(select _id from person where _id=? )  where parent_id=?", _contentValues.whereArgsAsArray());
+  }
+
+  public void clearCompiledStatements() {
+    if (insertBeanPreparedStatement0!=null) {
+      insertBeanPreparedStatement0.close();
+      insertBeanPreparedStatement0=null;
+    }
+    if (insertByCopy3PreparedStatement1!=null) {
+      insertByCopy3PreparedStatement1.close();
+      insertByCopy3PreparedStatement1=null;
+    }
+    if (insertByCopyPreparedStatement2!=null) {
+      insertByCopyPreparedStatement2.close();
+      insertByCopyPreparedStatement2=null;
+    }
   }
 }

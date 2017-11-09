@@ -195,6 +195,10 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     }
   }
 
+  public void clearCompiledStatements() {
+    daoMessage.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

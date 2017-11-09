@@ -39,9 +39,7 @@ import base.BaseAndroidTest;
 public class TestPaginatedResultRuntime extends BaseAndroidTest {
 
 	@Test
-	public void testCycle() {
-		BindPersonDataSource.instance().clearPreparedStatement();
-		
+	public void testCycle() {				
 		try (BindPersonDataSource dataSource = BindPersonDataSource.open(); PersonDAOImpl dao = dataSource.getPersonDAO()) {
 			dao.deleteAll();
 			
@@ -71,8 +69,6 @@ public class TestPaginatedResultRuntime extends BaseAndroidTest {
 
 	@Test
 	public void testGotoPage() {
-		BindPersonDataSource.instance().clearPreparedStatement();
-		
 		try (BindPersonDataSource dataSource = BindPersonDataSource.open(); PersonDAOImpl dao = dataSource.getPersonDAO()) {
 			dao.deleteAll();
 			

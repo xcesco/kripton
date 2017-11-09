@@ -2,6 +2,7 @@ package sqlite.feature.contentprovider.kripton35.persistence;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
@@ -47,6 +48,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   private static final Set<String> selectOne11ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
   private static final Set<String> selectBean12ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
+
+  private SQLiteStatement insertBeanPreparedStatement0;
+
+  private SQLiteStatement insertNamePreparedStatement1;
 
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
@@ -122,10 +127,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR FAIL INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertBeanPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR FAIL INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -221,10 +229,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertNamePreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertNamePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertNamePreparedStatement1, _contentValues);
   }
 
   /**
@@ -322,7 +333,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -447,7 +458,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -562,7 +573,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -690,7 +701,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -848,7 +859,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1015,7 +1026,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1195,7 +1206,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -2076,6 +2087,17 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
           cursorListener.onRead(cursor);
         } while (cursor.moveToNext());
       }
+    }
+  }
+
+  public void clearCompiledStatements() {
+    if (insertBeanPreparedStatement0!=null) {
+      insertBeanPreparedStatement0.close();
+      insertBeanPreparedStatement0=null;
+    }
+    if (insertNamePreparedStatement1!=null) {
+      insertNamePreparedStatement1.close();
+      insertNamePreparedStatement1=null;
     }
   }
 }

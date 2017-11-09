@@ -194,6 +194,10 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
     }
   }
 
+  public void clearCompiledStatements() {
+    charDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

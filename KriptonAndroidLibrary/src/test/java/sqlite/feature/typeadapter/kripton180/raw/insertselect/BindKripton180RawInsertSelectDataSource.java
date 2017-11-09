@@ -195,6 +195,10 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
     }
   }
 
+  public void clearCompiledStatements() {
+    employeeRawInsertSelectDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

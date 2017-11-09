@@ -250,6 +250,13 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     }
   }
 
+  public void clearCompiledStatements() {
+    userDao.clearCompiledStatements();
+    postDao.clearCompiledStatements();
+    commentDao.clearCompiledStatements();
+    todoDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

@@ -194,6 +194,10 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
     }
   }
 
+  public void clearCompiledStatements() {
+    byteDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

@@ -1,6 +1,7 @@
 package sqlite.example01;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
@@ -34,6 +35,16 @@ import java.util.Set;
  *  @see ChannelTable
  */
 public class DaoChannelImpl extends AbstractDao implements DaoChannel {
+  private SQLiteStatement insertRaw1PreparedStatement0;
+
+  private SQLiteStatement insertRaw2PreparedStatement1;
+
+  private SQLiteStatement insertRaw3PreparedStatement2;
+
+  private SQLiteStatement insertBean1PreparedStatement3;
+
+  private SQLiteStatement insertBean2PreparedStatement4;
+
   public DaoChannelImpl(BindDummy01DataSource dataSet) {
     super(dataSet);
   }
@@ -81,7 +92,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -128,7 +139,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -180,7 +191,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -232,7 +243,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -288,10 +299,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertRaw1PreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertRaw1PreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertRaw1PreparedStatement0, _contentValues);
     return result;
   }
 
@@ -347,10 +361,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertRaw2PreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertRaw2PreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertRaw2PreparedStatement1, _contentValues);
     return result!=-1;
   }
 
@@ -406,10 +423,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertRaw3PreparedStatement2==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertRaw3PreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertRaw3PreparedStatement2, _contentValues);
     return (int)result;
   }
 
@@ -476,10 +496,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertBean1PreparedStatement3==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertBean1PreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertBean1PreparedStatement3, _contentValues);
     bean.setId(result);
 
     return (int)result;
@@ -548,10 +571,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertBean2PreparedStatement4==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertBean2PreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertBean2PreparedStatement4, _contentValues);
     bean.setId(result);
 
     return result!=-1;
@@ -621,7 +647,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -689,7 +715,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -761,7 +787,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -833,7 +859,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -917,7 +943,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1001,7 +1027,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1085,7 +1111,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
 
@@ -2110,6 +2136,29 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  public void clearCompiledStatements() {
+    if (insertRaw1PreparedStatement0!=null) {
+      insertRaw1PreparedStatement0.close();
+      insertRaw1PreparedStatement0=null;
+    }
+    if (insertRaw2PreparedStatement1!=null) {
+      insertRaw2PreparedStatement1.close();
+      insertRaw2PreparedStatement1=null;
+    }
+    if (insertRaw3PreparedStatement2!=null) {
+      insertRaw3PreparedStatement2.close();
+      insertRaw3PreparedStatement2=null;
+    }
+    if (insertBean1PreparedStatement3!=null) {
+      insertBean1PreparedStatement3.close();
+      insertBean1PreparedStatement3=null;
+    }
+    if (insertBean2PreparedStatement4!=null) {
+      insertBean2PreparedStatement4.close();
+      insertBean2PreparedStatement4=null;
     }
   }
 }

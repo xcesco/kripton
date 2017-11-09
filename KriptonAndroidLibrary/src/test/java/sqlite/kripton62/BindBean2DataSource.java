@@ -194,6 +194,10 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
     }
   }
 
+  public void clearCompiledStatements() {
+    beanDao2.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

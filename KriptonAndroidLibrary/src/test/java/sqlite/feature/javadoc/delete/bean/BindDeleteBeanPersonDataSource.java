@@ -195,6 +195,10 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
     }
   }
 
+  public void clearCompiledStatements() {
+    deleteBeanPersonDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

@@ -229,6 +229,12 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
     }
   }
 
+  public void clearCompiledStatements() {
+    personDao.clearCompiledStatements();
+    cityDao.clearCompiledStatements();
+    personCityDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

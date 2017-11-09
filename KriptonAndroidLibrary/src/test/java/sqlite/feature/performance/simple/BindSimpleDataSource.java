@@ -190,6 +190,10 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
     }
   }
 
+  public void clearCompiledStatements() {
+    simpleAddressDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

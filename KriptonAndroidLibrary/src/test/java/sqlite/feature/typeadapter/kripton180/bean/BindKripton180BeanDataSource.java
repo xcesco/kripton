@@ -195,6 +195,10 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
     }
   }
 
+  public void clearCompiledStatements() {
+    employeeBeanDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

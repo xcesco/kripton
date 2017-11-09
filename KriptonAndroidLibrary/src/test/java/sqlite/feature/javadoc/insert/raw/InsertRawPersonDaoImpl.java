@@ -1,6 +1,7 @@
 package sqlite.feature.javadoc.insert.raw;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
@@ -27,6 +28,12 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
   private static final Set<String> insertOneRawFieldName1ColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static final Set<String> insertOne2RawFieldName2ColumnSet = CollectionUtils.asSet(String.class, "name");
+
+  private SQLiteStatement insertOneRawPreparedStatement0;
+
+  private SQLiteStatement insertOneRawFieldNamePreparedStatement1;
+
+  private SQLiteStatement insertOne2RawFieldNamePreparedStatement2;
 
   public InsertRawPersonDaoImpl(BindInsertRawPersonDataSource dataSet) {
     super(dataSet);
@@ -88,10 +95,13 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertOneRawPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOneRawPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOneRawPreparedStatement0, _contentValues);
     return (int)result;
   }
 
@@ -187,10 +197,13 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertOneRawFieldNamePreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOneRawFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOneRawFieldNamePreparedStatement1, _contentValues);
     return (int)result;
   }
 
@@ -287,10 +300,13 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertOne2RawFieldNamePreparedStatement2==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOne2RawFieldNamePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOne2RawFieldNamePreparedStatement2, _contentValues);
     return (int)result;
   }
 
@@ -368,5 +384,20 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     // log for where parameters -- END
 
     database().execSQL("INSERT OR REPLACE INTO person (name) SELECT name FROM person WHERE name=?", _contentValues.whereArgsAsArray());
+  }
+
+  public void clearCompiledStatements() {
+    if (insertOneRawPreparedStatement0!=null) {
+      insertOneRawPreparedStatement0.close();
+      insertOneRawPreparedStatement0=null;
+    }
+    if (insertOneRawFieldNamePreparedStatement1!=null) {
+      insertOneRawFieldNamePreparedStatement1.close();
+      insertOneRawFieldNamePreparedStatement1=null;
+    }
+    if (insertOne2RawFieldNamePreparedStatement2!=null) {
+      insertOne2RawFieldNamePreparedStatement2.close();
+      insertOne2RawFieldNamePreparedStatement2=null;
+    }
   }
 }

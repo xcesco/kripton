@@ -1,6 +1,7 @@
 package sqlite.kripton93;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -20,6 +21,18 @@ import java.util.List;
  *  @see Bean93Table
  */
 public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
+  private SQLiteStatement insertDefaultPreparedStatement0;
+
+  private SQLiteStatement insertAbortPreparedStatement1;
+
+  private SQLiteStatement insertFailPreparedStatement2;
+
+  private SQLiteStatement insertIgnorePreparedStatement3;
+
+  private SQLiteStatement insertReplacePreparedStatement4;
+
+  private SQLiteStatement insertRollbackPreparedStatement5;
+
   public Bean93DaoImpl(BindBean93DataSource dataSet) {
     super(dataSet);
   }
@@ -226,10 +239,13 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertDefaultPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertDefaultPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertDefaultPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -298,10 +314,13 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR ABORT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertAbortPreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR ABORT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertAbortPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertAbortPreparedStatement1, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -370,10 +389,13 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR FAIL INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertFailPreparedStatement2==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR FAIL INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertFailPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertFailPreparedStatement2, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -442,10 +464,13 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR IGNORE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertIgnorePreparedStatement3==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR IGNORE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertIgnorePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertIgnorePreparedStatement3, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -514,10 +539,13 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR REPLACE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertReplacePreparedStatement4==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR REPLACE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertReplacePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertReplacePreparedStatement4, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -586,12 +614,42 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR ROLLBACK INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertRollbackPreparedStatement5==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR ROLLBACK INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertRollbackPreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertRollbackPreparedStatement5, _contentValues);
     bean.id=result;
 
     return result!=-1;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertDefaultPreparedStatement0!=null) {
+      insertDefaultPreparedStatement0.close();
+      insertDefaultPreparedStatement0=null;
+    }
+    if (insertAbortPreparedStatement1!=null) {
+      insertAbortPreparedStatement1.close();
+      insertAbortPreparedStatement1=null;
+    }
+    if (insertFailPreparedStatement2!=null) {
+      insertFailPreparedStatement2.close();
+      insertFailPreparedStatement2=null;
+    }
+    if (insertIgnorePreparedStatement3!=null) {
+      insertIgnorePreparedStatement3.close();
+      insertIgnorePreparedStatement3=null;
+    }
+    if (insertReplacePreparedStatement4!=null) {
+      insertReplacePreparedStatement4.close();
+      insertReplacePreparedStatement4=null;
+    }
+    if (insertRollbackPreparedStatement5!=null) {
+      insertRollbackPreparedStatement5.close();
+      insertRollbackPreparedStatement5=null;
+    }
   }
 }

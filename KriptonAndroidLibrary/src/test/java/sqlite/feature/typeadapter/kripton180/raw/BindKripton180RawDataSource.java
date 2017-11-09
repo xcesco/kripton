@@ -195,6 +195,10 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
     }
   }
 
+  public void clearCompiledStatements() {
+    employeeRawDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

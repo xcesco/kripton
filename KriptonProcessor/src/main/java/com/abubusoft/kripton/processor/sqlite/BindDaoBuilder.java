@@ -165,6 +165,20 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			builder.addField(fieldBuilder.build());
 		}
 		
+		// generate prepared statement cleaner
+		{
+
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("clearCompiledStatements").addModifiers(Modifier.PUBLIC).returns(Void.TYPE);
+			for (String item: value.preparedStatementNames) {
+				methodBuilder.beginControlFlow("if ($L!=null)", item);
+					methodBuilder.addStatement("$L.close()", item);	
+					methodBuilder.addStatement("$L=null",item);
+				methodBuilder.endControlFlow();								
+			}			
+			
+			builder.addMethod(methodBuilder.build());					
+		}
+		
 		
 		TypeSpec typeSpec = builder.build();
 

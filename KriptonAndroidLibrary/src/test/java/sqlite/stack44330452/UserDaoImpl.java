@@ -78,4 +78,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
       return resultList;
     }
   }
+
+  public void clearCompiledStatements() {
+  }
 }

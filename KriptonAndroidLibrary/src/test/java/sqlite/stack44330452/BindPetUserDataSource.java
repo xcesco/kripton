@@ -212,6 +212,11 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     }
   }
 
+  public void clearCompiledStatements() {
+    userDao.clearCompiledStatements();
+    petDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

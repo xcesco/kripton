@@ -194,6 +194,10 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
     }
   }
 
+  public void clearCompiledStatements() {
+    bean64BDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

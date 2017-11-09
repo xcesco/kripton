@@ -195,6 +195,10 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
     }
   }
 
+  public void clearCompiledStatements() {
+    selectBeanPersonDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

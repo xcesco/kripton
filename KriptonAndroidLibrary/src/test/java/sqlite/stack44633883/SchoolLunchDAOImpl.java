@@ -1,6 +1,7 @@
 package sqlite.stack44633883;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -20,6 +21,8 @@ import java.util.List;
  *  @see SchoolLunchTable
  */
 public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
+  private SQLiteStatement insertAllPreparedStatement0;
+
   public SchoolLunchDAOImpl(BindSchoolLunchDataSource dataSet) {
     super(dataSet);
   }
@@ -214,10 +217,13 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO SchoolLunches (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertAllPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO SchoolLunches (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertAllPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertAllPreparedStatement0, _contentValues);
     schoolLunches.setLunchId(result);
   }
 
@@ -251,6 +257,13 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+  }
+
+  public void clearCompiledStatements() {
+    if (insertAllPreparedStatement0!=null) {
+      insertAllPreparedStatement0.close();
+      insertAllPreparedStatement0=null;
+    }
   }
 }

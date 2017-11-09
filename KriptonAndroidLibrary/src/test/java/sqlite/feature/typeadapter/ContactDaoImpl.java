@@ -1,6 +1,7 @@
 package sqlite.feature.typeadapter;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -25,6 +26,14 @@ import java.util.List;
  *  @see ContactTable
  */
 public class ContactDaoImpl extends AbstractDao implements ContactDao {
+  private SQLiteStatement insertCompactRawPreparedStatement0;
+
+  private SQLiteStatement insertCompactBeanPreparedStatement1;
+
+  private SQLiteStatement insertJQLBeanPreparedStatement2;
+
+  private SQLiteStatement insertJQLRawPreparedStatement3;
+
   public ContactDaoImpl(BindContactDataSource dataSet) {
     super(dataSet);
   }
@@ -258,7 +267,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
   }
 
   /**
@@ -307,7 +316,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
   }
 
   /**
@@ -353,7 +362,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
   }
 
   /**
@@ -404,7 +413,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -956,7 +965,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1036,7 +1045,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1116,7 +1125,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1200,7 +1209,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1280,7 +1289,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1344,10 +1353,13 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertCompactRawPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertCompactRawPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertCompactRawPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -1402,10 +1414,13 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertCompactBeanPreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertCompactBeanPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertCompactBeanPreparedStatement1, _contentValues);
     bean.setId(result);
 
     return result;
@@ -1468,10 +1483,13 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertJQLBeanPreparedStatement2==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertJQLBeanPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertJQLBeanPreparedStatement2, _contentValues);
     bean.setId(result);
 
     return result;
@@ -1542,10 +1560,32 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertJQLRawPreparedStatement3==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertJQLRawPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertJQLRawPreparedStatement3, _contentValues);
     return result;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertCompactRawPreparedStatement0!=null) {
+      insertCompactRawPreparedStatement0.close();
+      insertCompactRawPreparedStatement0=null;
+    }
+    if (insertCompactBeanPreparedStatement1!=null) {
+      insertCompactBeanPreparedStatement1.close();
+      insertCompactBeanPreparedStatement1=null;
+    }
+    if (insertJQLBeanPreparedStatement2!=null) {
+      insertJQLBeanPreparedStatement2.close();
+      insertJQLBeanPreparedStatement2=null;
+    }
+    if (insertJQLRawPreparedStatement3!=null) {
+      insertJQLRawPreparedStatement3.close();
+      insertJQLRawPreparedStatement3=null;
+    }
   }
 }

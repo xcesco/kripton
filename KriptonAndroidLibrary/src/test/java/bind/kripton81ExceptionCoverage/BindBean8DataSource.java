@@ -194,6 +194,10 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
     }
   }
 
+  public void clearCompiledStatements() {
+    bean8Dao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

@@ -1,6 +1,7 @@
 package sqlite.feature.dynamic.select;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -24,6 +25,8 @@ import sqlite.feature.dynamic.Person;
  *  @see sqlite.feature.dynamic.PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
+  private SQLiteStatement insertOnePreparedStatement0;
+
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
   }
@@ -99,10 +102,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertOnePreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement0, _contentValues);
   }
 
   /**
@@ -364,6 +370,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
           beanListener.onRead(resultBean, cursor.getPosition(), rowCount);
         } while (cursor.moveToNext());
       }
+    }
+  }
+
+  public void clearCompiledStatements() {
+    if (insertOnePreparedStatement0!=null) {
+      insertOnePreparedStatement0.close();
+      insertOnePreparedStatement0=null;
     }
   }
 }

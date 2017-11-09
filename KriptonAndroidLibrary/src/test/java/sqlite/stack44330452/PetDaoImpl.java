@@ -84,4 +84,7 @@ public class PetDaoImpl extends AbstractDao implements PetDao {
       return resultList;
     }
   }
+
+  public void clearCompiledStatements() {
+  }
 }

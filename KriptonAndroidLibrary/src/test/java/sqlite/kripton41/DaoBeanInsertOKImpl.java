@@ -1,5 +1,6 @@
 package sqlite.kripton41;
 
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -17,6 +18,8 @@ import com.abubusoft.kripton.common.Triple;
  *  @see Bean01Table
  */
 public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK {
+  private SQLiteStatement insertDistancePreparedStatement0;
+
   public DaoBeanInsertOKImpl(BindDummy04DataSource dataSet) {
     super(dataSet);
   }
@@ -73,10 +76,20 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertDistancePreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertDistancePreparedStatement0, _contentValues);
     return result!=-1;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertDistancePreparedStatement0!=null) {
+      insertDistancePreparedStatement0.close();
+      insertDistancePreparedStatement0=null;
+    }
   }
 }

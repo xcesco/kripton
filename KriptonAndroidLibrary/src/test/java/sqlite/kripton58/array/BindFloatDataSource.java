@@ -194,6 +194,10 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
     }
   }
 
+  public void clearCompiledStatements() {
+    floatDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

@@ -229,6 +229,12 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
     }
   }
 
+  public void clearCompiledStatements() {
+    artistDao.clearCompiledStatements();
+    albumDao.clearCompiledStatements();
+    trackDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

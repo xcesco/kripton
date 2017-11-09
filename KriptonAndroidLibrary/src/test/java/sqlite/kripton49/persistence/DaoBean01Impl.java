@@ -1,6 +1,7 @@
 package sqlite.kripton49.persistence;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -21,6 +22,10 @@ import sqlite.kripton49.entities.Bean01Entity;
  *  @see sqlite.kripton49.entities.Bean01EntityTable
  */
 public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
+  private SQLiteStatement insertOnePreparedStatement0;
+
+  private SQLiteStatement insertOnePreparedStatement1;
+
   public DaoBean01Impl(BindDummy01DataSource dataSet) {
     super(dataSet);
   }
@@ -237,7 +242,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.update(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -285,7 +290,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = KriptonDatabaseWrapper.delete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -337,10 +342,13 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertOnePreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -393,12 +401,26 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertOnePreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOnePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement1, _contentValues);
     bean.setId(result);
 
     return result;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertOnePreparedStatement0!=null) {
+      insertOnePreparedStatement0.close();
+      insertOnePreparedStatement0=null;
+    }
+    if (insertOnePreparedStatement1!=null) {
+      insertOnePreparedStatement1.close();
+      insertOnePreparedStatement1=null;
+    }
   }
 }

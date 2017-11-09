@@ -3,61 +3,43 @@ package com.abubusoft.kripton.android.sqlite;
 import android.database.sqlite.SQLiteStatement;
 
 public abstract class KriptonDatabaseWrapper {
+	
+	public static SQLiteStatement compile(AbstractDataSource dataSource, String sql) {
+		SQLiteStatement ps = dataSource.database().compileStatement(sql);
+		
+		return ps;
+	}
 
 	public static long insert(AbstractDataSource dataSource, String sql, KriptonContentValues contentValues) {
-		SQLiteStatement ps = dataSource.preparedStatements.get(sql);
-		if (ps == null) {			
-			ps = dataSource.database().compileStatement(sql);
-			dataSource.preparedStatements.put(sql, ps);
+		SQLiteStatement ps = dataSource.database().compileStatement(sql);
+		try {
+			contentValues.bind(ps);
+			return ps.executeInsert();
+		} finally {
+			ps.close();
 		}
+	}
 
-		synchronized (ps) {
-			try {
-				contentValues.bind(ps);
+	public static long insert(AbstractDataSource dataSource, SQLiteStatement ps, KriptonContentValues contentValues) {
+		contentValues.bind(ps);
 
-				return ps.executeInsert();
-			} finally {
-				//ps.close();
-			}
-		}
+		return ps.executeInsert();
+	}
+
+	public static int updateDelete(AbstractDataSource dataSource, SQLiteStatement ps, KriptonContentValues contentValues) {
+		contentValues.bind(ps);
+
+		return ps.executeUpdateDelete();
 
 	}
 
-	public static int delete(AbstractDataSource dataSource, String sql, KriptonContentValues contentValues) {
-		SQLiteStatement ps = dataSource.preparedStatements.get(sql);
-		if (ps == null) {
-			ps = dataSource.database().compileStatement(sql);
-			dataSource.preparedStatements.put(sql, ps);
-						
-		}
-
-		synchronized (ps) {
-			try {
-				contentValues.bind(ps);
-				ps.acquireReference();			
-				return ps.executeUpdateDelete();
-			} finally {
-				//ps.close();
-			}
-		}
-					
-	}
-
-	public static int update(AbstractDataSource dataSource, String sql, KriptonContentValues contentValues) {
-		SQLiteStatement ps = dataSource.preparedStatements.get(sql);
-		if (ps == null) {
-			ps = dataSource.database().compileStatement(sql);
-			dataSource.preparedStatements.put(sql, ps);
-		}
-
-		synchronized (ps) {
-			try {
-				contentValues.bind(ps);
-
-				return ps.executeUpdateDelete();
-			} finally {
-				//ps.close();
-			}
+	public static int updateDelete(AbstractDataSource dataSource, String sql, KriptonContentValues contentValues) {
+		SQLiteStatement ps = dataSource.database().compileStatement(sql);
+		try {
+			contentValues.bind(ps);
+			return ps.executeUpdateDelete();
+		} finally {
+			ps.close();
 		}
 	}
 

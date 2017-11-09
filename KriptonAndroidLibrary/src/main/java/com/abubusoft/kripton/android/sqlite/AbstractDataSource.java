@@ -27,12 +27,10 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.commons.LRUCache;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
 
 /**
  * <p>
@@ -73,17 +71,15 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * used to clear prepared statements
 	 */
-	public void clearPreparedStatement() {
-		preparedStatements.clear();
-	}
+	public abstract void clearCompiledStatements();
 	
-	protected LRUCache<String, SQLiteStatement> preparedStatements=new LRUCache<>(16, new LRUCache.OnRemoveListener<SQLiteStatement>() {
+	/*protected LRUCache<String, SQLiteStatement> preparedStatements=new LRUCache<>(16, new LRUCache.OnRemoveListener<SQLiteStatement>() {
 
 		@Override
 		public void onRemove(SQLiteStatement value) {
 			value.close();			
 		}
-	});
+	});*/
 
 	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
 
@@ -151,7 +147,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			if (openCounter.decrementAndGet() <= 0) {
 				// Closing database
 				if (database != null) {	
-					clearPreparedStatement();
+					clearCompiledStatements();
 					database.close();
 				}
 				database = null;

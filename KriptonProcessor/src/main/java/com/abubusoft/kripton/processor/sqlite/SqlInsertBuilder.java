@@ -46,7 +46,6 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.content.ContentValues;
 import android.net.Uri;
@@ -84,14 +83,14 @@ public abstract class SqlInsertBuilder {
 			}
 		}
 
-		public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
-			codeGenerator.generate(elementUtils, methodBuilder, this.isMapFields(), method, returnType);
+		public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
+			codeGenerator.generate(classBuilder, methodBuilder, this.isMapFields(), method, returnType);
 
 		}
 	}
 
 	public interface InsertCodeGenerator {
-		void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
+		void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**
@@ -100,7 +99,7 @@ public abstract class SqlInsertBuilder {
 	 * @param builder
 	 * @param method
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
+	public static void generate(Elements elementUtils, TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 		InsertType insertResultType = detectInsertType(method);
 
 		// if true, field must be associate to ben attributes
@@ -124,14 +123,14 @@ public abstract class SqlInsertBuilder {
 		// "INSERT-FROM-SELECT SQL can not be used with method sign");
 
 		// generate inner code
-		insertResultType.generate(elementUtils, methodBuilder, method, returnType);
+		insertResultType.generate(classBuilder, methodBuilder, method, returnType);
 
 		MethodSpec methodSpec = methodBuilder.build();
-		builder.addMethod(methodSpec);
+		classBuilder.addMethod(methodSpec);
 
 		if (method.contentProviderEntryPathEnabled) {
 			// we need to generate insert for content provider to
-			generateInsertForContentProvider(builder, method, insertResultType);
+			generateInsertForContentProvider(classBuilder, method, insertResultType);
 		}
 
 	}

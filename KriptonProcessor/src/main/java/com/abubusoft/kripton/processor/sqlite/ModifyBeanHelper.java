@@ -60,9 +60,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 	@Override
 	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
-		String beanNameParameter = method.getParameters().get(0).value0;		
+		String beanNameParameter = method.getParameters().get(0).value0;
 		AssertKripton.assertTrueOrInvalidMethodSignException(!method.hasAdapterForParam(beanNameParameter), method, "method's parameter '%s' can not use a type adapter", beanNameParameter);
-		
+
 		SqlAnalyzer analyzer = new SqlAnalyzer();
 
 		String whereCondition = ModifyRawHelper.extractWhereConditions(updateMode, method);
@@ -75,7 +75,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		// retrieve content values
 		methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
-		
+
 		List<SQLProperty> listUsedProperty;
 		if (updateMode) {
 			listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlUpdate.class);
@@ -88,7 +88,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		}
 		// build javadoc
 		buildJavadoc(methodBuilder, updateMode, method, beanNameParameter, whereCondition, listUsedProperty, analyzer.getUsedBeanPropertyNames());
-		
+
 		// build where condition
 		generateWhereCondition(methodBuilder, method, analyzer);
 		methodBuilder.addCode("\n");
@@ -123,10 +123,10 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		// generate where condition
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, true);
-				
+
 		// generate SQL
 		SqlModifyBuilder.generateSQL(method, methodBuilder);
-		
+
 		// generate log
 		SqlModifyBuilder.generateLogForModifiers(method, methodBuilder);
 
@@ -138,24 +138,13 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		// log for where parames
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 
-		if (updateMode) {
-			if (method.jql.conflictAlgorithmType == ConflictAlgorithmType.NONE) {
-				//methodBuilder.addStatement("int result = database().update($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());", tableName);				
-				methodBuilder.addStatement("int result = $T.update(dataSource, _sql, _contentValues)",KriptonDatabaseWrapper.class);
-			} else {
-				methodBuilder.addComment("conflict algorithm $L", method.jql.conflictAlgorithmType);
-				methodBuilder.addStatement("int result = $T.update(dataSource, _sql, _contentValues)",KriptonDatabaseWrapper.class);
-			}
-			
-			if (method.getParent().getParent().generateRx) {
-				methodBuilder.addStatement("subject.onNext($T.createUpdate(result))", SQLiteModification.class);
-			}
+		//TODO check hasDynamics
+		methodBuilder.addStatement("int result = $T.updateDelete(dataSource, _sql, _contentValues)", KriptonDatabaseWrapper.class);
 
-		} else {
-			methodBuilder.addStatement("int result = $T.delete(dataSource, _sql, _contentValues)",KriptonDatabaseWrapper.class);
-			//methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _contentValues.whereArgsAsArray())", tableName);
-			
-			if (method.getParent().getParent().generateRx) {
+		if (method.getParent().getParent().generateRx) {
+			if (updateMode) {
+				methodBuilder.addStatement("subject.onNext($T.createUpdate(result))", SQLiteModification.class);
+			} else {
 				methodBuilder.addStatement("subject.onNext($T.createDelete(result))", SQLiteModification.class);
 			}
 		}
@@ -176,11 +165,12 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		boolean nullable;
 		TypeName beanClass = typeName(entity.getElement());
 
-		//methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
+		// methodBuilder.addStatement("$T<String>
+		// _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
 
 		for (String item : analyzer.getUsedBeanPropertyNames()) {
 			property = entity.findPropertyByName(item);
-			//methodBuilder.addCode("_sqlWhereParams.add(");
+			// methodBuilder.addCode("_sqlWhereParams.add(");
 			methodBuilder.addCode("_contentValues.addWhereArgs(");
 			nullable = TypeUtility.isNullable(property);
 

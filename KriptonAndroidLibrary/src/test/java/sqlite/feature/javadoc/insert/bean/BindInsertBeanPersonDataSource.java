@@ -195,6 +195,10 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
     }
   }
 
+  public void clearCompiledStatements() {
+    insertBeanPersonDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

@@ -194,6 +194,10 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
     }
   }
 
+  public void clearCompiledStatements() {
+    fileBeanDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

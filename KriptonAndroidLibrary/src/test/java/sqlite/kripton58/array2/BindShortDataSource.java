@@ -194,6 +194,10 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
     }
   }
 
+  public void clearCompiledStatements() {
+    shortDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

@@ -214,6 +214,11 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
     }
   }
 
+  public void clearCompiledStatements() {
+    daoChild.clearCompiledStatements();
+    daoPerson.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

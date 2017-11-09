@@ -36,9 +36,7 @@ import sqlite.feature.foreignKey.BindDummyDataSource.Transaction;
 public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 	@Test
-	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
-		BindDummyDataSource.instance().clearPreparedStatement();
-		
+	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {				
 		BindDummyDataSource dataSource = BindDummyDataSource.instance();
 
 		dataSource.execute(new Transaction() {
@@ -77,8 +75,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 	@Test
 	public void testRunSqlite2() throws IOException, InstantiationException, IllegalAccessException {
-		BindDummyDataSource.instance().clearPreparedStatement();
-		
+
 		BindDummyDataSource dataSource = BindDummyDataSource.instance();
 
 		dataSource.execute(new Transaction() {
@@ -117,7 +114,6 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 	@Test
 	public void testRunSqlite3() throws IOException, InstantiationException, IllegalAccessException {
-		BindDummyDataSource.instance().clearPreparedStatement();
 		
 		BindDummyDataSource dataSource = BindDummyDataSource.instance();
 
@@ -157,8 +153,6 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 	@Test
 	public void testRunSqlite4() throws IOException, InstantiationException, IllegalAccessException {
-		BindDummyDataSource.instance().clearPreparedStatement();
-		
 		BindDummyDataSource dataSource = BindDummyDataSource.instance();
 
 		dataSource.execute(new Transaction() {

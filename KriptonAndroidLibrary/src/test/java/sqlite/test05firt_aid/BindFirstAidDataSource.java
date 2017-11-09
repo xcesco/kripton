@@ -194,6 +194,10 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
     }
   }
 
+  public void clearCompiledStatements() {
+    firstAidDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

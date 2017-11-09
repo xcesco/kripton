@@ -605,4 +605,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return null;
 	}
 
+	public String buildPreparedStatementName() {
+		return getParent().buildPreparedStatementName(getName());		
+	}
+
 }

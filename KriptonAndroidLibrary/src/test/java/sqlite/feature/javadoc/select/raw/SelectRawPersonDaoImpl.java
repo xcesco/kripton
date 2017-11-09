@@ -1272,4 +1272,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
+
+  public void clearCompiledStatements() {
+  }
 }

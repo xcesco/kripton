@@ -231,6 +231,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
   }
 
+  public void clearCompiledStatements() {
+    phoneDao.clearCompiledStatements();
+    prefixConfigDao.clearCompiledStatements();
+    countryDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

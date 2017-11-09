@@ -116,4 +116,7 @@ public class PersonDAO2Impl extends AbstractDao implements PersonDAO2 {
       return resultList;
     }
   }
+
+  public void clearCompiledStatements() {
+  }
 }

@@ -1448,4 +1448,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
     Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
+
+  public void clearCompiledStatements() {
+  }
 }

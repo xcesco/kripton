@@ -195,6 +195,10 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
     }
   }
 
+  public void clearCompiledStatements() {
+    deleteRawPersonDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

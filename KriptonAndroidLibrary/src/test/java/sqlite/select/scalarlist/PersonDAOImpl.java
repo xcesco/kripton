@@ -247,4 +247,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
+
+  public void clearCompiledStatements() {
+  }
 }

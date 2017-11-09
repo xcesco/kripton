@@ -1,6 +1,7 @@
 package sqlite.feature.javadoc.insert.bean;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
@@ -28,6 +29,14 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
   private static final Set<String> insertOneBeanFieldName1ColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static final Set<String> insertOneBeanFieldSurname2ColumnSet = CollectionUtils.asSet(String.class, "surname", "student");
+
+  private SQLiteStatement insertOneBeanPreparedStatement0;
+
+  private SQLiteStatement insertOneBeanFieldNamePreparedStatement1;
+
+  private SQLiteStatement insertOneBeanFieldSurnamePreparedStatement2;
+
+  private SQLiteStatement insertBeanFromSelectPreparedStatement3;
 
   public InsertBeanPersonDaoImpl(BindInsertBeanPersonDataSource dataSet) {
     super(dataSet);
@@ -90,10 +99,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertOneBeanPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOneBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
     return (int)result;
@@ -192,10 +204,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertOneBeanFieldNamePreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOneBeanFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOneBeanFieldNamePreparedStatement1, _contentValues);
     bean.id=result;
 
     return (int)result;
@@ -297,10 +312,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertOneBeanFieldSurnamePreparedStatement2==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOneBeanFieldSurnamePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOneBeanFieldSurnamePreparedStatement2, _contentValues);
     bean.id=result;
 
     return (int)result;
@@ -399,10 +417,32 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT OR REPLACE INTO person (%s) SELECT name FROM person WHERE name=${bean.name}", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertBeanFromSelectPreparedStatement3==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR REPLACE INTO person (%s) SELECT name FROM person WHERE name=${bean.name}", _contentValues.keyList(), _contentValues.keyValueList());
+      insertBeanFromSelectPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanFromSelectPreparedStatement3, _contentValues);
     bean.id=result;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertOneBeanPreparedStatement0!=null) {
+      insertOneBeanPreparedStatement0.close();
+      insertOneBeanPreparedStatement0=null;
+    }
+    if (insertOneBeanFieldNamePreparedStatement1!=null) {
+      insertOneBeanFieldNamePreparedStatement1.close();
+      insertOneBeanFieldNamePreparedStatement1=null;
+    }
+    if (insertOneBeanFieldSurnamePreparedStatement2!=null) {
+      insertOneBeanFieldSurnamePreparedStatement2.close();
+      insertOneBeanFieldSurnamePreparedStatement2=null;
+    }
+    if (insertBeanFromSelectPreparedStatement3!=null) {
+      insertBeanFromSelectPreparedStatement3.close();
+      insertBeanFromSelectPreparedStatement3=null;
+    }
   }
 }

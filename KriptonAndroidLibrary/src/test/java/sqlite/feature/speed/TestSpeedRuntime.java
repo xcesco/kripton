@@ -15,7 +15,7 @@ import sqlite.feature.speed.persistence.PersonDaoImpl;
 
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
-public class TestSpeed extends BaseAndroidTest {
+public class TestSpeedRuntime extends BaseAndroidTest {
 
 	@Test
 	public void testProfile() {

@@ -262,6 +262,18 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// onConfigure
 		generateOnConfigure(useForeignKey);
+		
+		// 
+		// generate prepared statement cleaner
+		{
+
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("clearCompiledStatements").addModifiers(Modifier.PUBLIC).returns(Void.TYPE);
+			for (SQLDaoDefinition dao : schema.getCollection()) {
+				methodBuilder.addStatement("$L.clearCompiledStatements()", convert.convert(dao.getName()));					
+			}			
+			
+			classBuilder.addMethod(methodBuilder.build());					
+		}
 
 		// build
 		generateBuild(dataSourceName, schema);

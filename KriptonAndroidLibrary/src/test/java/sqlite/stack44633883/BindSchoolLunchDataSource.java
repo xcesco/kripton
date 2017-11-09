@@ -194,6 +194,10 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
     }
   }
 
+  public void clearCompiledStatements() {
+    schoolLunchDAO.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

@@ -194,6 +194,10 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
     }
   }
 
+  public void clearCompiledStatements() {
+    daoBeanDeleteOK.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.

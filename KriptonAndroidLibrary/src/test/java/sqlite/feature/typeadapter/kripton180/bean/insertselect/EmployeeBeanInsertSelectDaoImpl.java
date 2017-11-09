@@ -1,5 +1,6 @@
 package sqlite.feature.typeadapter.kripton180.bean.insertselect;
 
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -29,6 +30,8 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
  *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
 public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements EmployeeBeanInsertSelectDao {
+  private SQLiteStatement insertJQLPreparedStatement0;
+
   public EmployeeBeanInsertSelectDaoImpl(BindKripton180BeanInsertSelectDataSource dataSet) {
     super(dataSet);
   }
@@ -135,10 +138,20 @@ public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements Empl
     // log for content values -- END
     // log for insert -- END 
 
-    // generate SQL for insert
-    String _sql=String.format("INSERT INTO employees (%s) select fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray  from employees where fieldBoolean=${bean.fieldBoolean} and fieldByte=${bean.fieldByte} and fieldCharacter=${bean.fieldCharacter} and fieldShort=${bean.fieldShort} and fieldInteger=${bean.fieldInteger} and fieldLong=${bean.fieldLong} and fieldFloat=${bean.fieldFloat} and fieldDouble=${bean.fieldDouble} and fieldString=${bean.fieldString} and fieldByteArray=${bean.fieldByteArray}", _contentValues.keyList(), _contentValues.keyValueList());
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(dataSource, _sql, _contentValues);
+    if (insertJQLPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO employees (%s) select fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray  from employees where fieldBoolean=${bean.fieldBoolean} and fieldByte=${bean.fieldByte} and fieldCharacter=${bean.fieldCharacter} and fieldShort=${bean.fieldShort} and fieldInteger=${bean.fieldInteger} and fieldLong=${bean.fieldLong} and fieldFloat=${bean.fieldFloat} and fieldDouble=${bean.fieldDouble} and fieldString=${bean.fieldString} and fieldByteArray=${bean.fieldByteArray}", _contentValues.keyList(), _contentValues.keyValueList());
+      insertJQLPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertJQLPreparedStatement0, _contentValues);
     bean.id=result;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertJQLPreparedStatement0!=null) {
+      insertJQLPreparedStatement0.close();
+      insertJQLPreparedStatement0=null;
+    }
   }
 }

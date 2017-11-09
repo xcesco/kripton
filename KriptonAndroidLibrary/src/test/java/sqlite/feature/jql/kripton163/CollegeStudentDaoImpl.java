@@ -177,4 +177,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
       return resultList;
     }
   }
+
+  public void clearCompiledStatements() {
+  }
 }
