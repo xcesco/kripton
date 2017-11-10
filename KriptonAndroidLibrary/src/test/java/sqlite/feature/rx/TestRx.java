@@ -15,7 +15,6 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.One;
 
 import base.BaseAndroidTest;
-import io.reactivex.FlowableEmitter;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.Observer;
@@ -129,16 +128,6 @@ public class TestRx extends BaseAndroidTest {
 				// ds.getCountryDao().selectAll();
 
 			}
-		});
-		
-		ds.execute(new BindXenoDataSource.FlowableTransaction<Country>() {
-
-			@Override
-			public TransactionResult onExecute(BindXenoDaoFactory daoFactory, FlowableEmitter<Country> emitter) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
 		});
 
 		ds.executeBatch(new BindXenoDataSource.Batch<Void>() {

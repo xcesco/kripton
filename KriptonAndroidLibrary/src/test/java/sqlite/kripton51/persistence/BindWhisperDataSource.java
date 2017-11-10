@@ -76,8 +76,8 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * @param commands
    * 	batch to execute
    */
-  public <T> T execute(Batch<T> commands) {
-    return execute(commands, false);
+  public <T> T executeBatch(Batch<T> commands) {
+    return executeBatch(commands, false);
   }
 
   /**
@@ -88,7 +88,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * @param writeMode
    * 	true to open connection in write mode, false to open connection in read only mode
    */
-  public <T> T execute(Batch<T> commands, boolean writeMode) {
+  public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
     try {
       if (commands!=null) {
@@ -97,7 +97,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
-      if (commands!=null) commands.onError(e);
+      throw(e);
     } finally {
       close();
     }
@@ -195,22 +195,28 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     }
   }
 
+  public void clearCompiledStatements() {
+    daoMessage.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindWhisperDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindWhisperDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindWhisperDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**
@@ -242,7 +248,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   /**
    * Rapresents batch operation.
    */
-  public interface Batch<T> extends AbstractDataSource.AbstractExecutable<BindWhisperDaoFactory> {
+  public interface Batch<T> {
     /**
      * Execute batch operations.
      *
@@ -250,15 +256,5 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
      * @throws Throwable
      */
     T onExecute(BindWhisperDaoFactory daoFactory);
-  }
-
-  /**
-   * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
-   */
-  public abstract static class SimpleBatch<T> implements Batch<T> {
-    @Override
-    public void onError(Throwable e) {
-      throw(new KriptonRuntimeException(e));
-    }
   }
 }

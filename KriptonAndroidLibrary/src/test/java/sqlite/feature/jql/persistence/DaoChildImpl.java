@@ -1,11 +1,13 @@
 package sqlite.feature.jql.persistence;
 
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
+import com.abubusoft.kripton.common.Triple;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.feature.jql.entities.Child;
@@ -20,6 +22,14 @@ import sqlite.feature.jql.entities.Child;
  *  @see sqlite.feature.jql.entities.ChildTable
  */
 public class DaoChildImpl extends AbstractDao implements DaoChild {
+  private SQLiteStatement insertBeanPreparedStatement0;
+
+  private SQLiteStatement insertByCopy3PreparedStatement1;
+
+  private SQLiteStatement insertByCopyPreparedStatement2;
+
+  private SQLiteStatement updateJQLPreparedStatement3;
+
   public DaoChildImpl(BindFamilyDataSource dataSet) {
     super(dataSet);
   }
@@ -40,22 +50,22 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public List<Child> selectAll() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT _id, name, parent_id FROM child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -105,21 +115,19 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public Child insertBean(Child bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
-    contentValues.put("parent_id", bean.parentId);
+    _contentValues.put("parent_id", bean.parentId);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -127,19 +135,25 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     Logger.info("INSERT INTO child (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("child", null, contentValues);
+    // insert operation
+    if (insertBeanPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
     return bean;
@@ -168,11 +182,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public List<Child> selectByParent(long parentId) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("select * from child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -183,15 +197,15 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(parentId));
+    _contentValues.addWhereArgs(String.valueOf(parentId));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -244,11 +258,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public int selectByParent2(long parentId) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("select count(*) from child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -259,15 +273,15 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(parentId));
+    _contentValues.addWhereArgs(String.valueOf(parentId));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -307,11 +321,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public List<Child> selectByParentId(long parentId) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT _id, name, parent_id FROM child");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -322,15 +336,15 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(parentId));
+    _contentValues.addWhereArgs(String.valueOf(parentId));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -383,23 +397,23 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void insertByCopy(long parentId, long aliasParentId, long parent) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(parentId));
-    _sqlWhereParams.add(String.valueOf(parent));
-    _sqlWhereParams.add(String.valueOf(aliasParentId));
+    _contentValues.addWhereArgs(String.valueOf(parentId));
+    _contentValues.addWhereArgs(String.valueOf(parent));
+    _contentValues.addWhereArgs(String.valueOf(aliasParentId));
 
     Logger.info("insert into child (name, parent_id) select name, parent_id from child where _id=${param0} or _id=${param1} or _id=${param2}");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
-    database().execSQL("insert into child (name, parent_id) select name, parent_id from child where _id=? or _id=? or _id=?", _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]));
+    database().execSQL("insert into child (name, parent_id) select name, parent_id from child where _id=? or _id=? or _id=?", _contentValues.whereArgsAsArray());
   }
 
   /**
@@ -420,21 +434,19 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void insertByCopy3(Child bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
-    contentValues.put("parent_id", bean.parentId);
+    _contentValues.put("parent_id", bean.parentId);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -442,19 +454,25 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     Logger.info("insert into child (%s) values (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("child", null, contentValues);
+    // insert operation
+    if (insertByCopy3PreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("insert into child (%s) values (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertByCopy3PreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertByCopy3PreparedStatement1, _contentValues);
     bean.id=result;
   }
 
@@ -477,21 +495,20 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public int insertByCopy(long parentId, String name) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
-    contentValues.put("parent_id", parentId);
+    _contentValues.put("parent_id", parentId);
     if (name!=null) {
-      contentValues.put("name", name);
+      _contentValues.put("name", name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -499,19 +516,25 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     Logger.info("INSERT INTO child (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("child", null, contentValues);
+    // insert operation
+    if (insertByCopyPreparedStatement2==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertByCopyPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertByCopyPreparedStatement2, _contentValues);
     return (int)result;
   }
 
@@ -536,52 +559,55 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void updateJQL(long parentId, String name) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (name!=null) {
-      contentValues.put("name", name);
+      _contentValues.put("name", name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(parentId));
+    _contentValues.addWhereArgs(String.valueOf(parentId));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateJQLPreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" where parent_id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" where parent_id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="update or replace child set name=? where parent_id=?";
+      updateJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("update or replace child set name=:name where parent_id=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    // conflict algorithm REPLACE
-    int result = database().updateWithOnConflict("child", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]),5);
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateJQLPreparedStatement3, _contentValues);
   }
 
   /**
@@ -606,22 +632,41 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void updateJQL2(long parentId) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(parentId));
-    _sqlWhereParams.add(String.valueOf(parentId));
-    _sqlWhereParams.add(String.valueOf(parentId));
+    _contentValues.addWhereArgs(String.valueOf(parentId));
+    _contentValues.addWhereArgs(String.valueOf(parentId));
+    _contentValues.addWhereArgs(String.valueOf(parentId));
 
     Logger.info("update or replace child set parentId=${param0}, name=(select _id from person where _id=${param1} )  where parent_id=${param2}");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
-    database().execSQL("update or replace child set parentId=?, name=(select _id from person where _id=? )  where parent_id=?", _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]));
+    database().execSQL("update or replace child set parentId=?, name=(select _id from person where _id=? )  where parent_id=?", _contentValues.whereArgsAsArray());
+  }
+
+  public void clearCompiledStatements() {
+    if (insertBeanPreparedStatement0!=null) {
+      insertBeanPreparedStatement0.close();
+      insertBeanPreparedStatement0=null;
+    }
+    if (insertByCopy3PreparedStatement1!=null) {
+      insertByCopy3PreparedStatement1.close();
+      insertByCopy3PreparedStatement1=null;
+    }
+    if (insertByCopyPreparedStatement2!=null) {
+      insertByCopyPreparedStatement2.close();
+      insertByCopyPreparedStatement2=null;
+    }
+    if (updateJQLPreparedStatement3!=null) {
+      updateJQLPreparedStatement3.close();
+      updateJQLPreparedStatement3=null;
+    }
   }
 }

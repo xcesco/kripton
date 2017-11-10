@@ -1,12 +1,14 @@
 package sqlite.feature.multithread;
 
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
+import com.abubusoft.kripton.common.Triple;
 
 /**
  * <p>
@@ -18,6 +20,10 @@ import java.util.ArrayList;
  *  @see PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
+  private SQLiteStatement insertThread1PreparedStatement0;
+
+  private SQLiteStatement insertThread2PreparedStatement1;
+
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
   }
@@ -42,35 +48,33 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertThread1(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
+      _contentValues.put("surname", bean.surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
     if (bean.birthCity!=null) {
-      contentValues.put("birth_city", bean.birthCity);
+      _contentValues.put("birth_city", bean.birthCity);
     } else {
-      contentValues.putNull("birth_city");
+      _contentValues.putNull("birth_city");
     }
     if (bean.birthDay!=null) {
-      contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+      _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
     } else {
-      contentValues.putNull("birth_day");
+      _contentValues.putNull("birth_day");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -78,19 +82,25 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     Logger.info("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, contentValues);
+    // insert operation
+    if (insertThread1PreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertThread1PreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertThread1PreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -114,35 +124,33 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertThread2(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
+      _contentValues.put("surname", bean.surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
     if (bean.birthCity!=null) {
-      contentValues.put("birth_city", bean.birthCity);
+      _contentValues.put("birth_city", bean.birthCity);
     } else {
-      contentValues.putNull("birth_city");
+      _contentValues.putNull("birth_city");
     }
     if (bean.birthDay!=null) {
-      contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+      _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
     } else {
-      contentValues.putNull("birth_day");
+      _contentValues.putNull("birth_day");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -150,19 +158,25 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     Logger.info("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, contentValues);
+    // insert operation
+    if (insertThread2PreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertThread2PreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertThread2PreparedStatement1, _contentValues);
     bean.id=result;
   }
 
@@ -184,22 +198,22 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public Person selectThread1() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -247,22 +261,22 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public Person selectThread2() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -289,6 +303,17 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
       }
       return resultBean;
+    }
+  }
+
+  public void clearCompiledStatements() {
+    if (insertThread1PreparedStatement0!=null) {
+      insertThread1PreparedStatement0.close();
+      insertThread1PreparedStatement0=null;
+    }
+    if (insertThread2PreparedStatement1!=null) {
+      insertThread2PreparedStatement1.close();
+      insertThread2PreparedStatement1=null;
     }
   }
 }

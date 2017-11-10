@@ -1,13 +1,16 @@
 package sqlite.feature.javadoc.update.bean;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.util.ArrayList;
 import java.util.Set;
 import sqlite.feature.javadoc.Person;
 
@@ -37,6 +40,16 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   private static final Set<String> updateBeanDynamicWithArgs7ColumnSet = CollectionUtils.asSet(String.class, "name", "surname", "student");
 
+  private SQLiteStatement updateAllBeansPreparedStatement0;
+
+  private SQLiteStatement updateOneBeanPreparedStatement1;
+
+  private SQLiteStatement updateAllBeansJQLPreparedStatement2;
+
+  private SQLiteStatement updateFromSelectAllBeansJQLPreparedStatement3;
+
+  private SQLiteStatement updateFromSelectJQLPreparedStatement4;
+
   public UpdateBeanPersonDaoImpl(BindUpdateBeanPersonDataSource dataSet) {
     super(dataSet);
   }
@@ -59,49 +72,52 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateAllBeans(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
+      _contentValues.put("surname", bean.getSurname());
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
-    contentValues.put("student", bean.isStudent());
+    _contentValues.put("student", bean.isStudent());
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (updateAllBeansPreparedStatement0==null) {
+      String _sqlWhereStatement="";
+
+      // generate sql
+      String _sql="UPDATE person SET name=?, surname=?, student=?";
+      updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateAllBeansPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -127,13 +143,13 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateAllBeans0(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.values().keySet()) {
       if (!updateAllBeans0ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
@@ -143,26 +159,26 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute SQL
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -189,58 +205,61 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateOneBean(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
+      _contentValues.put("surname", bean.getSurname());
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
-    contentValues.put("student", bean.isStudent());
+    _contentValues.put("student", bean.isStudent());
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.id));
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneBeanPreparedStatement1==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE person SET name=?, surname=?, student=? WHERE id=?";
+      updateOneBeanPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneBeanPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -271,11 +290,11 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateOneBean1(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -285,8 +304,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // manage WHERE arguments -- END
     // Add parameter bean.id at path segment 1
-    _sqlWhereParams.add(uri.getPathSegments().get(1));
-    for (String columnName:contentValues.keySet()) {
+    _contentValues.addWhereArgs(uri.getPathSegments().get(1));
+    for (String columnName:_contentValues.values().keySet()) {
       if (!updateOneBean1ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
@@ -296,26 +315,26 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute SQL
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -349,29 +368,26 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateOneBeanWithDynamic(Person bean, String where) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
+      _contentValues.put("surname", bean.getSurname());
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
-    contentValues.put("student", bean.isStudent());
+    _contentValues.put("student", bean.isStudent());
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.id));
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -381,28 +397,31 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -431,13 +450,13 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateOneBeanWithDynamic2(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -447,8 +466,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // manage WHERE arguments -- END
     // Add parameter bean.id at path segment 2
-    _sqlWhereParams.add(uri.getPathSegments().get(2));
-    for (String columnName:contentValues.keySet()) {
+    _contentValues.addWhereArgs(uri.getPathSegments().get(2));
+    for (String columnName:_contentValues.values().keySet()) {
       if (!updateOneBeanWithDynamic2ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/dynamic/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
@@ -458,26 +477,26 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute SQL
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -513,31 +532,28 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateOneBeanWithDynamicAndArgs(Person bean, String where, String[] args) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
+      _contentValues.put("surname", bean.getSurname());
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
-    contentValues.put("student", bean.isStudent());
+    _contentValues.put("student", bean.isStudent());
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.id));
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=args;
     // generation CODE_001 -- END
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -548,32 +564,35 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // manage WHERE arguments -- END
     if (StringUtils.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null) {
       for (String _arg: _sqlDynamicWhereArgs) {
-        _sqlWhereParams.add(_arg);
+        _contentValues.addWhereArgs(_arg);
       }
     }
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -602,6 +621,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateOneBeanWithDynamicAndArgs3(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -610,7 +630,6 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=selectionArgs;
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -621,17 +640,17 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // manage WHERE arguments -- END
     if (StringUtils.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null) {
       for (String _arg: _sqlDynamicWhereArgs) {
-        _sqlWhereParams.add(_arg);
+        _contentValues.addWhereArgs(_arg);
       }
     }
     // Add parameter bean.id at path segment 2
-    _sqlWhereParams.add(uri.getPathSegments().get(2));
+    _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     if (StringUtils.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null) {
       for (String _arg: _sqlDynamicWhereArgs) {
-        _sqlWhereParams.add(_arg);
+        _contentValues.addWhereArgs(_arg);
       }
     }
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.values().keySet()) {
       if (!updateOneBeanWithDynamicAndArgs3ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/dynamicArgs/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
@@ -641,26 +660,26 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute SQL
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -679,44 +698,47 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public void updateAllBeansJQL(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
+      _contentValues.put("surname", bean.getSurname());
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
-    contentValues.put("student", bean.isStudent());
+    _contentValues.put("student", bean.isStudent());
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
+    if (updateAllBeansJQLPreparedStatement2==null) {
+      String _sqlWhereStatement="";
+
+      // generate sql
+      String _sql="UPDATE person SET surname=?, student = ?";
+      updateAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE person SET surname=:surname, student = :student");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateAllBeansJQLPreparedStatement2, _contentValues);
   }
 
   /**
@@ -741,13 +763,13 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateAllBeansJQL4(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.values().keySet()) {
       if (!updateAllBeansJQL4ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/jql', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
@@ -757,26 +779,26 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     Logger.info("UPDATE person SET surname=:surname, student = :student");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute SQL
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -795,52 +817,55 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public void updateFromSelectAllBeansJQL(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
-    contentValues.put("student", bean.isStudent());
+    _contentValues.put("student", bean.isStudent());
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateFromSelectAllBeansJQLPreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" where id=0";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" where id=0";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE person SET name=?, student = (select student from person where id=0)";
+      updateFromSelectAllBeansJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE person SET name=:name, student = (select student from person where id=0)");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateFromSelectAllBeansJQLPreparedStatement3, _contentValues);
   }
 
   /**
@@ -864,52 +889,55 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateFromSelectJQL(Person bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.id));
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateFromSelectJQLPreparedStatement4==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" where student = (select student from person where id=?)";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" where student = (select student from person where id=?)";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE person SET name=? where student = (select student from person where id=?)";
+      updateFromSelectJQLPreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE person SET name=:name where student = (select student from person where id=?)");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateFromSelectJQLPreparedStatement4, _contentValues);
     return result;
   }
 
@@ -940,11 +968,11 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateFromSelectJQL5(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -954,8 +982,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // manage WHERE arguments -- END
     // Add parameter bean.id at path segment 4
-    _sqlWhereParams.add(uri.getPathSegments().get(4));
-    for (String columnName:contentValues.keySet()) {
+    _contentValues.addWhereArgs(uri.getPathSegments().get(4));
+    for (String columnName:_contentValues.values().keySet()) {
       if (!updateFromSelectJQL5ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/jql/one/b/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
@@ -965,26 +993,26 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     Logger.info("UPDATE person SET name=:name where student = (select student from person where id=?)");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute SQL
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1018,29 +1046,26 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateBeanDynamic(Person bean, String where) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
+      _contentValues.put("surname", bean.getSurname());
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
-    contentValues.put("student", bean.isStudent());
+    _contentValues.put("student", bean.isStudent());
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.id));
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1050,28 +1075,31 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // manage WHERE arguments -- END
 
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1100,13 +1128,13 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateBeanDynamic6(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1116,8 +1144,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // manage WHERE arguments -- END
     // Add parameter bean.id at path segment 1
-    _sqlWhereParams.add(uri.getPathSegments().get(1));
-    for (String columnName:contentValues.keySet()) {
+    _contentValues.addWhereArgs(uri.getPathSegments().get(1));
+    for (String columnName:_contentValues.values().keySet()) {
       if (!updateBeanDynamic6ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/#/more', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
@@ -1127,26 +1155,26 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute SQL
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1182,31 +1210,28 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateBeanDynamicWithArgs(Person bean, String where, String[] args) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.getSurname()!=null) {
-      contentValues.put("surname", bean.getSurname());
+      _contentValues.put("surname", bean.getSurname());
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
-    contentValues.put("student", bean.isStudent());
+    _contentValues.put("student", bean.isStudent());
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.id));
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=args;
     // generation CODE_001 -- END
+    StringBuilder _sqlBuilder=getSQLStringBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1217,32 +1242,35 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // manage WHERE arguments -- END
     if (StringUtils.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null) {
       for (String _arg: _sqlDynamicWhereArgs) {
-        _sqlWhereParams.add(_arg);
+        _contentValues.addWhereArgs(_arg);
       }
     }
+
+    // generate sql
+    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // display log
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
 
@@ -1271,6 +1299,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateBeanDynamicWithArgs7(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
@@ -1279,7 +1308,6 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=selectionArgs;
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1290,17 +1318,17 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // manage WHERE arguments -- END
     if (StringUtils.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null) {
       for (String _arg: _sqlDynamicWhereArgs) {
-        _sqlWhereParams.add(_arg);
+        _contentValues.addWhereArgs(_arg);
       }
     }
     // Add parameter bean.id at path segment 1
-    _sqlWhereParams.add(uri.getPathSegments().get(1));
+    _contentValues.addWhereArgs(uri.getPathSegments().get(1));
     if (StringUtils.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null) {
       for (String _arg: _sqlDynamicWhereArgs) {
-        _sqlWhereParams.add(_arg);
+        _contentValues.addWhereArgs(_arg);
       }
     }
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.values().keySet()) {
       if (!updateBeanDynamicWithArgs7ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/#/moreAndMore', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
@@ -1310,26 +1338,49 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute SQL
-    int result = database().update("person", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
+  }
+
+  public void clearCompiledStatements() {
+    if (updateAllBeansPreparedStatement0!=null) {
+      updateAllBeansPreparedStatement0.close();
+      updateAllBeansPreparedStatement0=null;
+    }
+    if (updateOneBeanPreparedStatement1!=null) {
+      updateOneBeanPreparedStatement1.close();
+      updateOneBeanPreparedStatement1=null;
+    }
+    if (updateAllBeansJQLPreparedStatement2!=null) {
+      updateAllBeansJQLPreparedStatement2.close();
+      updateAllBeansJQLPreparedStatement2=null;
+    }
+    if (updateFromSelectAllBeansJQLPreparedStatement3!=null) {
+      updateFromSelectAllBeansJQLPreparedStatement3.close();
+      updateFromSelectAllBeansJQLPreparedStatement3=null;
+    }
+    if (updateFromSelectJQLPreparedStatement4!=null) {
+      updateFromSelectJQLPreparedStatement4.close();
+      updateFromSelectJQLPreparedStatement4=null;
+    }
   }
 }

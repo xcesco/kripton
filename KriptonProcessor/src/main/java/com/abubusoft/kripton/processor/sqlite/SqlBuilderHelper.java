@@ -16,9 +16,11 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
@@ -89,6 +91,7 @@ public abstract class SqlBuilderHelper {
 	 * <p>
 	 * Generate column check
 	 * </p>
+	 * 
 	 * @param methodBuilder
 	 * @param method
 	 * @param columnSetString
@@ -201,18 +204,18 @@ public abstract class SqlBuilderHelper {
 	 * @param methodBuilder
 	 */
 	public static void generateLogForContentValues(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		
 		methodBuilder.addCode("\n// log for content values -- BEGIN\n");
-		methodBuilder.addStatement("Object _contentValue");
-		methodBuilder.beginControlFlow("for (String _contentKey:contentValues.keySet())");
-		methodBuilder.addStatement("_contentValue=contentValues.get(_contentKey)");
-		methodBuilder.beginControlFlow("if (_contentValue==null)");
-		methodBuilder.addStatement("$T.info(\"==> :%s = <null>\", _contentKey)", Logger.class);
+		methodBuilder.addStatement("$T<String, Object, $T> _contentValue", Triple.class, KriptonContentValues.ParamType.class);
+		methodBuilder.beginControlFlow("for (int i = 0; i < _contentValues.size(); i++)");
+		methodBuilder.addStatement("_contentValue = _contentValues.get(i)");
+		methodBuilder.beginControlFlow("if (_contentValue.value1==null)");
+		methodBuilder.addStatement("$T.info(\"==> :%s = <null>\", _contentValue.value0)", Logger.class);
 		methodBuilder.nextControlFlow("else");
-		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' (%s)\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getCanonicalName())", Logger.class, StringUtils.class);
+		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' (%s)\", _contentValue.value0, $T.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName())", Logger.class, StringUtils.class);
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 		methodBuilder.addCode("// log for content values -- END\n");
-
 	}
 
 	/**
@@ -243,7 +246,9 @@ public abstract class SqlBuilderHelper {
 		if (method.getParent().getParent().generateLog) {
 			methodBuilder.addCode("\n// log for where parameters -- BEGIN\n");
 			methodBuilder.addStatement("int _whereParamCounter=0");
-			methodBuilder.beginControlFlow("for (String _whereParamItem: _sqlWhereParams)");
+			// methodBuilder.beginControlFlow("for (String _whereParamItem:
+			// _sqlWhereParams)");
+			methodBuilder.beginControlFlow("for (String _whereParamItem: _contentValues.whereArgs())");
 			methodBuilder.addStatement("$T.info(\"==> param%s: '%s'\",(_whereParamCounter++), $T.checkSize(_whereParamItem))", Logger.class, StringUtils.class);
 			methodBuilder.endControlFlow();
 			methodBuilder.addCode("// log for where parameters -- END\n");
@@ -274,10 +279,10 @@ public abstract class SqlBuilderHelper {
 	 * @param method
 	 * @param methodBuilder
 	 */
-	static void generateLogForSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {		
+	static void generateLogForSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		// manage log
 		if (method.getParent().getParent().generateLog) {
-			methodBuilder.addCode("\n// manage log\n");			
+			methodBuilder.addCode("\n// manage log\n");
 			methodBuilder.addStatement("$T.info(_sql)", Logger.class);
 		}
 	}
@@ -364,7 +369,8 @@ public abstract class SqlBuilderHelper {
 
 		// we need always this
 		if (!sqlWhereParamsAlreadyDefined) {
-			methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
+			// methodBuilder.addStatement("$T<String>
+			// _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
 		}
 
 		if (jql.isWhereConditions()) {
@@ -461,7 +467,9 @@ public abstract class SqlBuilderHelper {
 
 			if (method.hasDynamicWhereConditions()) {
 				methodBuilder.beginControlFlow("for (String _arg: _sqlDynamicWhereArgs)");
-				methodBuilder.addStatement("_sqlWhereParams.add(_arg)");
+				// methodBuilder.addStatement("_sqlWhereParams.add(_arg)");
+				methodBuilder.addStatement("_contentValues.addWhereArgs(_arg)");
+
 				methodBuilder.endControlFlow();
 			}
 
@@ -486,7 +494,7 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.addStatement("$T _columnValueBuffer=new $T()", StringBuffer.class, StringBuffer.class);
 			methodBuilder.addStatement("String _columnSeparator=$S", "");
 
-			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "contentValues.keySet()", false, new OnColumnListener() {
+			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.keys()", false, new OnColumnListener() {
 
 				@Override
 				public void onColumnCheck(MethodSpec.Builder methodBuilder, String columNameVariable) {
@@ -529,6 +537,61 @@ public abstract class SqlBuilderHelper {
 			methodBuilder.addCode("// log for insert -- END \n\n");
 		}
 
+	}
+
+	/**
+	 * <p>
+	 * Generate log for INSERT operations
+	 * </p>
+	 * 
+	 * @param method
+	 * @param methodBuilder
+	 */
+	public static void generateSQLForInsert(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		// SQLDaoDefinition daoDefinition = method.getParent();
+		methodBuilder.addComment("generate SQL for insert");
+		JQLChecker checker = JQLChecker.getInstance();
+
+		// replace the table name, other pieces will be removed
+		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+
+			@Override
+			public String onTableName(String tableName) {
+
+				return method.getParent().getEntity().getTableName();
+			}
+
+		});
+
+		sql = checker.replaceVariableStatements(method, sql, new JQLReplaceVariableStatementListenerImpl() {
+
+			@Override
+			public String onColumnNameSet(String statement) {
+				return "%s";
+			}
+
+			@Override
+			public String onColumnValueSet(String statement) {
+				return "%s";
+			}
+		});
+
+		methodBuilder.addStatement("String _sql=String.format($S, _contentValues.keyList(), _contentValues.keyValueList())", sql);
+	}
+
+	public static void generateLogForContentValuesContentProvider(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		methodBuilder.addCode("\n// log for content values -- BEGIN\n");
+		methodBuilder.addStatement("Object _contentValue");
+		methodBuilder.beginControlFlow("for (String _contentKey:_contentValues.values().keySet())");
+		methodBuilder.addStatement("_contentValue=_contentValues.values().get(_contentKey)");
+		methodBuilder.beginControlFlow("if (_contentValue==null)");
+		methodBuilder.addStatement("$T.info(\"==> :%s = <null>\", _contentKey)", Logger.class);
+		methodBuilder.nextControlFlow("else");
+		methodBuilder.addStatement("$T.info(\"==> :%s = '%s' (%s)\", _contentKey, $T.checkSize(_contentValue), _contentValue.getClass().getCanonicalName())", Logger.class, StringUtils.class);
+		methodBuilder.endControlFlow();
+		methodBuilder.endControlFlow();
+		methodBuilder.addCode("// log for content values -- END\n");
+		
 	}
 
 }

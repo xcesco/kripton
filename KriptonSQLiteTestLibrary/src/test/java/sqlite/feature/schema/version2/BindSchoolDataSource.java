@@ -8,8 +8,6 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.lang.Override;
-import java.lang.Throwable;
 import java.util.List;
 
 /**
@@ -37,7 +35,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * <p>datasource singleton</p>
    */
-  private static BindSchoolDataSource instance;
+  static BindSchoolDataSource instance;
 
   /**
    * <p>dao instance</p>
@@ -93,7 +91,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     SQLiteDatabase connection=openWritableDatabase();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT==transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -111,9 +109,43 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   /**
+   * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
+   *
+   * @param commands
+   * 	batch to execute
+   */
+  public <T> T executeBatch(Batch<T> commands) {
+    return executeBatch(commands, false);
+  }
+
+  /**
+   * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
+   *
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
+   */
+  public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
+    if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
+    try {
+      if (commands!=null) {
+        return commands.onExecute(this);
+      }
+    } catch(Throwable e) {
+      Logger.error(e.getMessage());
+      e.printStackTrace();
+      throw(e);
+    } finally {
+      close();
+    }
+    return null;
+  }
+
+  /**
    * instance
    */
-  public static BindSchoolDataSource instance() {
+  public static synchronized BindSchoolDataSource instance() {
     if (instance==null) {
       instance=new BindSchoolDataSource(null);
     }
@@ -125,9 +157,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * @return opened dataSource instance.
    */
   public static BindSchoolDataSource open() {
-    if (instance==null) {
-      instance=new BindSchoolDataSource(null);
-    }
+    BindSchoolDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -137,9 +167,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * @return opened dataSource instance.
    */
   public static BindSchoolDataSource openReadOnly() {
-    if (instance==null) {
-      instance=new BindSchoolDataSource(null);
-    }
+    BindSchoolDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -151,10 +179,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
     database.execSQL(StudentTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
     database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
@@ -163,7 +191,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
       if (task != null) {
+        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
         task.execute(database);
+        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
       }
     }
     if (options.databaseLifecycleHandler != null) {
@@ -181,17 +211,19 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     if (options.updateTasks != null) {
       List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
       for (SQLiteUpdateTask task : tasks) {
+        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
         task.execute(database);
+        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
       }
     } else {
       // drop all tables
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
       database.execSQL(StudentTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
       database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
@@ -214,33 +246,69 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     }
   }
 
+  public void clearCompiledStatements() {
+    daoProfessor.clearCompiledStatements();
+    daoSeminar.clearCompiledStatements();
+    daoSeminar2Student.clearCompiledStatements();
+    daoStudent.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
    * @return dataSource instance.
    */
-  public static SchoolDataSource build(DataSourceOptions options) {
+  public static synchronized BindSchoolDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindSchoolDataSource(options);
     }
     instance.openWritableDatabase();
+    instance.close();
     return instance;
   }
 
   /**
-   * interface to define transactions
+   * Build instance with default config.
    */
-  public interface Transaction extends AbstractExecutable<BindSchoolDaoFactory> {
-	  
-	  TransactionResult onExecute(BindSchoolDaoFactory daoFactory);
+  public static synchronized BindSchoolDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**
-   * Simple class implements interface to define transactions
+   * Rapresents transational operation.
+   */
+  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindSchoolDaoFactory> {
+    /**
+     * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
+     * or {@link TransactionResult#ROLLBACK} to rollback.
+     * If exception is thrown, a rollback will be done.
+     *
+     * @param daoFactory
+     * @return
+     * @throws Throwable
+     */
+    TransactionResult onExecute(BindSchoolDaoFactory daoFactory);
+  }
+
+  /**
+   * Simple class implements interface to define transactions.In this class a simple <code>onError</code> method is implemented.
    */
   public abstract static class SimpleTransaction implements Transaction {
     @Override
     public void onError(Throwable e) {
       throw(new KriptonRuntimeException(e));
     }
+  }
+
+  /**
+   * Rapresents batch operation.
+   */
+  public interface Batch<T> {
+    /**
+     * Execute batch operations.
+     *
+     * @param daoFactory
+     * @throws Throwable
+     */
+    T onExecute(BindSchoolDaoFactory daoFactory);
   }
 }

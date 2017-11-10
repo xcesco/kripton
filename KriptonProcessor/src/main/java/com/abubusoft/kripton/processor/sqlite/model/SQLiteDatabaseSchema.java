@@ -173,7 +173,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	 * @param propertyName
 	 * @return
 	 */
-	public String getExactPropertyBySimpleName(SQLiteModelMethod method, String propertyName) {
+	public String findColumnNameByPropertyName(SQLiteModelMethod method, String propertyName) {
 		Set<SQLProperty> propertiesSet = getPropertyBySimpleName(propertyName);
 		Set<String> set = new HashSet<String>();
 		String result = null;

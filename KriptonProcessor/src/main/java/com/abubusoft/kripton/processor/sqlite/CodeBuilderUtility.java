@@ -36,8 +36,6 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-import android.content.ContentValues;
-
 public abstract class CodeBuilderUtility {
 
 	/**
@@ -85,9 +83,6 @@ public abstract class CodeBuilderUtility {
 		
 		AssertKripton.assertTrueOrInvalidMethodSignException(!method.hasAdapterForParam(entityName), method, "method's parameter '%s' can not use a type adapter", entityName);
 
-		methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
-		methodBuilder.addCode("contentValues.clear();\n\n");
-
 		Set<String> updateColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);
 		SQLProperty item;
 		for (String columnName : updateColumns) {
@@ -99,13 +94,13 @@ public abstract class CodeBuilderUtility {
 			}
 
 			// add property to list of used properties
-			methodBuilder.addCode("contentValues.put($S, ", item.columnName);
+			methodBuilder.addCode("_contentValues.put($S, ", item.columnName);
 			SQLTransformer.javaProperty2ContentValues(methodBuilder, entityClassName, entityName, item);
 			methodBuilder.addCode(");\n");
 
 			if (TypeUtility.isNullable(item)) {
 				methodBuilder.nextControlFlow("else");
-				methodBuilder.addCode("contentValues.putNull($S);\n", item.columnName);
+				methodBuilder.addCode("_contentValues.putNull($S);\n", item.columnName);
 				methodBuilder.endControlFlow();
 			}
 		}

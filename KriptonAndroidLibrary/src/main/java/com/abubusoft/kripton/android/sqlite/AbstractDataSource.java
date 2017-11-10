@@ -67,6 +67,19 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * database instance
 	 */
 	SQLiteDatabase database;
+	
+	/**
+	 * used to clear prepared statements
+	 */
+	public abstract void clearCompiledStatements();
+	
+	/*protected LRUCache<String, SQLiteStatement> preparedStatements=new LRUCache<>(16, new LRUCache.OnRemoveListener<SQLiteStatement>() {
+
+		@Override
+		public void onRemove(SQLiteStatement value) {
+			value.close();			
+		}
+	});*/
 
 	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
 
@@ -133,7 +146,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		try {
 			if (openCounter.decrementAndGet() <= 0) {
 				// Closing database
-				if (database != null) {
+				if (database != null) {	
+					clearCompiledStatements();
 					database.close();
 				}
 				database = null;

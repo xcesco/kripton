@@ -3,8 +3,8 @@ package sqlite.kripton41;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 
 /**
  * <p>
@@ -44,11 +44,11 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
    */
   @Override
   public Boolean selectDistance(long id, double value) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT count(*) FROM bean01");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -59,16 +59,16 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add(String.valueOf(value));
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(value));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -83,5 +83,8 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
       }
       return result;
     }
+  }
+
+  public void clearCompiledStatements() {
   }
 }

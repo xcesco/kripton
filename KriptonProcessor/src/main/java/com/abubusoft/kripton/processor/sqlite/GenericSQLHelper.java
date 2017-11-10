@@ -32,7 +32,7 @@ public abstract class GenericSQLHelper {
 		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 			@Override
 			public String onColumnName(String columnName) {
-				String resolvedName = schema.getExactPropertyBySimpleName(method, columnName);
+				String resolvedName = schema.findColumnNameByPropertyName(method, columnName);
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName != null, method, columnName);
 
 				return resolvedName;
@@ -56,7 +56,7 @@ public abstract class GenericSQLHelper {
 		String sqlForLog = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 			@Override
 			public String onColumnName(String columnName) {
-				String resolvedName = schema.getExactPropertyBySimpleName(method, columnName);
+				String resolvedName = schema.findColumnNameByPropertyName(method, columnName);
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName != null, method, columnName);
 
 				return resolvedName;
@@ -73,7 +73,7 @@ public abstract class GenericSQLHelper {
 			}
 		});
 
-		methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
+		//methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
 
 		methodBuilder.addCode("\n// build where condition\n");
 		{
@@ -82,7 +82,8 @@ public abstract class GenericSQLHelper {
 			String realName;
 
 			for (String item : paramsList) {
-				methodBuilder.addCode("_sqlWhereParams.add(");
+				//methodBuilder.addCode("_sqlWhereParams.add(");
+				methodBuilder.addCode("_contentValues.addWhereArgs(");
 
 				paramType = method.findParameterTypeByAliasOrName(item);
 				realName = method.findParameterNameByAlias(item);
@@ -118,7 +119,8 @@ public abstract class GenericSQLHelper {
 		// log for where parames
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 		methodBuilder.addCode("\n");
-		methodBuilder.addStatement("database().execSQL($S, _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]))", sql);
+		//methodBuilder.addStatement("database().execSQL($S, _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]))", sql);
+		methodBuilder.addStatement("database().execSQL($S, _contentValues.whereArgsAsArray())", sql);
 	}
 
 }

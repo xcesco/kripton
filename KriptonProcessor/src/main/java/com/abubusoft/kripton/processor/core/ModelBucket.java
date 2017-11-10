@@ -39,7 +39,7 @@ public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends Mo
 		return null;
 	}
 
-	public T findByName(String name) {
+	public T findPropertyByName(String name) {
 		return get(name);
 	}
 

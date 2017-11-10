@@ -103,8 +103,8 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
    * @param commands
    * 	batch to execute
    */
-  public <T> T execute(Batch<T> commands) {
-    return execute(commands, false);
+  public <T> T executeBatch(Batch<T> commands) {
+    return executeBatch(commands, false);
   }
 
   /**
@@ -115,7 +115,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
    * @param writeMode
    * 	true to open connection in write mode, false to open connection in read only mode
    */
-  public <T> T execute(Batch<T> commands, boolean writeMode) {
+  public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
     try {
       if (commands!=null) {
@@ -124,7 +124,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
-      if (commands!=null) commands.onError(e);
+      throw(e);
     } finally {
       close();
     }
@@ -231,22 +231,30 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     }
   }
 
+  public void clearCompiledStatements() {
+    personErr3Dao.clearCompiledStatements();
+    cityErr3Dao.clearCompiledStatements();
+    personCityErr1Dao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindPersonCirtyErr3DataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindPersonCirtyErr3DataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindPersonCirtyErr3DataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**
@@ -278,7 +286,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   /**
    * Rapresents batch operation.
    */
-  public interface Batch<T> extends AbstractDataSource.AbstractExecutable<BindPersonCirtyErr3DaoFactory> {
+  public interface Batch<T> {
     /**
      * Execute batch operations.
      *
@@ -286,15 +294,5 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
      * @throws Throwable
      */
     T onExecute(BindPersonCirtyErr3DaoFactory daoFactory);
-  }
-
-  /**
-   * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
-   */
-  public abstract static class SimpleBatch<T> implements Batch<T> {
-    @Override
-    public void onError(Throwable e) {
-      throw(new KriptonRuntimeException(e));
-    }
   }
 }

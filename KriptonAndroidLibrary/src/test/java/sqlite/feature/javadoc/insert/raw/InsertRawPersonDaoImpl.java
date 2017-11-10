@@ -1,13 +1,16 @@
 package sqlite.feature.javadoc.insert.raw;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -25,6 +28,12 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
   private static final Set<String> insertOneRawFieldName1ColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static final Set<String> insertOne2RawFieldName2ColumnSet = CollectionUtils.asSet(String.class, "name");
+
+  private SQLiteStatement insertOneRawPreparedStatement0;
+
+  private SQLiteStatement insertOneRawFieldNamePreparedStatement1;
+
+  private SQLiteStatement insertOne2RawFieldNamePreparedStatement2;
 
   public InsertRawPersonDaoImpl(BindInsertRawPersonDataSource dataSet) {
     super(dataSet);
@@ -49,25 +58,24 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOneRaw(String name, String surname) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (name!=null) {
-      contentValues.put("name", name);
+      _contentValues.put("name", name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (surname!=null) {
-      contentValues.put("surname", surname);
+      _contentValues.put("surname", surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -75,19 +83,25 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     Logger.info("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, contentValues);
+    // insert operation
+    if (insertOneRawPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOneRawPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOneRawPreparedStatement0, _contentValues);
     return (int)result;
   }
 
@@ -111,27 +125,18 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   long insertOneRaw0(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    for (String columnName:contentValues.keySet()) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
+    for (String columnName:_contentValues.values().keySet()) {
       if (!insertOneRaw0ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }
 
-    // log for insert -- BEGIN 
-    StringBuffer _columnNameBuffer=new StringBuffer();
-    StringBuffer _columnValueBuffer=new StringBuffer();
-    String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
-      _columnNameBuffer.append(_columnSeparator+columnName);
-      _columnValueBuffer.append(_columnSeparator+":"+columnName);
-      _columnSeparator=", ";
-    }
-    Logger.info("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.values().keySet()) {
+      _contentValue=_contentValues.values().get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -139,9 +144,8 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
       }
     }
     // log for content values -- END
-    // log for insert -- END 
-
-    long result = database().insert("person", null, contentValues);
+    // insert operation
+    long result = database().insert("person", null, _contentValues.values());
     return result;
   }
 
@@ -161,20 +165,19 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOneRawFieldName(String name) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (name!=null) {
-      contentValues.put("name", name);
+      _contentValues.put("name", name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -182,20 +185,25 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     Logger.info("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("person", null, contentValues, 5);
+    // insert operation
+    if (insertOneRawFieldNamePreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOneRawFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOneRawFieldNamePreparedStatement1, _contentValues);
     return (int)result;
   }
 
@@ -219,27 +227,18 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   long insertOneRawFieldName1(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    for (String columnName:contentValues.keySet()) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
+    for (String columnName:_contentValues.values().keySet()) {
       if (!insertOneRawFieldName1ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/name', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }
 
-    // log for insert -- BEGIN 
-    StringBuffer _columnNameBuffer=new StringBuffer();
-    StringBuffer _columnValueBuffer=new StringBuffer();
-    String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
-      _columnNameBuffer.append(_columnSeparator+columnName);
-      _columnValueBuffer.append(_columnSeparator+":"+columnName);
-      _columnSeparator=", ";
-    }
-    Logger.info("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.values().keySet()) {
+      _contentValue=_contentValues.values().get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -247,10 +246,9 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
       }
     }
     // log for content values -- END
-    // log for insert -- END 
-
     // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("person", null, contentValues, 5);
+    // insert operation
+    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
     return result;
   }
 
@@ -270,20 +268,19 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOne2RawFieldName(String name) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (name!=null) {
-      contentValues.put("name", name);
+      _contentValues.put("name", name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -291,19 +288,25 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     Logger.info("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("person", null, contentValues);
+    // insert operation
+    if (insertOne2RawFieldNamePreparedStatement2==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertOne2RawFieldNamePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertOne2RawFieldNamePreparedStatement2, _contentValues);
     return (int)result;
   }
 
@@ -327,27 +330,18 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   long insertOne2RawFieldName2(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    for (String columnName:contentValues.keySet()) {
+    KriptonContentValues _contentValues=contentValues(contentValues);
+    for (String columnName:_contentValues.values().keySet()) {
       if (!insertOne2RawFieldName2ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/surname', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }
 
-    // log for insert -- BEGIN 
-    StringBuffer _columnNameBuffer=new StringBuffer();
-    StringBuffer _columnValueBuffer=new StringBuffer();
-    String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
-      _columnNameBuffer.append(_columnSeparator+columnName);
-      _columnValueBuffer.append(_columnSeparator+":"+columnName);
-      _columnSeparator=", ";
-    }
-    Logger.info("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
     Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
+    for (String _contentKey:_contentValues.values().keySet()) {
+      _contentValue=_contentValues.values().get(_contentKey);
       if (_contentValue==null) {
         Logger.info("==> :%s = <null>", _contentKey);
       } else {
@@ -355,9 +349,8 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
       }
     }
     // log for content values -- END
-    // log for insert -- END 
-
-    long result = database().insert("person", null, contentValues);
+    // insert operation
+    long result = database().insert("person", null, _contentValues.values());
     return result;
   }
 
@@ -376,20 +369,35 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public void insertRawFromSelect(String name) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // build where condition
-    _sqlWhereParams.add((name==null?"":name));
+    _contentValues.addWhereArgs((name==null?"":name));
 
     Logger.info("INSERT OR REPLACE INTO person (name) SELECT name FROM person WHERE name=${param0}");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
-    database().execSQL("INSERT OR REPLACE INTO person (name) SELECT name FROM person WHERE name=?", _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]));
+    database().execSQL("INSERT OR REPLACE INTO person (name) SELECT name FROM person WHERE name=?", _contentValues.whereArgsAsArray());
+  }
+
+  public void clearCompiledStatements() {
+    if (insertOneRawPreparedStatement0!=null) {
+      insertOneRawPreparedStatement0.close();
+      insertOneRawPreparedStatement0=null;
+    }
+    if (insertOneRawFieldNamePreparedStatement1!=null) {
+      insertOneRawFieldNamePreparedStatement1.close();
+      insertOneRawFieldNamePreparedStatement1=null;
+    }
+    if (insertOne2RawFieldNamePreparedStatement2!=null) {
+      insertOne2RawFieldNamePreparedStatement2.close();
+      insertOne2RawFieldNamePreparedStatement2=null;
+    }
   }
 }

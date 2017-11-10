@@ -155,7 +155,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Observable<T> result=Observable.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
@@ -186,7 +186,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Single<T> result=Single.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
@@ -217,7 +217,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Flowable<T> result=Flowable.create(emitter, BackpressureStrategy.BUFFER);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
@@ -248,11 +248,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Maybe<T> result=Maybe.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
-  public <T> Observable<T> execute(final BindXenoDataSource.ObservableBatch<T> batch,
+  public <T> Observable<T> executeBatch(final BindXenoDataSource.ObservableBatch<T> batch,
       final boolean writeMode) {
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
@@ -273,15 +273,15 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Observable<T> result=Observable.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
-  public <T> Observable<T> execute(final BindXenoDataSource.ObservableBatch<T> batch) {
-    return execute(batch, false);
+  public <T> Observable<T> executeBatch(final BindXenoDataSource.ObservableBatch<T> batch) {
+    return executeBatch(batch, false);
   }
 
-  public <T> Single<T> execute(final BindXenoDataSource.SingleBatch<T> batch,
+  public <T> Single<T> executeBatch(final BindXenoDataSource.SingleBatch<T> batch,
       final boolean writeMode) {
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
@@ -302,15 +302,15 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Single<T> result=Single.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
-  public <T> Single<T> execute(final BindXenoDataSource.SingleBatch<T> batch) {
-    return execute(batch, false);
+  public <T> Single<T> executeBatch(final BindXenoDataSource.SingleBatch<T> batch) {
+    return executeBatch(batch, false);
   }
 
-  public <T> Flowable<T> execute(final BindXenoDataSource.FlowableBatch<T> batch,
+  public <T> Flowable<T> executeBatch(final BindXenoDataSource.FlowableBatch<T> batch,
       final boolean writeMode) {
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
@@ -331,15 +331,15 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Flowable<T> result=Flowable.create(emitter, BackpressureStrategy.BUFFER);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
-  public <T> Flowable<T> execute(final BindXenoDataSource.FlowableBatch<T> batch) {
-    return execute(batch, false);
+  public <T> Flowable<T> executeBatch(final BindXenoDataSource.FlowableBatch<T> batch) {
+    return executeBatch(batch, false);
   }
 
-  public <T> Maybe<T> execute(final BindXenoDataSource.MaybeBatch<T> batch,
+  public <T> Maybe<T> executeBatch(final BindXenoDataSource.MaybeBatch<T> batch,
       final boolean writeMode) {
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
@@ -360,12 +360,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     };
     Maybe<T> result=Maybe.create(emitter);
     if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.subscribeOn(globalObserveOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
     return result;
   }
 
-  public <T> Maybe<T> execute(final BindXenoDataSource.MaybeBatch<T> batch) {
-    return execute(batch, false);
+  public <T> Maybe<T> executeBatch(final BindXenoDataSource.MaybeBatch<T> batch) {
+    return executeBatch(batch, false);
   }
 
   public PublishSubject<SQLiteModification> phoneNumberSubject() {
@@ -421,8 +421,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @param commands
    * 	batch to execute
    */
-  public <T> T execute(Batch<T> commands) {
-    return execute(commands, false);
+  public <T> T executeBatch(Batch<T> commands) {
+    return executeBatch(commands, false);
   }
 
   /**
@@ -433,7 +433,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @param writeMode
    * 	true to open connection in write mode, false to open connection in read only mode
    */
-  public <T> T execute(Batch<T> commands, boolean writeMode) {
+  public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
     try {
       if (commands!=null) {
@@ -442,7 +442,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
-      if (commands!=null) commands.onError(e);
+      throw(e);
     } finally {
       close();
     }
@@ -488,12 +488,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     Logger.info("Create database '%s' version %s",this.name, this.getVersion());
     Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
     database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
-    database.execSQL(CountryTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+    database.execSQL(CountryTable.CREATE_TABLE_SQL);
     Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
     database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
@@ -531,12 +531,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
       database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
-      database.execSQL(CountryTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+      database.execSQL(CountryTable.CREATE_TABLE_SQL);
       Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
       database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
     }
@@ -555,6 +555,14 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
+  }
+
+  public void clearCompiledStatements() {
+    phoneDao.clearCompiledStatements();
+    prefixConfigDao.clearCompiledStatements();
+    countryDao.clearCompiledStatements();
+    person2PhoneDao.clearCompiledStatements();
+    personDao.clearCompiledStatements();
   }
 
   /**
@@ -638,7 +646,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * Rapresents batch operation.
    */
-  public interface Batch<T> extends AbstractDataSource.AbstractExecutable<BindXenoDaoFactory> {
+  public interface Batch<T> {
     /**
      * Execute batch operations.
      *
@@ -646,15 +654,5 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
      * @throws Throwable
      */
     T onExecute(BindXenoDaoFactory daoFactory);
-  }
-
-  /**
-   * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
-   */
-  public abstract static class SimpleBatch<T> implements Batch<T> {
-    @Override
-    public void onError(Throwable e) {
-      throw(new KriptonRuntimeException(e));
-    }
   }
 }

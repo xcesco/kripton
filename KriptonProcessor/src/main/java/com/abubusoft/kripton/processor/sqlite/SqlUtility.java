@@ -81,9 +81,9 @@ public class SqlUtility {
 
 			StringBuffer buffer = new StringBuffer();
 			while (matcher.find()) {
-				ModelProperty property = entity.findByName(matcher.group(1));
+				ModelProperty property = entity.findPropertyByName(matcher.group(1));
 				if (property != null) {
-					matcher.appendReplacement(buffer, entity.findByName(matcher.group(1)).columnName);
+					matcher.appendReplacement(buffer, entity.findPropertyByName(matcher.group(1)).columnName);
 				}
 
 			}

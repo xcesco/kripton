@@ -19,9 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.util.Elements;
+import javax.lang.model.element.Modifier;
 
-import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
@@ -39,15 +40,17 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
-import android.content.ContentValues;
+import android.database.sqlite.SQLiteStatement;
 
 public class InsertRawHelper implements InsertCodeGenerator {
 
 	@Override
-	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
+	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 
@@ -55,14 +58,15 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 		// generate javadoc
 		generateJavaDoc(methodBuilder, method, returnType);
+		
+		// standard INSERT
+		methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
 
 		if (method.jql.containsSelectOperation) {
 			// INSERT-SELECT
 			GenericSQLHelper.generateGenericExecSQL(methodBuilder, method);
-		} else {
-			// standard INSERT
-			methodBuilder.addStatement("$T contentValues=contentValues()", ContentValues.class);
-			methodBuilder.addStatement("contentValues.clear()");
+		} else {			
+			//methodBuilder.addStatement("_contentValues.clear()");
 			methodBuilder.addCode("\n");
 			for (Pair<String, TypeName> item : method.getParameters()) {
 				String propertyName = method.findParameterAliasByName(item.value0);
@@ -79,14 +83,14 @@ public class InsertRawHelper implements InsertCodeGenerator {
 					// it use raw method param's typeName
 					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 				}
-				methodBuilder.addCode("contentValues.put($S, ", property.columnName);
+				methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
 				// it does not need to be converted in string
 
 				SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, item.value1, property);
 				methodBuilder.addCode(");\n");
 				if (nullable) {
 					methodBuilder.nextControlFlow("else");
-					methodBuilder.addCode("contentValues.putNull($S);\n", property.columnName);
+					methodBuilder.addCode("_contentValues.putNull($S);\n", property.columnName);
 					methodBuilder.endControlFlow();
 				}
 
@@ -94,18 +98,26 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addCode("\n");
 
 			SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
-
-			ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
-			String conflictString1 = "";
-			String conflictString2 = "";
-
-			if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
-				conflictString1 = "WithOnConflict";
-				conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
-				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-			}
-
-			methodBuilder.addCode("long result = database().insert$L($S, null, contentValues$L);\n", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
+						
+			methodBuilder.addComment("insert operation");
+			if (method.jql.hasDynamicParts()) {
+				// does not memorize compiled statement, it can vary every time generate SQL for insert
+				SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);	
+				
+				methodBuilder.addStatement("long result = $T.insert(dataSource, _sql, _contentValues)", KriptonDatabaseWrapper.class);
+			} else {
+				String psName=method.buildPreparedStatementName();
+				// generate SQL for insert
+				classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE).build());
+				
+				methodBuilder.beginControlFlow("if ($L==null)", psName);
+				SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);
+				methodBuilder.addStatement("$L = $T.compile(dataSource, _sql)", psName, KriptonDatabaseWrapper.class);
+				methodBuilder.endControlFlow();
+				
+				methodBuilder.addStatement("long result = $T.insert(dataSource, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);		
+			}			
+			
 			if (method.getParent().getParent().generateRx) {
 				methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);
 			}

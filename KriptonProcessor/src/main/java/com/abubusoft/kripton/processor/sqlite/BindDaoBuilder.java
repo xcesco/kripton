@@ -165,6 +165,20 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			builder.addField(fieldBuilder.build());
 		}
 		
+		// generate prepared statement cleaner
+		{
+
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("clearCompiledStatements").addModifiers(Modifier.PUBLIC).returns(Void.TYPE);
+			for (String item: value.preparedStatementNames) {
+				methodBuilder.beginControlFlow("if ($L!=null)", item);
+					methodBuilder.addStatement("$L.close()", item);	
+					methodBuilder.addStatement("$L=null",item);
+				methodBuilder.endControlFlow();								
+			}			
+			
+			builder.addMethod(methodBuilder.build());					
+		}
+		
 		
 		TypeSpec typeSpec = builder.build();
 
@@ -192,13 +206,13 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	@Override
 	public void visit(SQLiteModelMethod value) throws Exception {
 		if (value.getAnnotation(BindSqlInsert.class) != null) {
-			SqlInsertBuilder.generate(elementUtils, builder, value);
+			SqlInsertBuilder.generate(builder, value);
 		} else if (value.getAnnotation(BindSqlUpdate.class) != null) {
-			SqlModifyBuilder.generate(elementUtils, builder, value);
+			SqlModifyBuilder.generate(builder, value);
 		} else if (value.getAnnotation(BindSqlDelete.class) != null) {
-			SqlModifyBuilder.generate(elementUtils, builder, value);
+			SqlModifyBuilder.generate(builder, value);
 		} else if (value.getAnnotation(BindSqlSelect.class) != null) {
-			SqlSelectBuilder.generateSelect(elementUtils, builder, value);
+			SqlSelectBuilder.generateSelect(builder, value);
 		} else {
 			// method without supported annotation
 			AssertKripton.failWithMethodWithoutSupportedAnnotationException(value);

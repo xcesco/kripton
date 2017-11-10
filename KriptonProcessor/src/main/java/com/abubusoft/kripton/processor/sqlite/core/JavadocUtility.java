@@ -65,7 +65,7 @@ public abstract class JavadocUtility {
 		final SQLEntity entity = daoDefinition.getEntity();
 		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
-
+				
 		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 			@Override

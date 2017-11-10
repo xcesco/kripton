@@ -24,12 +24,14 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -85,7 +87,7 @@ public abstract class SqlSelectBuilder {
 	 * @param method
 	 * @throws ClassNotFoundException
 	 */
-	public static void generateSelect(Elements elementUtils, Builder builder, SQLiteModelMethod method) throws ClassNotFoundException {
+	public static void generateSelect(Builder builder, SQLiteModelMethod method) throws ClassNotFoundException {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -158,11 +160,11 @@ public abstract class SqlSelectBuilder {
 		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method, "'%s' as return type is not supported", returnTypeName);
 
 		// generate select method
-		selectResultType.generate(elementUtils, builder, method, returnTypeName);
+		selectResultType.generate(BaseProcessor.elementUtils, builder, method, returnTypeName);
 
 		if (method.contentProviderEntryPathEnabled) {
 			// we need to generate UPDATE or DELETE for content provider to
-			generateSelectForContentProvider(elementUtils, builder, method, selectResultType);
+			generateSelectForContentProvider(BaseProcessor.elementUtils, builder, method, selectResultType);
 		}
 	}
 
@@ -223,6 +225,7 @@ public abstract class SqlSelectBuilder {
 			}
 		}
 
+		methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
 		methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
 		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, "selection", "selectionArgs");
 
@@ -270,7 +273,9 @@ public abstract class SqlSelectBuilder {
 				TypeName methodParameterType = method.findParameterTypeByAliasOrName(variable.value);
 
 				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
-				methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				//methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				methodBuilder.addStatement("_contentValues.addWhereArgs(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				
 
 				if (entityProperty != null) {
 
@@ -293,7 +298,8 @@ public abstract class SqlSelectBuilder {
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 
 		methodBuilder.addCode("\n// execute query\n");
-		methodBuilder.addStatement("Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))");
+		//methodBuilder.addStatement("Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))");
+		methodBuilder.addStatement("Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray())");
 
 		methodBuilder.addStatement("return _result");
 

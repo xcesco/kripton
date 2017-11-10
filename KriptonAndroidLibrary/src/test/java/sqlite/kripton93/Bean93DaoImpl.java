@@ -1,11 +1,13 @@
 package sqlite.kripton93;
 
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
+import com.abubusoft.kripton.common.Triple;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +21,18 @@ import java.util.List;
  *  @see Bean93Table
  */
 public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
+  private SQLiteStatement insertDefaultPreparedStatement0;
+
+  private SQLiteStatement insertAbortPreparedStatement1;
+
+  private SQLiteStatement insertFailPreparedStatement2;
+
+  private SQLiteStatement insertIgnorePreparedStatement3;
+
+  private SQLiteStatement insertReplacePreparedStatement4;
+
+  private SQLiteStatement insertRollbackPreparedStatement5;
+
   public Bean93DaoImpl(BindBean93DataSource dataSet) {
     super(dataSet);
   }
@@ -47,11 +61,11 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public Bean93 selectByBean(String name) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, type_name FROM bean93");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -62,15 +76,15 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((name==null?"":name));
+    _contentValues.addWhereArgs((name==null?"":name));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -115,22 +129,22 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public List<Bean93> selectAll() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, type_name FROM bean93");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -184,30 +198,28 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertDefault(Bean93 bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
+      _contentValues.put("surname", bean.surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
     if (bean.typeName!=null) {
-      contentValues.put("type_name", bean.typeName);
+      _contentValues.put("type_name", bean.typeName);
     } else {
-      contentValues.putNull("type_name");
+      _contentValues.putNull("type_name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -215,19 +227,25 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     Logger.info("INSERT INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean93", null, contentValues);
+    // insert operation
+    if (insertDefaultPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertDefaultPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertDefaultPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -254,31 +272,29 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertAbort(Bean93 bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("id", bean.id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", bean.id);
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
+      _contentValues.put("surname", bean.surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
     if (bean.typeName!=null) {
-      contentValues.put("type_name", bean.typeName);
+      _contentValues.put("type_name", bean.typeName);
     } else {
-      contentValues.putNull("type_name");
+      _contentValues.putNull("type_name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -286,20 +302,25 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     Logger.info("INSERT OR ABORT INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    // conflict algorithm ABORT
-    long result = database().insertWithOnConflict("bean93", null, contentValues, 2);
+    // insert operation
+    if (insertAbortPreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR ABORT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertAbortPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertAbortPreparedStatement1, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -326,31 +347,29 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertFail(Bean93 bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("id", bean.id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", bean.id);
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
+      _contentValues.put("surname", bean.surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
     if (bean.typeName!=null) {
-      contentValues.put("type_name", bean.typeName);
+      _contentValues.put("type_name", bean.typeName);
     } else {
-      contentValues.putNull("type_name");
+      _contentValues.putNull("type_name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -358,20 +377,25 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     Logger.info("INSERT OR FAIL INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    // conflict algorithm FAIL
-    long result = database().insertWithOnConflict("bean93", null, contentValues, 3);
+    // insert operation
+    if (insertFailPreparedStatement2==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR FAIL INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertFailPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertFailPreparedStatement2, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -398,31 +422,29 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertIgnore(Bean93 bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("id", bean.id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", bean.id);
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
+      _contentValues.put("surname", bean.surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
     if (bean.typeName!=null) {
-      contentValues.put("type_name", bean.typeName);
+      _contentValues.put("type_name", bean.typeName);
     } else {
-      contentValues.putNull("type_name");
+      _contentValues.putNull("type_name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -430,20 +452,25 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     Logger.info("INSERT OR IGNORE INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    // conflict algorithm IGNORE
-    long result = database().insertWithOnConflict("bean93", null, contentValues, 4);
+    // insert operation
+    if (insertIgnorePreparedStatement3==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR IGNORE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertIgnorePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertIgnorePreparedStatement3, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -470,31 +497,29 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertReplace(Bean93 bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("id", bean.id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", bean.id);
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
+      _contentValues.put("surname", bean.surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
     if (bean.typeName!=null) {
-      contentValues.put("type_name", bean.typeName);
+      _contentValues.put("type_name", bean.typeName);
     } else {
-      contentValues.putNull("type_name");
+      _contentValues.putNull("type_name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -502,20 +527,25 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     Logger.info("INSERT OR REPLACE INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    // conflict algorithm REPLACE
-    long result = database().insertWithOnConflict("bean93", null, contentValues, 5);
+    // insert operation
+    if (insertReplacePreparedStatement4==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR REPLACE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertReplacePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertReplacePreparedStatement4, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -542,31 +572,29 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
    */
   @Override
   public boolean insertRollback(Bean93 bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("id", bean.id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", bean.id);
     if (bean.name!=null) {
-      contentValues.put("name", bean.name);
+      _contentValues.put("name", bean.name);
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.surname!=null) {
-      contentValues.put("surname", bean.surname);
+      _contentValues.put("surname", bean.surname);
     } else {
-      contentValues.putNull("surname");
+      _contentValues.putNull("surname");
     }
     if (bean.typeName!=null) {
-      contentValues.put("type_name", bean.typeName);
+      _contentValues.put("type_name", bean.typeName);
     } else {
-      contentValues.putNull("type_name");
+      _contentValues.putNull("type_name");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -574,22 +602,54 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     Logger.info("INSERT OR ROLLBACK INTO bean93 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    // conflict algorithm ROLLBACK
-    long result = database().insertWithOnConflict("bean93", null, contentValues, 1);
+    // insert operation
+    if (insertRollbackPreparedStatement5==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT OR ROLLBACK INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertRollbackPreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertRollbackPreparedStatement5, _contentValues);
     bean.id=result;
 
     return result!=-1;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertDefaultPreparedStatement0!=null) {
+      insertDefaultPreparedStatement0.close();
+      insertDefaultPreparedStatement0=null;
+    }
+    if (insertAbortPreparedStatement1!=null) {
+      insertAbortPreparedStatement1.close();
+      insertAbortPreparedStatement1=null;
+    }
+    if (insertFailPreparedStatement2!=null) {
+      insertFailPreparedStatement2.close();
+      insertFailPreparedStatement2=null;
+    }
+    if (insertIgnorePreparedStatement3!=null) {
+      insertIgnorePreparedStatement3.close();
+      insertIgnorePreparedStatement3=null;
+    }
+    if (insertReplacePreparedStatement4!=null) {
+      insertReplacePreparedStatement4.close();
+      insertReplacePreparedStatement4=null;
+    }
+    if (insertRollbackPreparedStatement5!=null) {
+      insertRollbackPreparedStatement5.close();
+      insertRollbackPreparedStatement5=null;
+    }
   }
 }

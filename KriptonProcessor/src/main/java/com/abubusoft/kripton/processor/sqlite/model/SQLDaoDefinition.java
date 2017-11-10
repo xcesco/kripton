@@ -16,8 +16,10 @@
 package com.abubusoft.kripton.processor.sqlite.model;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -101,7 +103,7 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 
 	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element, String entityClassName, boolean generated) {
 		super(element.getSimpleName().toString(), element);
-		this.generated=generated;
+		this.generated = generated;
 		this.parent = new WeakReference<SQLiteDatabaseSchema>(databaseSchema);
 		this.entityClassName = entityClassName;
 
@@ -115,16 +117,15 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 		}
 
 		typeVariableResolver = TypeVariableResolver.build(element);
-		implementedInterface=new HashSet<>();
+		implementedInterface = new HashSet<>();
 
-		
 		i = name.indexOf(".");
 		if (i > 0) {
 			this.name = name.substring(name.lastIndexOf(".") + 1);
 		} else {
 			this.name = name;
 		}
-		
+
 	}
 
 	public TypeName resolveTypeVariable(TypeName inputTypeName) {
@@ -172,6 +173,25 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	public String contentProviderTypeName;
 
 	/**
+	 * Collections of prepared statements	
+	 */
+	public List<String> preparedStatementNames = new ArrayList<String>();
+	
+	/**
+	 * Build and register prepared statement name
+	 * @param methodName
+	 * @return
+	 */
+	String buildPreparedStatementName(String methodName) {
+		String name=methodName+"PreparedStatement"+preparedStatementNames.size();
+		
+		preparedStatementNames.add(name);
+		
+		return name;
+		
+	}
+
+	/**
 	 * number of element generated for content provider
 	 */
 	public long contentProviderCounter;
@@ -210,15 +230,17 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 
 	public void addImplementedInterface(TypeName className) {
 		this.implementedInterface.add(className);
-		
+
 	}
-	
+
 	/**
-	 * return type name of object. Note that this method support DaoGenerated case
+	 * return type name of object. Note that this method support DaoGenerated
+	 * case
+	 * 
 	 * @return
 	 */
 	public TypeName getTypeName() {
-		return TypeUtility.typeName(TypeUtility.extractPackageName(this.element), name);				
+		return TypeUtility.typeName(TypeUtility.extractPackageName(this.element), name);
 	}
 
 }

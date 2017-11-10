@@ -1,12 +1,14 @@
 package sqlite.kripton64;
 
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.CalendarUtils;
@@ -18,6 +20,7 @@ import com.abubusoft.kripton.common.LocaleUtils;
 import com.abubusoft.kripton.common.SQLTimeUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TimeZoneUtils;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.common.UrlUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
@@ -51,6 +54,198 @@ import java.util.TimeZone;
  *  @see Bean64Table
  */
 public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
+  private SQLiteStatement deletePreparedStatement0;
+
+  private SQLiteStatement deletePreparedStatement1;
+
+  private SQLiteStatement deletePreparedStatement2;
+
+  private SQLiteStatement deletePreparedStatement3;
+
+  private SQLiteStatement deleteArrayBeanTypePreparedStatement4;
+
+  private SQLiteStatement deleteArrayLongPreparedStatement5;
+
+  private SQLiteStatement deleteArrayLongTypePreparedStatement6;
+
+  private SQLiteStatement deleteBytePreparedStatement7;
+
+  private SQLiteStatement deleteByteTypePreparedStatement8;
+
+  private SQLiteStatement deleteCalendarPreparedStatement9;
+
+  private SQLiteStatement deleteCharPreparedStatement10;
+
+  private SQLiteStatement deleteCharTypePreparedStatement11;
+
+  private SQLiteStatement deleteCurrencyPreparedStatement12;
+
+  private SQLiteStatement deleteDatePreparedStatement13;
+
+  private SQLiteStatement deleteDoublePreparedStatement14;
+
+  private SQLiteStatement deleteDoubleTypePreparedStatement15;
+
+  private SQLiteStatement deleteEnumTypePreparedStatement16;
+
+  private SQLiteStatement deleteFloatPreparedStatement17;
+
+  private SQLiteStatement deleteFloatTypePreparedStatement18;
+
+  private SQLiteStatement deleteIntPreparedStatement19;
+
+  private SQLiteStatement deleteIntTypePreparedStatement20;
+
+  private SQLiteStatement deleteListLongPreparedStatement21;
+
+  private SQLiteStatement deleteLocalePreparedStatement22;
+
+  private SQLiteStatement deleteLongPreparedStatement23;
+
+  private SQLiteStatement deleteLongTypePreparedStatement24;
+
+  private SQLiteStatement deleteShortPreparedStatement25;
+
+  private SQLiteStatement deleteShortTypePreparedStatement26;
+
+  private SQLiteStatement deleteStringPreparedStatement27;
+
+  private SQLiteStatement deleteTimePreparedStatement28;
+
+  private SQLiteStatement deleteTimeZonePreparedStatement29;
+
+  private SQLiteStatement deleteURLPreparedStatement30;
+
+  private SQLiteStatement insertPreparedStatement31;
+
+  private SQLiteStatement insertPreparedStatement32;
+
+  private SQLiteStatement insertPreparedStatement33;
+
+  private SQLiteStatement insertPreparedStatement34;
+
+  private SQLiteStatement insertPreparedStatement35;
+
+  private SQLiteStatement insertArrayBeanTypePreparedStatement36;
+
+  private SQLiteStatement insertArrayLongPreparedStatement37;
+
+  private SQLiteStatement insertArrayLongTypePreparedStatement38;
+
+  private SQLiteStatement insertBytePreparedStatement39;
+
+  private SQLiteStatement insertByteTypePreparedStatement40;
+
+  private SQLiteStatement insertCalendarPreparedStatement41;
+
+  private SQLiteStatement insertCharPreparedStatement42;
+
+  private SQLiteStatement insertCharTypePreparedStatement43;
+
+  private SQLiteStatement insertCurrencyPreparedStatement44;
+
+  private SQLiteStatement insertDatePreparedStatement45;
+
+  private SQLiteStatement insertDoublePreparedStatement46;
+
+  private SQLiteStatement insertDoubleTypePreparedStatement47;
+
+  private SQLiteStatement insertEnumTypePreparedStatement48;
+
+  private SQLiteStatement insertFloatPreparedStatement49;
+
+  private SQLiteStatement insertFloatTypePreparedStatement50;
+
+  private SQLiteStatement insertIntPreparedStatement51;
+
+  private SQLiteStatement insertIntTypePreparedStatement52;
+
+  private SQLiteStatement insertListLongPreparedStatement53;
+
+  private SQLiteStatement insertLocalePreparedStatement54;
+
+  private SQLiteStatement insertLongPreparedStatement55;
+
+  private SQLiteStatement insertLongTypePreparedStatement56;
+
+  private SQLiteStatement insertShortPreparedStatement57;
+
+  private SQLiteStatement insertShortTypePreparedStatement58;
+
+  private SQLiteStatement insertStringPreparedStatement59;
+
+  private SQLiteStatement insertTimePreparedStatement60;
+
+  private SQLiteStatement insertTimeZonePreparedStatement61;
+
+  private SQLiteStatement insertURLPreparedStatement62;
+
+  private SQLiteStatement updateOnePreparedStatement63;
+
+  private SQLiteStatement updateOnePreparedStatement64;
+
+  private SQLiteStatement updateOnePreparedStatement65;
+
+  private SQLiteStatement updateOnePreparedStatement66;
+
+  private SQLiteStatement updateOnePreparedStatement67;
+
+  private SQLiteStatement updateOnePreparedStatement68;
+
+  private SQLiteStatement updateOneArrayBeanPreparedStatement69;
+
+  private SQLiteStatement updateOneArrayLongPreparedStatement70;
+
+  private SQLiteStatement updateOneArrayLongTypePreparedStatement71;
+
+  private SQLiteStatement updateOneBytePreparedStatement72;
+
+  private SQLiteStatement updateOneByteTypePreparedStatement73;
+
+  private SQLiteStatement updateOneCalendarPreparedStatement74;
+
+  private SQLiteStatement updateOneCharPreparedStatement75;
+
+  private SQLiteStatement updateOneCharTypePreparedStatement76;
+
+  private SQLiteStatement updateOneCurrencyPreparedStatement77;
+
+  private SQLiteStatement updateOneDatePreparedStatement78;
+
+  private SQLiteStatement updateOneDoublePreparedStatement79;
+
+  private SQLiteStatement updateOneDoubleTypePreparedStatement80;
+
+  private SQLiteStatement updateOneEnumTypePreparedStatement81;
+
+  private SQLiteStatement updateOneFloatPreparedStatement82;
+
+  private SQLiteStatement updateOneFloatTypePreparedStatement83;
+
+  private SQLiteStatement updateOneIntPreparedStatement84;
+
+  private SQLiteStatement updateOneIntTypePreparedStatement85;
+
+  private SQLiteStatement updateOneListLongPreparedStatement86;
+
+  private SQLiteStatement updateOneLocalePreparedStatement87;
+
+  private SQLiteStatement updateOneLongPreparedStatement88;
+
+  private SQLiteStatement updateOneLongTypePreparedStatement89;
+
+  private SQLiteStatement updateOneShortPreparedStatement90;
+
+  private SQLiteStatement updateOneShortTypePreparedStatement91;
+
+  private SQLiteStatement updateOneStringPreparedStatement92;
+
+  private SQLiteStatement updateOneTimePreparedStatement93;
+
+  private SQLiteStatement updateOneTimeZonePreparedStatement94;
+
+  private SQLiteStatement updateOneURLPreparedStatement95;
+
   /**
    * Bean64BindMap */
   private Bean64BindMap bean64BindMap = BinderUtils.mapperFor(Bean64.class);
@@ -76,31 +271,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(BigDecimal valueBigDecimal) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_big_decimal=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_big_decimal=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_big_decimal=?";
+      deletePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_big_decimal=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -121,31 +322,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(BigInteger valueBigDecimal) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toString()));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toString()));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement1==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_big_decimal=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_big_decimal=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_big_decimal=?";
+      deletePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_big_decimal=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -166,31 +373,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(boolean valueBoolType) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueBoolType));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(valueBoolType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_bool_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_bool_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_bool_type=?";
+      deletePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_bool_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -211,31 +424,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(Boolean valueBool) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueBool==null?"":String.valueOf(valueBool)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueBool==null?"":String.valueOf(valueBool)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_bool=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_bool=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_bool=?";
+      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_bool=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -256,31 +475,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteArrayBeanType(Bean64[] valueBeanArray) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteArrayBeanTypePreparedStatement4==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_bean_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_bean_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_bean_array=?";
+      deleteArrayBeanTypePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_bean_array=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteArrayBeanTypePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -301,31 +526,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteArrayLong(Long[] valueLongArray) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteArrayLongPreparedStatement5==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_long_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_long_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_long_array=?";
+      deleteArrayLongPreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_long_array=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteArrayLongPreparedStatement5, _contentValues);
     return result;
   }
 
@@ -346,31 +577,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteArrayLongType(long[] valueLongTypeArray) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteArrayLongTypePreparedStatement6==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_long_type_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_long_type_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_long_type_array=?";
+      deleteArrayLongTypePreparedStatement6 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_long_type_array=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteArrayLongTypePreparedStatement6, _contentValues);
     return result;
   }
 
@@ -391,31 +628,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteByte(Byte valueByte) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueByte==null?"":String.valueOf(valueByte)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueByte==null?"":String.valueOf(valueByte)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteBytePreparedStatement7==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_byte=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_byte=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_byte=?";
+      deleteBytePreparedStatement7 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_byte=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteBytePreparedStatement7, _contentValues);
     return result;
   }
 
@@ -436,31 +679,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteByteType(boolean valueByteType) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueByteType));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(valueByteType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteByteTypePreparedStatement8==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_byte_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_byte_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_byte_type=?";
+      deleteByteTypePreparedStatement8 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_byte_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByteTypePreparedStatement8, _contentValues);
     return result;
   }
 
@@ -481,31 +730,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteCalendar(Date valueCalendar) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueCalendar==null?"":DateUtils.write(valueCalendar)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueCalendar==null?"":DateUtils.write(valueCalendar)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteCalendarPreparedStatement9==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_calendar=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_calendar=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_calendar=?";
+      deleteCalendarPreparedStatement9 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_calendar=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCalendarPreparedStatement9, _contentValues);
     return result;
   }
 
@@ -526,31 +781,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteChar(Character valueChar) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueChar==null?"":String.valueOf((int)valueChar)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueChar==null?"":String.valueOf((int)valueChar)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteCharPreparedStatement10==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_char_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_char_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_char_type=?";
+      deleteCharPreparedStatement10 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_char_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCharPreparedStatement10, _contentValues);
     return result;
   }
 
@@ -571,31 +832,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteCharType(char valueCharType) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf((int)valueCharType));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf((int)valueCharType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteCharTypePreparedStatement11==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_char_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_char_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_char_type=?";
+      deleteCharTypePreparedStatement11 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_char_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCharTypePreparedStatement11, _contentValues);
     return result;
   }
 
@@ -616,31 +883,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteCurrency(Currency valueCurrency) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteCurrencyPreparedStatement12==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_currency=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_currency=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_currency=?";
+      deleteCurrencyPreparedStatement12 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_currency=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCurrencyPreparedStatement12, _contentValues);
     return result;
   }
 
@@ -661,31 +934,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteDate(Date valueDate) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueDate==null?"":DateUtils.write(valueDate)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueDate==null?"":DateUtils.write(valueDate)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteDatePreparedStatement13==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_date=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_date=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_date=?";
+      deleteDatePreparedStatement13 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_date=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteDatePreparedStatement13, _contentValues);
     return result;
   }
 
@@ -706,31 +985,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteDouble(Double valueDouble) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueDouble==null?"":String.valueOf(valueDouble)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueDouble==null?"":String.valueOf(valueDouble)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteDoublePreparedStatement14==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_double=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_double=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_double=?";
+      deleteDoublePreparedStatement14 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_double=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteDoublePreparedStatement14, _contentValues);
     return result;
   }
 
@@ -751,31 +1036,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteDoubleType(double valueDoubleType) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueDoubleType));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(valueDoubleType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteDoubleTypePreparedStatement15==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_double_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_double_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_double_type=?";
+      deleteDoubleTypePreparedStatement15 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_double_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteDoubleTypePreparedStatement15, _contentValues);
     return result;
   }
 
@@ -796,31 +1087,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteEnumType(EnumType valueEnumType) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueEnumType==null?"":valueEnumType.toString()));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueEnumType==null?"":valueEnumType.toString()));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteEnumTypePreparedStatement16==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_enum_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_enum_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_enum_type=?";
+      deleteEnumTypePreparedStatement16 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_enum_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteEnumTypePreparedStatement16, _contentValues);
     return result;
   }
 
@@ -841,31 +1138,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteFloat(Float valueFloat) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueFloat==null?"":String.valueOf(valueFloat)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueFloat==null?"":String.valueOf(valueFloat)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteFloatPreparedStatement17==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_float=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_float=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_float=?";
+      deleteFloatPreparedStatement17 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_float=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteFloatPreparedStatement17, _contentValues);
     return result;
   }
 
@@ -886,31 +1189,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteFloatType(float valueFloatType) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueFloatType));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(valueFloatType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteFloatTypePreparedStatement18==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_float_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_float_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_float_type=?";
+      deleteFloatTypePreparedStatement18 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_float_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteFloatTypePreparedStatement18, _contentValues);
     return result;
   }
 
@@ -931,31 +1240,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteInt(Integer valueInt) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueInt==null?"":String.valueOf(valueInt)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueInt==null?"":String.valueOf(valueInt)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteIntPreparedStatement19==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_int=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_int=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_int=?";
+      deleteIntPreparedStatement19 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_int=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteIntPreparedStatement19, _contentValues);
     return result;
   }
 
@@ -976,31 +1291,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteIntType(int valueIntType) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueIntType));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(valueIntType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteIntTypePreparedStatement20==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_int_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_int_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_int_type=?";
+      deleteIntTypePreparedStatement20 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_int_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteIntTypePreparedStatement20, _contentValues);
     return result;
   }
 
@@ -1021,31 +1342,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteListLong(LinkedList<Long> valueLongList) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteListLongPreparedStatement21==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_long_list=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_long_list=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_long_list=?";
+      deleteListLongPreparedStatement21 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_long_list=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteListLongPreparedStatement21, _contentValues);
     return result;
   }
 
@@ -1066,31 +1393,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteLocale(Date valueLocale) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueLocale==null?"":DateUtils.write(valueLocale)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueLocale==null?"":DateUtils.write(valueLocale)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteLocalePreparedStatement22==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_locale=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_locale=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_locale=?";
+      deleteLocalePreparedStatement22 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_locale=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteLocalePreparedStatement22, _contentValues);
     return result;
   }
 
@@ -1111,31 +1444,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteLong(Long valueLong) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueLong==null?"":String.valueOf(valueLong)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueLong==null?"":String.valueOf(valueLong)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteLongPreparedStatement23==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_long=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_long=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_long=?";
+      deleteLongPreparedStatement23 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_long=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteLongPreparedStatement23, _contentValues);
     return result;
   }
 
@@ -1156,31 +1495,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteLongType(long valueLongType) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueLongType));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(valueLongType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteLongTypePreparedStatement24==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_long_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_long_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_long_type=?";
+      deleteLongTypePreparedStatement24 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_long_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteLongTypePreparedStatement24, _contentValues);
     return result;
   }
 
@@ -1201,31 +1546,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteShort(Short valueShort) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueShort==null?"":String.valueOf((int)valueShort)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueShort==null?"":String.valueOf((int)valueShort)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteShortPreparedStatement25==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_short=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_short=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_short=?";
+      deleteShortPreparedStatement25 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_short=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteShortPreparedStatement25, _contentValues);
     return result;
   }
 
@@ -1246,31 +1597,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteShortType(short valueShortType) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf((int)valueShortType));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf((int)valueShortType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteShortTypePreparedStatement26==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_short_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_short_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_short_type=?";
+      deleteShortTypePreparedStatement26 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_short_type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteShortTypePreparedStatement26, _contentValues);
     return result;
   }
 
@@ -1291,31 +1648,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteString(String valueString) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueString==null?"":valueString));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueString==null?"":valueString));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteStringPreparedStatement27==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_string=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_string=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_string=?";
+      deleteStringPreparedStatement27 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_string=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteStringPreparedStatement27, _contentValues);
     return result;
   }
 
@@ -1336,31 +1699,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteTime(Time valueTime) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueTime==null?"":SQLTimeUtils.write(valueTime)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueTime==null?"":SQLTimeUtils.write(valueTime)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteTimePreparedStatement28==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_time=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_time=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_time=?";
+      deleteTimePreparedStatement28 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_time=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteTimePreparedStatement28, _contentValues);
     return result;
   }
 
@@ -1381,31 +1750,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteTimeZone(TimeZone valueTimeZone) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteTimeZonePreparedStatement29==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_time_zone=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_time_zone=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_time_zone=?";
+      deleteTimeZonePreparedStatement29 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_time_zone=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteTimeZonePreparedStatement29, _contentValues);
     return result;
   }
 
@@ -1426,31 +1801,37 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteURL(URL valueUrl) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueUrl==null?"":UrlUtils.write(valueUrl)));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs((valueUrl==null?"":UrlUtils.write(valueUrl)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteURLPreparedStatement30==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_url=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_url=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM bean64 WHERE value_url=?";
+      deleteURLPreparedStatement30 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM bean64 WHERE value_url=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("bean64", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteURLPreparedStatement30, _contentValues);
     return result;
   }
 
@@ -1512,188 +1893,186 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insert(Bean64 bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("value_bool_type", bean.valueBoolType);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("value_bool_type", bean.valueBoolType);
     if (bean.valueBool!=null) {
-      contentValues.put("value_bool", bean.valueBool);
+      _contentValues.put("value_bool", bean.valueBool);
     } else {
-      contentValues.putNull("value_bool");
+      _contentValues.putNull("value_bool");
     }
-    contentValues.put("value_byte_type", bean.valueByteType);
+    _contentValues.put("value_byte_type", bean.valueByteType);
     if (bean.valueByte!=null) {
-      contentValues.put("value_byte", bean.valueByte);
+      _contentValues.put("value_byte", bean.valueByte);
     } else {
-      contentValues.putNull("value_byte");
+      _contentValues.putNull("value_byte");
     }
-    contentValues.put("value_short_type", (int)bean.valueShortType);
+    _contentValues.put("value_short_type", (int)bean.valueShortType);
     if (bean.valueShort!=null) {
-      contentValues.put("value_short", (int)bean.valueShort);
+      _contentValues.put("value_short", (int)bean.valueShort);
     } else {
-      contentValues.putNull("value_short");
+      _contentValues.putNull("value_short");
     }
-    contentValues.put("value_int_type", bean.valueIntType);
+    _contentValues.put("value_int_type", bean.valueIntType);
     if (bean.valueInt!=null) {
-      contentValues.put("value_int", bean.valueInt);
+      _contentValues.put("value_int", bean.valueInt);
     } else {
-      contentValues.putNull("value_int");
+      _contentValues.putNull("value_int");
     }
     if (bean.valueString!=null) {
-      contentValues.put("value_string", bean.valueString);
+      _contentValues.put("value_string", bean.valueString);
     } else {
-      contentValues.putNull("value_string");
+      _contentValues.putNull("value_string");
     }
-    contentValues.put("value_char_type", (int)bean.valueCharType);
+    _contentValues.put("value_char_type", (int)bean.valueCharType);
     if (bean.valueChar!=null) {
-      contentValues.put("value_char", (int)bean.valueChar);
+      _contentValues.put("value_char", (int)bean.valueChar);
     } else {
-      contentValues.putNull("value_char");
+      _contentValues.putNull("value_char");
     }
-    contentValues.put("value_float_type", bean.valueFloatType);
+    _contentValues.put("value_float_type", bean.valueFloatType);
     if (bean.valueFloat!=null) {
-      contentValues.put("value_float", bean.valueFloat);
+      _contentValues.put("value_float", bean.valueFloat);
     } else {
-      contentValues.putNull("value_float");
+      _contentValues.putNull("value_float");
     }
     if (bean.valueBigInteger!=null) {
-      contentValues.put("value_big_integer", bean.valueBigInteger.toString());
+      _contentValues.put("value_big_integer", bean.valueBigInteger.toString());
     } else {
-      contentValues.putNull("value_big_integer");
+      _contentValues.putNull("value_big_integer");
     }
     if (bean.valueBigDecimal!=null) {
-      contentValues.put("value_big_decimal", bean.valueBigDecimal.toPlainString());
+      _contentValues.put("value_big_decimal", bean.valueBigDecimal.toPlainString());
     } else {
-      contentValues.putNull("value_big_decimal");
+      _contentValues.putNull("value_big_decimal");
     }
     if (bean.valueEnumType!=null) {
-      contentValues.put("value_enum_type", bean.valueEnumType.toString());
+      _contentValues.put("value_enum_type", bean.valueEnumType.toString());
     } else {
-      contentValues.putNull("value_enum_type");
+      _contentValues.putNull("value_enum_type");
     }
-    contentValues.put("value_long_type", bean.valueLongType);
+    _contentValues.put("value_long_type", bean.valueLongType);
     if (bean.valueLong!=null) {
-      contentValues.put("value_long", bean.valueLong);
+      _contentValues.put("value_long", bean.valueLong);
     } else {
-      contentValues.putNull("value_long");
+      _contentValues.putNull("value_long");
     }
-    contentValues.put("value_double_type", bean.valueDoubleType);
+    _contentValues.put("value_double_type", bean.valueDoubleType);
     if (bean.valueDouble!=null) {
-      contentValues.put("value_double", bean.valueDouble);
+      _contentValues.put("value_double", bean.valueDouble);
     } else {
-      contentValues.putNull("value_double");
+      _contentValues.putNull("value_double");
     }
     if (bean.valueLocale!=null) {
-      contentValues.put("value_locale", LocaleUtils.write(bean.valueLocale));
+      _contentValues.put("value_locale", LocaleUtils.write(bean.valueLocale));
     } else {
-      contentValues.putNull("value_locale");
+      _contentValues.putNull("value_locale");
     }
     if (bean.valueCalendar!=null) {
-      contentValues.put("value_calendar", CalendarUtils.write(bean.valueCalendar));
+      _contentValues.put("value_calendar", CalendarUtils.write(bean.valueCalendar));
     } else {
-      contentValues.putNull("value_calendar");
+      _contentValues.putNull("value_calendar");
     }
     if (bean.valueDate!=null) {
-      contentValues.put("value_date", DateUtils.write(bean.valueDate));
+      _contentValues.put("value_date", DateUtils.write(bean.valueDate));
     } else {
-      contentValues.putNull("value_date");
+      _contentValues.putNull("value_date");
     }
     if (bean.valueUrl!=null) {
-      contentValues.put("value_url", UrlUtils.write(bean.valueUrl));
+      _contentValues.put("value_url", UrlUtils.write(bean.valueUrl));
     } else {
-      contentValues.putNull("value_url");
+      _contentValues.putNull("value_url");
     }
     if (bean.valueTime!=null) {
-      contentValues.put("value_time", SQLTimeUtils.write(bean.valueTime));
+      _contentValues.put("value_time", SQLTimeUtils.write(bean.valueTime));
     } else {
-      contentValues.putNull("value_time");
+      _contentValues.putNull("value_time");
     }
     if (bean.valueCurrency!=null) {
-      contentValues.put("value_currency", CurrencyUtils.write(bean.valueCurrency));
+      _contentValues.put("value_currency", CurrencyUtils.write(bean.valueCurrency));
     } else {
-      contentValues.putNull("value_currency");
+      _contentValues.putNull("value_currency");
     }
     if (bean.valueTimeZone!=null) {
-      contentValues.put("value_time_zone", TimeZoneUtils.write(bean.valueTimeZone));
+      _contentValues.put("value_time_zone", TimeZoneUtils.write(bean.valueTimeZone));
     } else {
-      contentValues.putNull("value_time_zone");
+      _contentValues.putNull("value_time_zone");
     }
     if (bean.valueTimeList!=null) {
-      contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(bean.valueTimeList));
+      _contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(bean.valueTimeList));
     } else {
-      contentValues.putNull("value_time_list");
+      _contentValues.putNull("value_time_list");
     }
     if (bean.valueStrinList!=null) {
-      contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(bean.valueStrinList));
+      _contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(bean.valueStrinList));
     } else {
-      contentValues.putNull("value_strin_list");
+      _contentValues.putNull("value_strin_list");
     }
     if (bean.valueLongList!=null) {
-      contentValues.put("value_long_list", Bean64Table.serializeValueLongList(bean.valueLongList));
+      _contentValues.put("value_long_list", Bean64Table.serializeValueLongList(bean.valueLongList));
     } else {
-      contentValues.putNull("value_long_list");
+      _contentValues.putNull("value_long_list");
     }
     if (bean.valueByteArray!=null) {
-      contentValues.put("value_byte_array", bean.valueByteArray);
+      _contentValues.put("value_byte_array", bean.valueByteArray);
     } else {
-      contentValues.putNull("value_byte_array");
+      _contentValues.putNull("value_byte_array");
     }
     if (bean.valueLongTypeArray!=null) {
-      contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(bean.valueLongTypeArray));
+      _contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(bean.valueLongTypeArray));
     } else {
-      contentValues.putNull("value_long_type_array");
+      _contentValues.putNull("value_long_type_array");
     }
     if (bean.valueLongArray!=null) {
-      contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(bean.valueLongArray));
+      _contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(bean.valueLongArray));
     } else {
-      contentValues.putNull("value_long_array");
+      _contentValues.putNull("value_long_array");
     }
     if (bean.valueBeanArray!=null) {
-      contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(bean.valueBeanArray));
+      _contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(bean.valueBeanArray));
     } else {
-      contentValues.putNull("value_bean_array");
+      _contentValues.putNull("value_bean_array");
     }
     if (bean.valueStringArray!=null) {
-      contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(bean.valueStringArray));
+      _contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(bean.valueStringArray));
     } else {
-      contentValues.putNull("value_string_array");
+      _contentValues.putNull("value_string_array");
     }
     if (bean.valueCharList!=null) {
-      contentValues.put("value_char_list", Bean64Table.serializeValueCharList(bean.valueCharList));
+      _contentValues.put("value_char_list", Bean64Table.serializeValueCharList(bean.valueCharList));
     } else {
-      contentValues.putNull("value_char_list");
+      _contentValues.putNull("value_char_list");
     }
     if (bean.valueCharTypeArray!=null) {
-      contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(bean.valueCharTypeArray));
+      _contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(bean.valueCharTypeArray));
     } else {
-      contentValues.putNull("value_char_type_array");
+      _contentValues.putNull("value_char_type_array");
     }
     if (bean.valueCharArray!=null) {
-      contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(bean.valueCharArray));
+      _contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(bean.valueCharArray));
     } else {
-      contentValues.putNull("value_char_array");
+      _contentValues.putNull("value_char_array");
     }
     if (bean.valueMapStringBean!=null) {
-      contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(bean.valueMapStringBean));
+      _contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(bean.valueMapStringBean));
     } else {
-      contentValues.putNull("value_map_string_bean");
+      _contentValues.putNull("value_map_string_bean");
     }
     if (bean.valueLinkedMapStringBean!=null) {
-      contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(bean.valueLinkedMapStringBean));
+      _contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(bean.valueLinkedMapStringBean));
     } else {
-      contentValues.putNull("value_linked_map_string_bean");
+      _contentValues.putNull("value_linked_map_string_bean");
     }
     if (bean.valueSetString!=null) {
-      contentValues.put("value_set_string", Bean64Table.serializeValueSetString(bean.valueSetString));
+      _contentValues.put("value_set_string", Bean64Table.serializeValueSetString(bean.valueSetString));
     } else {
-      contentValues.putNull("value_set_string");
+      _contentValues.putNull("value_set_string");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1701,19 +2080,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertPreparedStatement31==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement31 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement31, _contentValues);
     bean.id=result;
 
     return result;
@@ -1735,20 +2120,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insert(BigDecimal valueBigDecimal) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueBigDecimal!=null) {
-      contentValues.put("value_big_decimal", valueBigDecimal.toPlainString());
+      _contentValues.put("value_big_decimal", valueBigDecimal.toPlainString());
     } else {
-      contentValues.putNull("value_big_decimal");
+      _contentValues.putNull("value_big_decimal");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1756,19 +2140,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertPreparedStatement32==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement32 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement32, _contentValues);
     return result;
   }
 
@@ -1788,20 +2178,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insert(BigInteger valueBigInteger) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueBigInteger!=null) {
-      contentValues.put("value_big_integer", valueBigInteger.toString());
+      _contentValues.put("value_big_integer", valueBigInteger.toString());
     } else {
-      contentValues.putNull("value_big_integer");
+      _contentValues.putNull("value_big_integer");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1809,19 +2198,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertPreparedStatement33==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement33 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement33, _contentValues);
     return result;
   }
 
@@ -1841,16 +2236,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insert(boolean valueBoolType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
-    contentValues.put("value_bool_type", valueBoolType);
+    _contentValues.put("value_bool_type", valueBoolType);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1858,19 +2252,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertPreparedStatement34==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement34 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement34, _contentValues);
     return result;
   }
 
@@ -1890,20 +2290,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insert(Boolean valueBool) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueBool!=null) {
-      contentValues.put("value_bool", valueBool);
+      _contentValues.put("value_bool", valueBool);
     } else {
-      contentValues.putNull("value_bool");
+      _contentValues.putNull("value_bool");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1911,19 +2310,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertPreparedStatement35==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement35 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement35, _contentValues);
     return result;
   }
 
@@ -1943,20 +2348,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertArrayBeanType(Bean64[] valueBeanArray) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueBeanArray!=null) {
-      contentValues.put("value_bean_array", serializer1(valueBeanArray));
+      _contentValues.put("value_bean_array", serializer1(valueBeanArray));
     } else {
-      contentValues.putNull("value_bean_array");
+      _contentValues.putNull("value_bean_array");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1964,19 +2368,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertArrayBeanTypePreparedStatement36==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertArrayBeanTypePreparedStatement36 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertArrayBeanTypePreparedStatement36, _contentValues);
     return result;
   }
 
@@ -1996,20 +2406,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertArrayLong(Long[] valueLongArray) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueLongArray!=null) {
-      contentValues.put("value_long_array", serializer2(valueLongArray));
+      _contentValues.put("value_long_array", serializer2(valueLongArray));
     } else {
-      contentValues.putNull("value_long_array");
+      _contentValues.putNull("value_long_array");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2017,19 +2426,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertArrayLongPreparedStatement37==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertArrayLongPreparedStatement37 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertArrayLongPreparedStatement37, _contentValues);
     return result;
   }
 
@@ -2049,20 +2464,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertArrayLongType(long[] valueLongTypeArray) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueLongTypeArray!=null) {
-      contentValues.put("value_long_type_array", serializer3(valueLongTypeArray));
+      _contentValues.put("value_long_type_array", serializer3(valueLongTypeArray));
     } else {
-      contentValues.putNull("value_long_type_array");
+      _contentValues.putNull("value_long_type_array");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2070,19 +2484,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertArrayLongTypePreparedStatement38==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertArrayLongTypePreparedStatement38 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertArrayLongTypePreparedStatement38, _contentValues);
     return result;
   }
 
@@ -2102,20 +2522,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertByte(Byte valueByte) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueByte!=null) {
-      contentValues.put("value_byte", valueByte);
+      _contentValues.put("value_byte", valueByte);
     } else {
-      contentValues.putNull("value_byte");
+      _contentValues.putNull("value_byte");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2123,19 +2542,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertBytePreparedStatement39==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertBytePreparedStatement39 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertBytePreparedStatement39, _contentValues);
     return result;
   }
 
@@ -2155,16 +2580,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertByteType(byte valueByteType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
-    contentValues.put("value_byte_type", valueByteType);
+    _contentValues.put("value_byte_type", valueByteType);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2172,19 +2596,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertByteTypePreparedStatement40==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertByteTypePreparedStatement40 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertByteTypePreparedStatement40, _contentValues);
     return result;
   }
 
@@ -2204,20 +2634,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertCalendar(Calendar valueCalendar) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueCalendar!=null) {
-      contentValues.put("value_calendar", CalendarUtils.write(valueCalendar));
+      _contentValues.put("value_calendar", CalendarUtils.write(valueCalendar));
     } else {
-      contentValues.putNull("value_calendar");
+      _contentValues.putNull("value_calendar");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2225,19 +2654,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertCalendarPreparedStatement41==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertCalendarPreparedStatement41 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertCalendarPreparedStatement41, _contentValues);
     return result;
   }
 
@@ -2257,20 +2692,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertChar(Character valueChar) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueChar!=null) {
-      contentValues.put("value_char", (int)valueChar);
+      _contentValues.put("value_char", (int)valueChar);
     } else {
-      contentValues.putNull("value_char");
+      _contentValues.putNull("value_char");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2278,19 +2712,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertCharPreparedStatement42==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertCharPreparedStatement42 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertCharPreparedStatement42, _contentValues);
     return result;
   }
 
@@ -2310,16 +2750,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertCharType(char valueCharType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
-    contentValues.put("value_char_type", (int)valueCharType);
+    _contentValues.put("value_char_type", (int)valueCharType);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2327,19 +2766,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertCharTypePreparedStatement43==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertCharTypePreparedStatement43 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertCharTypePreparedStatement43, _contentValues);
     return result;
   }
 
@@ -2359,20 +2804,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertCurrency(Currency valueCurrency) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueCurrency!=null) {
-      contentValues.put("value_currency", CurrencyUtils.write(valueCurrency));
+      _contentValues.put("value_currency", CurrencyUtils.write(valueCurrency));
     } else {
-      contentValues.putNull("value_currency");
+      _contentValues.putNull("value_currency");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2380,19 +2824,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertCurrencyPreparedStatement44==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertCurrencyPreparedStatement44 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertCurrencyPreparedStatement44, _contentValues);
     return result;
   }
 
@@ -2412,20 +2862,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertDate(Date valueDate) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueDate!=null) {
-      contentValues.put("value_date", DateUtils.write(valueDate));
+      _contentValues.put("value_date", DateUtils.write(valueDate));
     } else {
-      contentValues.putNull("value_date");
+      _contentValues.putNull("value_date");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2433,19 +2882,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertDatePreparedStatement45==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertDatePreparedStatement45 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertDatePreparedStatement45, _contentValues);
     return result;
   }
 
@@ -2465,20 +2920,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertDouble(Double valueDouble) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueDouble!=null) {
-      contentValues.put("value_double", valueDouble);
+      _contentValues.put("value_double", valueDouble);
     } else {
-      contentValues.putNull("value_double");
+      _contentValues.putNull("value_double");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2486,19 +2940,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertDoublePreparedStatement46==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertDoublePreparedStatement46 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertDoublePreparedStatement46, _contentValues);
     return result;
   }
 
@@ -2518,16 +2978,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertDoubleType(double valueDoubleType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
-    contentValues.put("value_double_type", valueDoubleType);
+    _contentValues.put("value_double_type", valueDoubleType);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2535,19 +2994,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertDoubleTypePreparedStatement47==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertDoubleTypePreparedStatement47 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertDoubleTypePreparedStatement47, _contentValues);
     return result;
   }
 
@@ -2567,20 +3032,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertEnumType(EnumType valueEnumType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueEnumType!=null) {
-      contentValues.put("value_enum_type", valueEnumType.toString());
+      _contentValues.put("value_enum_type", valueEnumType.toString());
     } else {
-      contentValues.putNull("value_enum_type");
+      _contentValues.putNull("value_enum_type");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2588,19 +3052,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertEnumTypePreparedStatement48==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertEnumTypePreparedStatement48 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertEnumTypePreparedStatement48, _contentValues);
     return result;
   }
 
@@ -2620,20 +3090,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertFloat(Float valueFloat) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueFloat!=null) {
-      contentValues.put("value_float", valueFloat);
+      _contentValues.put("value_float", valueFloat);
     } else {
-      contentValues.putNull("value_float");
+      _contentValues.putNull("value_float");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2641,19 +3110,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertFloatPreparedStatement49==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertFloatPreparedStatement49 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertFloatPreparedStatement49, _contentValues);
     return result;
   }
 
@@ -2673,16 +3148,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertFloatType(float valueFloatType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
-    contentValues.put("value_float_type", valueFloatType);
+    _contentValues.put("value_float_type", valueFloatType);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2690,19 +3164,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertFloatTypePreparedStatement50==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertFloatTypePreparedStatement50 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertFloatTypePreparedStatement50, _contentValues);
     return result;
   }
 
@@ -2722,20 +3202,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertInt(Integer valueInt) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueInt!=null) {
-      contentValues.put("value_int", valueInt);
+      _contentValues.put("value_int", valueInt);
     } else {
-      contentValues.putNull("value_int");
+      _contentValues.putNull("value_int");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2743,19 +3222,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertIntPreparedStatement51==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertIntPreparedStatement51 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertIntPreparedStatement51, _contentValues);
     return result;
   }
 
@@ -2775,16 +3260,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertIntType(int valueIntType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
-    contentValues.put("value_int_type", valueIntType);
+    _contentValues.put("value_int_type", valueIntType);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2792,19 +3276,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertIntTypePreparedStatement52==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertIntTypePreparedStatement52 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertIntTypePreparedStatement52, _contentValues);
     return result;
   }
 
@@ -2824,20 +3314,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertListLong(LinkedList<Long> valueLongList) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueLongList!=null) {
-      contentValues.put("value_long_list", serializer4(valueLongList));
+      _contentValues.put("value_long_list", serializer4(valueLongList));
     } else {
-      contentValues.putNull("value_long_list");
+      _contentValues.putNull("value_long_list");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2845,19 +3334,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertListLongPreparedStatement53==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertListLongPreparedStatement53 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertListLongPreparedStatement53, _contentValues);
     return result;
   }
 
@@ -2877,20 +3372,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertLocale(Locale valueLocale) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueLocale!=null) {
-      contentValues.put("value_locale", LocaleUtils.write(valueLocale));
+      _contentValues.put("value_locale", LocaleUtils.write(valueLocale));
     } else {
-      contentValues.putNull("value_locale");
+      _contentValues.putNull("value_locale");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2898,19 +3392,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertLocalePreparedStatement54==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertLocalePreparedStatement54 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertLocalePreparedStatement54, _contentValues);
     return result;
   }
 
@@ -2930,20 +3430,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertLong(Long valueLong) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueLong!=null) {
-      contentValues.put("value_long", valueLong);
+      _contentValues.put("value_long", valueLong);
     } else {
-      contentValues.putNull("value_long");
+      _contentValues.putNull("value_long");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -2951,19 +3450,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertLongPreparedStatement55==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertLongPreparedStatement55 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertLongPreparedStatement55, _contentValues);
     return result;
   }
 
@@ -2983,16 +3488,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertLongType(long valueLongType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
-    contentValues.put("value_long_type", valueLongType);
+    _contentValues.put("value_long_type", valueLongType);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -3000,19 +3504,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertLongTypePreparedStatement56==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertLongTypePreparedStatement56 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertLongTypePreparedStatement56, _contentValues);
     return result;
   }
 
@@ -3032,20 +3542,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertShort(Short valueShort) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueShort!=null) {
-      contentValues.put("value_short", (int)valueShort);
+      _contentValues.put("value_short", (int)valueShort);
     } else {
-      contentValues.putNull("value_short");
+      _contentValues.putNull("value_short");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -3053,19 +3562,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertShortPreparedStatement57==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertShortPreparedStatement57 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertShortPreparedStatement57, _contentValues);
     return result;
   }
 
@@ -3085,16 +3600,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertShortType(short valueShortType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
-    contentValues.put("value_short_type", (int)valueShortType);
+    _contentValues.put("value_short_type", (int)valueShortType);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -3102,19 +3616,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertShortTypePreparedStatement58==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertShortTypePreparedStatement58 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertShortTypePreparedStatement58, _contentValues);
     return result;
   }
 
@@ -3134,20 +3654,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertString(String valueString) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueString!=null) {
-      contentValues.put("value_string", valueString);
+      _contentValues.put("value_string", valueString);
     } else {
-      contentValues.putNull("value_string");
+      _contentValues.putNull("value_string");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -3155,19 +3674,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertStringPreparedStatement59==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertStringPreparedStatement59 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertStringPreparedStatement59, _contentValues);
     return result;
   }
 
@@ -3187,20 +3712,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertTime(Time valueTime) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueTime!=null) {
-      contentValues.put("value_time", SQLTimeUtils.write(valueTime));
+      _contentValues.put("value_time", SQLTimeUtils.write(valueTime));
     } else {
-      contentValues.putNull("value_time");
+      _contentValues.putNull("value_time");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -3208,19 +3732,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertTimePreparedStatement60==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertTimePreparedStatement60 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertTimePreparedStatement60, _contentValues);
     return result;
   }
 
@@ -3240,20 +3770,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertTimeZone(TimeZone valueTimeZone) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueTimeZone!=null) {
-      contentValues.put("value_time_zone", TimeZoneUtils.write(valueTimeZone));
+      _contentValues.put("value_time_zone", TimeZoneUtils.write(valueTimeZone));
     } else {
-      contentValues.putNull("value_time_zone");
+      _contentValues.putNull("value_time_zone");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -3261,19 +3790,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertTimeZonePreparedStatement61==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertTimeZonePreparedStatement61 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertTimeZonePreparedStatement61, _contentValues);
     return result;
   }
 
@@ -3293,20 +3828,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertURL(URL valueUrl) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (valueUrl!=null) {
-      contentValues.put("value_url", UrlUtils.write(valueUrl));
+      _contentValues.put("value_url", UrlUtils.write(valueUrl));
     } else {
-      contentValues.putNull("value_url");
+      _contentValues.putNull("value_url");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -3314,19 +3848,25 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     Logger.info("INSERT INTO bean64 (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("bean64", null, contentValues);
+    // insert operation
+    if (insertURLPreparedStatement62==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO bean64 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertURLPreparedStatement62 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertURLPreparedStatement62, _contentValues);
     return result;
   }
 
@@ -3392,11 +3932,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public List<Bean64> selectList(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -3407,15 +3947,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -3580,22 +4120,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOne() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -3761,11 +4301,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOne(BigDecimal valueBigDecimal) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -3776,15 +4316,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
+    _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -3950,11 +4490,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOne(BigInteger valueBigDecimal) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -3965,15 +4505,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toString()));
+    _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toString()));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -4139,11 +4679,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOne(boolean valueBoolType) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -4154,15 +4694,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(valueBoolType));
+    _contentValues.addWhereArgs(String.valueOf(valueBoolType));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -4328,11 +4868,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOne(Boolean valueBool) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -4343,15 +4883,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueBool==null?"":String.valueOf(valueBool)));
+    _contentValues.addWhereArgs((valueBool==null?"":String.valueOf(valueBool)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -4518,11 +5058,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean64> listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -4533,15 +5073,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -4753,11 +5293,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -4768,15 +5308,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -4855,11 +5395,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneArrayBeanType(Bean64[] valueBeanArray) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -4870,15 +5410,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -5044,11 +5584,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneArrayLong(Long[] valueLongArray) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -5059,15 +5599,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -5233,11 +5773,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneArrayLongType(long[] valueLongTypeArray) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -5248,15 +5788,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -5422,11 +5962,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneByte(Byte valueByte) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -5437,15 +5977,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueByte==null?"":String.valueOf(valueByte)));
+    _contentValues.addWhereArgs((valueByte==null?"":String.valueOf(valueByte)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -5611,11 +6151,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneByteType(boolean valueByteType) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -5626,15 +6166,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(valueByteType));
+    _contentValues.addWhereArgs(String.valueOf(valueByteType));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -5800,11 +6340,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneCalendar(Calendar valueCalendar) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -5815,15 +6355,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
+    _contentValues.addWhereArgs((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -5989,11 +6529,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneChar(Character valueChar) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6004,15 +6544,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueChar==null?"":String.valueOf((int)valueChar)));
+    _contentValues.addWhereArgs((valueChar==null?"":String.valueOf((int)valueChar)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -6178,11 +6718,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneCharType(char valueCharType) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6193,15 +6733,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf((int)valueCharType));
+    _contentValues.addWhereArgs(String.valueOf((int)valueCharType));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -6367,11 +6907,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneCurrencye(Currency valueCurrency) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6382,15 +6922,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
+    _contentValues.addWhereArgs((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -6556,11 +7096,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneDate(Date valueDate) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6571,15 +7111,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueDate==null?"":DateUtils.write(valueDate)));
+    _contentValues.addWhereArgs((valueDate==null?"":DateUtils.write(valueDate)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -6745,11 +7285,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneDouble(Double valueDouble) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6760,15 +7300,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueDouble==null?"":String.valueOf(valueDouble)));
+    _contentValues.addWhereArgs((valueDouble==null?"":String.valueOf(valueDouble)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -6934,11 +7474,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneDoubleType(double valueDoubleType) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -6949,15 +7489,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(valueDoubleType));
+    _contentValues.addWhereArgs(String.valueOf(valueDoubleType));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -7123,11 +7663,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneEnumType(EnumType valueEnumType) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -7138,15 +7678,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueEnumType==null?"":valueEnumType.toString()));
+    _contentValues.addWhereArgs((valueEnumType==null?"":valueEnumType.toString()));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -7312,11 +7852,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneFloat(Float valueFloat) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -7327,15 +7867,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueFloat==null?"":String.valueOf(valueFloat)));
+    _contentValues.addWhereArgs((valueFloat==null?"":String.valueOf(valueFloat)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -7501,11 +8041,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneFloatType(float valueFloatType) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -7516,15 +8056,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(valueFloatType));
+    _contentValues.addWhereArgs(String.valueOf(valueFloatType));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -7690,11 +8230,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneInt(Integer valueInt) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -7705,15 +8245,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueInt==null?"":String.valueOf(valueInt)));
+    _contentValues.addWhereArgs((valueInt==null?"":String.valueOf(valueInt)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -7879,11 +8419,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneIntType(int valueIntType) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -7894,15 +8434,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(valueIntType));
+    _contentValues.addWhereArgs(String.valueOf(valueIntType));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -8068,11 +8608,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneListLong(LinkedList<Long> valueLongList) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8083,15 +8623,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -8257,11 +8797,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneLocale(Calendar valueLocale) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8272,15 +8812,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueLocale==null?"":CalendarUtils.write(valueLocale)));
+    _contentValues.addWhereArgs((valueLocale==null?"":CalendarUtils.write(valueLocale)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -8446,11 +8986,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneLong(Long valueLong) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8461,15 +9001,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueLong==null?"":String.valueOf(valueLong)));
+    _contentValues.addWhereArgs((valueLong==null?"":String.valueOf(valueLong)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -8635,11 +9175,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneLongType(long valueLongType) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8650,15 +9190,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(valueLongType));
+    _contentValues.addWhereArgs(String.valueOf(valueLongType));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -8824,11 +9364,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneShort(Short valueShort) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -8839,15 +9379,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueShort==null?"":String.valueOf((int)valueShort)));
+    _contentValues.addWhereArgs((valueShort==null?"":String.valueOf((int)valueShort)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -9013,11 +9553,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneShortType(short valueShortType) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -9028,15 +9568,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf((int)valueShortType));
+    _contentValues.addWhereArgs(String.valueOf((int)valueShortType));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -9202,11 +9742,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneString(String valueString) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -9217,15 +9757,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueString==null?"":valueString));
+    _contentValues.addWhereArgs((valueString==null?"":valueString));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -9391,11 +9931,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneTime(Time valueTime) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -9406,15 +9946,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueTime==null?"":SQLTimeUtils.write(valueTime)));
+    _contentValues.addWhereArgs((valueTime==null?"":SQLTimeUtils.write(valueTime)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -9580,11 +10120,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneTimeZone(TimeZone valueTimeZone) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -9595,15 +10135,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
+    _contentValues.addWhereArgs((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -9769,11 +10309,11 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Bean64 selectOneURL(URL valueUrl) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -9784,15 +10324,15 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((valueUrl==null?"":UrlUtils.write(valueUrl)));
+    _contentValues.addWhereArgs((valueUrl==null?"":UrlUtils.write(valueUrl)));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -9910,22 +10450,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Boolean selectValueBool() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -9956,22 +10496,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public boolean selectValueBoolType() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_bool_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10002,22 +10542,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Byte selectValueByte() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_byte FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10048,22 +10588,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public byte selectValueByteType() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_byte_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10094,22 +10634,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Character selectValueChar() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_char FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10140,22 +10680,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public char selectValueCharType() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_char_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10186,22 +10726,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Double selectValueDouble() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_double FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10232,22 +10772,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public double selectValueDoubleType() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_double_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10278,22 +10818,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Float selectValueFloat() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_float FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10324,22 +10864,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public float selectValueFloatType() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_float_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10370,22 +10910,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Integer selectValueInt() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_int FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10416,22 +10956,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public int selectValueIntType() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_int_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10462,22 +11002,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Long selectValueLong() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_long FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10508,22 +11048,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long selectValueLongType() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_long_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10554,22 +11094,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public Short selectValueShort() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_short FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10600,22 +11140,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public short selectValueShortType() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_short_type FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10646,22 +11186,22 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public String selectValueString() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT value_string FROM bean64");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -10739,220 +11279,223 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(Bean64 value) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("value_bool_type", value.valueBoolType);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("value_bool_type", value.valueBoolType);
     if (value.valueBool!=null) {
-      contentValues.put("value_bool", value.valueBool);
+      _contentValues.put("value_bool", value.valueBool);
     } else {
-      contentValues.putNull("value_bool");
+      _contentValues.putNull("value_bool");
     }
-    contentValues.put("value_byte_type", value.valueByteType);
+    _contentValues.put("value_byte_type", value.valueByteType);
     if (value.valueByte!=null) {
-      contentValues.put("value_byte", value.valueByte);
+      _contentValues.put("value_byte", value.valueByte);
     } else {
-      contentValues.putNull("value_byte");
+      _contentValues.putNull("value_byte");
     }
-    contentValues.put("value_short_type", (int)value.valueShortType);
+    _contentValues.put("value_short_type", (int)value.valueShortType);
     if (value.valueShort!=null) {
-      contentValues.put("value_short", (int)value.valueShort);
+      _contentValues.put("value_short", (int)value.valueShort);
     } else {
-      contentValues.putNull("value_short");
+      _contentValues.putNull("value_short");
     }
-    contentValues.put("value_int_type", value.valueIntType);
+    _contentValues.put("value_int_type", value.valueIntType);
     if (value.valueInt!=null) {
-      contentValues.put("value_int", value.valueInt);
+      _contentValues.put("value_int", value.valueInt);
     } else {
-      contentValues.putNull("value_int");
+      _contentValues.putNull("value_int");
     }
     if (value.valueString!=null) {
-      contentValues.put("value_string", value.valueString);
+      _contentValues.put("value_string", value.valueString);
     } else {
-      contentValues.putNull("value_string");
+      _contentValues.putNull("value_string");
     }
-    contentValues.put("value_char_type", (int)value.valueCharType);
+    _contentValues.put("value_char_type", (int)value.valueCharType);
     if (value.valueChar!=null) {
-      contentValues.put("value_char", (int)value.valueChar);
+      _contentValues.put("value_char", (int)value.valueChar);
     } else {
-      contentValues.putNull("value_char");
+      _contentValues.putNull("value_char");
     }
-    contentValues.put("value_float_type", value.valueFloatType);
+    _contentValues.put("value_float_type", value.valueFloatType);
     if (value.valueFloat!=null) {
-      contentValues.put("value_float", value.valueFloat);
+      _contentValues.put("value_float", value.valueFloat);
     } else {
-      contentValues.putNull("value_float");
+      _contentValues.putNull("value_float");
     }
     if (value.valueBigInteger!=null) {
-      contentValues.put("value_big_integer", value.valueBigInteger.toString());
+      _contentValues.put("value_big_integer", value.valueBigInteger.toString());
     } else {
-      contentValues.putNull("value_big_integer");
+      _contentValues.putNull("value_big_integer");
     }
     if (value.valueBigDecimal!=null) {
-      contentValues.put("value_big_decimal", value.valueBigDecimal.toPlainString());
+      _contentValues.put("value_big_decimal", value.valueBigDecimal.toPlainString());
     } else {
-      contentValues.putNull("value_big_decimal");
+      _contentValues.putNull("value_big_decimal");
     }
     if (value.valueEnumType!=null) {
-      contentValues.put("value_enum_type", value.valueEnumType.toString());
+      _contentValues.put("value_enum_type", value.valueEnumType.toString());
     } else {
-      contentValues.putNull("value_enum_type");
+      _contentValues.putNull("value_enum_type");
     }
-    contentValues.put("value_long_type", value.valueLongType);
+    _contentValues.put("value_long_type", value.valueLongType);
     if (value.valueLong!=null) {
-      contentValues.put("value_long", value.valueLong);
+      _contentValues.put("value_long", value.valueLong);
     } else {
-      contentValues.putNull("value_long");
+      _contentValues.putNull("value_long");
     }
-    contentValues.put("value_double_type", value.valueDoubleType);
+    _contentValues.put("value_double_type", value.valueDoubleType);
     if (value.valueDouble!=null) {
-      contentValues.put("value_double", value.valueDouble);
+      _contentValues.put("value_double", value.valueDouble);
     } else {
-      contentValues.putNull("value_double");
+      _contentValues.putNull("value_double");
     }
     if (value.valueLocale!=null) {
-      contentValues.put("value_locale", LocaleUtils.write(value.valueLocale));
+      _contentValues.put("value_locale", LocaleUtils.write(value.valueLocale));
     } else {
-      contentValues.putNull("value_locale");
+      _contentValues.putNull("value_locale");
     }
     if (value.valueCalendar!=null) {
-      contentValues.put("value_calendar", CalendarUtils.write(value.valueCalendar));
+      _contentValues.put("value_calendar", CalendarUtils.write(value.valueCalendar));
     } else {
-      contentValues.putNull("value_calendar");
+      _contentValues.putNull("value_calendar");
     }
     if (value.valueDate!=null) {
-      contentValues.put("value_date", DateUtils.write(value.valueDate));
+      _contentValues.put("value_date", DateUtils.write(value.valueDate));
     } else {
-      contentValues.putNull("value_date");
+      _contentValues.putNull("value_date");
     }
     if (value.valueUrl!=null) {
-      contentValues.put("value_url", UrlUtils.write(value.valueUrl));
+      _contentValues.put("value_url", UrlUtils.write(value.valueUrl));
     } else {
-      contentValues.putNull("value_url");
+      _contentValues.putNull("value_url");
     }
     if (value.valueTime!=null) {
-      contentValues.put("value_time", SQLTimeUtils.write(value.valueTime));
+      _contentValues.put("value_time", SQLTimeUtils.write(value.valueTime));
     } else {
-      contentValues.putNull("value_time");
+      _contentValues.putNull("value_time");
     }
     if (value.valueCurrency!=null) {
-      contentValues.put("value_currency", CurrencyUtils.write(value.valueCurrency));
+      _contentValues.put("value_currency", CurrencyUtils.write(value.valueCurrency));
     } else {
-      contentValues.putNull("value_currency");
+      _contentValues.putNull("value_currency");
     }
     if (value.valueTimeZone!=null) {
-      contentValues.put("value_time_zone", TimeZoneUtils.write(value.valueTimeZone));
+      _contentValues.put("value_time_zone", TimeZoneUtils.write(value.valueTimeZone));
     } else {
-      contentValues.putNull("value_time_zone");
+      _contentValues.putNull("value_time_zone");
     }
     if (value.valueTimeList!=null) {
-      contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(value.valueTimeList));
+      _contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(value.valueTimeList));
     } else {
-      contentValues.putNull("value_time_list");
+      _contentValues.putNull("value_time_list");
     }
     if (value.valueStrinList!=null) {
-      contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(value.valueStrinList));
+      _contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(value.valueStrinList));
     } else {
-      contentValues.putNull("value_strin_list");
+      _contentValues.putNull("value_strin_list");
     }
     if (value.valueLongList!=null) {
-      contentValues.put("value_long_list", Bean64Table.serializeValueLongList(value.valueLongList));
+      _contentValues.put("value_long_list", Bean64Table.serializeValueLongList(value.valueLongList));
     } else {
-      contentValues.putNull("value_long_list");
+      _contentValues.putNull("value_long_list");
     }
     if (value.valueByteArray!=null) {
-      contentValues.put("value_byte_array", value.valueByteArray);
+      _contentValues.put("value_byte_array", value.valueByteArray);
     } else {
-      contentValues.putNull("value_byte_array");
+      _contentValues.putNull("value_byte_array");
     }
     if (value.valueLongTypeArray!=null) {
-      contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(value.valueLongTypeArray));
+      _contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(value.valueLongTypeArray));
     } else {
-      contentValues.putNull("value_long_type_array");
+      _contentValues.putNull("value_long_type_array");
     }
     if (value.valueLongArray!=null) {
-      contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(value.valueLongArray));
+      _contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(value.valueLongArray));
     } else {
-      contentValues.putNull("value_long_array");
+      _contentValues.putNull("value_long_array");
     }
     if (value.valueBeanArray!=null) {
-      contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(value.valueBeanArray));
+      _contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(value.valueBeanArray));
     } else {
-      contentValues.putNull("value_bean_array");
+      _contentValues.putNull("value_bean_array");
     }
     if (value.valueStringArray!=null) {
-      contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(value.valueStringArray));
+      _contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(value.valueStringArray));
     } else {
-      contentValues.putNull("value_string_array");
+      _contentValues.putNull("value_string_array");
     }
     if (value.valueCharList!=null) {
-      contentValues.put("value_char_list", Bean64Table.serializeValueCharList(value.valueCharList));
+      _contentValues.put("value_char_list", Bean64Table.serializeValueCharList(value.valueCharList));
     } else {
-      contentValues.putNull("value_char_list");
+      _contentValues.putNull("value_char_list");
     }
     if (value.valueCharTypeArray!=null) {
-      contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(value.valueCharTypeArray));
+      _contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(value.valueCharTypeArray));
     } else {
-      contentValues.putNull("value_char_type_array");
+      _contentValues.putNull("value_char_type_array");
     }
     if (value.valueCharArray!=null) {
-      contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(value.valueCharArray));
+      _contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(value.valueCharArray));
     } else {
-      contentValues.putNull("value_char_array");
+      _contentValues.putNull("value_char_array");
     }
     if (value.valueMapStringBean!=null) {
-      contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(value.valueMapStringBean));
+      _contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(value.valueMapStringBean));
     } else {
-      contentValues.putNull("value_map_string_bean");
+      _contentValues.putNull("value_map_string_bean");
     }
     if (value.valueLinkedMapStringBean!=null) {
-      contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(value.valueLinkedMapStringBean));
+      _contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(value.valueLinkedMapStringBean));
     } else {
-      contentValues.putNull("value_linked_map_string_bean");
+      _contentValues.putNull("value_linked_map_string_bean");
     }
     if (value.valueSetString!=null) {
-      contentValues.put("value_set_string", Bean64Table.serializeValueSetString(value.valueSetString));
+      _contentValues.put("value_set_string", Bean64Table.serializeValueSetString(value.valueSetString));
     } else {
-      contentValues.putNull("value_set_string");
+      _contentValues.putNull("value_set_string");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(value.id));
+    _contentValues.addWhereArgs(String.valueOf(value.id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement63==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET value_bool_type=?, value_bool=?, value_byte_type=?, value_byte=?, value_short_type=?, value_short=?, value_int_type=?, value_int=?, value_string=?, value_char_type=?, value_char=?, value_float_type=?, value_float=?, value_big_integer=?, value_big_decimal=?, value_enum_type=?, value_long_type=?, value_long=?, value_double_type=?, value_double=?, value_locale=?, value_calendar=?, value_date=?, value_url=?, value_time=?, value_currency=?, value_time_zone=?, value_time_list=?, value_strin_list=?, value_long_list=?, value_byte_array=?, value_long_type_array=?, value_long_array=?, value_bean_array=?, value_string_array=?, value_char_list=?, value_char_type_array=?, value_char_array=?, value_map_string_bean=?, value_linked_map_string_bean=?, value_set_string=? WHERE id=?";
+      updateOnePreparedStatement63 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET value_bool_type=:valueBoolType, value_bool=:valueBool, value_byte_type=:valueByteType, value_byte=:valueByte, value_short_type=:valueShortType, value_short=:valueShort, value_int_type=:valueIntType, value_int=:valueInt, value_string=:valueString, value_char_type=:valueCharType, value_char=:valueChar, value_float_type=:valueFloatType, value_float=:valueFloat, value_big_integer=:valueBigInteger, value_big_decimal=:valueBigDecimal, value_enum_type=:valueEnumType, value_long_type=:valueLongType, value_long=:valueLong, value_double_type=:valueDoubleType, value_double=:valueDouble, value_locale=:valueLocale, value_calendar=:valueCalendar, value_date=:valueDate, value_url=:valueUrl, value_time=:valueTime, value_currency=:valueCurrency, value_time_zone=:valueTimeZone, value_time_list=:valueTimeList, value_strin_list=:valueStrinList, value_long_list=:valueLongList, value_byte_array=:valueByteArray, value_long_type_array=:valueLongTypeArray, value_long_array=:valueLongArray, value_bean_array=:valueBeanArray, value_string_array=:valueStringArray, value_char_list=:valueCharList, value_char_type_array=:valueCharTypeArray, value_char_array=:valueCharArray, value_map_string_bean=:valueMapStringBean, value_linked_map_string_bean=:valueLinkedMapStringBean, value_set_string=:valueSetString WHERE id=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement63, _contentValues);
     return result;
   }
 
@@ -10979,47 +11522,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(long id, BigDecimal valueBigDecimal) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
+    _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement64==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_big_decimal=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_big_decimal=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_big_decimal=?";
+      updateOnePreparedStatement64 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_big_decimal=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement64, _contentValues);
     return result;
   }
 
@@ -11046,47 +11593,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(long id, BigInteger valueBigDecimal) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueBigDecimal==null?"":valueBigDecimal.toString()));
+    _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toString()));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement65==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_big_decimal=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_big_decimal=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_big_decimal=?";
+      updateOnePreparedStatement65 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_big_decimal=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement65, _contentValues);
     return result;
   }
 
@@ -11113,47 +11664,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(long id, boolean valueBoolType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueBoolType));
+    _contentValues.addWhereArgs(String.valueOf(valueBoolType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement66==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_bool_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_bool_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_bool_type=?";
+      updateOnePreparedStatement66 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_bool_type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement66, _contentValues);
     return result;
   }
 
@@ -11180,47 +11735,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(long id, Boolean valueBool) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueBool==null?"":String.valueOf(valueBool)));
+    _contentValues.addWhereArgs((valueBool==null?"":String.valueOf(valueBool)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement67==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_bool=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_bool=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_bool=?";
+      updateOnePreparedStatement67 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_bool=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement67, _contentValues);
     return result;
   }
 
@@ -11247,51 +11806,55 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(long id, Set<String> valueSetString) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (valueSetString!=null) {
-      contentValues.put("value_set_string", serializer5(valueSetString));
+      _contentValues.put("value_set_string", serializer5(valueSetString));
     } else {
-      contentValues.putNull("value_set_string");
+      _contentValues.putNull("value_set_string");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOnePreparedStatement68==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET value_set_string=? WHERE id=?";
+      updateOnePreparedStatement68 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET value_set_string=:valueSetString WHERE id=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement68, _contentValues);
     return result;
   }
 
@@ -11318,47 +11881,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneArrayBean(long id, Bean64[] valueBeanArray) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneArrayBeanPreparedStatement69==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_bean_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_bean_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_bean_array=?";
+      updateOneArrayBeanPreparedStatement69 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_bean_array=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneArrayBeanPreparedStatement69, _contentValues);
     return result;
   }
 
@@ -11385,47 +11952,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneArrayLong(long id, Long[] valueLongArray) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneArrayLongPreparedStatement70==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_long_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_long_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_long_array=?";
+      updateOneArrayLongPreparedStatement70 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_long_array=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneArrayLongPreparedStatement70, _contentValues);
     return result;
   }
 
@@ -11452,47 +12023,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneArrayLongType(long id, long[] valueLongTypeArray) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneArrayLongTypePreparedStatement71==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_long_type_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_long_type_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_long_type_array=?";
+      updateOneArrayLongTypePreparedStatement71 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_long_type_array=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneArrayLongTypePreparedStatement71, _contentValues);
     return result;
   }
 
@@ -11519,47 +12094,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneByte(long id, Byte valueByte) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueByte==null?"":String.valueOf(valueByte)));
+    _contentValues.addWhereArgs((valueByte==null?"":String.valueOf(valueByte)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneBytePreparedStatement72==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_byte=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_byte=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_byte=?";
+      updateOneBytePreparedStatement72 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_byte=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneBytePreparedStatement72, _contentValues);
     return result;
   }
 
@@ -11586,47 +12165,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneByteType(long id, boolean valueByteType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueByteType));
+    _contentValues.addWhereArgs(String.valueOf(valueByteType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneByteTypePreparedStatement73==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_byte_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_byte_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_byte_type=?";
+      updateOneByteTypePreparedStatement73 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_byte_type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneByteTypePreparedStatement73, _contentValues);
     return result;
   }
 
@@ -11653,47 +12236,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneCalendar(long id, Calendar valueCalendar) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
+    _contentValues.addWhereArgs((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneCalendarPreparedStatement74==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_calendar=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_calendar=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_calendar=?";
+      updateOneCalendarPreparedStatement74 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_calendar=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneCalendarPreparedStatement74, _contentValues);
     return result;
   }
 
@@ -11720,47 +12307,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneChar(long id, Character valueChar) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueChar==null?"":String.valueOf((int)valueChar)));
+    _contentValues.addWhereArgs((valueChar==null?"":String.valueOf((int)valueChar)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneCharPreparedStatement75==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_char_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_char_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_char_type=?";
+      updateOneCharPreparedStatement75 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_char_type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneCharPreparedStatement75, _contentValues);
     return result;
   }
 
@@ -11787,47 +12378,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneCharType(long id, char valueCharType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf((int)valueCharType));
+    _contentValues.addWhereArgs(String.valueOf((int)valueCharType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneCharTypePreparedStatement76==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_char_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_char_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_char_type=?";
+      updateOneCharTypePreparedStatement76 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_char_type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneCharTypePreparedStatement76, _contentValues);
     return result;
   }
 
@@ -11854,47 +12449,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneCurrency(long id, Currency valueCurrency) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
+    _contentValues.addWhereArgs((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneCurrencyPreparedStatement77==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_currency=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_currency=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_currency=?";
+      updateOneCurrencyPreparedStatement77 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_currency=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneCurrencyPreparedStatement77, _contentValues);
     return result;
   }
 
@@ -11921,47 +12520,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneDate(long id, Date valueDate) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueDate==null?"":DateUtils.write(valueDate)));
+    _contentValues.addWhereArgs((valueDate==null?"":DateUtils.write(valueDate)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneDatePreparedStatement78==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_date=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_date=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_date=?";
+      updateOneDatePreparedStatement78 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_date=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneDatePreparedStatement78, _contentValues);
     return result;
   }
 
@@ -11988,47 +12591,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneDouble(long id, Double valueDouble) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueDouble==null?"":String.valueOf(valueDouble)));
+    _contentValues.addWhereArgs((valueDouble==null?"":String.valueOf(valueDouble)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneDoublePreparedStatement79==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_double=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_double=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_double=?";
+      updateOneDoublePreparedStatement79 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_double=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneDoublePreparedStatement79, _contentValues);
     return result;
   }
 
@@ -12055,47 +12662,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneDoubleType(long id, double valueDoubleType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueDoubleType));
+    _contentValues.addWhereArgs(String.valueOf(valueDoubleType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneDoubleTypePreparedStatement80==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_double_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_double_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_double_type=?";
+      updateOneDoubleTypePreparedStatement80 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_double_type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneDoubleTypePreparedStatement80, _contentValues);
     return result;
   }
 
@@ -12122,47 +12733,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneEnumType(long id, EnumType valueEnumType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueEnumType==null?"":valueEnumType.toString()));
+    _contentValues.addWhereArgs((valueEnumType==null?"":valueEnumType.toString()));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneEnumTypePreparedStatement81==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_enum_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_enum_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_enum_type=?";
+      updateOneEnumTypePreparedStatement81 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_enum_type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneEnumTypePreparedStatement81, _contentValues);
     return result;
   }
 
@@ -12189,47 +12804,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneFloat(long id, Float valueFloat) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueFloat==null?"":String.valueOf(valueFloat)));
+    _contentValues.addWhereArgs((valueFloat==null?"":String.valueOf(valueFloat)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneFloatPreparedStatement82==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_float=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_float=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_float=?";
+      updateOneFloatPreparedStatement82 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_float=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneFloatPreparedStatement82, _contentValues);
     return result;
   }
 
@@ -12256,47 +12875,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneFloatType(long id, float valueFloatType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueFloatType));
+    _contentValues.addWhereArgs(String.valueOf(valueFloatType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneFloatTypePreparedStatement83==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_float_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_float_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_float_type=?";
+      updateOneFloatTypePreparedStatement83 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_float_type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneFloatTypePreparedStatement83, _contentValues);
     return result;
   }
 
@@ -12323,47 +12946,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneInt(long id, Integer valueInt) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueInt==null?"":String.valueOf(valueInt)));
+    _contentValues.addWhereArgs((valueInt==null?"":String.valueOf(valueInt)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneIntPreparedStatement84==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_int=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_int=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_int=?";
+      updateOneIntPreparedStatement84 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_int=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneIntPreparedStatement84, _contentValues);
     return result;
   }
 
@@ -12390,47 +13017,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneIntType(long id, int valueIntType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueIntType));
+    _contentValues.addWhereArgs(String.valueOf(valueIntType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneIntTypePreparedStatement85==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_int_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_int_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_int_type=?";
+      updateOneIntTypePreparedStatement85 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_int_type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneIntTypePreparedStatement85, _contentValues);
     return result;
   }
 
@@ -12457,47 +13088,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneListLong(long id, LinkedList<Long> valueLongList) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneListLongPreparedStatement86==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_long_list=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_long_list=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_long_list=?";
+      updateOneListLongPreparedStatement86 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_long_list=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneListLongPreparedStatement86, _contentValues);
     return result;
   }
 
@@ -12524,47 +13159,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneLocale(long id, Locale valueLocale) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueLocale==null?"":LocaleUtils.write(valueLocale)));
+    _contentValues.addWhereArgs((valueLocale==null?"":LocaleUtils.write(valueLocale)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneLocalePreparedStatement87==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_locale=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_locale=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_locale=?";
+      updateOneLocalePreparedStatement87 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_locale=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneLocalePreparedStatement87, _contentValues);
     return result;
   }
 
@@ -12591,47 +13230,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneLong(long id, Long valueLong) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueLong==null?"":String.valueOf(valueLong)));
+    _contentValues.addWhereArgs((valueLong==null?"":String.valueOf(valueLong)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneLongPreparedStatement88==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_long=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_long=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_long=?";
+      updateOneLongPreparedStatement88 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_long=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneLongPreparedStatement88, _contentValues);
     return result;
   }
 
@@ -12658,47 +13301,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneLongType(long id, long valueLongType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(valueLongType));
+    _contentValues.addWhereArgs(String.valueOf(valueLongType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneLongTypePreparedStatement89==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_long_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_long_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_long_type=?";
+      updateOneLongTypePreparedStatement89 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_long_type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneLongTypePreparedStatement89, _contentValues);
     return result;
   }
 
@@ -12725,47 +13372,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneShort(long id, Short valueShort) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueShort==null?"":String.valueOf((int)valueShort)));
+    _contentValues.addWhereArgs((valueShort==null?"":String.valueOf((int)valueShort)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneShortPreparedStatement90==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_short=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_short=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_short=?";
+      updateOneShortPreparedStatement90 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_short=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneShortPreparedStatement90, _contentValues);
     return result;
   }
 
@@ -12792,47 +13443,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneShortType(long id, short valueShortType) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf((int)valueShortType));
+    _contentValues.addWhereArgs(String.valueOf((int)valueShortType));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneShortTypePreparedStatement91==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_short_type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_short_type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_short_type=?";
+      updateOneShortTypePreparedStatement91 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_short_type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneShortTypePreparedStatement91, _contentValues);
     return result;
   }
 
@@ -12859,47 +13514,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneString(long id, Double valueString) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueString==null?"":String.valueOf(valueString)));
+    _contentValues.addWhereArgs((valueString==null?"":String.valueOf(valueString)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneStringPreparedStatement92==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_string=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_string=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_string=?";
+      updateOneStringPreparedStatement92 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_string=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneStringPreparedStatement92, _contentValues);
     return result;
   }
 
@@ -12926,47 +13585,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneTime(long id, Time valueTime) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueTime==null?"":SQLTimeUtils.write(valueTime)));
+    _contentValues.addWhereArgs((valueTime==null?"":SQLTimeUtils.write(valueTime)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneTimePreparedStatement93==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_time=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_time=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_time=?";
+      updateOneTimePreparedStatement93 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_time=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneTimePreparedStatement93, _contentValues);
     return result;
   }
 
@@ -12993,47 +13656,51 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneTimeZone(long id, TimeZone valueTimeZone) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
+    _contentValues.addWhereArgs((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneTimeZonePreparedStatement94==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_time_zone=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_time_zone=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_time_zone=?";
+      updateOneTimeZonePreparedStatement94 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_time_zone=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneTimeZonePreparedStatement94, _contentValues);
     return result;
   }
 
@@ -13060,118 +13727,52 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneURL(long id, URL valueUrl) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-    contentValues.put("id", id);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add((valueUrl==null?"":UrlUtils.write(valueUrl)));
+    _contentValues.addWhereArgs((valueUrl==null?"":UrlUtils.write(valueUrl)));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateOneURLPreparedStatement95==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" value_url=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" value_url=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE bean64 SET id=? WHERE value_url=?";
+      updateOneURLPreparedStatement95 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE bean64 SET id=:id WHERE value_url=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("bean64", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneURLPreparedStatement95, _contentValues);
     return result;
-  }
-
-  /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(Bean64[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        Bean64 item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private Bean64[] parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Bean64[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Bean64> collection=new ArrayList<>();
-        Bean64 item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=bean64BindMap.parseOnJackson(jacksonParser);
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
   }
 
   /**
@@ -13245,9 +13846,9 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * for param serializer5 serialization
+   * for param serializer1 serialization
    */
-  private byte[] serializer5(Set<String> value) {
+  private byte[] serializer1(Bean64[] value) {
     if (value==null) {
       return null;
     }
@@ -13257,14 +13858,17 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
+        int n=value.length;
+        Bean64 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("element");
         jacksonSerializer.writeStartArray();
-        for (String item: value) {
+        for (int i=0; i<n; i++) {
+          item=value[i];
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(item);
+            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -13278,9 +13882,9 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * for param parser5 parsing
+   * for param parser1 parsing
    */
-  private Set<String> parser5(byte[] input) {
+  private Bean64[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -13291,19 +13895,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      Set<String> result=null;
+      Bean64[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
+        ArrayList<Bean64> collection=new ArrayList<>();
+        Bean64 item=null;
         while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=jacksonParser.getText();
+            item=bean64BindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }
-        result=collection;
+        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
       }
       return result;
     } catch(Exception e) {
@@ -13444,6 +14048,460 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param serializer5 serialization
+   */
+  private byte[] serializer5(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser5 parsing
+   */
+  private Set<String> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  public void clearCompiledStatements() {
+    if (deletePreparedStatement0!=null) {
+      deletePreparedStatement0.close();
+      deletePreparedStatement0=null;
+    }
+    if (deletePreparedStatement1!=null) {
+      deletePreparedStatement1.close();
+      deletePreparedStatement1=null;
+    }
+    if (deletePreparedStatement2!=null) {
+      deletePreparedStatement2.close();
+      deletePreparedStatement2=null;
+    }
+    if (deletePreparedStatement3!=null) {
+      deletePreparedStatement3.close();
+      deletePreparedStatement3=null;
+    }
+    if (deleteArrayBeanTypePreparedStatement4!=null) {
+      deleteArrayBeanTypePreparedStatement4.close();
+      deleteArrayBeanTypePreparedStatement4=null;
+    }
+    if (deleteArrayLongPreparedStatement5!=null) {
+      deleteArrayLongPreparedStatement5.close();
+      deleteArrayLongPreparedStatement5=null;
+    }
+    if (deleteArrayLongTypePreparedStatement6!=null) {
+      deleteArrayLongTypePreparedStatement6.close();
+      deleteArrayLongTypePreparedStatement6=null;
+    }
+    if (deleteBytePreparedStatement7!=null) {
+      deleteBytePreparedStatement7.close();
+      deleteBytePreparedStatement7=null;
+    }
+    if (deleteByteTypePreparedStatement8!=null) {
+      deleteByteTypePreparedStatement8.close();
+      deleteByteTypePreparedStatement8=null;
+    }
+    if (deleteCalendarPreparedStatement9!=null) {
+      deleteCalendarPreparedStatement9.close();
+      deleteCalendarPreparedStatement9=null;
+    }
+    if (deleteCharPreparedStatement10!=null) {
+      deleteCharPreparedStatement10.close();
+      deleteCharPreparedStatement10=null;
+    }
+    if (deleteCharTypePreparedStatement11!=null) {
+      deleteCharTypePreparedStatement11.close();
+      deleteCharTypePreparedStatement11=null;
+    }
+    if (deleteCurrencyPreparedStatement12!=null) {
+      deleteCurrencyPreparedStatement12.close();
+      deleteCurrencyPreparedStatement12=null;
+    }
+    if (deleteDatePreparedStatement13!=null) {
+      deleteDatePreparedStatement13.close();
+      deleteDatePreparedStatement13=null;
+    }
+    if (deleteDoublePreparedStatement14!=null) {
+      deleteDoublePreparedStatement14.close();
+      deleteDoublePreparedStatement14=null;
+    }
+    if (deleteDoubleTypePreparedStatement15!=null) {
+      deleteDoubleTypePreparedStatement15.close();
+      deleteDoubleTypePreparedStatement15=null;
+    }
+    if (deleteEnumTypePreparedStatement16!=null) {
+      deleteEnumTypePreparedStatement16.close();
+      deleteEnumTypePreparedStatement16=null;
+    }
+    if (deleteFloatPreparedStatement17!=null) {
+      deleteFloatPreparedStatement17.close();
+      deleteFloatPreparedStatement17=null;
+    }
+    if (deleteFloatTypePreparedStatement18!=null) {
+      deleteFloatTypePreparedStatement18.close();
+      deleteFloatTypePreparedStatement18=null;
+    }
+    if (deleteIntPreparedStatement19!=null) {
+      deleteIntPreparedStatement19.close();
+      deleteIntPreparedStatement19=null;
+    }
+    if (deleteIntTypePreparedStatement20!=null) {
+      deleteIntTypePreparedStatement20.close();
+      deleteIntTypePreparedStatement20=null;
+    }
+    if (deleteListLongPreparedStatement21!=null) {
+      deleteListLongPreparedStatement21.close();
+      deleteListLongPreparedStatement21=null;
+    }
+    if (deleteLocalePreparedStatement22!=null) {
+      deleteLocalePreparedStatement22.close();
+      deleteLocalePreparedStatement22=null;
+    }
+    if (deleteLongPreparedStatement23!=null) {
+      deleteLongPreparedStatement23.close();
+      deleteLongPreparedStatement23=null;
+    }
+    if (deleteLongTypePreparedStatement24!=null) {
+      deleteLongTypePreparedStatement24.close();
+      deleteLongTypePreparedStatement24=null;
+    }
+    if (deleteShortPreparedStatement25!=null) {
+      deleteShortPreparedStatement25.close();
+      deleteShortPreparedStatement25=null;
+    }
+    if (deleteShortTypePreparedStatement26!=null) {
+      deleteShortTypePreparedStatement26.close();
+      deleteShortTypePreparedStatement26=null;
+    }
+    if (deleteStringPreparedStatement27!=null) {
+      deleteStringPreparedStatement27.close();
+      deleteStringPreparedStatement27=null;
+    }
+    if (deleteTimePreparedStatement28!=null) {
+      deleteTimePreparedStatement28.close();
+      deleteTimePreparedStatement28=null;
+    }
+    if (deleteTimeZonePreparedStatement29!=null) {
+      deleteTimeZonePreparedStatement29.close();
+      deleteTimeZonePreparedStatement29=null;
+    }
+    if (deleteURLPreparedStatement30!=null) {
+      deleteURLPreparedStatement30.close();
+      deleteURLPreparedStatement30=null;
+    }
+    if (insertPreparedStatement31!=null) {
+      insertPreparedStatement31.close();
+      insertPreparedStatement31=null;
+    }
+    if (insertPreparedStatement32!=null) {
+      insertPreparedStatement32.close();
+      insertPreparedStatement32=null;
+    }
+    if (insertPreparedStatement33!=null) {
+      insertPreparedStatement33.close();
+      insertPreparedStatement33=null;
+    }
+    if (insertPreparedStatement34!=null) {
+      insertPreparedStatement34.close();
+      insertPreparedStatement34=null;
+    }
+    if (insertPreparedStatement35!=null) {
+      insertPreparedStatement35.close();
+      insertPreparedStatement35=null;
+    }
+    if (insertArrayBeanTypePreparedStatement36!=null) {
+      insertArrayBeanTypePreparedStatement36.close();
+      insertArrayBeanTypePreparedStatement36=null;
+    }
+    if (insertArrayLongPreparedStatement37!=null) {
+      insertArrayLongPreparedStatement37.close();
+      insertArrayLongPreparedStatement37=null;
+    }
+    if (insertArrayLongTypePreparedStatement38!=null) {
+      insertArrayLongTypePreparedStatement38.close();
+      insertArrayLongTypePreparedStatement38=null;
+    }
+    if (insertBytePreparedStatement39!=null) {
+      insertBytePreparedStatement39.close();
+      insertBytePreparedStatement39=null;
+    }
+    if (insertByteTypePreparedStatement40!=null) {
+      insertByteTypePreparedStatement40.close();
+      insertByteTypePreparedStatement40=null;
+    }
+    if (insertCalendarPreparedStatement41!=null) {
+      insertCalendarPreparedStatement41.close();
+      insertCalendarPreparedStatement41=null;
+    }
+    if (insertCharPreparedStatement42!=null) {
+      insertCharPreparedStatement42.close();
+      insertCharPreparedStatement42=null;
+    }
+    if (insertCharTypePreparedStatement43!=null) {
+      insertCharTypePreparedStatement43.close();
+      insertCharTypePreparedStatement43=null;
+    }
+    if (insertCurrencyPreparedStatement44!=null) {
+      insertCurrencyPreparedStatement44.close();
+      insertCurrencyPreparedStatement44=null;
+    }
+    if (insertDatePreparedStatement45!=null) {
+      insertDatePreparedStatement45.close();
+      insertDatePreparedStatement45=null;
+    }
+    if (insertDoublePreparedStatement46!=null) {
+      insertDoublePreparedStatement46.close();
+      insertDoublePreparedStatement46=null;
+    }
+    if (insertDoubleTypePreparedStatement47!=null) {
+      insertDoubleTypePreparedStatement47.close();
+      insertDoubleTypePreparedStatement47=null;
+    }
+    if (insertEnumTypePreparedStatement48!=null) {
+      insertEnumTypePreparedStatement48.close();
+      insertEnumTypePreparedStatement48=null;
+    }
+    if (insertFloatPreparedStatement49!=null) {
+      insertFloatPreparedStatement49.close();
+      insertFloatPreparedStatement49=null;
+    }
+    if (insertFloatTypePreparedStatement50!=null) {
+      insertFloatTypePreparedStatement50.close();
+      insertFloatTypePreparedStatement50=null;
+    }
+    if (insertIntPreparedStatement51!=null) {
+      insertIntPreparedStatement51.close();
+      insertIntPreparedStatement51=null;
+    }
+    if (insertIntTypePreparedStatement52!=null) {
+      insertIntTypePreparedStatement52.close();
+      insertIntTypePreparedStatement52=null;
+    }
+    if (insertListLongPreparedStatement53!=null) {
+      insertListLongPreparedStatement53.close();
+      insertListLongPreparedStatement53=null;
+    }
+    if (insertLocalePreparedStatement54!=null) {
+      insertLocalePreparedStatement54.close();
+      insertLocalePreparedStatement54=null;
+    }
+    if (insertLongPreparedStatement55!=null) {
+      insertLongPreparedStatement55.close();
+      insertLongPreparedStatement55=null;
+    }
+    if (insertLongTypePreparedStatement56!=null) {
+      insertLongTypePreparedStatement56.close();
+      insertLongTypePreparedStatement56=null;
+    }
+    if (insertShortPreparedStatement57!=null) {
+      insertShortPreparedStatement57.close();
+      insertShortPreparedStatement57=null;
+    }
+    if (insertShortTypePreparedStatement58!=null) {
+      insertShortTypePreparedStatement58.close();
+      insertShortTypePreparedStatement58=null;
+    }
+    if (insertStringPreparedStatement59!=null) {
+      insertStringPreparedStatement59.close();
+      insertStringPreparedStatement59=null;
+    }
+    if (insertTimePreparedStatement60!=null) {
+      insertTimePreparedStatement60.close();
+      insertTimePreparedStatement60=null;
+    }
+    if (insertTimeZonePreparedStatement61!=null) {
+      insertTimeZonePreparedStatement61.close();
+      insertTimeZonePreparedStatement61=null;
+    }
+    if (insertURLPreparedStatement62!=null) {
+      insertURLPreparedStatement62.close();
+      insertURLPreparedStatement62=null;
+    }
+    if (updateOnePreparedStatement63!=null) {
+      updateOnePreparedStatement63.close();
+      updateOnePreparedStatement63=null;
+    }
+    if (updateOnePreparedStatement64!=null) {
+      updateOnePreparedStatement64.close();
+      updateOnePreparedStatement64=null;
+    }
+    if (updateOnePreparedStatement65!=null) {
+      updateOnePreparedStatement65.close();
+      updateOnePreparedStatement65=null;
+    }
+    if (updateOnePreparedStatement66!=null) {
+      updateOnePreparedStatement66.close();
+      updateOnePreparedStatement66=null;
+    }
+    if (updateOnePreparedStatement67!=null) {
+      updateOnePreparedStatement67.close();
+      updateOnePreparedStatement67=null;
+    }
+    if (updateOnePreparedStatement68!=null) {
+      updateOnePreparedStatement68.close();
+      updateOnePreparedStatement68=null;
+    }
+    if (updateOneArrayBeanPreparedStatement69!=null) {
+      updateOneArrayBeanPreparedStatement69.close();
+      updateOneArrayBeanPreparedStatement69=null;
+    }
+    if (updateOneArrayLongPreparedStatement70!=null) {
+      updateOneArrayLongPreparedStatement70.close();
+      updateOneArrayLongPreparedStatement70=null;
+    }
+    if (updateOneArrayLongTypePreparedStatement71!=null) {
+      updateOneArrayLongTypePreparedStatement71.close();
+      updateOneArrayLongTypePreparedStatement71=null;
+    }
+    if (updateOneBytePreparedStatement72!=null) {
+      updateOneBytePreparedStatement72.close();
+      updateOneBytePreparedStatement72=null;
+    }
+    if (updateOneByteTypePreparedStatement73!=null) {
+      updateOneByteTypePreparedStatement73.close();
+      updateOneByteTypePreparedStatement73=null;
+    }
+    if (updateOneCalendarPreparedStatement74!=null) {
+      updateOneCalendarPreparedStatement74.close();
+      updateOneCalendarPreparedStatement74=null;
+    }
+    if (updateOneCharPreparedStatement75!=null) {
+      updateOneCharPreparedStatement75.close();
+      updateOneCharPreparedStatement75=null;
+    }
+    if (updateOneCharTypePreparedStatement76!=null) {
+      updateOneCharTypePreparedStatement76.close();
+      updateOneCharTypePreparedStatement76=null;
+    }
+    if (updateOneCurrencyPreparedStatement77!=null) {
+      updateOneCurrencyPreparedStatement77.close();
+      updateOneCurrencyPreparedStatement77=null;
+    }
+    if (updateOneDatePreparedStatement78!=null) {
+      updateOneDatePreparedStatement78.close();
+      updateOneDatePreparedStatement78=null;
+    }
+    if (updateOneDoublePreparedStatement79!=null) {
+      updateOneDoublePreparedStatement79.close();
+      updateOneDoublePreparedStatement79=null;
+    }
+    if (updateOneDoubleTypePreparedStatement80!=null) {
+      updateOneDoubleTypePreparedStatement80.close();
+      updateOneDoubleTypePreparedStatement80=null;
+    }
+    if (updateOneEnumTypePreparedStatement81!=null) {
+      updateOneEnumTypePreparedStatement81.close();
+      updateOneEnumTypePreparedStatement81=null;
+    }
+    if (updateOneFloatPreparedStatement82!=null) {
+      updateOneFloatPreparedStatement82.close();
+      updateOneFloatPreparedStatement82=null;
+    }
+    if (updateOneFloatTypePreparedStatement83!=null) {
+      updateOneFloatTypePreparedStatement83.close();
+      updateOneFloatTypePreparedStatement83=null;
+    }
+    if (updateOneIntPreparedStatement84!=null) {
+      updateOneIntPreparedStatement84.close();
+      updateOneIntPreparedStatement84=null;
+    }
+    if (updateOneIntTypePreparedStatement85!=null) {
+      updateOneIntTypePreparedStatement85.close();
+      updateOneIntTypePreparedStatement85=null;
+    }
+    if (updateOneListLongPreparedStatement86!=null) {
+      updateOneListLongPreparedStatement86.close();
+      updateOneListLongPreparedStatement86=null;
+    }
+    if (updateOneLocalePreparedStatement87!=null) {
+      updateOneLocalePreparedStatement87.close();
+      updateOneLocalePreparedStatement87=null;
+    }
+    if (updateOneLongPreparedStatement88!=null) {
+      updateOneLongPreparedStatement88.close();
+      updateOneLongPreparedStatement88=null;
+    }
+    if (updateOneLongTypePreparedStatement89!=null) {
+      updateOneLongTypePreparedStatement89.close();
+      updateOneLongTypePreparedStatement89=null;
+    }
+    if (updateOneShortPreparedStatement90!=null) {
+      updateOneShortPreparedStatement90.close();
+      updateOneShortPreparedStatement90=null;
+    }
+    if (updateOneShortTypePreparedStatement91!=null) {
+      updateOneShortTypePreparedStatement91.close();
+      updateOneShortTypePreparedStatement91=null;
+    }
+    if (updateOneStringPreparedStatement92!=null) {
+      updateOneStringPreparedStatement92.close();
+      updateOneStringPreparedStatement92=null;
+    }
+    if (updateOneTimePreparedStatement93!=null) {
+      updateOneTimePreparedStatement93.close();
+      updateOneTimePreparedStatement93=null;
+    }
+    if (updateOneTimeZonePreparedStatement94!=null) {
+      updateOneTimeZonePreparedStatement94.close();
+      updateOneTimeZonePreparedStatement94=null;
+    }
+    if (updateOneURLPreparedStatement95!=null) {
+      updateOneURLPreparedStatement95.close();
+      updateOneURLPreparedStatement95=null;
     }
   }
 }

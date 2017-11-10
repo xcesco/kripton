@@ -1,15 +1,17 @@
 package sqlite.feature.typeadapter;
 
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.SQLTimeUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
+import com.abubusoft.kripton.common.Triple;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +26,32 @@ import java.util.List;
  *  @see ContactTable
  */
 public class ContactDaoImpl extends AbstractDao implements ContactDao {
+  private SQLiteStatement deleteCompactBeanPreparedStatement0;
+
+  private SQLiteStatement deleteCompactRawPreparedStatement1;
+
+  private SQLiteStatement deleteJQLBeanPreparedStatement2;
+
+  private SQLiteStatement deleteJQLRawPreparedStatement3;
+
+  private SQLiteStatement updateCompactBeanPreparedStatement4;
+
+  private SQLiteStatement updateCompactRaw1PreparedStatement5;
+
+  private SQLiteStatement updateCompactRaw2PreparedStatement6;
+
+  private SQLiteStatement updateJQLBeanPreparedStatement7;
+
+  private SQLiteStatement updateJQLRawPreparedStatement8;
+
+  private SQLiteStatement insertCompactRawPreparedStatement9;
+
+  private SQLiteStatement insertCompactBeanPreparedStatement10;
+
+  private SQLiteStatement insertJQLBeanPreparedStatement11;
+
+  private SQLiteStatement insertJQLRawPreparedStatement12;
+
   public ContactDaoImpl(BindContactDataSource dataSet) {
     super(dataSet);
   }
@@ -55,11 +83,11 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public List<Contact> selectBySurnameWithAdapter(String dummy) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -70,15 +98,15 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, dummy));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, dummy));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -148,11 +176,11 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public List<Contact> selectBySurname(String dummy) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -163,15 +191,15 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((dummy==null?"":dummy));
+    _contentValues.addWhereArgs((dummy==null?"":dummy));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -229,32 +257,38 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public void deleteCompactBean(Contact bean) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.getId()));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(bean.getId()));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteCompactBeanPreparedStatement0==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM contact WHERE id=? and type=?";
+      deleteCompactBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM contact WHERE id=? and type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("contact", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCompactBeanPreparedStatement0, _contentValues);
   }
 
   /**
@@ -275,32 +309,38 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public void deleteCompactRaw(String password, ContactType type) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteCompactRawPreparedStatement1==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" password=? and type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" password=? and type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM contact WHERE password=? and type=?";
+      deleteCompactRawPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM contact WHERE password=? and type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("contact", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCompactRawPreparedStatement1, _contentValues);
   }
 
   /**
@@ -318,32 +358,38 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public void deleteJQLBean(Contact bean) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.getId()));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(bean.getId()));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteJQLBeanPreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM contact WHERE id=? and type=?";
+      deleteJQLBeanPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM contact WHERE id=? and type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("contact", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteJQLBeanPreparedStatement2, _contentValues);
   }
 
   /**
@@ -366,32 +412,38 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long deleteJQLRaw(long id, ContactType type) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteJQLRawPreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM contact WHERE id=? and type=?";
+      deleteJQLRawPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM contact WHERE id=? and type=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("contact", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteJQLRawPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -423,11 +475,11 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public List<Contact> selectCompactBean(Contact bean) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -438,16 +490,16 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(bean.getId()));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
+    _contentValues.addWhereArgs(String.valueOf(bean.getId()));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -520,11 +572,11 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public void selectJQLBeanListener(Contact bean, OnReadBeanListener<Contact> listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -535,17 +587,17 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(bean.getId()));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
+    _contentValues.addWhereArgs(String.valueOf(bean.getId()));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -617,11 +669,11 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public List<Contact> selecJQLBean(Contact bean) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT birth_day, password, type FROM contact");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -632,17 +684,17 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(bean.getId()));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
+    _contentValues.addWhereArgs(String.valueOf(bean.getId()));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -707,11 +759,11 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public List<Contact> selectJQLRaw(String password, ContactType type) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT * FROM contact");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -722,16 +774,16 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -804,11 +856,11 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public List<Contact> selectCompactRaw(String password, ContactType type) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -819,16 +871,16 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -895,55 +947,58 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long updateCompactBean(Contact bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("id", bean.getId());
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", bean.getId());
     if (bean.type!=null) {
-      contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
+      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
     } else {
-      contentValues.putNull("type");
+      _contentValues.putNull("type");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(bean.getId()));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
+    _contentValues.addWhereArgs(String.valueOf(bean.getId()));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateCompactBeanPreparedStatement4==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?  and password=? and type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?  and password=? and type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE contact SET id=?, type=? WHERE id=?  and password=? and type=?";
+      updateCompactBeanPreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE contact SET id=:id, type=:type WHERE id=?  and password=? and type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("contact", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateCompactBeanPreparedStatement4, _contentValues);
     return result;
   }
 
@@ -973,56 +1028,60 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long updateCompactRaw1(String password, ContactType type, long id) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (password!=null) {
-      contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
+      _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
     } else {
-      contentValues.putNull("password");
+      _contentValues.putNull("password");
     }
     if (type!=null) {
-      contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
+      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
     } else {
-      contentValues.putNull("type");
+      _contentValues.putNull("type");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateCompactRaw1PreparedStatement5==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE contact SET password=?, type=? WHERE id=?";
+      updateCompactRaw1PreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE contact SET password=:password, type=:type WHERE id=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("contact", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateCompactRaw1PreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1055,53 +1114,57 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long updateCompactRaw2(Date birthDay, String password, ContactType type, long id) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (birthDay!=null) {
-      contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
+      _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
     } else {
-      contentValues.putNull("birth_day");
+      _contentValues.putNull("birth_day");
     }
-    contentValues.put("id", id);
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateCompactRaw2PreparedStatement6==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" password=? and type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" password=? and type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE contact SET birth_day=?, id=? WHERE password=? and type=?";
+      updateCompactRaw2PreparedStatement6 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=? and type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("contact", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateCompactRaw2PreparedStatement6, _contentValues);
     return result;
   }
 
@@ -1129,63 +1192,66 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long updateJQLBean(Contact bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.birthDay!=null) {
-      contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, bean.birthDay));
+      _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, bean.birthDay));
     } else {
-      contentValues.putNull("birth_day");
+      _contentValues.putNull("birth_day");
     }
     if (bean.getPassword()!=null) {
-      contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
+      _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
     } else {
-      contentValues.putNull("password");
+      _contentValues.putNull("password");
     }
     if (bean.type!=null) {
-      contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
+      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
     } else {
-      contentValues.putNull("type");
+      _contentValues.putNull("type");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateJQLBeanPreparedStatement7==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" type=?  and type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" type=?  and type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE contact SET birth_day=?, password=?, type=? WHERE type=?  and type=?";
+      updateJQLBeanPreparedStatement7 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE contact SET birth_day=:birthDay, password=:password, type=:type WHERE type=?  and type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("contact", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateJQLBeanPreparedStatement7, _contentValues);
     return result;
   }
 
@@ -1218,53 +1284,57 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long updateJQLRaw(String password, Date birthDay, ContactType type, long id) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (birthDay!=null) {
-      contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
+      _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
     } else {
-      contentValues.putNull("birth_day");
+      _contentValues.putNull("birth_day");
     }
-    contentValues.put("id", id);
+    _contentValues.put("id", id);
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateJQLRawPreparedStatement8==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" password=? and type=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" password=? and type=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE contact SET birth_day=?, id=? WHERE password=? and type=?";
+      updateJQLRawPreparedStatement8 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=? and type=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("contact", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateJQLRawPreparedStatement8, _contentValues);
     return result;
   }
 
@@ -1290,26 +1360,25 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long insertCompactRaw(String password, ContactType type, long id) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (password!=null) {
-      contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
+      _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
     } else {
-      contentValues.putNull("password");
+      _contentValues.putNull("password");
     }
     if (type!=null) {
-      contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
+      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
     } else {
-      contentValues.putNull("type");
+      _contentValues.putNull("type");
     }
-    contentValues.put("id", id);
+    _contentValues.put("id", id);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1317,19 +1386,25 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     Logger.info("INSERT INTO contact (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("contact", null, contentValues);
+    // insert operation
+    if (insertCompactRawPreparedStatement9==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertCompactRawPreparedStatement9 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertCompactRawPreparedStatement9, _contentValues);
     return result;
   }
 
@@ -1352,21 +1427,19 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long insertCompactBean(Contact bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
-    contentValues.put("id", bean.getId());
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("id", bean.getId());
     if (bean.type!=null) {
-      contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
+      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
     } else {
-      contentValues.putNull("type");
+      _contentValues.putNull("type");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1374,19 +1447,25 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     Logger.info("INSERT INTO contact (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("contact", null, contentValues);
+    // insert operation
+    if (insertCompactBeanPreparedStatement10==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertCompactBeanPreparedStatement10 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertCompactBeanPreparedStatement10, _contentValues);
     bean.setId(result);
 
     return result;
@@ -1412,26 +1491,24 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long insertJQLBean(Contact bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getPassword()!=null) {
-      contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
+      _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
     } else {
-      contentValues.putNull("password");
+      _contentValues.putNull("password");
     }
     if (bean.type!=null) {
-      contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
+      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
     } else {
-      contentValues.putNull("type");
+      _contentValues.putNull("type");
     }
-    contentValues.put("id", bean.getId());
+    _contentValues.put("id", bean.getId());
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1439,19 +1516,25 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     Logger.info("INSERT INTO contact (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("contact", null, contentValues);
+    // insert operation
+    if (insertJQLBeanPreparedStatement11==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertJQLBeanPreparedStatement11 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertJQLBeanPreparedStatement11, _contentValues);
     bean.setId(result);
 
     return result;
@@ -1479,31 +1562,30 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long insertJQLRaw(String password, Date birthDay, ContactType type, long id) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (password!=null) {
-      contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
+      _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
     } else {
-      contentValues.putNull("password");
+      _contentValues.putNull("password");
     }
     if (birthDay!=null) {
-      contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
+      _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
     } else {
-      contentValues.putNull("birth_day");
+      _contentValues.putNull("birth_day");
     }
     if (type!=null) {
-      contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
+      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
     } else {
-      contentValues.putNull("type");
+      _contentValues.putNull("type");
     }
-    contentValues.put("id", id);
+    _contentValues.put("id", id);
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1511,19 +1593,80 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     Logger.info("INSERT INTO contact (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("contact", null, contentValues);
+    // insert operation
+    if (insertJQLRawPreparedStatement12==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertJQLRawPreparedStatement12 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertJQLRawPreparedStatement12, _contentValues);
     return result;
+  }
+
+  public void clearCompiledStatements() {
+    if (deleteCompactBeanPreparedStatement0!=null) {
+      deleteCompactBeanPreparedStatement0.close();
+      deleteCompactBeanPreparedStatement0=null;
+    }
+    if (deleteCompactRawPreparedStatement1!=null) {
+      deleteCompactRawPreparedStatement1.close();
+      deleteCompactRawPreparedStatement1=null;
+    }
+    if (deleteJQLBeanPreparedStatement2!=null) {
+      deleteJQLBeanPreparedStatement2.close();
+      deleteJQLBeanPreparedStatement2=null;
+    }
+    if (deleteJQLRawPreparedStatement3!=null) {
+      deleteJQLRawPreparedStatement3.close();
+      deleteJQLRawPreparedStatement3=null;
+    }
+    if (updateCompactBeanPreparedStatement4!=null) {
+      updateCompactBeanPreparedStatement4.close();
+      updateCompactBeanPreparedStatement4=null;
+    }
+    if (updateCompactRaw1PreparedStatement5!=null) {
+      updateCompactRaw1PreparedStatement5.close();
+      updateCompactRaw1PreparedStatement5=null;
+    }
+    if (updateCompactRaw2PreparedStatement6!=null) {
+      updateCompactRaw2PreparedStatement6.close();
+      updateCompactRaw2PreparedStatement6=null;
+    }
+    if (updateJQLBeanPreparedStatement7!=null) {
+      updateJQLBeanPreparedStatement7.close();
+      updateJQLBeanPreparedStatement7=null;
+    }
+    if (updateJQLRawPreparedStatement8!=null) {
+      updateJQLRawPreparedStatement8.close();
+      updateJQLRawPreparedStatement8=null;
+    }
+    if (insertCompactRawPreparedStatement9!=null) {
+      insertCompactRawPreparedStatement9.close();
+      insertCompactRawPreparedStatement9=null;
+    }
+    if (insertCompactBeanPreparedStatement10!=null) {
+      insertCompactBeanPreparedStatement10.close();
+      insertCompactBeanPreparedStatement10=null;
+    }
+    if (insertJQLBeanPreparedStatement11!=null) {
+      insertJQLBeanPreparedStatement11.close();
+      insertJQLBeanPreparedStatement11=null;
+    }
+    if (insertJQLRawPreparedStatement12!=null) {
+      insertJQLRawPreparedStatement12.close();
+      insertJQLRawPreparedStatement12=null;
+    }
   }
 }

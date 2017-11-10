@@ -25,6 +25,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.One;
@@ -252,6 +253,9 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		if (generationType.generateMethodContent) {
 			SplittedSql splittedSql = SqlSelectBuilder.generateSQL(method, methodBuilder, false);
 
+			// retrieve content values
+			methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
+			
 			methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
 			methodBuilder.addStatement("_sqlBuilder.append($S)", splittedSql.sqlBasic.trim());
 
@@ -281,7 +285,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				for (String item : paramGetters) {
 					rawParameters = paramNames.get(i).indexOf(".") == -1;
 
-					methodBuilder.addCode("_sqlWhereParams.add(");
+					//methodBuilder.addCode("_sqlWhereParams.add(");
+					methodBuilder.addCode("_contentValues.addWhereArgs(");
 					logArgsBuffer.append(separator + "%s");
 
 					paramTypeName = paramTypeNames.get(i);
@@ -348,7 +353,9 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			// of SQL\n", StringUtils.class);
 
 			methodBuilder.addStatement("String _sql=_sqlBuilder.toString()");
-			methodBuilder.addStatement("String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()])");
+			
+			//methodBuilder.addStatement("String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()])");
+			methodBuilder.addStatement("String[] _sqlArgs=_contentValues.whereArgsAsArray()");
 
 			if (daoDefinition.isLogEnabled()) {
 				// manage log

@@ -20,8 +20,7 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.isNullabl
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.lang.model.util.Elements;
-
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -43,13 +42,12 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
-
-import android.content.ContentValues;
+import com.squareup.javapoet.TypeSpec;
 
 public class ModifyRawHelper implements ModifyCodeGenerator {
 
 	@Override
-	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -89,6 +87,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 		}
 
+		// clear contentValues
+		methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
+		
 		if (method.jql.containsSelectOperation) {
 			generateJavaDoc(method, methodBuilder, updateMode);
 
@@ -97,13 +98,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			// generate javadoc
 			generateJavaDoc(method, methodBuilder, updateMode, whereCondition, where, methodParams);
 
+			
+			
 			if (updateMode) {
 				AssertKripton.assertTrueOrInvalidMethodSignException(updateableParams.size() > 0, method, "no column was selected for update");
-
-				// clear contentValues
-				methodBuilder.addCode("$T contentValues=contentValues();\n", ContentValues.class);
-				methodBuilder.addCode("contentValues.clear();\n");
-
+				
 				for (Pair<String, TypeName> item : updateableParams) {
 					String resolvedParamName = method.findParameterAliasByName(item.value0);
 					SQLProperty property = entity.get(resolvedParamName);
@@ -118,7 +117,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					}
 
 					// here it needed raw parameter typeName
-					methodBuilder.addCode("contentValues.put($S, ", property.columnName);
+					methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
 
 					SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, TypeUtility.typeName(property.getElement()), property);
 
@@ -126,7 +125,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 					if (TypeUtility.isNullable(method, item, property)) {
 						methodBuilder.nextControlFlow("else");
-						methodBuilder.addCode("contentValues.putNull($S);\n", property.columnName);
+						methodBuilder.addCode("_contentValues.putNull($S);\n", property.columnName);
 						methodBuilder.endControlFlow();
 					}
 				}
@@ -155,7 +154,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			generateWhereCondition(methodBuilder, method, where);
 			methodBuilder.addCode("\n");
 
-			ModifyBeanHelper.generateModifyQueryCommonPart(method, methodBuilder);
+			ModifyBeanHelper.generateModifyQueryCommonPart(method, classBuilder, methodBuilder);
 
 			// return management
 			// if true, field must be associate to ben attributes
@@ -530,11 +529,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeName>>> where) {
 		boolean nullable;
 
-		methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
+		//methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
 
 		for (Pair<String, TypeName> item : where.value1) {
 			String resolvedParamName = method.findParameterNameByAlias(item.value0);
-			methodBuilder.addCode("_sqlWhereParams.add(");
+			//methodBuilder.addCode("_sqlWhereParams.add(");
+			methodBuilder.addCode("_contentValues.addWhereArgs(");
 
 			nullable = isNullable(item.value1);
 

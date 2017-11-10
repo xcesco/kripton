@@ -4,11 +4,11 @@ import android.database.Cursor;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -61,22 +61,22 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
    */
   @Override
   public List<Person> selectAllBeans() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -132,12 +132,12 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   Cursor selectAllBeans0(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
     _sqlBuilder.append("SELECT %s FROM person");
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // manage projected columns
@@ -163,13 +163,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -187,22 +187,22 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
    */
   @Override
   public int selectAllBeansCount() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT count(*) FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -241,12 +241,12 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   Cursor selectAllBeansCount1(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
     _sqlBuilder.append("SELECT %s FROM person");
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // manage projected columns
@@ -272,13 +272,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -306,11 +306,11 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
    */
   @Override
   public Person selectOneBean(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -321,15 +321,15 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -384,12 +384,12 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   Cursor selectOneBean2(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
     _sqlBuilder.append("SELECT %s FROM person ");
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -416,7 +416,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       }
     }
     // Add parameter id at path segment 1
-    _sqlWhereParams.add(uri.getPathSegments().get(1));
+    _contentValues.addWhereArgs(uri.getPathSegments().get(1));
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
@@ -424,13 +424,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -462,13 +462,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
    */
   @Override
   public Person selectOneBeanWithDynamic(long id, String where) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT name FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -479,15 +479,15 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -534,6 +534,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   Cursor selectOneBeanWithDynamic3(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -541,7 +542,6 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
     _sqlBuilder.append("SELECT %s FROM person ");
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -568,7 +568,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       }
     }
     // Add parameter id at path segment 2
-    _sqlWhereParams.add(uri.getPathSegments().get(2));
+    _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
@@ -576,13 +576,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -622,6 +622,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
    */
   @Override
   public Person selectOneBeanWithDynamicAndArgs(long id, String name, String where, String[] args) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
@@ -630,7 +631,6 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=args;
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -641,21 +641,21 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // manage WHERE arguments -- END
     if (StringUtils.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null) {
       for (String _arg: _sqlDynamicWhereArgs) {
-        _sqlWhereParams.add(_arg);
+        _contentValues.addWhereArgs(_arg);
       }
     }
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add((name==null?"":name));
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs((name==null?"":name));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -709,6 +709,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   Cursor selectOneBeanWithDynamicAndArgs4(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -718,7 +719,6 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
     _sqlBuilder.append("SELECT %s FROM person ");
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -729,7 +729,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // manage WHERE arguments -- END
     if (StringUtils.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null) {
       for (String _arg: _sqlDynamicWhereArgs) {
-        _sqlWhereParams.add(_arg);
+        _contentValues.addWhereArgs(_arg);
       }
     }
 
@@ -750,9 +750,9 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       }
     }
     // Add parameter id at path segment 2
-    _sqlWhereParams.add(uri.getPathSegments().get(2));
+    _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     // Add parameter name at path segment 3
-    _sqlWhereParams.add(uri.getPathSegments().get(3));
+    _contentValues.addWhereArgs(uri.getPathSegments().get(3));
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
@@ -760,13 +760,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -801,12 +801,12 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
    */
   @Override
   public Person selectOneBeanWithDynamicOrder(long id, String order) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=order;
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -817,20 +817,20 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     // generation order - BEGIN
     String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -885,13 +885,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   Cursor selectOneBeanWithDynamicOrder5(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
     String _sortOrder=sortOrder;
     _sqlBuilder.append("SELECT %s FROM person  ");
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -923,7 +923,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       }
     }
     // Add parameter id at path segment 2
-    _sqlWhereParams.add(uri.getPathSegments().get(2));
+    _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
@@ -931,13 +931,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -974,12 +974,12 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   @Override
   public void selectOneBeanWithDynamicOrderAndListener(String surname, String order,
       OnReadBeanListener<Person> listener) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=order;
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -990,20 +990,20 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add((surname==null?"":surname));
+    _contentValues.addWhereArgs((surname==null?"":surname));
     // generation order - BEGIN
     String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -1065,13 +1065,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   Cursor selectOneBeanWithDynamicOrderAndListener6(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
     String _sortOrder=sortOrder;
     _sqlBuilder.append("SELECT %s FROM person  ");
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1103,7 +1103,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       }
     }
     // Add parameter surname at path segment 2
-    _sqlWhereParams.add(uri.getPathSegments().get(2));
+    _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
@@ -1111,13 +1111,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -1145,11 +1145,11 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
    */
   @Override
   public Person selectWithJQL(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("select * from person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1160,15 +1160,15 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -1223,12 +1223,12 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   Cursor selectWithJQL7(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
     _sqlBuilder.append("select %s from person ");
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -1255,7 +1255,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       }
     }
     // Add parameter id at path segment 2
-    _sqlWhereParams.add(uri.getPathSegments().get(2));
+    _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // manage log
@@ -1263,13 +1263,16 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
     return _result;
+  }
+
+  public void clearCompiledStatements() {
   }
 }

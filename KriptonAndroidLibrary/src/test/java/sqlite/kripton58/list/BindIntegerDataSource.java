@@ -75,8 +75,8 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * @param commands
    * 	batch to execute
    */
-  public <T> T execute(Batch<T> commands) {
-    return execute(commands, false);
+  public <T> T executeBatch(Batch<T> commands) {
+    return executeBatch(commands, false);
   }
 
   /**
@@ -87,7 +87,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * @param writeMode
    * 	true to open connection in write mode, false to open connection in read only mode
    */
-  public <T> T execute(Batch<T> commands, boolean writeMode) {
+  public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
     try {
       if (commands!=null) {
@@ -96,7 +96,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
-      if (commands!=null) commands.onError(e);
+      throw(e);
     } finally {
       close();
     }
@@ -194,22 +194,28 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
     }
   }
 
+  public void clearCompiledStatements() {
+    integerDao.clearCompiledStatements();
+  }
+
   /**
    * Build instance.
+   * @return dataSource instance.
    */
-  public static synchronized void build(DataSourceOptions options) {
+  public static synchronized BindIntegerDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindIntegerDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
+    return instance;
   }
 
   /**
    * Build instance with default config.
    */
-  public static synchronized void build() {
-    build(DataSourceOptions.builder().build());
+  public static synchronized BindIntegerDataSource build() {
+    return build(DataSourceOptions.builder().build());
   }
 
   /**
@@ -241,7 +247,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   /**
    * Rapresents batch operation.
    */
-  public interface Batch<T> extends AbstractDataSource.AbstractExecutable<BindIntegerDaoFactory> {
+  public interface Batch<T> {
     /**
      * Execute batch operations.
      *
@@ -249,15 +255,5 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
      * @throws Throwable
      */
     T onExecute(BindIntegerDaoFactory daoFactory);
-  }
-
-  /**
-   * Simple class implements interface to define batch.In this class a simple <code>onError</code> method is implemented.
-   */
-  public abstract static class SimpleBatch<T> implements Batch<T> {
-    @Override
-    public void onError(Throwable e) {
-      throw(new KriptonRuntimeException(e));
-    }
   }
 }

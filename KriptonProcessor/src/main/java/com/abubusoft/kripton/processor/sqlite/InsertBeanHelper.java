@@ -20,12 +20,15 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.util.Elements;
+import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -41,19 +44,26 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
+
+import android.database.sqlite.SQLiteStatement;
 
 public class InsertBeanHelper implements InsertCodeGenerator {
 
 	@Override
-	public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 		// String sqlInsert;
+		
+		// retrieve content values
+		methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
 
 		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlInsert.class);
-		CodeBuilderUtility.generateContentValuesFromEntity(elementUtils, method, BindSqlInsert.class, methodBuilder, null);
+		CodeBuilderUtility.generateContentValuesFromEntity(BaseProcessor.elementUtils, method, BindSqlInsert.class, methodBuilder, null);
 
 		ModelProperty primaryKey = entity.getPrimaryKey();
 
@@ -62,17 +72,26 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
 
-		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
-		String conflictString1 = "";
-		String conflictString2 = "";
-
-		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
-			conflictString1 = "WithOnConflict";
-			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
-			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
+		methodBuilder.addComment("insert operation");
+		if (method.jql.hasDynamicParts()) {
+			// does not memorize compiled statement, it can vary every time
+			// generate SQL for insert
+			SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);	
+			
+			methodBuilder.addStatement("long result = $T.insert(dataSource, _sql, _contentValues)", KriptonDatabaseWrapper.class);
+		} else {			
+			String psName=method.buildPreparedStatementName();
+			// generate SQL for insert
+			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE).build());
+			
+			methodBuilder.beginControlFlow("if ($L==null)", psName);
+			SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);
+			methodBuilder.addStatement("$L = $T.compile(dataSource, _sql)", psName, KriptonDatabaseWrapper.class);
+			methodBuilder.endControlFlow();
+			
+			methodBuilder.addStatement("long result = $T.insert(dataSource, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);
 		}
-								
-		methodBuilder.addStatement("long result = database().insert$L($S, null, contentValues$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);				
+		
 		if (method.getParent().getParent().generateRx) {
 			methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);
 		}
@@ -113,7 +132,6 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	public void generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
-		//final SQLEntity entity = daoDefinition.getEntity();
 
 		// transform JQL to SQL
 		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {

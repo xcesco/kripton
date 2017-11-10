@@ -2,8 +2,8 @@ package sqlite.feature.typeadapter.kripton180.raw.insertselect;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 
 /**
  * <p>
@@ -63,29 +63,32 @@ public class EmployeeRawInsertSelectDaoImpl extends AbstractDao implements Emplo
   public void insertJQL(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // build where condition
-    _sqlWhereParams.add((fieldBoolean==null?"":fieldBoolean));
-    _sqlWhereParams.add((fieldByte==null?"":fieldByte));
-    _sqlWhereParams.add((fieldCharacter==null?"":fieldCharacter));
-    _sqlWhereParams.add((fieldShort==null?"":fieldShort));
-    _sqlWhereParams.add((fieldInteger==null?"":fieldInteger));
-    _sqlWhereParams.add((fieldLong==null?"":fieldLong));
-    _sqlWhereParams.add((fieldFloat==null?"":fieldFloat));
-    _sqlWhereParams.add((fieldDouble==null?"":fieldDouble));
-    _sqlWhereParams.add((fieldString==null?"":fieldString));
-    _sqlWhereParams.add((fieldByteArray==null?"":fieldByteArray));
+    _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
+    _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
+    _contentValues.addWhereArgs((fieldCharacter==null?"":fieldCharacter));
+    _contentValues.addWhereArgs((fieldShort==null?"":fieldShort));
+    _contentValues.addWhereArgs((fieldInteger==null?"":fieldInteger));
+    _contentValues.addWhereArgs((fieldLong==null?"":fieldLong));
+    _contentValues.addWhereArgs((fieldFloat==null?"":fieldFloat));
+    _contentValues.addWhereArgs((fieldDouble==null?"":fieldDouble));
+    _contentValues.addWhereArgs((fieldString==null?"":fieldString));
+    _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
 
     Logger.info("INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=${param0} and field_byte=${param1} and field_character=${param2} and field_short=${param3} and field_integer=${param4} and field_long=${param5} and field_float=${param6} and field_double=${param7} and field_string=${param8} and field_byte_array=${param9}");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
 
-    database().execSQL("INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?", _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]));
+    database().execSQL("INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?", _contentValues.whereArgsAsArray());
+  }
+
+  public void clearCompiledStatements() {
   }
 }

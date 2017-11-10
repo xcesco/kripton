@@ -1,7 +1,5 @@
 package sqlite.feature.schema.version2;
 
-import java.lang.String;
-
 /**
  * <p>
  * Entity <code>Seminar2Student</code> is associated to table <code>seminar_2_student</code>
@@ -29,26 +27,26 @@ public class Seminar2StudentTable {
    * DDL to drop table seminar_2_student
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS seminar_2_student;</pre>
+   * <pre> DROP INDEX IF EXISTS idx_seminar_2_student_1;DROP TABLE IF EXISTS seminar_2_student;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS seminar_2_student;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_seminar_2_student_1;DROP TABLE IF EXISTS seminar_2_student;";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column typeName.
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Seminar2Student#id
    */
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>studentId</code> is associated to table column <code>student_id</code>. This costant represents column typeName.
+   * Entity's property <code>studentId</code> is associated to table column <code>student_id</code>. This costant represents column name.
    *
    *  @see Seminar2Student#studentId
    */
   public static final String COLUMN_STUDENT_ID = "student_id";
 
   /**
-   * Entity's property <code>seminarId</code> is associated to table column <code>seminar_id</code>. This costant represents column typeName.
+   * Entity's property <code>seminarId</code> is associated to table column <code>seminar_id</code>. This costant represents column name.
    *
    *  @see Seminar2Student#seminarId
    */

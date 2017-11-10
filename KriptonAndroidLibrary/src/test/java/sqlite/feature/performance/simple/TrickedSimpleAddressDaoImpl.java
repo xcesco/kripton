@@ -3,6 +3,8 @@ package sqlite.feature.performance.simple;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
@@ -61,7 +63,8 @@ public class TrickedSimpleAddressDaoImpl extends SimpleAddressDaoImpl {
 		_sqlBuilder.append("SELECT id, name, address, city, state, phone FROM simple_address_item");
 		// generation CODE_001 -- BEGIN
 		// generation CODE_001 -- END
-		ArrayList<String> _sqlWhereParams = getWhereParamsArray();
+		//ArrayList<String> _sqlWhereParams = getWhereParamsArray();
+		KriptonContentValues _contentValues=contentValues();
 
 		// manage WHERE arguments -- BEGIN
 
@@ -72,10 +75,10 @@ public class TrickedSimpleAddressDaoImpl extends SimpleAddressDaoImpl {
 		// manage WHERE arguments -- END
 
 		// build where condition
-		_sqlWhereParams.add(String.valueOf(id));
+		_contentValues.addWhereArgs(String.valueOf(id));
 		String _sql = _sqlBuilder.toString();
-		String[] _sqlArgs = _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-		try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+		//String[] _sqlArgs = _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+		try (Cursor cursor = database().rawQuery(_sql, _contentValues.whereArgsAsArray())) {
 
 			SimpleAddressItem resultBean = null;
 
@@ -203,14 +206,14 @@ public class TrickedSimpleAddressDaoImpl extends SimpleAddressDaoImpl {
 		_sqlBuilder.append("SELECT id, name, address, city, state, phone FROM simple_address_item");
 		// generation CODE_001 -- BEGIN
 		// generation CODE_001 -- END
-		ArrayList<String> _sqlWhereParams = getWhereParamsArray();
+		KriptonContentValues _contentValues=contentValues();
 		String _sqlWhereStatement = "";
 
 		// build where condition
 		// StringUtils, SqlUtils will be used in case of dynamic parts of SQL
 		String _sql = _sqlBuilder.toString();
-		String[] _sqlArgs = _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
-		try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+		//String[] _sqlArgs = _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+		try (Cursor cursor = database().rawQuery(_sql, _contentValues.whereArgsAsArray())) {
 
 			ArrayList<SimpleAddressItem> resultList = new ArrayList<SimpleAddressItem>();
 			SimpleAddressItem resultBean = null;

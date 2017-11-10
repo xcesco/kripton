@@ -28,11 +28,13 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -58,6 +60,7 @@ import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.content.ContentValues;
@@ -97,14 +100,14 @@ public abstract class SqlModifyBuilder {
 			}
 		}
 
-		public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
-			codeGenerator.generate(elementUtils, methodBuilder, isUpdate(), method, returnType);
+		public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
+			codeGenerator.generate(classBuilder, methodBuilder, isUpdate(), method, returnType);
 
 		}
 	}
 
 	public interface ModifyCodeGenerator {
-		void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
+		void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**
@@ -114,7 +117,7 @@ public abstract class SqlModifyBuilder {
 	 * @param method
 	 * @param updateMode
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
+	public static void generate(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 
 		ModifyType updateResultType = detectModifyType(method, method.jql.operationType);
 
@@ -135,10 +138,10 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.returns(returnType);
 
 		// generate inner code
-		updateResultType.generate(elementUtils, methodBuilder, method, returnType);
+		updateResultType.generate(classBuilder, methodBuilder, method, returnType);
 
 		MethodSpec methodSpec = methodBuilder.build();
-		builder.addMethod(methodSpec);
+		classBuilder.addMethod(methodSpec);
 
 		if (method.contentProviderEntryPathEnabled) {
 			// delete-select, update-select can be used with content provider
@@ -149,7 +152,7 @@ public abstract class SqlModifyBuilder {
 			// SQL with inner SELECT can not be used in content provider");
 			// }
 
-			generateModifierForContentProvider(elementUtils, builder, method, updateResultType);
+			generateModifierForContentProvider(BaseProcessor.elementUtils, classBuilder, method, updateResultType);
 
 		}
 
@@ -165,7 +168,7 @@ public abstract class SqlModifyBuilder {
 	 * @return
 	 */
 	public static ModifyType detectModifyType(SQLiteModelMethod method, JQLType jqlType) {
-		//Elements elementUtils = BaseProcessor.elementUtils;
+		// Elements elementUtils = BaseProcessor.elementUtils;
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 
@@ -195,8 +198,8 @@ public abstract class SqlModifyBuilder {
 
 				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.FIELDS).size() == 0, method,
 						" can not use attribute %s in this kind of query definition", AnnotationAttributeType.FIELDS.getValue());
-				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() == 0,
-						method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
+				AssertKripton.assertTrueOrInvalidMethodSignException(AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() == 0, method,
+						" can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
 
 			} else {
 				annotation = method.getAnnotation(BindSqlDelete.class);
@@ -295,6 +298,13 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "selectionArgs").build());
 		methodBuilder.returns(Integer.TYPE);
 
+		// retrieve content values
+		if (updateResultType == ModifyType.UPDATE_BEAN || updateResultType == ModifyType.UPDATE_RAW) {
+			methodBuilder.addStatement("$T _contentValues=contentValues(contentValues)", KriptonContentValues.class);
+		} else {
+			methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
+		}
+
 		SqlBuilderHelper.generateLogForContentProviderBeginning(method, methodBuilder);
 
 		// query builder
@@ -316,7 +326,9 @@ public abstract class SqlModifyBuilder {
 
 			if (entityProperty != null) {
 				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
-				methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				// methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))",
+				// variable.pathSegmentIndex);
+				methodBuilder.addStatement("_contentValues.addWhereArgs(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
 				AssertKripton.assertTrue(TypeUtility.isTypeIncludedIn(entityProperty.getPropertyType().getTypeName(), String.class, Long.class, Long.TYPE),
 						"In '%s.%s' content provider URI path variables %s must be String of Long type", daoDefinition.getName(), method.getName(), entityProperty.getName());
 			}
@@ -330,7 +342,8 @@ public abstract class SqlModifyBuilder {
 
 			if (method.hasDynamicWhereConditions()) {
 				methodBuilder.beginControlFlow("for (String _arg: _sqlDynamicWhereArgs)");
-				methodBuilder.addStatement("_sqlWhereParams.add(_arg)");
+				// methodBuilder.addStatement("_sqlWhereParams.add(_arg)");
+				methodBuilder.addStatement("_contentValues.addWhereArgs(_arg)");
 				methodBuilder.endControlFlow();
 			}
 
@@ -342,7 +355,7 @@ public abstract class SqlModifyBuilder {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
 			SqlBuilderHelper.generateColumnCheckSet(builder, method, columns);
-			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "contentValues.keySet()", true, null);
+			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.values().keySet()", true, null);
 			break;
 		default:
 			break;
@@ -361,9 +374,9 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.addCode("\n// execute SQL\n");
 		switch (updateResultType) {
 		case DELETE_BEAN:
-		case DELETE_RAW:
-			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))", daoDefinition.getEntity().getTableName());
-			
+		case DELETE_RAW:			
+			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _contentValues.whereArgsAsArray())", daoDefinition.getEntity().getTableName());
+
 			if (method.getParent().getParent().generateRx) {
 				methodBuilder.addStatement("subject.onNext($T.createDelete(result))", SQLiteModification.class);
 			}
@@ -371,18 +384,18 @@ public abstract class SqlModifyBuilder {
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
 			if (method.jql.conflictAlgorithmType == ConflictAlgorithmType.NONE) {
-				methodBuilder.addStatement("int result = database().update($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))",
-						daoDefinition.getEntity().getTableName());
+				methodBuilder.addStatement("int result = database().update($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray())",
+						daoDefinition.getEntity().getTableName());				
 			} else {
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]), $L)",
+				methodBuilder.addStatement("int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray()), $L)",
 						daoDefinition.getEntity().getTableName(), method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}
-			
+
 			if (method.getParent().getParent().generateRx) {
 				methodBuilder.addStatement("subject.onNext($T.createUpdate(result))", SQLiteModification.class);
 			}
-			
+
 			break;
 		}
 
@@ -439,6 +452,8 @@ public abstract class SqlModifyBuilder {
 	}
 
 	/**
+	 * generate sql log
+	 * 
 	 * @param method
 	 * @param methodBuilder
 	 * @param schema
@@ -460,12 +475,14 @@ public abstract class SqlModifyBuilder {
 			String sqlForLog = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
 				@Override
 				public String onColumnNameToUpdate(String columnName) {
-					return entity.findByName(columnName).columnName;
+					// only entity's columns
+					return entity.findPropertyByName(columnName).columnName;
 				}
 
 				@Override
 				public String onColumnName(String columnName) {
-					return entity.findByName(columnName).columnName;
+					// return entity.findByName(columnName).columnName;
+					return schema.findColumnNameByPropertyName(method, columnName);
 				}
 
 				@Override
@@ -511,6 +528,47 @@ public abstract class SqlModifyBuilder {
 				methodBuilder.addStatement("$T.info($S)", Logger.class, sqlForLog);
 			}
 
+		}
+	}
+
+	public static void generateSQL(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		final SQLEntity entity = method.getParent().getEntity();
+		final SQLiteDatabaseSchema schema = method.getParent().getParent();
+		JQLChecker jqlChecker = JQLChecker.getInstance();
+
+		methodBuilder.addCode("\n// generate sql\n");
+		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+			@Override
+			public String onColumnNameToUpdate(String columnName) {
+				// only entity's columns
+				return entity.findPropertyByName(columnName).columnName;
+			}
+
+			@Override
+			public String onColumnName(String columnName) {
+				// return entity.findByName(columnName).columnName;
+				return schema.findColumnNameByPropertyName(method, columnName);
+			}
+
+			@Override
+			public String onBindParameter(String bindParameterName) {
+				return "?";
+			}
+
+			@Override
+			public String onTableName(String tableName) {
+				SQLEntity entity = schema.getEntityBySimpleName(tableName);
+				AssertKripton.assertTrueOrUnknownClassInJQLException(entity != null, method, tableName);
+				return entity.getTableName();
+			}
+
+		});
+
+		if (method.jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_WHERE)) {
+			methodBuilder.addStatement("String _sql=String.format($S, $L)",sql.replace(method.jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE), "%s"),
+					"StringUtils.ifNotEmptyAppend(_sqlDynamicWhere,\" AND \")");
+		} else {
+			methodBuilder.addStatement("String _sql=$S", sql);
 		}
 	}
 

@@ -1,8 +1,10 @@
 package sqlite.feature.performance.simple;
 
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +17,10 @@ import java.util.ArrayList;
  *  @see SimpleAddressItemTable
  */
 public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDao {
+  private SQLiteStatement deleteAllPreparedStatement0;
+
+  private SQLiteStatement insertPreparedStatement1;
+
   public SimpleAddressDaoImpl(BindSimpleDataSource dataSet) {
     super(dataSet);
   }
@@ -45,11 +51,11 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
    */
   @Override
   public SimpleAddressItem selectById(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, address, city, state, phone FROM simple_address_item");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -60,9 +66,9 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
       SimpleAddressItem resultBean=null;
@@ -102,12 +108,18 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
    */
   @Override
   public void deleteAll() {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    String _sqlWhereStatement="";
-    int result = database().delete("simple_address_item", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    if (deleteAllPreparedStatement0==null) {
+      String _sqlWhereStatement="";
+
+      // generate sql
+      String _sql="DELETE FROM simple_address_item";
+      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllPreparedStatement0, _contentValues);
   }
 
   /**
@@ -129,16 +141,16 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
    */
   @Override
   public ArrayList<SimpleAddressItem> selectAll() {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, address, city, state, phone FROM simple_address_item");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
     String _sqlWhereStatement="";
 
     // build where condition
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
       ArrayList<SimpleAddressItem> resultList=new ArrayList<SimpleAddressItem>();
@@ -193,32 +205,47 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
    */
   @Override
   public void insert(SimpleAddressItem bean) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
-
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (bean.getName()!=null) {
-      contentValues.put("name", bean.getName());
+      _contentValues.put("name", bean.getName());
     } else {
-      contentValues.putNull("name");
+      _contentValues.putNull("name");
     }
     if (bean.getAddress()!=null) {
-      contentValues.put("address", bean.getAddress());
+      _contentValues.put("address", bean.getAddress());
     } else {
-      contentValues.putNull("address");
+      _contentValues.putNull("address");
     }
     if (bean.getCity()!=null) {
-      contentValues.put("city", bean.getCity());
+      _contentValues.put("city", bean.getCity());
     } else {
-      contentValues.putNull("city");
+      _contentValues.putNull("city");
     }
     if (bean.getState()!=null) {
-      contentValues.put("state", bean.getState());
+      _contentValues.put("state", bean.getState());
     } else {
-      contentValues.putNull("state");
+      _contentValues.putNull("state");
     }
-    contentValues.put("phone", bean.getPhone());
+    _contentValues.put("phone", bean.getPhone());
 
-    long result = database().insert("simple_address_item", null, contentValues);
+    // insert operation
+    if (insertPreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO simple_address_item (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
     bean.setId(result);
+  }
+
+  public void clearCompiledStatements() {
+    if (deleteAllPreparedStatement0!=null) {
+      deleteAllPreparedStatement0.close();
+      deleteAllPreparedStatement0=null;
+    }
+    if (insertPreparedStatement1!=null) {
+      insertPreparedStatement1.close();
+      insertPreparedStatement1=null;
+    }
   }
 }

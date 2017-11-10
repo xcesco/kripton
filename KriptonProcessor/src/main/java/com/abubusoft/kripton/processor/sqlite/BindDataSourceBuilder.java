@@ -262,6 +262,18 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// onConfigure
 		generateOnConfigure(useForeignKey);
+		
+		// 
+		// generate prepared statement cleaner
+		{
+
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("clearCompiledStatements").addModifiers(Modifier.PUBLIC).returns(Void.TYPE);
+			for (SQLDaoDefinition dao : schema.getCollection()) {
+				methodBuilder.addStatement("$L.clearCompiledStatements()", convert.convert(dao.getName()));					
+			}			
+			
+			classBuilder.addMethod(methodBuilder.build());					
+		}
 
 		// build
 		generateBuild(dataSourceName, schema);
@@ -548,8 +560,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			} else {
 				executeMethod.addStatement("$T result=$T.create(emitter)", returnTypeName, rxType.clazz);
 			}
-			executeMethod.addStatement("if (globalSubscribeOn!=null) result=result.subscribeOn(globalSubscribeOn)");
-			executeMethod.addStatement("if (globalObserveOn!=null) result=result.observeOn(globalObserveOn)");
+			executeMethod.addStatement("if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn)");
+			executeMethod.addStatement("if (globalObserveOn!=null) result.observeOn(globalObserveOn)");
 
 			executeMethod.addStatement("return result");
 
@@ -602,8 +614,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			} else {
 				executeMethod.addStatement("$T result=$T.create(emitter)", returnTypeName, rxType.clazz);
 			}
-			executeMethod.addStatement("if (globalSubscribeOn!=null) result=result.subscribeOn(globalSubscribeOn)");
-			executeMethod.addStatement("if (globalObserveOn!=null) result=result.observeOn(globalObserveOn)");
+			executeMethod.addStatement("if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn)");
+			executeMethod.addStatement("if (globalObserveOn!=null) result.observeOn(globalObserveOn)");
 
 			executeMethod.addStatement("return result");
 
@@ -799,10 +811,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	public void generateMethodExecuteBatch(String daoFactory) {
 		// create interface
 		String transationExecutorName = "Batch";
-		// @formatter:off		
+		// @formatter:off
+		//ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(className(AbstractExecutable.class),
+			//	className(daoFactory));
 		classBuilder.addType(TypeSpec.interfaceBuilder(transationExecutorName)
 				.addModifiers(Modifier.PUBLIC)
-				.addTypeVariable(TypeVariableName.get("T"))				
+				.addTypeVariable(TypeVariableName.get("T"))
+				//.addSuperinterface(parameterizedTypeName)
 				.addJavadoc("Rapresents batch operation.\n")
 				.addMethod(MethodSpec.methodBuilder("onExecute")
 						.addJavadoc(
@@ -812,7 +827,23 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 						.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).returns(TypeVariableName.get("T")).build())
 				.build());
 		// @formatter:on
-		
+
+//		// create SimpleTransaction class
+//		String simpleTransactionClassName = "Simple" + transationExecutorName;
+//		// @formatter:off
+//		classBuilder.addType(TypeSpec.classBuilder(simpleTransactionClassName)
+//				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
+//				.addTypeVariable(TypeVariableName.get("T"))
+//				.addSuperinterface(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")))				
+//				.addJavadoc("Simple class implements interface to define batch.")
+//				.addJavadoc("In this class a simple <code>onError</code> method is implemented.\n")
+//				.addMethod(MethodSpec.methodBuilder("onError").addAnnotation(Override.class).returns(Void.TYPE)
+//						.addModifiers(Modifier.PUBLIC).addParameter(Throwable.class, "e")
+//						.addStatement("throw(new $T(e))", KriptonRuntimeException.class).build())
+//				.build());
+
+		// @formatter:on
+
 		{
 			// execute read/write mode
 			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("executeBatch")
@@ -849,6 +880,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 			executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
 			executeMethod.addStatement("e.printStackTrace()");
+			//executeMethod.addStatement("if (commands!=null) commands.onError(e)");
 			executeMethod.addStatement("throw(e)");
 
 			executeMethod.nextControlFlow("finally");

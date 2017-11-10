@@ -1,13 +1,15 @@
 package sqlite.feature.typeadapter.kripton180.raw;
 
-import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
+import com.abubusoft.kripton.common.Triple;
 import sqlite.feature.typeadapter.kripton180.Employee;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterAddress;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterBoolean;
@@ -31,6 +33,20 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
  *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
 public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
+  private SQLiteStatement insertPreparedStatement0;
+
+  private SQLiteStatement insertWithAdapterPreparedStatement1;
+
+  private SQLiteStatement updateByIdPreparedStatement2;
+
+  private SQLiteStatement updatePreparedStatement3;
+
+  private SQLiteStatement deletePreparedStatement4;
+
+  private SQLiteStatement deleteJQLPreparedStatement5;
+
+  private SQLiteStatement deleteJQLWithAdapterPreparedStatement6;
+
   public EmployeeRawDaoImpl(BindKripton180RawDataSource dataSet) {
     super(dataSet);
   }
@@ -71,11 +87,11 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
    */
   @Override
   public Employee selectById(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -86,15 +102,15 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -193,11 +209,11 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
    */
   @Override
   public Employee selectByIdJQL(long id) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -208,15 +224,15 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -347,11 +363,11 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public Employee selectByAllWithAdapter(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -362,25 +378,25 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add((fieldBoolean==null?"":fieldBoolean));
-    _sqlWhereParams.add((fieldByte==null?"":fieldByte));
-    _sqlWhereParams.add((fieldCharacter==null?"":fieldCharacter));
-    _sqlWhereParams.add((fieldShort==null?"":fieldShort));
-    _sqlWhereParams.add((fieldInteger==null?"":fieldInteger));
-    _sqlWhereParams.add((fieldLong==null?"":fieldLong));
-    _sqlWhereParams.add((fieldFloat==null?"":fieldFloat));
-    _sqlWhereParams.add((fieldDouble==null?"":fieldDouble));
-    _sqlWhereParams.add((fieldString==null?"":fieldString));
-    _sqlWhereParams.add((fieldByteArray==null?"":fieldByteArray));
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
+    _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
+    _contentValues.addWhereArgs((fieldCharacter==null?"":fieldCharacter));
+    _contentValues.addWhereArgs((fieldShort==null?"":fieldShort));
+    _contentValues.addWhereArgs((fieldInteger==null?"":fieldInteger));
+    _contentValues.addWhereArgs((fieldLong==null?"":fieldLong));
+    _contentValues.addWhereArgs((fieldFloat==null?"":fieldFloat));
+    _contentValues.addWhereArgs((fieldDouble==null?"":fieldDouble));
+    _contentValues.addWhereArgs((fieldString==null?"":fieldString));
+    _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -511,11 +527,11 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public Employee selectByAll(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -526,25 +542,25 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, fieldCharacter));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterShort.class, fieldShort));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterInteger.class, fieldInteger));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterLong.class, fieldLong));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterFloat.class, fieldFloat));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterDouble.class, fieldDouble));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterString.class, fieldString));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, fieldByteArray));
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, fieldCharacter));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterShort.class, fieldShort));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterInteger.class, fieldInteger));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterLong.class, fieldLong));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterFloat.class, fieldFloat));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterDouble.class, fieldDouble));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, fieldString));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, fieldByteArray));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -676,11 +692,11 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public Employee selectByAllJQL(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -691,26 +707,26 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add((fieldBoolean==null?"":fieldBoolean));
-    _sqlWhereParams.add((fieldByte==null?"":fieldByte));
-    _sqlWhereParams.add((fieldByte==null?"":fieldByte));
-    _sqlWhereParams.add((fieldCharacter==null?"":fieldCharacter));
-    _sqlWhereParams.add((fieldShort==null?"":fieldShort));
-    _sqlWhereParams.add((fieldInteger==null?"":fieldInteger));
-    _sqlWhereParams.add((fieldLong==null?"":fieldLong));
-    _sqlWhereParams.add((fieldFloat==null?"":fieldFloat));
-    _sqlWhereParams.add((fieldDouble==null?"":fieldDouble));
-    _sqlWhereParams.add((fieldString==null?"":fieldString));
-    _sqlWhereParams.add((fieldByteArray==null?"":fieldByteArray));
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
+    _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
+    _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
+    _contentValues.addWhereArgs((fieldCharacter==null?"":fieldCharacter));
+    _contentValues.addWhereArgs((fieldShort==null?"":fieldShort));
+    _contentValues.addWhereArgs((fieldInteger==null?"":fieldInteger));
+    _contentValues.addWhereArgs((fieldLong==null?"":fieldLong));
+    _contentValues.addWhereArgs((fieldFloat==null?"":fieldFloat));
+    _contentValues.addWhereArgs((fieldDouble==null?"":fieldDouble));
+    _contentValues.addWhereArgs((fieldString==null?"":fieldString));
+    _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -842,11 +858,11 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public Employee selectByAllJQLWithAdapter(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -857,26 +873,26 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     // manage WHERE arguments -- END
 
     // build where condition
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, fieldCharacter));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterShort.class, fieldShort));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterInteger.class, fieldInteger));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterLong.class, fieldLong));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterFloat.class, fieldFloat));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterDouble.class, fieldDouble));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterString.class, fieldString));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, fieldByteArray));
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, fieldCharacter));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterShort.class, fieldShort));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterInteger.class, fieldInteger));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterLong.class, fieldLong));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterFloat.class, fieldFloat));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterDouble.class, fieldDouble));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, fieldString));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, fieldByteArray));
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -984,65 +1000,64 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long insert(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (fieldBoolean!=null) {
-      contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
+      _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
     } else {
-      contentValues.putNull("field_boolean");
+      _contentValues.putNull("field_boolean");
     }
     if (fieldByte!=null) {
-      contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, fieldByte));
+      _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, fieldByte));
     } else {
-      contentValues.putNull("field_byte");
+      _contentValues.putNull("field_byte");
     }
     if (fieldCharacter!=null) {
-      contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
+      _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
     } else {
-      contentValues.putNull("field_character");
+      _contentValues.putNull("field_character");
     }
     if (fieldShort!=null) {
-      contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
+      _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
     } else {
-      contentValues.putNull("field_short");
+      _contentValues.putNull("field_short");
     }
     if (fieldInteger!=null) {
-      contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, fieldInteger));
+      _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, fieldInteger));
     } else {
-      contentValues.putNull("field_integer");
+      _contentValues.putNull("field_integer");
     }
     if (fieldLong!=null) {
-      contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, fieldLong));
+      _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, fieldLong));
     } else {
-      contentValues.putNull("field_long");
+      _contentValues.putNull("field_long");
     }
     if (fieldFloat!=null) {
-      contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, fieldFloat));
+      _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, fieldFloat));
     } else {
-      contentValues.putNull("field_float");
+      _contentValues.putNull("field_float");
     }
     if (fieldDouble!=null) {
-      contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, fieldDouble));
+      _contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, fieldDouble));
     } else {
-      contentValues.putNull("field_double");
+      _contentValues.putNull("field_double");
     }
     if (fieldString!=null) {
-      contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, fieldString));
+      _contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, fieldString));
     } else {
-      contentValues.putNull("field_string");
+      _contentValues.putNull("field_string");
     }
     if (fieldByteArray!=null) {
-      contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, fieldByteArray));
+      _contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, fieldByteArray));
     } else {
-      contentValues.putNull("field_byte_array");
+      _contentValues.putNull("field_byte_array");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1050,19 +1065,25 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     Logger.info("INSERT INTO employees (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("employees", null, contentValues);
+    // insert operation
+    if (insertPreparedStatement0==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO employees (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -1111,65 +1132,64 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long insertWithAdapter(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
 
     if (fieldBoolean!=null) {
-      contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
+      _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
     } else {
-      contentValues.putNull("field_boolean");
+      _contentValues.putNull("field_boolean");
     }
     if (fieldByte!=null) {
-      contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, fieldByte));
+      _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, fieldByte));
     } else {
-      contentValues.putNull("field_byte");
+      _contentValues.putNull("field_byte");
     }
     if (fieldCharacter!=null) {
-      contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
+      _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
     } else {
-      contentValues.putNull("field_character");
+      _contentValues.putNull("field_character");
     }
     if (fieldShort!=null) {
-      contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
+      _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
     } else {
-      contentValues.putNull("field_short");
+      _contentValues.putNull("field_short");
     }
     if (fieldInteger!=null) {
-      contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, fieldInteger));
+      _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, fieldInteger));
     } else {
-      contentValues.putNull("field_integer");
+      _contentValues.putNull("field_integer");
     }
     if (fieldLong!=null) {
-      contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, fieldLong));
+      _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, fieldLong));
     } else {
-      contentValues.putNull("field_long");
+      _contentValues.putNull("field_long");
     }
     if (fieldFloat!=null) {
-      contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, fieldFloat));
+      _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, fieldFloat));
     } else {
-      contentValues.putNull("field_float");
+      _contentValues.putNull("field_float");
     }
     if (fieldDouble!=null) {
-      contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, fieldDouble));
+      _contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, fieldDouble));
     } else {
-      contentValues.putNull("field_double");
+      _contentValues.putNull("field_double");
     }
     if (fieldString!=null) {
-      contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, fieldString));
+      _contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, fieldString));
     } else {
-      contentValues.putNull("field_string");
+      _contentValues.putNull("field_string");
     }
     if (fieldByteArray!=null) {
-      contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, fieldByteArray));
+      _contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, fieldByteArray));
     } else {
-      contentValues.putNull("field_byte_array");
+      _contentValues.putNull("field_byte_array");
     }
 
     // log for insert -- BEGIN 
     StringBuffer _columnNameBuffer=new StringBuffer();
     StringBuffer _columnValueBuffer=new StringBuffer();
     String _columnSeparator="";
-    for (String columnName:contentValues.keySet()) {
+    for (String columnName:_contentValues.keys()) {
       _columnNameBuffer.append(_columnSeparator+columnName);
       _columnValueBuffer.append(_columnSeparator+":"+columnName);
       _columnSeparator=", ";
@@ -1177,19 +1197,25 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     Logger.info("INSERT INTO employees (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
     // log for insert -- END 
 
-    long result = database().insert("employees", null, contentValues);
+    // insert operation
+    if (insertWithAdapterPreparedStatement1==null) {
+      // generate SQL for insert
+      String _sql=String.format("INSERT INTO employees (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
+      insertWithAdapterPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
+    long result = KriptonDatabaseWrapper.insert(dataSource, insertWithAdapterPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -1245,96 +1271,100 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long updateById(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (fieldBoolean!=null) {
-      contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
+      _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
     } else {
-      contentValues.putNull("field_boolean");
+      _contentValues.putNull("field_boolean");
     }
     if (fieldByte!=null) {
-      contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, fieldByte));
+      _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, fieldByte));
     } else {
-      contentValues.putNull("field_byte");
+      _contentValues.putNull("field_byte");
     }
     if (fieldCharacter!=null) {
-      contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
+      _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
     } else {
-      contentValues.putNull("field_character");
+      _contentValues.putNull("field_character");
     }
     if (fieldShort!=null) {
-      contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
+      _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
     } else {
-      contentValues.putNull("field_short");
+      _contentValues.putNull("field_short");
     }
     if (fieldInteger!=null) {
-      contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, fieldInteger));
+      _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, fieldInteger));
     } else {
-      contentValues.putNull("field_integer");
+      _contentValues.putNull("field_integer");
     }
     if (fieldLong!=null) {
-      contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, fieldLong));
+      _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, fieldLong));
     } else {
-      contentValues.putNull("field_long");
+      _contentValues.putNull("field_long");
     }
     if (fieldFloat!=null) {
-      contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, fieldFloat));
+      _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, fieldFloat));
     } else {
-      contentValues.putNull("field_float");
+      _contentValues.putNull("field_float");
     }
     if (fieldDouble!=null) {
-      contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, fieldDouble));
+      _contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, fieldDouble));
     } else {
-      contentValues.putNull("field_double");
+      _contentValues.putNull("field_double");
     }
     if (fieldString!=null) {
-      contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, fieldString));
+      _contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, fieldString));
     } else {
-      contentValues.putNull("field_string");
+      _contentValues.putNull("field_string");
     }
     if (fieldByteArray!=null) {
-      contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, fieldByteArray));
+      _contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, fieldByteArray));
     } else {
-      contentValues.putNull("field_byte_array");
+      _contentValues.putNull("field_byte_array");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
+    _contentValues.addWhereArgs(String.valueOf(id));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updateByIdPreparedStatement2==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE employees SET field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=?";
+      updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE employees SET field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("employees", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -1393,61 +1423,65 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long update(String firstName, long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
-    ContentValues contentValues=contentValues();
-    contentValues.clear();
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     if (firstName!=null) {
-      contentValues.put("first_name", firstName);
+      _contentValues.put("first_name", firstName);
     } else {
-      contentValues.putNull("first_name");
+      _contentValues.putNull("first_name");
     }
 
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add((fieldBoolean==null?"":fieldBoolean));
-    _sqlWhereParams.add((fieldByte==null?"":fieldByte));
-    _sqlWhereParams.add((fieldCharacter==null?"":fieldCharacter));
-    _sqlWhereParams.add((fieldShort==null?"":fieldShort));
-    _sqlWhereParams.add((fieldInteger==null?"":fieldInteger));
-    _sqlWhereParams.add((fieldLong==null?"":fieldLong));
-    _sqlWhereParams.add((fieldFloat==null?"":fieldFloat));
-    _sqlWhereParams.add((fieldDouble==null?"":fieldDouble));
-    _sqlWhereParams.add((fieldString==null?"":fieldString));
-    _sqlWhereParams.add((fieldByteArray==null?"":fieldByteArray));
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
+    _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
+    _contentValues.addWhereArgs((fieldCharacter==null?"":fieldCharacter));
+    _contentValues.addWhereArgs((fieldShort==null?"":fieldShort));
+    _contentValues.addWhereArgs((fieldInteger==null?"":fieldInteger));
+    _contentValues.addWhereArgs((fieldLong==null?"":fieldLong));
+    _contentValues.addWhereArgs((fieldFloat==null?"":fieldFloat));
+    _contentValues.addWhereArgs((fieldDouble==null?"":fieldDouble));
+    _contentValues.addWhereArgs((fieldString==null?"":fieldString));
+    _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (updatePreparedStatement3==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="UPDATE employees SET first_name=? WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      updatePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("UPDATE employees SET first_name=:firstName WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
     // log for content values -- BEGIN
-    Object _contentValue;
-    for (String _contentKey:contentValues.keySet()) {
-      _contentValue=contentValues.get(_contentKey);
-      if (_contentValue==null) {
-        Logger.info("==> :%s = <null>", _contentKey);
+    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+    for (int i = 0; i < _contentValues.size(); i++) {
+      _contentValue = _contentValues.get(i);
+      if (_contentValue.value1==null) {
+        Logger.info("==> :%s = <null>", _contentValue.value0);
       } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentKey, StringUtils.checkSize(_contentValue), _contentValue.getClass().getCanonicalName());
+        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
       }
     }
     // log for content values -- END
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().update("employees", contentValues, _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));;
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updatePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -1500,41 +1534,47 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long delete(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add((fieldBoolean==null?"":fieldBoolean));
-    _sqlWhereParams.add((fieldByte==null?"":fieldByte));
-    _sqlWhereParams.add((fieldCharacter==null?"":fieldCharacter));
-    _sqlWhereParams.add((fieldShort==null?"":fieldShort));
-    _sqlWhereParams.add((fieldInteger==null?"":fieldInteger));
-    _sqlWhereParams.add((fieldLong==null?"":fieldLong));
-    _sqlWhereParams.add((fieldFloat==null?"":fieldFloat));
-    _sqlWhereParams.add((fieldDouble==null?"":fieldDouble));
-    _sqlWhereParams.add((fieldString==null?"":fieldString));
-    _sqlWhereParams.add((fieldByteArray==null?"":fieldByteArray));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
+    _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
+    _contentValues.addWhereArgs((fieldCharacter==null?"":fieldCharacter));
+    _contentValues.addWhereArgs((fieldShort==null?"":fieldShort));
+    _contentValues.addWhereArgs((fieldInteger==null?"":fieldInteger));
+    _contentValues.addWhereArgs((fieldLong==null?"":fieldLong));
+    _contentValues.addWhereArgs((fieldFloat==null?"":fieldFloat));
+    _contentValues.addWhereArgs((fieldDouble==null?"":fieldDouble));
+    _contentValues.addWhereArgs((fieldString==null?"":fieldString));
+    _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deletePreparedStatement4==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      deletePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("employees", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1587,41 +1627,47 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long deleteJQL(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add((fieldBoolean==null?"":fieldBoolean));
-    _sqlWhereParams.add((fieldByte==null?"":fieldByte));
-    _sqlWhereParams.add((fieldCharacter==null?"":fieldCharacter));
-    _sqlWhereParams.add((fieldShort==null?"":fieldShort));
-    _sqlWhereParams.add((fieldInteger==null?"":fieldInteger));
-    _sqlWhereParams.add((fieldLong==null?"":fieldLong));
-    _sqlWhereParams.add((fieldFloat==null?"":fieldFloat));
-    _sqlWhereParams.add((fieldDouble==null?"":fieldDouble));
-    _sqlWhereParams.add((fieldString==null?"":fieldString));
-    _sqlWhereParams.add((fieldByteArray==null?"":fieldByteArray));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
+    _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
+    _contentValues.addWhereArgs((fieldCharacter==null?"":fieldCharacter));
+    _contentValues.addWhereArgs((fieldShort==null?"":fieldShort));
+    _contentValues.addWhereArgs((fieldInteger==null?"":fieldInteger));
+    _contentValues.addWhereArgs((fieldLong==null?"":fieldLong));
+    _contentValues.addWhereArgs((fieldFloat==null?"":fieldFloat));
+    _contentValues.addWhereArgs((fieldDouble==null?"":fieldDouble));
+    _contentValues.addWhereArgs((fieldString==null?"":fieldString));
+    _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteJQLPreparedStatement5==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      deleteJQLPreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("employees", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteJQLPreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1674,41 +1720,78 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long deleteJQLWithAdapter(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
-    _sqlWhereParams.add(String.valueOf(id));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, fieldCharacter));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterShort.class, fieldShort));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterInteger.class, fieldInteger));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterLong.class, fieldLong));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterFloat.class, fieldFloat));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterDouble.class, fieldDouble));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterString.class, fieldString));
-    _sqlWhereParams.add(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, fieldByteArray));
+    KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.addWhereArgs(String.valueOf(id));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, fieldCharacter));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterShort.class, fieldShort));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterInteger.class, fieldInteger));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterLong.class, fieldLong));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterFloat.class, fieldFloat));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterDouble.class, fieldDouble));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, fieldString));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, fieldByteArray));
 
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
+    if (deleteJQLWithAdapterPreparedStatement6==null) {
+      StringBuilder _sqlBuilder=getSQLStringBuilder();
 
-    // manage WHERE arguments -- BEGIN
+      // manage WHERE arguments -- BEGIN
 
-    // manage WHERE statement
-    String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-    _sqlBuilder.append(_sqlWhereStatement);
+      // manage WHERE statement
+      String _sqlWhereStatement=" id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      _sqlBuilder.append(_sqlWhereStatement);
 
-    // manage WHERE arguments -- END
+      // manage WHERE arguments -- END
+
+      // generate sql
+      String _sql="DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      deleteJQLWithAdapterPreparedStatement6 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+    }
 
     // display log
     Logger.info("DELETE FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
-    int result = database().delete("employees", _sqlWhereStatement, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]));
+    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteJQLWithAdapterPreparedStatement6, _contentValues);
     return result;
+  }
+
+  public void clearCompiledStatements() {
+    if (insertPreparedStatement0!=null) {
+      insertPreparedStatement0.close();
+      insertPreparedStatement0=null;
+    }
+    if (insertWithAdapterPreparedStatement1!=null) {
+      insertWithAdapterPreparedStatement1.close();
+      insertWithAdapterPreparedStatement1=null;
+    }
+    if (updateByIdPreparedStatement2!=null) {
+      updateByIdPreparedStatement2.close();
+      updateByIdPreparedStatement2=null;
+    }
+    if (updatePreparedStatement3!=null) {
+      updatePreparedStatement3.close();
+      updatePreparedStatement3=null;
+    }
+    if (deletePreparedStatement4!=null) {
+      deletePreparedStatement4.close();
+      deletePreparedStatement4=null;
+    }
+    if (deleteJQLPreparedStatement5!=null) {
+      deleteJQLPreparedStatement5.close();
+      deleteJQLPreparedStatement5=null;
+    }
+    if (deleteJQLWithAdapterPreparedStatement6!=null) {
+      deleteJQLWithAdapterPreparedStatement6.close();
+      deleteJQLWithAdapterPreparedStatement6=null;
+    }
   }
 }

@@ -21,10 +21,10 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
-import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -45,7 +45,6 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.content.ContentValues;
 import android.net.Uri;
@@ -83,14 +82,14 @@ public abstract class SqlInsertBuilder {
 			}
 		}
 
-		public void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
-			codeGenerator.generate(elementUtils, methodBuilder, this.isMapFields(), method, returnType);
+		public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
+			codeGenerator.generate(classBuilder, methodBuilder, this.isMapFields(), method, returnType);
 
 		}
 	}
 
 	public interface InsertCodeGenerator {
-		void generate(Elements elementUtils, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
+		void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**
@@ -99,7 +98,7 @@ public abstract class SqlInsertBuilder {
 	 * @param builder
 	 * @param method
 	 */
-	public static void generate(Elements elementUtils, Builder builder, SQLiteModelMethod method) {
+	public static void generate(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 		InsertType insertResultType = detectInsertType(method);
 
 		// if true, field must be associate to ben attributes
@@ -123,14 +122,14 @@ public abstract class SqlInsertBuilder {
 		// "INSERT-FROM-SELECT SQL can not be used with method sign");
 
 		// generate inner code
-		insertResultType.generate(elementUtils, methodBuilder, method, returnType);
+		insertResultType.generate(classBuilder, methodBuilder, method, returnType);
 
 		MethodSpec methodSpec = methodBuilder.build();
-		builder.addMethod(methodSpec);
+		classBuilder.addMethod(methodSpec);
 
 		if (method.contentProviderEntryPathEnabled) {
 			// we need to generate insert for content provider to
-			generateInsertForContentProvider(builder, method, insertResultType);
+			generateInsertForContentProvider(classBuilder, method, insertResultType);
 		}
 
 	}
@@ -230,8 +229,11 @@ public abstract class SqlInsertBuilder {
 		// generate columnCheckSet
 		SqlBuilderHelper.generateColumnCheckSet(classBuilder, method, columns);
 
+		// retrieve content values
+		methodBuilder.addStatement("$T _contentValues=contentValues(contentValues)", KriptonContentValues.class);
+		
 		// generate column check
-		SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "contentValues.keySet()", true, null);
+		SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.values().keySet()", true, null);
 
 		methodBuilder.addCode("\n");
 
@@ -253,7 +255,7 @@ public abstract class SqlInsertBuilder {
 		}
 
 		// generate log for inser operation
-		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
+		SqlBuilderHelper.generateLogForContentValuesContentProvider(method, methodBuilder);
 
 		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
 		String conflictString1 = "";
@@ -263,7 +265,9 @@ public abstract class SqlInsertBuilder {
 			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
 			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 		}
-		methodBuilder.addStatement("long result = database().insert$L($S, null, contentValues$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
+		
+		methodBuilder.addComment("insert operation");
+		methodBuilder.addStatement("long result = database().insert$L($S, null, _contentValues.values()$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 		if (method.getParent().getParent().generateRx) {
 			methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);
 		}

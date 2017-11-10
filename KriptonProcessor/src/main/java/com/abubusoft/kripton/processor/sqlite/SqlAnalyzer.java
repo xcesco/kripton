@@ -133,7 +133,7 @@ public class SqlAnalyzer {
 
 			StringBuffer buffer = new StringBuffer();
 			while (matcher.find()) {
-				SQLProperty property = entity.findByName(matcher.group(1));
+				SQLProperty property = entity.findPropertyByName(matcher.group(1));
 				if (property != null) {
 					matcher.appendReplacement(buffer, property.columnName);
 				}
@@ -171,9 +171,9 @@ public class SqlAnalyzer {
 				if (TypeUtility.isEquals(method.findParameterTypeByAliasOrName(pName.getBeanName()), entity) && entity.contains(pName.getValue()))
 				{				
 					// there are nested property invocation
-					paramGetters.add(method.findParameterNameByAlias(pName.getBeanName())+"."+getter(entity.findByName(pName.getValue())));
+					paramGetters.add(method.findParameterNameByAlias(pName.getBeanName())+"."+getter(entity.findPropertyByName(pName.getValue())));
 					usedBeanPropertyNames.add(pName.getValue());
-					paramTypeNames.add(TypeUtility.typeName(entity.findByName(pName.getValue()).getElement().asType()));				
+					paramTypeNames.add(TypeUtility.typeName(entity.findPropertyByName(pName.getValue()).getElement().asType()));				
 					usedMethodParameters.add(method.findParameterNameByAlias(pName.getBeanName()));
 				} else {
 					throw (new PropertyInAnnotationNotFoundException(method, pName.getValue()));

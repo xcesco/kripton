@@ -3,9 +3,9 @@ package sqlite.feature.dynamic.kripton121;
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import sqlite.feature.dynamic.Person;
@@ -52,6 +52,7 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
    */
   @Override
   public List<Person> selectOne(String where, String orderBy) {
+    KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=getSQLStringBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
@@ -59,7 +60,6 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
     String _sortOrder=orderBy;
-    ArrayList<String> _sqlWhereParams=getWhereParamsArray();
 
     // manage WHERE arguments -- BEGIN
 
@@ -76,13 +76,13 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
-    String[] _sqlArgs=_sqlWhereParams.toArray(new String[_sqlWhereParams.size()]);
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // manage log
     Logger.info(_sql);
 
     // log for where parameters -- BEGIN
     int _whereParamCounter=0;
-    for (String _whereParamItem: _sqlWhereParams) {
+    for (String _whereParamItem: _contentValues.whereArgs()) {
       Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
     }
     // log for where parameters -- END
@@ -116,5 +116,8 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
 
       return resultList;
     }
+  }
+
+  public void clearCompiledStatements() {
   }
 }
