@@ -8,7 +8,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import sqlite.kripton186.model.Country;
 import sqlite.kripton186.model.CountryTable;
@@ -25,7 +25,15 @@ import sqlite.kripton186.model.CountryTable;
 public class CountryDaoImpl extends AbstractDao implements CountryDao {
   private SQLiteStatement insertPreparedStatement0;
 
+  protected String SELECT_BY_ID_SQL6 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE id = ?";
+
   private SQLiteStatement deleteByIdPreparedStatement1;
+
+  protected String SELECT_ALL_SQL7 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country ORDER BY name asc";
+
+  protected String SELECT_BY_CALLING_CODE_SQL8 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE calling_code = ?";
+
+  protected String SELECT_BY_COUNTRY_SQL9 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE code = ?";
 
   public CountryDaoImpl(BindXenoDataSource dataSet) {
     super(dataSet);
@@ -82,30 +90,34 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       _contentValues.putNull("translated_name");
     }
 
-    // log for insert -- BEGIN 
-    StringBuffer _columnNameBuffer=new StringBuffer();
-    StringBuffer _columnValueBuffer=new StringBuffer();
-    String _columnSeparator="";
-    for (String columnName:_contentValues.keys()) {
-      _columnNameBuffer.append(_columnSeparator+columnName);
-      _columnValueBuffer.append(_columnSeparator+":"+columnName);
-      _columnSeparator=", ";
-    }
-    Logger.info("INSERT OR REPLACE INTO country (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
-
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // log for insert -- BEGIN 
+      StringBuffer _columnNameBuffer=new StringBuffer();
+      StringBuffer _columnValueBuffer=new StringBuffer();
+      String _columnSeparator="";
+      for (String columnName:_contentValues.keys()) {
+        _columnNameBuffer.append(_columnSeparator+columnName);
+        _columnValueBuffer.append(_columnSeparator+":"+columnName);
+        _columnSeparator=", ";
       }
-    }
-    // log for content values -- END
-    // log for insert -- END 
+      Logger.info("INSERT OR REPLACE INTO country (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
+      }
+      // log for content values -- END
+      // log for insert -- END 
+
+    }
+    // log section END
     // insert operation
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
@@ -146,34 +158,30 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public Country selectById(long id) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name, translated_name FROM country");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id = ?";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // build where condition
+    // query SQL is statically defined
+    String _sql=SELECT_BY_ID_SQL6;
+    // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
-    String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
       Country resultBean=null;
 
@@ -239,16 +247,20 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       String _sql="DELETE FROM country WHERE id = ?";
       deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("DELETE FROM country WHERE id = ?");
+      // display log
+      Logger.info("DELETE FROM country WHERE id = ?");
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement1, _contentValues);
     return result!=0;
   }
@@ -274,34 +286,31 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public List<Country> selectAll() {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name, translated_name FROM country");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-    String _sortOrder=null;
-    String _sqlWhereStatement="";
-
-    // build where condition
-    // generation order - BEGIN
-    String _sqlOrderByStatement=" ORDER BY name asc";
-    _sqlBuilder.append(_sqlOrderByStatement);
-    // generation order - END
-
-    String _sql=_sqlBuilder.toString();
+    // query SQL is statically defined
+    String _sql=SELECT_ALL_SQL7;
+    // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
-      LinkedList<Country> resultList=new LinkedList<Country>();
+      ArrayList<Country> resultList=new ArrayList<Country>(cursor.getCount());
       Country resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -362,34 +371,30 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public Country selectByCallingCode(String callingCode) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name, translated_name FROM country");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" WHERE calling_code = ?";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // build where condition
+    // query SQL is statically defined
+    String _sql=SELECT_BY_CALLING_CODE_SQL8;
+    // add where arguments
     _contentValues.addWhereArgs((callingCode==null?"":callingCode));
-    String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
       Country resultBean=null;
 
@@ -446,34 +451,30 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public Country selectByCountry(String code) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, area, code, calling_code, region, name, translated_name FROM country");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" WHERE code = ?";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // build where condition
+    // query SQL is statically defined
+    String _sql=SELECT_BY_COUNTRY_SQL9;
+    // add where arguments
     _contentValues.addWhereArgs((code==null?"":code));
-    String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
       Country resultBean=null;
 

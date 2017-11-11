@@ -185,8 +185,12 @@ public class BindPersonContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI for INSERT operation: " + uri);
       }
     }
-    Logger.info("Element is created with URI '%s'", _returnURL);
-    Logger.info("Changes are notified for URI '%s'", uri);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      Logger.info("Element is created with URI '%s'", _returnURL);
+      Logger.info("Changes are notified for URI '%s'", uri);
+    }
+    // log section END
     getContext().getContentResolver().notifyChange(uri, null);
     return _returnURL;
   }
@@ -226,7 +230,11 @@ public class BindPersonContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
       }
     }
-    Logger.info("Changes are notified for URI %s", uri);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      Logger.info("Changes are notified for URI %s", uri);
+    }
+    // log section END
     getContext().getContentResolver().notifyChange(uri, null);
     return returnRowUpdated;
   }
@@ -309,7 +317,11 @@ public class BindPersonContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
       }
     }
-    Logger.info("Changes are notified for URI %s", uri);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      Logger.info("Changes are notified for URI %s", uri);
+    }
+    // log section END
     getContext().getContentResolver().notifyChange(uri, null);
     return returnRowDeleted;
   }

@@ -8,7 +8,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +21,12 @@ import java.util.List;
  *  @see PersonPhoneNumberTable
  */
 public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2PhoneDao {
+  protected String SELECT_BY_ID_SQL11 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE id=?";
+
+  protected String SELECT_BY_PERSON_ID_SQL12 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE person_id=?";
+
+  protected String SELECT_BY_PHONE_NUMBER_ID_SQL13 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE phone_number_id=?";
+
   private SQLiteStatement deleteByIdPreparedStatement0;
 
   private SQLiteStatement deleteByPersonIdPreparedStatement1;
@@ -57,34 +63,30 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
   @Override
   public PersonPhoneNumber selectById(long id) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, person_id, phone_number_id FROM person_phone_number");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // build where condition
+    // query SQL is statically defined
+    String _sql=SELECT_BY_ID_SQL11;
+    // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
-    String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
       PersonPhoneNumber resultBean=null;
 
@@ -129,36 +131,32 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
   @Override
   public List<PersonPhoneNumber> selectByPersonId(long personId) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, person_id, phone_number_id FROM person_phone_number");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" WHERE person_id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // build where condition
+    // query SQL is statically defined
+    String _sql=SELECT_BY_PERSON_ID_SQL12;
+    // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
-    String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
-      LinkedList<PersonPhoneNumber> resultList=new LinkedList<PersonPhoneNumber>();
+      ArrayList<PersonPhoneNumber> resultList=new ArrayList<PersonPhoneNumber>(cursor.getCount());
       PersonPhoneNumber resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -207,36 +205,32 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
   @Override
   public List<PersonPhoneNumber> selectByPhoneNumberId(long phoneNumberId) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, person_id, phone_number_id FROM person_phone_number");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" WHERE phone_number_id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // build where condition
+    // query SQL is statically defined
+    String _sql=SELECT_BY_PHONE_NUMBER_ID_SQL13;
+    // add where arguments
     _contentValues.addWhereArgs(String.valueOf(phoneNumberId));
-    String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
-      LinkedList<PersonPhoneNumber> resultList=new LinkedList<PersonPhoneNumber>();
+      ArrayList<PersonPhoneNumber> resultList=new ArrayList<PersonPhoneNumber>(cursor.getCount());
       PersonPhoneNumber resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -298,16 +292,20 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       String _sql="DELETE FROM person_phone_number WHERE id=?";
       deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("DELETE FROM person_phone_number WHERE id=?");
+      // display log
+      Logger.info("DELETE FROM person_phone_number WHERE id=?");
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement0, _contentValues);
     return result;
   }
@@ -349,16 +347,20 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       String _sql="DELETE FROM person_phone_number WHERE person_id=?";
       deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("DELETE FROM person_phone_number WHERE person_id=?");
+      // display log
+      Logger.info("DELETE FROM person_phone_number WHERE person_id=?");
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByPersonIdPreparedStatement1, _contentValues);
     return result;
   }
@@ -400,16 +402,20 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       String _sql="DELETE FROM person_phone_number WHERE phone_number_id=?";
       deleteByPhoneNumberIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("DELETE FROM person_phone_number WHERE phone_number_id=?");
+      // display log
+      Logger.info("DELETE FROM person_phone_number WHERE phone_number_id=?");
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByPhoneNumberIdPreparedStatement2, _contentValues);
     return result;
   }
@@ -437,30 +443,34 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     _contentValues.put("person_id", bean.personId);
     _contentValues.put("phone_number_id", bean.phoneNumberId);
 
-    // log for insert -- BEGIN 
-    StringBuffer _columnNameBuffer=new StringBuffer();
-    StringBuffer _columnValueBuffer=new StringBuffer();
-    String _columnSeparator="";
-    for (String columnName:_contentValues.keys()) {
-      _columnNameBuffer.append(_columnSeparator+columnName);
-      _columnValueBuffer.append(_columnSeparator+":"+columnName);
-      _columnSeparator=", ";
-    }
-    Logger.info("INSERT INTO person_phone_number (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
-
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // log for insert -- BEGIN 
+      StringBuffer _columnNameBuffer=new StringBuffer();
+      StringBuffer _columnValueBuffer=new StringBuffer();
+      String _columnSeparator="";
+      for (String columnName:_contentValues.keys()) {
+        _columnNameBuffer.append(_columnSeparator+columnName);
+        _columnValueBuffer.append(_columnSeparator+":"+columnName);
+        _columnSeparator=", ";
       }
-    }
-    // log for content values -- END
-    // log for insert -- END 
+      Logger.info("INSERT INTO person_phone_number (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
+      }
+      // log for content values -- END
+      // log for insert -- END 
+
+    }
+    // log section END
     // insert operation
     if (insertPreparedStatement3==null) {
       // generate SQL for insert

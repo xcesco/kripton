@@ -74,28 +74,32 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       String _sql="UPDATE message SET owner_type=? WHERE id = ?";
       updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("UPDATE message SET owner_type=:ownerType WHERE id = ?");
+      // display log
+      Logger.info("UPDATE message SET owner_type=:ownerType WHERE id = ?");
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
-    }
-    // log for content values -- END
+      // log for content values -- END
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement0, _contentValues);
     return result!=0;
   }

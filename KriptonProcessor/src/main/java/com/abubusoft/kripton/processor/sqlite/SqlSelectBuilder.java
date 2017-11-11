@@ -160,7 +160,7 @@ public abstract class SqlSelectBuilder {
 		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method, "'%s' as return type is not supported", returnTypeName);
 
 		// generate select method
-		selectResultType.generate(BaseProcessor.elementUtils, builder, method, returnTypeName);
+		selectResultType.generate(builder, method, returnTypeName);
 
 		if (method.contentProviderEntryPathEnabled) {
 			// we need to generate UPDATE or DELETE for content provider to
@@ -382,68 +382,10 @@ public abstract class SqlSelectBuilder {
 
 	static SplittedSql generateSQL(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, final boolean replaceProjectedColumns) {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
-		final SQLEntity entity = method.getParent().getEntity();
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 
 		final SplittedSql splittedSql = new SplittedSql();
 
-		// convert jql to sql
-		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListener() {
-
-			@Override
-			public String onTableName(String tableName) {
-				return schema.getEntityBySimpleName(tableName).getTableName();
-			}
-
-			@Override
-			public String onBindParameter(String bindParameterName) {
-				return "${" + bindParameterName + "}";
-			}
-
-			@Override
-			public String onColumnName(String columnName) {
-				SQLProperty tempProperty = entity.get(columnName);
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
-
-				return tempProperty.columnName;
-			}
-
-			@Override
-			public void onWhereStatementBegin(Where_stmtContext ctx) {
-			}
-
-			@Override
-			public void onWhereStatementEnd(Where_stmtContext ctx) {
-			}
-
-			@Override
-			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
-				return null;
-			}
-
-			@Override
-			public void onColumnNameSetBegin(Column_name_setContext ctx) {
-
-			}
-
-			@Override
-			public void onColumnNameSetEnd(Column_name_setContext ctx) {
-			}
-
-			@Override
-			public void onColumnValueSetBegin(Column_value_setContext ctx) {
-			}
-
-			@Override
-			public void onColumnValueSetEnd(Column_value_setContext ctx) {
-			}
-
-			@Override
-			public String onColumnNameToUpdate(String columnName) {
-				return null;
-			}
-
-		});
+		String sql = convertJQL2SQL(method, false);
 
 		// parameters extracted from JQL converted in SQL
 		splittedSql.sqlBasic = jqlChecker.replaceVariableStatements(method, sql, new JQLReplaceVariableStatementListenerImpl() {
@@ -494,6 +436,80 @@ public abstract class SqlSelectBuilder {
 		});
 
 		return splittedSql;
+	}
+
+	/**
+	 * @param schema
+	 * @param entity
+	 * @param method
+	 * @param jqlChecker
+	 * @return
+	 */
+	public static String convertJQL2SQL(final SQLiteModelMethod method, final boolean replaceWithQuestion) {
+		final SQLiteDatabaseSchema schema=method.getParent().getParent();
+		final SQLEntity entity=method.getParent().getEntity();
+		JQLChecker jqlChecker = JQLChecker.getInstance();
+		// convert jql to sql
+		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListener() {
+
+			@Override
+			public String onTableName(String tableName) {
+				return schema.getEntityBySimpleName(tableName).getTableName();
+			}
+
+			@Override
+			public String onBindParameter(String bindParameterName) {
+				if (replaceWithQuestion) {
+					return "?";
+				}
+				return "${" + bindParameterName + "}";
+			}
+
+			@Override
+			public String onColumnName(String columnName) {
+				SQLProperty tempProperty = entity.get(columnName);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
+				return tempProperty.columnName;
+			}
+
+			@Override
+			public void onWhereStatementBegin(Where_stmtContext ctx) {
+			}
+
+			@Override
+			public void onWhereStatementEnd(Where_stmtContext ctx) {
+			}
+
+			@Override
+			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
+				return null;
+			}
+
+			@Override
+			public void onColumnNameSetBegin(Column_name_setContext ctx) {
+
+			}
+
+			@Override
+			public void onColumnNameSetEnd(Column_name_setContext ctx) {
+			}
+
+			@Override
+			public void onColumnValueSetBegin(Column_value_setContext ctx) {
+			}
+
+			@Override
+			public void onColumnValueSetEnd(Column_value_setContext ctx) {
+			}
+
+			@Override
+			public String onColumnNameToUpdate(String columnName) {
+				return null;
+			}
+
+		});
+		return sql;
 	}
 
 }

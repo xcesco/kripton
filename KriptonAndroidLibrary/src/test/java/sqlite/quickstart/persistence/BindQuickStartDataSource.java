@@ -92,7 +92,9 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * 	transaction to execute
    */
   public void execute(Transaction transaction) {
-    SQLiteDatabase connection=openWritableDatabase();
+    boolean needToOpened=!this.isOpenInWriteMode();
+    @SuppressWarnings("resource")
+    SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
       if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
@@ -108,7 +110,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
       } catch (Throwable e) {
         Logger.warn("error closing transaction %s", e.getMessage());
       }
-      close();
+      if (needToOpened) { close(); }
     }
   }
 
@@ -131,7 +133,8 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
-    if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
+    boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
+    if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
         return commands.onExecute(this);
@@ -141,7 +144,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
       e.printStackTrace();
       throw(e);
     } finally {
-      close();
+      if (needToOpened) { close(); }
     }
     return null;
   }
@@ -182,22 +185,50 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+    }
+    // log section END
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+    }
+    // log section END
     database.execSQL(UserTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);
+    }
+    // log section END
     database.execSQL(PostTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",CommentTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",CommentTable.CREATE_TABLE_SQL);
+    }
+    // log section END
     database.execSQL(CommentTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",TodoTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",TodoTable.CREATE_TABLE_SQL);
+    }
+    // log section END
     database.execSQL(TodoTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
       if (task != null) {
-        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
         task.execute(database);
-        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
       }
     }
     if (options.databaseLifecycleHandler != null) {
@@ -210,27 +241,55 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
-    Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
+    }
+    // log section END
     // if we have a list of update task, try to execute them
     if (options.updateTasks != null) {
       List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
       for (SQLiteUpdateTask task : tasks) {
-        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
         task.execute(database);
-        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
       }
     } else {
       // drop all tables
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+      }
+      // log section END
       database.execSQL(UserTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);
+      }
+      // log section END
       database.execSQL(PostTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",CommentTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",CommentTable.CREATE_TABLE_SQL);
+      }
+      // log section END
       database.execSQL(CommentTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",TodoTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",TodoTable.CREATE_TABLE_SQL);
+      }
+      // log section END
       database.execSQL(TodoTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {

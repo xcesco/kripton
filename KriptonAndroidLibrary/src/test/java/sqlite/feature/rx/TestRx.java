@@ -43,7 +43,7 @@ public class TestRx extends BaseAndroidTest {
 			@Override
 			public void accept(String s) throws Exception {
 				result.value0 = s;
-			}
+			} 
 		});
 		// Callable as subscriber
 		assertTrue(result.value0.equals("Hello"));

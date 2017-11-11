@@ -47,6 +47,15 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	public List<String> sqlForCreate = new ArrayList<String>();
 
 	public List<String> sqlForDrop = new ArrayList<String>();
+	
+	/**
+	 * used to 
+	 */
+	protected long globalCounter=0;
+	
+	public long nextCounter() {
+		return ++globalCounter;
+	}
 
 	public String fileName;
 

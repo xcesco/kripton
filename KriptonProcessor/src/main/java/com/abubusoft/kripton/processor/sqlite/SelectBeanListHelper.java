@@ -21,15 +21,14 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.util.Elements;
-
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -37,9 +36,10 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -57,14 +57,12 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {		
+	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 		TypeName returnTypeName = method.getReturnClass();
 
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnTypeName;
-		// String fieldStatement = fieldList.value0;
-		//List<SQLProperty> fields = fieldList.value1;
 
 		TypeName collectionClass;
 		TypeName entityClass = typeName(entity.getElement());
@@ -73,7 +71,11 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		collectionClass = defineCollection(listClazzName);
 
 		methodBuilder.addCode("\n");
-		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass, entityClass);
+		if (TypeUtility.isTypeEquals(collectionClass, TypeUtility.typeName(ArrayList.class))) {
+			methodBuilder.addCode("$T<$T> resultList=new $T<$T>(cursor.getCount());\n", collectionClass, entityClass, collectionClass, entityClass);
+		} else {
+			methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass, entityClass);
+		}
 		methodBuilder.addCode("$T resultBean=null;\n", entityClass);
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
@@ -83,12 +85,13 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		{
 			int i = 0;
 			for (JQLProjection a : fieldList) {
-				SQLProperty item=a.property;
-				
-				methodBuilder.addStatement("int index$L=cursor.getColumnIndex($S)", (i++), item.columnName);				
+				SQLProperty item = a.property;
+
+				methodBuilder.addStatement("int index$L=cursor.getColumnIndex($S)", (i++), item.columnName);
 				if (item.hasTypeAdapter()) {
-					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class, item.typeAdapter.getAdapterTypeName());
-				}								
+					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
+							item.typeAdapter.getAdapterTypeName());
+				}
 			}
 		}
 		methodBuilder.addCode("\n");
@@ -99,7 +102,7 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		// generate mapping
 		int i = 0;
 		for (JQLProjection a : fieldList) {
-			SQLProperty item=a.property;
+			SQLProperty item = a.property;
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
 			}
@@ -117,13 +120,13 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		methodBuilder.addCode("resultList.add(resultBean);\n");
 		methodBuilder.endControlFlow("while (cursor.moveToNext())");
 
-		methodBuilder.endControlFlow();		
+		methodBuilder.endControlFlow();
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("return resultList;\n");
-		
-		// close try { open cursor 
-		methodBuilder.endControlFlow();	
+
+		// close try { open cursor
+		methodBuilder.endControlFlow();
 	}
 
 	static TypeName defineCollection(ClassName listClazzName) {
@@ -131,12 +134,12 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 			Class<?> clazz = Class.forName(listClazzName.toString());
 
 			if (clazz.isAssignableFrom(Collection.class)) {
-				clazz = LinkedList.class;
+				clazz = ArrayList.class;
 			} else if (clazz.isAssignableFrom(List.class)) {
-				clazz = LinkedList.class;
+				clazz = ArrayList.class;
 			}
 			if (clazz.isAssignableFrom(Set.class)) {
-				clazz = HashSet.class;
+				clazz = LinkedHashSet.class;
 			}
 
 			return typeName(clazz);

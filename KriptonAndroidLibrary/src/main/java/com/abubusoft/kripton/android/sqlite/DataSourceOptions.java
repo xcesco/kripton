@@ -36,6 +36,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
  */
 public class DataSourceOptions {
 
+	public final boolean logEnabled;
 	public final CursorFactory factory;
 	public final DatabaseErrorHandler errorHandler;
 	public final DatabaseLifecycleHandler databaseLifecycleHandler;
@@ -46,6 +47,7 @@ public class DataSourceOptions {
 	}
 
 	public static class Builder {
+		private boolean logEnabled=true;
 		private CursorFactory factory;
 		private DatabaseErrorHandler errorHandler;
 		private DatabaseLifecycleHandler databaseLifecycleHandler;
@@ -53,6 +55,11 @@ public class DataSourceOptions {
 
 		public Builder cursorFactory(CursorFactory value) {
 			this.factory = value;
+			return this;
+		}
+		
+		public Builder log(boolean value) {
+			this.logEnabled = value;
 			return this;
 		}
 
@@ -96,12 +103,7 @@ public class DataSourceOptions {
 					for (String item : sqlList) {
 						Logger.info(item);
 						database.execSQL(item);
-					}
-					// sqlList.forEach(item -> {
-					// Logger.info(item);
-					// database.execSQL(item);
-					// });
-
+					}					
 				}
 			};
 
@@ -150,11 +152,12 @@ public class DataSourceOptions {
 		}
 
 		public DataSourceOptions build() {
-			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler, updateTasks);
+			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler, updateTasks, logEnabled);
 		}
 	}
 
-	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<SQLiteUpdateTask> updateTasks) {
+	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<SQLiteUpdateTask> updateTasks, boolean log) {
+		this.logEnabled=log;
 		this.factory = factory;
 		this.errorHandler = errorHandler;
 		this.databaseLifecycleHandler = databaseLifecycleHandler;

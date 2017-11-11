@@ -14,7 +14,7 @@ import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import sqlite.feature.contentprovider.kripton35.entities.Person;
@@ -60,6 +60,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   private SQLiteStatement updateRawPreparedStatement4;
 
   private SQLiteStatement updateBeanPreparedStatement5;
+
+  protected String SELECT_BEAN_SQL1 = "SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person";
 
   public PersonDAOImpl(BindPersonDataSource dataSet) {
     super(dataSet);
@@ -111,30 +113,34 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       _contentValues.putNull("surname");
     }
 
-    // log for insert -- BEGIN 
-    StringBuffer _columnNameBuffer=new StringBuffer();
-    StringBuffer _columnValueBuffer=new StringBuffer();
-    String _columnSeparator="";
-    for (String columnName:_contentValues.keys()) {
-      _columnNameBuffer.append(_columnSeparator+columnName);
-      _columnValueBuffer.append(_columnSeparator+":"+columnName);
-      _columnSeparator=", ";
-    }
-    Logger.info("INSERT OR FAIL INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
-
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // log for insert -- BEGIN 
+      StringBuffer _columnNameBuffer=new StringBuffer();
+      StringBuffer _columnValueBuffer=new StringBuffer();
+      String _columnSeparator="";
+      for (String columnName:_contentValues.keys()) {
+        _columnNameBuffer.append(_columnSeparator+columnName);
+        _columnValueBuffer.append(_columnSeparator+":"+columnName);
+        _columnSeparator=", ";
       }
-    }
-    // log for content values -- END
-    // log for insert -- END 
+      Logger.info("INSERT OR FAIL INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
+      }
+      // log for content values -- END
+      // log for insert -- END 
+
+    }
+    // log section END
     // insert operation
     if (insertBeanPreparedStatement0==null) {
       // generate SQL for insert
@@ -213,30 +219,34 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       _contentValues.putNull("name");
     }
 
-    // log for insert -- BEGIN 
-    StringBuffer _columnNameBuffer=new StringBuffer();
-    StringBuffer _columnValueBuffer=new StringBuffer();
-    String _columnSeparator="";
-    for (String columnName:_contentValues.keys()) {
-      _columnNameBuffer.append(_columnSeparator+columnName);
-      _columnValueBuffer.append(_columnSeparator+":"+columnName);
-      _columnSeparator=", ";
-    }
-    Logger.info("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
-
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // log for insert -- BEGIN 
+      StringBuffer _columnNameBuffer=new StringBuffer();
+      StringBuffer _columnValueBuffer=new StringBuffer();
+      String _columnSeparator="";
+      for (String columnName:_contentValues.keys()) {
+        _columnNameBuffer.append(_columnSeparator+columnName);
+        _columnValueBuffer.append(_columnSeparator+":"+columnName);
+        _columnSeparator=", ";
       }
-    }
-    // log for content values -- END
-    // log for insert -- END 
+      Logger.info("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
+      }
+      // log for content values -- END
+      // log for insert -- END 
+
+    }
+    // log section END
     // insert operation
     if (insertNamePreparedStatement1==null) {
       // generate SQL for insert
@@ -334,16 +344,20 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       String _sql="DELETE FROM person WHERE id = ?";
       deleteRawPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("DELETE FROM person WHERE id = ?");
+      // display log
+      Logger.info("DELETE FROM person WHERE id = ?");
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteRawPreparedStatement2, _contentValues);
     return result;
   }
@@ -388,16 +402,20 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // manage WHERE arguments -- END
     // Add parameter id at path segment 1
     _contentValues.addWhereArgs(uri.getPathSegments().get(1));
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("DELETE FROM person WHERE id = ?");
+      // display log
+      Logger.info("DELETE FROM person WHERE id = ?");
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
 
     // execute SQL
     int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -459,16 +477,20 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // generate sql
     String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      // display log
+      Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result!=0;
   }
@@ -525,16 +547,20 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         _contentValues.addWhereArgs(_arg);
       }
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      // display log
+      Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
 
     // execute SQL
     int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -577,16 +603,20 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       String _sql="DELETE FROM person WHERE id = ?";
       deleteBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("DELETE FROM person WHERE id = ?");
+      // display log
+      Logger.info("DELETE FROM person WHERE id = ?");
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteBeanPreparedStatement3, _contentValues);
     return result;
   }
@@ -631,16 +661,20 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // manage WHERE arguments -- END
     // Add parameter bean.id at path segment 2
     _contentValues.addWhereArgs(uri.getPathSegments().get(2));
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("DELETE FROM person WHERE id = ?");
+      // display log
+      Logger.info("DELETE FROM person WHERE id = ?");
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
 
     // execute SQL
     int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -696,28 +730,32 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       String _sql="UPDATE person SET name=? WHERE id=?";
       updateRawPreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("UPDATE person SET name=:name WHERE id=?");
+      // display log
+      Logger.info("UPDATE person SET name=:name WHERE id=?");
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
-    }
-    // log for content values -- END
+      // log for content values -- END
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateRawPreparedStatement4, _contentValues);
     return result;
   }
@@ -768,28 +806,32 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35/persons/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("UPDATE person SET name=:name WHERE id=?");
+      // display log
+      Logger.info("UPDATE person SET name=:name WHERE id=?");
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
-    }
-    // log for content values -- END
+      // log for content values -- END
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
 
     // execute SQL
     int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -854,28 +896,32 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // generate sql
     String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      // display log
+      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
-    }
-    // log for content values -- END
+      // log for content values -- END
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
@@ -926,28 +972,32 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35/persons/test1/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      // display log
+      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
-    }
-    // log for content values -- END
+      // log for content values -- END
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
 
     // execute SQL
     int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -1021,28 +1071,32 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // generate sql
     String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      // display log
+      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
-    }
-    // log for content values -- END
+      // log for content values -- END
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
     return result;
   }
@@ -1105,28 +1159,32 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35/persons/test2/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      // display log
+      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
-    }
-    // log for content values -- END
+      // log for content values -- END
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
 
     // execute SQL
     int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -1204,28 +1262,32 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       String _sql="UPDATE person SET alias_parent_id=?, city=?, birth_city=?, birth_day=?, value=?, name=?, surname=? WHERE id=?";
       updateBeanPreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
+      // display log
+      Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
-    }
-    // log for content values -- END
+      // log for content values -- END
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateBeanPreparedStatement5, _contentValues);
     return result;
   }
@@ -1276,28 +1338,32 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35/persons/test3/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // display log
-    Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
+      // display log
+      Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
-    }
-    // log for content values -- END
+      // log for content values -- END
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
 
     // execute SQL
     int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -1354,9 +1420,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // manage WHERE arguments -- END
 
-    // build where condition
-    _contentValues.addWhereArgs((nameValue==null?"":nameValue));
-
     // manage GROUP BY statement
     String _sqlGroupByStatement=" GROUP BY id";
     _sqlBuilder.append(_sqlGroupByStatement);
@@ -1370,20 +1433,30 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
+    // add where arguments
+    _contentValues.addWhereArgs((nameValue==null?"":nameValue));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
-      LinkedList<Person> resultList=new LinkedList<Person>();
+      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
       Person resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -1565,28 +1638,35 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
         _contentValues.addWhereArgs(_arg);
       }
     }
-
-    // build where condition
     // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name asc"+StringUtils.ifNotEmptyAppend(_sortOrder, ", ");
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
+    // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
-      LinkedList<Person> resultList=new LinkedList<Person>();
+      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
       Person resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -1753,29 +1833,36 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-
-    // build where condition
-    _contentValues.addWhereArgs((bean.getName()==null?"":bean.getName()));
     // generation order - BEGIN
     String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
+    // add where arguments
+    _contentValues.addWhereArgs((bean.getName()==null?"":bean.getName()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
-      LinkedList<Person> resultList=new LinkedList<Person>();
+      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
       Person resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -1915,28 +2002,31 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectBean() {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-    String _sqlWhereStatement="";
-
-    // build where condition
-    String _sql=_sqlBuilder.toString();
+    // query SQL is statically defined
+    String _sql=SELECT_BEAN_SQL1;
+    // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
-      LinkedList<Person> resultList=new LinkedList<Person>();
+      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
       Person resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -2079,26 +2169,33 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-
-    // build where condition
     // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name";
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
+    // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
       if (cursor.moveToFirst()) {
 

@@ -270,15 +270,23 @@ public final class KriptonContentValues {
 				statement.bindLong(index, (long)(((Boolean)value)==true?1:0));
 				break;
 			case BYTE:
+				statement.bindLong(index, (byte)value);
+				break;
 			case SHORT:
+				statement.bindLong(index, (short)value);
+				break;
 			case INTEGER:
-			case LONG:			
+				statement.bindLong(index, (int)value);
+				break;
+			case LONG:					
 				statement.bindLong(index, (long)value);
 				break;				
 			case BYTE_ARRAY:
 				statement.bindBlob(index, (byte[]) value);
 				break;
 			case FLOAT:
+				statement.bindDouble(index, (float)value);
+				break;
 			case DOUBLE:
 				statement.bindDouble(index, (double)value);
 				break;			

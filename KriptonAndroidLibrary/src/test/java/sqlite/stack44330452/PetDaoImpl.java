@@ -5,7 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +18,8 @@ import java.util.List;
  *  @see PetTable
  */
 public class PetDaoImpl extends AbstractDao implements PetDao {
+  protected String LOAD_PET_SQL2 = "SELECT id, user_id, name FROM pet";
+
   public PetDaoImpl(BindPetUserDataSource dataSet) {
     super(dataSet);
   }
@@ -39,28 +41,31 @@ public class PetDaoImpl extends AbstractDao implements PetDao {
   @Override
   public List<Pet> loadPet() {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, user_id, name FROM pet");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-    String _sqlWhereStatement="";
-
-    // build where condition
-    String _sql=_sqlBuilder.toString();
+    // query SQL is statically defined
+    String _sql=LOAD_PET_SQL2;
+    // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
-      LinkedList<Pet> resultList=new LinkedList<Pet>();
+      ArrayList<Pet> resultList=new ArrayList<Pet>(cursor.getCount());
       Pet resultBean=null;
 
       if (cursor.moveToFirst()) {

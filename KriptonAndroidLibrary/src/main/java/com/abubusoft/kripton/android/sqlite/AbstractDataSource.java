@@ -73,14 +73,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 */
 	public abstract void clearCompiledStatements();
 	
-	/*protected LRUCache<String, SQLiteStatement> preparedStatements=new LRUCache<>(16, new LRUCache.OnRemoveListener<SQLiteStatement>() {
-
-		@Override
-		public void onRemove(SQLiteStatement value) {
-			value.close();			
-		}
-	});*/
-
+	public boolean logEnabled;
+	
 	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
 
 	private final ReentrantLock lockDb = new ReentrantLock();
@@ -151,9 +145,9 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					database.close();
 				}
 				database = null;
-				Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
+				if (logEnabled) Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			} else {
-				Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
+				if (logEnabled) Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			}
 		} finally {
 			switch (status.get()) {
@@ -274,7 +268,18 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @return true if database is opened, otherwise false
 	 */
 	public boolean isOpen() {
-		return database != null && database.isOpen();
+		return database != null && database.isOpen() && database.isDbLockedByCurrentThread();
+	}
+	
+	/**
+	 * <p>
+	 * return true if database is already opened in write mode.
+	 * </p>
+	 * 
+	 * @return true if database is opened, otherwise false
+	 */
+	public boolean isOpenInWriteMode() {
+		return database != null && database.isOpen() && !database.isReadOnly() && database.isDbLockedByCurrentThread();
 	}
 
 	/**
@@ -321,9 +326,10 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				// open new read database
 				sqliteHelper.setWriteAheadLoggingEnabled(true);
 				database = sqliteHelper.getReadableDatabase();
-				Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
+				
+				if (logEnabled) Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
 			} else {
-				Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
+				if (logEnabled) Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
 			}
 		} finally {
 			lockDb.unlock();
@@ -347,14 +353,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				createHelper(options);
 
 			status.set(TypeStatus.READ_AND_WRITE_OPENED);
-
+			
 			if (openCounter.incrementAndGet() == 1) {
 				// open new write database
 				sqliteHelper.setWriteAheadLoggingEnabled(true);
 				database = sqliteHelper.getWritableDatabase();
-				Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
+				if (logEnabled) Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
 			} else {
-				Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
+				if (logEnabled) Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
 			}
 		} finally {
 			lockDb.unlock();

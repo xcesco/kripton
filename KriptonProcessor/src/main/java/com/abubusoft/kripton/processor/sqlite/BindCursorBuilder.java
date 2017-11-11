@@ -21,6 +21,8 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.util.ArrayList;
+
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
@@ -163,7 +165,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 
 
 	private MethodSpec.Builder generateExecuteMethod(String packageName, SQLEntity entity) {		
-		ParameterizedTypeName parameterizedReturnTypeName = ParameterizedTypeName.get(className("java.util.LinkedList"), className(packageName,entity.getSimpleName()));
+		ParameterizedTypeName parameterizedReturnTypeName = ParameterizedTypeName.get(className(ArrayList.class), className(packageName,entity.getSimpleName()));
 		
 		//@formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("execute")
@@ -176,7 +178,8 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		TypeName entityClass= typeName(entity.getElement());
 		
 		methodBuilder.addCode("\n");
-		methodBuilder.addCode("$T resultList=new $T();\n",parameterizedReturnTypeName, parameterizedReturnTypeName);
+		
+		methodBuilder.addCode("$T resultList=new $T(cursor.getCount());\n",parameterizedReturnTypeName, parameterizedReturnTypeName);
 		methodBuilder.addCode("$T resultBean=new $T();\n",entityClass, entityClass);
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");

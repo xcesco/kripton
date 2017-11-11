@@ -262,17 +262,17 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// onConfigure
 		generateOnConfigure(useForeignKey);
-		
-		// 
+
+		//
 		// generate prepared statement cleaner
 		{
 
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("clearCompiledStatements").addModifiers(Modifier.PUBLIC).returns(Void.TYPE);
 			for (SQLDaoDefinition dao : schema.getCollection()) {
-				methodBuilder.addStatement("$L.clearCompiledStatements()", convert.convert(dao.getName()));					
-			}			
-			
-			classBuilder.addMethod(methodBuilder.build());					
+				methodBuilder.addStatement("$L.clearCompiledStatements()", convert.convert(dao.getName()));
+			}
+
+			classBuilder.addMethod(methodBuilder.build());
 		}
 
 		// build
@@ -375,11 +375,27 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("onCreate\n");
 		methodBuilder.addCode("// generate tables\n");
 		if (schema.isLogEnabled()) {
+			// generate log section - BEGIN
+			methodBuilder.addComment("log section BEGIN");
+			methodBuilder.beginControlFlow("if (this.logEnabled)");
+
 			methodBuilder.addStatement("$T.info(\"Create database '%s' version %s\",this.name, this.getVersion())", Logger.class);
+
+			// generate log section - END
+			methodBuilder.endControlFlow();
+			methodBuilder.addComment("log section END");
 		}
 		for (SQLEntity item : orderedEntities) {
 			if (schema.isLogEnabled()) {
+				// generate log section - BEGIN
+				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.beginControlFlow("if (this.logEnabled)");
+
 				methodBuilder.addStatement("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL)", Logger.class, BindTableGenerator.tableClassName(null, item));
+
+				// generate log section - END
+				methodBuilder.endControlFlow();
+				methodBuilder.addComment("log section END");
 			}
 			methodBuilder.addStatement("database.execSQL($T.CREATE_TABLE_SQL)", BindTableGenerator.tableClassName(null, item));
 
@@ -394,7 +410,15 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			useForeignKey = true;
 		for (GeneratedTypeElement item : schema.generatedEntities) {
 			if (schema.isLogEnabled()) {
+				// generate log section - BEGIN
+				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.beginControlFlow("if (this.logEnabled)");
+
 				methodBuilder.addStatement("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL)", Logger.class, TypeUtility.className(BindTableGenerator.getTableClassName(item.getQualifiedName())));
+
+				// generate log section - END
+				methodBuilder.endControlFlow();
+				methodBuilder.addComment("log section END");
 			}
 			methodBuilder.addStatement("database.execSQL($T.CREATE_TABLE_SQL)", TypeUtility.className(BindTableGenerator.getTableClassName(item.getQualifiedName())));
 
@@ -404,9 +428,28 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.beginControlFlow("if (options.updateTasks != null)");
 		methodBuilder.addStatement("$T task = findPopulateTaskList(database.getVersion())", SQLiteUpdateTask.class);
 		methodBuilder.beginControlFlow("if (task != null)");
-		methodBuilder.addStatement("$T.info(\"Begin update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+
+		if (schema.isLogEnabled()) {
+			// generate log section - BEGIN
+			methodBuilder.addComment("log section BEGIN");
+			methodBuilder.beginControlFlow("if (this.logEnabled)");
+
+			methodBuilder.addStatement("$T.info(\"Begin update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+			// generate log section - END
+			methodBuilder.endControlFlow();
+			methodBuilder.addComment("log section END");
+		}
 		methodBuilder.addStatement("task.execute(database)");
-		methodBuilder.addStatement("$T.info(\"End update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+
+		if (schema.isLogEnabled()) {
+			// generate log section - BEGIN
+			methodBuilder.addComment("log section BEGIN");
+			methodBuilder.beginControlFlow("if (this.logEnabled)");
+			methodBuilder.addStatement("$T.info(\"End update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+			// generate log section - END
+			methodBuilder.endControlFlow();
+			methodBuilder.addComment("log section END");
+		}
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 
@@ -433,16 +476,44 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		Collections.reverse(orderedEntities);
 
 		if (schema.isLogEnabled()) {
+			// generate log section - BEGIN
+			methodBuilder.addComment("log section BEGIN");
+			methodBuilder.beginControlFlow("if (this.logEnabled)");
+
 			methodBuilder.addStatement("$T.info(\"Update database '%s' from version %s to version %s\",this.name, previousVersion, currentVersion)", Logger.class);
+
+			// generate log section - END
+			methodBuilder.endControlFlow();
+			methodBuilder.addComment("log section END");
 		}
 
 		methodBuilder.addComment("if we have a list of update task, try to execute them");
 		methodBuilder.beginControlFlow("if (options.updateTasks != null)");
 		methodBuilder.addStatement("$T<$T> tasks = buildTaskList(previousVersion, currentVersion)", List.class, SQLiteUpdateTask.class);
 		methodBuilder.beginControlFlow("for ($T task : tasks)", SQLiteUpdateTask.class);
+
+		// generate log section - BEGIN
+		methodBuilder.addComment("log section BEGIN");
+		methodBuilder.beginControlFlow("if (this.logEnabled)");
+
 		methodBuilder.addStatement("$T.info(\"Begin update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+
+		// generate log section - END
+		methodBuilder.endControlFlow();
+		methodBuilder.addComment("log section END");
+
 		methodBuilder.addStatement("task.execute(database)");
+
+		// generate log section - BEGIN
+		methodBuilder.addComment("log section BEGIN");
+		methodBuilder.beginControlFlow("if (this.logEnabled)");
+
 		methodBuilder.addStatement("$T.info(\"End update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+
+		// generate log section - END
+		methodBuilder.endControlFlow();
+		methodBuilder.addComment("log section END");
+
 		methodBuilder.endControlFlow();
 		methodBuilder.nextControlFlow("else");
 
@@ -457,7 +528,15 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		for (SQLEntity item : orderedEntities) {
 			if (schema.isLogEnabled()) {
+				// generate log section - BEGIN
+				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.beginControlFlow("if (this.logEnabled)");
+				
 				methodBuilder.addCode("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL);\n", Logger.class, BindTableGenerator.tableClassName(null, item));
+				
+				// generate log section - END
+				methodBuilder.endControlFlow();
+				methodBuilder.addComment("log section END");
 			}
 			methodBuilder.addCode("database.execSQL($T.CREATE_TABLE_SQL);\n", BindTableGenerator.tableClassName(null, item));
 		}
@@ -465,7 +544,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// use generated entities too
 		for (GeneratedTypeElement item : schema.generatedEntities) {
 			if (schema.isLogEnabled()) {
+				// generate log section - BEGIN
+				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.beginControlFlow("if (this.logEnabled)");
 				methodBuilder.addStatement("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL)", Logger.class, TypeUtility.className(BindTableGenerator.getTableClassName(item.getQualifiedName())));
+				// generate log section - END
+				methodBuilder.endControlFlow();
+				methodBuilder.addComment("log section END");
 			}
 			methodBuilder.addStatement("database.execSQL($T.CREATE_TABLE_SQL)", TypeUtility.className(BindTableGenerator.getTableClassName(item.getQualifiedName())));
 		}
@@ -539,12 +624,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		TypeSpec innerEmitter = TypeSpec.anonymousClassBuilder("").addSuperinterface(observableTypeName)
 				.addMethod(MethodSpec.methodBuilder("subscribe").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addParameter(emitterTypeName, "emitter").returns(Void.TYPE)
-						.addStatement("$T connection=openWritableDatabase()", SQLiteDatabase.class).beginControlFlow("try").addStatement("connection.beginTransaction()")
+						.addStatement("boolean needToOpened=!$L.this.isOpenInWriteMode()", dataSourceName.simpleName()).addCode("@SuppressWarnings(\"resource\")\n")
+						.addStatement("$T connection=needToOpened ? openWritableDatabase() : database()", SQLiteDatabase.class).beginControlFlow("try").addStatement("connection.beginTransaction()")
 						.beginControlFlow("if (transaction != null && $T.$L==transaction.onExecute($L.this, emitter))", TransactionResult.class, TransactionResult.COMMIT, dataSourceName.simpleName())
 						.addStatement("connection.setTransactionSuccessful()").endControlFlow().addStatement(rxType.onComplete ? "emitter.onComplete()" : "// no onComplete")
 						.nextControlFlow("catch($T e)", Throwable.class).addStatement("$T.error(e.getMessage())", Logger.class).addStatement("e.printStackTrace()").addStatement("emitter.onError(e)")
 						.nextControlFlow("finally").beginControlFlow("try").addStatement("connection.endTransaction()").nextControlFlow("catch($T e)", Throwable.class).endControlFlow()
-						.addStatement("close()").endControlFlow().addStatement("return").build())
+						.addCode("if (needToOpened) { close(); }\n").endControlFlow().addStatement("return").build())
 				.build();
 
 		{
@@ -586,7 +672,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 				.addModifiers(Modifier.PUBLIC)
 				.addParameter(emitterTypeName, "emitter")
 				.returns(Void.TYPE)
-				.addStatement("if (writeMode) open(); else openReadOnly()")
+				
+				.addStatement("boolean needToOpened=writeMode?!$L.this.isOpenInWriteMode(): !$L.this.isOpen()", dataSourceName.simpleName(), dataSourceName.simpleName())
+				.addCode("if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}\n", SQLiteDatabase.class)
+				
+				//.addStatement("if (writeMode) open(); else openReadOnly()")
 					.beginControlFlow("try")
 						.addCode("if ($L != null) { $L.onExecute($L.this, emitter); }\n", parameterName, parameterName, dataSourceName.simpleName())
 						.addStatement(rxType.onComplete ? "emitter.onComplete()" : "// no onComplete")
@@ -595,7 +685,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 						.addStatement("e.printStackTrace()")
 						.addStatement("emitter.onError(e)")
 					.nextControlFlow("finally")
-						.addStatement("close()")
+						//.addStatement("close()")
+						.addCode("if (needToOpened) { close(); }\n")
 					.endControlFlow()
 				.addStatement("return")
 				.build())
@@ -768,7 +859,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC).addParameter(className(transationExecutorName), "transaction");
 
-		executeMethod.addCode("$T connection=openWritableDatabase();\n", SQLiteDatabase.class);
+		executeMethod.addStatement("boolean needToOpened=!this.isOpenInWriteMode()");
+		executeMethod.addCode("@SuppressWarnings(\"resource\")\n");
+		executeMethod.addStatement("$T connection=needToOpened ? openWritableDatabase() : database()", SQLiteDatabase.class);
 
 		executeMethod.beginControlFlow("try");
 		executeMethod.addCode("connection.beginTransaction();\n");
@@ -789,7 +882,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		executeMethod.nextControlFlow("catch ($T e)", Throwable.class);
 		executeMethod.addStatement("$T.warn(\"error closing transaction %s\", e.getMessage())", Logger.class);
 		executeMethod.endControlFlow();
-		executeMethod.addStatement("close()");
+		executeMethod.addCode("if (needToOpened) { close(); }\n");
 		executeMethod.endControlFlow();
 
 		// generate javadoc
@@ -828,22 +921,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 				.build());
 		// @formatter:on
 
-//		// create SimpleTransaction class
-//		String simpleTransactionClassName = "Simple" + transationExecutorName;
-//		// @formatter:off
-//		classBuilder.addType(TypeSpec.classBuilder(simpleTransactionClassName)
-//				.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT, Modifier.STATIC)
-//				.addTypeVariable(TypeVariableName.get("T"))
-//				.addSuperinterface(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")))				
-//				.addJavadoc("Simple class implements interface to define batch.")
-//				.addJavadoc("In this class a simple <code>onError</code> method is implemented.\n")
-//				.addMethod(MethodSpec.methodBuilder("onError").addAnnotation(Override.class).returns(Void.TYPE)
-//						.addModifiers(Modifier.PUBLIC).addParameter(Throwable.class, "e")
-//						.addStatement("throw(new $T(e))", KriptonRuntimeException.class).build())
-//				.build());
-
 		// @formatter:on
-
 		{
 			// execute read/write mode
 			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("executeBatch")
@@ -868,7 +946,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 					.addParameter(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")), "commands").addParameter(Boolean.TYPE, "writeMode")
 					.returns(TypeVariableName.get("T"));
 
-			executeMethod.addCode("if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }\n", SQLiteDatabase.class);
+			executeMethod.addStatement("boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen()");
+			executeMethod.addCode("if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}\n", SQLiteDatabase.class);
 
 			executeMethod.beginControlFlow("try");
 
@@ -880,11 +959,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 			executeMethod.addStatement("$T.error(e.getMessage())", Logger.class);
 			executeMethod.addStatement("e.printStackTrace()");
-			//executeMethod.addStatement("if (commands!=null) commands.onError(e)");
 			executeMethod.addStatement("throw(e)");
 
 			executeMethod.nextControlFlow("finally");
-			executeMethod.addStatement("close()");
+			executeMethod.addCode("if (needToOpened) { close(); }\n");
 			executeMethod.endControlFlow();
 			executeMethod.addStatement("return null");
 

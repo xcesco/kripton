@@ -17,7 +17,11 @@ import java.util.ArrayList;
  *  @see SimpleAddressItemTable
  */
 public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDao {
+  protected String SELECT_BY_ID_SQL1 = "SELECT id, name, address, city, state, phone FROM simple_address_item WHERE id=?";
+
   private SQLiteStatement deleteAllPreparedStatement0;
+
+  protected String SELECT_ALL_SQL2 = "SELECT id, name, address, city, state, phone FROM simple_address_item";
 
   private SQLiteStatement insertPreparedStatement1;
 
@@ -52,22 +56,10 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
   @Override
   public SimpleAddressItem selectById(long id) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, name, address, city, state, phone FROM simple_address_item");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // build where condition
+    // query SQL is statically defined
+    String _sql=SELECT_BY_ID_SQL1;
+    // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
-    String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
@@ -142,18 +134,13 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
   @Override
   public ArrayList<SimpleAddressItem> selectAll() {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, name, address, city, state, phone FROM simple_address_item");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-    String _sqlWhereStatement="";
-
-    // build where condition
-    String _sql=_sqlBuilder.toString();
+    // query SQL is statically defined
+    String _sql=SELECT_ALL_SQL2;
+    // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      ArrayList<SimpleAddressItem> resultList=new ArrayList<SimpleAddressItem>();
+      ArrayList<SimpleAddressItem> resultList=new ArrayList<SimpleAddressItem>(cursor.getCount());
       SimpleAddressItem resultBean=null;
 
       if (cursor.moveToFirst()) {

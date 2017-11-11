@@ -16,6 +16,7 @@
 package sqlite.kripton84;
 
 import java.io.IOException;
+import java.util.LinkedHashSet;
 
 import org.junit.Test;
 
@@ -31,7 +32,10 @@ public class Test84A extends AbstractBindSQLiteProcessorTest {
 	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Bean84A.class, Enum84Type.class);
 		buildDataSourceProcessorTest(Bean84ADataSource.class, Bean84ADao.class, Bean84A.class, Enum84Type.class);
+				
 	}
+	
+	
 
 
 }

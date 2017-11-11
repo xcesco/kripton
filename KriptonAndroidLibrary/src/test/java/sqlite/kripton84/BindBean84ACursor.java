@@ -1,7 +1,7 @@
 package sqlite.kripton84;
 
 import android.database.Cursor;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * <p>
@@ -113,9 +113,9 @@ public class BindBean84ACursor {
    *
    * @return list of beans
    */
-  public LinkedList<Bean84A> execute() {
+  public ArrayList<Bean84A> execute() {
 
-    LinkedList<Bean84A> resultList=new LinkedList<Bean84A>();
+    ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(cursor.getCount());
     Bean84A resultBean=new Bean84A();
 
     if (cursor.moveToFirst()) {

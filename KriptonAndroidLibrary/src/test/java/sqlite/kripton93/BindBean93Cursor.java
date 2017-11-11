@@ -1,7 +1,7 @@
 package sqlite.kripton93;
 
 import android.database.Cursor;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * <p>
@@ -65,9 +65,9 @@ public class BindBean93Cursor {
    *
    * @return list of beans
    */
-  public LinkedList<Bean93> execute() {
+  public ArrayList<Bean93> execute() {
 
-    LinkedList<Bean93> resultList=new LinkedList<Bean93>();
+    ArrayList<Bean93> resultList=new ArrayList<Bean93>(cursor.getCount());
     Bean93 resultBean=new Bean93();
 
     if (cursor.moveToFirst()) {

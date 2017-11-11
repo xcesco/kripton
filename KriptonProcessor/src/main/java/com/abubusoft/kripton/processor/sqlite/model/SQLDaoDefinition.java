@@ -47,6 +47,10 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	public SQLiteDatabaseSchema getParent() {
 		return parent.get();
 	}
+	
+	public long nextCounter() {
+		return getParent().nextCounter();		
+	}
 
 	/**
 	 * Convert type variable in correct type. This must be done before work on

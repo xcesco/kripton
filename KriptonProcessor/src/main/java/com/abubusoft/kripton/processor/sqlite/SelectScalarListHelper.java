@@ -18,19 +18,20 @@
  */
 package com.abubusoft.kripton.processor.sqlite;
 
+import java.util.ArrayList;
 import java.util.Set;
 
-import javax.lang.model.util.Elements;
-
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -47,7 +48,7 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
+	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		//ASSERT: returnType is a supported type
 		
 		// no column or too many columns
@@ -62,7 +63,12 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 		collectionClass = SelectBeanListHelper.defineCollection(listClazzName);
 
 		methodBuilder.addCode("\n");
-		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, elementName, collectionClass, elementName);
+		
+		if (TypeUtility.isTypeEquals(collectionClass, TypeUtility.typeName(ArrayList.class))) {			
+			methodBuilder.addStatement("$T<$T> resultList=new $T<$T>(cursor.getCount())", collectionClass, elementName, collectionClass, elementName);
+		} else {			
+			methodBuilder.addStatement("$T<$T> resultList=new $T<$T>()", collectionClass, elementName, collectionClass, elementName);
+		}
 		methodBuilder.addCode("\n");
 		
 		SQLTransform t=SQLTransformer.lookup(returnListName);

@@ -487,8 +487,13 @@ public abstract class SqlBuilderHelper {
 	 */
 	public static void generateLogForInsert(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		SQLDaoDefinition daoDefinition = method.getParent();
+		
 		// log is enabled
 		if (daoDefinition.isLogEnabled()) {
+			// generate log section - BEGIN
+			methodBuilder.addComment("log section BEGIN");
+			methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+			
 			methodBuilder.addCode("// log for insert -- BEGIN \n");
 			methodBuilder.addStatement("$T _columnNameBuffer=new $T()", StringBuffer.class, StringBuffer.class);
 			methodBuilder.addStatement("$T _columnValueBuffer=new $T()", StringBuffer.class, StringBuffer.class);
@@ -535,8 +540,11 @@ public abstract class SqlBuilderHelper {
 			generateLogForContentValues(method, methodBuilder);
 
 			methodBuilder.addCode("// log for insert -- END \n\n");
+			
+			// generate log section - END
+			methodBuilder.endControlFlow();
+			methodBuilder.addComment("log section END");	
 		}
-
 	}
 
 	/**

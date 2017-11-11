@@ -14,7 +14,7 @@ import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import sqlite.feature.contentprovider.kripton35.entities.Person;
@@ -60,6 +60,8 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   private SQLiteStatement updateRawPreparedStatement4;
 
   private SQLiteStatement updateBeanPreparedStatement5;
+
+  protected String SELECT_BEAN_SQL1 = "SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person";
 
   public Person2DAOImpl(BindPerson2DataSource dataSet) {
     super(dataSet);
@@ -327,6 +329,13 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // manage WHERE arguments -- END
     // Add parameter id at path segment 1
     _contentValues.addWhereArgs(uri.getPathSegments().get(1));
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+
+      // display log
+      Logger.info("DELETE FROM person WHERE id = ?");
+    }
+    // log section END
 
     // execute SQL
     int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -443,6 +452,13 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
         _contentValues.addWhereArgs(_arg);
       }
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+
+      // display log
+      Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    }
+    // log section END
 
     // execute SQL
     int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -528,6 +544,13 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // manage WHERE arguments -- END
     // Add parameter bean.id at path segment 2
     _contentValues.addWhereArgs(uri.getPathSegments().get(2));
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+
+      // display log
+      Logger.info("DELETE FROM person WHERE id = ?");
+    }
+    // log section END
 
     // execute SQL
     int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -632,18 +655,25 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // display log
+      Logger.info("UPDATE person SET name=:name WHERE id=?");
+
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
+      // log for content values -- END
     }
-    // log for content values -- END
+    // log section END
 
     // execute SQL
     int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -757,18 +787,25 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/test1/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // display log
+      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
+      // log for content values -- END
     }
-    // log for content values -- END
+    // log section END
 
     // execute SQL
     int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -903,18 +940,25 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/test2/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // display log
+      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
+      // log for content values -- END
     }
-    // log for content values -- END
+    // log section END
 
     // execute SQL
     int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -1041,18 +1085,25 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/test3/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
 
-    // log for content values -- BEGIN
-    Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-    for (int i = 0; i < _contentValues.size(); i++) {
-      _contentValue = _contentValues.get(i);
-      if (_contentValue.value1==null) {
-        Logger.info("==> :%s = <null>", _contentValue.value0);
-      } else {
-        Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // display log
+      Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
+
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
       }
+      // log for content values -- END
     }
-    // log for content values -- END
+    // log section END
 
     // execute SQL
     int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
@@ -1109,9 +1160,6 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
     // manage WHERE arguments -- END
 
-    // build where condition
-    _contentValues.addWhereArgs((nameValue==null?"":nameValue));
-
     // manage GROUP BY statement
     String _sqlGroupByStatement=" GROUP BY id";
     _sqlBuilder.append(_sqlGroupByStatement);
@@ -1125,10 +1173,12 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
+    // add where arguments
+    _contentValues.addWhereArgs((nameValue==null?"":nameValue));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      LinkedList<Person> resultList=new LinkedList<Person>();
+      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
       Person resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -1299,18 +1349,17 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
         _contentValues.addWhereArgs(_arg);
       }
     }
-
-    // build where condition
     // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name asc"+StringUtils.ifNotEmptyAppend(_sortOrder, ", ");
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
+    // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      LinkedList<Person> resultList=new LinkedList<Person>();
+      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
       Person resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -1466,19 +1515,18 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-
-    // build where condition
-    _contentValues.addWhereArgs((bean.getName()==null?"":bean.getName()));
     // generation order - BEGIN
     String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
+    // add where arguments
+    _contentValues.addWhereArgs((bean.getName()==null?"":bean.getName()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      LinkedList<Person> resultList=new LinkedList<Person>();
+      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
       Person resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -1607,18 +1655,13 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   @Override
   public List<Person> selectBean() {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-    String _sqlWhereStatement="";
-
-    // build where condition
-    String _sql=_sqlBuilder.toString();
+    // query SQL is statically defined
+    String _sql=SELECT_BEAN_SQL1;
+    // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      LinkedList<Person> resultList=new LinkedList<Person>();
+      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
       Person resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -1750,14 +1793,13 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-
-    // build where condition
     // generation order - BEGIN
     String _sqlOrderByStatement=" ORDER BY name";
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
     String _sql=_sqlBuilder.toString();
+    // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import sqlite.feature.speed.model.Person;
 
@@ -19,6 +19,10 @@ import sqlite.feature.speed.model.Person;
  *  @see sqlite.feature.speed.model.PersonTable
  */
 public class PersonDaoImpl extends AbstractDao implements PersonDao {
+  protected String SELECT_ALL_SQL1 = "SELECT id, name, surname FROM person";
+
+  protected String SELECT_BY_ID_SQL2 = "SELECT id, name, surname FROM person WHERE id=?";
+
   private SQLiteStatement insertPreparedStatement0;
 
   private SQLiteStatement updatePreparedStatement1;
@@ -46,18 +50,13 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
   @Override
   public List<Person> selectAll() {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT id, name, surname FROM person");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-    String _sqlWhereStatement="";
-
-    // build where condition
-    String _sql=_sqlBuilder.toString();
+    // query SQL is statically defined
+    String _sql=SELECT_ALL_SQL1;
+    // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      LinkedList<Person> resultList=new LinkedList<Person>();
+      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
       Person resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -81,8 +80,6 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
       return resultList;
     }
   }
-  
-  protected String selectByIdSQL;
 
   /**
    * <h2>Select SQL:</h2>
@@ -107,30 +104,13 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    */
   @Override
   public Person selectById(long id) {
-    KriptonContentValues _contentValues=contentValues();    
-    
-    if (selectByIdSQL==null) {
-	    StringBuilder _sqlBuilder=getSQLStringBuilder();
-	    _sqlBuilder.append("SELECT id, name, surname FROM person");
-	    // generation CODE_001 -- BEGIN
-	    // generation CODE_001 -- END
-	
-	    // manage WHERE arguments -- BEGIN
-	
-	    // manage WHERE statement
-	    String _sqlWhereStatement=" WHERE id=?";
-	    _sqlBuilder.append(_sqlWhereStatement);
-	
-	    // manage WHERE arguments -- END    
-	
-	    // build where condition
-	    _contentValues.addWhereArgs(String.valueOf(id));
-	    String _sql=_sqlBuilder.toString();
-	    selectByIdSQL=_sql;
-    } 
+    KriptonContentValues _contentValues=contentValues();
+    // query SQL is statically defined
+    String _sql=SELECT_BY_ID_SQL2;
+    // add where arguments
+    _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    
-    try (Cursor cursor = database().rawQuery(selectByIdSQL, _sqlArgs)) {
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 
       Person resultBean=null;
 

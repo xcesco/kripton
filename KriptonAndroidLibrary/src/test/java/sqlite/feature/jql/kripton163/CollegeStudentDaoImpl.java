@@ -5,7 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.StringUtils;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +18,10 @@ import java.util.List;
  *  @see CollegeStudentTable
  */
 public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudentDao {
+  protected String GET_STUDENTS_SQL1 = "select * from students where first_name like ? || '%' ";
+
+  protected String GET_STUDENTS_RAW_SQL2 = "SELECT first_name, surname, id FROM students WHERE first_name like ? || '%' ";
+
   public CollegeStudentDaoImpl(BindCollegeStudentsDataSource dataSet) {
     super(dataSet);
   }
@@ -46,36 +50,32 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
   @Override
   public List<CollegeStudent> getStudents(String firstName) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("select * from students");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" where first_name like ? || '%'";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // build where condition
+    // query SQL is statically defined
+    String _sql=GET_STUDENTS_SQL1;
+    // add where arguments
     _contentValues.addWhereArgs((firstName==null?"":firstName));
-    String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
-      LinkedList<CollegeStudent> resultList=new LinkedList<CollegeStudent>();
+      ArrayList<CollegeStudent> resultList=new ArrayList<CollegeStudent>(cursor.getCount());
       CollegeStudent resultBean=null;
 
       if (cursor.moveToFirst()) {
@@ -124,36 +124,32 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
   @Override
   public List<CollegeStudent> getStudentsRaw(String firstName) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("SELECT first_name, surname, id FROM students");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" WHERE first_name like ? || '%'";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // build where condition
+    // query SQL is statically defined
+    String _sql=GET_STUDENTS_RAW_SQL2;
+    // add where arguments
     _contentValues.addWhereArgs((firstName==null?"":firstName));
-    String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // manage log
-    Logger.info(_sql);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      // manage log
+      Logger.info(_sql);
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
-      Logger.info("Rows found: %s",cursor.getCount());
+      // log section BEGIN
+      if (this.dataSource.logEnabled) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
 
-      LinkedList<CollegeStudent> resultList=new LinkedList<CollegeStudent>();
+      ArrayList<CollegeStudent> resultList=new ArrayList<CollegeStudent>(cursor.getCount());
       CollegeStudent resultBean=null;
 
       if (cursor.moveToFirst()) {

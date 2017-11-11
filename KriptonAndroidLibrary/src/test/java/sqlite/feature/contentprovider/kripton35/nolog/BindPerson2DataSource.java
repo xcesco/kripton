@@ -64,7 +64,9 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
    * 	transaction to execute
    */
   public void execute(Transaction transaction) {
-    SQLiteDatabase connection=openWritableDatabase();
+    boolean needToOpened=!this.isOpenInWriteMode();
+    @SuppressWarnings("resource")
+    SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
       if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
@@ -80,7 +82,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
       } catch (Throwable e) {
         Logger.warn("error closing transaction %s", e.getMessage());
       }
-      close();
+      if (needToOpened) { close(); }
     }
   }
 
@@ -103,7 +105,8 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
    * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
-    if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
+    boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
+    if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
         return commands.onExecute(this);
@@ -113,7 +116,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
       e.printStackTrace();
       throw(e);
     } finally {
-      close();
+      if (needToOpened) { close(); }
     }
     return null;
   }
@@ -160,9 +163,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
       if (task != null) {
-        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
         task.execute(database);
-        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
       }
     }
     if (options.databaseLifecycleHandler != null) {
@@ -179,9 +180,17 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     if (options.updateTasks != null) {
       List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
       for (SQLiteUpdateTask task : tasks) {
-        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
         task.execute(database);
-        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
       }
     } else {
       // drop all tables

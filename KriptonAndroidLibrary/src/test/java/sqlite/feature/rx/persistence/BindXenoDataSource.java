@@ -132,7 +132,9 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
-        SQLiteDatabase connection=openWritableDatabase();
+        boolean needToOpened=!BindXenoDataSource.this.isOpenInWriteMode();
+        @SuppressWarnings("resource")
+        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         try {
           connection.beginTransaction();
           if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
@@ -148,7 +150,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          close();
+          if (needToOpened) { close(); }
         }
         return;
       }
@@ -163,7 +165,9 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
-        SQLiteDatabase connection=openWritableDatabase();
+        boolean needToOpened=!BindXenoDataSource.this.isOpenInWriteMode();
+        @SuppressWarnings("resource")
+        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         try {
           connection.beginTransaction();
           if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
@@ -179,7 +183,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          close();
+          if (needToOpened) { close(); }
         }
         return;
       }
@@ -194,7 +198,9 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
-        SQLiteDatabase connection=openWritableDatabase();
+        boolean needToOpened=!BindXenoDataSource.this.isOpenInWriteMode();
+        @SuppressWarnings("resource")
+        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         try {
           connection.beginTransaction();
           if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
@@ -210,7 +216,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          close();
+          if (needToOpened) { close(); }
         }
         return;
       }
@@ -225,7 +231,9 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
-        SQLiteDatabase connection=openWritableDatabase();
+        boolean needToOpened=!BindXenoDataSource.this.isOpenInWriteMode();
+        @SuppressWarnings("resource")
+        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         try {
           connection.beginTransaction();
           if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
@@ -241,7 +249,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          close();
+          if (needToOpened) { close(); }
         }
         return;
       }
@@ -257,7 +265,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
-        if (writeMode) open(); else openReadOnly();
+        boolean needToOpened=writeMode?!BindXenoDataSource.this.isOpenInWriteMode(): !BindXenoDataSource.this.isOpen();
+        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         try {
           if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
           emitter.onComplete();
@@ -266,7 +275,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          close();
+          if (needToOpened) { close(); }
         }
         return;
       }
@@ -286,7 +295,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
-        if (writeMode) open(); else openReadOnly();
+        boolean needToOpened=writeMode?!BindXenoDataSource.this.isOpenInWriteMode(): !BindXenoDataSource.this.isOpen();
+        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         try {
           if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
           // no onComplete;
@@ -295,7 +305,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          close();
+          if (needToOpened) { close(); }
         }
         return;
       }
@@ -315,7 +325,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
-        if (writeMode) open(); else openReadOnly();
+        boolean needToOpened=writeMode?!BindXenoDataSource.this.isOpenInWriteMode(): !BindXenoDataSource.this.isOpen();
+        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         try {
           if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
           emitter.onComplete();
@@ -324,7 +335,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          close();
+          if (needToOpened) { close(); }
         }
         return;
       }
@@ -344,7 +355,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
-        if (writeMode) open(); else openReadOnly();
+        boolean needToOpened=writeMode?!BindXenoDataSource.this.isOpenInWriteMode(): !BindXenoDataSource.this.isOpen();
+        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         try {
           if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
           // no onComplete;
@@ -353,7 +365,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          close();
+          if (needToOpened) { close(); }
         }
         return;
       }
@@ -395,7 +407,9 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * 	transaction to execute
    */
   public void execute(Transaction transaction) {
-    SQLiteDatabase connection=openWritableDatabase();
+    boolean needToOpened=!this.isOpenInWriteMode();
+    @SuppressWarnings("resource")
+    SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
       if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
@@ -411,7 +425,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       } catch (Throwable e) {
         Logger.warn("error closing transaction %s", e.getMessage());
       }
-      close();
+      if (needToOpened) { close(); }
     }
   }
 
@@ -434,7 +448,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
-    if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
+    boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
+    if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
         return commands.onExecute(this);
@@ -444,7 +459,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       e.printStackTrace();
       throw(e);
     } finally {
-      close();
+      if (needToOpened) { close(); }
     }
     return null;
   }
@@ -485,24 +500,56 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+    }
+    // log section END
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    }
+    // log section END
     database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+    }
+    // log section END
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
+    }
+    // log section END
     database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
       if (task != null) {
-        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
         task.execute(database);
-        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
       }
     }
     if (options.databaseLifecycleHandler != null) {
@@ -515,29 +562,61 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
-    Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
+    }
+    // log section END
     // if we have a list of update task, try to execute them
     if (options.updateTasks != null) {
       List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
       for (SQLiteUpdateTask task : tasks) {
-        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
         task.execute(database);
-        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
       }
     } else {
       // drop all tables
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      }
+      // log section END
       database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+      }
+      // log section END
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
+      }
+      // log section END
       database.execSQL(PersonPhoneNumberTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {

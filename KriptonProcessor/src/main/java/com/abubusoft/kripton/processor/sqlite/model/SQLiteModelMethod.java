@@ -109,6 +109,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	protected Map<String, String> parameterName2Adapter;
 
 	private WeakReference<SQLDaoDefinition> parent;
+	
+	public long nextCounter() {
+		return getParent().nextCounter();		
+	}
 
 	public final JQL jql;
 
@@ -611,6 +615,15 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	public String buildPreparedStatementName() {
 		return getParent().buildPreparedStatementName(getName());		
+	}
+
+	public boolean hasDynamicParts() {
+		return hasDynamicOrderByConditions() || hasDynamicPageSizeConditions() || hasDynamicWhereConditions();
+		
+	}
+
+	public String buildSQLName() {
+		return getName()+"Sql"+nextCounter();
 	}
 
 }

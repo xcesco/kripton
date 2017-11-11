@@ -169,36 +169,11 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		// generate javadoc and result
 		{
 			String beanNameParameter = method.findParameterAliasByName(method.getParameters().get(0).value0);
-			//StringBuilder bufferName = new StringBuilder();
-			//StringBuilder bufferValue = new StringBuilder();
-			//StringBuilder bufferQuestion = new StringBuilder();
-			//String separator = "";
-//			for (SQLProperty property : listUsedProperty) {
-//				bufferName.append(separator + property.columnName);
-//				bufferValue.append(separator + "${" + beanNameParameter + "." + property.getName() + "}");
-//
-//				bufferQuestion.append(separator + "'\"+StringUtils.checkSize(contentValues.get(\"" + property.columnName + "\"))+\"'");
-//
-//				separator = ", ";
-//			}
-
-			// ConflictAlgorithmType conflictAlgorithmType =
-			// getConflictAlgorithmType(method);
 
 			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
-			// methodBuilder.addJavadoc("<pre>INSERT $LINTO $L ($L) VALUES
-			// ($L)</pre>\n\n", conflictAlgorithmType.getSqlForInsert(),
-			// daoDefinition.getEntity().getTableName(), bufferName.toString(),
-			// bufferValue.toString());
 			methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sqlInsert);
 			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");
-
-			// generate sql query
-			// sqlInsert = String.format("INSERT %sINTO %s (%s) VALUES (%s)",
-			// conflictAlgorithmType.getSqlForInsert(),
-			// daoDefinition.getEntity().getTableName(), bufferName.toString(),
-			// bufferQuestion.toString());
 
 			// list of inserted fields
 			methodBuilder.addJavadoc("<p><strong>Inserted columns:</strong></p>\n");

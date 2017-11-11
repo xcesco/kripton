@@ -73,16 +73,13 @@ public abstract class GenericSQLHelper {
 			}
 		});
 
-		//methodBuilder.addStatement("$T<String> _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
-
-		methodBuilder.addCode("\n// build where condition\n");
+		methodBuilder.addComment("build where condition");
 		{
 			// String separator = "";
 			TypeName paramType;
 			String realName;
 
 			for (String item : paramsList) {
-				//methodBuilder.addCode("_sqlWhereParams.add(");
 				methodBuilder.addCode("_contentValues.addWhereArgs(");
 
 				paramType = method.findParameterTypeByAliasOrName(item);
@@ -119,7 +116,6 @@ public abstract class GenericSQLHelper {
 		// log for where parames
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 		methodBuilder.addCode("\n");
-		//methodBuilder.addStatement("database().execSQL($S, _sqlWhereParams.toArray(new Object[_sqlWhereParams.size()]))", sql);
 		methodBuilder.addStatement("database().execSQL($S, _contentValues.whereArgsAsArray())", sql);
 	}
 

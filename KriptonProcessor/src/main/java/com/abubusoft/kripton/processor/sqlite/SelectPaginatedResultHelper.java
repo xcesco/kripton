@@ -32,6 +32,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -58,9 +59,10 @@ import com.squareup.javapoet.TypeSpec;
 public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCodeGenerator {
 
 	@Override
-	public void generate(Elements elementUtils, TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	//public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		String pagedResultName = buildSpecializedPagedResultClass(builder, method);
+		String pagedResultName = buildSpecializedPagedResultClass(classBuilder, method);
 
 		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value, daoDefinition.getEntity());
 
@@ -77,10 +79,10 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			}
 			methodBuilder.addCode(");\n");
 
-			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_CONTENT);
+			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_CONTENT);
 			methodBuilder.addStatement("return paginatedResult");
 
-			builder.addMethod(methodBuilder.build());
+			classBuilder.addMethod(methodBuilder.build());
 		}
 
 		// generate paged result method
@@ -89,10 +91,10 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			generateMethodSignature(method, methodBuilder, TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), TypeUtility.typeName(daoDefinition.getEntityClassName())),
 					ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());
 
-			generateCommonPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_METHOD_SIGN,
+			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_METHOD_SIGN,
 					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "paginatedResult", "handler of paginated result"), JavadocPart.build(JavadocPartType.RETURN, "", "result list"));
-			generateSpecializedPart(elementUtils, method, methodBuilder, fieldList, selectType.isMapFields());
-			builder.addMethod(methodBuilder.build());
+			generateSpecializedPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields());
+			classBuilder.addMethod(methodBuilder.build());
 		}
 
 	}
@@ -103,7 +105,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 	static int pagedResultCounter;
 
 	@Override
-	public void generateSpecializedPart(Elements elementUtils, SQLiteModelMethod method, Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
+	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		SQLEntity entity = daoDefinition.getEntity();
 		// List<SQLProperty> fields = fieldList.value1;
@@ -111,8 +113,8 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		TypeName entityClass = typeName(entity.getElement());
 
 		methodBuilder.addCode("\n");
-		methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", List.class, entityClass, ArrayList.class, entityClass);
-		methodBuilder.addCode("$T resultBean=null;\n", entityClass);
+		methodBuilder.addStatement("$T<$T> resultList=new $T<$T>(cursor.getCount())", List.class, entityClass, ArrayList.class, entityClass);
+		methodBuilder.addStatement("$T resultBean=null", entityClass);
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
 
@@ -164,7 +166,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		methodBuilder.endControlFlow();
 	}
 
-	private static String buildSpecializedPagedResultClass(TypeSpec.Builder builder, SQLiteModelMethod method) {
+	private static String buildSpecializedPagedResultClass(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 		TypeName entityTypeName = TypeUtility.typeName(method.getParent().getEntityClassName());
 
 		String pagedResultName = "PaginatedResult" + (pagedResultCounter++);
@@ -213,7 +215,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 
 		typeBuilder.addMethod(executeBuilder.build());
 
-		builder.addType(typeBuilder.build());
+		classBuilder.addType(typeBuilder.build());
 
 		return pagedResultName;
 	}

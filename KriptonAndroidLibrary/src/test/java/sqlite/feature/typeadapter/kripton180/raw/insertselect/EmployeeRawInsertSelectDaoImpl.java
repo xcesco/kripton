@@ -64,7 +64,6 @@ public class EmployeeRawInsertSelectDaoImpl extends AbstractDao implements Emplo
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-
     // build where condition
     _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
     _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));

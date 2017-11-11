@@ -339,8 +339,16 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		if (hasOperation) {
 
 			if (schema.generateLog) {
+				// generate log section - BEGIN
+				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+								
 				methodBuilder.addStatement("$T.info(\"Element is created with URI '%s'\", _returnURL)", Logger.class);
 				methodBuilder.addStatement("$T.info(\"Changes are notified for URI '%s'\", uri)", Logger.class);
+				
+				// generate log section - END
+				methodBuilder.endControlFlow();
+				methodBuilder.addComment("log section END");
 			}
 			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
 			methodBuilder.addStatement("return _returnURL");
@@ -400,7 +408,15 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		if (hasOperation) {
 			if (schema.generateLog) {
+				// generate log section - BEGIN
+				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+				
 				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);
+				
+				// generate log section - END
+				methodBuilder.endControlFlow();
+				methodBuilder.addComment("log section END");
 			}
 			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
 		}
@@ -454,7 +470,15 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		if (hasOperation) {
 			if (schema.generateLog) {
+				// generate log section - BEGIN
+				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+				
 				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);
+				
+				// generate log section - END
+				methodBuilder.endControlFlow();
+				methodBuilder.addComment("log section END");
 			}
 
 			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");

@@ -30,6 +30,8 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
 
   private SQLiteStatement insertBeanPreparedStatement0;
 
+  protected String SELECT_CITY_FROM_PERSON_SQL2 = "select * from city where id = (select id from person where id=? )";
+
   public City2DAOImpl(BindPerson2DataSource dataSet) {
     super(dataSet);
   }
@@ -134,22 +136,10 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
   @Override
   public City selectCityFromPerson(long personId) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
-    _sqlBuilder.append("select * from city");
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-
-    // manage WHERE arguments -- BEGIN
-
-    // manage WHERE statement
-    String _sqlWhereStatement=" where id = (select id from person where id=? )";
-    _sqlBuilder.append(_sqlWhereStatement);
-
-    // manage WHERE arguments -- END
-
-    // build where condition
+    // query SQL is statically defined
+    String _sql=SELECT_CITY_FROM_PERSON_SQL2;
+    // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
-    String _sql=_sqlBuilder.toString();
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
 

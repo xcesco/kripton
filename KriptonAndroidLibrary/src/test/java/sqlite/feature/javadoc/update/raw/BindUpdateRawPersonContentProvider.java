@@ -153,7 +153,11 @@ public class BindUpdateRawPersonContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
       }
     }
-    Logger.info("Changes are notified for URI %s", uri);
+    // log section BEGIN
+    if (this.dataSource.logEnabled) {
+      Logger.info("Changes are notified for URI %s", uri);
+    }
+    // log section END
     getContext().getContentResolver().notifyChange(uri, null);
     return returnRowUpdated;
   }
