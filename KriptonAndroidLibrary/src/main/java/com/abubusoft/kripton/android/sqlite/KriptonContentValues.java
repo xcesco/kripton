@@ -263,8 +263,10 @@ public final class KriptonContentValues {
 		int index = 1;
 		
 		statement.clearBindings();
+		Object value;
 		
-		for (Object value : args) {
+		for (int j=0; j<args.size();j++) {
+			value=args.get(j);
 			switch (valueType.get(index-1)) {
 			case BOOLEAN:
 				statement.bindLong(index, (long)(((Boolean)value)==true?1:0));
@@ -338,8 +340,10 @@ public final class KriptonContentValues {
 	public String keyList() {
 		String separator="";
 		StringBuilder buffer=new StringBuilder();
+		String item;
 		
-		for (String item: names) {
+		for (int i=0; i<names.size(); i++) {
+			item=names.get(i);
 			buffer.append(separator+item);
 			separator=", ";
 		}
