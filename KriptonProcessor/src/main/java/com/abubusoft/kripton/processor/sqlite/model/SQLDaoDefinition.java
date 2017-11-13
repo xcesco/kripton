@@ -101,10 +101,6 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 		return entitySimplyClassName;
 	}
 
-	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element, String entityClassName) {
-		this(databaseSchema, name, element, entityClassName, false);
-	}
-
 	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element, String entityClassName, boolean generated) {
 		super(element.getSimpleName().toString(), element);
 		this.generated = generated;
