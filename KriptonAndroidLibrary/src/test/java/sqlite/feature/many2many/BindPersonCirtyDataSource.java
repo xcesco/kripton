@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -80,7 +81,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -120,7 +121,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -281,9 +282,9 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   }
 
   public void clearCompiledStatements() {
-    personDao.clearCompiledStatements();
-    cityDao.clearCompiledStatements();
-    personCityDao.clearCompiledStatements();
+    PersonDaoImpl.clearCompiledStatements();
+    CityDaoImpl.clearCompiledStatements();
+    PersonCityDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -343,5 +344,52 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
      * @throws Throwable
      */
     T onExecute(BindPersonCirtyDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindPersonCirtyDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private PersonDaoImpl _personDao;
+
+    private CityDaoImpl _cityDao;
+
+    private PersonCityDaoImpl _personCityDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindPersonCirtyDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao PersonDao
+     */
+    public PersonDaoImpl getPersonDao() {
+      if (_personDao==null) {
+        _personDao=new PersonDaoImpl(_context);
+      }
+      return _personDao;
+    }
+
+    /**
+     *
+     * retrieve dao CityDao
+     */
+    public CityDaoImpl getCityDao() {
+      if (_cityDao==null) {
+        _cityDao=new CityDaoImpl(_context);
+      }
+      return _cityDao;
+    }
+
+    /**
+     *
+     * retrieve dao PersonCityDao
+     */
+    public PersonCityDaoImpl getPersonCityDao() {
+      if (_personCityDao==null) {
+        _personCityDao=new PersonCityDaoImpl(_context);
+      }
+      return _personCityDao;
+    }
   }
 }

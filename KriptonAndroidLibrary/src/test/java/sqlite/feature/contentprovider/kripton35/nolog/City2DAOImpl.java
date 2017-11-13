@@ -8,6 +8,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -24,16 +25,16 @@ import sqlite.feature.contentprovider.kripton35.entities.City;
  *  @see sqlite.feature.contentprovider.kripton35.entities.CityTable
  */
 public class City2DAOImpl extends AbstractDao implements City2DAO {
+  private static SQLiteStatement insertBeanPreparedStatement0;
+
   private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "name");
+
+  private static final String SELECT_CITY_FROM_PERSON_SQL2 = "select * from city where id = (select id from person where id=? )";
 
   private static final Set<String> selectCityFromPerson1ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
-  private SQLiteStatement insertBeanPreparedStatement0;
-
-  protected String SELECT_CITY_FROM_PERSON_SQL2 = "select * from city where id = (select id from person where id=? )";
-
-  public City2DAOImpl(BindPerson2DataSource dataSet) {
-    super(dataSet);
+  public City2DAOImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -64,9 +65,9 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
     if (insertBeanPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO city (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -187,7 +188,7 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
   Cursor selectCityFromPerson1(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -226,7 +227,7 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
     return _result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertBeanPreparedStatement0!=null) {
       insertBeanPreparedStatement0.close();
       insertBeanPreparedStatement0=null;

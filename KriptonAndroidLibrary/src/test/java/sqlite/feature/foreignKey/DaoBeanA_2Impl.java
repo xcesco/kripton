@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -21,18 +22,18 @@ import java.util.List;
  *  @see BeanA_2Table
  */
 public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
-  protected String SELECT_ALL_SQL4 = "SELECT id, value_string2 FROM bean_a_2";
+  private static final String SELECT_ALL_SQL4 = "SELECT id, value_string2 FROM bean_a_2";
 
-  protected String SELECT_BY_ID_SQL5 = "SELECT id, value_string2 FROM bean_a_2 WHERE id=?";
+  private static final String SELECT_BY_ID_SQL5 = "SELECT id, value_string2 FROM bean_a_2 WHERE id=?";
 
-  protected String SELECT_BY_STRING_SQL6 = "SELECT id FROM bean_a_2 WHERE value_string2=?";
+  private static final String SELECT_BY_STRING_SQL6 = "SELECT id FROM bean_a_2 WHERE value_string2=?";
 
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  private SQLiteStatement updatePreparedStatement1;
+  private static SQLiteStatement updatePreparedStatement1;
 
-  public DaoBeanA_2Impl(BindDummyDataSource dataSet) {
-    super(dataSet);
+  public DaoBeanA_2Impl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -56,7 +57,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -70,7 +71,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -127,7 +128,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -141,7 +142,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -197,7 +198,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     _contentValues.addWhereArgs((value==null?"":value));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -211,7 +212,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -263,7 +264,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -294,9 +295,9 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean_a_2 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return (int)result;
@@ -335,7 +336,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updatePreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -347,10 +348,10 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
 
       // generate sql
       String _sql="UPDATE bean_a_2 SET value_string2=? WHERE value_string2=?";
-      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean_a_2 SET value_string2=:valueString2 WHERE value_string2=?");
@@ -375,11 +376,11 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updatePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updatePreparedStatement1, _contentValues);
     return result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

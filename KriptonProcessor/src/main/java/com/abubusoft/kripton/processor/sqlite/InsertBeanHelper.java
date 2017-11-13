@@ -78,18 +78,18 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			// generate SQL for insert
 			SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);	
 			
-			methodBuilder.addStatement("long result = $T.insert(dataSource, _sql, _contentValues)", KriptonDatabaseWrapper.class);
+			methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
 		} else {			
 			String psName=method.buildPreparedStatementName();
 			// generate SQL for insert
-			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE).build());
+			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());
 			
 			methodBuilder.beginControlFlow("if ($L==null)", psName);
 			SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);
-			methodBuilder.addStatement("$L = $T.compile(dataSource, _sql)", psName, KriptonDatabaseWrapper.class);
+			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
 			methodBuilder.endControlFlow();
 			
-			methodBuilder.addStatement("long result = $T.insert(dataSource, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);
+			methodBuilder.addStatement("long result = $T.insert(_context, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);
 		}
 		
 		if (method.getParent().getParent().generateRx) {

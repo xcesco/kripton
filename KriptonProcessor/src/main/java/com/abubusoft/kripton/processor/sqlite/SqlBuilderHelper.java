@@ -492,7 +492,7 @@ public abstract class SqlBuilderHelper {
 		if (daoDefinition.isLogEnabled()) {
 			// generate log section - BEGIN
 			methodBuilder.addComment("log section BEGIN");
-			methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+			methodBuilder.beginControlFlow("if (_context.isLogEnabled())");
 			
 			methodBuilder.addCode("// log for insert -- BEGIN \n");
 			methodBuilder.addStatement("$T _columnNameBuffer=new $T()", StringBuffer.class, StringBuffer.class);

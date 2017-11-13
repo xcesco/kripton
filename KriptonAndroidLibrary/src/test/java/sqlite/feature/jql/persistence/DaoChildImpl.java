@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -22,24 +23,24 @@ import sqlite.feature.jql.entities.Child;
  *  @see sqlite.feature.jql.entities.ChildTable
  */
 public class DaoChildImpl extends AbstractDao implements DaoChild {
-  protected String SELECT_ALL_SQL1 = "SELECT _id, name, parent_id FROM child";
+  private static final String SELECT_ALL_SQL1 = "SELECT _id, name, parent_id FROM child";
 
-  private SQLiteStatement insertBeanPreparedStatement0;
+  private static SQLiteStatement insertBeanPreparedStatement0;
 
-  protected String SELECT_BY_PARENT_SQL2 = "select * from child where parent_id in (select _id from person where _id=?)";
+  private static final String SELECT_BY_PARENT_SQL2 = "select * from child where parent_id in (select _id from person where _id=?)";
 
-  protected String SELECT_BY_PARENT2_SQL3 = "select count(*) from child where parent_id in (select _id from person where _id=?)";
+  private static final String SELECT_BY_PARENT2_SQL3 = "select count(*) from child where parent_id in (select _id from person where _id=?)";
 
-  protected String SELECT_BY_PARENT_ID_SQL4 = "SELECT _id, name, parent_id FROM child WHERE parent_id=?";
+  private static final String SELECT_BY_PARENT_ID_SQL4 = "SELECT _id, name, parent_id FROM child WHERE parent_id=?";
 
-  private SQLiteStatement insertByCopy3PreparedStatement1;
+  private static SQLiteStatement insertByCopy3PreparedStatement1;
 
-  private SQLiteStatement insertByCopyPreparedStatement2;
+  private static SQLiteStatement insertByCopyPreparedStatement2;
 
-  private SQLiteStatement updateJQLPreparedStatement3;
+  private static SQLiteStatement updateJQLPreparedStatement3;
 
-  public DaoChildImpl(BindFamilyDataSource dataSet) {
-    super(dataSet);
+  public DaoChildImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -64,7 +65,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -78,7 +79,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -135,7 +136,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _contentValues.put("parent_id", bean.parentId);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -166,9 +167,9 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     if (insertBeanPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
     return bean;
@@ -204,7 +205,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _contentValues.addWhereArgs(String.valueOf(parentId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -218,7 +219,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -276,7 +277,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _contentValues.addWhereArgs(String.valueOf(parentId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -290,7 +291,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -335,7 +336,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _contentValues.addWhereArgs(String.valueOf(parentId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -349,7 +350,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -445,7 +446,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _contentValues.put("parent_id", bean.parentId);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -476,9 +477,9 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     if (insertByCopy3PreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("insert into child (%s) values (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertByCopy3PreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertByCopy3PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertByCopy3PreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertByCopy3PreparedStatement1, _contentValues);
     bean.id=result;
   }
 
@@ -511,7 +512,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -542,9 +543,9 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     if (insertByCopyPreparedStatement2==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertByCopyPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertByCopyPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertByCopyPreparedStatement2, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertByCopyPreparedStatement2, _contentValues);
     return (int)result;
   }
 
@@ -581,7 +582,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateJQLPreparedStatement3==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -593,10 +594,10 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
       // generate sql
       String _sql="update or replace child set name=? where parent_id=?";
-      updateJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("update or replace child set name=:name where parent_id=?");
@@ -621,7 +622,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateJQLPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateJQLPreparedStatement3, _contentValues);
   }
 
   /**
@@ -664,7 +665,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     database().execSQL("update or replace child set parentId=?, name=(select _id from person where _id=? )  where parent_id=?", _contentValues.whereArgsAsArray());
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertBeanPreparedStatement0!=null) {
       insertBeanPreparedStatement0.close();
       insertBeanPreparedStatement0=null;

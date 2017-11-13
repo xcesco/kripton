@@ -4,6 +4,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +19,12 @@ import java.util.List;
  *  @see CollegeStudentTable
  */
 public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudentDao {
-  protected String GET_STUDENTS_SQL1 = "select * from students where first_name like ? || '%' ";
+  private static final String GET_STUDENTS_SQL1 = "select * from students where first_name like ? || '%' ";
 
-  protected String GET_STUDENTS_RAW_SQL2 = "SELECT first_name, surname, id FROM students WHERE first_name like ? || '%' ";
+  private static final String GET_STUDENTS_RAW_SQL2 = "SELECT first_name, surname, id FROM students WHERE first_name like ? || '%' ";
 
-  public CollegeStudentDaoImpl(BindCollegeStudentsDataSource dataSet) {
-    super(dataSet);
+  public CollegeStudentDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -56,7 +57,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     _contentValues.addWhereArgs((firstName==null?"":firstName));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -70,7 +71,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -130,7 +131,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     _contentValues.addWhereArgs((firstName==null?"":firstName));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -144,7 +145,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -174,6 +175,6 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
   }
 }

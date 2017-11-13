@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -230,7 +231,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   }
 
   public void clearCompiledStatements() {
-    bean8Dao.clearCompiledStatements();
+    Bean8DaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -290,5 +291,26 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
      * @throws Throwable
      */
     T onExecute(BindBean8DaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindBean8DaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private Bean8DaoImpl _bean8Dao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindBean8DataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao Bean8Dao
+     */
+    public Bean8DaoImpl getBean8Dao() {
+      if (_bean8Dao==null) {
+        _bean8Dao=new Bean8DaoImpl(_context);
+      }
+      return _bean8Dao;
+    }
   }
 }

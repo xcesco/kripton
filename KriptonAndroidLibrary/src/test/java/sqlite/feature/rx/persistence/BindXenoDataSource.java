@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -137,7 +138,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         try {
           connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(new DataSourceSingleThread(), emitter)) {
             connection.setTransactionSuccessful();
           }
           emitter.onComplete();
@@ -170,7 +171,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         try {
           connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(new DataSourceSingleThread(), emitter)) {
             connection.setTransactionSuccessful();
           }
           // no onComplete;
@@ -203,7 +204,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         try {
           connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(new DataSourceSingleThread(), emitter)) {
             connection.setTransactionSuccessful();
           }
           emitter.onComplete();
@@ -236,7 +237,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         try {
           connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(BindXenoDataSource.this, emitter)) {
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(new DataSourceSingleThread(), emitter)) {
             connection.setTransactionSuccessful();
           }
           // no onComplete;
@@ -268,7 +269,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         boolean needToOpened=writeMode?!BindXenoDataSource.this.isOpenInWriteMode(): !BindXenoDataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         try {
-          if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
+          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
           emitter.onComplete();
         } catch(Throwable e) {
           Logger.error(e.getMessage());
@@ -298,7 +299,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         boolean needToOpened=writeMode?!BindXenoDataSource.this.isOpenInWriteMode(): !BindXenoDataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         try {
-          if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
+          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
           // no onComplete;
         } catch(Throwable e) {
           Logger.error(e.getMessage());
@@ -328,7 +329,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         boolean needToOpened=writeMode?!BindXenoDataSource.this.isOpenInWriteMode(): !BindXenoDataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         try {
-          if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
+          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
           emitter.onComplete();
         } catch(Throwable e) {
           Logger.error(e.getMessage());
@@ -358,7 +359,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         boolean needToOpened=writeMode?!BindXenoDataSource.this.isOpenInWriteMode(): !BindXenoDataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         try {
-          if (batch != null) { batch.onExecute(BindXenoDataSource.this, emitter); }
+          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
           // no onComplete;
         } catch(Throwable e) {
           Logger.error(e.getMessage());
@@ -412,7 +413,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -452,7 +453,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -637,11 +638,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   public void clearCompiledStatements() {
-    phoneDao.clearCompiledStatements();
-    prefixConfigDao.clearCompiledStatements();
-    countryDao.clearCompiledStatements();
-    person2PhoneDao.clearCompiledStatements();
-    personDao.clearCompiledStatements();
+    PhoneDaoImpl.clearCompiledStatements();
+    PrefixConfigDaoImpl.clearCompiledStatements();
+    CountryDaoImpl.clearCompiledStatements();
+    Person2PhoneDaoImpl.clearCompiledStatements();
+    PersonDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -733,5 +734,78 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
      * @throws Throwable
      */
     T onExecute(BindXenoDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindXenoDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private PhoneDaoImpl _phoneDao;
+
+    private PrefixConfigDaoImpl _prefixConfigDao;
+
+    private CountryDaoImpl _countryDao;
+
+    private Person2PhoneDaoImpl _person2PhoneDao;
+
+    private PersonDaoImpl _personDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindXenoDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao PhoneDao
+     */
+    public PhoneDaoImpl getPhoneDao() {
+      if (_phoneDao==null) {
+        _phoneDao=new PhoneDaoImpl(_context);
+      }
+      return _phoneDao;
+    }
+
+    /**
+     *
+     * retrieve dao PrefixConfigDao
+     */
+    public PrefixConfigDaoImpl getPrefixConfigDao() {
+      if (_prefixConfigDao==null) {
+        _prefixConfigDao=new PrefixConfigDaoImpl(_context);
+      }
+      return _prefixConfigDao;
+    }
+
+    /**
+     *
+     * retrieve dao CountryDao
+     */
+    public CountryDaoImpl getCountryDao() {
+      if (_countryDao==null) {
+        _countryDao=new CountryDaoImpl(_context);
+      }
+      return _countryDao;
+    }
+
+    /**
+     *
+     * retrieve dao Person2PhoneDao
+     */
+    public Person2PhoneDaoImpl getPerson2PhoneDao() {
+      if (_person2PhoneDao==null) {
+        _person2PhoneDao=new Person2PhoneDaoImpl(_context);
+      }
+      return _person2PhoneDao;
+    }
+
+    /**
+     *
+     * retrieve dao PersonDao
+     */
+    public PersonDaoImpl getPersonDao() {
+      if (_personDao==null) {
+        _personDao=new PersonDaoImpl(_context);
+      }
+      return _personDao;
+    }
   }
 }

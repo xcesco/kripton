@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -230,7 +231,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   }
 
   public void clearCompiledStatements() {
-    longDao.clearCompiledStatements();
+    LongDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -290,5 +291,26 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
      * @throws Throwable
      */
     T onExecute(BindLongDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindLongDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private LongDaoImpl _longDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindLongDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao LongDao
+     */
+    public LongDaoImpl getLongDao() {
+      if (_longDao==null) {
+        _longDao=new LongDaoImpl(_context);
+      }
+      return _longDao;
+    }
   }
 }

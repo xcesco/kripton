@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -22,24 +23,24 @@ import java.util.List;
  *  @see PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
-  protected String SELECT_INCLUDE_ONE_SQL1 = "SELECT name, id FROM person WHERE type_name=? ORDER BY name";
+  private static final String SELECT_INCLUDE_ONE_SQL1 = "SELECT name, id FROM person WHERE type_name=? ORDER BY name";
 
-  protected String SELECT_EXCLUDE_ONE_SQL2 = "SELECT surname, birth_city, birth_day, type_name FROM person ORDER BY name";
+  private static final String SELECT_EXCLUDE_ONE_SQL2 = "SELECT surname, birth_city, birth_day, type_name FROM person ORDER BY name";
 
-  private SQLiteStatement insertIncludeOnePreparedStatement0;
+  private static SQLiteStatement insertIncludeOnePreparedStatement0;
 
-  private SQLiteStatement insertExcludeOnePreparedStatement1;
+  private static SQLiteStatement insertExcludeOnePreparedStatement1;
 
-  private SQLiteStatement updateIncludeOnePreparedStatement2;
+  private static SQLiteStatement updateIncludeOnePreparedStatement2;
 
-  private SQLiteStatement updateExcludeOnePreparedStatement3;
+  private static SQLiteStatement updateExcludeOnePreparedStatement3;
 
-  private SQLiteStatement deleteIncludeOnePreparedStatement4;
+  private static SQLiteStatement deleteIncludeOnePreparedStatement4;
 
-  private SQLiteStatement deleteExcludeOnePreparedStatement5;
+  private static SQLiteStatement deleteExcludeOnePreparedStatement5;
 
-  public PersonDAOImpl(BindPersonDataSource dataSet) {
-    super(dataSet);
+  public PersonDAOImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -71,7 +72,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _contentValues.addWhereArgs((bean.name==null?"":bean.name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -85,7 +86,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -136,7 +137,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -150,7 +151,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -209,7 +210,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _contentValues.put("id", bean.id);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -240,9 +241,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     if (insertIncludeOnePreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertIncludeOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertIncludeOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertIncludeOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertIncludeOnePreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -289,7 +290,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -320,9 +321,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     if (insertExcludeOnePreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertExcludeOnePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertExcludeOnePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertExcludeOnePreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertExcludeOnePreparedStatement1, _contentValues);
     bean.id=result;
   }
 
@@ -357,10 +358,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
       // generate sql
       String _sql="UPDATE person SET name=?, id=?";
-      updateIncludeOnePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateIncludeOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE person SET name=:name, id=:id");
@@ -385,7 +386,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateIncludeOnePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateIncludeOnePreparedStatement2, _contentValues);
   }
 
   /**
@@ -435,10 +436,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
       // generate sql
       String _sql="UPDATE person SET surname=?, birth_city=?, birth_day=?, type_name=?";
-      updateExcludeOnePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateExcludeOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE person SET surname=:surname, birth_city=:birthCity, birth_day=:birthDay, type_name=:typeName");
@@ -463,7 +464,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateExcludeOnePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateExcludeOnePreparedStatement3, _contentValues);
   }
 
   /**
@@ -484,10 +485,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
       // generate sql
       String _sql="DELETE FROM person";
-      deleteIncludeOnePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteIncludeOnePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person");
@@ -500,7 +501,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteIncludeOnePreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteIncludeOnePreparedStatement4, _contentValues);
   }
 
   /**
@@ -521,10 +522,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
       // generate sql
       String _sql="DELETE FROM person";
-      deleteExcludeOnePreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteExcludeOnePreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person");
@@ -537,10 +538,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteExcludeOnePreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteExcludeOnePreparedStatement5, _contentValues);
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertIncludeOnePreparedStatement0!=null) {
       insertIncludeOnePreparedStatement0.close();
       insertIncludeOnePreparedStatement0=null;

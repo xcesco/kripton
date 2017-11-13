@@ -32,6 +32,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
@@ -135,8 +136,8 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 		{
 			// constructor
-			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addParameter(value.getParent().getGeneratedClass(), "dataSet");
-			methodBuilder.addCode("super(dataSet);\n");
+			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addParameter(SQLContext.class, "context");
+			methodBuilder.addStatement("super(context)");
 			builder.addMethod(methodBuilder.build());
 		}
 
@@ -161,14 +162,14 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			builder.addMethod(methodBuilder.build());
 			
 			// subject instance
-			FieldSpec.Builder fieldBuilder = FieldSpec.builder(subjectTypeName, "subject", Modifier.PROTECTED, Modifier.FINAL).initializer("$T.create()",ClassName.get(PublishSubject.class));			
+			FieldSpec.Builder fieldBuilder = FieldSpec.builder(subjectTypeName, "subject", Modifier.PRIVATE, Modifier.FINAL, Modifier.STATIC).initializer("$T.create()",ClassName.get(PublishSubject.class));			
 			builder.addField(fieldBuilder.build());
 		}
 		
 		// generate prepared statement cleaner
 		{
 
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("clearCompiledStatements").addModifiers(Modifier.PUBLIC).returns(Void.TYPE);
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("clearCompiledStatements").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(Void.TYPE);
 			for (String item: value.preparedStatementNames) {
 				methodBuilder.beginControlFlow("if ($L!=null)", item);
 					methodBuilder.addStatement("$L.close()", item);	

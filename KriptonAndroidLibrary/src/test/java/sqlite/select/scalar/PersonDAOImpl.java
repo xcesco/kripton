@@ -4,6 +4,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.Date;
@@ -18,12 +19,12 @@ import java.util.Date;
  *  @see sqlite.select.PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
-  protected String SELECT_ALL_SQL1 = "SELECT type_name FROM person ORDER BY type_name";
+  private static final String SELECT_ALL_SQL1 = "SELECT type_name FROM person ORDER BY type_name";
 
-  protected String SELECT_ALL2_SQL2 = "SELECT birth_day FROM person ORDER BY type_name";
+  private static final String SELECT_ALL2_SQL2 = "SELECT birth_day FROM person ORDER BY type_name";
 
-  public PersonDAOImpl(BindPersonDataSource dataSet) {
-    super(dataSet);
+  public PersonDAOImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -46,7 +47,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -60,7 +61,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -95,7 +96,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -109,7 +110,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -124,6 +125,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
   }
 }

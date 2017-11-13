@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -97,7 +98,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -137,7 +138,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -310,10 +311,10 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   }
 
   public void clearCompiledStatements() {
-    userDao.clearCompiledStatements();
-    postDao.clearCompiledStatements();
-    commentDao.clearCompiledStatements();
-    todoDao.clearCompiledStatements();
+    UserDaoImpl.clearCompiledStatements();
+    PostDaoImpl.clearCompiledStatements();
+    CommentDaoImpl.clearCompiledStatements();
+    TodoDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -373,5 +374,65 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
      * @throws Throwable
      */
     T onExecute(BindQuickStartDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindQuickStartDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private UserDaoImpl _userDao;
+
+    private PostDaoImpl _postDao;
+
+    private CommentDaoImpl _commentDao;
+
+    private TodoDaoImpl _todoDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindQuickStartDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao UserDao
+     */
+    public UserDaoImpl getUserDao() {
+      if (_userDao==null) {
+        _userDao=new UserDaoImpl(_context);
+      }
+      return _userDao;
+    }
+
+    /**
+     *
+     * retrieve dao PostDao
+     */
+    public PostDaoImpl getPostDao() {
+      if (_postDao==null) {
+        _postDao=new PostDaoImpl(_context);
+      }
+      return _postDao;
+    }
+
+    /**
+     *
+     * retrieve dao CommentDao
+     */
+    public CommentDaoImpl getCommentDao() {
+      if (_commentDao==null) {
+        _commentDao=new CommentDaoImpl(_context);
+      }
+      return _commentDao;
+    }
+
+    /**
+     *
+     * retrieve dao TodoDao
+     */
+    public TodoDaoImpl getTodoDao() {
+      if (_todoDao==null) {
+        _todoDao=new TodoDaoImpl(_context);
+      }
+      return _todoDao;
+    }
   }
 }

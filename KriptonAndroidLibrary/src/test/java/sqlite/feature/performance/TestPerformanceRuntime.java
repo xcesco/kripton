@@ -27,8 +27,8 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import base.BaseAndroidTest;
 import sqlite.feature.performance.simple.BindSimpleDaoFactory;
 import sqlite.feature.performance.simple.BindSimpleDataSource;
+import sqlite.feature.performance.simple.SimpleAddressDaoImpl;
 import sqlite.feature.performance.simple.SimpleAddressItem;
-import sqlite.feature.performance.simple.TrickedSimpleAddressDaoImpl;
 
 /**
  * @author xcesco
@@ -50,9 +50,8 @@ public class TestPerformanceRuntime extends BaseAndroidTest {
 
 			@Override
 			public TransactionResult onExecute(BindSimpleDaoFactory daoFactory) {
-				TrickedSimpleAddressDaoImpl dao = new TrickedSimpleAddressDaoImpl(dataSource);
-
-				dao.deleteAll();
+				
+				daoFactory.getSimpleAddressDao().deleteAll();
 
 				Collection<SimpleAddressItem> simpleAddressItems = Generator.getKriptonSimpleAddresses(SimpleAddressItem.class, LOOP_COUNT);
 
@@ -65,7 +64,7 @@ public class TestPerformanceRuntime extends BaseAndroidTest {
 					long startTime = System.currentTimeMillis();
 
 					for (SimpleAddressItem simpleAddressItem : simpleAddressItems) {
-						dao.insert(simpleAddressItem);
+						daoFactory.getSimpleAddressDao().insert(simpleAddressItem);
 					}
 
 					insertDuration = System.currentTimeMillis() - startTime;
@@ -73,7 +72,7 @@ public class TestPerformanceRuntime extends BaseAndroidTest {
 				}
 				// end
 
-				dao.deleteAll();
+				daoFactory.getSimpleAddressDao().deleteAll();
 
 				// optimized INSERT
 				{
@@ -81,7 +80,7 @@ public class TestPerformanceRuntime extends BaseAndroidTest {
 					long startTime = System.currentTimeMillis();
 
 					for (SimpleAddressItem simpleAddressItem : simpleAddressItems) {
-						dao.insertOptimized(simpleAddressItem);
+						daoFactory.getSimpleAddressDao().insert(simpleAddressItem);
 					}
 
 					insertOptimizedDuration = System.currentTimeMillis() - startTime;

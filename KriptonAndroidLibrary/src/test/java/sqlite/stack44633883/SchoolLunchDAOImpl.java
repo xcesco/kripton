@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -21,16 +22,16 @@ import java.util.List;
  *  @see SchoolLunchTable
  */
 public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
-  protected String GET1_SQL1 = "SELECT * FROM SchoolLunches ORDER BY fruits COLLATE LOCALIZED";
+  private static final String GET1_SQL1 = "SELECT * FROM SchoolLunches ORDER BY fruits COLLATE LOCALIZED";
 
-  protected String GET_ALL_SQL2 = "SELECT lunch_id, fresh, contains_meat, fruits FROM SchoolLunches";
+  private static final String GET_ALL_SQL2 = "SELECT lunch_id, fresh, contains_meat, fruits FROM SchoolLunches";
 
-  private SQLiteStatement insertAllPreparedStatement0;
+  private static SQLiteStatement insertAllPreparedStatement0;
 
-  private SQLiteStatement deleteAllPreparedStatement1;
+  private static SQLiteStatement deleteAllPreparedStatement1;
 
-  public SchoolLunchDAOImpl(BindSchoolLunchDataSource dataSet) {
-    super(dataSet);
+  public SchoolLunchDAOImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -56,7 +57,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -70,7 +71,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -125,7 +126,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -139,7 +140,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -200,7 +201,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -231,9 +232,9 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     if (insertAllPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO SchoolLunches (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertAllPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertAllPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertAllPreparedStatement0, _contentValues);
     schoolLunches.setLunchId(result);
   }
 
@@ -258,10 +259,10 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
 
       // generate sql
       String _sql="DELETE FROM SchoolLunches";
-      deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM SchoolLunches");
@@ -274,10 +275,10 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllPreparedStatement1, _contentValues);
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertAllPreparedStatement0!=null) {
       insertAllPreparedStatement0.close();
       insertAllPreparedStatement0=null;

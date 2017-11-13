@@ -4,6 +4,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +19,10 @@ import java.util.List;
  *  @see UserTable
  */
 public class UserDaoImpl extends AbstractDao implements UserDao {
-  protected String LOAD_USER_SQL1 = "SELECT id FROM user";
+  private static final String LOAD_USER_SQL1 = "SELECT id FROM user";
 
-  public UserDaoImpl(BindPetUserDataSource dataSet) {
-    super(dataSet);
+  public UserDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -44,7 +45,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -58,7 +59,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -84,6 +85,6 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
   }
 }

@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -21,14 +22,14 @@ import java.util.List;
  *  @see FirstAidTable
  */
 public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
-  protected String SELECT_ALL_SQL1 = "SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY description";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY description";
 
-  private SQLiteStatement deleteAllPreparedStatement0;
+  private static SQLiteStatement deleteAllPreparedStatement0;
 
-  private SQLiteStatement insertPreparedStatement1;
+  private static SQLiteStatement insertPreparedStatement1;
 
-  public FirstAidDaoImpl(BindFirstAidDataSource dataSet) {
-    super(dataSet);
+  public FirstAidDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -72,7 +73,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -86,7 +87,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -173,7 +174,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteAllPreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -185,10 +186,10 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
 
       // generate sql
       String _sql="DELETE FROM first_aid WHERE 1=1";
-      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM first_aid WHERE 1=1");
@@ -201,7 +202,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -319,7 +320,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -350,15 +351,15 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     if (insertPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO first_aid (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
     bean.id=result;
 
     return (int)result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (deleteAllPreparedStatement0!=null) {
       deleteAllPreparedStatement0.close();
       deleteAllPreparedStatement0=null;

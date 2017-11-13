@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
@@ -18,10 +19,10 @@ import com.abubusoft.kripton.common.Triple;
  *  @see PKBeanTable
  */
 public class PKDaoImpl extends AbstractDao implements PKDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  public PKDaoImpl(BindPKDataSource dataSet) {
-    super(dataSet);
+  public PKDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -51,7 +52,7 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -82,13 +83,13 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO p_k_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

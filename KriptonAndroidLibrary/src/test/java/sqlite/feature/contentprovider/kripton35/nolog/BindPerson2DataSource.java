@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -69,7 +70,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -109,7 +110,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -218,8 +219,8 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
   }
 
   public void clearCompiledStatements() {
-    person2DAO.clearCompiledStatements();
-    city2DAO.clearCompiledStatements();
+    Person2DAOImpl.clearCompiledStatements();
+    City2DAOImpl.clearCompiledStatements();
   }
 
   /**
@@ -279,5 +280,39 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
      * @throws Throwable
      */
     T onExecute(BindPerson2DaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindPerson2DaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private Person2DAOImpl _person2DAO;
+
+    private City2DAOImpl _city2DAO;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindPerson2DataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao Person2DAO
+     */
+    public Person2DAOImpl getPerson2DAO() {
+      if (_person2DAO==null) {
+        _person2DAO=new Person2DAOImpl(_context);
+      }
+      return _person2DAO;
+    }
+
+    /**
+     *
+     * retrieve dao City2DAO
+     */
+    public City2DAOImpl getCity2DAO() {
+      if (_city2DAO==null) {
+        _city2DAO=new City2DAOImpl(_context);
+      }
+      return _city2DAO;
+    }
   }
 }

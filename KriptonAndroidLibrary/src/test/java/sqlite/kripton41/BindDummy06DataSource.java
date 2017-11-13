@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -230,7 +231,7 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
   }
 
   public void clearCompiledStatements() {
-    daoBeanUpdateOK.clearCompiledStatements();
+    DaoBeanUpdateOKImpl.clearCompiledStatements();
   }
 
   /**
@@ -290,5 +291,26 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
      * @throws Throwable
      */
     T onExecute(BindDummy06DaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindDummy06DaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private DaoBeanUpdateOKImpl _daoBeanUpdateOK;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindDummy06DataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao DaoBeanUpdateOK
+     */
+    public DaoBeanUpdateOKImpl getDaoBeanUpdateOK() {
+      if (_daoBeanUpdateOK==null) {
+        _daoBeanUpdateOK=new DaoBeanUpdateOKImpl(_context);
+      }
+      return _daoBeanUpdateOK;
+    }
   }
 }

@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -22,14 +23,14 @@ import sqlite.quickstart.model.Todo;
  *  @see sqlite.quickstart.model.TodoTable
  */
 public class TodoDaoImpl extends AbstractDao implements TodoDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  protected String SELECT_BY_USER_ID_SQL7 = "SELECT id, user_id, title, completed FROM todo WHERE user_id = ?";
+  private static final String SELECT_BY_USER_ID_SQL7 = "SELECT id, user_id, title, completed FROM todo WHERE user_id = ?";
 
-  protected String SELECT_ONE_BY_USER_ID_SQL8 = "SELECT id, user_id, title, completed FROM todo WHERE id = ?";
+  private static final String SELECT_ONE_BY_USER_ID_SQL8 = "SELECT id, user_id, title, completed FROM todo WHERE id = ?";
 
-  public TodoDaoImpl(BindQuickStartDataSource dataSet) {
-    super(dataSet);
+  public TodoDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -63,7 +64,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     _contentValues.put("completed", bean.completed);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -94,9 +95,9 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO todo (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -131,7 +132,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     _contentValues.addWhereArgs(String.valueOf(userId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -145,7 +146,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -208,7 +209,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     _contentValues.addWhereArgs(String.valueOf(userId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -222,7 +223,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -248,7 +249,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

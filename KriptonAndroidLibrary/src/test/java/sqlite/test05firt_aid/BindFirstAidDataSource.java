@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -230,7 +231,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   }
 
   public void clearCompiledStatements() {
-    firstAidDao.clearCompiledStatements();
+    FirstAidDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -290,5 +291,26 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
      * @throws Throwable
      */
     T onExecute(BindFirstAidDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindFirstAidDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private FirstAidDaoImpl _firstAidDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindFirstAidDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao FirstAidDao
+     */
+    public FirstAidDaoImpl getFirstAidDao() {
+      if (_firstAidDao==null) {
+        _firstAidDao=new FirstAidDaoImpl(_context);
+      }
+      return _firstAidDao;
+    }
   }
 }

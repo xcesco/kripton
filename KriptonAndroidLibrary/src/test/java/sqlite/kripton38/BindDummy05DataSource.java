@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindDummy05DataSource extends AbstractDataSource implements BindDum
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindDummy05DataSource extends AbstractDataSource implements BindDum
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -230,7 +231,7 @@ public class BindDummy05DataSource extends AbstractDataSource implements BindDum
   }
 
   public void clearCompiledStatements() {
-    daoBean05.clearCompiledStatements();
+    DaoBean05Impl.clearCompiledStatements();
   }
 
   /**
@@ -290,5 +291,26 @@ public class BindDummy05DataSource extends AbstractDataSource implements BindDum
      * @throws Throwable
      */
     T onExecute(BindDummy05DaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindDummy05DaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private DaoBean05Impl _daoBean05;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindDummy05DataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao DaoBean05
+     */
+    public DaoBean05Impl getDaoBean05() {
+      if (_daoBean05==null) {
+        _daoBean05=new DaoBean05Impl(_context);
+      }
+      return _daoBean05;
+    }
   }
 }

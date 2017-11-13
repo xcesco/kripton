@@ -190,7 +190,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
       }
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (dataSource.isLogEnabled()) {
       Logger.info("Changes are notified for URI %s", uri);
     }
     // log section END

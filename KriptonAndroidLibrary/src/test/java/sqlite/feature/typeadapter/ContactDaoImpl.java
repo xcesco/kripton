@@ -7,6 +7,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.SQLTimeUtils;
@@ -26,48 +27,48 @@ import java.util.List;
  *  @see ContactTable
  */
 public class ContactDaoImpl extends AbstractDao implements ContactDao {
-  protected String SELECT_BY_SURNAME_WITH_ADAPTER_SQL1 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=?";
+  private static final String SELECT_BY_SURNAME_WITH_ADAPTER_SQL1 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=?";
 
-  protected String SELECT_BY_SURNAME_SQL2 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=?";
+  private static final String SELECT_BY_SURNAME_SQL2 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=?";
 
-  private SQLiteStatement deleteCompactBeanPreparedStatement0;
+  private static SQLiteStatement deleteCompactBeanPreparedStatement0;
 
-  private SQLiteStatement deleteCompactRawPreparedStatement1;
+  private static SQLiteStatement deleteCompactRawPreparedStatement1;
 
-  private SQLiteStatement deleteJQLBeanPreparedStatement2;
+  private static SQLiteStatement deleteJQLBeanPreparedStatement2;
 
-  private SQLiteStatement deleteJQLRawPreparedStatement3;
+  private static SQLiteStatement deleteJQLRawPreparedStatement3;
 
-  protected String SELECT_COMPACT_BEAN_SQL3 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE id=?  and type=?";
+  private static final String SELECT_COMPACT_BEAN_SQL3 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE id=?  and type=?";
 
-  protected String SELECT_J_Q_L_BEAN_LISTENER_SQL4 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE id=? and password=? and type=?";
+  private static final String SELECT_J_Q_L_BEAN_LISTENER_SQL4 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE id=? and password=? and type=?";
 
-  protected String SELEC_J_Q_L_BEAN_SQL5 = "SELECT birth_day, password, type FROM contact WHERE id=? and password=? and type=?";
+  private static final String SELEC_J_Q_L_BEAN_SQL5 = "SELECT birth_day, password, type FROM contact WHERE id=? and password=? and type=?";
 
-  protected String SELECT_J_Q_L_RAW_SQL6 = "SELECT * FROM contact WHERE password=? and type=?";
+  private static final String SELECT_J_Q_L_RAW_SQL6 = "SELECT * FROM contact WHERE password=? and type=?";
 
-  protected String SELECT_COMPACT_RAW_SQL7 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE password=? and type=?";
+  private static final String SELECT_COMPACT_RAW_SQL7 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE password=? and type=?";
 
-  private SQLiteStatement updateCompactBeanPreparedStatement4;
+  private static SQLiteStatement updateCompactBeanPreparedStatement4;
 
-  private SQLiteStatement updateCompactRaw1PreparedStatement5;
+  private static SQLiteStatement updateCompactRaw1PreparedStatement5;
 
-  private SQLiteStatement updateCompactRaw2PreparedStatement6;
+  private static SQLiteStatement updateCompactRaw2PreparedStatement6;
 
-  private SQLiteStatement updateJQLBeanPreparedStatement7;
+  private static SQLiteStatement updateJQLBeanPreparedStatement7;
 
-  private SQLiteStatement updateJQLRawPreparedStatement8;
+  private static SQLiteStatement updateJQLRawPreparedStatement8;
 
-  private SQLiteStatement insertCompactRawPreparedStatement9;
+  private static SQLiteStatement insertCompactRawPreparedStatement9;
 
-  private SQLiteStatement insertCompactBeanPreparedStatement10;
+  private static SQLiteStatement insertCompactBeanPreparedStatement10;
 
-  private SQLiteStatement insertJQLBeanPreparedStatement11;
+  private static SQLiteStatement insertJQLBeanPreparedStatement11;
 
-  private SQLiteStatement insertJQLRawPreparedStatement12;
+  private static SQLiteStatement insertJQLRawPreparedStatement12;
 
-  public ContactDaoImpl(BindContactDataSource dataSet) {
-    super(dataSet);
+  public ContactDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -104,7 +105,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, dummy));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -118,7 +119,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -193,7 +194,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _contentValues.addWhereArgs((dummy==null?"":dummy));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -207,7 +208,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -270,7 +271,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteCompactBeanPreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -282,10 +283,10 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
       // generate sql
       String _sql="DELETE FROM contact WHERE id=? and type=?";
-      deleteCompactBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteCompactBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM contact WHERE id=? and type=?");
@@ -298,7 +299,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCompactBeanPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCompactBeanPreparedStatement0, _contentValues);
   }
 
   /**
@@ -326,7 +327,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteCompactRawPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -338,10 +339,10 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
       // generate sql
       String _sql="DELETE FROM contact WHERE password=? and type=?";
-      deleteCompactRawPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteCompactRawPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM contact WHERE password=? and type=?");
@@ -354,7 +355,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCompactRawPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCompactRawPreparedStatement1, _contentValues);
   }
 
   /**
@@ -379,7 +380,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteJQLBeanPreparedStatement2==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -391,10 +392,10 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
       // generate sql
       String _sql="DELETE FROM contact WHERE id=? and type=?";
-      deleteJQLBeanPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteJQLBeanPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM contact WHERE id=? and type=?");
@@ -407,7 +408,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteJQLBeanPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteJQLBeanPreparedStatement2, _contentValues);
   }
 
   /**
@@ -437,7 +438,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteJQLRawPreparedStatement3==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -449,10 +450,10 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
       // generate sql
       String _sql="DELETE FROM contact WHERE id=? and type=?";
-      deleteJQLRawPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteJQLRawPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM contact WHERE id=? and type=?");
@@ -465,7 +466,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteJQLRawPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteJQLRawPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -505,7 +506,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -519,7 +520,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -599,7 +600,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -613,7 +614,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -692,7 +693,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -706,7 +707,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -777,7 +778,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -791,7 +792,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -870,7 +871,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -884,7 +885,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -964,7 +965,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateCompactBeanPreparedStatement4==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -976,10 +977,10 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
       // generate sql
       String _sql="UPDATE contact SET id=?, type=? WHERE id=?  and password=? and type=?";
-      updateCompactBeanPreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateCompactBeanPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE contact SET id=:id, type=:type WHERE id=?  and password=? and type=?");
@@ -1004,7 +1005,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateCompactBeanPreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateCompactBeanPreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1051,7 +1052,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateCompactRaw1PreparedStatement5==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1063,10 +1064,10 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
       // generate sql
       String _sql="UPDATE contact SET password=?, type=? WHERE id=?";
-      updateCompactRaw1PreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateCompactRaw1PreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE contact SET password=:password, type=:type WHERE id=?");
@@ -1091,7 +1092,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateCompactRaw1PreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateCompactRaw1PreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1138,7 +1139,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateCompactRaw2PreparedStatement6==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1150,10 +1151,10 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
       // generate sql
       String _sql="UPDATE contact SET birth_day=?, id=? WHERE password=? and type=?";
-      updateCompactRaw2PreparedStatement6 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateCompactRaw2PreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=? and type=?");
@@ -1178,7 +1179,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateCompactRaw2PreparedStatement6, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateCompactRaw2PreparedStatement6, _contentValues);
     return result;
   }
 
@@ -1229,7 +1230,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateJQLBeanPreparedStatement7==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1241,10 +1242,10 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
       // generate sql
       String _sql="UPDATE contact SET birth_day=?, password=?, type=? WHERE type=?  and type=?";
-      updateJQLBeanPreparedStatement7 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateJQLBeanPreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE contact SET birth_day=:birthDay, password=:password, type=:type WHERE type=?  and type=?");
@@ -1269,7 +1270,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateJQLBeanPreparedStatement7, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateJQLBeanPreparedStatement7, _contentValues);
     return result;
   }
 
@@ -1316,7 +1317,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateJQLRawPreparedStatement8==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1328,10 +1329,10 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
       // generate sql
       String _sql="UPDATE contact SET birth_day=?, id=? WHERE password=? and type=?";
-      updateJQLRawPreparedStatement8 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateJQLRawPreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=? and type=?");
@@ -1356,7 +1357,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateJQLRawPreparedStatement8, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateJQLRawPreparedStatement8, _contentValues);
     return result;
   }
 
@@ -1397,7 +1398,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _contentValues.put("id", id);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -1428,9 +1429,9 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     if (insertCompactRawPreparedStatement9==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertCompactRawPreparedStatement9 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertCompactRawPreparedStatement9 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertCompactRawPreparedStatement9, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertCompactRawPreparedStatement9, _contentValues);
     return result;
   }
 
@@ -1462,7 +1463,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -1493,9 +1494,9 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     if (insertCompactBeanPreparedStatement10==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertCompactBeanPreparedStatement10 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertCompactBeanPreparedStatement10 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertCompactBeanPreparedStatement10, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertCompactBeanPreparedStatement10, _contentValues);
     bean.setId(result);
 
     return result;
@@ -1535,7 +1536,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _contentValues.put("id", bean.getId());
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -1566,9 +1567,9 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     if (insertJQLBeanPreparedStatement11==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertJQLBeanPreparedStatement11 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertJQLBeanPreparedStatement11 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertJQLBeanPreparedStatement11, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertJQLBeanPreparedStatement11, _contentValues);
     bean.setId(result);
 
     return result;
@@ -1616,7 +1617,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     _contentValues.put("id", id);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -1647,13 +1648,13 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     if (insertJQLRawPreparedStatement12==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO contact (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertJQLRawPreparedStatement12 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertJQLRawPreparedStatement12 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertJQLRawPreparedStatement12, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertJQLRawPreparedStatement12, _contentValues);
     return result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (deleteCompactBeanPreparedStatement0!=null) {
       deleteCompactBeanPreparedStatement0.close();
       deleteCompactBeanPreparedStatement0=null;

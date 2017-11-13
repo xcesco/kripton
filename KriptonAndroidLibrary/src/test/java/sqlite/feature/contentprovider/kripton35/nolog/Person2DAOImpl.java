@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -29,15 +30,27 @@ import sqlite.feature.contentprovider.kripton35.entities.Person;
  *  @see sqlite.feature.contentprovider.kripton35.entities.PersonTable
  */
 public class Person2DAOImpl extends AbstractDao implements Person2DAO {
+  private static SQLiteStatement insertBeanPreparedStatement0;
+
   private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "city", "birth_city", "birth_day", "value", "name", "surname");
 
+  private static SQLiteStatement insertNamePreparedStatement1;
+
   private static final Set<String> insertName1ColumnSet = CollectionUtils.asSet(String.class, "name");
+
+  private static SQLiteStatement deleteRawPreparedStatement2;
+
+  private static SQLiteStatement deleteBeanPreparedStatement3;
+
+  private static SQLiteStatement updateRawPreparedStatement4;
 
   private static final Set<String> updateRaw5ColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static final Set<String> updateRaw6ColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static final Set<String> updateRaw7ColumnSet = CollectionUtils.asSet(String.class, "name");
+
+  private static SQLiteStatement updateBeanPreparedStatement5;
 
   private static final Set<String> updateBean8ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
@@ -47,24 +60,12 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
   private static final Set<String> selectOne11ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
+  private static final String SELECT_BEAN_SQL1 = "SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person";
+
   private static final Set<String> selectBean12ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  private SQLiteStatement insertBeanPreparedStatement0;
-
-  private SQLiteStatement insertNamePreparedStatement1;
-
-  private SQLiteStatement deleteRawPreparedStatement2;
-
-  private SQLiteStatement deleteBeanPreparedStatement3;
-
-  private SQLiteStatement updateRawPreparedStatement4;
-
-  private SQLiteStatement updateBeanPreparedStatement5;
-
-  protected String SELECT_BEAN_SQL1 = "SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person";
-
-  public Person2DAOImpl(BindPerson2DataSource dataSet) {
-    super(dataSet);
+  public Person2DAOImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -117,9 +118,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     if (insertBeanPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT OR FAIL INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -194,9 +195,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     if (insertNamePreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertNamePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertNamePreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertNamePreparedStatement1, _contentValues);
   }
 
   /**
@@ -272,7 +273,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteRawPreparedStatement2==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -284,9 +285,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
       // generate sql
       String _sql="DELETE FROM person WHERE id = ?";
-      deleteRawPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteRawPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteRawPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteRawPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -316,7 +317,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
    */
   int deleteRaw2(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -330,7 +331,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // Add parameter id at path segment 1
     _contentValues.addWhereArgs(uri.getPathSegments().get(1));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id = ?");
@@ -380,7 +381,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=args;
     // generation CODE_001 -- END
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -397,7 +398,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
     // generate sql
     String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
     return result!=0;
   }
 
@@ -425,7 +426,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
    */
   int deleteRaw3(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -453,7 +454,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       }
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -487,7 +488,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteBeanPreparedStatement3==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -499,9 +500,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
       // generate sql
       String _sql="DELETE FROM person WHERE id = ?";
-      deleteBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteBeanPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteBeanPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -531,7 +532,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
    */
   int deleteBean4(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -545,7 +546,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // Add parameter bean.id at path segment 2
     _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id = ?");
@@ -592,7 +593,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateRawPreparedStatement4==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -604,9 +605,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
       // generate sql
       String _sql="UPDATE person SET name=? WHERE id=?";
-      updateRawPreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateRawPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateRawPreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateRawPreparedStatement4, _contentValues);
     return result;
   }
 
@@ -637,7 +638,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
    */
   int updateRaw5(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues(contentValues);
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -656,7 +657,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       }
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE person SET name=:name WHERE id=?");
@@ -726,7 +727,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -738,7 +739,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
     // generate sql
     String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -767,7 +768,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
    */
   int updateRaw6(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues(contentValues);
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -788,7 +789,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       }
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -862,7 +863,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=args;
     // generation CODE_001 -- END
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -879,7 +880,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
     // generate sql
     String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -908,7 +909,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
    */
   int updateRaw7(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues(contentValues);
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -941,7 +942,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       }
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -1022,7 +1023,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateBeanPreparedStatement5==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1034,9 +1035,9 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
       // generate sql
       String _sql="UPDATE person SET alias_parent_id=?, city=?, birth_city=?, birth_day=?, value=?, name=?, surname=? WHERE id=?";
-      updateBeanPreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateBeanPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateBeanPreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateBeanPreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1067,7 +1068,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
    */
   int updateBean8(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues(contentValues);
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -1086,7 +1087,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       }
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
@@ -1146,7 +1147,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   @Override
   public List<Person> selectOne(String nameValue, String orderBy) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1240,7 +1241,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   Cursor selectOne9(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -1327,7 +1328,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   @Override
   public List<Person> selectAll(String where, String[] args, String order) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -1414,7 +1415,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   Cursor selectAll10(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -1502,7 +1503,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   @Override
   public List<Person> selectOne(Person bean, String orderBy) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1588,7 +1589,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   Cursor selectOne11(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -1718,7 +1719,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   Cursor selectBean12(Uri uri, String[] projection, String selection, String[] selectionArgs,
       String sortOrder) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -1778,7 +1779,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   @Override
   public void selectCursorListener(OnReadCursorListener cursorListener, String where) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -1813,7 +1814,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertBeanPreparedStatement0!=null) {
       insertBeanPreparedStatement0.close();
       insertBeanPreparedStatement0=null;

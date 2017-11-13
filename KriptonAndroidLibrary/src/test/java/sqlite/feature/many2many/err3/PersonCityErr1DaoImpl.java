@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -21,22 +22,22 @@ import java.util.List;
  *  @see PersonCityErr3Table
  */
 public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPersonCityErr1Dao {
-  protected String SELECT_BY_ID_SQL5 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE id=?";
+  private static final String SELECT_BY_ID_SQL5 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE id=?";
 
-  protected String SELECT_BY_PERSON_ID_SQL6 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE person_id=?";
+  private static final String SELECT_BY_PERSON_ID_SQL6 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE person_id=?";
 
-  protected String SELECT_BY_CITY_ID_SQL7 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE city_id=?";
+  private static final String SELECT_BY_CITY_ID_SQL7 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE city_id=?";
 
-  private SQLiteStatement deleteByIdPreparedStatement0;
+  private static SQLiteStatement deleteByIdPreparedStatement0;
 
-  private SQLiteStatement deleteByPersonIdPreparedStatement1;
+  private static SQLiteStatement deleteByPersonIdPreparedStatement1;
 
-  private SQLiteStatement deleteByCityIdPreparedStatement2;
+  private static SQLiteStatement deleteByCityIdPreparedStatement2;
 
-  private SQLiteStatement insertPreparedStatement3;
+  private static SQLiteStatement insertPreparedStatement3;
 
-  public PersonCityErr1DaoImpl(BindPersonCirtyErr3DataSource dataSet) {
-    super(dataSet);
+  public PersonCityErr1DaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -69,7 +70,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -83,7 +84,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -143,7 +144,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -157,7 +158,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -217,7 +218,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     _contentValues.addWhereArgs(String.valueOf(cityId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -231,7 +232,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -284,7 +285,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteByIdPreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -296,10 +297,10 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
 
       // generate sql
       String _sql="DELETE FROM person_city_err3 WHERE id=?";
-      deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person_city_err3 WHERE id=?");
@@ -312,7 +313,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -339,7 +340,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteByPersonIdPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -351,10 +352,10 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
 
       // generate sql
       String _sql="DELETE FROM person_city_err3 WHERE person_id=?";
-      deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person_city_err3 WHERE person_id=?");
@@ -367,7 +368,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByPersonIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByPersonIdPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -394,7 +395,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteByCityIdPreparedStatement2==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -406,10 +407,10 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
 
       // generate sql
       String _sql="DELETE FROM person_city_err3 WHERE city_id=?";
-      deleteByCityIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteByCityIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person_city_err3 WHERE city_id=?");
@@ -422,7 +423,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByCityIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByCityIdPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -450,7 +451,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     _contentValues.put("city_id", bean.cityId);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -481,15 +482,15 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     if (insertPreparedStatement3==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO person_city_err3 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement3, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement3, _contentValues);
     bean.id=result;
 
     return (int)result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (deleteByIdPreparedStatement0!=null) {
       deleteByIdPreparedStatement0.close();
       deleteByIdPreparedStatement0=null;

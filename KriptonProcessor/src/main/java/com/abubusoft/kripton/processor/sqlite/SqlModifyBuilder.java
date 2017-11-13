@@ -308,7 +308,7 @@ public abstract class SqlModifyBuilder {
 		SqlBuilderHelper.generateLogForContentProviderBeginning(method, methodBuilder);
 
 		// query builder
-		methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
+		methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);
 		generateInitForDynamicWhereVariables(method, methodBuilder, "selection", "selectionArgs");
 
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, false);
@@ -363,7 +363,7 @@ public abstract class SqlModifyBuilder {
 
 		// generate log section - BEGIN
 		methodBuilder.addComment("log section BEGIN");
-		methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+		methodBuilder.beginControlFlow("if (_context.isLogEnabled())");
 
 		generateLogForModifiers(method, methodBuilder);
 

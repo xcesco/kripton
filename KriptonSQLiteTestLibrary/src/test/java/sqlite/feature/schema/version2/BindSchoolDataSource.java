@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -88,10 +89,12 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * 	transaction to execute
    */
   public void execute(Transaction transaction) {
-    SQLiteDatabase connection=openWritableDatabase();
+    boolean needToOpened=!this.isOpenInWriteMode();
+    @SuppressWarnings("resource")
+    SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -104,7 +107,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       } catch (Throwable e) {
         Logger.warn("error closing transaction %s", e.getMessage());
       }
-      close();
+      if (needToOpened) { close(); }
     }
   }
 
@@ -127,17 +130,18 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
-    if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }
+    boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
+    if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
       throw(e);
     } finally {
-      close();
+      if (needToOpened) { close(); }
     }
     return null;
   }
@@ -178,22 +182,50 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    Logger.info("Create database '%s' version %s",this.name, this.getVersion());
-    Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-    database.execSQL(StudentTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+    }
+    // log section END
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+    }
+    // log section END
     database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(StudentTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
+    }
+    // log section END
     database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
-    Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
+    }
+    // log section END
     database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
       if (task != null) {
-        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
         task.execute(database);
-        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
       }
     }
     if (options.databaseLifecycleHandler != null) {
@@ -206,27 +238,55 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
-    Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
+    }
+    // log section END
     // if we have a list of update task, try to execute them
     if (options.updateTasks != null) {
       List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
       for (SQLiteUpdateTask task : tasks) {
-        Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
         task.execute(database);
-        Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        // log section BEGIN
+        if (this.logEnabled) {
+          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+        }
+        // log section END
       }
     } else {
       // drop all tables
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-      database.execSQL(StudentTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+      }
+      // log section END
       database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(StudentTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
+      }
+      // log section END
       database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
-      Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
+      }
+      // log section END
       database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
@@ -247,10 +307,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   public void clearCompiledStatements() {
-    daoProfessor.clearCompiledStatements();
-    daoSeminar.clearCompiledStatements();
-    daoSeminar2Student.clearCompiledStatements();
-    daoStudent.clearCompiledStatements();
+    DaoProfessorImpl.clearCompiledStatements();
+    DaoSeminarImpl.clearCompiledStatements();
+    DaoSeminar2StudentImpl.clearCompiledStatements();
+    DaoStudentImpl.clearCompiledStatements();
   }
 
   /**
@@ -310,5 +370,65 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
      * @throws Throwable
      */
     T onExecute(BindSchoolDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindSchoolDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private DaoProfessorImpl _daoProfessor;
+
+    private DaoSeminarImpl _daoSeminar;
+
+    private DaoSeminar2StudentImpl _daoSeminar2Student;
+
+    private DaoStudentImpl _daoStudent;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindSchoolDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao DaoProfessor
+     */
+    public DaoProfessorImpl getDaoProfessor() {
+      if (_daoProfessor==null) {
+        _daoProfessor=new DaoProfessorImpl(_context);
+      }
+      return _daoProfessor;
+    }
+
+    /**
+     *
+     * retrieve dao DaoSeminar
+     */
+    public DaoSeminarImpl getDaoSeminar() {
+      if (_daoSeminar==null) {
+        _daoSeminar=new DaoSeminarImpl(_context);
+      }
+      return _daoSeminar;
+    }
+
+    /**
+     *
+     * retrieve dao DaoSeminar2Student
+     */
+    public DaoSeminar2StudentImpl getDaoSeminar2Student() {
+      if (_daoSeminar2Student==null) {
+        _daoSeminar2Student=new DaoSeminar2StudentImpl(_context);
+      }
+      return _daoSeminar2Student;
+    }
+
+    /**
+     *
+     * retrieve dao DaoStudent
+     */
+    public DaoStudentImpl getDaoStudent() {
+      if (_daoStudent==null) {
+        _daoStudent=new DaoStudentImpl(_context);
+      }
+      return _daoStudent;
+    }
   }
 }

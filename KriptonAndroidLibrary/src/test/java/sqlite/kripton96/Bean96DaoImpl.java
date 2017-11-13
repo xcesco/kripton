@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
@@ -19,12 +20,12 @@ import com.abubusoft.kripton.common.Triple;
  *  @see Bean96Table
  */
 public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
-  protected String SELECT_BY_BEAN_SQL1 = "SELECT id, name, surname FROM bean96 WHERE name like ? || '%'";
+  private static final String SELECT_BY_BEAN_SQL1 = "SELECT id, name, surname FROM bean96 WHERE name like ? || '%'";
 
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  public Bean96DaoImpl(BindBean96DataSource dataSet) {
-    super(dataSet);
+  public Bean96DaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -57,7 +58,7 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -71,7 +72,7 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -127,7 +128,7 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -158,15 +159,15 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean96 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result!=-1;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

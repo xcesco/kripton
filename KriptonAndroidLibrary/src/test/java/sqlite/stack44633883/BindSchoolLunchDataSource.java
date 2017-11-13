@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -230,7 +231,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
   }
 
   public void clearCompiledStatements() {
-    schoolLunchDAO.clearCompiledStatements();
+    SchoolLunchDAOImpl.clearCompiledStatements();
   }
 
   /**
@@ -290,5 +291,26 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
      * @throws Throwable
      */
     T onExecute(BindSchoolLunchDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindSchoolLunchDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private SchoolLunchDAOImpl _schoolLunchDAO;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindSchoolLunchDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao SchoolLunchDAO
+     */
+    public SchoolLunchDAOImpl getSchoolLunchDAO() {
+      if (_schoolLunchDAO==null) {
+        _schoolLunchDAO=new SchoolLunchDAOImpl(_context);
+      }
+      return _schoolLunchDAO;
+    }
   }
 }

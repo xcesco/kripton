@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -25,22 +26,22 @@ import sqlite.feature.rx.model.PhoneNumber;
  *  @see sqlite.feature.rx.model.PhoneNumberTable
  */
 public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  protected String SELECT_BY_ID_SQL1 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ?";
 
-  private SQLiteStatement deleteByIdPreparedStatement1;
+  private static SQLiteStatement deleteByIdPreparedStatement1;
 
-  private SQLiteStatement updateByIdPreparedStatement2;
+  private static SQLiteStatement updateByIdPreparedStatement2;
 
-  protected String SELECT_BY_NUMBER_SQL2 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE number = ?";
+  private static final String SELECT_BY_NUMBER_SQL2 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE number = ?";
 
-  protected String SELECT_ALL_SQL3 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number";
+  private static final String SELECT_ALL_SQL3 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number";
 
-  protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
-  public PhoneDaoImpl(BindXenoDataSource dataSet) {
-    super(dataSet);
+  public PhoneDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -93,7 +94,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -124,9 +125,9 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT OR REPLACE INTO phone_number (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
@@ -166,7 +167,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -180,7 +181,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -233,7 +234,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteByIdPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -245,10 +246,10 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
 
       // generate sql
       String _sql="DELETE FROM phone_number WHERE id = ?";
-      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM phone_number WHERE id = ?");
@@ -261,7 +262,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement1, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -288,7 +289,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateByIdPreparedStatement2==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -300,10 +301,10 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
 
       // generate sql
       String _sql="DELETE FROM phone_number WHERE id = ?";
-      updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM phone_number WHERE id = ?");
@@ -316,7 +317,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateByIdPreparedStatement2, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -354,7 +355,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     _contentValues.addWhereArgs((number==null?"":number));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -368,7 +369,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -423,7 +424,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -437,7 +438,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -477,7 +478,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     return subject;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -34,68 +35,68 @@ import java.util.Set;
  *  @see ChannelTable
  */
 public class DaoChannelImpl extends AbstractDao implements DaoChannel {
-  private SQLiteStatement deleteContactBean1PreparedStatement0;
+  private static SQLiteStatement deleteContactBean1PreparedStatement0;
 
-  private SQLiteStatement deleteContactBean2PreparedStatement1;
+  private static SQLiteStatement deleteContactBean2PreparedStatement1;
 
-  private SQLiteStatement deleteContactRaw1PreparedStatement2;
+  private static SQLiteStatement deleteContactRaw1PreparedStatement2;
 
-  private SQLiteStatement deleteContactRaw2PreparedStatement3;
+  private static SQLiteStatement deleteContactRaw2PreparedStatement3;
 
-  private SQLiteStatement insertRaw1PreparedStatement4;
+  private static SQLiteStatement insertRaw1PreparedStatement4;
 
-  private SQLiteStatement insertRaw2PreparedStatement5;
+  private static SQLiteStatement insertRaw2PreparedStatement5;
 
-  private SQLiteStatement insertRaw3PreparedStatement6;
+  private static SQLiteStatement insertRaw3PreparedStatement6;
 
-  private SQLiteStatement insertBean1PreparedStatement7;
+  private static SQLiteStatement insertBean1PreparedStatement7;
 
-  private SQLiteStatement insertBean2PreparedStatement8;
+  private static SQLiteStatement insertBean2PreparedStatement8;
 
-  private SQLiteStatement updateContactRaw1PreparedStatement9;
+  private static SQLiteStatement updateContactRaw1PreparedStatement9;
 
-  private SQLiteStatement updateContactRaw2PreparedStatement10;
+  private static SQLiteStatement updateContactRaw2PreparedStatement10;
 
-  private SQLiteStatement updateContactRaw3PreparedStatement11;
+  private static SQLiteStatement updateContactRaw3PreparedStatement11;
 
-  private SQLiteStatement updateContactRaw4PreparedStatement12;
+  private static SQLiteStatement updateContactRaw4PreparedStatement12;
 
-  private SQLiteStatement updateContactBean1PreparedStatement13;
+  private static SQLiteStatement updateContactBean1PreparedStatement13;
 
-  private SQLiteStatement updateContactBean2PreparedStatement14;
+  private static SQLiteStatement updateContactBean2PreparedStatement14;
 
-  private SQLiteStatement updateContactBean3PreparedStatement15;
+  private static SQLiteStatement updateContactBean3PreparedStatement15;
 
-  protected String SELECT_ALL_SQL1 = "SELECT uid, owner_uid, update_time, name, id FROM channel";
+  private static final String SELECT_ALL_SQL1 = "SELECT uid, owner_uid, update_time, name, id FROM channel";
 
-  protected String SELECT_RAW1_SQL2 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW1_SQL2 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
 
-  protected String SELECT_RAW2_SQL3 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW2_SQL3 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
 
-  protected String SELECT_RAW3_SQL4 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW3_SQL4 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
 
-  protected String SELECT_RAW4_SQL5 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW4_SQL5 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
 
-  protected String SELECT_RAW5_SQL6 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW5_SQL6 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
 
-  protected String SELECT_BEAN1_SQL7 = "SELECT count(*) FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN1_SQL7 = "SELECT count(*) FROM channel WHERE update_time=?";
 
-  protected String SELECT_BEAN2_SQL8 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN2_SQL8 = "SELECT update_time FROM channel WHERE update_time=?";
 
-  protected String SELECT_BEAN3_SQL9 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN3_SQL9 = "SELECT update_time FROM channel WHERE update_time=?";
 
-  protected String SELECT_BEAN4_SQL10 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN4_SQL10 = "SELECT update_time FROM channel WHERE update_time=?";
 
-  protected String SELECT_BEAN5_SQL11 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN5_SQL11 = "SELECT update_time FROM channel WHERE update_time=?";
 
-  protected String SELECT_BEAN6_SQL12 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN6_SQL12 = "SELECT update_time FROM channel WHERE update_time=?";
 
-  protected String SELECT_BEAN7_SQL13 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN7_SQL13 = "SELECT update_time FROM channel WHERE update_time=?";
 
-  protected String SELECT_BEAN8_SQL14 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN8_SQL14 = "SELECT update_time FROM channel WHERE update_time=?";
 
-  public DaoChannelImpl(BindDummy01DataSource dataSet) {
-    super(dataSet);
+  public DaoChannelImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -120,7 +121,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteContactBean1PreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -132,10 +133,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="DELETE FROM channel WHERE owner_uid=?";
-      deleteContactBean1PreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteContactBean1PreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM channel WHERE owner_uid=?");
@@ -148,7 +149,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteContactBean1PreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteContactBean1PreparedStatement0, _contentValues);
     return result!=0;
   }
 
@@ -174,7 +175,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteContactBean2PreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -186,10 +187,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="DELETE FROM channel WHERE owner_uid=?";
-      deleteContactBean2PreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteContactBean2PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM channel WHERE owner_uid=?");
@@ -202,7 +203,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteContactBean2PreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteContactBean2PreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -233,7 +234,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteContactRaw1PreparedStatement2==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -245,10 +246,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="DELETE FROM channel WHERE owner_uid=? and id=?";
-      deleteContactRaw1PreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteContactRaw1PreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM channel WHERE owner_uid=? and id=?");
@@ -261,7 +262,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteContactRaw1PreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteContactRaw1PreparedStatement2, _contentValues);
     return result;
   }
 
@@ -292,7 +293,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteContactRaw2PreparedStatement3==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -304,10 +305,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="DELETE FROM channel WHERE owner_uid=? and id=?";
-      deleteContactRaw2PreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteContactRaw2PreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM channel WHERE owner_uid=? and id=?");
@@ -320,7 +321,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteContactRaw2PreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteContactRaw2PreparedStatement3, _contentValues);
     return result!=0;
   }
 
@@ -353,7 +354,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.put("id", azz);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -384,9 +385,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     if (insertRaw1PreparedStatement4==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertRaw1PreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertRaw1PreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertRaw1PreparedStatement4, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertRaw1PreparedStatement4, _contentValues);
     return result;
   }
 
@@ -419,7 +420,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.put("id", id);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -450,9 +451,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     if (insertRaw2PreparedStatement5==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertRaw2PreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertRaw2PreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertRaw2PreparedStatement5, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertRaw2PreparedStatement5, _contentValues);
     return result!=-1;
   }
 
@@ -485,7 +486,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.put("id", id);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -516,9 +517,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     if (insertRaw3PreparedStatement6==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertRaw3PreparedStatement6 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertRaw3PreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertRaw3PreparedStatement6, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertRaw3PreparedStatement6, _contentValues);
     return (int)result;
   }
 
@@ -562,7 +563,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -593,9 +594,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     if (insertBean1PreparedStatement7==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBean1PreparedStatement7 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertBean1PreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertBean1PreparedStatement7, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertBean1PreparedStatement7, _contentValues);
     bean.setId(result);
 
     return (int)result;
@@ -641,7 +642,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -672,9 +673,9 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     if (insertBean2PreparedStatement8==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO channel (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBean2PreparedStatement8 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertBean2PreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertBean2PreparedStatement8, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertBean2PreparedStatement8, _contentValues);
     bean.setId(result);
 
     return result!=-1;
@@ -711,7 +712,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateContactRaw1PreparedStatement9==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -723,10 +724,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="UPDATE channel SET id=? WHERE id=?";
-      updateContactRaw1PreparedStatement9 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateContactRaw1PreparedStatement9 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE channel SET id=:id WHERE id=?");
@@ -751,7 +752,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateContactRaw1PreparedStatement9, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactRaw1PreparedStatement9, _contentValues);
     return result;
   }
 
@@ -786,7 +787,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateContactRaw2PreparedStatement10==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -798,10 +799,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="UPDATE channel SET id=? WHERE id=?";
-      updateContactRaw2PreparedStatement10 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateContactRaw2PreparedStatement10 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE channel SET id=:id WHERE id=?");
@@ -826,7 +827,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateContactRaw2PreparedStatement10, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactRaw2PreparedStatement10, _contentValues);
     return result;
   }
 
@@ -865,7 +866,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateContactRaw3PreparedStatement11==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -877,10 +878,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="UPDATE channel SET owner_uid=? WHERE id=?";
-      updateContactRaw3PreparedStatement11 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateContactRaw3PreparedStatement11 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE channel SET owner_uid=:ownerUid WHERE id=?");
@@ -905,7 +906,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateContactRaw3PreparedStatement11, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactRaw3PreparedStatement11, _contentValues);
     return result!=0;
   }
 
@@ -944,7 +945,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateContactRaw4PreparedStatement12==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -956,10 +957,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="UPDATE channel SET owner_uid=? WHERE id=?";
-      updateContactRaw4PreparedStatement12 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateContactRaw4PreparedStatement12 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE channel SET owner_uid=:ownerUid WHERE id=?");
@@ -984,7 +985,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateContactRaw4PreparedStatement12, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactRaw4PreparedStatement12, _contentValues);
     return result;
   }
 
@@ -1035,7 +1036,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateContactBean1PreparedStatement13==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1047,10 +1048,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
-      updateContactBean1PreparedStatement13 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateContactBean1PreparedStatement13 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
@@ -1075,7 +1076,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateContactBean1PreparedStatement13, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactBean1PreparedStatement13, _contentValues);
     return result;
   }
 
@@ -1126,7 +1127,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateContactBean2PreparedStatement14==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1138,10 +1139,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
-      updateContactBean2PreparedStatement14 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateContactBean2PreparedStatement14 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
@@ -1166,7 +1167,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateContactBean2PreparedStatement14, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactBean2PreparedStatement14, _contentValues);
     return result;
   }
 
@@ -1217,7 +1218,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateContactBean3PreparedStatement15==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1229,10 +1230,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
 
       // generate sql
       String _sql="UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
-      updateContactBean3PreparedStatement15 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateContactBean3PreparedStatement15 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
@@ -1257,7 +1258,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateContactBean3PreparedStatement15, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactBean3PreparedStatement15, _contentValues);
     return result!=0;
   }
 
@@ -1285,7 +1286,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1299,7 +1300,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -1365,7 +1366,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(updateTimeA));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1379,7 +1380,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -1445,7 +1446,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(updateTimeA));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1459,7 +1460,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     Cursor cursor = database().rawQuery(_sql, _sqlArgs);
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       Logger.info("Rows found: %s",cursor.getCount());
     }
     // log section END
@@ -1499,7 +1500,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(updateTimeA));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1513,7 +1514,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -1582,7 +1583,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(updateTimeA));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1596,7 +1597,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -1643,7 +1644,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(updateTimeA));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1657,7 +1658,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -1719,7 +1720,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1733,7 +1734,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -1777,7 +1778,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1791,7 +1792,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -1848,7 +1849,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1862,7 +1863,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -1905,7 +1906,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1919,7 +1920,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     Cursor cursor = database().rawQuery(_sql, _sqlArgs);
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       Logger.info("Rows found: %s",cursor.getCount());
     }
     // log section END
@@ -1954,7 +1955,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1968,7 +1969,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -2016,7 +2017,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -2030,7 +2031,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -2084,7 +2085,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -2098,7 +2099,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -2152,7 +2153,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -2166,7 +2167,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -2236,7 +2237,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (deleteContactBean1PreparedStatement0!=null) {
       deleteContactBean1PreparedStatement0.close();
       deleteContactBean1PreparedStatement0=null;

@@ -186,7 +186,7 @@ public class BindPersonContentProvider extends ContentProvider {
       }
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (dataSource.isLogEnabled()) {
       Logger.info("Element is created with URI '%s'", _returnURL);
       Logger.info("Changes are notified for URI '%s'", uri);
     }
@@ -231,7 +231,7 @@ public class BindPersonContentProvider extends ContentProvider {
       }
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (dataSource.isLogEnabled()) {
       Logger.info("Changes are notified for URI %s", uri);
     }
     // log section END
@@ -318,7 +318,7 @@ public class BindPersonContentProvider extends ContentProvider {
       }
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (dataSource.isLogEnabled()) {
       Logger.info("Changes are notified for URI %s", uri);
     }
     // log section END

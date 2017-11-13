@@ -4,6 +4,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ import sqlite.feature.dynamic.Person;
  *  @see sqlite.feature.dynamic.PersonTable
  */
 public class Person1DAOImpl extends AbstractDao implements Person1DAO {
-  public Person1DAOImpl(BindPerson1DataSource dataSet) {
-    super(dataSet);
+  public Person1DAOImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -53,7 +54,7 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
   @Override
   public List<Person> selectOne(String where, String orderBy) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -77,7 +78,7 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -91,7 +92,7 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -125,6 +126,6 @@ public class Person1DAOImpl extends AbstractDao implements Person1DAO {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
   }
 }

@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -18,16 +19,16 @@ import com.abubusoft.kripton.common.StringUtils;
  *  @see sqlite.feature.javadoc.PersonTable
  */
 public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPersonDao {
-  private SQLiteStatement deleteOneBeanPreparedStatement0;
+  private static SQLiteStatement deleteOneBeanPreparedStatement0;
 
-  private SQLiteStatement deleteAllBeansJQLPreparedStatement1;
+  private static SQLiteStatement deleteAllBeansJQLPreparedStatement1;
 
-  private SQLiteStatement deleteFromSelectAllBeansJQLPreparedStatement2;
+  private static SQLiteStatement deleteFromSelectAllBeansJQLPreparedStatement2;
 
-  private SQLiteStatement deleteRawPreparedStatement3;
+  private static SQLiteStatement deleteRawPreparedStatement3;
 
-  public DeleteRawPersonDaoImpl(BindDeleteRawPersonDataSource dataSet) {
-    super(dataSet);
+  public DeleteRawPersonDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -53,7 +54,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteOneBeanPreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -65,10 +66,10 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
 
       // generate sql
       String _sql="DELETE FROM person WHERE id=?";
-      deleteOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id=?");
@@ -81,7 +82,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteOneBeanPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteOneBeanPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -112,7 +113,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
   int deleteOneBean0(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -126,7 +127,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // Add parameter id at path segment 1
     _contentValues.addWhereArgs(uri.getPathSegments().get(1));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id=?");
@@ -172,7 +173,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteAllBeansJQLPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -184,10 +185,10 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
 
       // generate sql
       String _sql="DELETE FROM person WHERE name=? and surname=? AND student = 0";
-      deleteAllBeansJQLPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteAllBeansJQLPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE name=? and surname=? AND student = 0");
@@ -200,7 +201,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllBeansJQLPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllBeansJQLPreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -229,7 +230,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteFromSelectAllBeansJQLPreparedStatement2==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -241,10 +242,10 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
 
       // generate sql
       String _sql="DELETE FROM person WHERE surname=? and student = (select student from person where name=?)";
-      deleteFromSelectAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteFromSelectAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE surname=? and student = (select student from person where name=?)");
@@ -257,7 +258,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteFromSelectAllBeansJQLPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteFromSelectAllBeansJQLPreparedStatement2, _contentValues);
   }
 
   /**
@@ -288,7 +289,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
   int deleteFromSelectAllBeansJQL1(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -304,7 +305,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // Add parameter name at path segment 3
     _contentValues.addWhereArgs(uri.getPathSegments().get(3));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE surname=? and student = (select student from person where name=?)");
@@ -346,7 +347,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteRawPreparedStatement3==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -358,10 +359,10 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
 
       // generate sql
       String _sql="DELETE FROM person WHERE id=?";
-      deleteRawPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteRawPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id=?");
@@ -374,7 +375,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteRawPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteRawPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -405,7 +406,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
   int deleteRaw2(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
 
@@ -419,7 +420,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // Add parameter id at path segment 2
     _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id=?");
@@ -472,7 +473,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -485,7 +486,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // generate sql
     String _sql=String.format("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -498,7 +499,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -527,7 +528,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
   int deleteRawDynamic3(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -543,7 +544,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // Add parameter id at path segment 2
     _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -600,7 +601,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=args;
     // generation CODE_001 -- END
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -618,7 +619,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     // generate sql
     String _sql=String.format("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -631,7 +632,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -660,7 +661,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
   int deleteBeanDynamicWithArgs4(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -688,7 +689,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       }
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -707,7 +708,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
     return result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (deleteOneBeanPreparedStatement0!=null) {
       deleteOneBeanPreparedStatement0.close();
       deleteOneBeanPreparedStatement0=null;

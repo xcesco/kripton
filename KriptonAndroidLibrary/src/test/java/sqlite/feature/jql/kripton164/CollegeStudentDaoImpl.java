@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
@@ -18,12 +19,12 @@ import com.abubusoft.kripton.common.Triple;
  *  @see CollegeStudentTable
  */
 public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudentDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  private SQLiteStatement insertBeanFromSelectPreparedStatement1;
+  private static SQLiteStatement insertBeanFromSelectPreparedStatement1;
 
-  public CollegeStudentDaoImpl(BindCollegeStudentsDataSource dataSet) {
-    super(dataSet);
+  public CollegeStudentDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -51,7 +52,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -82,9 +83,9 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO students (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     student.id=result;
   }
 
@@ -113,7 +114,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -144,13 +145,13 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     if (insertBeanFromSelectPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT OR REPLACE INTO students (%s) SELECT surname FROM students WHERE surname=${bean.surname}", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanFromSelectPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertBeanFromSelectPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanFromSelectPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertBeanFromSelectPreparedStatement1, _contentValues);
     bean.id=result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

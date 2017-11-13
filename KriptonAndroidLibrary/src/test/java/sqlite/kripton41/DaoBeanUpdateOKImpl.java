@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
@@ -18,10 +19,10 @@ import com.abubusoft.kripton.common.Triple;
  *  @see Bean01Table
  */
 public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK {
-  private SQLiteStatement updateDistancePreparedStatement0;
+  private static SQLiteStatement updateDistancePreparedStatement0;
 
-  public DaoBeanUpdateOKImpl(BindDummy06DataSource dataSet) {
-    super(dataSet);
+  public DaoBeanUpdateOKImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -63,7 +64,7 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateDistancePreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -75,10 +76,10 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
 
       // generate sql
       String _sql="UPDATE bean01 SET id=?, value=? WHERE id=?";
-      updateDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean01 SET id=:id, value=:value WHERE id=?");
@@ -103,11 +104,11 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateDistancePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateDistancePreparedStatement0, _contentValues);
     return result!=0;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (updateDistancePreparedStatement0!=null) {
       updateDistancePreparedStatement0.close();
       updateDistancePreparedStatement0=null;

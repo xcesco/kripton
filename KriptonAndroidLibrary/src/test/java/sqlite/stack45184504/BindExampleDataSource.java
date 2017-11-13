@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -230,7 +231,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
   }
 
   public void clearCompiledStatements() {
-    fileBeanDao.clearCompiledStatements();
+    FileBeanDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -290,5 +291,26 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
      * @throws Throwable
      */
     T onExecute(BindExampleDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindExampleDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private FileBeanDaoImpl _fileBeanDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindExampleDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao FileBeanDao
+     */
+    public FileBeanDaoImpl getFileBeanDao() {
+      if (_fileBeanDao==null) {
+        _fileBeanDao=new FileBeanDaoImpl(_context);
+      }
+      return _fileBeanDao;
+    }
   }
 }

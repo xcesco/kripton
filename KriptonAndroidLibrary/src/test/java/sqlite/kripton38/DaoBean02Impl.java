@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -18,12 +19,12 @@ import com.abubusoft.kripton.common.StringUtils;
  *  @see Bean02Table
  */
 public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
-  protected String SELECT_ONE_SQL1 = "SELECT id, text FROM bean02 WHERE id=?";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, text FROM bean02 WHERE id=?";
 
-  private SQLiteStatement deleteOnePreparedStatement0;
+  private static SQLiteStatement deleteOnePreparedStatement0;
 
-  public DaoBean02Impl(BindDummy02DataSource dataSet) {
-    super(dataSet);
+  public DaoBean02Impl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -55,7 +56,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -69,7 +70,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -114,7 +115,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteOnePreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -126,10 +127,10 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
 
       // generate sql
       String _sql="DELETE FROM bean02 WHERE id=?";
-      deleteOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean02 WHERE id=?");
@@ -142,11 +143,11 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteOnePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteOnePreparedStatement0, _contentValues);
     return result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (deleteOnePreparedStatement0!=null) {
       deleteOnePreparedStatement0.close();
       deleteOnePreparedStatement0=null;

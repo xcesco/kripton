@@ -4,6 +4,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +19,10 @@ import java.util.List;
  *  @see PetTable
  */
 public class PetDaoImpl extends AbstractDao implements PetDao {
-  protected String LOAD_PET_SQL2 = "SELECT id, user_id, name FROM pet";
+  private static final String LOAD_PET_SQL2 = "SELECT id, user_id, name FROM pet";
 
-  public PetDaoImpl(BindPetUserDataSource dataSet) {
-    super(dataSet);
+  public PetDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -46,7 +47,7 @@ public class PetDaoImpl extends AbstractDao implements PetDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -60,7 +61,7 @@ public class PetDaoImpl extends AbstractDao implements PetDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -90,6 +91,6 @@ public class PetDaoImpl extends AbstractDao implements PetDao {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
   }
 }

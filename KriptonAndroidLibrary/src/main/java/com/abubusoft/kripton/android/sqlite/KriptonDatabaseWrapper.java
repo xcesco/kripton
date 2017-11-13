@@ -4,14 +4,14 @@ import android.database.sqlite.SQLiteStatement;
 
 public abstract class KriptonDatabaseWrapper {
 	
-	public static SQLiteStatement compile(AbstractDataSource dataSource, String sql) {
-		SQLiteStatement ps = dataSource.database().compileStatement(sql);
+	public static SQLiteStatement compile(SQLContext context, String sql) {
+		SQLiteStatement ps = context.database().compileStatement(sql);
 		
 		return ps;
 	}
 
-	public static long insert(AbstractDataSource dataSource, String sql, KriptonContentValues contentValues) {
-		SQLiteStatement ps = dataSource.database().compileStatement(sql);
+	public static long insert(SQLContext context, String sql, KriptonContentValues contentValues) {
+		SQLiteStatement ps = context.database().compileStatement(sql);
 		try {
 			contentValues.bind(ps);
 			return ps.executeInsert();
@@ -20,21 +20,21 @@ public abstract class KriptonDatabaseWrapper {
 		}
 	}
 
-	public static long insert(AbstractDataSource dataSource, SQLiteStatement ps, KriptonContentValues contentValues) {
+	public static long insert(SQLContext context, SQLiteStatement ps, KriptonContentValues contentValues) {
 		contentValues.bind(ps);
 
 		return ps.executeInsert();
 	}
 
-	public static int updateDelete(AbstractDataSource dataSource, SQLiteStatement ps, KriptonContentValues contentValues) {
+	public static int updateDelete(SQLContext context, SQLiteStatement ps, KriptonContentValues contentValues) {
 		contentValues.bind(ps);
 
 		return ps.executeUpdateDelete();
 
 	}
 
-	public static int updateDelete(AbstractDataSource dataSource, String sql, KriptonContentValues contentValues) {
-		SQLiteStatement ps = dataSource.database().compileStatement(sql);
+	public static int updateDelete(SQLContext context, String sql, KriptonContentValues contentValues) {
+		SQLiteStatement ps = context.database().compileStatement(sql);
 		try {
 			contentValues.bind(ps);
 			return ps.executeUpdateDelete();

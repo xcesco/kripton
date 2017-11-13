@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -24,9 +25,15 @@ import sqlite.feature.javadoc.Person;
  *  @see sqlite.feature.javadoc.PersonTable
  */
 public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPersonDao {
+  private static final String SELECT_ALL_BEANS_SQL1 = "SELECT id, name, surname, student FROM person";
+
   private static final Set<String> selectAllBeans0ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
 
+  private static final String SELECT_ALL_BEANS_COUNT_SQL2 = "SELECT count(*) FROM person";
+
   private static final Set<String> selectAllBeansCount1ColumnSet = CollectionUtils.asSet(String.class, "count(*)");
+
+  private static final String SELECT_ONE_BEAN_SQL3 = "SELECT id, name, surname, student FROM person WHERE id=?";
 
   private static final Set<String> selectOneBean2ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
 
@@ -38,18 +45,12 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
 
   private static final Set<String> selectOneBeanWithDynamicOrderAndListener6ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
 
+  private static final String SELECT_WITH_J_Q_L_SQL4 = "select * from person where id=?";
+
   private static final Set<String> selectWithJQL7ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
 
-  protected String SELECT_ALL_BEANS_SQL1 = "SELECT id, name, surname, student FROM person";
-
-  protected String SELECT_ALL_BEANS_COUNT_SQL2 = "SELECT count(*) FROM person";
-
-  protected String SELECT_ONE_BEAN_SQL3 = "SELECT id, name, surname, student FROM person WHERE id=?";
-
-  protected String SELECT_WITH_J_Q_L_SQL4 = "select * from person where id=?";
-
-  public SelectRawPersonDaoImpl(BindSelectRawPersonDataSource dataSet) {
-    super(dataSet);
+  public SelectRawPersonDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -75,7 +76,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -89,7 +90,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -144,7 +145,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -204,7 +205,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -218,7 +219,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -256,7 +257,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -327,7 +328,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -341,7 +342,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -395,7 +396,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -473,7 +474,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   @Override
   public Person selectOneBeanWithDynamic(long id, String where) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT name FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -492,7 +493,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -506,7 +507,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -552,7 +553,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -640,7 +641,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   @Override
   public Person selectOneBeanWithDynamicAndArgs(long id, String name, String where, String[] args) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -667,7 +668,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -681,7 +682,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -734,7 +735,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=selection;
@@ -826,7 +827,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   @Override
   public Person selectOneBeanWithDynamicOrder(long id, String order) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -849,7 +850,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -863,7 +864,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -917,7 +918,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -1006,7 +1007,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
   public void selectOneBeanWithDynamicOrderAndListener(String surname, String order,
       OnReadBeanListener<Person> listener) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, name, surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1029,7 +1030,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     _contentValues.addWhereArgs((surname==null?"":surname));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1043,7 +1044,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -1104,7 +1105,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -1190,7 +1191,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -1204,7 +1205,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -1258,7 +1259,7 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     StringBuilder _projectionBuffer=new StringBuilder();
@@ -1307,6 +1308,6 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
     return _result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
   }
 }

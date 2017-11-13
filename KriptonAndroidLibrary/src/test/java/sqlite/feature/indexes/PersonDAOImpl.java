@@ -7,6 +7,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -24,12 +25,12 @@ import java.util.List;
  *  @see PersonTable
  */
 public class PersonDAOImpl extends AbstractDao implements PersonDAO {
-  private SQLiteStatement insertOnePreparedStatement0;
+  private static SQLiteStatement insertOnePreparedStatement0;
 
-  protected String SELECT_ALL_SQL1 = "SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person ORDER BY type_name";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person ORDER BY type_name";
 
-  public PersonDAOImpl(BindPersonDataSource dataSet) {
-    super(dataSet);
+  public PersonDAOImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -80,7 +81,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -111,9 +112,9 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     if (insertOnePreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement0, _contentValues);
   }
 
   /**
@@ -143,7 +144,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -157,7 +158,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -239,7 +240,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public List<Person> selectOne(String nameValue, String where, String orderBy, Date date) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
@@ -265,7 +266,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _contentValues.addWhereArgs((date==null?"":DateUtils.write(date)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -279,7 +280,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -349,7 +350,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void selectBeanListener(OnReadBeanListener<Person> beanListener, String orderBy) {
     KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -364,7 +365,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -378,7 +379,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -423,7 +424,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertOnePreparedStatement0!=null) {
       insertOnePreparedStatement0.close();
       insertOnePreparedStatement0=null;

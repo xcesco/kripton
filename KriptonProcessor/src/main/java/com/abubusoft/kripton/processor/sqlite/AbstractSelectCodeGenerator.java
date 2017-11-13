@@ -251,7 +251,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			} else {				
 				String sqlName=CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLName());
 				String sql=SqlSelectBuilder.convertJQL2SQL(method, true);
-				classBuilder.addField(FieldSpec.builder(String.class, sqlName, Modifier.PROTECTED).initializer("$S", sql).build());
+				classBuilder.addField(FieldSpec.builder(String.class, sqlName, Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).initializer("$S", sql).build());
 				methodBuilder.addComment("query SQL is statically defined");
 				methodBuilder.addStatement("String _sql=$L",sqlName);			
 			}
@@ -338,7 +338,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			if (daoDefinition.isLogEnabled()) {
 				// generate log section - BEGIN
 				methodBuilder.addComment("log section BEGIN");
-				methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+				methodBuilder.beginControlFlow("if (_context.isLogEnabled())");
 				// manage log
 				methodBuilder.addComment("manage log");
 				methodBuilder.addStatement("$T.info(_sql)", Logger.class);
@@ -361,7 +361,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			if (daoDefinition.isLogEnabled()) {
 				// generate log section - BEGIN
 				methodBuilder.addComment("log section BEGIN");
-				methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+				methodBuilder.beginControlFlow("if (_context.isLogEnabled())");
 				
 				methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
 				
@@ -446,7 +446,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	}
 	
 	private static void generateSQLBuild(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, SplittedSql splittedSql) {
-		methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
+		methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);
 		methodBuilder.addStatement("_sqlBuilder.append($S)", splittedSql.sqlBasic.trim());
 
 		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, method.dynamicWhereParameterName, method.dynamicWhereArgsParameterName);

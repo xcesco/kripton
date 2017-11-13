@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -82,7 +83,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -122,7 +123,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -177,16 +178,16 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(CityTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonCityOk1Table.CREATE_TABLE_SQL);
@@ -248,16 +249,16 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(CityTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonCityOk1Table.CREATE_TABLE_SQL);
@@ -283,9 +284,9 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   }
 
   public void clearCompiledStatements() {
-    personOk1Dao.clearCompiledStatements();
-    cityOk1Dao.clearCompiledStatements();
-    personCityOk1Dao.clearCompiledStatements();
+    PersonOk1DaoImpl.clearCompiledStatements();
+    CityOk1DaoImpl.clearCompiledStatements();
+    PersonCityOk1DaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -345,5 +346,52 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
      * @throws Throwable
      */
     T onExecute(BindPersonCirtyOk1DaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindPersonCirtyOk1DaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private PersonOk1DaoImpl _personOk1Dao;
+
+    private CityOk1DaoImpl _cityOk1Dao;
+
+    private PersonCityOk1DaoImpl _personCityOk1Dao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindPersonCirtyOk1DataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao PersonOk1Dao
+     */
+    public PersonOk1DaoImpl getPersonOk1Dao() {
+      if (_personOk1Dao==null) {
+        _personOk1Dao=new PersonOk1DaoImpl(_context);
+      }
+      return _personOk1Dao;
+    }
+
+    /**
+     *
+     * retrieve dao CityOk1Dao
+     */
+    public CityOk1DaoImpl getCityOk1Dao() {
+      if (_cityOk1Dao==null) {
+        _cityOk1Dao=new CityOk1DaoImpl(_context);
+      }
+      return _cityOk1Dao;
+    }
+
+    /**
+     *
+     * retrieve dao PersonCityOk1Dao
+     */
+    public PersonCityOk1DaoImpl getPersonCityOk1Dao() {
+      if (_personCityOk1Dao==null) {
+        _personCityOk1Dao=new PersonCityOk1DaoImpl(_context);
+      }
+      return _personCityOk1Dao;
+    }
   }
 }

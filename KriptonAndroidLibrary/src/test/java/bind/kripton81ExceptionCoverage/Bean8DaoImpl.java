@@ -4,6 +4,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +19,10 @@ import java.util.List;
  *  @see Bean8Table
  */
 public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
-  protected String SELECT_ALL_SQL1 = "SELECT id, ignore2 FROM bean8";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, ignore2 FROM bean8";
 
-  public Bean8DaoImpl(BindBean8DataSource dataSet) {
-    super(dataSet);
+  public Bean8DaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -45,7 +46,7 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -59,7 +60,7 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -87,6 +88,6 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
   }
 }

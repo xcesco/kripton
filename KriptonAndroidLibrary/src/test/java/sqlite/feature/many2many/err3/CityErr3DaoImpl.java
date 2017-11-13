@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -22,16 +23,16 @@ import sqlite.feature.many2many.City;
  *  @see sqlite.feature.many2many.CityTable
  */
 public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
-  protected String SELECT_ALL_SQL3 = "SELECT id, name FROM cities";
+  private static final String SELECT_ALL_SQL3 = "SELECT id, name FROM cities";
 
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  protected String SELECT_BY_ID_SQL4 = "SELECT id, name FROM cities WHERE id=?";
+  private static final String SELECT_BY_ID_SQL4 = "SELECT id, name FROM cities WHERE id=?";
 
-  private SQLiteStatement deleteByIdPreparedStatement1;
+  private static SQLiteStatement deleteByIdPreparedStatement1;
 
-  public CityErr3DaoImpl(BindPersonCirtyErr3DataSource dataSet) {
-    super(dataSet);
+  public CityErr3DaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -55,7 +56,7 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -69,7 +70,7 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -123,7 +124,7 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -154,9 +155,9 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO cities (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result;
@@ -191,7 +192,7 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -205,7 +206,7 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -250,7 +251,7 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteByIdPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -262,10 +263,10 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
 
       // generate sql
       String _sql="DELETE FROM cities WHERE id=?";
-      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM cities WHERE id=?");
@@ -278,11 +279,11 @@ public class CityErr3DaoImpl extends AbstractDao implements CityErr3Dao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement1, _contentValues);
     return result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

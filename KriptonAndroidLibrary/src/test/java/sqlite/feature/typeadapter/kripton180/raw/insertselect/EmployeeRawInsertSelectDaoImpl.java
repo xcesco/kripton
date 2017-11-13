@@ -3,6 +3,7 @@ package sqlite.feature.typeadapter.kripton180.raw.insertselect;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -15,8 +16,8 @@ import com.abubusoft.kripton.common.StringUtils;
  *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
 public class EmployeeRawInsertSelectDaoImpl extends AbstractDao implements EmployeeRawInsertSelectDao {
-  public EmployeeRawInsertSelectDaoImpl(BindKripton180RawInsertSelectDataSource dataSet) {
-    super(dataSet);
+  public EmployeeRawInsertSelectDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -88,6 +89,6 @@ public class EmployeeRawInsertSelectDaoImpl extends AbstractDao implements Emplo
     database().execSQL("INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?", _contentValues.whereArgsAsArray());
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
   }
 }

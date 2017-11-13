@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -67,7 +68,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -107,7 +108,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -256,8 +257,8 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   }
 
   public void clearCompiledStatements() {
-    userDao.clearCompiledStatements();
-    petDao.clearCompiledStatements();
+    UserDaoImpl.clearCompiledStatements();
+    PetDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -317,5 +318,39 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
      * @throws Throwable
      */
     T onExecute(BindPetUserDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindPetUserDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private UserDaoImpl _userDao;
+
+    private PetDaoImpl _petDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindPetUserDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao UserDao
+     */
+    public UserDaoImpl getUserDao() {
+      if (_userDao==null) {
+        _userDao=new UserDaoImpl(_context);
+      }
+      return _userDao;
+    }
+
+    /**
+     *
+     * retrieve dao PetDao
+     */
+    public PetDaoImpl getPetDao() {
+      if (_petDao==null) {
+        _petDao=new PetDaoImpl(_context);
+      }
+      return _petDao;
+    }
   }
 }

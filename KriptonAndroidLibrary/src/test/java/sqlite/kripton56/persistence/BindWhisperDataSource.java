@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -55,7 +56,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -95,7 +96,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -231,7 +232,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   }
 
   public void clearCompiledStatements() {
-    daoMessage.clearCompiledStatements();
+    DaoMessageImpl.clearCompiledStatements();
   }
 
   /**
@@ -291,5 +292,26 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
      * @throws Throwable
      */
     T onExecute(BindWhisperDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindWhisperDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private DaoMessageImpl _daoMessage;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindWhisperDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao DaoMessage
+     */
+    public DaoMessageImpl getDaoMessage() {
+      if (_daoMessage==null) {
+        _daoMessage=new DaoMessageImpl(_context);
+      }
+      return _daoMessage;
+    }
   }
 }

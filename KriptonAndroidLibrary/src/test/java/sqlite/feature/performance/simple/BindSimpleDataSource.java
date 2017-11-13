@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -200,7 +201,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   }
 
   public void clearCompiledStatements() {
-    simpleAddressDao.clearCompiledStatements();
+    SimpleAddressDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -260,5 +261,26 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
      * @throws Throwable
      */
     T onExecute(BindSimpleDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindSimpleDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private SimpleAddressDaoImpl _simpleAddressDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindSimpleDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao SimpleAddressDao
+     */
+    public SimpleAddressDaoImpl getSimpleAddressDao() {
+      if (_simpleAddressDao==null) {
+        _simpleAddressDao=new SimpleAddressDaoImpl(_context);
+      }
+      return _simpleAddressDao;
+    }
   }
 }

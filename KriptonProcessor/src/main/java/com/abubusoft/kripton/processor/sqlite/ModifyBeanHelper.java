@@ -122,13 +122,13 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		if (!method.jql.hasDynamicParts()) {
 			psName = method.buildPreparedStatementName();
 			// generate SQL for insert
-			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE).build());
+			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
 
 			methodBuilder.beginControlFlow("if ($L==null)", psName);
 
 			// query builder
 			if (method.jql.isWhereConditions()) {
-				methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
+				methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);
 			}
 
 			// generate where condition
@@ -137,13 +137,13 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			// generate SQL
 			SqlModifyBuilder.generateSQL(method, methodBuilder);
 
-			methodBuilder.addStatement("$L = $T.compile(dataSource, _sql)", psName, KriptonDatabaseWrapper.class);
+			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
 			methodBuilder.endControlFlow();
 
 		} else {
 			// query builder
 			if (method.jql.isWhereConditions()) {
-				methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
+				methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);
 			}
 
 			// generate where condition
@@ -157,7 +157,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		if (method.isLogEnabled()) {
 			// generate log section
 			methodBuilder.addComment("log section BEGIN");
-			methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+			methodBuilder.beginControlFlow("if (_context.isLogEnabled())");
 
 			SqlModifyBuilder.generateLogForModifiers(method, methodBuilder);
 
@@ -174,9 +174,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		if (method.jql.hasDynamicParts()) {
 			// does not memorize compiled statement, it can vary every time
 			// generate SQL for insert
-			methodBuilder.addStatement("int result = $T.updateDelete(dataSource, _sql, _contentValues)", KriptonDatabaseWrapper.class);
+			methodBuilder.addStatement("int result = $T.updateDelete(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
 		} else {
-			methodBuilder.addStatement("int result = $T.updateDelete(dataSource, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);
+			methodBuilder.addStatement("int result = $T.updateDelete(_context, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);
 		}
 
 		if (method.getParent().getParent().generateRx) {

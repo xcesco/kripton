@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -230,7 +231,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   }
 
   public void clearCompiledStatements() {
-    beanDao2.clearCompiledStatements();
+    BeanDao2Impl.clearCompiledStatements();
   }
 
   /**
@@ -290,5 +291,26 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
      * @throws Throwable
      */
     T onExecute(BindBean2DaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindBean2DaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private BeanDao2Impl _beanDao2;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindBean2DataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao BeanDao2
+     */
+    public BeanDao2Impl getBeanDao2() {
+      if (_beanDao2==null) {
+        _beanDao2=new BeanDao2Impl(_context);
+      }
+      return _beanDao2;
+    }
   }
 }

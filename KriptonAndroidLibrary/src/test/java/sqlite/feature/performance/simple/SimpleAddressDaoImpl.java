@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import java.util.ArrayList;
 
 /**
@@ -17,16 +18,16 @@ import java.util.ArrayList;
  *  @see SimpleAddressItemTable
  */
 public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDao {
-  protected String SELECT_BY_ID_SQL1 = "SELECT id, name, address, city, state, phone FROM simple_address_item WHERE id=?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, name, address, city, state, phone FROM simple_address_item WHERE id=?";
 
-  private SQLiteStatement deleteAllPreparedStatement0;
+  private static SQLiteStatement deleteAllPreparedStatement0;
 
-  protected String SELECT_ALL_SQL2 = "SELECT id, name, address, city, state, phone FROM simple_address_item";
+  private static final String SELECT_ALL_SQL2 = "SELECT id, name, address, city, state, phone FROM simple_address_item";
 
-  private SQLiteStatement insertPreparedStatement1;
+  private static SQLiteStatement insertPreparedStatement1;
 
-  public SimpleAddressDaoImpl(BindSimpleDataSource dataSet) {
-    super(dataSet);
+  public SimpleAddressDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -109,9 +110,9 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
 
       // generate sql
       String _sql="DELETE FROM simple_address_item";
-      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllPreparedStatement0, _contentValues);
   }
 
   /**
@@ -219,13 +220,13 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
     if (insertPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO simple_address_item (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
     bean.setId(result);
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (deleteAllPreparedStatement0!=null) {
       deleteAllPreparedStatement0.close();
       deleteAllPreparedStatement0=null;

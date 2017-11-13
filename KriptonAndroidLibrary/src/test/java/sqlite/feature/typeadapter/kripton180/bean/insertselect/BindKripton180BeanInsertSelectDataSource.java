@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -55,7 +56,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -95,7 +96,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -231,7 +232,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   }
 
   public void clearCompiledStatements() {
-    employeeBeanInsertSelectDao.clearCompiledStatements();
+    EmployeeBeanInsertSelectDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -291,5 +292,26 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
      * @throws Throwable
      */
     T onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindKripton180BeanInsertSelectDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private EmployeeBeanInsertSelectDaoImpl _employeeBeanInsertSelectDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindKripton180BeanInsertSelectDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao EmployeeBeanInsertSelectDao
+     */
+    public EmployeeBeanInsertSelectDaoImpl getEmployeeBeanInsertSelectDao() {
+      if (_employeeBeanInsertSelectDao==null) {
+        _employeeBeanInsertSelectDao=new EmployeeBeanInsertSelectDaoImpl(_context);
+      }
+      return _employeeBeanInsertSelectDao;
+    }
   }
 }

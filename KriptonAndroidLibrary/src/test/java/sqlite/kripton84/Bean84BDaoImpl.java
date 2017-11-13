@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -30,22 +31,22 @@ import java.nio.charset.StandardCharsets;
  *  @see Bean84BTable
  */
 public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
-  protected String SELECT_BY_ID_SQL1 = "SELECT id, column_bean FROM bean84_b WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, column_bean FROM bean84_b WHERE id = ?";
 
-  protected String SELECT_BY_BEAN_SQL2 = "SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?";
+  private static final String SELECT_BY_BEAN_SQL2 = "SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?";
 
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  private SQLiteStatement updateAllPreparedStatement1;
+  private static SQLiteStatement updateAllPreparedStatement1;
 
-  private SQLiteStatement deleteAllPreparedStatement2;
+  private static SQLiteStatement deleteAllPreparedStatement2;
 
   /**
    * Bean84B2BindMap */
   private Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
 
-  public Bean84BDaoImpl(BindBean84BDataSource dataSet) {
-    super(dataSet);
+  public Bean84BDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -77,7 +78,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     _contentValues.addWhereArgs(String.valueOf(param1));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -91,7 +92,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -142,7 +143,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     _contentValues.addWhereArgs((param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -156,7 +157,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -204,7 +205,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -235,9 +236,9 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean84_b (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -274,10 +275,10 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
       // generate sql
       String _sql="UPDATE bean84_b SET column_bean=?";
-      updateAllPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean84_b SET column_bean=:columnBean");
@@ -302,7 +303,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateAllPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateAllPreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -326,10 +327,10 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
 
       // generate sql
       String _sql="DELETE FROM bean84_b";
-      deleteAllPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteAllPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean84_b");
@@ -342,7 +343,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteAllPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllPreparedStatement2, _contentValues);
     return result!=0;
   }
 
@@ -391,7 +392,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

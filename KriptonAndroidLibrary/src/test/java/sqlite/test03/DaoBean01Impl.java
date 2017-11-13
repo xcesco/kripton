@@ -4,6 +4,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +19,10 @@ import java.util.List;
  *  @see Bean01Table
  */
 public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
-  protected String LIST_ALL_SQL1 = "SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1";
+  private static final String LIST_ALL_SQL1 = "SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1";
 
-  public DaoBean01Impl(BindDummy01DataSource dataSet) {
-    super(dataSet);
+  public DaoBean01Impl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -49,7 +50,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -63,7 +64,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -99,6 +100,6 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
   }
 }

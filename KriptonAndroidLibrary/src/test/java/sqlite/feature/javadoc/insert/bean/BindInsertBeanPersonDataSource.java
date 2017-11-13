@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -55,7 +56,7 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -95,7 +96,7 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -231,7 +232,7 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
   }
 
   public void clearCompiledStatements() {
-    insertBeanPersonDao.clearCompiledStatements();
+    InsertBeanPersonDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -291,5 +292,26 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
      * @throws Throwable
      */
     T onExecute(BindInsertBeanPersonDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindInsertBeanPersonDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private InsertBeanPersonDaoImpl _insertBeanPersonDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindInsertBeanPersonDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao InsertBeanPersonDao
+     */
+    public InsertBeanPersonDaoImpl getInsertBeanPersonDao() {
+      if (_insertBeanPersonDao==null) {
+        _insertBeanPersonDao=new InsertBeanPersonDaoImpl(_context);
+      }
+      return _insertBeanPersonDao;
+    }
   }
 }

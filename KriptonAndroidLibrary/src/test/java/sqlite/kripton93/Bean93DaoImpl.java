@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -21,24 +22,24 @@ import java.util.List;
  *  @see Bean93Table
  */
 public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
-  protected String SELECT_BY_BEAN_SQL1 = "SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ? || '%'";
+  private static final String SELECT_BY_BEAN_SQL1 = "SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ? || '%'";
 
-  protected String SELECT_ALL_SQL2 = "SELECT id, name, surname, type_name FROM bean93";
+  private static final String SELECT_ALL_SQL2 = "SELECT id, name, surname, type_name FROM bean93";
 
-  private SQLiteStatement insertDefaultPreparedStatement0;
+  private static SQLiteStatement insertDefaultPreparedStatement0;
 
-  private SQLiteStatement insertAbortPreparedStatement1;
+  private static SQLiteStatement insertAbortPreparedStatement1;
 
-  private SQLiteStatement insertFailPreparedStatement2;
+  private static SQLiteStatement insertFailPreparedStatement2;
 
-  private SQLiteStatement insertIgnorePreparedStatement3;
+  private static SQLiteStatement insertIgnorePreparedStatement3;
 
-  private SQLiteStatement insertReplacePreparedStatement4;
+  private static SQLiteStatement insertReplacePreparedStatement4;
 
-  private SQLiteStatement insertRollbackPreparedStatement5;
+  private static SQLiteStatement insertRollbackPreparedStatement5;
 
-  public Bean93DaoImpl(BindBean93DataSource dataSet) {
-    super(dataSet);
+  public Bean93DaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -72,7 +73,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -86,7 +87,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -135,7 +136,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -149,7 +150,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -219,7 +220,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -250,9 +251,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     if (insertDefaultPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertDefaultPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertDefaultPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertDefaultPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertDefaultPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -298,7 +299,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -329,9 +330,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     if (insertAbortPreparedStatement1==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT OR ABORT INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertAbortPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertAbortPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertAbortPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertAbortPreparedStatement1, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -377,7 +378,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -408,9 +409,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     if (insertFailPreparedStatement2==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT OR FAIL INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertFailPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertFailPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertFailPreparedStatement2, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertFailPreparedStatement2, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -456,7 +457,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -487,9 +488,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     if (insertIgnorePreparedStatement3==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT OR IGNORE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertIgnorePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertIgnorePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertIgnorePreparedStatement3, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertIgnorePreparedStatement3, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -535,7 +536,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -566,9 +567,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     if (insertReplacePreparedStatement4==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT OR REPLACE INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertReplacePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertReplacePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertReplacePreparedStatement4, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertReplacePreparedStatement4, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -614,7 +615,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -645,15 +646,15 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     if (insertRollbackPreparedStatement5==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT OR ROLLBACK INTO bean93 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertRollbackPreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertRollbackPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertRollbackPreparedStatement5, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertRollbackPreparedStatement5, _contentValues);
     bean.id=result;
 
     return result!=-1;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertDefaultPreparedStatement0!=null) {
       insertDefaultPreparedStatement0.close();
       insertDefaultPreparedStatement0=null;

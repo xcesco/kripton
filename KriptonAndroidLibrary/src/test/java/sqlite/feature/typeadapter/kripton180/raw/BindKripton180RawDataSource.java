@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -55,7 +56,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -95,7 +96,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -231,7 +232,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
   }
 
   public void clearCompiledStatements() {
-    employeeRawDao.clearCompiledStatements();
+    EmployeeRawDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -291,5 +292,26 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
      * @throws Throwable
      */
     T onExecute(BindKripton180RawDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindKripton180RawDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private EmployeeRawDaoImpl _employeeRawDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindKripton180RawDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao EmployeeRawDao
+     */
+    public EmployeeRawDaoImpl getEmployeeRawDao() {
+      if (_employeeRawDao==null) {
+        _employeeRawDao=new EmployeeRawDaoImpl(_context);
+      }
+      return _employeeRawDao;
+    }
   }
 }

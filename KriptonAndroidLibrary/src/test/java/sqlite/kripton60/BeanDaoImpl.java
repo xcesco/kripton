@@ -11,6 +11,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CalendarUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.CurrencyUtils;
@@ -54,308 +55,308 @@ import java.util.TimeZone;
  *  @see BeanTable
  */
 public class BeanDaoImpl extends AbstractDao implements BeanDao {
-  private SQLiteStatement deletePreparedStatement0;
+  private static SQLiteStatement deletePreparedStatement0;
 
-  private SQLiteStatement deletePreparedStatement1;
+  private static SQLiteStatement deletePreparedStatement1;
 
-  private SQLiteStatement deletePreparedStatement2;
+  private static SQLiteStatement deletePreparedStatement2;
 
-  private SQLiteStatement deletePreparedStatement3;
+  private static SQLiteStatement deletePreparedStatement3;
 
-  private SQLiteStatement deleteArrayBeanTypePreparedStatement4;
+  private static SQLiteStatement deleteArrayBeanTypePreparedStatement4;
 
-  private SQLiteStatement deleteArrayLongPreparedStatement5;
+  private static SQLiteStatement deleteArrayLongPreparedStatement5;
 
-  private SQLiteStatement deleteArrayLongTypePreparedStatement6;
+  private static SQLiteStatement deleteArrayLongTypePreparedStatement6;
 
-  private SQLiteStatement deleteBytePreparedStatement7;
+  private static SQLiteStatement deleteBytePreparedStatement7;
 
-  private SQLiteStatement deleteByteTypePreparedStatement8;
+  private static SQLiteStatement deleteByteTypePreparedStatement8;
 
-  private SQLiteStatement deleteCalendarPreparedStatement9;
+  private static SQLiteStatement deleteCalendarPreparedStatement9;
 
-  private SQLiteStatement deleteCharPreparedStatement10;
+  private static SQLiteStatement deleteCharPreparedStatement10;
 
-  private SQLiteStatement deleteCharTypePreparedStatement11;
+  private static SQLiteStatement deleteCharTypePreparedStatement11;
 
-  private SQLiteStatement deleteCurrencyPreparedStatement12;
+  private static SQLiteStatement deleteCurrencyPreparedStatement12;
 
-  private SQLiteStatement deleteDatePreparedStatement13;
+  private static SQLiteStatement deleteDatePreparedStatement13;
 
-  private SQLiteStatement deleteDoublePreparedStatement14;
+  private static SQLiteStatement deleteDoublePreparedStatement14;
 
-  private SQLiteStatement deleteDoubleTypePreparedStatement15;
+  private static SQLiteStatement deleteDoubleTypePreparedStatement15;
 
-  private SQLiteStatement deleteEnumTypePreparedStatement16;
+  private static SQLiteStatement deleteEnumTypePreparedStatement16;
 
-  private SQLiteStatement deleteFloatPreparedStatement17;
+  private static SQLiteStatement deleteFloatPreparedStatement17;
 
-  private SQLiteStatement deleteFloatTypePreparedStatement18;
+  private static SQLiteStatement deleteFloatTypePreparedStatement18;
 
-  private SQLiteStatement deleteIntPreparedStatement19;
+  private static SQLiteStatement deleteIntPreparedStatement19;
 
-  private SQLiteStatement deleteIntTypePreparedStatement20;
+  private static SQLiteStatement deleteIntTypePreparedStatement20;
 
-  private SQLiteStatement deleteListLongPreparedStatement21;
+  private static SQLiteStatement deleteListLongPreparedStatement21;
 
-  private SQLiteStatement deleteLocalePreparedStatement22;
+  private static SQLiteStatement deleteLocalePreparedStatement22;
 
-  private SQLiteStatement deleteLongPreparedStatement23;
+  private static SQLiteStatement deleteLongPreparedStatement23;
 
-  private SQLiteStatement deleteLongTypePreparedStatement24;
+  private static SQLiteStatement deleteLongTypePreparedStatement24;
 
-  private SQLiteStatement deleteShortPreparedStatement25;
+  private static SQLiteStatement deleteShortPreparedStatement25;
 
-  private SQLiteStatement deleteShortTypePreparedStatement26;
+  private static SQLiteStatement deleteShortTypePreparedStatement26;
 
-  private SQLiteStatement deleteStringPreparedStatement27;
+  private static SQLiteStatement deleteStringPreparedStatement27;
 
-  private SQLiteStatement deleteTimePreparedStatement28;
+  private static SQLiteStatement deleteTimePreparedStatement28;
 
-  private SQLiteStatement deleteTimeZonePreparedStatement29;
+  private static SQLiteStatement deleteTimeZonePreparedStatement29;
 
-  private SQLiteStatement deleteURLPreparedStatement30;
+  private static SQLiteStatement deleteURLPreparedStatement30;
 
-  private SQLiteStatement insertPreparedStatement31;
+  private static SQLiteStatement insertPreparedStatement31;
 
-  private SQLiteStatement insertPreparedStatement32;
+  private static SQLiteStatement insertPreparedStatement32;
 
-  private SQLiteStatement insertPreparedStatement33;
+  private static SQLiteStatement insertPreparedStatement33;
 
-  private SQLiteStatement insertPreparedStatement34;
+  private static SQLiteStatement insertPreparedStatement34;
 
-  private SQLiteStatement insertPreparedStatement35;
+  private static SQLiteStatement insertPreparedStatement35;
 
-  private SQLiteStatement insertArrayBeanTypePreparedStatement36;
+  private static SQLiteStatement insertArrayBeanTypePreparedStatement36;
 
-  private SQLiteStatement insertArrayLongPreparedStatement37;
+  private static SQLiteStatement insertArrayLongPreparedStatement37;
 
-  private SQLiteStatement insertArrayLongTypePreparedStatement38;
+  private static SQLiteStatement insertArrayLongTypePreparedStatement38;
 
-  private SQLiteStatement insertBytePreparedStatement39;
+  private static SQLiteStatement insertBytePreparedStatement39;
 
-  private SQLiteStatement insertByteTypePreparedStatement40;
+  private static SQLiteStatement insertByteTypePreparedStatement40;
 
-  private SQLiteStatement insertCalendarPreparedStatement41;
+  private static SQLiteStatement insertCalendarPreparedStatement41;
 
-  private SQLiteStatement insertCharPreparedStatement42;
+  private static SQLiteStatement insertCharPreparedStatement42;
 
-  private SQLiteStatement insertCharTypePreparedStatement43;
+  private static SQLiteStatement insertCharTypePreparedStatement43;
 
-  private SQLiteStatement insertCurrencyPreparedStatement44;
+  private static SQLiteStatement insertCurrencyPreparedStatement44;
 
-  private SQLiteStatement insertDatePreparedStatement45;
+  private static SQLiteStatement insertDatePreparedStatement45;
 
-  private SQLiteStatement insertDoublePreparedStatement46;
+  private static SQLiteStatement insertDoublePreparedStatement46;
 
-  private SQLiteStatement insertDoubleTypePreparedStatement47;
+  private static SQLiteStatement insertDoubleTypePreparedStatement47;
 
-  private SQLiteStatement insertEnumTypePreparedStatement48;
+  private static SQLiteStatement insertEnumTypePreparedStatement48;
 
-  private SQLiteStatement insertFloatPreparedStatement49;
+  private static SQLiteStatement insertFloatPreparedStatement49;
 
-  private SQLiteStatement insertFloatTypePreparedStatement50;
+  private static SQLiteStatement insertFloatTypePreparedStatement50;
 
-  private SQLiteStatement insertIntPreparedStatement51;
+  private static SQLiteStatement insertIntPreparedStatement51;
 
-  private SQLiteStatement insertIntTypePreparedStatement52;
+  private static SQLiteStatement insertIntTypePreparedStatement52;
 
-  private SQLiteStatement insertListLongPreparedStatement53;
+  private static SQLiteStatement insertListLongPreparedStatement53;
 
-  private SQLiteStatement insertLocalePreparedStatement54;
+  private static SQLiteStatement insertLocalePreparedStatement54;
 
-  private SQLiteStatement insertLongPreparedStatement55;
+  private static SQLiteStatement insertLongPreparedStatement55;
 
-  private SQLiteStatement insertLongTypePreparedStatement56;
+  private static SQLiteStatement insertLongTypePreparedStatement56;
 
-  private SQLiteStatement insertShortPreparedStatement57;
+  private static SQLiteStatement insertShortPreparedStatement57;
 
-  private SQLiteStatement insertShortTypePreparedStatement58;
+  private static SQLiteStatement insertShortTypePreparedStatement58;
 
-  private SQLiteStatement insertStringPreparedStatement59;
+  private static SQLiteStatement insertStringPreparedStatement59;
 
-  private SQLiteStatement insertTimePreparedStatement60;
+  private static SQLiteStatement insertTimePreparedStatement60;
 
-  private SQLiteStatement insertTimeZonePreparedStatement61;
+  private static SQLiteStatement insertTimeZonePreparedStatement61;
 
-  private SQLiteStatement insertURLPreparedStatement62;
+  private static SQLiteStatement insertURLPreparedStatement62;
 
-  protected String SELECT_LIST_SQL1 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?";
+  private static final String SELECT_LIST_SQL1 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?";
 
-  protected String SELECT_ONE_SQL2 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean";
+  private static final String SELECT_ONE_SQL2 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean";
 
-  protected String SELECT_ONE_SQL3 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal=?";
+  private static final String SELECT_ONE_SQL3 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal=?";
 
-  protected String SELECT_ONE_SQL4 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal=?";
+  private static final String SELECT_ONE_SQL4 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_big_decimal=?";
 
-  protected String SELECT_ONE_SQL5 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool_type=?";
+  private static final String SELECT_ONE_SQL5 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool_type=?";
 
-  protected String SELECT_ONE_SQL6 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool=?";
+  private static final String SELECT_ONE_SQL6 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bool=?";
 
-  protected String SELECT_ONE_SQL7 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?";
+  private static final String SELECT_ONE_SQL7 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?";
 
-  protected String SELECT_ONE_SQL8 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?";
+  private static final String SELECT_ONE_SQL8 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE id = ?";
 
-  protected String SELECT_ONE_ARRAY_BEAN_TYPE_SQL9 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bean_array=?";
+  private static final String SELECT_ONE_ARRAY_BEAN_TYPE_SQL9 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_bean_array=?";
 
-  protected String SELECT_ONE_ARRAY_LONG_SQL10 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_array=?";
+  private static final String SELECT_ONE_ARRAY_LONG_SQL10 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_array=?";
 
-  protected String SELECT_ONE_ARRAY_LONG_TYPE_SQL11 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type_array=?";
+  private static final String SELECT_ONE_ARRAY_LONG_TYPE_SQL11 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type_array=?";
 
-  protected String SELECT_ONE_BYTE_SQL12 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte=?";
+  private static final String SELECT_ONE_BYTE_SQL12 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte=?";
 
-  protected String SELECT_ONE_BYTE_TYPE_SQL13 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte_type=?";
+  private static final String SELECT_ONE_BYTE_TYPE_SQL13 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_byte_type=?";
 
-  protected String SELECT_ONE_CALENDAR_SQL14 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_calendar=?";
+  private static final String SELECT_ONE_CALENDAR_SQL14 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_calendar=?";
 
-  protected String SELECT_ONE_CHAR_SQL15 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type=?";
+  private static final String SELECT_ONE_CHAR_SQL15 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type=?";
 
-  protected String SELECT_ONE_CHAR_TYPE_SQL16 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type=?";
+  private static final String SELECT_ONE_CHAR_TYPE_SQL16 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_char_type=?";
 
-  protected String SELECT_ONE_CURRENCYE_SQL17 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_currency=?";
+  private static final String SELECT_ONE_CURRENCYE_SQL17 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_currency=?";
 
-  protected String SELECT_ONE_DATE_SQL18 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_date=?";
+  private static final String SELECT_ONE_DATE_SQL18 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_date=?";
 
-  protected String SELECT_ONE_DOUBLE_SQL19 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double=?";
+  private static final String SELECT_ONE_DOUBLE_SQL19 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double=?";
 
-  protected String SELECT_ONE_DOUBLE_TYPE_SQL20 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double_type=?";
+  private static final String SELECT_ONE_DOUBLE_TYPE_SQL20 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_double_type=?";
 
-  protected String SELECT_ONE_ENUM_TYPE_SQL21 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_enum_type=?";
+  private static final String SELECT_ONE_ENUM_TYPE_SQL21 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_enum_type=?";
 
-  protected String SELECT_ONE_FLOAT_SQL22 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float=?";
+  private static final String SELECT_ONE_FLOAT_SQL22 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float=?";
 
-  protected String SELECT_ONE_FLOAT_TYPE_SQL23 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float_type=?";
+  private static final String SELECT_ONE_FLOAT_TYPE_SQL23 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_float_type=?";
 
-  protected String SELECT_ONE_INT_SQL24 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int=?";
+  private static final String SELECT_ONE_INT_SQL24 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int=?";
 
-  protected String SELECT_ONE_INT_TYPE_SQL25 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int_type=?";
+  private static final String SELECT_ONE_INT_TYPE_SQL25 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_int_type=?";
 
-  protected String SELECT_ONE_LIST_LONG_SQL26 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_list=?";
+  private static final String SELECT_ONE_LIST_LONG_SQL26 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_list=?";
 
-  protected String SELECT_ONE_LOCALE_SQL27 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_locale=?";
+  private static final String SELECT_ONE_LOCALE_SQL27 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_locale=?";
 
-  protected String SELECT_ONE_LONG_SQL28 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long=?";
+  private static final String SELECT_ONE_LONG_SQL28 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long=?";
 
-  protected String SELECT_ONE_LONG_TYPE_SQL29 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type=?";
+  private static final String SELECT_ONE_LONG_TYPE_SQL29 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_long_type=?";
 
-  protected String SELECT_ONE_SHORT_SQL30 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short=?";
+  private static final String SELECT_ONE_SHORT_SQL30 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short=?";
 
-  protected String SELECT_ONE_SHORT_TYPE_SQL31 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short_type=?";
+  private static final String SELECT_ONE_SHORT_TYPE_SQL31 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_short_type=?";
 
-  protected String SELECT_ONE_STRING_SQL32 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_string=?";
+  private static final String SELECT_ONE_STRING_SQL32 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_string=?";
 
-  protected String SELECT_ONE_TIME_SQL33 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time=?";
+  private static final String SELECT_ONE_TIME_SQL33 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time=?";
 
-  protected String SELECT_ONE_TIME_ZONE_SQL34 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time_zone=?";
+  private static final String SELECT_ONE_TIME_ZONE_SQL34 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_time_zone=?";
 
-  protected String SELECT_ONE_U_R_L_SQL35 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_url=?";
+  private static final String SELECT_ONE_U_R_L_SQL35 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean WHERE value_url=?";
 
-  protected String SELECT_VALUE_BOOL_SQL36 = "SELECT value_bool FROM bean";
+  private static final String SELECT_VALUE_BOOL_SQL36 = "SELECT value_bool FROM bean";
 
-  protected String SELECT_VALUE_BOOL_TYPE_SQL37 = "SELECT value_bool_type FROM bean";
+  private static final String SELECT_VALUE_BOOL_TYPE_SQL37 = "SELECT value_bool_type FROM bean";
 
-  protected String SELECT_VALUE_BYTE_SQL38 = "SELECT value_byte FROM bean";
+  private static final String SELECT_VALUE_BYTE_SQL38 = "SELECT value_byte FROM bean";
 
-  protected String SELECT_VALUE_BYTE_TYPE_SQL39 = "SELECT value_byte_type FROM bean";
+  private static final String SELECT_VALUE_BYTE_TYPE_SQL39 = "SELECT value_byte_type FROM bean";
 
-  protected String SELECT_VALUE_CHAR_SQL40 = "SELECT value_char FROM bean";
+  private static final String SELECT_VALUE_CHAR_SQL40 = "SELECT value_char FROM bean";
 
-  protected String SELECT_VALUE_CHAR_TYPE_SQL41 = "SELECT value_char_type FROM bean";
+  private static final String SELECT_VALUE_CHAR_TYPE_SQL41 = "SELECT value_char_type FROM bean";
 
-  protected String SELECT_VALUE_DOUBLE_SQL42 = "SELECT value_double FROM bean";
+  private static final String SELECT_VALUE_DOUBLE_SQL42 = "SELECT value_double FROM bean";
 
-  protected String SELECT_VALUE_DOUBLE_TYPE_SQL43 = "SELECT value_double_type FROM bean";
+  private static final String SELECT_VALUE_DOUBLE_TYPE_SQL43 = "SELECT value_double_type FROM bean";
 
-  protected String SELECT_VALUE_FLOAT_SQL44 = "SELECT value_float FROM bean";
+  private static final String SELECT_VALUE_FLOAT_SQL44 = "SELECT value_float FROM bean";
 
-  protected String SELECT_VALUE_FLOAT_TYPE_SQL45 = "SELECT value_float_type FROM bean";
+  private static final String SELECT_VALUE_FLOAT_TYPE_SQL45 = "SELECT value_float_type FROM bean";
 
-  protected String SELECT_VALUE_INT_SQL46 = "SELECT value_int FROM bean";
+  private static final String SELECT_VALUE_INT_SQL46 = "SELECT value_int FROM bean";
 
-  protected String SELECT_VALUE_INT_TYPE_SQL47 = "SELECT value_int_type FROM bean";
+  private static final String SELECT_VALUE_INT_TYPE_SQL47 = "SELECT value_int_type FROM bean";
 
-  protected String SELECT_VALUE_LONG_SQL48 = "SELECT value_long FROM bean";
+  private static final String SELECT_VALUE_LONG_SQL48 = "SELECT value_long FROM bean";
 
-  protected String SELECT_VALUE_LONG_TYPE_SQL49 = "SELECT value_long_type FROM bean";
+  private static final String SELECT_VALUE_LONG_TYPE_SQL49 = "SELECT value_long_type FROM bean";
 
-  protected String SELECT_VALUE_SHORT_SQL50 = "SELECT value_short FROM bean";
+  private static final String SELECT_VALUE_SHORT_SQL50 = "SELECT value_short FROM bean";
 
-  protected String SELECT_VALUE_SHORT_TYPE_SQL51 = "SELECT value_short_type FROM bean";
+  private static final String SELECT_VALUE_SHORT_TYPE_SQL51 = "SELECT value_short_type FROM bean";
 
-  protected String SELECT_VALUE_STRING_SQL52 = "SELECT value_string FROM bean";
+  private static final String SELECT_VALUE_STRING_SQL52 = "SELECT value_string FROM bean";
 
-  private SQLiteStatement updateOnePreparedStatement63;
+  private static SQLiteStatement updateOnePreparedStatement63;
 
-  private SQLiteStatement updateOnePreparedStatement64;
+  private static SQLiteStatement updateOnePreparedStatement64;
 
-  private SQLiteStatement updateOnePreparedStatement65;
+  private static SQLiteStatement updateOnePreparedStatement65;
 
-  private SQLiteStatement updateOnePreparedStatement66;
+  private static SQLiteStatement updateOnePreparedStatement66;
 
-  private SQLiteStatement updateOnePreparedStatement67;
+  private static SQLiteStatement updateOnePreparedStatement67;
 
-  private SQLiteStatement updateOnePreparedStatement68;
+  private static SQLiteStatement updateOnePreparedStatement68;
 
-  private SQLiteStatement updateOneArrayBeanPreparedStatement69;
+  private static SQLiteStatement updateOneArrayBeanPreparedStatement69;
 
-  private SQLiteStatement updateOneArrayLongPreparedStatement70;
+  private static SQLiteStatement updateOneArrayLongPreparedStatement70;
 
-  private SQLiteStatement updateOneArrayLongTypePreparedStatement71;
+  private static SQLiteStatement updateOneArrayLongTypePreparedStatement71;
 
-  private SQLiteStatement updateOneBytePreparedStatement72;
+  private static SQLiteStatement updateOneBytePreparedStatement72;
 
-  private SQLiteStatement updateOneByteTypePreparedStatement73;
+  private static SQLiteStatement updateOneByteTypePreparedStatement73;
 
-  private SQLiteStatement updateOneCalendarPreparedStatement74;
+  private static SQLiteStatement updateOneCalendarPreparedStatement74;
 
-  private SQLiteStatement updateOneCharPreparedStatement75;
+  private static SQLiteStatement updateOneCharPreparedStatement75;
 
-  private SQLiteStatement updateOneCharTypePreparedStatement76;
+  private static SQLiteStatement updateOneCharTypePreparedStatement76;
 
-  private SQLiteStatement updateOneCurrencyPreparedStatement77;
+  private static SQLiteStatement updateOneCurrencyPreparedStatement77;
 
-  private SQLiteStatement updateOneDatePreparedStatement78;
+  private static SQLiteStatement updateOneDatePreparedStatement78;
 
-  private SQLiteStatement updateOneDoublePreparedStatement79;
+  private static SQLiteStatement updateOneDoublePreparedStatement79;
 
-  private SQLiteStatement updateOneDoubleTypePreparedStatement80;
+  private static SQLiteStatement updateOneDoubleTypePreparedStatement80;
 
-  private SQLiteStatement updateOneEnumTypePreparedStatement81;
+  private static SQLiteStatement updateOneEnumTypePreparedStatement81;
 
-  private SQLiteStatement updateOneFloatPreparedStatement82;
+  private static SQLiteStatement updateOneFloatPreparedStatement82;
 
-  private SQLiteStatement updateOneFloatTypePreparedStatement83;
+  private static SQLiteStatement updateOneFloatTypePreparedStatement83;
 
-  private SQLiteStatement updateOneIntPreparedStatement84;
+  private static SQLiteStatement updateOneIntPreparedStatement84;
 
-  private SQLiteStatement updateOneIntTypePreparedStatement85;
+  private static SQLiteStatement updateOneIntTypePreparedStatement85;
 
-  private SQLiteStatement updateOneListLongPreparedStatement86;
+  private static SQLiteStatement updateOneListLongPreparedStatement86;
 
-  private SQLiteStatement updateOneLocalePreparedStatement87;
+  private static SQLiteStatement updateOneLocalePreparedStatement87;
 
-  private SQLiteStatement updateOneLongPreparedStatement88;
+  private static SQLiteStatement updateOneLongPreparedStatement88;
 
-  private SQLiteStatement updateOneLongTypePreparedStatement89;
+  private static SQLiteStatement updateOneLongTypePreparedStatement89;
 
-  private SQLiteStatement updateOneShortPreparedStatement90;
+  private static SQLiteStatement updateOneShortPreparedStatement90;
 
-  private SQLiteStatement updateOneShortTypePreparedStatement91;
+  private static SQLiteStatement updateOneShortTypePreparedStatement91;
 
-  private SQLiteStatement updateOneStringPreparedStatement92;
+  private static SQLiteStatement updateOneStringPreparedStatement92;
 
-  private SQLiteStatement updateOneTimePreparedStatement93;
+  private static SQLiteStatement updateOneTimePreparedStatement93;
 
-  private SQLiteStatement updateOneTimeZonePreparedStatement94;
+  private static SQLiteStatement updateOneTimeZonePreparedStatement94;
 
-  private SQLiteStatement updateOneURLPreparedStatement95;
+  private static SQLiteStatement updateOneURLPreparedStatement95;
 
   /**
    * BeanBindMap */
   private BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
 
-  public BeanDaoImpl(BindBeanDataSource dataSet) {
-    super(dataSet);
+  public BeanDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -381,7 +382,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deletePreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -393,10 +394,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_big_decimal=?";
-      deletePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deletePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_big_decimal=?");
@@ -409,7 +410,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -436,7 +437,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deletePreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -448,10 +449,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_big_decimal=?";
-      deletePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deletePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_big_decimal=?");
@@ -464,7 +465,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -491,7 +492,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deletePreparedStatement2==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -503,10 +504,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_bool_type=?";
-      deletePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deletePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_bool_type=?");
@@ -519,7 +520,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -546,7 +547,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deletePreparedStatement3==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -558,10 +559,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_bool=?";
-      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_bool=?");
@@ -574,7 +575,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deletePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -601,7 +602,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteArrayBeanTypePreparedStatement4==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -613,10 +614,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_bean_array=?";
-      deleteArrayBeanTypePreparedStatement4 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteArrayBeanTypePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_bean_array=?");
@@ -629,7 +630,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteArrayBeanTypePreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteArrayBeanTypePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -656,7 +657,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteArrayLongPreparedStatement5==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -668,10 +669,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_long_array=?";
-      deleteArrayLongPreparedStatement5 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteArrayLongPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_long_array=?");
@@ -684,7 +685,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteArrayLongPreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteArrayLongPreparedStatement5, _contentValues);
     return result;
   }
 
@@ -711,7 +712,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteArrayLongTypePreparedStatement6==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -723,10 +724,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_long_type_array=?";
-      deleteArrayLongTypePreparedStatement6 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteArrayLongTypePreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_long_type_array=?");
@@ -739,7 +740,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteArrayLongTypePreparedStatement6, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteArrayLongTypePreparedStatement6, _contentValues);
     return result;
   }
 
@@ -766,7 +767,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteBytePreparedStatement7==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -778,10 +779,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_byte=?";
-      deleteBytePreparedStatement7 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteBytePreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_byte=?");
@@ -794,7 +795,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteBytePreparedStatement7, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteBytePreparedStatement7, _contentValues);
     return result;
   }
 
@@ -821,7 +822,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteByteTypePreparedStatement8==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -833,10 +834,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_byte_type=?";
-      deleteByteTypePreparedStatement8 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteByteTypePreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_byte_type=?");
@@ -849,7 +850,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByteTypePreparedStatement8, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByteTypePreparedStatement8, _contentValues);
     return result;
   }
 
@@ -876,7 +877,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteCalendarPreparedStatement9==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -888,10 +889,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_calendar=?";
-      deleteCalendarPreparedStatement9 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteCalendarPreparedStatement9 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_calendar=?");
@@ -904,7 +905,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCalendarPreparedStatement9, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCalendarPreparedStatement9, _contentValues);
     return result;
   }
 
@@ -931,7 +932,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteCharPreparedStatement10==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -943,10 +944,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_char_type=?";
-      deleteCharPreparedStatement10 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteCharPreparedStatement10 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_char_type=?");
@@ -959,7 +960,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCharPreparedStatement10, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCharPreparedStatement10, _contentValues);
     return result;
   }
 
@@ -986,7 +987,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteCharTypePreparedStatement11==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -998,10 +999,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_char_type=?";
-      deleteCharTypePreparedStatement11 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteCharTypePreparedStatement11 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_char_type=?");
@@ -1014,7 +1015,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCharTypePreparedStatement11, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCharTypePreparedStatement11, _contentValues);
     return result;
   }
 
@@ -1041,7 +1042,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteCurrencyPreparedStatement12==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1053,10 +1054,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_currency=?";
-      deleteCurrencyPreparedStatement12 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteCurrencyPreparedStatement12 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_currency=?");
@@ -1069,7 +1070,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteCurrencyPreparedStatement12, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCurrencyPreparedStatement12, _contentValues);
     return result;
   }
 
@@ -1096,7 +1097,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteDatePreparedStatement13==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1108,10 +1109,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_date=?";
-      deleteDatePreparedStatement13 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteDatePreparedStatement13 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_date=?");
@@ -1124,7 +1125,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteDatePreparedStatement13, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteDatePreparedStatement13, _contentValues);
     return result;
   }
 
@@ -1151,7 +1152,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteDoublePreparedStatement14==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1163,10 +1164,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_double=?";
-      deleteDoublePreparedStatement14 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteDoublePreparedStatement14 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_double=?");
@@ -1179,7 +1180,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteDoublePreparedStatement14, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteDoublePreparedStatement14, _contentValues);
     return result;
   }
 
@@ -1206,7 +1207,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteDoubleTypePreparedStatement15==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1218,10 +1219,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_double_type=?";
-      deleteDoubleTypePreparedStatement15 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteDoubleTypePreparedStatement15 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_double_type=?");
@@ -1234,7 +1235,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteDoubleTypePreparedStatement15, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteDoubleTypePreparedStatement15, _contentValues);
     return result;
   }
 
@@ -1261,7 +1262,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteEnumTypePreparedStatement16==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1273,10 +1274,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_enum_type=?";
-      deleteEnumTypePreparedStatement16 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteEnumTypePreparedStatement16 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_enum_type=?");
@@ -1289,7 +1290,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteEnumTypePreparedStatement16, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteEnumTypePreparedStatement16, _contentValues);
     return result;
   }
 
@@ -1316,7 +1317,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteFloatPreparedStatement17==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1328,10 +1329,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_float=?";
-      deleteFloatPreparedStatement17 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteFloatPreparedStatement17 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_float=?");
@@ -1344,7 +1345,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteFloatPreparedStatement17, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteFloatPreparedStatement17, _contentValues);
     return result;
   }
 
@@ -1371,7 +1372,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteFloatTypePreparedStatement18==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1383,10 +1384,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_float_type=?";
-      deleteFloatTypePreparedStatement18 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteFloatTypePreparedStatement18 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_float_type=?");
@@ -1399,7 +1400,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteFloatTypePreparedStatement18, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteFloatTypePreparedStatement18, _contentValues);
     return result;
   }
 
@@ -1426,7 +1427,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteIntPreparedStatement19==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1438,10 +1439,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_int=?";
-      deleteIntPreparedStatement19 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteIntPreparedStatement19 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_int=?");
@@ -1454,7 +1455,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteIntPreparedStatement19, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteIntPreparedStatement19, _contentValues);
     return result;
   }
 
@@ -1481,7 +1482,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteIntTypePreparedStatement20==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1493,10 +1494,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_int_type=?";
-      deleteIntTypePreparedStatement20 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteIntTypePreparedStatement20 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_int_type=?");
@@ -1509,7 +1510,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteIntTypePreparedStatement20, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteIntTypePreparedStatement20, _contentValues);
     return result;
   }
 
@@ -1536,7 +1537,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteListLongPreparedStatement21==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1548,10 +1549,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_long_list=?";
-      deleteListLongPreparedStatement21 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteListLongPreparedStatement21 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_long_list=?");
@@ -1564,7 +1565,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteListLongPreparedStatement21, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteListLongPreparedStatement21, _contentValues);
     return result;
   }
 
@@ -1591,7 +1592,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteLocalePreparedStatement22==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1603,10 +1604,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_locale=?";
-      deleteLocalePreparedStatement22 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteLocalePreparedStatement22 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_locale=?");
@@ -1619,7 +1620,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteLocalePreparedStatement22, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteLocalePreparedStatement22, _contentValues);
     return result;
   }
 
@@ -1646,7 +1647,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteLongPreparedStatement23==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1658,10 +1659,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_long=?";
-      deleteLongPreparedStatement23 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteLongPreparedStatement23 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_long=?");
@@ -1674,7 +1675,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteLongPreparedStatement23, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteLongPreparedStatement23, _contentValues);
     return result;
   }
 
@@ -1701,7 +1702,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteLongTypePreparedStatement24==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1713,10 +1714,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_long_type=?";
-      deleteLongTypePreparedStatement24 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteLongTypePreparedStatement24 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_long_type=?");
@@ -1729,7 +1730,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteLongTypePreparedStatement24, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteLongTypePreparedStatement24, _contentValues);
     return result;
   }
 
@@ -1756,7 +1757,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteShortPreparedStatement25==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1768,10 +1769,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_short=?";
-      deleteShortPreparedStatement25 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteShortPreparedStatement25 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_short=?");
@@ -1784,7 +1785,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteShortPreparedStatement25, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteShortPreparedStatement25, _contentValues);
     return result;
   }
 
@@ -1811,7 +1812,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteShortTypePreparedStatement26==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1823,10 +1824,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_short_type=?";
-      deleteShortTypePreparedStatement26 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteShortTypePreparedStatement26 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_short_type=?");
@@ -1839,7 +1840,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteShortTypePreparedStatement26, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteShortTypePreparedStatement26, _contentValues);
     return result;
   }
 
@@ -1866,7 +1867,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteStringPreparedStatement27==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1878,10 +1879,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_string=?";
-      deleteStringPreparedStatement27 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteStringPreparedStatement27 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_string=?");
@@ -1894,7 +1895,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteStringPreparedStatement27, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteStringPreparedStatement27, _contentValues);
     return result;
   }
 
@@ -1921,7 +1922,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteTimePreparedStatement28==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1933,10 +1934,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_time=?";
-      deleteTimePreparedStatement28 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteTimePreparedStatement28 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_time=?");
@@ -1949,7 +1950,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteTimePreparedStatement28, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteTimePreparedStatement28, _contentValues);
     return result;
   }
 
@@ -1976,7 +1977,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteTimeZonePreparedStatement29==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -1988,10 +1989,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_time_zone=?";
-      deleteTimeZonePreparedStatement29 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteTimeZonePreparedStatement29 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_time_zone=?");
@@ -2004,7 +2005,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteTimeZonePreparedStatement29, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteTimeZonePreparedStatement29, _contentValues);
     return result;
   }
 
@@ -2031,7 +2032,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteURLPreparedStatement30==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -2043,10 +2044,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="DELETE FROM bean WHERE value_url=?";
-      deleteURLPreparedStatement30 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteURLPreparedStatement30 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean WHERE value_url=?");
@@ -2059,7 +2060,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteURLPreparedStatement30, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteURLPreparedStatement30, _contentValues);
     return result;
   }
 
@@ -2297,7 +2298,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2328,9 +2329,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertPreparedStatement31==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement31 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement31 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement31, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement31, _contentValues);
     bean.id=result;
 
     return result;
@@ -2361,7 +2362,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2392,9 +2393,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertPreparedStatement32==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement32 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement32 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement32, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement32, _contentValues);
     return result;
   }
 
@@ -2423,7 +2424,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2454,9 +2455,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertPreparedStatement33==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement33 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement33 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement33, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement33, _contentValues);
     return result;
   }
 
@@ -2481,7 +2482,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.put("value_bool_type", valueBoolType);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2512,9 +2513,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertPreparedStatement34==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement34 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement34 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement34, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement34, _contentValues);
     return result;
   }
 
@@ -2543,7 +2544,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2574,9 +2575,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertPreparedStatement35==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement35 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement35 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement35, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement35, _contentValues);
     return result;
   }
 
@@ -2605,7 +2606,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2636,9 +2637,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertArrayBeanTypePreparedStatement36==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertArrayBeanTypePreparedStatement36 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertArrayBeanTypePreparedStatement36 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertArrayBeanTypePreparedStatement36, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertArrayBeanTypePreparedStatement36, _contentValues);
     return result;
   }
 
@@ -2667,7 +2668,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2698,9 +2699,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertArrayLongPreparedStatement37==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertArrayLongPreparedStatement37 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertArrayLongPreparedStatement37 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertArrayLongPreparedStatement37, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertArrayLongPreparedStatement37, _contentValues);
     return result;
   }
 
@@ -2729,7 +2730,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2760,9 +2761,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertArrayLongTypePreparedStatement38==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertArrayLongTypePreparedStatement38 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertArrayLongTypePreparedStatement38 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertArrayLongTypePreparedStatement38, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertArrayLongTypePreparedStatement38, _contentValues);
     return result;
   }
 
@@ -2791,7 +2792,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2822,9 +2823,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertBytePreparedStatement39==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBytePreparedStatement39 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertBytePreparedStatement39 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertBytePreparedStatement39, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertBytePreparedStatement39, _contentValues);
     return result;
   }
 
@@ -2849,7 +2850,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.put("value_byte_type", valueByteType);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2880,9 +2881,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertByteTypePreparedStatement40==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertByteTypePreparedStatement40 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertByteTypePreparedStatement40 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertByteTypePreparedStatement40, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertByteTypePreparedStatement40, _contentValues);
     return result;
   }
 
@@ -2911,7 +2912,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -2942,9 +2943,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertCalendarPreparedStatement41==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertCalendarPreparedStatement41 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertCalendarPreparedStatement41 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertCalendarPreparedStatement41, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertCalendarPreparedStatement41, _contentValues);
     return result;
   }
 
@@ -2973,7 +2974,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3004,9 +3005,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertCharPreparedStatement42==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertCharPreparedStatement42 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertCharPreparedStatement42 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertCharPreparedStatement42, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertCharPreparedStatement42, _contentValues);
     return result;
   }
 
@@ -3031,7 +3032,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.put("value_char_type", (int)valueCharType);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3062,9 +3063,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertCharTypePreparedStatement43==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertCharTypePreparedStatement43 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertCharTypePreparedStatement43 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertCharTypePreparedStatement43, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertCharTypePreparedStatement43, _contentValues);
     return result;
   }
 
@@ -3093,7 +3094,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3124,9 +3125,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertCurrencyPreparedStatement44==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertCurrencyPreparedStatement44 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertCurrencyPreparedStatement44 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertCurrencyPreparedStatement44, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertCurrencyPreparedStatement44, _contentValues);
     return result;
   }
 
@@ -3155,7 +3156,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3186,9 +3187,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertDatePreparedStatement45==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertDatePreparedStatement45 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertDatePreparedStatement45 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertDatePreparedStatement45, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertDatePreparedStatement45, _contentValues);
     return result;
   }
 
@@ -3217,7 +3218,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3248,9 +3249,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertDoublePreparedStatement46==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertDoublePreparedStatement46 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertDoublePreparedStatement46 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertDoublePreparedStatement46, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertDoublePreparedStatement46, _contentValues);
     return result;
   }
 
@@ -3275,7 +3276,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.put("value_double_type", valueDoubleType);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3306,9 +3307,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertDoubleTypePreparedStatement47==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertDoubleTypePreparedStatement47 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertDoubleTypePreparedStatement47 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertDoubleTypePreparedStatement47, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertDoubleTypePreparedStatement47, _contentValues);
     return result;
   }
 
@@ -3337,7 +3338,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3368,9 +3369,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertEnumTypePreparedStatement48==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertEnumTypePreparedStatement48 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertEnumTypePreparedStatement48 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertEnumTypePreparedStatement48, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertEnumTypePreparedStatement48, _contentValues);
     return result;
   }
 
@@ -3399,7 +3400,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3430,9 +3431,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertFloatPreparedStatement49==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertFloatPreparedStatement49 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertFloatPreparedStatement49 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertFloatPreparedStatement49, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertFloatPreparedStatement49, _contentValues);
     return result;
   }
 
@@ -3457,7 +3458,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.put("value_float_type", valueFloatType);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3488,9 +3489,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertFloatTypePreparedStatement50==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertFloatTypePreparedStatement50 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertFloatTypePreparedStatement50 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertFloatTypePreparedStatement50, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertFloatTypePreparedStatement50, _contentValues);
     return result;
   }
 
@@ -3519,7 +3520,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3550,9 +3551,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertIntPreparedStatement51==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertIntPreparedStatement51 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertIntPreparedStatement51 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertIntPreparedStatement51, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertIntPreparedStatement51, _contentValues);
     return result;
   }
 
@@ -3577,7 +3578,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.put("value_int_type", valueIntType);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3608,9 +3609,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertIntTypePreparedStatement52==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertIntTypePreparedStatement52 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertIntTypePreparedStatement52 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertIntTypePreparedStatement52, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertIntTypePreparedStatement52, _contentValues);
     return result;
   }
 
@@ -3639,7 +3640,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3670,9 +3671,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertListLongPreparedStatement53==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertListLongPreparedStatement53 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertListLongPreparedStatement53 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertListLongPreparedStatement53, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertListLongPreparedStatement53, _contentValues);
     return result;
   }
 
@@ -3701,7 +3702,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3732,9 +3733,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertLocalePreparedStatement54==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertLocalePreparedStatement54 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertLocalePreparedStatement54 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertLocalePreparedStatement54, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertLocalePreparedStatement54, _contentValues);
     return result;
   }
 
@@ -3763,7 +3764,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3794,9 +3795,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertLongPreparedStatement55==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertLongPreparedStatement55 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertLongPreparedStatement55 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertLongPreparedStatement55, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertLongPreparedStatement55, _contentValues);
     return result;
   }
 
@@ -3821,7 +3822,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.put("value_long_type", valueLongType);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3852,9 +3853,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertLongTypePreparedStatement56==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertLongTypePreparedStatement56 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertLongTypePreparedStatement56 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertLongTypePreparedStatement56, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertLongTypePreparedStatement56, _contentValues);
     return result;
   }
 
@@ -3883,7 +3884,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3914,9 +3915,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertShortPreparedStatement57==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertShortPreparedStatement57 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertShortPreparedStatement57 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertShortPreparedStatement57, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertShortPreparedStatement57, _contentValues);
     return result;
   }
 
@@ -3941,7 +3942,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.put("value_short_type", (int)valueShortType);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -3972,9 +3973,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertShortTypePreparedStatement58==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertShortTypePreparedStatement58 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertShortTypePreparedStatement58 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertShortTypePreparedStatement58, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertShortTypePreparedStatement58, _contentValues);
     return result;
   }
 
@@ -4003,7 +4004,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -4034,9 +4035,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertStringPreparedStatement59==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertStringPreparedStatement59 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertStringPreparedStatement59 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertStringPreparedStatement59, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertStringPreparedStatement59, _contentValues);
     return result;
   }
 
@@ -4065,7 +4066,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -4096,9 +4097,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertTimePreparedStatement60==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertTimePreparedStatement60 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertTimePreparedStatement60 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertTimePreparedStatement60, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertTimePreparedStatement60, _contentValues);
     return result;
   }
 
@@ -4127,7 +4128,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -4158,9 +4159,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertTimeZonePreparedStatement61==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertTimeZonePreparedStatement61 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertTimeZonePreparedStatement61 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertTimeZonePreparedStatement61, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertTimeZonePreparedStatement61, _contentValues);
     return result;
   }
 
@@ -4189,7 +4190,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -4220,9 +4221,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (insertURLPreparedStatement62==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertURLPreparedStatement62 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertURLPreparedStatement62 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertURLPreparedStatement62, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertURLPreparedStatement62, _contentValues);
     return result;
   }
 
@@ -4295,7 +4296,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -4309,7 +4310,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -4478,7 +4479,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -4492,7 +4493,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -4663,7 +4664,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -4677,7 +4678,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -4848,7 +4849,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toString()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -4862,7 +4863,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -5033,7 +5034,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf(valueBoolType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -5047,7 +5048,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -5218,7 +5219,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueBool==null?"":String.valueOf(valueBool)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -5232,7 +5233,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -5404,7 +5405,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -5418,7 +5419,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -5635,7 +5636,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -5649,7 +5650,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -5733,7 +5734,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -5747,7 +5748,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -5918,7 +5919,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -5932,7 +5933,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -6103,7 +6104,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -6117,7 +6118,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -6288,7 +6289,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueByte==null?"":String.valueOf(valueByte)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -6302,7 +6303,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -6473,7 +6474,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf(valueByteType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -6487,7 +6488,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -6658,7 +6659,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -6672,7 +6673,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -6843,7 +6844,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueChar==null?"":String.valueOf((int)valueChar)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -6857,7 +6858,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -7028,7 +7029,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf((int)valueCharType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -7042,7 +7043,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -7213,7 +7214,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -7227,7 +7228,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -7398,7 +7399,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueDate==null?"":DateUtils.write(valueDate)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -7412,7 +7413,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -7583,7 +7584,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueDouble==null?"":String.valueOf(valueDouble)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -7597,7 +7598,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -7768,7 +7769,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf(valueDoubleType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -7782,7 +7783,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -7953,7 +7954,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueEnumType==null?"":valueEnumType.toString()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -7967,7 +7968,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -8138,7 +8139,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueFloat==null?"":String.valueOf(valueFloat)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -8152,7 +8153,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -8323,7 +8324,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf(valueFloatType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -8337,7 +8338,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -8508,7 +8509,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueInt==null?"":String.valueOf(valueInt)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -8522,7 +8523,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -8693,7 +8694,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf(valueIntType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -8707,7 +8708,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -8878,7 +8879,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -8892,7 +8893,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -9063,7 +9064,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueLocale==null?"":CalendarUtils.write(valueLocale)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -9077,7 +9078,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -9248,7 +9249,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueLong==null?"":String.valueOf(valueLong)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -9262,7 +9263,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -9433,7 +9434,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf(valueLongType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -9447,7 +9448,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -9618,7 +9619,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueShort==null?"":String.valueOf((int)valueShort)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -9632,7 +9633,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -9803,7 +9804,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs(String.valueOf((int)valueShortType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -9817,7 +9818,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -9988,7 +9989,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueString==null?"":valueString));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10002,7 +10003,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -10173,7 +10174,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueTime==null?"":SQLTimeUtils.write(valueTime)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10187,7 +10188,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -10358,7 +10359,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10372,7 +10373,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -10543,7 +10544,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     _contentValues.addWhereArgs((valueUrl==null?"":UrlUtils.write(valueUrl)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10557,7 +10558,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -10679,7 +10680,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10693,7 +10694,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -10728,7 +10729,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10742,7 +10743,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -10777,7 +10778,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10791,7 +10792,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -10826,7 +10827,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10840,7 +10841,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -10875,7 +10876,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10889,7 +10890,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -10924,7 +10925,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10938,7 +10939,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -10973,7 +10974,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -10987,7 +10988,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11022,7 +11023,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -11036,7 +11037,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11071,7 +11072,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -11085,7 +11086,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11120,7 +11121,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -11134,7 +11135,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11169,7 +11170,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -11183,7 +11184,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11218,7 +11219,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -11232,7 +11233,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11267,7 +11268,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -11281,7 +11282,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11316,7 +11317,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -11330,7 +11331,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11365,7 +11366,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -11379,7 +11380,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11414,7 +11415,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -11428,7 +11429,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11463,7 +11464,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -11477,7 +11478,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -11733,7 +11734,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOnePreparedStatement63==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -11745,10 +11746,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET value_bool_type=?, value_bool=?, value_byte_type=?, value_byte=?, value_short_type=?, value_short=?, value_int_type=?, value_int=?, value_string=?, value_char_type=?, value_char=?, value_float_type=?, value_float=?, value_big_integer=?, value_big_decimal=?, value_enum_type=?, value_long_type=?, value_long=?, value_double_type=?, value_double=?, value_locale=?, value_calendar=?, value_date=?, value_url=?, value_time=?, value_currency=?, value_time_zone=?, value_time_list=?, value_strin_list=?, value_long_list=?, value_byte_array=?, value_long_type_array=?, value_long_array=?, value_bean_array=?, value_string_array=?, value_char_list=?, value_char_type_array=?, value_char_array=?, value_map_string_bean=?, value_linked_map_string_bean=?, value_set_string=? WHERE id=?";
-      updateOnePreparedStatement63 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOnePreparedStatement63 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET value_bool_type=:valueBoolType, value_bool=:valueBool, value_byte_type=:valueByteType, value_byte=:valueByte, value_short_type=:valueShortType, value_short=:valueShort, value_int_type=:valueIntType, value_int=:valueInt, value_string=:valueString, value_char_type=:valueCharType, value_char=:valueChar, value_float_type=:valueFloatType, value_float=:valueFloat, value_big_integer=:valueBigInteger, value_big_decimal=:valueBigDecimal, value_enum_type=:valueEnumType, value_long_type=:valueLongType, value_long=:valueLong, value_double_type=:valueDoubleType, value_double=:valueDouble, value_locale=:valueLocale, value_calendar=:valueCalendar, value_date=:valueDate, value_url=:valueUrl, value_time=:valueTime, value_currency=:valueCurrency, value_time_zone=:valueTimeZone, value_time_list=:valueTimeList, value_strin_list=:valueStrinList, value_long_list=:valueLongList, value_byte_array=:valueByteArray, value_long_type_array=:valueLongTypeArray, value_long_array=:valueLongArray, value_bean_array=:valueBeanArray, value_string_array=:valueStringArray, value_char_list=:valueCharList, value_char_type_array=:valueCharTypeArray, value_char_array=:valueCharArray, value_map_string_bean=:valueMapStringBean, value_linked_map_string_bean=:valueLinkedMapStringBean, value_set_string=:valueSetString WHERE id=?");
@@ -11773,7 +11774,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement63, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement63, _contentValues);
     return result;
   }
 
@@ -11808,7 +11809,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOnePreparedStatement64==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -11820,10 +11821,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_big_decimal=?";
-      updateOnePreparedStatement64 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOnePreparedStatement64 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_big_decimal=?");
@@ -11848,7 +11849,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement64, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement64, _contentValues);
     return result;
   }
 
@@ -11883,7 +11884,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOnePreparedStatement65==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -11895,10 +11896,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_big_decimal=?";
-      updateOnePreparedStatement65 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOnePreparedStatement65 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_big_decimal=?");
@@ -11923,7 +11924,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement65, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement65, _contentValues);
     return result;
   }
 
@@ -11958,7 +11959,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOnePreparedStatement66==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -11970,10 +11971,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_bool_type=?";
-      updateOnePreparedStatement66 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOnePreparedStatement66 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_bool_type=?");
@@ -11998,7 +11999,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement66, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement66, _contentValues);
     return result;
   }
 
@@ -12033,7 +12034,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOnePreparedStatement67==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12045,10 +12046,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_bool=?";
-      updateOnePreparedStatement67 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOnePreparedStatement67 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_bool=?");
@@ -12073,7 +12074,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement67, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement67, _contentValues);
     return result;
   }
 
@@ -12112,7 +12113,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOnePreparedStatement68==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12124,10 +12125,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET value_set_string=? WHERE id=?";
-      updateOnePreparedStatement68 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOnePreparedStatement68 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET value_set_string=:valueSetString WHERE id=?");
@@ -12152,7 +12153,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement68, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement68, _contentValues);
     return result;
   }
 
@@ -12187,7 +12188,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneArrayBeanPreparedStatement69==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12199,10 +12200,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_bean_array=?";
-      updateOneArrayBeanPreparedStatement69 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneArrayBeanPreparedStatement69 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_bean_array=?");
@@ -12227,7 +12228,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneArrayBeanPreparedStatement69, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneArrayBeanPreparedStatement69, _contentValues);
     return result;
   }
 
@@ -12262,7 +12263,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneArrayLongPreparedStatement70==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12274,10 +12275,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_long_array=?";
-      updateOneArrayLongPreparedStatement70 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneArrayLongPreparedStatement70 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_long_array=?");
@@ -12302,7 +12303,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneArrayLongPreparedStatement70, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneArrayLongPreparedStatement70, _contentValues);
     return result;
   }
 
@@ -12337,7 +12338,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneArrayLongTypePreparedStatement71==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12349,10 +12350,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_long_type_array=?";
-      updateOneArrayLongTypePreparedStatement71 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneArrayLongTypePreparedStatement71 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_long_type_array=?");
@@ -12377,7 +12378,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneArrayLongTypePreparedStatement71, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneArrayLongTypePreparedStatement71, _contentValues);
     return result;
   }
 
@@ -12412,7 +12413,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneBytePreparedStatement72==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12424,10 +12425,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_byte=?";
-      updateOneBytePreparedStatement72 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneBytePreparedStatement72 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_byte=?");
@@ -12452,7 +12453,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneBytePreparedStatement72, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneBytePreparedStatement72, _contentValues);
     return result;
   }
 
@@ -12487,7 +12488,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneByteTypePreparedStatement73==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12499,10 +12500,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_byte_type=?";
-      updateOneByteTypePreparedStatement73 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneByteTypePreparedStatement73 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_byte_type=?");
@@ -12527,7 +12528,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneByteTypePreparedStatement73, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneByteTypePreparedStatement73, _contentValues);
     return result;
   }
 
@@ -12562,7 +12563,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneCalendarPreparedStatement74==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12574,10 +12575,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_calendar=?";
-      updateOneCalendarPreparedStatement74 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneCalendarPreparedStatement74 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_calendar=?");
@@ -12602,7 +12603,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneCalendarPreparedStatement74, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneCalendarPreparedStatement74, _contentValues);
     return result;
   }
 
@@ -12637,7 +12638,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneCharPreparedStatement75==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12649,10 +12650,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_char_type=?";
-      updateOneCharPreparedStatement75 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneCharPreparedStatement75 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_char_type=?");
@@ -12677,7 +12678,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneCharPreparedStatement75, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneCharPreparedStatement75, _contentValues);
     return result;
   }
 
@@ -12712,7 +12713,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneCharTypePreparedStatement76==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12724,10 +12725,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_char_type=?";
-      updateOneCharTypePreparedStatement76 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneCharTypePreparedStatement76 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_char_type=?");
@@ -12752,7 +12753,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneCharTypePreparedStatement76, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneCharTypePreparedStatement76, _contentValues);
     return result;
   }
 
@@ -12787,7 +12788,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneCurrencyPreparedStatement77==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12799,10 +12800,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_currency=?";
-      updateOneCurrencyPreparedStatement77 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneCurrencyPreparedStatement77 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_currency=?");
@@ -12827,7 +12828,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneCurrencyPreparedStatement77, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneCurrencyPreparedStatement77, _contentValues);
     return result;
   }
 
@@ -12862,7 +12863,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneDatePreparedStatement78==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12874,10 +12875,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_date=?";
-      updateOneDatePreparedStatement78 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneDatePreparedStatement78 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_date=?");
@@ -12902,7 +12903,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneDatePreparedStatement78, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneDatePreparedStatement78, _contentValues);
     return result;
   }
 
@@ -12937,7 +12938,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneDoublePreparedStatement79==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -12949,10 +12950,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_double=?";
-      updateOneDoublePreparedStatement79 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneDoublePreparedStatement79 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_double=?");
@@ -12977,7 +12978,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneDoublePreparedStatement79, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneDoublePreparedStatement79, _contentValues);
     return result;
   }
 
@@ -13012,7 +13013,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneDoubleTypePreparedStatement80==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13024,10 +13025,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_double_type=?";
-      updateOneDoubleTypePreparedStatement80 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneDoubleTypePreparedStatement80 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_double_type=?");
@@ -13052,7 +13053,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneDoubleTypePreparedStatement80, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneDoubleTypePreparedStatement80, _contentValues);
     return result;
   }
 
@@ -13087,7 +13088,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneEnumTypePreparedStatement81==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13099,10 +13100,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_enum_type=?";
-      updateOneEnumTypePreparedStatement81 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneEnumTypePreparedStatement81 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_enum_type=?");
@@ -13127,7 +13128,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneEnumTypePreparedStatement81, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneEnumTypePreparedStatement81, _contentValues);
     return result;
   }
 
@@ -13162,7 +13163,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneFloatPreparedStatement82==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13174,10 +13175,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_float=?";
-      updateOneFloatPreparedStatement82 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneFloatPreparedStatement82 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_float=?");
@@ -13202,7 +13203,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneFloatPreparedStatement82, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneFloatPreparedStatement82, _contentValues);
     return result;
   }
 
@@ -13237,7 +13238,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneFloatTypePreparedStatement83==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13249,10 +13250,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_float_type=?";
-      updateOneFloatTypePreparedStatement83 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneFloatTypePreparedStatement83 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_float_type=?");
@@ -13277,7 +13278,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneFloatTypePreparedStatement83, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneFloatTypePreparedStatement83, _contentValues);
     return result;
   }
 
@@ -13312,7 +13313,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneIntPreparedStatement84==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13324,10 +13325,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_int=?";
-      updateOneIntPreparedStatement84 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneIntPreparedStatement84 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_int=?");
@@ -13352,7 +13353,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneIntPreparedStatement84, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneIntPreparedStatement84, _contentValues);
     return result;
   }
 
@@ -13387,7 +13388,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneIntTypePreparedStatement85==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13399,10 +13400,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_int_type=?";
-      updateOneIntTypePreparedStatement85 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneIntTypePreparedStatement85 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_int_type=?");
@@ -13427,7 +13428,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneIntTypePreparedStatement85, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneIntTypePreparedStatement85, _contentValues);
     return result;
   }
 
@@ -13462,7 +13463,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneListLongPreparedStatement86==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13474,10 +13475,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_long_list=?";
-      updateOneListLongPreparedStatement86 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneListLongPreparedStatement86 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_long_list=?");
@@ -13502,7 +13503,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneListLongPreparedStatement86, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneListLongPreparedStatement86, _contentValues);
     return result;
   }
 
@@ -13537,7 +13538,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneLocalePreparedStatement87==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13549,10 +13550,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_locale=?";
-      updateOneLocalePreparedStatement87 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneLocalePreparedStatement87 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_locale=?");
@@ -13577,7 +13578,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneLocalePreparedStatement87, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneLocalePreparedStatement87, _contentValues);
     return result;
   }
 
@@ -13612,7 +13613,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneLongPreparedStatement88==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13624,10 +13625,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_long=?";
-      updateOneLongPreparedStatement88 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneLongPreparedStatement88 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_long=?");
@@ -13652,7 +13653,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneLongPreparedStatement88, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneLongPreparedStatement88, _contentValues);
     return result;
   }
 
@@ -13687,7 +13688,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneLongTypePreparedStatement89==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13699,10 +13700,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_long_type=?";
-      updateOneLongTypePreparedStatement89 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneLongTypePreparedStatement89 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_long_type=?");
@@ -13727,7 +13728,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneLongTypePreparedStatement89, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneLongTypePreparedStatement89, _contentValues);
     return result;
   }
 
@@ -13762,7 +13763,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneShortPreparedStatement90==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13774,10 +13775,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_short=?";
-      updateOneShortPreparedStatement90 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneShortPreparedStatement90 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_short=?");
@@ -13802,7 +13803,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneShortPreparedStatement90, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneShortPreparedStatement90, _contentValues);
     return result;
   }
 
@@ -13837,7 +13838,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneShortTypePreparedStatement91==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13849,10 +13850,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_short_type=?";
-      updateOneShortTypePreparedStatement91 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneShortTypePreparedStatement91 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_short_type=?");
@@ -13877,7 +13878,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneShortTypePreparedStatement91, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneShortTypePreparedStatement91, _contentValues);
     return result;
   }
 
@@ -13912,7 +13913,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneStringPreparedStatement92==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13924,10 +13925,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_string=?";
-      updateOneStringPreparedStatement92 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneStringPreparedStatement92 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_string=?");
@@ -13952,7 +13953,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneStringPreparedStatement92, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneStringPreparedStatement92, _contentValues);
     return result;
   }
 
@@ -13987,7 +13988,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneTimePreparedStatement93==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -13999,10 +14000,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_time=?";
-      updateOneTimePreparedStatement93 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneTimePreparedStatement93 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_time=?");
@@ -14027,7 +14028,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneTimePreparedStatement93, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneTimePreparedStatement93, _contentValues);
     return result;
   }
 
@@ -14062,7 +14063,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneTimeZonePreparedStatement94==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -14074,10 +14075,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_time_zone=?";
-      updateOneTimeZonePreparedStatement94 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneTimeZonePreparedStatement94 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_time_zone=?");
@@ -14102,7 +14103,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneTimeZonePreparedStatement94, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneTimeZonePreparedStatement94, _contentValues);
     return result;
   }
 
@@ -14137,7 +14138,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOneURLPreparedStatement95==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -14149,10 +14150,10 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
 
       // generate sql
       String _sql="UPDATE bean SET id=? WHERE value_url=?";
-      updateOneURLPreparedStatement95 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOneURLPreparedStatement95 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean SET id=:id WHERE value_url=?");
@@ -14177,7 +14178,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOneURLPreparedStatement95, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneURLPreparedStatement95, _contentValues);
     return result;
   }
 
@@ -14524,7 +14525,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (deletePreparedStatement0!=null) {
       deletePreparedStatement0.close();
       deletePreparedStatement0=null;

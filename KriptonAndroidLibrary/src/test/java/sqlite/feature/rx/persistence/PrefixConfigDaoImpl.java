@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -22,22 +23,22 @@ import sqlite.feature.rx.model.PrefixConfig;
  *  @see sqlite.feature.rx.model.PrefixConfigTable
  */
 public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  protected String SELECT_BY_ID_SQL4 = "SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL4 = "SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config WHERE id = ?";
 
-  private SQLiteStatement deleteByIdPreparedStatement1;
+  private static SQLiteStatement deleteByIdPreparedStatement1;
 
-  private SQLiteStatement updateByIdPreparedStatement2;
+  private static SQLiteStatement updateByIdPreparedStatement2;
 
-  protected String SELECT_ONE_SQL5 = "SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config";
+  private static final String SELECT_ONE_SQL5 = "SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config";
 
-  private SQLiteStatement updatePreparedStatement3;
+  private static SQLiteStatement updatePreparedStatement3;
 
-  protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
-  public PrefixConfigDaoImpl(BindXenoDataSource dataSet) {
-    super(dataSet);
+  public PrefixConfigDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -76,7 +77,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     _contentValues.put("dialog_timeout", bean.dialogTimeout);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -107,9 +108,9 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT OR REPLACE INTO prefix_config (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
@@ -148,7 +149,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -162,7 +163,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -213,7 +214,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteByIdPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -225,10 +226,10 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
       // generate sql
       String _sql="DELETE FROM prefix_config WHERE id = ?";
-      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM prefix_config WHERE id = ?");
@@ -241,7 +242,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement1, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -268,7 +269,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateByIdPreparedStatement2==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -280,10 +281,10 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
       // generate sql
       String _sql="DELETE FROM prefix_config WHERE id = ?";
-      updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM prefix_config WHERE id = ?");
@@ -296,7 +297,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateByIdPreparedStatement2, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -325,7 +326,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -339,7 +340,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -410,7 +411,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updatePreparedStatement3==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -422,10 +423,10 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
       // generate sql
       String _sql="UPDATE prefix_config SET default_country=?, dual_billing_prefix=?, enabled=?, dialog_timeout=? WHERE id = ? ";
-      updatePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updatePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE prefix_config SET default_country=:defaultCountry, dual_billing_prefix=:dualBillingPrefix, enabled=:enabled, dialog_timeout=:dialogTimeout WHERE id = ? ");
@@ -450,7 +451,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updatePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updatePreparedStatement3, _contentValues);
     subject.onNext(SQLiteModification.createUpdate(result));
     return result;
   }
@@ -459,7 +460,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     return subject;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

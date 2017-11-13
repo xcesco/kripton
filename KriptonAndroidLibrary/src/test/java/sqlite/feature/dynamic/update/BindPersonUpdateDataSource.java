@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -55,7 +56,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -95,7 +96,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -231,7 +232,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
   }
 
   public void clearCompiledStatements() {
-    personUpdateDAO.clearCompiledStatements();
+    PersonUpdateDAOImpl.clearCompiledStatements();
   }
 
   /**
@@ -291,5 +292,26 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
      * @throws Throwable
      */
     T onExecute(BindPersonUpdateDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindPersonUpdateDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private PersonUpdateDAOImpl _personUpdateDAO;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindPersonUpdateDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao PersonUpdateDAO
+     */
+    public PersonUpdateDAOImpl getPersonUpdateDAO() {
+      if (_personUpdateDAO==null) {
+        _personUpdateDAO=new PersonUpdateDAOImpl(_context);
+      }
+      return _personUpdateDAO;
+    }
   }
 }

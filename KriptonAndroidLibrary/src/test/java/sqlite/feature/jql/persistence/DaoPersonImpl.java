@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -22,12 +23,12 @@ import sqlite.feature.jql.entities.Person;
  *  @see sqlite.feature.jql.entities.PersonTable
  */
 public class DaoPersonImpl extends AbstractDao implements DaoPerson {
-  protected String SELECT_ALL_SQL5 = "SELECT _id, name, image FROM person";
+  private static final String SELECT_ALL_SQL5 = "SELECT _id, name, image FROM person";
 
-  private SQLiteStatement insertBeanPreparedStatement0;
+  private static SQLiteStatement insertBeanPreparedStatement0;
 
-  public DaoPersonImpl(BindFamilyDataSource dataSet) {
-    super(dataSet);
+  public DaoPersonImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -52,7 +53,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -66,7 +67,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -127,7 +128,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -158,15 +159,15 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
     if (insertBeanPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
     return bean;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertBeanPreparedStatement0!=null) {
       insertBeanPreparedStatement0.close();
       insertBeanPreparedStatement0=null;

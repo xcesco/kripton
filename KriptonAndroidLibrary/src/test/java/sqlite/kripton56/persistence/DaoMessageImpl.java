@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import sqlite.kripton56.entities.OwnerType;
@@ -19,10 +20,10 @@ import sqlite.kripton56.entities.OwnerType;
  *  @see sqlite.kripton56.entities.MessageEntityTable
  */
 public class DaoMessageImpl extends AbstractDao implements DaoMessage {
-  private SQLiteStatement updateByIdPreparedStatement0;
+  private static SQLiteStatement updateByIdPreparedStatement0;
 
-  public DaoMessageImpl(BindWhisperDataSource dataSet) {
-    super(dataSet);
+  public DaoMessageImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -60,7 +61,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateByIdPreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -72,10 +73,10 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
       // generate sql
       String _sql="UPDATE message SET owner_type=? WHERE id = ?";
-      updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE message SET owner_type=:ownerType WHERE id = ?");
@@ -100,11 +101,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateByIdPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateByIdPreparedStatement0, _contentValues);
     return result!=0;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (updateByIdPreparedStatement0!=null) {
       updateByIdPreparedStatement0.close();
       updateByIdPreparedStatement0=null;

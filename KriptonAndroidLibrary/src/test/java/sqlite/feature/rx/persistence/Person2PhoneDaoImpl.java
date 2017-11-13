@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -23,24 +24,24 @@ import java.util.List;
  *  @see PersonPhoneNumberTable
  */
 public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2PhoneDao {
-  protected String SELECT_BY_ID_SQL12 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE id=?";
+  private static final String SELECT_BY_ID_SQL12 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE id=?";
 
-  protected String SELECT_BY_PERSON_ID_SQL13 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE person_id=?";
+  private static final String SELECT_BY_PERSON_ID_SQL13 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE person_id=?";
 
-  protected String SELECT_BY_PHONE_NUMBER_ID_SQL14 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE phone_number_id=?";
+  private static final String SELECT_BY_PHONE_NUMBER_ID_SQL14 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE phone_number_id=?";
 
-  private SQLiteStatement deleteByIdPreparedStatement0;
+  private static SQLiteStatement deleteByIdPreparedStatement0;
 
-  private SQLiteStatement deleteByPersonIdPreparedStatement1;
+  private static SQLiteStatement deleteByPersonIdPreparedStatement1;
 
-  private SQLiteStatement deleteByPhoneNumberIdPreparedStatement2;
+  private static SQLiteStatement deleteByPhoneNumberIdPreparedStatement2;
 
-  private SQLiteStatement insertPreparedStatement3;
+  private static SQLiteStatement insertPreparedStatement3;
 
-  protected final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
 
-  public Person2PhoneDaoImpl(BindXenoDataSource dataSet) {
-    super(dataSet);
+  public Person2PhoneDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -73,7 +74,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -87,7 +88,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -141,7 +142,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -155,7 +156,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -215,7 +216,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     _contentValues.addWhereArgs(String.valueOf(phoneNumberId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -229,7 +230,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -282,7 +283,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteByIdPreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -294,10 +295,10 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
 
       // generate sql
       String _sql="DELETE FROM person_phone_number WHERE id=?";
-      deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person_phone_number WHERE id=?");
@@ -310,7 +311,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByIdPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement0, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result;
   }
@@ -338,7 +339,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteByPersonIdPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -350,10 +351,10 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
 
       // generate sql
       String _sql="DELETE FROM person_phone_number WHERE person_id=?";
-      deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person_phone_number WHERE person_id=?");
@@ -366,7 +367,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByPersonIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByPersonIdPreparedStatement1, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result;
   }
@@ -394,7 +395,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteByPhoneNumberIdPreparedStatement2==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -406,10 +407,10 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
 
       // generate sql
       String _sql="DELETE FROM person_phone_number WHERE phone_number_id=?";
-      deleteByPhoneNumberIdPreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteByPhoneNumberIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person_phone_number WHERE phone_number_id=?");
@@ -422,7 +423,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteByPhoneNumberIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByPhoneNumberIdPreparedStatement2, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result;
   }
@@ -451,7 +452,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     _contentValues.put("phone_number_id", bean.phoneNumberId);
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -482,9 +483,9 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     if (insertPreparedStatement3==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO person_phone_number (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement3, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement3, _contentValues);
     subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
@@ -495,7 +496,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     return subject;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (deleteByIdPreparedStatement0!=null) {
       deleteByIdPreparedStatement0.close();
       deleteByIdPreparedStatement0=null;

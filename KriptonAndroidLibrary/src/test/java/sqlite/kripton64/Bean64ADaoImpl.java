@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -21,14 +22,14 @@ import java.util.List;
  *  @see Bean64ATable
  */
 public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
-  protected String SELECT_ALL_SQL1 = "SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a";
+  private static final String SELECT_ALL_SQL1 = "SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a";
 
-  protected String SELECT_LIST_SQL2 = "SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a WHERE id=?";
+  private static final String SELECT_LIST_SQL2 = "SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_a WHERE id=?";
 
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  public Bean64ADaoImpl(BindBean64ADataSource dataSet) {
-    super(dataSet);
+  public Bean64ADaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -54,7 +55,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -68,7 +69,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -131,7 +132,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -145,7 +146,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -215,7 +216,7 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -246,15 +247,15 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean64_a (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

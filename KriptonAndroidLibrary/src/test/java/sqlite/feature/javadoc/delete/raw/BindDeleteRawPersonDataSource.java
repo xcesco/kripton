@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -55,7 +56,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -95,7 +96,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -231,7 +232,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
   }
 
   public void clearCompiledStatements() {
-    deleteRawPersonDao.clearCompiledStatements();
+    DeleteRawPersonDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -291,5 +292,26 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
      * @throws Throwable
      */
     T onExecute(BindDeleteRawPersonDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindDeleteRawPersonDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private DeleteRawPersonDaoImpl _deleteRawPersonDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindDeleteRawPersonDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao DeleteRawPersonDao
+     */
+    public DeleteRawPersonDaoImpl getDeleteRawPersonDao() {
+      if (_deleteRawPersonDao==null) {
+        _deleteRawPersonDao=new DeleteRawPersonDaoImpl(_context);
+      }
+      return _deleteRawPersonDao;
+    }
   }
 }

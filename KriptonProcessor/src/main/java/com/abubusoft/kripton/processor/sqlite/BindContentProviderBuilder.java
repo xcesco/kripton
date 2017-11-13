@@ -341,7 +341,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			if (schema.generateLog) {
 				// generate log section - BEGIN
 				methodBuilder.addComment("log section BEGIN");
-				methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+				methodBuilder.beginControlFlow("if (dataSource.isLogEnabled())");
 								
 				methodBuilder.addStatement("$T.info(\"Element is created with URI '%s'\", _returnURL)", Logger.class);
 				methodBuilder.addStatement("$T.info(\"Changes are notified for URI '%s'\", uri)", Logger.class);
@@ -410,7 +410,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			if (schema.generateLog) {
 				// generate log section - BEGIN
 				methodBuilder.addComment("log section BEGIN");
-				methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+				methodBuilder.beginControlFlow("if (dataSource.isLogEnabled())");
 				
 				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);
 				
@@ -472,7 +472,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			if (schema.generateLog) {
 				// generate log section - BEGIN
 				methodBuilder.addComment("log section BEGIN");
-				methodBuilder.beginControlFlow("if (this.dataSource.logEnabled)");
+				methodBuilder.beginControlFlow("if (dataSource.isLogEnabled())");
 				
 				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);
 				

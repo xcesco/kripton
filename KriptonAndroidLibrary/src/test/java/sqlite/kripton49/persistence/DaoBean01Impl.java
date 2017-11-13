@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -22,20 +23,20 @@ import sqlite.kripton49.entities.Bean01Entity;
  *  @see sqlite.kripton49.entities.Bean01EntityTable
  */
 public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
-  protected String SELECT_ONE_SQL1 = "SELECT id, text FROM bean01 WHERE id=?";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, text FROM bean01 WHERE id=?";
 
-  protected String SELECT_BY_ID_SQL2 = "SELECT id, text FROM bean01 WHERE id=?";
+  private static final String SELECT_BY_ID_SQL2 = "SELECT id, text FROM bean01 WHERE id=?";
 
-  private SQLiteStatement updateOnePreparedStatement0;
+  private static SQLiteStatement updateOnePreparedStatement0;
 
-  private SQLiteStatement deleteOnePreparedStatement1;
+  private static SQLiteStatement deleteOnePreparedStatement1;
 
-  private SQLiteStatement insertOnePreparedStatement2;
+  private static SQLiteStatement insertOnePreparedStatement2;
 
-  private SQLiteStatement insertOnePreparedStatement3;
+  private static SQLiteStatement insertOnePreparedStatement3;
 
-  public DaoBean01Impl(BindDummy01DataSource dataSet) {
-    super(dataSet);
+  public DaoBean01Impl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -67,7 +68,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -81,7 +82,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -132,7 +133,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -146,7 +147,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -209,7 +210,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (updateOnePreparedStatement0==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -221,10 +222,10 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
       // generate sql
       String _sql="UPDATE bean01 SET text=? WHERE id=?";
-      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE bean01 SET text=:text WHERE id=?");
@@ -249,7 +250,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, updateOnePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -276,7 +277,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     if (deleteOnePreparedStatement1==null) {
-      StringBuilder _sqlBuilder=getSQLStringBuilder();
+      StringBuilder _sqlBuilder=sqlBuilder();
 
       // manage WHERE arguments -- BEGIN
 
@@ -288,10 +289,10 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
       // generate sql
       String _sql="DELETE FROM bean01 WHERE id=?";
-      deleteOnePreparedStatement1 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      deleteOnePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM bean01 WHERE id=?");
@@ -304,7 +305,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, deleteOnePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteOnePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -333,7 +334,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -364,9 +365,9 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     if (insertOnePreparedStatement2==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOnePreparedStatement2 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement2, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -396,7 +397,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -427,15 +428,15 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     if (insertOnePreparedStatement3==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOnePreparedStatement3 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement3, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement3, _contentValues);
     bean.setId(result);
 
     return result;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (updateOnePreparedStatement0!=null) {
       updateOnePreparedStatement0.close();
       updateOnePreparedStatement0=null;

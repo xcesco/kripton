@@ -16,7 +16,6 @@
 package com.abubusoft.kripton.android.sqlite;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -30,11 +29,11 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public abstract class AbstractDao implements AutoCloseable {
 
-	public AbstractDao(AbstractDataSource dataSource) {
-		this.dataSource = dataSource;
+	public AbstractDao(SQLContext context) {
+		this._context = context;
 	}
 
-	protected AbstractDataSource dataSource;
+	protected SQLContext _context;
 
 	/**
 	 * Retrieve SQLite database instance
@@ -42,12 +41,7 @@ public abstract class AbstractDao implements AutoCloseable {
 	 * @return
 	 */
 	protected SQLiteDatabase database() {
-		SQLiteDatabase database = dataSource.database;
-		if (database == null) {
-			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
-		}
-
-		return database;
+		return _context.database();
 	}
 
 	@Override
@@ -57,56 +51,19 @@ public abstract class AbstractDao implements AutoCloseable {
 	}
 
 	protected KriptonContentValues contentValues() {
-		KriptonContentValues content = contentValues.get();
-		content.clear();
-
-		return content;
+		return _context.contentValues();
 	}
 
 	protected KriptonContentValues contentValuesForUpdate() {
-		contentValuesForUpdate.clear();
-
-		return contentValuesForUpdate;
+		return _context.contentValuesForUpdate();
 	}
 
 	protected KriptonContentValues contentValues(ContentValues values) {
-		KriptonContentValues content = contentValues.get();
-		content.clear(values);
-
-		return content;
+		return _context.contentValues(values);
 	}
-
-	private static final KriptonContentValues contentValuesForUpdate = new KriptonContentValues();
-
-	/**
-	 * <p>
-	 * ContentValues used to fill query parameters. Thread safe
-	 * </p>
-	 */
-	private static final ThreadLocal<KriptonContentValues> contentValues = new ThreadLocal<KriptonContentValues>() {
-
-		@Override
-		protected KriptonContentValues initialValue() {
-			return new KriptonContentValues();
-		}
-
-	};
-
-	private ThreadLocal<StringBuilder> sqlStringBuilder = new ThreadLocal<StringBuilder>() {
-
-		@Override
-		protected StringBuilder initialValue() {
-			return new StringBuilder();
-		}
-
-	};
-
-	protected StringBuilder getSQLStringBuilder() {
-		StringBuilder builder = this.sqlStringBuilder.get();
-		builder.delete(0, builder.length());
-
-		return builder;
-
+	
+	protected StringBuilder sqlBuilder() {
+		return _context.sqlBuilder();
 	}
 
 }

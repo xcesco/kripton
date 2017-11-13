@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
@@ -18,10 +19,10 @@ import com.abubusoft.kripton.common.Triple;
  *  @see Bean01Table
  */
 public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK {
-  private SQLiteStatement insertDistancePreparedStatement0;
+  private static SQLiteStatement insertDistancePreparedStatement0;
 
-  public DaoBeanInsertOKImpl(BindDummy04DataSource dataSet) {
-    super(dataSet);
+  public DaoBeanInsertOKImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -53,7 +54,7 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -84,13 +85,13 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
     if (insertDistancePreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertDistancePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertDistancePreparedStatement0, _contentValues);
     return result!=-1;
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertDistancePreparedStatement0!=null) {
       insertDistancePreparedStatement0.close();
       insertDistancePreparedStatement0=null;

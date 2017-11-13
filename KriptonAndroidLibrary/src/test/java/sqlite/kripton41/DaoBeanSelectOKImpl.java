@@ -4,6 +4,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -16,10 +17,10 @@ import com.abubusoft.kripton.common.StringUtils;
  *  @see Bean01Table
  */
 public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK {
-  protected String SELECT_DISTANCE_SQL1 = "SELECT count(*) FROM bean01 WHERE id=? and value=?";
+  private static final String SELECT_DISTANCE_SQL1 = "SELECT count(*) FROM bean01 WHERE id=? and value=?";
 
-  public DaoBeanSelectOKImpl(BindDummy02DataSource dataSet) {
-    super(dataSet);
+  public DaoBeanSelectOKImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -54,7 +55,7 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
     _contentValues.addWhereArgs(String.valueOf(value));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -68,7 +69,7 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -83,6 +84,6 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
   }
 }

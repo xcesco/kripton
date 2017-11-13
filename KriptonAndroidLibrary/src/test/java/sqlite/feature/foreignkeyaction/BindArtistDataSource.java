@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -80,7 +81,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -120,7 +121,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -281,9 +282,9 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   }
 
   public void clearCompiledStatements() {
-    artistDao.clearCompiledStatements();
-    albumDao.clearCompiledStatements();
-    trackDao.clearCompiledStatements();
+    ArtistDaoImpl.clearCompiledStatements();
+    AlbumDaoImpl.clearCompiledStatements();
+    TrackDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -343,5 +344,52 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
      * @throws Throwable
      */
     T onExecute(BindArtistDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindArtistDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private ArtistDaoImpl _artistDao;
+
+    private AlbumDaoImpl _albumDao;
+
+    private TrackDaoImpl _trackDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindArtistDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao ArtistDao
+     */
+    public ArtistDaoImpl getArtistDao() {
+      if (_artistDao==null) {
+        _artistDao=new ArtistDaoImpl(_context);
+      }
+      return _artistDao;
+    }
+
+    /**
+     *
+     * retrieve dao AlbumDao
+     */
+    public AlbumDaoImpl getAlbumDao() {
+      if (_albumDao==null) {
+        _albumDao=new AlbumDaoImpl(_context);
+      }
+      return _albumDao;
+    }
+
+    /**
+     *
+     * retrieve dao TrackDao
+     */
+    public TrackDaoImpl getTrackDao() {
+      if (_trackDao==null) {
+        _trackDao=new TrackDaoImpl(_context);
+      }
+      return _trackDao;
+    }
   }
 }

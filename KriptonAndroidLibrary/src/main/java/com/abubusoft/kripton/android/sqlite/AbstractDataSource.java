@@ -29,6 +29,7 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -40,7 +41,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * @author Francesco Benincasa (info@abubusoft.com)
  * 
  */
-public abstract class AbstractDataSource implements AutoCloseable {
+public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 
 	/**
 	 * Interface for database operations.
@@ -94,6 +95,36 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	protected DataSourceOptions options;
 
 	protected SQLiteOpenHelper sqliteHelper;
+	
+	protected SQLContextImpl context;
+	
+	public SQLContext context() {
+		return context;
+	}
+	
+	@Override
+	public KriptonContentValues contentValuesForUpdate() {
+		return context.contentValuesForUpdate();
+	}
+
+	@Override
+	public KriptonContentValues contentValues() {
+		return context.contentValues();
+	}
+
+	@Override
+	public KriptonContentValues contentValues(ContentValues values) {
+		return context.contentValues(values);
+	}
+
+	@Override
+	public StringBuilder sqlBuilder() {
+		return context.sqlBuilder();
+	}
+
+	public boolean isLogEnabled() {
+		return context.isLogEnabled();
+	}
 
 	protected ThreadLocal<TypeStatus> status = new ThreadLocal<TypeStatus>() {
 
@@ -126,6 +157,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	protected AbstractDataSource(String name, int version, DataSourceOptions options) {
 		this.name = name;
 		this.version = version;
+		this.context=new SQLContextImpl(this);
 		this.options = options == null ? DataSourceOptions.builder().build() : options;
 	}
 

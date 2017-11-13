@@ -226,7 +226,7 @@ public abstract class SqlSelectBuilder {
 		}
 
 		methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
-		methodBuilder.addStatement("$T _sqlBuilder=getSQLStringBuilder()", StringBuilder.class);
+		methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);
 		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, "selection", "selectionArgs");
 
 		methodBuilder.addStatement("$T _projectionBuffer=new $T()", StringBuilder.class, StringBuilder.class);

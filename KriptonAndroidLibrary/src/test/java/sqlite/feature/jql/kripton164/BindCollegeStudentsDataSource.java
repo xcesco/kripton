@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -230,7 +231,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
   }
 
   public void clearCompiledStatements() {
-    collegeStudentDao.clearCompiledStatements();
+    CollegeStudentDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -290,5 +291,26 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
      * @throws Throwable
      */
     T onExecute(BindCollegeStudentsDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindCollegeStudentsDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private CollegeStudentDaoImpl _collegeStudentDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindCollegeStudentsDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao CollegeStudentDao
+     */
+    public CollegeStudentDaoImpl getCollegeStudentDao() {
+      if (_collegeStudentDao==null) {
+        _collegeStudentDao=new CollegeStudentDaoImpl(_context);
+      }
+      return _collegeStudentDao;
+    }
   }
 }

@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -23,14 +24,14 @@ import sqlite.quickstart.model.UserTable;
  *  @see UserTable
  */
 public class UserDaoImpl extends AbstractDao implements UserDao {
-  private SQLiteStatement insertPreparedStatement0;
+  private static SQLiteStatement insertPreparedStatement0;
 
-  protected String SELECT_ALL_SQL1 = "SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc";
 
-  protected String SELECT_BY_ID_SQL2 = "SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL2 = "SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ?";
 
-  public UserDaoImpl(BindQuickStartDataSource dataSet) {
-    super(dataSet);
+  public UserDaoImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -96,7 +97,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -127,9 +128,9 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     if (insertPreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT INTO user (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -160,7 +161,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -174,7 +175,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -249,7 +250,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -263,7 +264,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -297,7 +298,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;

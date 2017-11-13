@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -55,7 +56,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -95,7 +96,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -231,7 +232,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
   }
 
   public void clearCompiledStatements() {
-    personDAO2.clearCompiledStatements();
+    PersonDAO2Impl.clearCompiledStatements();
   }
 
   /**
@@ -291,5 +292,26 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
      * @throws Throwable
      */
     T onExecute(BindPerson2DaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindPerson2DaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private PersonDAO2Impl _personDAO2;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindPerson2DataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao PersonDAO2
+     */
+    public PersonDAO2Impl getPersonDAO2() {
+      if (_personDAO2==null) {
+        _personDAO2=new PersonDAO2Impl(_context);
+      }
+      return _personDAO2;
+    }
   }
 }

@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -69,7 +70,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -109,7 +110,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -258,8 +259,8 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   }
 
   public void clearCompiledStatements() {
-    daoChild.clearCompiledStatements();
-    daoPerson.clearCompiledStatements();
+    DaoChildImpl.clearCompiledStatements();
+    DaoPersonImpl.clearCompiledStatements();
   }
 
   /**
@@ -319,5 +320,39 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
      * @throws Throwable
      */
     T onExecute(BindFamilyDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindFamilyDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private DaoChildImpl _daoChild;
+
+    private DaoPersonImpl _daoPerson;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindFamilyDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao DaoChild
+     */
+    public DaoChildImpl getDaoChild() {
+      if (_daoChild==null) {
+        _daoChild=new DaoChildImpl(_context);
+      }
+      return _daoChild;
+    }
+
+    /**
+     *
+     * retrieve dao DaoPerson
+     */
+    public DaoPersonImpl getDaoPerson() {
+      if (_daoPerson==null) {
+        _daoPerson=new DaoPersonImpl(_context);
+      }
+      return _daoPerson;
+    }
   }
 }

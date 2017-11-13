@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -54,7 +55,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(this)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -94,7 +95,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-        return commands.onExecute(this);
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -230,7 +231,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   }
 
   public void clearCompiledStatements() {
-    charDao.clearCompiledStatements();
+    CharDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -290,5 +291,26 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
      * @throws Throwable
      */
     T onExecute(BindCharDaoFactory daoFactory);
+  }
+
+  class DataSourceSingleThread implements BindCharDaoFactory {
+    private SQLContextSingleThreadImpl _context;
+
+    private CharDaoImpl _charDao;
+
+    DataSourceSingleThread() {
+      _context=new SQLContextSingleThreadImpl(BindCharDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao CharDao
+     */
+    public CharDaoImpl getCharDao() {
+      if (_charDao==null) {
+        _charDao=new CharDaoImpl(_context);
+      }
+      return _charDao;
+    }
   }
 }

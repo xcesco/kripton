@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -24,14 +25,14 @@ import sqlite.feature.dynamic.Person;
  *  @see sqlite.feature.dynamic.PersonTable
  */
 public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO {
-  protected String SELECT_ONE_SQL1 = "SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || '%' ";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || '%' ";
 
-  protected String SELEC_ALL_SQL2 = "SELECT id, name, surname, birth_city, birth_day FROM person";
+  private static final String SELEC_ALL_SQL2 = "SELECT id, name, surname, birth_city, birth_day FROM person";
 
-  private SQLiteStatement insertOnePreparedStatement0;
+  private static SQLiteStatement insertOnePreparedStatement0;
 
-  public PersonUpdateDAOImpl(BindPersonUpdateDataSource dataSet) {
-    super(dataSet);
+  public PersonUpdateDAOImpl(SQLContext context) {
+    super(context);
   }
 
   /**
@@ -66,7 +67,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     _contentValues.addWhereArgs((nameValue==null?"":nameValue));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -80,7 +81,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -146,7 +147,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -159,7 +160,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // generate sql
     String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -172,7 +173,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -203,7 +204,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -216,7 +217,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // generate sql
     String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -229,7 +230,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -276,7 +277,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -289,7 +290,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // generate sql
     String _sql=String.format("UPDATE person SET name=? WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE person SET name=:name WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -314,7 +315,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -374,7 +375,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
-    StringBuilder _sqlBuilder=getSQLStringBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
 
     // manage WHERE arguments -- BEGIN
 
@@ -387,7 +388,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // generate sql
     String _sql=String.format("UPDATE person SET name=?, surname=?, birth_city=?, birth_day=? WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
 
       // display log
       Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
@@ -412,7 +413,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(dataSource, _sql, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -439,7 +440,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
 
@@ -453,7 +454,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     // log section END
     try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
-      if (this.dataSource.logEnabled) {
+      if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",cursor.getCount());
       }
       // log section END
@@ -535,7 +536,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     }
 
     // log section BEGIN
-    if (this.dataSource.logEnabled) {
+    if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
       StringBuffer _columnNameBuffer=new StringBuffer();
       StringBuffer _columnValueBuffer=new StringBuffer();
@@ -566,12 +567,12 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     if (insertOnePreparedStatement0==null) {
       // generate SQL for insert
       String _sql=String.format("INSERT OR IGNORE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(dataSource, _sql);
+      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    long result = KriptonDatabaseWrapper.insert(dataSource, insertOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement0, _contentValues);
   }
 
-  public void clearCompiledStatements() {
+  public static void clearCompiledStatements() {
     if (insertOnePreparedStatement0!=null) {
       insertOnePreparedStatement0.close();
       insertOnePreparedStatement0=null;
