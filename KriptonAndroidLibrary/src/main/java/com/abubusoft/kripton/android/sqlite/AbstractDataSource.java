@@ -60,7 +60,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	}
 
 
-	enum TypeStatus {
+	public static enum TypeStatus {
 		CLOSED, READ_AND_WRITE_OPENED, READ_ONLY_OPENED
 	}
 
