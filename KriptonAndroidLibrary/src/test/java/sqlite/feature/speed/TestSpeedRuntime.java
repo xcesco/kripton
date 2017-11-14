@@ -5,9 +5,12 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.One;
 
+import android.database.sqlite.SQLiteDatabase;
 import base.BaseAndroidTest;
 import sqlite.feature.speed.model.Person;
 import sqlite.feature.speed.persistence.BindPersonDaoFactory;
@@ -59,7 +62,26 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 
 		final int COUNTER = 2000;
 
-		final BindPersonDataSource ds = BindPersonDataSource.build();
+		final BindPersonDataSource ds = BindPersonDataSource.build(DataSourceOptions.builder().databaseLifecycleHandler(new DatabaseLifecycleHandler() {
+			
+			@Override
+			public void onUpdate(SQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onCreate(SQLiteDatabase database) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onConfigure(SQLiteDatabase database) {
+				database.execSQL("pragma cache_size=2000");
+				
+			}
+		}).build());
 
 		ds.openWritableDatabase();
 		

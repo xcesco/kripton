@@ -389,7 +389,8 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 			if (openCounter.incrementAndGet() == 1) {
 				// open new write database
 				sqliteHelper.setWriteAheadLoggingEnabled(true);
-				database = sqliteHelper.getWritableDatabase();
+				
+				database = sqliteHelper.getWritableDatabase();				
 				if (logEnabled) Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
 			} else {
 				if (logEnabled) Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
