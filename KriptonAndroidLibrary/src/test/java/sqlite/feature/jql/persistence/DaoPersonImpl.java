@@ -115,7 +115,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
    */
   @Override
   public Person insertBean(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {

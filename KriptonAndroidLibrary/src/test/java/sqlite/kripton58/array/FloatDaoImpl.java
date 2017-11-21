@@ -436,7 +436,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    */
   @Override
   public long updateOne(long id, float[] value, Float[] value2) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
@@ -511,7 +511,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    */
   @Override
   public long insert(long id, float[] value, Float[] value2) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     _contentValues.put("id", id);
     if (value!=null) {
@@ -582,7 +582,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    */
   @Override
   public long insert(FloatBean bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
     if (bean.value!=null) {
       _contentValues.put("value", FloatBeanTable.serializeValue(bean.value));
     } else {
@@ -654,7 +654,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
    */
   @Override
   public long delete(float[] value, Float[] value2) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement3);
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
 

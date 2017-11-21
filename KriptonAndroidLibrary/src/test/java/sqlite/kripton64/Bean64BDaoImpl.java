@@ -198,7 +198,7 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
    */
   @Override
   public long insert(Bean64B bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.valueMapStringBean!=null) {
       _contentValues.put("value_map_string_bean", Bean64BTable.serializeValueMapStringBean(bean.valueMapStringBean));
     } else {

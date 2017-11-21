@@ -44,7 +44,7 @@ public class DaoSeminarImpl extends AbstractDao implements DaoSeminar {
    */
   @Override
   public long insert(Seminar bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {

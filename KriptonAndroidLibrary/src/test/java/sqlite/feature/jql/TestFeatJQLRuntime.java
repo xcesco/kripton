@@ -40,7 +40,7 @@ public class TestFeatJQLRuntime extends BaseAndroidTest {
 		BindFamilyDataSource dataSource = BindFamilyDataSource.instance();
 
 		// transaction to insert elements
-		dataSource.execute(new BindFamilyDataSource.SimpleTransaction() {
+		dataSource.execute(new BindFamilyDataSource.Transaction() {
 
 			@Override
 			public TransactionResult onExecute(BindFamilyDaoFactory daoFactory) {

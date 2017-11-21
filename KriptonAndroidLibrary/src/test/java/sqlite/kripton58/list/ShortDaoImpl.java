@@ -419,7 +419,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    */
   @Override
   public long updateOne(List<Short> value, long id, List<Short> paramValue) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     if (value!=null) {
       _contentValues.put("value", serializer1(value));
     } else {
@@ -495,7 +495,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    */
   @Override
   public long insert(long id, List<Short> value) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     _contentValues.put("id", id);
     if (value!=null) {
@@ -561,7 +561,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    */
   @Override
   public long insert(ShortBean bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
     if (bean.value!=null) {
       _contentValues.put("value", ShortBeanTable.serializeValue(bean.value));
     } else {
@@ -630,7 +630,7 @@ public class ShortDaoImpl extends AbstractDao implements ShortDao {
    */
   @Override
   public long delete(List<Short> paramValue) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement3);
     _contentValues.addWhereArgs((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
     // generation CODE_001 -- BEGIN

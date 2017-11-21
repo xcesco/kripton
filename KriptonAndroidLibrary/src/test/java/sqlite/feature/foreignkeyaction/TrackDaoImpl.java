@@ -185,7 +185,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
    */
   @Override
   public long update(Track bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement0);
     _contentValues.put("album_id", bean.albumId);
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -255,7 +255,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
    */
   @Override
   public long insert(Track bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("album_id", bean.albumId);
 
     // log section BEGIN
@@ -315,7 +315,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
    */
   @Override
   public long deleteById(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN

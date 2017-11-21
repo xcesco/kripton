@@ -47,9 +47,9 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	public SQLiteDatabaseSchema getParent() {
 		return parent.get();
 	}
-	
+
 	public long nextCounter() {
-		return getParent().nextCounter();		
+		return getParent().nextCounter();
 	}
 
 	/**
@@ -101,7 +101,8 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 		return entitySimplyClassName;
 	}
 
-	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element, String entityClassName, boolean generated) {
+	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element,
+			String entityClassName, boolean generated) {
 		super(element.getSimpleName().toString(), element);
 		this.generated = generated;
 		this.parent = new WeakReference<SQLiteDatabaseSchema>(databaseSchema);
@@ -173,22 +174,21 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	public String contentProviderTypeName;
 
 	/**
-	 * Collections of prepared statements	
+	 * Collections of prepared statements
 	 */
 	public List<String> preparedStatementNames = new ArrayList<String>();
-	
+
 	/**
 	 * Build and register prepared statement name
+	 * 
 	 * @param methodName
 	 * @return
 	 */
 	String buildPreparedStatementName(String methodName) {
-		String name=methodName+"PreparedStatement"+preparedStatementNames.size();
-		
+		String name = methodName + "PreparedStatement" + preparedStatementNames.size();
+
 		preparedStatementNames.add(name);
-		
 		return name;
-		
 	}
 
 	/**

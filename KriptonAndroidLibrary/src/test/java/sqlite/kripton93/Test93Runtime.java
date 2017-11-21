@@ -43,7 +43,7 @@ public class Test93Runtime extends BaseAndroidTest {
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
-		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
+		dataSource.execute(new BindBean93DataSource.Transaction() {
 			@Override
 			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
@@ -62,7 +62,7 @@ public class Test93Runtime extends BaseAndroidTest {
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
-		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
+		dataSource.execute(new BindBean93DataSource.Transaction() {
 			@Override
 			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
@@ -81,7 +81,7 @@ public class Test93Runtime extends BaseAndroidTest {
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
-		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
+		dataSource.execute(new BindBean93DataSource.Transaction() {
 			@Override
 			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
@@ -99,7 +99,7 @@ public class Test93Runtime extends BaseAndroidTest {
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
-		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
+		dataSource.execute(new BindBean93DataSource.Transaction() {
 			@Override
 			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
@@ -117,7 +117,7 @@ public class Test93Runtime extends BaseAndroidTest {
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
-		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
+		dataSource.execute(new BindBean93DataSource.Transaction() {
 			@Override
 			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();
@@ -136,7 +136,7 @@ public class Test93Runtime extends BaseAndroidTest {
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
-		dataSource.execute(new BindBean93DataSource.SimpleTransaction() {
+		dataSource.execute(new BindBean93DataSource.Transaction() {
 			@Override
 			public TransactionResult onExecute(BindBean93DaoFactory daoFactory) {
 				Bean93DaoImpl dao = daoFactory.getBean93Dao();

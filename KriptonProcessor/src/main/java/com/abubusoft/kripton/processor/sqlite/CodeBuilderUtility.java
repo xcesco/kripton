@@ -94,13 +94,24 @@ public abstract class CodeBuilderUtility {
 			}
 
 			// add property to list of used properties
-			methodBuilder.addCode("_contentValues.put($S, ", item.columnName);
+			if (method.isLogEnabled()) {
+				methodBuilder.addCode("_contentValues.put($S, ", item.columnName);
+			} else {
+				methodBuilder.addCode("_contentValues.put(");
+			}
 			SQLTransformer.javaProperty2ContentValues(methodBuilder, entityClassName, entityName, item);
 			methodBuilder.addCode(");\n");
 
 			if (TypeUtility.isNullable(item)) {
 				methodBuilder.nextControlFlow("else");
-				methodBuilder.addCode("_contentValues.putNull($S);\n", item.columnName);
+				
+				if (method.isLogEnabled()) {
+					methodBuilder.addCode("_contentValues.putNull($S);\n", item.columnName);
+				} else {
+					methodBuilder.addCode("_contentValues.putNull();\n");
+				}
+				
+				
 				methodBuilder.endControlFlow();
 			}
 		}

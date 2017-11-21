@@ -101,7 +101,7 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
    */
   @Override
   public void deleteAll() {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement0);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -193,28 +193,28 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
    */
   @Override
   public void insert(SimpleAddressItem bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+      _contentValues.put(bean.getName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull();
     }
     if (bean.getAddress()!=null) {
-      _contentValues.put("address", bean.getAddress());
+      _contentValues.put(bean.getAddress());
     } else {
-      _contentValues.putNull("address");
+      _contentValues.putNull();
     }
     if (bean.getCity()!=null) {
-      _contentValues.put("city", bean.getCity());
+      _contentValues.put(bean.getCity());
     } else {
-      _contentValues.putNull("city");
+      _contentValues.putNull();
     }
     if (bean.getState()!=null) {
-      _contentValues.put("state", bean.getState());
+      _contentValues.put(bean.getState());
     } else {
-      _contentValues.putNull("state");
+      _contentValues.putNull();
     }
-    _contentValues.put("phone", bean.getPhone());
+    _contentValues.put(bean.getPhone());
 
     // insert operation
     if (insertPreparedStatement1==null) {

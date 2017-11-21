@@ -26,7 +26,6 @@ import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationExcept
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
 import com.abubusoft.kripton.processor.exceptions.NoDaoElementFound;
-import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;

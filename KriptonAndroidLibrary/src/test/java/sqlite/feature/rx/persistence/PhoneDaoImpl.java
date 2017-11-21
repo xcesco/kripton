@@ -66,7 +66,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public int insert(PhoneNumber bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.action!=null) {
       _contentValues.put("action", bean.action.toString());
     } else {
@@ -228,7 +228,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public boolean deleteById(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
@@ -283,7 +283,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public boolean updateById(PhoneNumber bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN

@@ -56,7 +56,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public int insert(PrefixConfig bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.defaultCountry!=null) {
       _contentValues.put("default_country", bean.defaultCountry);
     } else {
@@ -201,7 +201,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public boolean deleteById(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
@@ -329,7 +329,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
    */
   @Override
   public int update(PrefixConfig bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
     if (bean.defaultCountry!=null) {
       _contentValues.put("default_country", bean.defaultCountry);
     } else {

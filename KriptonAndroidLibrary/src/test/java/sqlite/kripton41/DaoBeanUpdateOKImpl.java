@@ -51,7 +51,7 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
    */
   @Override
   public boolean updateDistance(long id, Double value, long test) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateDistancePreparedStatement0);
     _contentValues.put("id", id);
     if (value!=null) {
       _contentValues.put("value", value);

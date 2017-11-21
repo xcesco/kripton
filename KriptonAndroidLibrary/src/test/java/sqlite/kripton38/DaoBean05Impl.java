@@ -758,7 +758,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long insertRaw(String text, byte[] content, Date creationTime) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertRawPreparedStatement0);
 
     if (text!=null) {
       _contentValues.put("text", text);
@@ -835,7 +835,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public void insert(Bean05 bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("number", bean.getNumber());
     if (bean.getBeanType()!=null) {
       _contentValues.put("bean_type", bean.getBeanType().toString());
@@ -923,7 +923,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long updateOne(Bean05 bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement2);
     _contentValues.put("number", bean.getNumber());
     if (bean.getBeanType()!=null) {
       _contentValues.put("bean_type", bean.getBeanType().toString());
@@ -1029,7 +1029,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long updateOne(byte[] content, String text, long uid, Date validoIn, Date valido) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement3);
     if (content!=null) {
       _contentValues.put("content", content);
     } else {
@@ -1110,7 +1110,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(Bean05 bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteOnePreparedStatement4);
     _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
     _contentValues.addWhereArgs((bean.getText()==null?"":bean.getText()));
     _contentValues.addWhereArgs((bean.getCreationTime()==null?"":DateUtils.write(bean.getCreationTime())));
@@ -1173,7 +1173,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(long uid, Date validoIn, Date valido) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteOnePreparedStatement5);
     _contentValues.addWhereArgs(String.valueOf(uid));
     _contentValues.addWhereArgs((valido==null?"":DateUtils.write(valido)));
     _contentValues.addWhereArgs((validoIn==null?"":DateUtils.write(validoIn)));
@@ -1230,7 +1230,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteOne(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteOnePreparedStatement6);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
@@ -1284,7 +1284,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
    */
   @Override
   public long deleteBean(Bean05 va) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteBeanPreparedStatement7);
     _contentValues.addWhereArgs(String.valueOf(va.getPk()));
 
     // generation CODE_001 -- BEGIN

@@ -2,6 +2,7 @@ package com.abubusoft.kripton.android.sqlite;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 /**
  * Works on single thread. No thread local is needed
@@ -26,21 +27,21 @@ public class SQLContextSingleThreadImpl implements SQLContext {
 	}
 
 	@Override
-	public KriptonContentValues contentValuesForUpdate() {
-		this.contentValuesForUpdate.clear();
+	public KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
+		this.contentValuesForUpdate.clear(compiledStatement);
 		
 		return this.contentValuesForUpdate;
 	}
 
 	@Override
-	public KriptonContentValues contentValues() {
-		this.contentValues.clear();
+	public KriptonContentValues contentValues(SQLiteStatement compiledStatement) {
+		this.contentValues.clear(compiledStatement);
 		
 		return this.contentValues;
 	}
 
 	@Override
-	public KriptonContentValues contentValues(ContentValues values) {
+	public KriptonContentValues contentValuesForContentProvider(ContentValues values) {
 		this.contentValues.clear(values);
 		
 		return this.contentValues;

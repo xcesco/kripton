@@ -460,7 +460,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long updateOne(Bean2 value) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     if (value.value!=null) {
       _contentValues.put("value", value.value);
     } else {
@@ -594,7 +594,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long insert(Bean2 bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     if (bean.value!=null) {
       _contentValues.put("value", bean.value);
     } else {
@@ -707,7 +707,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long insert(HashSet<BigDecimal> valueBigDecimalSet) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
 
     if (valueBigDecimalSet!=null) {
       _contentValues.put("value_big_decimal_set", serializer1(valueBigDecimalSet));
@@ -865,7 +865,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long delete(HashSet<BigDecimal> valueBigDecimalSet) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement3);
     _contentValues.addWhereArgs((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
 
     // generation CODE_001 -- BEGIN
@@ -926,7 +926,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
    */
   @Override
   public long updateOne(long id, HashSet<BigDecimal> valueBigDecimalSet) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement4);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));

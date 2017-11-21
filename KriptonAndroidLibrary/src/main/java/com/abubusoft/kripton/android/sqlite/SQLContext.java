@@ -2,13 +2,14 @@ package com.abubusoft.kripton.android.sqlite;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 public interface SQLContext {
-	KriptonContentValues contentValuesForUpdate();
+	KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement);
 
-	KriptonContentValues contentValues();
+	KriptonContentValues contentValues(SQLiteStatement compiledStatement);
 
-	KriptonContentValues contentValues(ContentValues values);
+	KriptonContentValues contentValuesForContentProvider(ContentValues values);
 
 	StringBuilder sqlBuilder();
 	

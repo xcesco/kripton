@@ -287,7 +287,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement0);
 
     if (name!=null) {
       _contentValues.put("name", name);
@@ -433,7 +433,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public int deleteAll() {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement1);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

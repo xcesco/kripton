@@ -66,11 +66,7 @@ public class Test84RuntimeB extends BaseAndroidTest {
 
 				return TransactionResult.COMMIT;
 			}
-
-			@Override
-			public void onError(Throwable e) {
-
-			}
+			
 		});
 
 	}

@@ -436,7 +436,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long updateOne(long id, long[] value, Long[] value2) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
@@ -511,7 +511,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long insert(long id, long[] value, Long[] value2) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     _contentValues.put("id", id);
     if (value!=null) {
@@ -582,7 +582,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long insert(LongBean bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
     if (bean.value!=null) {
       _contentValues.put("value", LongBeanTable.serializeValue(bean.value));
     } else {
@@ -654,7 +654,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long delete(long[] value, Long[] value2) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement3);
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
 

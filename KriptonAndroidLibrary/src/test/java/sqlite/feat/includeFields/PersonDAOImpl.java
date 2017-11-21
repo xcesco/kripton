@@ -201,7 +201,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertIncludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertIncludeOnePreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -267,7 +267,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertExcludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertExcludeOnePreparedStatement1);
     if (bean.surname!=null) {
       _contentValues.put("surname", bean.surname);
     } else {
@@ -342,7 +342,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void updateIncludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateIncludeOnePreparedStatement2);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -406,7 +406,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void updateExcludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateExcludeOnePreparedStatement3);
     if (bean.surname!=null) {
       _contentValues.put("surname", bean.surname);
     } else {
@@ -476,7 +476,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteIncludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteIncludeOnePreparedStatement4);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -513,7 +513,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteExcludeOne(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteExcludeOnePreparedStatement5);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

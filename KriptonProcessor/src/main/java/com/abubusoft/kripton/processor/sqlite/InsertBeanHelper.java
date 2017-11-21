@@ -60,7 +60,18 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		// String sqlInsert;
 		
 		// retrieve content values
-		methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
+		if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);			
+		} else {
+			String psName=method.buildPreparedStatementName();
+			// generate SQL for insert
+			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());					
+			SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);
+			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
+			
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, psName);
+		}
+		
 
 		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlInsert.class);
 		CodeBuilderUtility.generateContentValuesFromEntity(BaseProcessor.elementUtils, method, BindSqlInsert.class, methodBuilder, null);
@@ -73,22 +84,14 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
 
 		methodBuilder.addComment("insert operation");
-		if (method.jql.hasDynamicParts()) {
+		if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {
 			// does not memorize compiled statement, it can vary every time
 			// generate SQL for insert
-			SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);	
+			SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);	
 			
 			methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
 		} else {			
-			String psName=method.buildPreparedStatementName();
-			// generate SQL for insert
-			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());
-			
-			methodBuilder.beginControlFlow("if ($L==null)", psName);
-			SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);
-			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
-			methodBuilder.endControlFlow();
-			
+			String psName=method.buildPreparedStatementName();			
 			methodBuilder.addStatement("long result = $T.insert(_context, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);
 		}
 		

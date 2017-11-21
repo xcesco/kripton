@@ -115,7 +115,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean deleteContactBean1(Channel channel) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteContactBean1PreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(channel.getId()));
 
     // generation CODE_001 -- BEGIN
@@ -169,7 +169,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean deleteContactBean2(Channel value) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteContactBean2PreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(value.getId()));
 
     // generation CODE_001 -- BEGIN
@@ -227,7 +227,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public long deleteContactRaw1(String b, long dummy) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteContactRaw1PreparedStatement2);
     _contentValues.addWhereArgs((b==null?"":b));
     _contentValues.addWhereArgs(String.valueOf(dummy));
 
@@ -286,7 +286,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean deleteContactRaw2(String ownerUid, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteContactRaw2PreparedStatement3);
     _contentValues.addWhereArgs((ownerUid==null?"":ownerUid));
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -344,7 +344,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public long insertRaw1(String b, long azz) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertRaw1PreparedStatement4);
 
     if (b!=null) {
       _contentValues.put("owner_uid", b);
@@ -410,7 +410,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean insertRaw2(String b, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertRaw2PreparedStatement5);
 
     if (b!=null) {
       _contentValues.put("owner_uid", b);
@@ -476,7 +476,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public int insertRaw3(String ownerUid, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertRaw3PreparedStatement6);
 
     if (ownerUid!=null) {
       _contentValues.put("owner_uid", ownerUid);
@@ -544,7 +544,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public int insertBean1(Channel bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertBean1PreparedStatement7);
     if (bean.getUid()!=null) {
       _contentValues.put("uid", bean.getUid());
     } else {
@@ -623,7 +623,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean insertBean2(Channel bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertBean2PreparedStatement8);
     if (bean.getUid()!=null) {
       _contentValues.put("uid", bean.getUid());
     } else {
@@ -704,7 +704,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public long updateContactRaw1(long glu, long aid) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw1PreparedStatement9);
     _contentValues.put("id", glu);
 
     _contentValues.addWhereArgs(String.valueOf(aid));
@@ -779,7 +779,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public long updateContactRaw2(long id, long dummy) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw2PreparedStatement10);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(String.valueOf(dummy));
@@ -854,7 +854,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean updateContactRaw3(String app, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw3PreparedStatement11);
     if (app!=null) {
       _contentValues.put("owner_uid", app);
     } else {
@@ -933,7 +933,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public int updateContactRaw4(String ownerUid, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw4PreparedStatement12);
     if (ownerUid!=null) {
       _contentValues.put("owner_uid", ownerUid);
     } else {
@@ -1013,7 +1013,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public int updateContactBean1(Channel value) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean1PreparedStatement13);
     if (value.getUid()!=null) {
       _contentValues.put("uid", value.getUid());
     } else {
@@ -1104,7 +1104,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public long updateContactBean2(Channel bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean2PreparedStatement14);
     if (bean.getUid()!=null) {
       _contentValues.put("uid", bean.getUid());
     } else {
@@ -1195,7 +1195,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    */
   @Override
   public boolean updateContactBean3(Channel bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean3PreparedStatement15);
     if (bean.getUid()!=null) {
       _contentValues.put("uid", bean.getUid());
     } else {

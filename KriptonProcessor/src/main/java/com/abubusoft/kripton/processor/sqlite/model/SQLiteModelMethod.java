@@ -612,9 +612,14 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		}
 		return null;
 	}
+		
+	private String preparedStatementName;
 
 	public String buildPreparedStatementName() {
-		return getParent().buildPreparedStatementName(getName());		
+		if (!StringUtils.hasText(preparedStatementName)) {
+			preparedStatementName=getParent().buildPreparedStatementName(getName());
+		}
+		return preparedStatementName;
 	}
 
 	public boolean hasDynamicParts() {

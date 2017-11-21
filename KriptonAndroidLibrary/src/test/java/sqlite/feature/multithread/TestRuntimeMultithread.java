@@ -173,7 +173,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 						int id = threadId;
 						Logger.info("Start thread-" + id + " T3");
 						BindPersonDataSource dataSource = BindPersonDataSource.instance();
-						dataSource.execute(new BindPersonDataSource.SimpleTransaction() {
+						dataSource.execute(new BindPersonDataSource.Transaction() {
 
 							@Override
 							public TransactionResult onExecute(BindPersonDaoFactory daoFactory) {
@@ -229,7 +229,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 			
 			@Override
 			public Person onExecute(BindPersonDataSource dataSource) throws Throwable {
-				dataSource.execute(new BindPersonDataSource.SimpleTransaction() {
+				dataSource.execute(new BindPersonDataSource.Transaction() {
 					
 					@Override
 					public TransactionResult onExecute(BindPersonDaoFactory daoFactory) {						

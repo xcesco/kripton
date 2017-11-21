@@ -44,7 +44,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
    */
   @Override
   public void insert(CollegeStudent student) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (student.surname!=null) {
       _contentValues.put("surname", student.surname);
     } else {

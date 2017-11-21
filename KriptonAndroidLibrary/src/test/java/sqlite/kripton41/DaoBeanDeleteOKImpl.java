@@ -41,7 +41,7 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
    */
   @Override
   public boolean deleteDistance(double value) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteDistancePreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(value));
 
     // generation CODE_001 -- BEGIN

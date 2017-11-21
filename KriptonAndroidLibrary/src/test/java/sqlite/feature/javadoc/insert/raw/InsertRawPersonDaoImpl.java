@@ -59,7 +59,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOneRaw(String name, String surname) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOneRawPreparedStatement0);
 
     if (name!=null) {
       _contentValues.put("name", name);
@@ -130,7 +130,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   long insertOneRaw0(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
       if (!insertOneRaw0ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
@@ -170,7 +170,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOneRawFieldName(String name) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOneRawFieldNamePreparedStatement1);
 
     if (name!=null) {
       _contentValues.put("name", name);
@@ -236,7 +236,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   long insertOneRawFieldName1(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
       if (!insertOneRawFieldName1ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/name', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
@@ -277,7 +277,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOne2RawFieldName(String name) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOne2RawFieldNamePreparedStatement2);
 
     if (name!=null) {
       _contentValues.put("name", name);
@@ -343,7 +343,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   long insertOne2RawFieldName2(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
       if (!insertOne2RawFieldName2ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/surname', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));

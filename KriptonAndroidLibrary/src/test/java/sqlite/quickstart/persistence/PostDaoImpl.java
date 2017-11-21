@@ -53,7 +53,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
    */
   @Override
   public void insert(Post bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("user_id", bean.userId);
     _contentValues.put("id", bean.id);
     if (bean.title!=null) {

@@ -90,7 +90,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertBean(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     _contentValues.put("city", bean.city);
     if (bean.birthCity!=null) {
       _contentValues.put("birth_city", bean.birthCity);
@@ -172,7 +172,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   long insertBean0(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
       if (!insertBean0ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35/persons', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
@@ -212,7 +212,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertName(String tempName) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertNamePreparedStatement1);
 
     if (tempName!=null) {
       _contentValues.put("name", tempName);
@@ -282,7 +282,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   long insertName1(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
       if (!insertName1ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35/persons/*', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
@@ -325,7 +325,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public int deleteRaw(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteRawPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
@@ -584,7 +584,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public long deleteBean(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteBeanPreparedStatement3);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN
@@ -705,7 +705,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public int updateRaw(String name, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateRawPreparedStatement4);
     if (name!=null) {
       _contentValues.put("name", name);
     } else {
@@ -787,7 +787,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @return number of effected rows
    */
   int updateRaw5(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -951,7 +951,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @return number of effected rows
    */
   int updateRaw6(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -1126,7 +1126,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @return number of effected rows
    */
   int updateRaw7(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -1219,7 +1219,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public int updateBean(Person person) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateBeanPreparedStatement5);
     _contentValues.put("alias_parent_id", person.parentId);
     _contentValues.put("city", person.city);
     if (person.birthCity!=null) {
@@ -1319,7 +1319,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * @return number of effected rows
    */
   int updateBean8(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN

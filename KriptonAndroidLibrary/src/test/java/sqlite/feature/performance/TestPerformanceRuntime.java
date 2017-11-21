@@ -46,7 +46,7 @@ public class TestPerformanceRuntime extends BaseAndroidTest {
 		// delete all
 		final BindSimpleDataSource dataSource = BindSimpleDataSource.instance();
 
-		dataSource.execute(new BindSimpleDataSource.SimpleTransaction() {
+		dataSource.execute(new BindSimpleDataSource.Transaction() {
 
 			@Override
 			public TransactionResult onExecute(BindSimpleDaoFactory daoFactory) {

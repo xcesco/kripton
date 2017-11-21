@@ -608,7 +608,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long insert(Employee bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.lastName!=null) {
       _contentValues.put("last_name", bean.lastName);
     } else {
@@ -752,7 +752,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long insertJQL(Employee bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertJQLPreparedStatement1);
     if (bean.fieldBoolean!=null) {
       _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     } else {
@@ -888,7 +888,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long update(Employee bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
     if (bean.lastName!=null) {
       _contentValues.put("last_name", bean.lastName);
     } else {
@@ -1058,7 +1058,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long updateById(Employee bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement3);
     if (bean.lastName!=null) {
       _contentValues.put("last_name", bean.lastName);
     } else {
@@ -1218,7 +1218,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long updateJQL(Employee bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLPreparedStatement4);
     if (bean.lastName!=null) {
       _contentValues.put("last_name", bean.lastName);
     } else {
@@ -1328,7 +1328,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long updateByIdJQL(Employee bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdJQLPreparedStatement5);
     if (bean.lastName!=null) {
       _contentValues.put("last_name", bean.lastName);
     } else {
@@ -1429,7 +1429,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long delete(Employee bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement6);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, bean.fieldByte));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, bean.fieldCharacter));
@@ -1501,7 +1501,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long deleteJQL(Employee bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteJQLPreparedStatement7);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, bean.fieldByte));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterChar.class, bean.fieldCharacter));
@@ -1564,7 +1564,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
    */
   @Override
   public long deleteById(Employee bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement8);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN

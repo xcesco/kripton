@@ -161,7 +161,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public boolean updateById(MessageEntity bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement0);
     _contentValues.put("channel_id", bean.channelId);
     if (bean.ownerType!=null) {
       _contentValues.put("owner_type", bean.ownerType.toString());
@@ -274,7 +274,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public void insert(MessageEntity bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("channel_id", bean.channelId);
     if (bean.ownerType!=null) {
       _contentValues.put("owner_type", bean.ownerType.toString());

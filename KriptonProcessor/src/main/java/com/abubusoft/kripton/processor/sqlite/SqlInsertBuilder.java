@@ -230,7 +230,7 @@ public abstract class SqlInsertBuilder {
 		SqlBuilderHelper.generateColumnCheckSet(classBuilder, method, columns);
 
 		// retrieve content values
-		methodBuilder.addStatement("$T _contentValues=contentValues(contentValues)", KriptonContentValues.class);
+		methodBuilder.addStatement("$T _contentValues=contentValuesForContentProvider(contentValues)", KriptonContentValues.class);
 		
 		// generate column check
 		SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.values().keySet()", true, null);

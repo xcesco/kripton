@@ -52,7 +52,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
    */
   @Override
   public long insert(FileBean bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -131,7 +131,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
    */
   @Override
   public long insert(String name, String contentType, byte[] content) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     if (name!=null) {
       _contentValues.put("name", name);

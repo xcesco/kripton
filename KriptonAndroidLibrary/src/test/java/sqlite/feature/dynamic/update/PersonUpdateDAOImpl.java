@@ -512,7 +512,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement0);
 
     if (name!=null) {
       _contentValues.put("name", name);

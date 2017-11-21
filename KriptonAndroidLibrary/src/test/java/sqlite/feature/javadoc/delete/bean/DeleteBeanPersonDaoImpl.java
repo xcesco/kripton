@@ -48,7 +48,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    */
   @Override
   public int deleteOneBean(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteOneBeanPreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN
@@ -161,7 +161,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    */
   @Override
   public void deleteAllBeansJQL(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllBeansJQLPreparedStatement1);
     _contentValues.addWhereArgs((bean.getName()==null?"":bean.getName()));
     _contentValues.addWhereArgs((bean.getSurname()==null?"":bean.getSurname()));
 
@@ -216,7 +216,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    */
   @Override
   public int deleteFromSelectAllBeansJQL(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteFromSelectAllBeansJQLPreparedStatement2);
     _contentValues.addWhereArgs((bean.getSurname()==null?"":bean.getSurname()));
     _contentValues.addWhereArgs((bean.getName()==null?"":bean.getName()));
 
@@ -334,7 +334,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
    */
   @Override
   public int deleteBean(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteBeanPreparedStatement3);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN

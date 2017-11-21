@@ -116,7 +116,7 @@ public class CityOk1DaoImpl extends AbstractDao implements CityOk1Dao {
    */
   @Override
   public long insert(City bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -245,7 +245,7 @@ public class CityOk1DaoImpl extends AbstractDao implements CityOk1Dao {
    */
   @Override
   public int deleteById(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN

@@ -191,7 +191,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
    */
   @Override
   public void insertAll(SchoolLunch schoolLunches) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertAllPreparedStatement0);
     _contentValues.put("fresh", schoolLunches.isFresh());
     _contentValues.put("contains_meat", schoolLunches.isContainsMeat());
     if (schoolLunches.getFruits()!=null) {
@@ -250,7 +250,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
    */
   @Override
   public void deleteAll() {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement1);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

@@ -46,7 +46,7 @@ public class Test96Runtime extends BaseAndroidTest {
 		final Bean96 bean=new Bean96();
 		bean.name="all";
 
-		dataSource.execute(new BindBean96DataSource.SimpleTransaction() {
+		dataSource.execute(new BindBean96DataSource.Transaction() {
 			
 			@Override
 			public TransactionResult onExecute(BindBean96DaoFactory daoFactory) {

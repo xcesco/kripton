@@ -192,7 +192,7 @@ public class AlbumDaoImpl extends AbstractDao implements AlbumDao {
    */
   @Override
   public long update(Album bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement0);
     _contentValues.put("artist_id", bean.artistId);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -268,7 +268,7 @@ public class AlbumDaoImpl extends AbstractDao implements AlbumDao {
    */
   @Override
   public long insert(Album bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("artist_id", bean.artistId);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -333,7 +333,7 @@ public class AlbumDaoImpl extends AbstractDao implements AlbumDao {
    */
   @Override
   public long deleteById(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN

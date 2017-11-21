@@ -419,7 +419,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
    */
   @Override
   public boolean updateOne(List<String> value, long id, List<String> paramValue) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     if (value!=null) {
       _contentValues.put("value", serializer1(value));
     } else {
@@ -495,7 +495,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
    */
   @Override
   public long insert(long id, List<String> value) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     _contentValues.put("id", id);
     if (value!=null) {
@@ -561,7 +561,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
    */
   @Override
   public long insert(StringBean bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
     if (bean.value!=null) {
       _contentValues.put("value", StringBeanTable.serializeValue(bean.value));
     } else {
@@ -630,7 +630,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
    */
   @Override
   public long delete(List<String> paramValue) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement3);
     _contentValues.addWhereArgs((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
     // generation CODE_001 -- BEGIN

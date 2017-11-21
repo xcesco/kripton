@@ -185,7 +185,7 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
    */
   @Override
   public long update(Artist bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -259,7 +259,7 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
    */
   @Override
   public long insert(Artist bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -323,7 +323,7 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
    */
   @Override
   public long deleteById(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN

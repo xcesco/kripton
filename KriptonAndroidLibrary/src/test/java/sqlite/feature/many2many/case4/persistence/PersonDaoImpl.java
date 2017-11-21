@@ -52,7 +52,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    */
   @Override
   public int insert(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -185,7 +185,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    */
   @Override
   public boolean deleteById(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
@@ -239,7 +239,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    */
   @Override
   public boolean updateById(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN

@@ -19,6 +19,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 /**
  * This class become the parent class for every Dao generated. Every Dao have to
@@ -51,15 +52,19 @@ public abstract class AbstractDao implements AutoCloseable {
 	}
 
 	protected KriptonContentValues contentValues() {
-		return _context.contentValues();
+		return _context.contentValues(null);
 	}
-
+	
 	protected KriptonContentValues contentValuesForUpdate() {
-		return _context.contentValuesForUpdate();
+		return _context.contentValuesForUpdate(null);
 	}
 
-	protected KriptonContentValues contentValues(ContentValues values) {
-		return _context.contentValues(values);
+	protected KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
+		return _context.contentValuesForUpdate(compiledStatement);
+	}
+
+	protected KriptonContentValues contentValuesForContentProvider(ContentValues values) {
+		return _context.contentValuesForContentProvider(values);
 	}
 	
 	protected StringBuilder sqlBuilder() {

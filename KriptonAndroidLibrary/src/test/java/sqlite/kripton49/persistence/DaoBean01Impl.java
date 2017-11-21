@@ -198,7 +198,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long updateOne(String text, Long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     if (text!=null) {
       _contentValues.put("text", text);
     } else {
@@ -271,7 +271,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long deleteOne(Long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteOnePreparedStatement1);
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
 
     // generation CODE_001 -- BEGIN
@@ -325,7 +325,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long insertOne(Long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement2);
 
     if (id!=null) {
       _contentValues.put("id", id);
@@ -389,7 +389,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long insertOne(Bean01Entity bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement3);
     if (bean.getText()!=null) {
       _contentValues.put("text", bean.getText());
     } else {

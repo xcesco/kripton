@@ -53,7 +53,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
    */
   @Override
   public void insert(Todo bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("id", bean.id);
     _contentValues.put("user_id", bean.userId);
     if (bean.title!=null) {

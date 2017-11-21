@@ -197,7 +197,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    */
   @Override
   public boolean insert(Bean84B bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.columnBean!=null) {
       _contentValues.put("column_bean", Bean84BTable.serializeColumnBean(bean.columnBean));
     } else {
@@ -260,7 +260,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    */
   @Override
   public boolean updateAll(Bean84B bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateAllPreparedStatement1);
     if (bean.columnBean!=null) {
       _contentValues.put("column_bean", Bean84BTable.serializeColumnBean(bean.columnBean));
     } else {
@@ -318,7 +318,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
    */
   @Override
   public boolean deleteAll(Bean84B bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement2);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

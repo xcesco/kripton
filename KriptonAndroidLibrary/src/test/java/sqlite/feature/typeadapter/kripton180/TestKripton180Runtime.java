@@ -54,7 +54,7 @@ public class TestKripton180Runtime extends BaseAndroidTest {
 
 		BindKripton180BeanDataSource dataSource = BindKripton180BeanDataSource.instance();
 
-		dataSource.execute(new BindKripton180BeanDataSource.SimpleTransaction() {
+		dataSource.execute(new BindKripton180BeanDataSource.Transaction() {
 
 			@Override
 			public TransactionResult onExecute(BindKripton180BeanDaoFactory daoFactory) {
@@ -102,7 +102,7 @@ public class TestKripton180Runtime extends BaseAndroidTest {
 
 		BindKripton180BeanDataSource dataSource = BindKripton180BeanDataSource.instance();
 
-		dataSource.execute(new BindKripton180BeanDataSource.SimpleTransaction() {
+		dataSource.execute(new BindKripton180BeanDataSource.Transaction() {
 
 			@Override
 			public TransactionResult onExecute(BindKripton180BeanDaoFactory daoFactory) {

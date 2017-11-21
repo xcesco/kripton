@@ -60,7 +60,11 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		generateJavaDoc(methodBuilder, method, returnType);
 		
 		// standard INSERT
-		methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
+		if (method.jql.hasDynamicParts()  || method.jql.containsSelectOperation) {
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);			
+		} else {
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, method.buildPreparedStatementName());
+		}
 
 		if (method.jql.containsSelectOperation) {
 			// INSERT-SELECT
@@ -83,14 +87,25 @@ public class InsertRawHelper implements InsertCodeGenerator {
 					// it use raw method param's typeName
 					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 				}
-				methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
+				
+				if (method.isLogEnabled()) {
+					methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
+				} else {
+					methodBuilder.addCode("_contentValues.put(");
+				}
+				
 				// it does not need to be converted in string
-
 				SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, item.value1, property);
 				methodBuilder.addCode(");\n");
 				if (nullable) {
-					methodBuilder.nextControlFlow("else");
-					methodBuilder.addCode("_contentValues.putNull($S);\n", property.columnName);
+					methodBuilder.nextControlFlow("else");					
+					
+					if (method.isLogEnabled()) {
+						methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
+					} else {
+						methodBuilder.addStatement("_contentValues.putNull()");
+					}
+					
 					methodBuilder.endControlFlow();
 				}
 
@@ -102,7 +117,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addComment("insert operation");
 			if (method.jql.hasDynamicParts()) {
 				// does not memorize compiled statement, it can vary every time generate SQL for insert
-				SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);	
+				SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);	
 				
 				methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
 			} else {
@@ -111,7 +126,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());
 				
 				methodBuilder.beginControlFlow("if ($L==null)", psName);
-				SqlBuilderHelper.generateSQLForInsert(method, methodBuilder);
+				SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);
 				methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
 				methodBuilder.endControlFlow();
 				

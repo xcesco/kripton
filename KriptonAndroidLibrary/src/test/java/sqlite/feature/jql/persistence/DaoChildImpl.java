@@ -127,7 +127,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public Child insertBean(Child bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -437,7 +437,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void insertByCopy3(Child bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertByCopy3PreparedStatement1);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -502,7 +502,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public int insertByCopy(long parentId, String name) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertByCopyPreparedStatement2);
 
     _contentValues.put("parent_id", parentId);
     if (name!=null) {
@@ -570,7 +570,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void updateJQL(long parentId, String name) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLPreparedStatement3);
     if (name!=null) {
       _contentValues.put("name", name);
     } else {

@@ -419,7 +419,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
    */
   @Override
   public long updateOne(List<Integer> value, long id, List<Integer> paramValue) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     if (value!=null) {
       _contentValues.put("value", serializer1(value));
     } else {
@@ -495,7 +495,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
    */
   @Override
   public long insert(long id, List<Integer> value) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     _contentValues.put("id", id);
     if (value!=null) {
@@ -561,7 +561,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
    */
   @Override
   public long insert(IntegerBean bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
     if (bean.value!=null) {
       _contentValues.put("value", IntegerBeanTable.serializeValue(bean.value));
     } else {
@@ -630,7 +630,7 @@ public class IntegerDaoImpl extends AbstractDao implements IntegerDao {
    */
   @Override
   public long delete(List<Integer> paramValue) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement3);
     _contentValues.addWhereArgs((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
     // generation CODE_001 -- BEGIN

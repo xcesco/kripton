@@ -48,7 +48,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    */
   @Override
   public int deleteOneBean(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteOneBeanPreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
@@ -166,7 +166,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    */
   @Override
   public boolean deleteAllBeansJQL(String name, String surname) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllBeansJQLPreparedStatement1);
     _contentValues.addWhereArgs((name==null?"":name));
     _contentValues.addWhereArgs((surname==null?"":surname));
 
@@ -223,7 +223,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    */
   @Override
   public void deleteFromSelectAllBeansJQL(String name, String surname) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteFromSelectAllBeansJQLPreparedStatement2);
     _contentValues.addWhereArgs((surname==null?"":surname));
     _contentValues.addWhereArgs((name==null?"":name));
 
@@ -341,7 +341,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
    */
   @Override
   public long deleteRaw(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteRawPreparedStatement3);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN

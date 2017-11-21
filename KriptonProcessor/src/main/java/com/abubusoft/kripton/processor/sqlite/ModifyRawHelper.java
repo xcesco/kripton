@@ -88,7 +88,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		}
 
 		// clear contentValues
-		methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
+		if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);			
+		} else {
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, method.buildPreparedStatementName());
+		}
+
 		
 		if (method.jql.containsSelectOperation) {
 			generateJavaDoc(method, methodBuilder, updateMode);
@@ -117,7 +122,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					}
 
 					// here it needed raw parameter typeName
-					methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
+					if (method.isLogEnabled()) {
+						methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
+					} else {
+						methodBuilder.addCode("_contentValues.put(");
+					}
 
 					SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, TypeUtility.typeName(property.getElement()), property);
 
@@ -125,7 +134,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 					if (TypeUtility.isNullable(method, item, property)) {
 						methodBuilder.nextControlFlow("else");
-						methodBuilder.addCode("_contentValues.putNull($S);\n", property.columnName);
+						
+						if (method.isLogEnabled()) {
+							methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
+						} else {
+							methodBuilder.addStatement("_contentValues.putNull()");
+						}
+												
 						methodBuilder.endControlFlow();
 					}
 				}

@@ -245,7 +245,7 @@ public class TestRx extends BaseAndroidTest {
 	public void testRunSyncWithListener() {
 		BindXenoDataSource dataSource = BindXenoDataSource.instance();
 
-		dataSource.execute(new BindXenoDataSource.SimpleTransaction() {
+		dataSource.execute(new BindXenoDataSource.Transaction() {
 			@Override
 			public TransactionResult onExecute(BindXenoDaoFactory daoFactory) {
 				CountryDaoImpl dao = daoFactory.getCountryDao();
@@ -264,7 +264,7 @@ public class TestRx extends BaseAndroidTest {
 			}
 		});
 
-		dataSource.execute(new BindXenoDataSource.SimpleTransaction() {
+		dataSource.execute(new BindXenoDataSource.Transaction() {
 
 			@Override
 			public TransactionResult onExecute(BindXenoDaoFactory daoFactory) {
@@ -290,7 +290,7 @@ public class TestRx extends BaseAndroidTest {
 	public void testRunSync() {
 		BindXenoDataSource dataSource = BindXenoDataSource.instance();
 
-		dataSource.execute(new BindXenoDataSource.SimpleTransaction() {
+		dataSource.execute(new BindXenoDataSource.Transaction() {
 			@Override
 			public TransactionResult onExecute(BindXenoDaoFactory daoFactory) {
 				CountryDaoImpl dao = daoFactory.getCountryDao();
@@ -309,7 +309,7 @@ public class TestRx extends BaseAndroidTest {
 			}
 		});
 
-		dataSource.execute(new BindXenoDataSource.SimpleTransaction() {
+		dataSource.execute(new BindXenoDataSource.Transaction() {
 
 			@Override
 			public TransactionResult onExecute(BindXenoDaoFactory daoFactory) {

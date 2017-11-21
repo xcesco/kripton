@@ -60,11 +60,7 @@ public class Test64BRuntime extends BaseAndroidTest {
 
 				return TransactionResult.COMMIT;
 			}
-
-			@Override
-			public void onError(Throwable e) {
-
-			}
+			
 		});
 	}
 

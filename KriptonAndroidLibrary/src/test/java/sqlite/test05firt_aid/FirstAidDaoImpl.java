@@ -169,7 +169,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    */
   @Override
   public int deleteAll() {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement0);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -244,7 +244,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
    */
   @Override
   public int insert(FirstAid bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     if (bean.uid!=null) {
       _contentValues.put("uid", bean.uid);
     } else {

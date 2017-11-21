@@ -63,7 +63,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBean(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanPreparedStatement0);
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
     } else {
@@ -136,7 +136,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   long insertOneBean0(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
       if (!insertOneBean0ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
@@ -178,7 +178,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBeanFieldName(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanFieldNamePreparedStatement1);
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
     } else {
@@ -245,7 +245,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   long insertOneBeanFieldName1(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
       if (!insertOneBeanFieldName1ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/name', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
@@ -289,7 +289,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBeanFieldSurname(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanFieldSurnamePreparedStatement2);
     if (bean.getSurname()!=null) {
       _contentValues.put("surname", bean.getSurname());
     } else {
@@ -357,7 +357,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   long insertOneBeanFieldSurname2(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
       if (!insertOneBeanFieldSurname2ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/surname', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));

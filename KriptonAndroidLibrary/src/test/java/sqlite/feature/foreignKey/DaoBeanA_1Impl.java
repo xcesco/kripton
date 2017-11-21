@@ -263,7 +263,7 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
    */
   @Override
   public int insert(BeanA_1 bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("bean_a2_id", bean.beanA2Id);
     if (bean.valueString!=null) {
       _contentValues.put("value_string", bean.valueString);
@@ -333,7 +333,7 @@ public class DaoBeanA_1Impl extends AbstractDao implements DaoBeanA_1 {
    */
   @Override
   public int update(BeanA_1 bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
     _contentValues.put("bean_a2_id", bean.beanA2Id);
     if (bean.valueString!=null) {
       _contentValues.put("value_string", bean.valueString);

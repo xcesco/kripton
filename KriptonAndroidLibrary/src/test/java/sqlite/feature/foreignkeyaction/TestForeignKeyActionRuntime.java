@@ -57,12 +57,7 @@ public class TestForeignKeyActionRuntime extends BaseAndroidTest {
 				
 				return TransactionResult.COMMIT;
 			}
-			
-			@Override
-			public void onError(Throwable e) {
-				// TODO Auto-generated method stub
-				
-			}
+						
 		});
 	}
 

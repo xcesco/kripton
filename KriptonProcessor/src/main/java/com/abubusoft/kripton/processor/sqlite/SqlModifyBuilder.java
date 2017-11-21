@@ -299,8 +299,8 @@ public abstract class SqlModifyBuilder {
 		methodBuilder.returns(Integer.TYPE);
 
 		// retrieve content values
-		if (updateResultType == ModifyType.UPDATE_BEAN || updateResultType == ModifyType.UPDATE_RAW) {
-			methodBuilder.addStatement("$T _contentValues=contentValues(contentValues)", KriptonContentValues.class);
+		if (updateResultType == ModifyType.UPDATE_BEAN || updateResultType == ModifyType.UPDATE_RAW) {						
+			methodBuilder.addStatement("$T _contentValues=contentValuesForContentProvider(contentValues)", KriptonContentValues.class);
 		} else {
 			methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
 		}

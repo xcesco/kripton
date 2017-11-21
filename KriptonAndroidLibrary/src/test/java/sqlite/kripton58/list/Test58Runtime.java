@@ -58,11 +58,7 @@ public class Test58Runtime extends BaseAndroidTest {
 
 				return TransactionResult.COMMIT;
 			}
-
-			@Override
-			public void onError(Throwable e) {
-				Logger.error(e.getMessage());
-			}
+			
 		});
 	}
 

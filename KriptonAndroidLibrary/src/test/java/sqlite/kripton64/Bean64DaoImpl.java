@@ -376,7 +376,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(BigDecimal valueBigDecimal) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement0);
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
 
     // generation CODE_001 -- BEGIN
@@ -431,7 +431,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(BigInteger valueBigDecimal) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement1);
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toString()));
 
     // generation CODE_001 -- BEGIN
@@ -486,7 +486,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(boolean valueBoolType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(valueBoolType));
 
     // generation CODE_001 -- BEGIN
@@ -541,7 +541,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long delete(Boolean valueBool) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement3);
     _contentValues.addWhereArgs((valueBool==null?"":String.valueOf(valueBool)));
 
     // generation CODE_001 -- BEGIN
@@ -596,7 +596,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteArrayBeanType(Bean64[] valueBeanArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteArrayBeanTypePreparedStatement4);
     _contentValues.addWhereArgs((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
 
     // generation CODE_001 -- BEGIN
@@ -651,7 +651,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteArrayLong(Long[] valueLongArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteArrayLongPreparedStatement5);
     _contentValues.addWhereArgs((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
 
     // generation CODE_001 -- BEGIN
@@ -706,7 +706,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteArrayLongType(long[] valueLongTypeArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteArrayLongTypePreparedStatement6);
     _contentValues.addWhereArgs((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
 
     // generation CODE_001 -- BEGIN
@@ -761,7 +761,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteByte(Byte valueByte) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteBytePreparedStatement7);
     _contentValues.addWhereArgs((valueByte==null?"":String.valueOf(valueByte)));
 
     // generation CODE_001 -- BEGIN
@@ -816,7 +816,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteByteType(boolean valueByteType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByteTypePreparedStatement8);
     _contentValues.addWhereArgs(String.valueOf(valueByteType));
 
     // generation CODE_001 -- BEGIN
@@ -871,7 +871,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteCalendar(Date valueCalendar) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteCalendarPreparedStatement9);
     _contentValues.addWhereArgs((valueCalendar==null?"":DateUtils.write(valueCalendar)));
 
     // generation CODE_001 -- BEGIN
@@ -926,7 +926,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteChar(Character valueChar) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteCharPreparedStatement10);
     _contentValues.addWhereArgs((valueChar==null?"":String.valueOf((int)valueChar)));
 
     // generation CODE_001 -- BEGIN
@@ -981,7 +981,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteCharType(char valueCharType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteCharTypePreparedStatement11);
     _contentValues.addWhereArgs(String.valueOf((int)valueCharType));
 
     // generation CODE_001 -- BEGIN
@@ -1036,7 +1036,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteCurrency(Currency valueCurrency) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteCurrencyPreparedStatement12);
     _contentValues.addWhereArgs((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
 
     // generation CODE_001 -- BEGIN
@@ -1091,7 +1091,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteDate(Date valueDate) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteDatePreparedStatement13);
     _contentValues.addWhereArgs((valueDate==null?"":DateUtils.write(valueDate)));
 
     // generation CODE_001 -- BEGIN
@@ -1146,7 +1146,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteDouble(Double valueDouble) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteDoublePreparedStatement14);
     _contentValues.addWhereArgs((valueDouble==null?"":String.valueOf(valueDouble)));
 
     // generation CODE_001 -- BEGIN
@@ -1201,7 +1201,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteDoubleType(double valueDoubleType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteDoubleTypePreparedStatement15);
     _contentValues.addWhereArgs(String.valueOf(valueDoubleType));
 
     // generation CODE_001 -- BEGIN
@@ -1256,7 +1256,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteEnumType(EnumType valueEnumType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteEnumTypePreparedStatement16);
     _contentValues.addWhereArgs((valueEnumType==null?"":valueEnumType.toString()));
 
     // generation CODE_001 -- BEGIN
@@ -1311,7 +1311,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteFloat(Float valueFloat) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteFloatPreparedStatement17);
     _contentValues.addWhereArgs((valueFloat==null?"":String.valueOf(valueFloat)));
 
     // generation CODE_001 -- BEGIN
@@ -1366,7 +1366,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteFloatType(float valueFloatType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteFloatTypePreparedStatement18);
     _contentValues.addWhereArgs(String.valueOf(valueFloatType));
 
     // generation CODE_001 -- BEGIN
@@ -1421,7 +1421,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteInt(Integer valueInt) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteIntPreparedStatement19);
     _contentValues.addWhereArgs((valueInt==null?"":String.valueOf(valueInt)));
 
     // generation CODE_001 -- BEGIN
@@ -1476,7 +1476,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteIntType(int valueIntType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteIntTypePreparedStatement20);
     _contentValues.addWhereArgs(String.valueOf(valueIntType));
 
     // generation CODE_001 -- BEGIN
@@ -1531,7 +1531,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteListLong(LinkedList<Long> valueLongList) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteListLongPreparedStatement21);
     _contentValues.addWhereArgs((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
 
     // generation CODE_001 -- BEGIN
@@ -1586,7 +1586,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteLocale(Date valueLocale) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteLocalePreparedStatement22);
     _contentValues.addWhereArgs((valueLocale==null?"":DateUtils.write(valueLocale)));
 
     // generation CODE_001 -- BEGIN
@@ -1641,7 +1641,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteLong(Long valueLong) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteLongPreparedStatement23);
     _contentValues.addWhereArgs((valueLong==null?"":String.valueOf(valueLong)));
 
     // generation CODE_001 -- BEGIN
@@ -1696,7 +1696,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteLongType(long valueLongType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteLongTypePreparedStatement24);
     _contentValues.addWhereArgs(String.valueOf(valueLongType));
 
     // generation CODE_001 -- BEGIN
@@ -1751,7 +1751,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteShort(Short valueShort) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteShortPreparedStatement25);
     _contentValues.addWhereArgs((valueShort==null?"":String.valueOf((int)valueShort)));
 
     // generation CODE_001 -- BEGIN
@@ -1806,7 +1806,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteShortType(short valueShortType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteShortTypePreparedStatement26);
     _contentValues.addWhereArgs(String.valueOf((int)valueShortType));
 
     // generation CODE_001 -- BEGIN
@@ -1861,7 +1861,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteString(String valueString) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteStringPreparedStatement27);
     _contentValues.addWhereArgs((valueString==null?"":valueString));
 
     // generation CODE_001 -- BEGIN
@@ -1916,7 +1916,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteTime(Time valueTime) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteTimePreparedStatement28);
     _contentValues.addWhereArgs((valueTime==null?"":SQLTimeUtils.write(valueTime)));
 
     // generation CODE_001 -- BEGIN
@@ -1971,7 +1971,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteTimeZone(TimeZone valueTimeZone) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteTimeZonePreparedStatement29);
     _contentValues.addWhereArgs((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
 
     // generation CODE_001 -- BEGIN
@@ -2026,7 +2026,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long deleteURL(URL valueUrl) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteURLPreparedStatement30);
     _contentValues.addWhereArgs((valueUrl==null?"":UrlUtils.write(valueUrl)));
 
     // generation CODE_001 -- BEGIN
@@ -2122,7 +2122,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insert(Bean64 bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement31);
     _contentValues.put("value_bool_type", bean.valueBoolType);
     if (bean.valueBool!=null) {
       _contentValues.put("value_bool", bean.valueBool);
@@ -2353,7 +2353,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insert(BigDecimal valueBigDecimal) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement32);
 
     if (valueBigDecimal!=null) {
       _contentValues.put("value_big_decimal", valueBigDecimal.toPlainString());
@@ -2415,7 +2415,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insert(BigInteger valueBigInteger) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement33);
 
     if (valueBigInteger!=null) {
       _contentValues.put("value_big_integer", valueBigInteger.toString());
@@ -2477,7 +2477,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insert(boolean valueBoolType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement34);
 
     _contentValues.put("value_bool_type", valueBoolType);
 
@@ -2535,7 +2535,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insert(Boolean valueBool) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement35);
 
     if (valueBool!=null) {
       _contentValues.put("value_bool", valueBool);
@@ -2597,7 +2597,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertArrayBeanType(Bean64[] valueBeanArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertArrayBeanTypePreparedStatement36);
 
     if (valueBeanArray!=null) {
       _contentValues.put("value_bean_array", serializer1(valueBeanArray));
@@ -2659,7 +2659,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertArrayLong(Long[] valueLongArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertArrayLongPreparedStatement37);
 
     if (valueLongArray!=null) {
       _contentValues.put("value_long_array", serializer2(valueLongArray));
@@ -2721,7 +2721,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertArrayLongType(long[] valueLongTypeArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertArrayLongTypePreparedStatement38);
 
     if (valueLongTypeArray!=null) {
       _contentValues.put("value_long_type_array", serializer3(valueLongTypeArray));
@@ -2783,7 +2783,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertByte(Byte valueByte) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertBytePreparedStatement39);
 
     if (valueByte!=null) {
       _contentValues.put("value_byte", valueByte);
@@ -2845,7 +2845,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertByteType(byte valueByteType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertByteTypePreparedStatement40);
 
     _contentValues.put("value_byte_type", valueByteType);
 
@@ -2903,7 +2903,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertCalendar(Calendar valueCalendar) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertCalendarPreparedStatement41);
 
     if (valueCalendar!=null) {
       _contentValues.put("value_calendar", CalendarUtils.write(valueCalendar));
@@ -2965,7 +2965,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertChar(Character valueChar) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertCharPreparedStatement42);
 
     if (valueChar!=null) {
       _contentValues.put("value_char", (int)valueChar);
@@ -3027,7 +3027,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertCharType(char valueCharType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertCharTypePreparedStatement43);
 
     _contentValues.put("value_char_type", (int)valueCharType);
 
@@ -3085,7 +3085,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertCurrency(Currency valueCurrency) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertCurrencyPreparedStatement44);
 
     if (valueCurrency!=null) {
       _contentValues.put("value_currency", CurrencyUtils.write(valueCurrency));
@@ -3147,7 +3147,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertDate(Date valueDate) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertDatePreparedStatement45);
 
     if (valueDate!=null) {
       _contentValues.put("value_date", DateUtils.write(valueDate));
@@ -3209,7 +3209,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertDouble(Double valueDouble) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertDoublePreparedStatement46);
 
     if (valueDouble!=null) {
       _contentValues.put("value_double", valueDouble);
@@ -3271,7 +3271,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertDoubleType(double valueDoubleType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertDoubleTypePreparedStatement47);
 
     _contentValues.put("value_double_type", valueDoubleType);
 
@@ -3329,7 +3329,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertEnumType(EnumType valueEnumType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertEnumTypePreparedStatement48);
 
     if (valueEnumType!=null) {
       _contentValues.put("value_enum_type", valueEnumType.toString());
@@ -3391,7 +3391,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertFloat(Float valueFloat) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertFloatPreparedStatement49);
 
     if (valueFloat!=null) {
       _contentValues.put("value_float", valueFloat);
@@ -3453,7 +3453,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertFloatType(float valueFloatType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertFloatTypePreparedStatement50);
 
     _contentValues.put("value_float_type", valueFloatType);
 
@@ -3511,7 +3511,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertInt(Integer valueInt) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertIntPreparedStatement51);
 
     if (valueInt!=null) {
       _contentValues.put("value_int", valueInt);
@@ -3573,7 +3573,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertIntType(int valueIntType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertIntTypePreparedStatement52);
 
     _contentValues.put("value_int_type", valueIntType);
 
@@ -3631,7 +3631,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertListLong(LinkedList<Long> valueLongList) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertListLongPreparedStatement53);
 
     if (valueLongList!=null) {
       _contentValues.put("value_long_list", serializer4(valueLongList));
@@ -3693,7 +3693,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertLocale(Locale valueLocale) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertLocalePreparedStatement54);
 
     if (valueLocale!=null) {
       _contentValues.put("value_locale", LocaleUtils.write(valueLocale));
@@ -3755,7 +3755,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertLong(Long valueLong) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertLongPreparedStatement55);
 
     if (valueLong!=null) {
       _contentValues.put("value_long", valueLong);
@@ -3817,7 +3817,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertLongType(long valueLongType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertLongTypePreparedStatement56);
 
     _contentValues.put("value_long_type", valueLongType);
 
@@ -3875,7 +3875,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertShort(Short valueShort) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertShortPreparedStatement57);
 
     if (valueShort!=null) {
       _contentValues.put("value_short", (int)valueShort);
@@ -3937,7 +3937,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertShortType(short valueShortType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertShortTypePreparedStatement58);
 
     _contentValues.put("value_short_type", (int)valueShortType);
 
@@ -3995,7 +3995,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertString(String valueString) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertStringPreparedStatement59);
 
     if (valueString!=null) {
       _contentValues.put("value_string", valueString);
@@ -4057,7 +4057,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertTime(Time valueTime) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertTimePreparedStatement60);
 
     if (valueTime!=null) {
       _contentValues.put("value_time", SQLTimeUtils.write(valueTime));
@@ -4119,7 +4119,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertTimeZone(TimeZone valueTimeZone) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertTimeZonePreparedStatement61);
 
     if (valueTimeZone!=null) {
       _contentValues.put("value_time_zone", TimeZoneUtils.write(valueTimeZone));
@@ -4181,7 +4181,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long insertURL(URL valueUrl) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertURLPreparedStatement62);
 
     if (valueUrl!=null) {
       _contentValues.put("value_url", UrlUtils.write(valueUrl));
@@ -11554,7 +11554,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(Bean64 value) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement63);
     _contentValues.put("value_bool_type", value.valueBoolType);
     if (value.valueBool!=null) {
       _contentValues.put("value_bool", value.valueBool);
@@ -11801,7 +11801,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(long id, BigDecimal valueBigDecimal) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement64);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
@@ -11876,7 +11876,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(long id, BigInteger valueBigDecimal) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement65);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toString()));
@@ -11951,7 +11951,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(long id, boolean valueBoolType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement66);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(String.valueOf(valueBoolType));
@@ -12026,7 +12026,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(long id, Boolean valueBool) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement67);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueBool==null?"":String.valueOf(valueBool)));
@@ -12101,7 +12101,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOne(long id, Set<String> valueSetString) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement68);
     if (valueSetString!=null) {
       _contentValues.put("value_set_string", serializer5(valueSetString));
     } else {
@@ -12180,7 +12180,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneArrayBean(long id, Bean64[] valueBeanArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneArrayBeanPreparedStatement69);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
@@ -12255,7 +12255,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneArrayLong(long id, Long[] valueLongArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneArrayLongPreparedStatement70);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
@@ -12330,7 +12330,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneArrayLongType(long id, long[] valueLongTypeArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneArrayLongTypePreparedStatement71);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
@@ -12405,7 +12405,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneByte(long id, Byte valueByte) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneBytePreparedStatement72);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueByte==null?"":String.valueOf(valueByte)));
@@ -12480,7 +12480,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneByteType(long id, boolean valueByteType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneByteTypePreparedStatement73);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(String.valueOf(valueByteType));
@@ -12555,7 +12555,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneCalendar(long id, Calendar valueCalendar) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneCalendarPreparedStatement74);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
@@ -12630,7 +12630,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneChar(long id, Character valueChar) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneCharPreparedStatement75);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueChar==null?"":String.valueOf((int)valueChar)));
@@ -12705,7 +12705,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneCharType(long id, char valueCharType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneCharTypePreparedStatement76);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(String.valueOf((int)valueCharType));
@@ -12780,7 +12780,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneCurrency(long id, Currency valueCurrency) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneCurrencyPreparedStatement77);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
@@ -12855,7 +12855,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneDate(long id, Date valueDate) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneDatePreparedStatement78);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueDate==null?"":DateUtils.write(valueDate)));
@@ -12930,7 +12930,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneDouble(long id, Double valueDouble) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneDoublePreparedStatement79);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueDouble==null?"":String.valueOf(valueDouble)));
@@ -13005,7 +13005,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneDoubleType(long id, double valueDoubleType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneDoubleTypePreparedStatement80);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(String.valueOf(valueDoubleType));
@@ -13080,7 +13080,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneEnumType(long id, EnumType valueEnumType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneEnumTypePreparedStatement81);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueEnumType==null?"":valueEnumType.toString()));
@@ -13155,7 +13155,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneFloat(long id, Float valueFloat) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneFloatPreparedStatement82);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueFloat==null?"":String.valueOf(valueFloat)));
@@ -13230,7 +13230,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneFloatType(long id, float valueFloatType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneFloatTypePreparedStatement83);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(String.valueOf(valueFloatType));
@@ -13305,7 +13305,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneInt(long id, Integer valueInt) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneIntPreparedStatement84);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueInt==null?"":String.valueOf(valueInt)));
@@ -13380,7 +13380,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneIntType(long id, int valueIntType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneIntTypePreparedStatement85);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(String.valueOf(valueIntType));
@@ -13455,7 +13455,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneListLong(long id, LinkedList<Long> valueLongList) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneListLongPreparedStatement86);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
@@ -13530,7 +13530,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneLocale(long id, Locale valueLocale) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneLocalePreparedStatement87);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueLocale==null?"":LocaleUtils.write(valueLocale)));
@@ -13605,7 +13605,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneLong(long id, Long valueLong) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneLongPreparedStatement88);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueLong==null?"":String.valueOf(valueLong)));
@@ -13680,7 +13680,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneLongType(long id, long valueLongType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneLongTypePreparedStatement89);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(String.valueOf(valueLongType));
@@ -13755,7 +13755,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneShort(long id, Short valueShort) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneShortPreparedStatement90);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueShort==null?"":String.valueOf((int)valueShort)));
@@ -13830,7 +13830,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneShortType(long id, short valueShortType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneShortTypePreparedStatement91);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(String.valueOf((int)valueShortType));
@@ -13905,7 +13905,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneString(long id, Double valueString) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneStringPreparedStatement92);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueString==null?"":String.valueOf(valueString)));
@@ -13980,7 +13980,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneTime(long id, Time valueTime) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneTimePreparedStatement93);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueTime==null?"":SQLTimeUtils.write(valueTime)));
@@ -14055,7 +14055,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneTimeZone(long id, TimeZone valueTimeZone) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneTimeZonePreparedStatement94);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
@@ -14130,7 +14130,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
    */
   @Override
   public long updateOneURL(long id, URL valueUrl) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneURLPreparedStatement95);
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs((valueUrl==null?"":UrlUtils.write(valueUrl)));
@@ -14180,76 +14180,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneURLPreparedStatement95, _contentValues);
     return result;
-  }
-
-  /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(Bean64[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        Bean64 item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private Bean64[] parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Bean64[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Bean64> collection=new ArrayList<>();
-        Bean64 item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=bean64BindMap.parseOnJackson(jacksonParser);
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
   }
 
   /**
@@ -14323,9 +14253,9 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * for param serializer5 serialization
+   * for param serializer1 serialization
    */
-  private byte[] serializer5(Set<String> value) {
+  private byte[] serializer1(Bean64[] value) {
     if (value==null) {
       return null;
     }
@@ -14335,14 +14265,17 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
+        int n=value.length;
+        Bean64 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("element");
         jacksonSerializer.writeStartArray();
-        for (String item: value) {
+        for (int i=0; i<n; i++) {
+          item=value[i];
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(item);
+            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -14356,9 +14289,9 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * for param parser5 parsing
+   * for param parser1 parsing
    */
-  private Set<String> parser5(byte[] input) {
+  private Bean64[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -14369,19 +14302,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      Set<String> result=null;
+      Bean64[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
+        ArrayList<Bean64> collection=new ArrayList<>();
+        Bean64 item=null;
         while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=jacksonParser.getText();
+            item=bean64BindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }
-        result=collection;
+        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
       }
       return result;
     } catch(Exception e) {
@@ -14518,6 +14451,73 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
           collection.add(item);
         }
         result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param serializer5 serialization
+   */
+  private byte[] serializer5(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser5 parsing
+   */
+  private Set<String> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
       }
       return result;
     } catch(Exception e) {

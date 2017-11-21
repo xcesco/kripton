@@ -32,6 +32,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 /**
  * <p>
@@ -43,6 +44,29 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 
+	protected OnErrorListener onErrorListener = new OnErrorListener() {
+		@Override
+		public void onError(Throwable e) {
+			throw (new KriptonRuntimeException(e));
+		}
+	};
+
+	/**
+	 * Get error listener, in transations
+	 * @return
+	 */
+	public OnErrorListener getOnErrorListener() {
+		return onErrorListener;
+	}
+
+	/**
+	 * Set error listener for transactions
+	 * @param onErrorListener
+	 */
+	public void setOnErrorListener(OnErrorListener onErrorListener) {
+		this.onErrorListener = onErrorListener;
+	}
+
 	/**
 	 * Interface for database operations.
 	 * 
@@ -51,14 +75,27 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	 */
 	public interface AbstractExecutable<E extends BindDaoFactory> {
 		/**
+		 * Execute transation. Method need to return
+		 * {@link TransactionResult#COMMIT} to commit results or
+		 * {@link TransactionResult#ROLLBACK} to rollback. If exception is
+		 * thrown, a rollback will be done.
+		 *
+		 * @param daoFactory
+		 * @return
+		 * @throws Throwable
+		 */
+		TransactionResult onExecute(E daoFactory);
+	}
+
+	public interface OnErrorListener {
+		/**
 		 * Manages error situations.
 		 * 
 		 * @param e
-		 * 		exception
+		 *            exception
 		 */
 		void onError(Throwable e);
 	}
-
 
 	public static enum TypeStatus {
 		CLOSED, READ_AND_WRITE_OPENED, READ_ONLY_OPENED
@@ -68,14 +105,14 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	 * database instance
 	 */
 	SQLiteDatabase database;
-	
+
 	/**
 	 * used to clear prepared statements
 	 */
 	public abstract void clearCompiledStatements();
-	
+
 	public boolean logEnabled;
-	
+
 	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
 
 	private final ReentrantLock lockDb = new ReentrantLock();
@@ -95,26 +132,26 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	protected DataSourceOptions options;
 
 	protected SQLiteOpenHelper sqliteHelper;
-	
+
 	protected SQLContextImpl context;
-	
+
 	public SQLContext context() {
 		return context;
 	}
-	
+
 	@Override
-	public KriptonContentValues contentValuesForUpdate() {
-		return context.contentValuesForUpdate();
+	public KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
+		return context.contentValuesForUpdate(compiledStatement);
 	}
 
 	@Override
-	public KriptonContentValues contentValues() {
-		return context.contentValues();
+	public KriptonContentValues contentValues(SQLiteStatement compiledStatement) {
+		return context.contentValues(compiledStatement);
 	}
 
 	@Override
-	public KriptonContentValues contentValues(ContentValues values) {
-		return context.contentValues(values);
+	public KriptonContentValues contentValuesForContentProvider(ContentValues values) {
+		return context.contentValuesForContentProvider(values);
 	}
 
 	@Override
@@ -157,7 +194,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	protected AbstractDataSource(String name, int version, DataSourceOptions options) {
 		this.name = name;
 		this.version = version;
-		this.context=new SQLContextImpl(this);
+		this.context = new SQLContextImpl(this);
 		this.options = options == null ? DataSourceOptions.builder().build() : options;
 	}
 
@@ -172,14 +209,16 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 		try {
 			if (openCounter.decrementAndGet() <= 0) {
 				// Closing database
-				if (database != null) {	
+				if (database != null) {
 					clearCompiledStatements();
 					database.close();
 				}
 				database = null;
-				if (logEnabled) Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
+				if (logEnabled)
+					Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			} else {
-				if (logEnabled) Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
+				if (logEnabled)
+					Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			}
 		} finally {
 			switch (status.get()) {
@@ -203,7 +242,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 				lockDb.unlock();
 				throw (new KriptonRuntimeException("Inconsistent status"));
 			}
-			
+
 		}
 
 	}
@@ -300,9 +339,10 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	 * @return true if database is opened, otherwise false
 	 */
 	public boolean isOpen() {
-		return database != null && database.isOpen();// && database.isDbLockedByCurrentThread();
+		return database != null && database.isOpen();// &&
+														// database.isDbLockedByCurrentThread();
 	}
-	
+
 	/**
 	 * <p>
 	 * return true if database is already opened in write mode.
@@ -311,7 +351,8 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	 * @return true if database is opened, otherwise false
 	 */
 	public boolean isOpenInWriteMode() {
-		//return database != null && database.isOpen() && !database.isReadOnly() && database.isDbLockedByCurrentThread();
+		// return database != null && database.isOpen() &&
+		// !database.isReadOnly() && database.isDbLockedByCurrentThread();
 		return database != null && !database.isReadOnly();
 	}
 
@@ -359,10 +400,12 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 				// open new read database
 				sqliteHelper.setWriteAheadLoggingEnabled(true);
 				database = sqliteHelper.getReadableDatabase();
-				
-				if (logEnabled) Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
+
+				if (logEnabled)
+					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
 			} else {
-				if (logEnabled) Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
+				if (logEnabled)
+					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
 			}
 		} finally {
 			lockDb.unlock();
@@ -386,15 +429,17 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 				createHelper(options);
 
 			status.set(TypeStatus.READ_AND_WRITE_OPENED);
-			
+
 			if (openCounter.incrementAndGet() == 1) {
 				// open new write database
 				sqliteHelper.setWriteAheadLoggingEnabled(true);
-				
-				database = sqliteHelper.getWritableDatabase();				
-				if (logEnabled) Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
+
+				database = sqliteHelper.getWritableDatabase();
+				if (logEnabled)
+					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
 			} else {
-				if (logEnabled) Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
+				if (logEnabled)
+					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
 			}
 		} finally {
 			lockDb.unlock();

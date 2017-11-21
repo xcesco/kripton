@@ -64,11 +64,6 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 				return TransactionResult.COMMIT;
 			}
 
-			@Override
-			public void onError(Throwable e) {
-				System.out.println("aaa");
-				throw (new KriptonRuntimeException(e));
-			}
 		});
 
 	}
@@ -102,12 +97,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 				return TransactionResult.COMMIT;
 			}
-
-			@Override
-			public void onError(Throwable e) {
-				System.out.println("aaa");
-				throw (new KriptonRuntimeException(e));
-			}
+		
 		});
 
 	}
@@ -141,12 +131,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 				return TransactionResult.COMMIT;
 			}
-
-			@Override
-			public void onError(Throwable e) {
-				System.out.println("aaa");
-				throw (new KriptonRuntimeException(e));
-			}
+			
 		});
 
 	}
@@ -179,12 +164,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 
 				return TransactionResult.COMMIT;
 			}
-
-			@Override
-			public void onError(Throwable e) {
-				System.out.println("aaa");
-				throw (new KriptonRuntimeException(e));
-			}
+			
 		});
 
 	}

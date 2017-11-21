@@ -555,7 +555,7 @@ public abstract class SqlBuilderHelper {
 	 * @param method
 	 * @param methodBuilder
 	 */
-	public static void generateSQLForInsert(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+	public static void generateSQLForInsertDynamic(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		// SQLDaoDefinition daoDefinition = method.getParent();
 		methodBuilder.addComment("generate SQL for insert");
 		JQLChecker checker = JQLChecker.getInstance();
@@ -585,6 +585,38 @@ public abstract class SqlBuilderHelper {
 		});
 
 		methodBuilder.addStatement("String _sql=String.format($S, _contentValues.keyList(), _contentValues.keyValueList())", sql);
+	}
+	
+	/**
+	 * <p>
+	 * Generate log for INSERT operations
+	 * </p>
+	 * 
+	 * @param method
+	 * @param methodBuilder
+	 */
+	public static void generateSQLForInsertStatic(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+		// SQLDaoDefinition daoDefinition = method.getParent();
+		methodBuilder.addComment("generate static SQL for insert");
+		JQLChecker checker = JQLChecker.getInstance();
+
+		// replace the table name, other pieces will be removed
+		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+
+			@Override
+			public String onTableName(String tableName) {
+				return method.getParent().getEntity().getTableName();
+			}
+			
+			@Override
+			public String onColumnName(String columnName) {
+				
+				return super.onColumnName(columnName);
+			}
+
+		});
+		
+		methodBuilder.addStatement("String _sql=$S", sql);
 	}
 
 	public static void generateLogForContentValuesContentProvider(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {

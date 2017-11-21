@@ -273,7 +273,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int deleteById(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
@@ -328,7 +328,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int deleteByPersonId(long personId) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByPersonIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(personId));
 
     // generation CODE_001 -- BEGIN
@@ -383,7 +383,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int deleteByPhoneNumberId(long phoneNumberId) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByPhoneNumberIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(phoneNumberId));
 
     // generation CODE_001 -- BEGIN
@@ -440,7 +440,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int insert(PersonPhoneNumber bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
     _contentValues.put("person_id", bean.personId);
     _contentValues.put("phone_number_id", bean.phoneNumberId);
 

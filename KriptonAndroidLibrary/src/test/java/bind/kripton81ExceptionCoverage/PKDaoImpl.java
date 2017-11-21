@@ -43,7 +43,7 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
    */
   @Override
   public void insert(PKBean bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("id", bean.id);
     if (bean.description!=null) {
       _contentValues.put("description", bean.description);

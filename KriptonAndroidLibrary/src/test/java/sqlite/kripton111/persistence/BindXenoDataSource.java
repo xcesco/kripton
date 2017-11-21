@@ -8,7 +8,6 @@ import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 import sqlite.kripton111.model.CountryTable;
 import sqlite.kripton111.model.PhoneNumberTable;
@@ -77,12 +76,24 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   /**
-   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
    *
    * @param transaction
    * 	transaction to execute
    */
   public void execute(Transaction transaction) {
+    execute(transaction, onErrorListener);
+  }
+
+  /**
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
+   *
+   * @param transaction
+   * 	transaction to execute
+   * @param onErrorListener
+   * 	error listener
+   */
+  public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
     boolean needToOpened=!this.isOpenInWriteMode();
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -94,7 +105,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
-      if (transaction!=null) transaction.onError(e);
+      if (onErrorListener!=null) onErrorListener.onError(e);
     } finally {
       try {
         connection.endTransaction();
@@ -183,12 +194,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
     }
     // log section END
@@ -199,6 +204,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
     // log section END
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -254,12 +265,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
       }
       // log section END
@@ -270,6 +275,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       }
       // log section END
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -327,16 +338,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
      * @throws Throwable
      */
     TransactionResult onExecute(BindXenoDaoFactory daoFactory);
-  }
-
-  /**
-   * Simple class implements interface to define transactions.In this class a simple <code>onError</code> method is implemented.
-   */
-  public abstract static class SimpleTransaction implements Transaction {
-    @Override
-    public void onError(Throwable e) {
-      throw(new KriptonRuntimeException(e));
-    }
   }
 
   /**

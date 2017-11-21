@@ -36,7 +36,7 @@ public class TestQuickstartRuntime extends BaseAndroidTest {
 	public void testRunSqlite1() {
 		BindQuickStartDataSource dataSource = BindQuickStartDataSource.instance();
 		
-		dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
+		dataSource.execute(new BindQuickStartDataSource.Transaction() {
 			
 			@Override
 			public TransactionResult onExecute(BindQuickStartDaoFactory daoFactory) {

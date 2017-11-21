@@ -264,7 +264,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public void deleteCompactBean(Contact bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteCompactBeanPreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
 
@@ -320,7 +320,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public void deleteCompactRaw(String password, ContactType type) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteCompactRawPreparedStatement1);
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
 
@@ -373,7 +373,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public void deleteJQLBean(Contact bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteJQLBeanPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
 
@@ -431,7 +431,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long deleteJQLRaw(long id, ContactType type) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteJQLRawPreparedStatement3);
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
 
@@ -950,7 +950,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long updateCompactBean(Contact bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateCompactBeanPreparedStatement4);
     _contentValues.put("id", bean.getId());
     if (bean.type!=null) {
       _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
@@ -1035,7 +1035,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long updateCompactRaw1(String password, ContactType type, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateCompactRaw1PreparedStatement5);
     if (password!=null) {
       _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
     } else {
@@ -1125,7 +1125,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long updateCompactRaw2(Date birthDay, String password, ContactType type, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateCompactRaw2PreparedStatement6);
     if (birthDay!=null) {
       _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
     } else {
@@ -1207,7 +1207,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long updateJQLBean(Contact bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLBeanPreparedStatement7);
     if (bean.birthDay!=null) {
       _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, bean.birthDay));
     } else {
@@ -1303,7 +1303,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long updateJQLRaw(String password, Date birthDay, ContactType type, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLRawPreparedStatement8);
     if (birthDay!=null) {
       _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
     } else {
@@ -1383,7 +1383,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long insertCompactRaw(String password, ContactType type, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertCompactRawPreparedStatement9);
 
     if (password!=null) {
       _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
@@ -1454,7 +1454,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long insertCompactBean(Contact bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertCompactBeanPreparedStatement10);
     _contentValues.put("id", bean.getId());
     if (bean.type!=null) {
       _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
@@ -1522,7 +1522,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long insertJQLBean(Contact bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertJQLBeanPreparedStatement11);
     if (bean.getPassword()!=null) {
       _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
     } else {
@@ -1597,7 +1597,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
    */
   @Override
   public long insertJQLRaw(String password, Date birthDay, ContactType type, long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertJQLRawPreparedStatement12);
 
     if (password!=null) {
       _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));

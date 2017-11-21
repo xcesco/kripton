@@ -65,7 +65,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public int insert(Country bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("area", bean.area);
     if (bean.code!=null) {
       _contentValues.put("code", bean.code);
@@ -230,7 +230,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public boolean deleteById(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
@@ -284,7 +284,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
    */
   @Override
   public boolean updateById(Country bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN

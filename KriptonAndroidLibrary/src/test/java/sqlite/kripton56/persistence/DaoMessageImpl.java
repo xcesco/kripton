@@ -49,7 +49,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public boolean updateById(long id, OwnerType ownerType) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement0);
     if (ownerType!=null) {
       _contentValues.put("owner_type", ownerType.toString());
     } else {

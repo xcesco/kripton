@@ -989,7 +989,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long insert(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
 
     if (fieldBoolean!=null) {
       _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
@@ -1125,7 +1125,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long insertWithAdapter(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertWithAdapterPreparedStatement1);
 
     if (fieldBoolean!=null) {
       _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
@@ -1268,7 +1268,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long updateById(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement2);
     if (fieldBoolean!=null) {
       _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
     } else {
@@ -1424,7 +1424,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long update(String firstName, long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement3);
     if (firstName!=null) {
       _contentValues.put("first_name", firstName);
     } else {
@@ -1539,7 +1539,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long delete(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement4);
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
     _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
@@ -1636,7 +1636,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long deleteJQL(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteJQLPreparedStatement5);
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
     _contentValues.addWhereArgs((fieldByte==null?"":fieldByte));
@@ -1733,7 +1733,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
   public long deleteJQLWithAdapter(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteJQLWithAdapterPreparedStatement6);
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, fieldByte));

@@ -341,7 +341,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
    */
   @Override
   public int deleteById(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
@@ -396,7 +396,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
    */
   @Override
   public int deleteByPersonId(long personId) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByPersonIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(personId));
 
     // generation CODE_001 -- BEGIN
@@ -451,7 +451,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
    */
   @Override
   public int deleteByCityId(long cityId) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByCityIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(cityId));
 
     // generation CODE_001 -- BEGIN
@@ -508,7 +508,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
    */
   @Override
   public int insert(PersonCityOk1 bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
     _contentValues.put("person_id", bean.personId);
     _contentValues.put("city_id", bean.cityId);
 

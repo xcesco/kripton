@@ -55,7 +55,7 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
    */
   @Override
   public void insertBean(City bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -120,7 +120,7 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
    */
   long insertBean0(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
       if (!insertBean0ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35/cities', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "city" ));

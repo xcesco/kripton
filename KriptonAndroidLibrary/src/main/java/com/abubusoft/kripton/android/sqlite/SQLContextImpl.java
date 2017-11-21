@@ -2,6 +2,7 @@ package com.abubusoft.kripton.android.sqlite;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 /**
  * This context provides all necessary support classes to invoke queries.
@@ -37,22 +38,15 @@ public class SQLContextImpl implements SQLContext {
 
 	};
 
-	public KriptonContentValues contentValues() {
+	public KriptonContentValues contentValues(SQLiteStatement compiledStatement) {
 		KriptonContentValues content = contentValues.get();
-		content.clear();
+		content.clear(compiledStatement);
 
 		return content;
 	}
 
-	public KriptonContentValues contentValues(ContentValues values) {
-		KriptonContentValues content = contentValues.get();
-		content.clear(values);
-
-		return content;
-	}
-
-	public KriptonContentValues contentValuesForUpdate() {
-		contentValuesForUpdate.clear();
+	public KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
+		contentValuesForUpdate.clear(compiledStatement);
 
 		return contentValuesForUpdate;
 	}
@@ -73,5 +67,13 @@ public class SQLContextImpl implements SQLContext {
 	@Override
 	public boolean isLogEnabled() {
 		return dataSource.logEnabled;
+	}
+
+	@Override
+	public KriptonContentValues contentValuesForContentProvider(ContentValues values) {
+		KriptonContentValues content = contentValues.get();
+		content.clear(values);
+
+		return content;
 	}
 }

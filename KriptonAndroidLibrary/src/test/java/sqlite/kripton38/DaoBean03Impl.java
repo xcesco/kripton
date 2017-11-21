@@ -109,7 +109,7 @@ public class DaoBean03Impl extends AbstractDao implements DaoBean03 {
    */
   @Override
   public long deleteOne(long id) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteOnePreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN

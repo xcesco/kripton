@@ -54,11 +54,11 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
    */
   @Override
   public void insertBean(City bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
+      _contentValues.put(bean.name);
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull();
     }
 
     // insert operation
@@ -90,7 +90,7 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
    * @return new row's id
    */
   long insertBean0(Uri uri, ContentValues contentValues) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
       if (!insertBean0ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/cities', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "city" ));

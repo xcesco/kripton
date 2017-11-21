@@ -73,7 +73,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateAllBeans(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansPreparedStatement0);
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
     } else {
@@ -148,7 +148,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateAllBeans0(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -214,7 +214,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateOneBean(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateOneBeanPreparedStatement1);
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
     } else {
@@ -303,7 +303,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateOneBean1(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -471,7 +471,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateOneBeanWithDynamic2(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -650,7 +650,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateOneBeanWithDynamicAndArgs3(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -731,7 +731,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public void updateAllBeansJQL(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansJQLPreparedStatement2);
     if (bean.getSurname()!=null) {
       _contentValues.put("surname", bean.getSurname());
     } else {
@@ -800,7 +800,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateAllBeansJQL4(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -934,7 +934,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateFromSelectJQL(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateFromSelectJQLPreparedStatement4);
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
     } else {
@@ -1017,7 +1017,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateFromSelectJQL5(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -1185,7 +1185,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateBeanDynamic6(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -1364,7 +1364,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   int updateBeanDynamicWithArgs7(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
-    KriptonContentValues _contentValues=contentValues(contentValues);
+    KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
