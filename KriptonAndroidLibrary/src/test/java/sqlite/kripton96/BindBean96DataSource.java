@@ -34,6 +34,10 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
    */
   protected Bean96DaoImpl bean96Dao = new Bean96DaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindBean96DataSource(DataSourceOptions options) {
     super("dummy", 1, options);
   }
@@ -55,7 +59,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -311,6 +315,11 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
         _bean96Dao=new Bean96DaoImpl(_context);
       }
       return _bean96Dao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

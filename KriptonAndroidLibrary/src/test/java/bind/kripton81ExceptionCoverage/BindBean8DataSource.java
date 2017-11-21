@@ -1,6 +1,7 @@
 package bind.kripton81ExceptionCoverage;
 
-import android.database.sqlite.SQLiteDatabase;
+import java.util.List;
+
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
@@ -9,7 +10,8 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import java.util.List;
+
+import android.database.sqlite.SQLiteDatabase;
 
 /**
  * <p>
@@ -34,6 +36,10 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    */
   protected Bean8DaoImpl bean8Dao = new Bean8DaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindBean8DataSource(DataSourceOptions options) {
     super("", 1, options);
   }
@@ -55,7 +61,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -311,6 +317,11 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
         _bean8Dao=new Bean8DaoImpl(_context);
       }
       return _bean8Dao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

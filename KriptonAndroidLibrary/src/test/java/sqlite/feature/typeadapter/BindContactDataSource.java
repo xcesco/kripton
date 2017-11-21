@@ -34,6 +34,10 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
    */
   protected ContactDaoImpl contactDao = new ContactDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindContactDataSource(DataSourceOptions options) {
     super("contact.db", 1, options);
   }
@@ -55,7 +59,7 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -311,6 +315,11 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
         _contactDao=new ContactDaoImpl(_context);
       }
       return _contactDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

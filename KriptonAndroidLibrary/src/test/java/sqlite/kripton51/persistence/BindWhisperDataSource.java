@@ -35,6 +35,10 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    */
   protected DaoMessageImpl daoMessage = new DaoMessageImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindWhisperDataSource(DataSourceOptions options) {
     super("whisper", 1, options);
   }
@@ -56,7 +60,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -312,6 +316,11 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
         _daoMessage=new DaoMessageImpl(_context);
       }
       return _daoMessage;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

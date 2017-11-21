@@ -44,6 +44,10 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
    */
   protected City2DAOImpl city2DAO = new City2DAOImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindPerson2DataSource(DataSourceOptions options) {
     super("person", 1, options);
   }
@@ -70,7 +74,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -313,6 +317,11 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
         _city2DAO=new City2DAOImpl(_context);
       }
       return _city2DAO;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

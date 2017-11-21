@@ -34,6 +34,10 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    */
   protected Bean64ADaoImpl bean64ADao = new Bean64ADaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindBean64ADataSource(DataSourceOptions options) {
     super("dummy", 1, options);
   }
@@ -55,7 +59,7 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -311,6 +315,11 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
         _bean64ADao=new Bean64ADaoImpl(_context);
       }
       return _bean64ADao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

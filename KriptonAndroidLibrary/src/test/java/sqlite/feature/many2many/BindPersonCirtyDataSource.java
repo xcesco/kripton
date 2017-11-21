@@ -50,6 +50,10 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
    */
   protected PersonCityDaoImpl personCityDao = new PersonCityDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindPersonCirtyDataSource(DataSourceOptions options) {
     super("person.db", 1, options);
   }
@@ -81,7 +85,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -390,6 +394,11 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
         _personCityDao=new PersonCityDaoImpl(_context);
       }
       return _personCityDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

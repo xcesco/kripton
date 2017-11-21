@@ -42,6 +42,10 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
    */
   protected DaoBeanA_2Impl daoBeanA_2 = new DaoBeanA_2Impl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindDummyDataSource(DataSourceOptions options) {
     super("test.db", 1, options);
   }
@@ -68,7 +72,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -351,6 +355,11 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
         _daoBeanA_2=new DaoBeanA_2Impl(_context);
       }
       return _daoBeanA_2;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

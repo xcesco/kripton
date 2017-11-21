@@ -62,6 +62,10 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    */
   protected TodoDaoImpl todoDao = new TodoDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindQuickStartDataSource(DataSourceOptions options) {
     super("kripton.quickstart.db", 1, options);
   }
@@ -98,7 +102,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -433,6 +437,11 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
         _todoDao=new TodoDaoImpl(_context);
       }
       return _todoDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

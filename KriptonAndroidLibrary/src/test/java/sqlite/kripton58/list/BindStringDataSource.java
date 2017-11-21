@@ -34,6 +34,10 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    */
   protected StringDaoImpl stringDao = new StringDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindStringDataSource(DataSourceOptions options) {
     super("dummy", 1, options);
   }
@@ -55,7 +59,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -311,6 +315,11 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
         _stringDao=new StringDaoImpl(_context);
       }
       return _stringDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

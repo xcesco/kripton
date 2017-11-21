@@ -35,6 +35,10 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
    */
   protected InsertBeanPersonDaoImpl insertBeanPersonDao = new InsertBeanPersonDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindInsertBeanPersonDataSource(DataSourceOptions options) {
     super("person.db", 1, options);
   }
@@ -56,7 +60,7 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -312,6 +316,11 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
         _insertBeanPersonDao=new InsertBeanPersonDaoImpl(_context);
       }
       return _insertBeanPersonDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

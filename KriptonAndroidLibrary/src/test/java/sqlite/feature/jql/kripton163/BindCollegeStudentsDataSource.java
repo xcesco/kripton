@@ -34,6 +34,10 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
    */
   protected CollegeStudentDaoImpl collegeStudentDao = new CollegeStudentDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindCollegeStudentsDataSource(DataSourceOptions options) {
     super("students.db", 1, options);
   }
@@ -55,7 +59,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -311,6 +315,11 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
         _collegeStudentDao=new CollegeStudentDaoImpl(_context);
       }
       return _collegeStudentDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

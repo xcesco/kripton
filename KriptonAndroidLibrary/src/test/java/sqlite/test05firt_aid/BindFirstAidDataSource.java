@@ -34,6 +34,10 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    */
   protected FirstAidDaoImpl firstAidDao = new FirstAidDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindFirstAidDataSource(DataSourceOptions options) {
     super("firstaid.db", 1, options);
   }
@@ -55,7 +59,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -311,6 +315,11 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
         _firstAidDao=new FirstAidDaoImpl(_context);
       }
       return _firstAidDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

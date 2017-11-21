@@ -34,6 +34,10 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
    */
   protected SimpleAddressDaoImpl simpleAddressDao = new SimpleAddressDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindSimpleDataSource(DataSourceOptions options) {
     super("kripton.db", 1, options);
   }
@@ -55,7 +59,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -281,6 +285,11 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
         _simpleAddressDao=new SimpleAddressDaoImpl(_context);
       }
       return _simpleAddressDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

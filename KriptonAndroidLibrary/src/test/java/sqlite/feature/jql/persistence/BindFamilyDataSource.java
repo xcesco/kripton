@@ -44,6 +44,10 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    */
   protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindFamilyDataSource(DataSourceOptions options) {
     super("familiy", 1, options);
   }
@@ -70,7 +74,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -353,6 +357,11 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
         _daoPerson=new DaoPersonImpl(_context);
       }
       return _daoPerson;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

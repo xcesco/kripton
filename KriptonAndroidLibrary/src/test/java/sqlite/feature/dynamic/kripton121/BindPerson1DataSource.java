@@ -35,6 +35,10 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
    */
   protected Person1DAOImpl person1DAO = new Person1DAOImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindPerson1DataSource(DataSourceOptions options) {
     super("person.db", 1, options);
   }
@@ -56,7 +60,7 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -312,6 +316,11 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
         _person1DAO=new Person1DAOImpl(_context);
       }
       return _person1DAO;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

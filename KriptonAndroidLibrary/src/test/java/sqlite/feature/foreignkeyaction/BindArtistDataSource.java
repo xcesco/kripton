@@ -50,6 +50,10 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
    */
   protected TrackDaoImpl trackDao = new TrackDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindArtistDataSource(DataSourceOptions options) {
     super("artist.db", 1, options);
   }
@@ -81,7 +85,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -390,6 +394,11 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
         _trackDao=new TrackDaoImpl(_context);
       }
       return _trackDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

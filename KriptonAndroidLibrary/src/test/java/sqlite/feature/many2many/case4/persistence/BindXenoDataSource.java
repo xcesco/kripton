@@ -70,6 +70,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    */
   protected PersonDaoImpl personDao = new PersonDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindXenoDataSource(DataSourceOptions options) {
     super("xeno.db", 1, options);
   }
@@ -111,7 +115,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -472,6 +476,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         _personDao=new PersonDaoImpl(_context);
       }
       return _personDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

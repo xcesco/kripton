@@ -34,6 +34,10 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    */
   protected CharDaoImpl charDao = new CharDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindCharDataSource(DataSourceOptions options) {
     super("dummy", 1, options);
   }
@@ -55,7 +59,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -311,6 +315,11 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
         _charDao=new CharDaoImpl(_context);
       }
       return _charDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

@@ -8,20 +8,22 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class SQLContextSingleThreadImpl implements SQLContext {	
+public class SQLContextThreadLocalImpl implements SQLContext {	
 	private StringBuilder sqlBuilder;
 	private KriptonContentValues contentValuesForUpdate;
 	private AbstractDataSource dataSource;
 	private KriptonContentValues contentValues;	
 
-	public SQLContextSingleThreadImpl(AbstractDataSource dataSource) {		
+	public SQLContextThreadLocalImpl(AbstractDataSource dataSource) {		
 		this.dataSource=dataSource;
-		this.contentValues=new KriptonContentValues();
-		this.contentValuesForUpdate=new KriptonContentValues();
-		this.sqlBuilder=new StringBuilder();
+		bindToThread();
 	}
 	
-	public SQLContextSingleThreadImpl bindToThread() {				
+	public SQLContextThreadLocalImpl bindToThread() {
+		this.contentValues=dataSource.context().contentValues();
+		this.contentValuesForUpdate=dataSource.context().contentValuesForUpdate();
+		this.sqlBuilder=dataSource.context().sqlBuilder();
+		
 		return this;
 	}
 

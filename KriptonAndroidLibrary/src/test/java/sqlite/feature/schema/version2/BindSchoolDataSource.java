@@ -58,6 +58,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    */
   protected DaoStudentImpl daoStudent = new DaoStudentImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindSchoolDataSource(DataSourceOptions options) {
     super("school", 2, options);
   }
@@ -94,7 +98,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -429,6 +433,11 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
         _daoStudent=new DaoStudentImpl(_context);
       }
       return _daoStudent;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

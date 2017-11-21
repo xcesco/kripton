@@ -288,34 +288,46 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 	private void generateDataSourceSingleThread(SQLiteDatabaseSchema schema, String dataSourceName) {
 		// class DataSourceSingleThread
-		String daoFactoryName=BindDaoFactoryBuilder.generateDaoFactoryName(schema);
+		String daoFactoryName = BindDaoFactoryBuilder.generateDaoFactoryName(schema);
 		TypeSpec.Builder clazzBuilder = TypeSpec.classBuilder("DataSourceSingleThread").addSuperinterface(TypeUtility.typeName(daoFactoryName));
-		
+
 		clazzBuilder.addMethod(MethodSpec.constructorBuilder().addStatement("_context=new $T($L.this)", SQLContextSingleThreadImpl.class, dataSourceName).build());
-		
+
 		clazzBuilder.addField(FieldSpec.builder(SQLContextSingleThreadImpl.class, "_context", Modifier.PRIVATE).build());
-		
+
 		// all dao
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
 
 			// dao with external connections
 			{
-				String daoFieldName="_"+CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getName());
-				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get" + dao.getName()).addModifiers(Modifier.PUBLIC).addJavadoc("\nretrieve dao $L\n", dao.getName())
-						.returns(daoImplName);
-				
-				methodBuilder.beginControlFlow("if ($L==null)", daoFieldName);				
+				String daoFieldName = "_" + CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getName());
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get" + dao.getName()).addModifiers(Modifier.PUBLIC).addJavadoc("\nretrieve dao $L\n", dao.getName()).returns(daoImplName);
+
+				methodBuilder.beginControlFlow("if ($L==null)", daoFieldName);
 				methodBuilder.addStatement("$L=new $T(_context)", daoFieldName, daoImplName);
 				methodBuilder.endControlFlow();
 				methodBuilder.addStatement("return $L", daoFieldName);
-				
+
 				clazzBuilder.addField(FieldSpec.builder(daoImplName, daoFieldName, Modifier.PRIVATE).build());
-				
+
 				clazzBuilder.addMethod(methodBuilder.build());
 			}
 		}
+
+		// build method bindToThread
+		{
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("bindToThread").addModifiers(Modifier.PUBLIC).returns(TypeUtility.typeName("DataSourceSingleThread"));
+
+			methodBuilder.addStatement("_context.bindToThread()");
+			methodBuilder.addStatement("return this");
+			clazzBuilder.addMethod(methodBuilder.build());
 		
+			// build single thread daoFactory used in transaction
+			classBuilder.addField(FieldSpec.builder(TypeUtility.typeName("DataSourceSingleThread"), "_daoFactorySingleThread", Modifier.PRIVATE, Modifier.FINAL).addJavadoc("Used only in transactions (that can be executed one for time").initializer("new DataSourceSingleThread()").build());
+		}
+				
+
 		classBuilder.addType(clazzBuilder.build());
 
 	}
@@ -664,7 +676,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 				.addMethod(MethodSpec.methodBuilder("subscribe").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addParameter(emitterTypeName, "emitter").returns(Void.TYPE)
 						.addStatement("boolean needToOpened=!$L.this.isOpenInWriteMode()", dataSourceName.simpleName()).addCode("@SuppressWarnings(\"resource\")\n")
 						.addStatement("$T connection=needToOpened ? openWritableDatabase() : database()", SQLiteDatabase.class).beginControlFlow("try").addStatement("connection.beginTransaction()")
-						.beginControlFlow("if (transaction != null && $T.$L==transaction.onExecute(new DataSourceSingleThread(), emitter))", TransactionResult.class, TransactionResult.COMMIT)
+						.beginControlFlow("if (transaction != null && $T.$L==transaction.onExecute(_daoFactorySingleThread.bindToThread(), emitter))", TransactionResult.class, TransactionResult.COMMIT)
 						.addStatement("connection.setTransactionSuccessful()").endControlFlow().addStatement(rxType.onComplete ? "emitter.onComplete()" : "// no onComplete")
 						.nextControlFlow("catch($T e)", Throwable.class).addStatement("$T.error(e.getMessage())", Logger.class).addStatement("e.printStackTrace()").addStatement("emitter.onError(e)")
 						.nextControlFlow("finally").beginControlFlow("try").addStatement("connection.endTransaction()").nextControlFlow("catch($T e)", Throwable.class).endControlFlow()
@@ -904,7 +916,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		executeMethod.beginControlFlow("try");
 		executeMethod.addCode("connection.beginTransaction();\n");
 
-		executeMethod.beginControlFlow("if (transaction!=null && $T.$L == transaction.onExecute(new DataSourceSingleThread()))", TransactionResult.class, TransactionResult.COMMIT);
+		executeMethod.beginControlFlow("if (transaction!=null && $T.$L == transaction.onExecute(_daoFactorySingleThread.bindToThread()))", TransactionResult.class, TransactionResult.COMMIT);
 		executeMethod.addCode("connection.setTransactionSuccessful();\n");
 		executeMethod.endControlFlow();
 

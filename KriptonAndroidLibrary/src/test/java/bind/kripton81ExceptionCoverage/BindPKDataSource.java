@@ -34,6 +34,10 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
    */
   protected PKDaoImpl pKDao = new PKDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindPKDataSource(DataSourceOptions options) {
     super("", 1, options);
   }
@@ -55,7 +59,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -311,6 +315,11 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
         _pKDao=new PKDaoImpl(_context);
       }
       return _pKDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

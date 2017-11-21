@@ -34,6 +34,10 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
    */
   protected FloatDaoImpl floatDao = new FloatDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindFloatDataSource(DataSourceOptions options) {
     super("dummy", 1, options);
   }
@@ -55,7 +59,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -311,6 +315,11 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
         _floatDao=new FloatDaoImpl(_context);
       }
       return _floatDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

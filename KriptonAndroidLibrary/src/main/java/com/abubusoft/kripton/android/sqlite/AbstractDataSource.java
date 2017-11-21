@@ -300,7 +300,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	 * @return true if database is opened, otherwise false
 	 */
 	public boolean isOpen() {
-		return database != null && database.isOpen() && database.isDbLockedByCurrentThread();
+		return database != null && database.isOpen();// && database.isDbLockedByCurrentThread();
 	}
 	
 	/**
@@ -311,7 +311,8 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	 * @return true if database is opened, otherwise false
 	 */
 	public boolean isOpenInWriteMode() {
-		return database != null && database.isOpen() && !database.isReadOnly() && database.isDbLockedByCurrentThread();
+		//return database != null && database.isOpen() && !database.isReadOnly() && database.isDbLockedByCurrentThread();
+		return database != null && !database.isReadOnly();
 	}
 
 	/**

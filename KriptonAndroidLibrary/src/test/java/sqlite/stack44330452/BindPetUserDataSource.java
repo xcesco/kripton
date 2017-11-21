@@ -42,6 +42,10 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    */
   protected PetDaoImpl petDao = new PetDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindPetUserDataSource(DataSourceOptions options) {
     super("pet.db", 1, options);
   }
@@ -68,7 +72,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -351,6 +355,11 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
         _petDao=new PetDaoImpl(_context);
       }
       return _petDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

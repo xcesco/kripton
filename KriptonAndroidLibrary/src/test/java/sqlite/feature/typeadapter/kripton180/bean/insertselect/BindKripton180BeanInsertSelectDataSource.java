@@ -35,6 +35,10 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    */
   protected EmployeeBeanInsertSelectDaoImpl employeeBeanInsertSelectDao = new EmployeeBeanInsertSelectDaoImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindKripton180BeanInsertSelectDataSource(DataSourceOptions options) {
     super("kripton180.db", 1, options);
   }
@@ -56,7 +60,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -312,6 +316,11 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
         _employeeBeanInsertSelectDao=new EmployeeBeanInsertSelectDaoImpl(_context);
       }
       return _employeeBeanInsertSelectDao;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }
