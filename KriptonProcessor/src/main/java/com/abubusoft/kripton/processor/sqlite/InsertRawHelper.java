@@ -78,7 +78,6 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			// INSERT-SELECT
 			GenericSQLHelper.generateGenericExecSQL(methodBuilder, method);
 		} else {			
-			//methodBuilder.addStatement("_contentValues.clear()");
 			methodBuilder.addCode("\n");
 			for (Pair<String, TypeName> item : method.getParameters()) {
 				String propertyName = method.findParameterAliasByName(item.value0);
@@ -219,14 +218,15 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addJavadoc("<h2>Inserted columns:</strong></h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeName> property : methodParamsUsedAsColumnValue) {
-				String resolvedName = method.findParameterAliasByName(property.value0);
-				SQLProperty prop = entity.get(resolvedName);
+				//String resolvedName = method.findParameterAliasByName(property.value0);				
+				String resolvedName=method.findParameterNameByAlias(property.value0);
+				/*SQLProperty prop = entity.get(resolvedName);
 								
 				if (prop == null)
-					throw (new PropertyNotFoundException(method, property.value0, property.value1));
+					throw (new PropertyNotFoundException(method, property.value0, property.value1));*/
 				
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", prop.columnName);
-				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + resolvedName + "}", property.value0);
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", property.value0);
+				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + property.value0 + "}", resolvedName);
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 		}
@@ -246,7 +246,12 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		for (Pair<String, TypeName> param : method.getParameters()) {
 			if (methodParamsUsedAsColumnValue.contains(param)) {
 				methodBuilder.addJavadoc("@param $L\n", param.value0);
-				methodBuilder.addJavadoc("\tis binded to column value <strong>$L</strong>\n", entity.get(method.findParameterAliasByName(param.value0)).columnName);
+				
+				if (entity.get(method.findParameterAliasByName(param.value0))!=null) {												
+					methodBuilder.addJavadoc("\tis binded to column value <strong>$L</strong>\n", entity.get(method.findParameterAliasByName(param.value0)).columnName);
+				} else {
+					// in case of JQL explicit, you can declare name of parameter
+					methodBuilder.addJavadoc("\tis binded to query parameter <strong>$L</strong>\n", param.value0);				}
 			}
 
 			if (methodParamsUsedAsParameter.contains(param)) {

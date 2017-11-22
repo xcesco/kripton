@@ -18,7 +18,6 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link InsertRawPersonDaoImpl#insertOneRaw0}</td></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/name</pre></td><td>{@link InsertRawPersonDaoImpl#insertOneRawFieldName1}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/surname</pre></td><td>{@link InsertRawPersonDaoImpl#insertOne2RawFieldName2}</td></tr>
  * </table>
  */
 public class BindInsertRawPersonContentProvider extends ContentProvider {
@@ -47,18 +46,13 @@ public class BindInsertRawPersonContentProvider extends ContentProvider {
 
   public static final String PATH_PERSON_2 = "persons/name";
 
-  public static final String PATH_PERSON_3 = "persons/surname";
-
   static final int PATH_PERSON_1_INDEX = 1;
 
   static final int PATH_PERSON_2_INDEX = 2;
 
-  static final int PATH_PERSON_3_INDEX = 3;
-
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
-    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_3, PATH_PERSON_3_INDEX);
   }
 
   /**
@@ -87,7 +81,6 @@ public class BindInsertRawPersonContentProvider extends ContentProvider {
   /**
    * method InsertRawPersonDao.insertOneRaw
    * method InsertRawPersonDao.insertOneRawFieldName
-   * method InsertRawPersonDao.insertOne2RawFieldName
    */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
@@ -101,11 +94,6 @@ public class BindInsertRawPersonContentProvider extends ContentProvider {
       }
       case PATH_PERSON_2_INDEX: {
         _id=dataSource.getInsertRawPersonDao().insertOneRawFieldName1(uri, contentValues);
-        _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
-        break;
-      }
-      case PATH_PERSON_3_INDEX: {
-        _id=dataSource.getInsertRawPersonDao().insertOne2RawFieldName2(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
@@ -147,9 +135,6 @@ public class BindInsertRawPersonContentProvider extends ContentProvider {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_2_INDEX: {
-        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
-      }
-      case PATH_PERSON_3_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
     }

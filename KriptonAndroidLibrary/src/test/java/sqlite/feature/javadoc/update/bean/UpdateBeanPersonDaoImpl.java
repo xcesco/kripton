@@ -27,27 +27,27 @@ import sqlite.feature.javadoc.Person;
 public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPersonDao {
   private static SQLiteStatement updateAllBeansPreparedStatement0;
 
-  private static final Set<String> updateAllBeans0ColumnSet = CollectionUtils.asSet(String.class, "name", "surname", "student");
+  private static final Set<String> updateAllBeans0ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
   private static SQLiteStatement updateOneBeanPreparedStatement1;
 
-  private static final Set<String> updateOneBean1ColumnSet = CollectionUtils.asSet(String.class, "name", "surname", "student");
+  private static final Set<String> updateOneBean1ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  private static final Set<String> updateOneBeanWithDynamic2ColumnSet = CollectionUtils.asSet(String.class, "name", "surname", "student");
+  private static final Set<String> updateOneBeanWithDynamic2ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  private static final Set<String> updateOneBeanWithDynamicAndArgs3ColumnSet = CollectionUtils.asSet(String.class, "name", "surname", "student");
+  private static final Set<String> updateOneBeanWithDynamicAndArgs3ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
   private static SQLiteStatement updateAllBeansJQLPreparedStatement2;
 
-  private static final Set<String> updateAllBeansJQL4ColumnSet = CollectionUtils.asSet(String.class, "surname", "student");
+  private static final Set<String> updateAllBeansJQL4ColumnSet = CollectionUtils.asSet(String.class, "person_surname", "student");
 
   private static SQLiteStatement updateFromSelectJQLPreparedStatement3;
 
-  private static final Set<String> updateFromSelectJQL5ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateFromSelectJQL5ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  private static final Set<String> updateBeanDynamic6ColumnSet = CollectionUtils.asSet(String.class, "name", "surname", "student");
+  private static final Set<String> updateBeanDynamic6ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  private static final Set<String> updateBeanDynamicWithArgs7ColumnSet = CollectionUtils.asSet(String.class, "name", "surname", "student");
+  private static final Set<String> updateBeanDynamicWithArgs7ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
   public UpdateBeanPersonDaoImpl(SQLContext context) {
     super(context);
@@ -55,12 +55,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, surname=:surname, student=:student</pre>
+   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -73,19 +73,19 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   public int updateAllBeans(Person bean) {
     if (updateAllBeansPreparedStatement0==null) {
       // generate static SQL for insert
-      String _sql="UPDATE person SET name=?, surname=?, student=?";
+      String _sql="UPDATE person SET personName=?, personSurname=?, student=?";
       updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansPreparedStatement0);
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
-    if (bean.getSurname()!=null) {
-      _contentValues.put("surname", bean.getSurname());
+    if (bean.getPersonSurname()!=null) {
+      _contentValues.put("person_surname", bean.getPersonSurname());
     } else {
-      _contentValues.putNull("surname");
+      _contentValues.putNull("person_surname");
     }
     _contentValues.put("student", bean.isStudent());
 
@@ -96,7 +96,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student");
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -127,10 +127,10 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student}</pre>
+   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student}</pre>
+   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student}</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -159,7 +159,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student");
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -189,12 +189,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=${bean.id}</pre>
+   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -212,19 +212,19 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   public int updateOneBean(Person bean) {
     if (updateOneBeanPreparedStatement1==null) {
       // generate static SQL for insert
-      String _sql="UPDATE person SET name=?, surname=?, student=? WHERE id=?";
+      String _sql="UPDATE person SET personName=?, personSurname=?, student=? WHERE id=?";
       updateOneBeanPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOneBeanPreparedStatement1);
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
-    if (bean.getSurname()!=null) {
-      _contentValues.put("surname", bean.getSurname());
+    if (bean.getPersonSurname()!=null) {
+      _contentValues.put("person_surname", bean.getPersonSurname());
     } else {
-      _contentValues.putNull("surname");
+      _contentValues.putNull("person_surname");
     }
     _contentValues.put("student", bean.isStudent());
 
@@ -236,7 +236,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?");
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -267,10 +267,10 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student} WHERE id=${bean.id}</pre>
+   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student} WHERE id=${bean.id}</pre>
+   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -313,7 +313,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?");
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -343,12 +343,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -372,15 +372,15 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   @Override
   public int updateOneBeanWithDynamic(Person bean, String where) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
-    if (bean.getSurname()!=null) {
-      _contentValues.put("surname", bean.getSurname());
+    if (bean.getPersonSurname()!=null) {
+      _contentValues.put("person_surname", bean.getPersonSurname());
     } else {
-      _contentValues.putNull("surname");
+      _contentValues.putNull("person_surname");
     }
     _contentValues.put("student", bean.isStudent());
 
@@ -401,12 +401,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -437,10 +437,10 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -483,7 +483,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -513,12 +513,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -544,15 +544,15 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   @Override
   public int updateOneBeanWithDynamicAndArgs(Person bean, String where, String[] args) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
-    if (bean.getSurname()!=null) {
-      _contentValues.put("surname", bean.getSurname());
+    if (bean.getPersonSurname()!=null) {
+      _contentValues.put("person_surname", bean.getPersonSurname());
     } else {
-      _contentValues.putNull("surname");
+      _contentValues.putNull("person_surname");
     }
     _contentValues.put("student", bean.isStudent());
 
@@ -580,12 +580,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     }
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -616,10 +616,10 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -674,7 +674,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -704,11 +704,11 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET surname=:surname, student = :student</pre>
+   * <pre>UPDATE person SET person_surname=:personSurname, student = :student</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -719,14 +719,14 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   public void updateAllBeansJQL(Person bean) {
     if (updateAllBeansJQLPreparedStatement2==null) {
       // generate static SQL for insert
-      String _sql="UPDATE person SET surname=?, student = ?";
+      String _sql="UPDATE person SET personSurname=?, student = ?";
       updateAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansJQLPreparedStatement2);
-    if (bean.getSurname()!=null) {
-      _contentValues.put("surname", bean.getSurname());
+    if (bean.getPersonSurname()!=null) {
+      _contentValues.put("person_surname", bean.getPersonSurname());
     } else {
-      _contentValues.putNull("surname");
+      _contentValues.putNull("person_surname");
     }
     _contentValues.put("student", bean.isStudent());
 
@@ -737,7 +737,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET surname=:surname, student = :student");
+      Logger.info("UPDATE person SET person_surname=:personSurname, student = :student");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -767,10 +767,10 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET surname=${bean.surname}, student = ${bean.student}</pre>
+   * <pre>UPDATE Person SET personSurname=${bean.personSurname}, student = ${bean.student}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET surname=${bean.surname}, student = ${bean.student}</pre>
+   * <pre>UPDATE person SET personSurname=${bean.personSurname}, student = ${bean.student}</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -799,7 +799,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET surname=:surname, student = :student");
+      Logger.info("UPDATE person SET person_surname=:personSurname, student = :student");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -829,11 +829,10 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, student = (select student from person where id=0)</pre>
+   * <pre>UPDATE person SET person_name=:personName, student = (select student from person where id=0)</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -843,10 +842,10 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   @Override
   public void updateFromSelectAllBeansJQL(Person bean) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
     _contentValues.put("student", bean.isStudent());
 
@@ -864,12 +863,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql="UPDATE person SET name=?, student = (select student from person where id=0)";
+    String _sql="UPDATE person SET person_name=?, student = (select student from person where id=0)";
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, student = (select student from person where id=0)");
+      Logger.info("UPDATE person SET person_name=:personName, student = (select student from person where id=0)");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -896,11 +895,11 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name where student = (select student from person where id=${bean.id})</pre>
+   * <pre>UPDATE person SET person_name=:name where student = (select student from person where id=${bean.id})</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -917,14 +916,14 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   public int updateFromSelectJQL(Person bean) {
     if (updateFromSelectJQLPreparedStatement3==null) {
       // generate static SQL for insert
-      String _sql="UPDATE person SET name=? where student = (select student from person where id=?)";
+      String _sql="UPDATE person SET personName=? where student = (select student from person where id=?)";
       updateFromSelectJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateFromSelectJQLPreparedStatement3);
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -935,7 +934,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name where student = (select student from person where id=?)");
+      Logger.info("UPDATE person SET person_name=:name where student = (select student from person where id=?)");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -966,10 +965,10 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${bean.name} where student = (select student from Person where id=${bean.id})</pre>
+   * <pre>UPDATE Person SET personName=${bean.name} where student = (select student from Person where id=${bean.id})</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${bean.name} where student = (select student from person where id=${bean.id})</pre>
+   * <pre>UPDATE person SET personName=${bean.name} where student = (select student from person where id=${bean.id})</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1012,7 +1011,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name where student = (select student from person where id=?)");
+      Logger.info("UPDATE person SET person_name=:name where student = (select student from person where id=?)");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1042,12 +1041,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -1071,15 +1070,15 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   @Override
   public int updateBeanDynamic(Person bean, String where) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
-    if (bean.getSurname()!=null) {
-      _contentValues.put("surname", bean.getSurname());
+    if (bean.getPersonSurname()!=null) {
+      _contentValues.put("person_surname", bean.getPersonSurname());
     } else {
-      _contentValues.putNull("surname");
+      _contentValues.putNull("person_surname");
     }
     _contentValues.put("student", bean.isStudent());
 
@@ -1100,12 +1099,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1136,10 +1135,10 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/more</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1182,7 +1181,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1212,12 +1211,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -1243,15 +1242,15 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   @Override
   public int updateBeanDynamicWithArgs(Person bean, String where, String[] args) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
-    if (bean.getSurname()!=null) {
-      _contentValues.put("surname", bean.getSurname());
+    if (bean.getPersonSurname()!=null) {
+      _contentValues.put("person_surname", bean.getPersonSurname());
     } else {
-      _contentValues.putNull("surname");
+      _contentValues.putNull("person_surname");
     }
     _contentValues.put("student", bean.isStudent());
 
@@ -1279,12 +1278,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     }
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=?, surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1315,10 +1314,10 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1373,7 +1372,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

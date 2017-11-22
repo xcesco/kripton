@@ -27,7 +27,17 @@ import com.abubusoft.kripton.android.sqlite.NoAdapter;
 @Target(ElementType.PARAMETER)
 public @interface BindSqlParam {
 
+	/**
+	 * Name used into jql to rapresents this parameter.
+	 * 
+	 * @return
+	 */
 	String value() default "";
-	
+
+	/**
+	 * used type adapter.
+	 * 
+	 * @return
+	 */
 	Class<? extends BindSQLTypeAdapter<?, ?>> adapter() default NoAdapter.class;
 }

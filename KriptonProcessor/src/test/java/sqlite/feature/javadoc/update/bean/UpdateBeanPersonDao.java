@@ -55,7 +55,7 @@ public interface UpdateBeanPersonDao {
 	int updateOneBeanWithDynamicAndArgs(Person bean, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String args[]);
 
 	@BindContentProviderEntry(path = "jql")
-	@BindSqlUpdate(jql = "UPDATE Person SET surname=${bean.surname}, student = ${bean.student}")
+	@BindSqlUpdate(jql = "UPDATE Person SET personSurname=${bean.personSurname}, student = ${bean.student}")
 	void updateAllBeansJQL(Person bean);
 
 	/**
@@ -63,7 +63,7 @@ public interface UpdateBeanPersonDao {
 	 * 
 	 * @param bean
 	 */
-	@BindSqlUpdate(jql = "UPDATE Person SET name=${bean.name}, student = (select student from Person where id=0)")
+	@BindSqlUpdate(jql = "UPDATE Person SET PersonName=${bean.personName}, student = (select student from Person where id=0)")
 	void updateFromSelectAllBeansJQL(Person bean);
 
 	/**
@@ -72,7 +72,7 @@ public interface UpdateBeanPersonDao {
 	 * @param bean
 	 */
 	@BindContentProviderEntry(path = "jql/one/b/${bean.id}")
-	@BindSqlUpdate(jql = "UPDATE Person SET name=${bean.name} where student = (select student from Person where id=${bean.id})")
+	@BindSqlUpdate(jql = "UPDATE Person SET personName=${bean.name} where student = (select student from Person where id=${bean.id})")
 	int updateFromSelectJQL(Person bean);
 
 	@BindContentProviderEntry(path = "${bean.id}/more")

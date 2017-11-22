@@ -27,7 +27,7 @@ import sqlite.feature.javadoc.insert.raw.InsertRawPersonDataSource;
 public class TestJavadocForInsertRaw extends AbstractBindSQLiteProcessorTest {
 
 	@Test
-	public void testCompileInsertBean() throws Throwable {
+	public void testCompileInsertRaw() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, InsertRawPersonDao.class, InsertRawPersonDataSource.class);
 	}
 
