@@ -27,17 +27,15 @@ import sqlite.feature.javadoc.Person;
 public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPersonDao {
   private static SQLiteStatement insertOneBeanPreparedStatement0;
 
-  private static final Set<String> insertOneBean0ColumnSet = CollectionUtils.asSet(String.class, "name", "surname", "student");
+  private static final Set<String> insertOneBean0ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
   private static SQLiteStatement insertOneBeanFieldNamePreparedStatement1;
 
-  private static final Set<String> insertOneBeanFieldName1ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> insertOneBeanFieldName1ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
   private static SQLiteStatement insertOneBeanFieldSurnamePreparedStatement2;
 
-  private static final Set<String> insertOneBeanFieldSurname2ColumnSet = CollectionUtils.asSet(String.class, "surname", "student");
-
-  private static SQLiteStatement insertBeanFromSelectPreparedStatement3;
+  private static final Set<String> insertOneBeanFieldSurname2ColumnSet = CollectionUtils.asSet(String.class, "person_surname", "student");
 
   public InsertBeanPersonDaoImpl(SQLContext context) {
     super(context);
@@ -45,14 +43,14 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, surname, student) VALUES (${bean.name}, ${bean.surname}, ${bean.student})</pre>
+   * <pre>INSERT INTO person (person_name, person_surname, student) VALUES (${bean.personName}, ${bean.personSurname}, ${bean.student})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -63,16 +61,21 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBean(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanPreparedStatement0);
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
-    } else {
-      _contentValues.putNull("name");
+    if (insertOneBeanPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO person (person_name, person_surname, student) VALUES (?, ?, ?)";
+      insertOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    if (bean.getSurname()!=null) {
-      _contentValues.put("surname", bean.getSurname());
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanPreparedStatement0);
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("surname");
+      _contentValues.putNull("person_name");
+    }
+    if (bean.getPersonSurname()!=null) {
+      _contentValues.put("person_surname", bean.getPersonSurname());
+    } else {
+      _contentValues.putNull("person_surname");
     }
     _contentValues.put("student", bean.isStudent());
 
@@ -105,11 +108,6 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     }
     // log section END
     // insert operation
-    if (insertOneBeanPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertOneBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
@@ -121,10 +119,10 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO Person (name, surname, student) VALUES (${bean.name}, ${bean.surname}, ${bean.student})</pre>
+   * <pre>INSERT INTO Person (personName, personSurname, student) VALUES (${bean.personName}, ${bean.personSurname}, ${bean.student})</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO person (name, surname, student) VALUES (${bean.name}, ${bean.surname}, ${bean.student})</pre>
+   * <pre>INSERT INTO person (person_name, person_surname, student) VALUES (${bean.personName}, ${bean.personSurname}, ${bean.student})</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -162,13 +160,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO person (name) VALUES (${bean.name})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (${bean.personName})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -178,11 +176,16 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBeanFieldName(Person bean) {
+    if (insertOneBeanFieldNamePreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="INSERT OR REPLACE INTO person (person_name) VALUES (?)";
+      insertOneBeanFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanFieldNamePreparedStatement1);
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
 
     // log section BEGIN
@@ -214,11 +217,6 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     }
     // log section END
     // insert operation
-    if (insertOneBeanFieldNamePreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOneBeanFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertOneBeanFieldNamePreparedStatement1, _contentValues);
     bean.id=result;
 
@@ -230,10 +228,10 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/name</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR REPLACE INTO Person (name) VALUES (${bean.name})</pre>
+   * <pre>INSERT OR REPLACE INTO Person (personName) VALUES (${bean.personName})</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR REPLACE INTO person (name) VALUES (${bean.name})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (${bean.personName})</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -272,13 +270,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO person (surname, student) VALUES (${bean.surname}, ${bean.student})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_surname, student) VALUES (${bean.personSurname}, ${bean.student})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
    * </dl>
    *
@@ -289,11 +287,16 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    */
   @Override
   public int insertOneBeanFieldSurname(Person bean) {
+    if (insertOneBeanFieldSurnamePreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="INSERT OR REPLACE INTO person (person_surname, student) VALUES (?, ?)";
+      insertOneBeanFieldSurnamePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanFieldSurnamePreparedStatement2);
-    if (bean.getSurname()!=null) {
-      _contentValues.put("surname", bean.getSurname());
+    if (bean.getPersonSurname()!=null) {
+      _contentValues.put("person_surname", bean.getPersonSurname());
     } else {
-      _contentValues.putNull("surname");
+      _contentValues.putNull("person_surname");
     }
     _contentValues.put("student", bean.isStudent());
 
@@ -326,11 +329,6 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     }
     // log section END
     // insert operation
-    if (insertOneBeanFieldSurnamePreparedStatement2==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOneBeanFieldSurnamePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertOneBeanFieldSurnamePreparedStatement2, _contentValues);
     bean.id=result;
 
@@ -342,10 +340,10 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/surname</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR REPLACE INTO Person (surname, student) VALUES (${bean.surname}, ${bean.student})</pre>
+   * <pre>INSERT OR REPLACE INTO Person (personSurname, student) VALUES (${bean.personSurname}, ${bean.student})</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR REPLACE INTO person (surname, student) VALUES (${bean.surname}, ${bean.student})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_surname, student) VALUES (${bean.personSurname}, ${bean.student})</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -384,13 +382,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO person (name) SELECT name FROM person WHERE name=${bean.name}</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=${bean.personName}</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -400,10 +398,10 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
   @Override
   public void insertBeanFromSelect(Person bean) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
+    if (bean.getPersonName()!=null) {
+      _contentValues.put("person_name", bean.getPersonName());
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
 
     // log section BEGIN
@@ -417,7 +415,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
         _columnValueBuffer.append(_columnSeparator+":"+columnName);
         _columnSeparator=", ";
       }
-      Logger.info("INSERT OR REPLACE INTO person (%s) SELECT name FROM person WHERE name=${bean.name}", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+      Logger.info("INSERT OR REPLACE INTO person (%s) SELECT personName FROM person WHERE personName=${bean.personName}", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -435,12 +433,9 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     }
     // log section END
     // insert operation
-    if (insertBeanFromSelectPreparedStatement3==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT OR REPLACE INTO person (%s) SELECT name FROM person WHERE name=${bean.name}", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanFromSelectPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
-    long result = KriptonDatabaseWrapper.insert(_context, insertBeanFromSelectPreparedStatement3, _contentValues);
+    // generate SQL for insert
+    String _sql=String.format("INSERT OR REPLACE INTO person (%s) SELECT personName FROM person WHERE personName=${bean.personName}", _contentValues.keyList(), _contentValues.keyValueList());
+    long result = KriptonDatabaseWrapper.insert(_context, _sql, _contentValues);
     bean.id=result;
   }
 
@@ -456,10 +451,6 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     if (insertOneBeanFieldSurnamePreparedStatement2!=null) {
       insertOneBeanFieldSurnamePreparedStatement2.close();
       insertOneBeanFieldSurnamePreparedStatement2=null;
-    }
-    if (insertBeanFromSelectPreparedStatement3!=null) {
-      insertBeanFromSelectPreparedStatement3.close();
-      insertBeanFromSelectPreparedStatement3=null;
     }
   }
 }

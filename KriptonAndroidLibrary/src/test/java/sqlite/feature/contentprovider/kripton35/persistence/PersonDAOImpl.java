@@ -90,6 +90,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertBean(Person bean) {
+    if (insertBeanPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT OR FAIL INTO person (city, birth_city, birth_day, value, name, surname) VALUES (?, ?, ?, ?, ?, ?)";
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     _contentValues.put("city", bean.city);
     if (bean.birthCity!=null) {
@@ -143,11 +148,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    if (insertBeanPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT OR FAIL INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
   }
@@ -212,6 +212,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertName(String tempName) {
+    if (insertNamePreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO person (name) VALUES (?)";
+      insertNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertNamePreparedStatement1);
 
     if (tempName!=null) {
@@ -249,11 +254,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    if (insertNamePreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertNamePreparedStatement1, _contentValues);
   }
 
@@ -325,26 +325,16 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public int deleteRaw(long id) {
+    if (deleteRawPreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM person WHERE id = ?";
+      deleteRawPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteRawPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteRawPreparedStatement2==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id = ?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="DELETE FROM person WHERE id = ?";
-      deleteRawPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -584,26 +574,16 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public long deleteBean(Person bean) {
+    if (deleteBeanPreparedStatement3==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM person WHERE id = ?";
+      deleteBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteBeanPreparedStatement3);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteBeanPreparedStatement3==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id = ?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="DELETE FROM person WHERE id = ?";
-      deleteBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -705,6 +685,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public int updateRaw(String name, long id) {
+    if (updateRawPreparedStatement4==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET name=? WHERE id=?";
+      updateRawPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateRawPreparedStatement4);
     if (name!=null) {
       _contentValues.put("name", name);
@@ -716,21 +701,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateRawPreparedStatement4==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE person SET name=? WHERE id=?";
-      updateRawPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -1219,6 +1189,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public int updateBean(Person person) {
+    if (updateBeanPreparedStatement5==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET parentId=?, city=?, birthCity=?, birthDay=?, value=?, name=?, surname=? WHERE id=?";
+      updateBeanPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateBeanPreparedStatement5);
     _contentValues.put("alias_parent_id", person.parentId);
     _contentValues.put("city", person.city);
@@ -1248,21 +1223,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateBeanPreparedStatement5==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE person SET alias_parent_id=?, city=?, birth_city=?, birth_day=?, value=?, name=?, surname=? WHERE id=?";
-      updateBeanPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

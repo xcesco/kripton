@@ -59,6 +59,11 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOneRaw(String name, String surname) {
+    if (insertOneRawPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
+      insertOneRawPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneRawPreparedStatement0);
 
     if (name!=null) {
@@ -101,11 +106,6 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     }
     // log section END
     // insert operation
-    if (insertOneRawPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOneRawPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertOneRawPreparedStatement0, _contentValues);
     return (int)result;
   }
@@ -170,6 +170,11 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOneRawFieldName(String name) {
+    if (insertOneRawFieldNamePreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="INSERT OR REPLACE INTO person (name) VALUES (?)";
+      insertOneRawFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneRawFieldNamePreparedStatement1);
 
     if (name!=null) {
@@ -207,11 +212,6 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     }
     // log section END
     // insert operation
-    if (insertOneRawFieldNamePreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOneRawFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertOneRawFieldNamePreparedStatement1, _contentValues);
     return (int)result;
   }
@@ -277,6 +277,11 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
    */
   @Override
   public int insertOne2RawFieldName(String name) {
+    if (insertOne2RawFieldNamePreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="INSERT OR REPLACE INTO person (name) VALUES (?)";
+      insertOne2RawFieldNamePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOne2RawFieldNamePreparedStatement2);
 
     if (name!=null) {
@@ -314,11 +319,6 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     }
     // log section END
     // insert operation
-    if (insertOne2RawFieldNamePreparedStatement2==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT OR REPLACE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOne2RawFieldNamePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertOne2RawFieldNamePreparedStatement2, _contentValues);
     return (int)result;
   }

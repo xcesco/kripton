@@ -595,7 +595,7 @@ public abstract class SqlBuilderHelper {
 	 * @param method
 	 * @param methodBuilder
 	 */
-	public static void generateSQLForInsertStatic(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
+	public static void generateSQLForStaticQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		// SQLDaoDefinition daoDefinition = method.getParent();
 		methodBuilder.addComment("generate static SQL for insert");
 		JQLChecker checker = JQLChecker.getInstance();
@@ -610,8 +610,16 @@ public abstract class SqlBuilderHelper {
 			
 			@Override
 			public String onColumnName(String columnName) {
-				
-				return super.onColumnName(columnName);
+				SQLProperty tempProperty = method.getParent().getEntity().get(columnName);
+
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
+				return tempProperty.columnName;				
+			}
+			
+			@Override
+			public String onBindParameter(String bindParameterName) {
+				return "?";
 			}
 
 		});

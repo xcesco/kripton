@@ -436,6 +436,11 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
    */
   @Override
   public long updateOne(long id, byte[] value, Byte[] value2) {
+    if (updateOnePreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE byte_bean SET id=? WHERE value=? and value2=?";
+      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     _contentValues.put("id", id);
 
@@ -444,21 +449,6 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateOnePreparedStatement0==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" value=? and value2=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE byte_bean SET id=? WHERE value=? and value2=?";
-      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -511,6 +501,11 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
    */
   @Override
   public long insert(long id, byte[] value, Byte[] value2) {
+    if (insertPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO byte_bean (id, value, value2) VALUES (?, ?, ?)";
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     _contentValues.put("id", id);
@@ -554,11 +549,6 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO byte_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
     return result;
   }
@@ -582,6 +572,11 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
    */
   @Override
   public long insert(ByteBean bean) {
+    if (insertPreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO byte_bean (value, value2) VALUES (?, ?)";
+      insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
     if (bean.getValue()!=null) {
       _contentValues.put("value", bean.getValue());
@@ -623,11 +618,6 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement2==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO byte_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement2, _contentValues);
     bean.setId(result);
 
@@ -654,27 +644,17 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
    */
   @Override
   public long delete(byte[] value, Byte[] value2) {
+    if (deletePreparedStatement3==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM byte_bean WHERE value=? and value2=?";
+      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement3);
     _contentValues.addWhereArgs((value==null?"":new String(value,StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer1(value2),StandardCharsets.UTF_8)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deletePreparedStatement3==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" value=? and value2=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="DELETE FROM byte_bean WHERE value=? and value2=?";
-      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

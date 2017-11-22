@@ -52,6 +52,11 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
    */
   @Override
   public long insert(FileBean bean) {
+    if (insertPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO files (name, content, content_type) VALUES (?, ?, ?)";
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -98,11 +103,6 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO files (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
@@ -131,6 +131,11 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
    */
   @Override
   public long insert(String name, String contentType, byte[] content) {
+    if (insertPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO files (name, content_type, content) VALUES (?, ?, ?)";
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     if (name!=null) {
@@ -178,11 +183,6 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO files (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
     return result;
   }

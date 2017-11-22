@@ -46,7 +46,12 @@ public class DaoProfessorImpl extends AbstractDao implements DaoProfessor {
    */
   @Override
   public long insert(Professor bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate();
+    if (insertPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO professor (name, birth_date, surname) VALUES (?, ?, ?)";
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
     } else {
@@ -92,11 +97,6 @@ public class DaoProfessorImpl extends AbstractDao implements DaoProfessor {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO professor (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
 

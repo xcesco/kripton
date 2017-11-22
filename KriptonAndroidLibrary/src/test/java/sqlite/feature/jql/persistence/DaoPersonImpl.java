@@ -115,6 +115,11 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
    */
   @Override
   public Person insertBean(Person bean) {
+    if (insertBeanPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO person (name, image) VALUES (?, ?)";
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -156,11 +161,6 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
     }
     // log section END
     // insert operation
-    if (insertBeanPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
 

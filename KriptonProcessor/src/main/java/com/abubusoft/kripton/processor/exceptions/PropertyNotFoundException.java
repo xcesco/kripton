@@ -27,7 +27,7 @@ public class PropertyNotFoundException extends KriptonProcessorException {
 	}
 
 	public PropertyNotFoundException(SQLiteModelMethod method, String fieldName, TypeName typeName) {
-		super(String.format("In dao '%s' method '%s' uses field '%s' (of type '%s') that does not exists in bean '%s'", method.getParent().getName(), method.getName(), fieldName,
+		super(String.format("In dao '%s' method '%s' uses parameter '%s' (of type '%s') that does not exists in bean '%s'", method.getParent().getName(), method.getName(), fieldName,
 				typeName, method.getParent().getEntitySimplyClassName()));
 	}
 

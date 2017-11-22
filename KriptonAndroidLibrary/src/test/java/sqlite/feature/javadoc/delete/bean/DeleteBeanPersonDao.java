@@ -28,7 +28,7 @@ public interface DeleteBeanPersonDao {
 	 * 
 	 * @param bean
 	 */
-	@BindSqlDelete(jql = "DELETE FROM Person WHERE name=${bean.name} AND surname=${bean.surname} AND student = 0")
+	@BindSqlDelete(jql = "DELETE FROM Person WHERE personName=${bean.personName} AND personSurname=${bean.personSurname} AND student = 0")
 	void deleteAllBeansJQL(Person bean);
 
 	/**
@@ -37,8 +37,8 @@ public interface DeleteBeanPersonDao {
 	 * 
 	 * @param bean
 	 */
-	@BindContentProviderEntry(path = "a/${bean.surname}/${bean.name}")
-	@BindSqlDelete(jql = "DELETE FROM Person WHERE surname=${bean.surname} and student = (select student from Person where name=${bean.name})")
+	@BindContentProviderEntry(path = "a/${bean.personSurname}/${bean.personName}")
+	@BindSqlDelete(jql = "DELETE FROM Person WHERE personSurname=${bean.personSurname} and student = (select student from Person where personName=${bean.personName})")
 	int deleteFromSelectAllBeansJQL(Person bean);
 
 	/**

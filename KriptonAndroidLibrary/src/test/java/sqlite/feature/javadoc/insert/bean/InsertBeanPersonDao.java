@@ -29,7 +29,7 @@ public interface InsertBeanPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path = "name")
-	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE, fields = "name")
+	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE, fields = "personName")
 	int insertOneBeanFieldName(Person bean);
 
 	/**
@@ -39,7 +39,7 @@ public interface InsertBeanPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path = "surname")
-	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE, excludedFields = "name")
+	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE, excludedFields = "personName")
 	int insertOneBeanFieldSurname(Person bean);
 
 	/**
@@ -48,7 +48,7 @@ public interface InsertBeanPersonDao {
 	 * @param bean
 	 * @return
 	 */
-	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (name) SELECT name FROM Person WHERE name=${bean.name}")
+	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (personName) SELECT personName FROM Person WHERE personName=${bean.personName}")
 	void insertBeanFromSelect(Person bean);
 
 }

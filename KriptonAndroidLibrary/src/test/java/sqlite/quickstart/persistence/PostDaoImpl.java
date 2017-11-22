@@ -53,6 +53,11 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
    */
   @Override
   public void insert(Post bean) {
+    if (insertPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO post (user_id, id, title, body) VALUES (?, ?, ?, ?)";
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("user_id", bean.userId);
     _contentValues.put("id", bean.id);
@@ -96,11 +101,6 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO post (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
   }

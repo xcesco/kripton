@@ -41,9 +41,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
   private static final Set<String> updateAllBeansJQL4ColumnSet = CollectionUtils.asSet(String.class, "surname", "student");
 
-  private static SQLiteStatement updateFromSelectAllBeansJQLPreparedStatement3;
-
-  private static SQLiteStatement updateFromSelectJQLPreparedStatement4;
+  private static SQLiteStatement updateFromSelectJQLPreparedStatement3;
 
   private static final Set<String> updateFromSelectJQL5ColumnSet = CollectionUtils.asSet(String.class, "name");
 
@@ -73,6 +71,11 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateAllBeans(Person bean) {
+    if (updateAllBeansPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET name=?, surname=?, student=?";
+      updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansPreparedStatement0);
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
@@ -89,13 +92,6 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateAllBeansPreparedStatement0==null) {
-      String _sqlWhereStatement="";
-
-      // generate sql
-      String _sql="UPDATE person SET name=?, surname=?, student=?";
-      updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -214,6 +210,11 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateOneBean(Person bean) {
+    if (updateOneBeanPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET name=?, surname=?, student=? WHERE id=?";
+      updateOneBeanPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOneBeanPreparedStatement1);
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
@@ -231,21 +232,6 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateOneBeanPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE person SET name=?, surname=?, student=? WHERE id=?";
-      updateOneBeanPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -731,6 +717,11 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public void updateAllBeansJQL(Person bean) {
+    if (updateAllBeansJQLPreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET surname=?, student = ?";
+      updateAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansJQLPreparedStatement2);
     if (bean.getSurname()!=null) {
       _contentValues.put("surname", bean.getSurname());
@@ -742,13 +733,6 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateAllBeansJQLPreparedStatement2==null) {
-      String _sqlWhereStatement="";
-
-      // generate sql
-      String _sql="UPDATE person SET surname=?, student = ?";
-      updateAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -869,21 +853,18 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateFromSelectAllBeansJQLPreparedStatement3==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
+    StringBuilder _sqlBuilder=sqlBuilder();
 
-      // manage WHERE arguments -- BEGIN
+    // manage WHERE arguments -- BEGIN
 
-      // manage WHERE statement
-      String _sqlWhereStatement=" where id=0";
-      _sqlBuilder.append(_sqlWhereStatement);
+    // manage WHERE statement
+    String _sqlWhereStatement=" where id=0";
+    _sqlBuilder.append(_sqlWhereStatement);
 
-      // manage WHERE arguments -- END
+    // manage WHERE arguments -- END
 
-      // generate sql
-      String _sql="UPDATE person SET name=?, student = (select student from person where id=0)";
-      updateFromSelectAllBeansJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
+    // generate sql
+    String _sql="UPDATE person SET name=?, student = (select student from person where id=0)";
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -910,7 +891,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateFromSelectAllBeansJQLPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -934,7 +915,12 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    */
   @Override
   public int updateFromSelectJQL(Person bean) {
-    KriptonContentValues _contentValues=contentValuesForUpdate(updateFromSelectJQLPreparedStatement4);
+    if (updateFromSelectJQLPreparedStatement3==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET name=? where student = (select student from person where id=?)";
+      updateFromSelectJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
+    KriptonContentValues _contentValues=contentValuesForUpdate(updateFromSelectJQLPreparedStatement3);
     if (bean.getName()!=null) {
       _contentValues.put("name", bean.getName());
     } else {
@@ -945,21 +931,6 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateFromSelectJQLPreparedStatement4==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" where student = (select student from person where id=?)";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE person SET name=? where student = (select student from person where id=?)";
-      updateFromSelectJQLPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -986,7 +957,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateFromSelectJQLPreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, updateFromSelectJQLPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -1443,13 +1414,9 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       updateAllBeansJQLPreparedStatement2.close();
       updateAllBeansJQLPreparedStatement2=null;
     }
-    if (updateFromSelectAllBeansJQLPreparedStatement3!=null) {
-      updateFromSelectAllBeansJQLPreparedStatement3.close();
-      updateFromSelectAllBeansJQLPreparedStatement3=null;
-    }
-    if (updateFromSelectJQLPreparedStatement4!=null) {
-      updateFromSelectJQLPreparedStatement4.close();
-      updateFromSelectJQLPreparedStatement4=null;
+    if (updateFromSelectJQLPreparedStatement3!=null) {
+      updateFromSelectJQLPreparedStatement3.close();
+      updateFromSelectJQLPreparedStatement3=null;
     }
   }
 }

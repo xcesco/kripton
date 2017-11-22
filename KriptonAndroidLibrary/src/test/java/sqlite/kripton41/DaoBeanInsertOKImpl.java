@@ -44,6 +44,11 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
    */
   @Override
   public boolean insertDistance(long id, Double value) {
+    if (insertDistancePreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO bean01 (id, value) VALUES (?, ?)";
+      insertDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertDistancePreparedStatement0);
 
     _contentValues.put("id", id);
@@ -82,11 +87,6 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
     }
     // log section END
     // insert operation
-    if (insertDistancePreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertDistancePreparedStatement0, _contentValues);
     return result!=-1;
   }

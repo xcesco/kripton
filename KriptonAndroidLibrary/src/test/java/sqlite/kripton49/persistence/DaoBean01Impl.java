@@ -198,6 +198,11 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long updateOne(String text, Long id) {
+    if (updateOnePreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE bean01 SET text=? WHERE id=?";
+      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     if (text!=null) {
       _contentValues.put("text", text);
@@ -209,21 +214,6 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateOnePreparedStatement0==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE bean01 SET text=? WHERE id=?";
-      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -271,26 +261,16 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long deleteOne(Long id) {
+    if (deleteOnePreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM bean01 WHERE id=?";
+      deleteOnePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteOnePreparedStatement1);
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteOnePreparedStatement1==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="DELETE FROM bean01 WHERE id=?";
-      deleteOnePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -325,6 +305,11 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long insertOne(Long id) {
+    if (insertOnePreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO bean01 (id) VALUES (?)";
+      insertOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement2);
 
     if (id!=null) {
@@ -362,11 +347,6 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
     // log section END
     // insert operation
-    if (insertOnePreparedStatement2==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement2, _contentValues);
     return result;
   }
@@ -389,6 +369,11 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
    */
   @Override
   public long insertOne(Bean01Entity bean) {
+    if (insertOnePreparedStatement3==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO bean01 (text) VALUES (?)";
+      insertOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement3);
     if (bean.getText()!=null) {
       _contentValues.put("text", bean.getText());
@@ -425,11 +410,6 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
     // log section END
     // insert operation
-    if (insertOnePreparedStatement3==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO bean01 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement3, _contentValues);
     bean.setId(result);
 

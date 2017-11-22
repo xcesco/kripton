@@ -191,6 +191,11 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
    */
   @Override
   public void insertAll(SchoolLunch schoolLunches) {
+    if (insertAllPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO SchoolLunches (fresh, contains_meat, fruits) VALUES (?, ?, ?)";
+      insertAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertAllPreparedStatement0);
     _contentValues.put("fresh", schoolLunches.isFresh());
     _contentValues.put("contains_meat", schoolLunches.isContainsMeat());
@@ -229,11 +234,6 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     }
     // log section END
     // insert operation
-    if (insertAllPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO SchoolLunches (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertAllPreparedStatement0, _contentValues);
     schoolLunches.setLunchId(result);
   }
@@ -250,17 +250,15 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
    */
   @Override
   public void deleteAll() {
+    if (deleteAllPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM SchoolLunches";
+      deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement1);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteAllPreparedStatement1==null) {
-      String _sqlWhereStatement="";
-
-      // generate sql
-      String _sql="DELETE FROM SchoolLunches";
-      deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

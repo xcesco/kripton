@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteOneBean0}</td></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamicWithArgs4}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${bean.surname}/${bean.name}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteFromSelectAllBeansJQL1}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${bean.personSurname}/${bean.personName}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteFromSelectAllBeansJQL1}</td></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBean2}</td></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single2/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamic3}</td></tr>
  * </table>
@@ -146,7 +146,7 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
         break;
       }
       case PATH_PERSON_3_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/a/${bean.surname}/${bean.name}
+        // URI: content://sqlite.feature.javadoc.bean/persons/a/${bean.personSurname}/${bean.personName}
         returnRowDeleted=dataSource.getDeleteBeanPersonDao().deleteFromSelectAllBeansJQL1(uri, selection, selectionArgs);
         break;
       }

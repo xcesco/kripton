@@ -22,10 +22,11 @@ import com.abubusoft.kripton.android.Logger;
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${id}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteOneBean0}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteBeanDynamicWithArgs4}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${surname}/${name}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteFromSelectAllBeansJQL1}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single/${id}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteRaw2}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single2/${id}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteRawDynamic3}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteBeanDynamicWithArgs5}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${surname}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteOneBean1}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${surname}/${name}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteFromSelectAllBeansJQL2}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single/${id}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteRaw3}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single2/${id}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteRawDynamic4}</td></tr>
  * </table>
  */
 public class BindDeleteRawPersonContentProvider extends ContentProvider {
@@ -54,11 +55,13 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
 
   public static final String PATH_PERSON_2 = "persons/#/moreAndMore";
 
-  public static final String PATH_PERSON_3 = "persons/a/*/*";
+  public static final String PATH_PERSON_3 = "persons/*";
 
-  public static final String PATH_PERSON_4 = "persons/single/#";
+  public static final String PATH_PERSON_4 = "persons/a/*/*";
 
-  public static final String PATH_PERSON_5 = "persons/single2/#";
+  public static final String PATH_PERSON_5 = "persons/single/#";
+
+  public static final String PATH_PERSON_6 = "persons/single2/#";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -70,12 +73,15 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
 
   static final int PATH_PERSON_5_INDEX = 5;
 
+  static final int PATH_PERSON_6_INDEX = 6;
+
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_2, PATH_PERSON_2_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_3, PATH_PERSON_3_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_4, PATH_PERSON_4_INDEX);
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_5, PATH_PERSON_5_INDEX);
+    sURIMatcher.addURI(AUTHORITY, PATH_PERSON_6, PATH_PERSON_6_INDEX);
   }
 
   /**
@@ -126,6 +132,7 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
 
   /**
    * method DeleteRawPersonDao.deleteOneBean
+   * method DeleteRawPersonDao.deleteOneBean
    * method DeleteRawPersonDao.deleteFromSelectAllBeansJQL
    * method DeleteRawPersonDao.deleteRaw
    * method DeleteRawPersonDao.deleteRawDynamic
@@ -142,22 +149,27 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
       }
       case PATH_PERSON_2_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore
-        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteBeanDynamicWithArgs4(uri, selection, selectionArgs);
+        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteBeanDynamicWithArgs5(uri, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_3_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/a/${surname}/${name}
-        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteFromSelectAllBeansJQL1(uri, selection, selectionArgs);
+        // URI: content://sqlite.feature.javadoc.bean/persons/${surname}
+        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteOneBean1(uri, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_4_INDEX: {
-        // URI: content://sqlite.feature.javadoc.bean/persons/single/${id}
-        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteRaw2(uri, selection, selectionArgs);
+        // URI: content://sqlite.feature.javadoc.bean/persons/a/${surname}/${name}
+        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteFromSelectAllBeansJQL2(uri, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_5_INDEX: {
+        // URI: content://sqlite.feature.javadoc.bean/persons/single/${id}
+        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteRaw3(uri, selection, selectionArgs);
+        break;
+      }
+      case PATH_PERSON_6_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/single2/${id}
-        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteRawDynamic3(uri, selection, selectionArgs);
+        returnRowDeleted=dataSource.getDeleteRawPersonDao().deleteRawDynamic4(uri, selection, selectionArgs);
         break;
       }
       default: {
@@ -189,6 +201,9 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
       case PATH_PERSON_5_INDEX: {
+        return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
+      }
+      case PATH_PERSON_6_INDEX: {
         return "vnd.android.cursor.item/vnd.sqlite.feature.javadoc.bean.person";
       }
     }

@@ -60,6 +60,11 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public int insert(PhoneNumber bean) {
+    if (insertPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT OR REPLACE INTO phone_number (action_type, number, country_code, contact_name, contact_id) VALUES (?, ?, ?, ?, ?)";
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (bean.actionType!=null) {
       _contentValues.put("action_type", bean.actionType.toString());
@@ -116,11 +121,6 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT OR REPLACE INTO phone_number (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
@@ -221,26 +221,16 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
    */
   @Override
   public boolean deleteById(long id) {
+    if (deleteByIdPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM phone_number WHERE id = ?";
+      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteByIdPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id = ?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="DELETE FROM phone_number WHERE id = ?";
-      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

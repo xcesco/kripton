@@ -54,6 +54,11 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
    */
   @Override
   public void insert(Comment bean) {
+    if (insertPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO comment (post_id, id, name, email, body) VALUES (?, ?, ?, ?, ?)";
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("post_id", bean.postId);
     _contentValues.put("id", bean.id);
@@ -102,11 +107,6 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO comment (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
   }

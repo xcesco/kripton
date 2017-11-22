@@ -53,6 +53,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertThread1(Person bean) {
+    if (insertThread1PreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
+      insertThread1PreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertThread1PreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -104,11 +109,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    if (insertThread1PreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertThread1PreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertThread1PreparedStatement0, _contentValues);
     bean.id=result;
   }
@@ -133,6 +133,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertThread2(Person bean) {
+    if (insertThread2PreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
+      insertThread2PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertThread2PreparedStatement1);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -184,11 +189,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    if (insertThread2PreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertThread2PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertThread2PreparedStatement1, _contentValues);
     bean.id=result;
   }

@@ -4,6 +4,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
 import sqlite.feature.javadoc.Person;
@@ -20,7 +21,7 @@ public interface InsertRawPersonDao {
 	 */
 	@BindContentProviderEntry
 	@BindSqlInsert()
-	int insertOneRaw(String name, String surname);
+	int insertOneRaw(@BindSqlParam("personName") String name, String personSurname);
 
 	/**
 	 * insert BEAN with parameter.
@@ -30,7 +31,7 @@ public interface InsertRawPersonDao {
 	 */
 	@BindContentProviderEntry(path = "name")
 	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
-	int insertOneRawFieldName(String name);
+	int insertOneRawFieldName(@BindSqlParam("personName") String name);
 
 	/**
 	 * insert RAW
@@ -39,7 +40,7 @@ public interface InsertRawPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path = "surname")
-	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (name) VALUES (${name})")
+	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (personName) VALUES (${name})")
 	int insertOne2RawFieldName(String name);
 
 	/**
@@ -49,7 +50,7 @@ public interface InsertRawPersonDao {
 	 * @return
 	 */
 	// @BindContentProviderEntry(path="surname")
-	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (name) SELECT name FROM Person WHERE name=${name}")
+	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (personName) SELECT personName FROM Person WHERE personName=${name}")
 	void insertRawFromSelect(String name);
 
 }

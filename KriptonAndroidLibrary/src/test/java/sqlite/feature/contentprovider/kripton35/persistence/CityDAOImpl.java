@@ -55,6 +55,11 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
    */
   @Override
   public void insertBean(City bean) {
+    if (insertBeanPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO city (name) VALUES (?)";
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -91,11 +96,6 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
     }
     // log section END
     // insert operation
-    if (insertBeanPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO city (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
   }

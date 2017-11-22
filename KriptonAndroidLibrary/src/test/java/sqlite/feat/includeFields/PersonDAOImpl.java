@@ -201,6 +201,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertIncludeOne(Person bean) {
+    if (insertIncludeOnePreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO person (name, id) VALUES (?, ?)";
+      insertIncludeOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertIncludeOnePreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -238,11 +243,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    if (insertIncludeOnePreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertIncludeOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertIncludeOnePreparedStatement0, _contentValues);
     bean.id=result;
   }
@@ -267,6 +267,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertExcludeOne(Person bean) {
+    if (insertExcludeOnePreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO person (surname, birth_city, birth_day, type_name) VALUES (?, ?, ?, ?)";
+      insertExcludeOnePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertExcludeOnePreparedStatement1);
     if (bean.surname!=null) {
       _contentValues.put("surname", bean.surname);
@@ -318,11 +323,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    if (insertExcludeOnePreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertExcludeOnePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertExcludeOnePreparedStatement1, _contentValues);
     bean.id=result;
   }
@@ -342,6 +342,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void updateIncludeOne(Person bean) {
+    if (updateIncludeOnePreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET name=?, id=?";
+      updateIncludeOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateIncludeOnePreparedStatement2);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -353,13 +358,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateIncludeOnePreparedStatement2==null) {
-      String _sqlWhereStatement="";
-
-      // generate sql
-      String _sql="UPDATE person SET name=?, id=?";
-      updateIncludeOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -406,6 +404,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void updateExcludeOne(Person bean) {
+    if (updateExcludeOnePreparedStatement3==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET surname=?, birthCity=?, birthDay=?, typeName=?";
+      updateExcludeOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateExcludeOnePreparedStatement3);
     if (bean.surname!=null) {
       _contentValues.put("surname", bean.surname);
@@ -431,13 +434,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateExcludeOnePreparedStatement3==null) {
-      String _sqlWhereStatement="";
-
-      // generate sql
-      String _sql="UPDATE person SET surname=?, birth_city=?, birth_day=?, type_name=?";
-      updateExcludeOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -476,17 +472,15 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteIncludeOne(Person bean) {
+    if (deleteIncludeOnePreparedStatement4==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM person";
+      deleteIncludeOnePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteIncludeOnePreparedStatement4);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteIncludeOnePreparedStatement4==null) {
-      String _sqlWhereStatement="";
-
-      // generate sql
-      String _sql="DELETE FROM person";
-      deleteIncludeOnePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -513,17 +507,15 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void deleteExcludeOne(Person bean) {
+    if (deleteExcludeOnePreparedStatement5==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM person";
+      deleteExcludeOnePreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteExcludeOnePreparedStatement5);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteExcludeOnePreparedStatement5==null) {
-      String _sqlWhereStatement="";
-
-      // generate sql
-      String _sql="DELETE FROM person";
-      deleteExcludeOnePreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

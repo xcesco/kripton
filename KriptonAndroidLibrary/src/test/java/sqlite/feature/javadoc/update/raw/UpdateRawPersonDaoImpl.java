@@ -66,6 +66,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    */
   @Override
   public int updateAllBeans(String name) {
+    if (updateAllBeansPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET name=?";
+      updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansPreparedStatement0);
     if (name!=null) {
       _contentValues.put("name", name);
@@ -76,13 +81,6 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateAllBeansPreparedStatement0==null) {
-      String _sqlWhereStatement="";
-
-      // generate sql
-      String _sql="UPDATE person SET name=?";
-      updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -137,6 +135,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    */
   @Override
   public void updateAllBeansJQL(String name, String surname, boolean student) {
+    if (updateAllBeansJQLPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET student = ?, nAme=?  where surname=?";
+      updateAllBeansJQLPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansJQLPreparedStatement1);
     if (name!=null) {
       _contentValues.put("name", name);
@@ -149,21 +152,6 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateAllBeansJQLPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" where surname=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE person SET student = ?, name=?  where surname=?";
-      updateAllBeansJQLPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -333,6 +321,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    */
   @Override
   public void updateFromSelectJQL(String name, String surname) {
+    if (updateFromSelectJQLPreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET name=? where student= (select student from person where surname=?)";
+      updateFromSelectJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateFromSelectJQLPreparedStatement2);
     if (name!=null) {
       _contentValues.put("name", name);
@@ -344,21 +337,6 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateFromSelectJQLPreparedStatement2==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" where student= (select student from person where surname=?)";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE person SET name=? where student= (select student from person where surname=?)";
-      updateFromSelectJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -490,6 +468,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    */
   @Override
   public int updateBean(String name, long id) {
+    if (updateBeanPreparedStatement3==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE person SET name=? WHERE id=?";
+      updateBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateBeanPreparedStatement3);
     if (name!=null) {
       _contentValues.put("name", name);
@@ -501,21 +484,6 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateBeanPreparedStatement3==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE person SET name=? WHERE id=?";
-      updateBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

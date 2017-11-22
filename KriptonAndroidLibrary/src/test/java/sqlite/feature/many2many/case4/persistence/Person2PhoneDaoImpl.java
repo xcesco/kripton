@@ -273,26 +273,16 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int deleteById(long id) {
+    if (deleteByIdPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM person_phone_number WHERE id=?";
+      deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteByIdPreparedStatement0==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="DELETE FROM person_phone_number WHERE id=?";
-      deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -328,26 +318,16 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int deleteByPersonId(long personId) {
+    if (deleteByPersonIdPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM person_phone_number WHERE person_id=?";
+      deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByPersonIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(personId));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteByPersonIdPreparedStatement1==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" person_id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="DELETE FROM person_phone_number WHERE person_id=?";
-      deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -383,26 +363,16 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int deleteByPhoneNumberId(long phoneNumberId) {
+    if (deleteByPhoneNumberIdPreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM person_phone_number WHERE phone_number_id=?";
+      deleteByPhoneNumberIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByPhoneNumberIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(phoneNumberId));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteByPhoneNumberIdPreparedStatement2==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" phone_number_id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="DELETE FROM person_phone_number WHERE phone_number_id=?";
-      deleteByPhoneNumberIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -440,6 +410,11 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
    */
   @Override
   public int insert(PersonPhoneNumber bean) {
+    if (insertPreparedStatement3==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO person_phone_number (person_id, phone_number_id) VALUES (?, ?)";
+      insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
     _contentValues.put("person_id", bean.personId);
     _contentValues.put("phone_number_id", bean.phoneNumberId);
@@ -473,11 +448,6 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement3==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO person_phone_number (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement3, _contentValues);
     bean.id=result;
 

@@ -44,6 +44,11 @@ public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2St
    */
   @Override
   public long insert(Seminar2Student bean) {
+    if (insertPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO seminar_2_student (student_id, seminar_id) VALUES (?, ?)";
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("student_id", bean.studentId);
     _contentValues.put("seminar_id", bean.seminarId);
@@ -77,11 +82,6 @@ public class DaoSeminar2StudentImpl extends AbstractDao implements DaoSeminar2St
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO seminar_2_student (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
 

@@ -51,6 +51,11 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
    */
   @Override
   public boolean updateDistance(long id, Double value, long test) {
+    if (updateDistancePreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE bean01 SET id=?, value=? WHERE id=?";
+      updateDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateDistancePreparedStatement0);
     _contentValues.put("id", id);
     if (value!=null) {
@@ -63,21 +68,6 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateDistancePreparedStatement0==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE bean01 SET id=?, value=? WHERE id=?";
-      updateDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

@@ -21,8 +21,6 @@ import com.abubusoft.kripton.common.Triple;
 public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudentDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement insertBeanFromSelectPreparedStatement1;
-
   public CollegeStudentDaoImpl(SQLContext context) {
     super(context);
   }
@@ -44,6 +42,11 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
    */
   @Override
   public void insert(CollegeStudent student) {
+    if (insertPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO students (surname) VALUES (?)";
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     if (student.surname!=null) {
       _contentValues.put("surname", student.surname);
@@ -80,11 +83,6 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO students (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     student.id=result;
   }
@@ -142,12 +140,9 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     }
     // log section END
     // insert operation
-    if (insertBeanFromSelectPreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT OR REPLACE INTO students (%s) SELECT surname FROM students WHERE surname=${bean.surname}", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanFromSelectPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
-    long result = KriptonDatabaseWrapper.insert(_context, insertBeanFromSelectPreparedStatement1, _contentValues);
+    // generate SQL for insert
+    String _sql=String.format("INSERT OR REPLACE INTO students (%s) SELECT surname FROM students WHERE surname=${bean.surname}", _contentValues.keyList(), _contentValues.keyValueList());
+    long result = KriptonDatabaseWrapper.insert(_context, _sql, _contentValues);
     bean.id=result;
   }
 
@@ -155,10 +150,6 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;
-    }
-    if (insertBeanFromSelectPreparedStatement1!=null) {
-      insertBeanFromSelectPreparedStatement1.close();
-      insertBeanFromSelectPreparedStatement1=null;
     }
   }
 }

@@ -127,6 +127,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public Child insertBean(Child bean) {
+    if (insertBeanPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO child (name, parent_id) VALUES (?, ?)";
+      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -164,11 +169,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     // log section END
     // insert operation
-    if (insertBeanPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
@@ -437,6 +437,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void insertByCopy3(Child bean) {
+    if (insertByCopy3PreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="insert into child (name, parent_id) values (?, ?)";
+      insertByCopy3PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertByCopy3PreparedStatement1);
     if (bean.name!=null) {
       _contentValues.put("name", bean.name);
@@ -474,11 +479,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     // log section END
     // insert operation
-    if (insertByCopy3PreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("insert into child (%s) values (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertByCopy3PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertByCopy3PreparedStatement1, _contentValues);
     bean.id=result;
   }
@@ -502,6 +502,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public int insertByCopy(long parentId, String name) {
+    if (insertByCopyPreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO child (parent_id, name) VALUES (?, ?)";
+      insertByCopyPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertByCopyPreparedStatement2);
 
     _contentValues.put("parent_id", parentId);
@@ -540,11 +545,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     // log section END
     // insert operation
-    if (insertByCopyPreparedStatement2==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO child (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertByCopyPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertByCopyPreparedStatement2, _contentValues);
     return (int)result;
   }
@@ -570,6 +570,11 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    */
   @Override
   public void updateJQL(long parentId, String name) {
+    if (updateJQLPreparedStatement3==null) {
+      // generate static SQL for insert
+      String _sql="update or replace child set name=? where parent_id=?";
+      updateJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLPreparedStatement3);
     if (name!=null) {
       _contentValues.put("name", name);
@@ -581,21 +586,6 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateJQLPreparedStatement3==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" where parent_id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="update or replace child set name=? where parent_id=?";
-      updateJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

@@ -161,6 +161,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public boolean updateById(MessageEntity bean) {
+    if (updateByIdPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE message SET channelId=?, ownerType=?, uid=?, faceUid=?, text=?, ownerUid=?, channelUid=?, updateTime=?, type=? WHERE id = ?";
+      updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement0);
     _contentValues.put("channel_id", bean.channelId);
     if (bean.ownerType!=null) {
@@ -204,21 +209,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateByIdPreparedStatement0==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id = ?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE message SET channel_id=?, owner_type=?, uid=?, face_uid=?, text=?, owner_uid=?, channel_uid=?, update_time=?, type=? WHERE id = ?";
-      updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -274,6 +264,11 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
    */
   @Override
   public void insert(MessageEntity bean) {
+    if (insertPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO message (channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("channel_id", bean.channelId);
     if (bean.ownerType!=null) {
@@ -342,11 +337,6 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO message (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
     bean.id=result;
   }

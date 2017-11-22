@@ -41,26 +41,16 @@ public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK 
    */
   @Override
   public boolean deleteDistance(double value) {
+    if (deleteDistancePreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM bean01 WHERE id=?";
+      deleteDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteDistancePreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(value));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteDistancePreparedStatement0==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="DELETE FROM bean01 WHERE id=?";
-      deleteDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

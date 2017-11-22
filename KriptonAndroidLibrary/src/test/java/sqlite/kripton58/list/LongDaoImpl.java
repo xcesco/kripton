@@ -419,6 +419,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long updateOne(List<Long> value, long id, List<Long> paramValue) {
+    if (updateOnePreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE long_bean SET value=? WHERE id=? and CAST(value AS TEXT)=?";
+      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     if (value!=null) {
       _contentValues.put("value", serializer1(value));
@@ -431,21 +436,6 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updateOnePreparedStatement0==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" id=? and CAST(value AS TEXT)=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE long_bean SET value=? WHERE id=? and CAST(value AS TEXT)=?";
-      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
@@ -495,6 +485,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long insert(long id, List<Long> value) {
+    if (insertPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO long_bean (id, value) VALUES (?, ?)";
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     _contentValues.put("id", id);
@@ -533,11 +528,6 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO long_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
     return result;
   }
@@ -561,6 +551,11 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long insert(LongBean bean) {
+    if (insertPreparedStatement2==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO long_bean (value, value2) VALUES (?, ?)";
+      insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
     if (bean.value!=null) {
       _contentValues.put("value", LongBeanTable.serializeValue(bean.value));
@@ -602,11 +597,6 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement2==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO long_bean (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement2, _contentValues);
     bean.id=result;
 
@@ -630,26 +620,16 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
    */
   @Override
   public long delete(List<Long> paramValue) {
+    if (deletePreparedStatement3==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM long_bean WHERE CAST(value AS TEXT)=?";
+      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement3);
     _contentValues.addWhereArgs((paramValue==null?"":new String(serializer1(paramValue),StandardCharsets.UTF_8)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deletePreparedStatement3==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" CAST(value AS TEXT)=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="DELETE FROM long_bean WHERE CAST(value AS TEXT)=?";
-      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

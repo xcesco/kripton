@@ -7,22 +7,22 @@ public class Person {
 	
 	public long id;
 
-	protected String name;
+	protected String personName;
 	
-	public String getName() {
-		return name;
+	public String getPersonName() {
+		return personName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPersonName(String personName) {
+		this.personName = personName;
 	}
 
-	public String getSurname() {
-		return surname;
+	public String getPersonSurname() {
+		return personSurname;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setPersonSurname(String personSurname) {
+		this.personSurname = personSurname;
 	}
 
 	public boolean isStudent() {
@@ -33,7 +33,7 @@ public class Person {
 		this.student = student;
 	}
 
-	protected String surname;
+	protected String personSurname;
 	
 	protected boolean student;
 	

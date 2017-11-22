@@ -29,21 +29,21 @@ public class PersonBindMap extends AbstractMapper<Person> {
     fieldCount++;
     jacksonSerializer.writeNumberField("id", object.id);
 
-    // field name (mapped with "name")
-    if (object.getName()!=null)  {
+    // field personName (mapped with "personName")
+    if (object.getPersonName()!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("name", object.getName());
+      jacksonSerializer.writeStringField("personName", object.getPersonName());
+    }
+
+    // field personSurname (mapped with "personSurname")
+    if (object.getPersonSurname()!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("personSurname", object.getPersonSurname());
     }
 
     // field student (mapped with "student")
     fieldCount++;
     jacksonSerializer.writeBooleanField("student", object.isStudent());
-
-    // field surname (mapped with "surname")
-    if (object.getSurname()!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("surname", object.getSurname());
-    }
 
     jacksonSerializer.writeEndObject();
     return fieldCount;
@@ -60,20 +60,20 @@ public class PersonBindMap extends AbstractMapper<Person> {
     // field id (mapped with "id")
     jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
-    // field name (mapped with "name")
-    if (object.getName()!=null)  {
+    // field personName (mapped with "personName")
+    if (object.getPersonName()!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("name", object.getName());
+      jacksonSerializer.writeStringField("personName", object.getPersonName());
+    }
+
+    // field personSurname (mapped with "personSurname")
+    if (object.getPersonSurname()!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("personSurname", object.getPersonSurname());
     }
 
     // field student (mapped with "student")
     jacksonSerializer.writeStringField("student", PrimitiveUtils.writeBoolean(object.isStudent()));
-
-    // field surname (mapped with "surname")
-    if (object.getSurname()!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("surname", object.getSurname());
-    }
 
     jacksonSerializer.writeEndObject();
     return fieldCount;
@@ -96,10 +96,17 @@ public class PersonBindMap extends AbstractMapper<Person> {
     xmlSerializer.writeLong(object.id);
     xmlSerializer.writeEndElement();
 
-    // field name (mapped with "name")
-    if (object.getName()!=null) {
-      xmlSerializer.writeStartElement("name");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getName()));
+    // field personName (mapped with "personName")
+    if (object.getPersonName()!=null) {
+      xmlSerializer.writeStartElement("personName");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getPersonName()));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field personSurname (mapped with "personSurname")
+    if (object.getPersonSurname()!=null) {
+      xmlSerializer.writeStartElement("personSurname");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getPersonSurname()));
       xmlSerializer.writeEndElement();
     }
 
@@ -107,13 +114,6 @@ public class PersonBindMap extends AbstractMapper<Person> {
     xmlSerializer.writeStartElement("student");
     xmlSerializer.writeBoolean(object.isStudent());
     xmlSerializer.writeEndElement();
-
-    // field surname (mapped with "surname")
-    if (object.getSurname()!=null) {
-      xmlSerializer.writeStartElement("surname");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getSurname()));
-      xmlSerializer.writeEndElement();
-    }
 
     if (currentEventType == 0) {
       xmlSerializer.writeEndElement();
@@ -144,21 +144,21 @@ public class PersonBindMap extends AbstractMapper<Person> {
             // field id (mapped with "id")
             instance.id=jacksonParser.getLongValue();
           break;
-          case "name":
-            // field name (mapped with "name")
+          case "personName":
+            // field personName (mapped with "personName")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setName(jacksonParser.getText());
+              instance.setPersonName(jacksonParser.getText());
+            }
+          break;
+          case "personSurname":
+            // field personSurname (mapped with "personSurname")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.setPersonSurname(jacksonParser.getText());
             }
           break;
           case "student":
             // field student (mapped with "student")
             instance.setStudent(jacksonParser.getBooleanValue());
-          break;
-          case "surname":
-            // field surname (mapped with "surname")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setSurname(jacksonParser.getText());
-            }
           break;
           default:
             jacksonParser.skipChildren();
@@ -191,21 +191,21 @@ public class PersonBindMap extends AbstractMapper<Person> {
             // field id (mapped with "id")
             instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
           break;
-          case "name":
-            // field name (mapped with "name")
+          case "personName":
+            // field personName (mapped with "personName")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setName(jacksonParser.getText());
+              instance.setPersonName(jacksonParser.getText());
+            }
+          break;
+          case "personSurname":
+            // field personSurname (mapped with "personSurname")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.setPersonSurname(jacksonParser.getText());
             }
           break;
           case "student":
             // field student (mapped with "student")
             instance.setStudent(PrimitiveUtils.readBoolean(jacksonParser.getText(), (boolean)false));
-          break;
-          case "surname":
-            // field surname (mapped with "surname")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setSurname(jacksonParser.getText());
-            }
           break;
           default:
             jacksonParser.skipChildren();
@@ -248,17 +248,17 @@ public class PersonBindMap extends AbstractMapper<Person> {
                   // property id (mapped on "id")
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                 break;
-                case "name":
-                  // property name (mapped on "name")
-                  instance.setName(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                case "personName":
+                  // property personName (mapped on "personName")
+                  instance.setPersonName(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
+                case "personSurname":
+                  // property personSurname (mapped on "personSurname")
+                  instance.setPersonSurname(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 case "student":
                   // property student (mapped on "student")
                   instance.setStudent(PrimitiveUtils.readBoolean(xmlParser.getElementAsBoolean(), (boolean)false));
-                break;
-                case "surname":
-                  // property surname (mapped on "surname")
-                  instance.setSurname(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 default:
                 break;

@@ -63,7 +63,15 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		if (method.jql.hasDynamicParts()  || method.jql.containsSelectOperation) {
 			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);			
 		} else {
-			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, method.buildPreparedStatementName());
+			String psName=method.buildPreparedStatementName();
+			// generate SQL for insert
+			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());								
+			
+			methodBuilder.beginControlFlow("if ($L==null)",psName);
+			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);
+			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);						
+			methodBuilder.endControlFlow();
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, psName);
 		}
 
 		if (method.jql.containsSelectOperation) {
@@ -75,6 +83,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			for (Pair<String, TypeName> item : method.getParameters()) {
 				String propertyName = method.findParameterAliasByName(item.value0);
 				SQLProperty property = entity.get(propertyName);
+											
 				if (property == null)
 					throw (new PropertyNotFoundException(method, propertyName, item.value1));
 
@@ -115,21 +124,12 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
 						
 			methodBuilder.addComment("insert operation");
-			if (method.jql.hasDynamicParts()) {
+			if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {
 				// does not memorize compiled statement, it can vary every time generate SQL for insert
-				SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);	
-				
+				SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);					
 				methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
 			} else {
 				String psName=method.buildPreparedStatementName();
-				// generate SQL for insert
-				classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());
-				
-				methodBuilder.beginControlFlow("if ($L==null)", psName);
-				SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);
-				methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
-				methodBuilder.endControlFlow();
-				
 				methodBuilder.addStatement("long result = $T.insert(_context, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);		
 			}			
 			
@@ -220,7 +220,12 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (Pair<String, TypeName> property : methodParamsUsedAsColumnValue) {
 				String resolvedName = method.findParameterAliasByName(property.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", entity.get(resolvedName).columnName);
+				SQLProperty prop = entity.get(resolvedName);
+								
+				if (prop == null)
+					throw (new PropertyNotFoundException(method, property.value0, property.value1));
+				
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", prop.columnName);
 				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + resolvedName + "}", property.value0);
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");

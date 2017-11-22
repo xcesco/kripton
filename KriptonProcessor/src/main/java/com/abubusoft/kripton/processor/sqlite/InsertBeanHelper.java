@@ -65,10 +65,12 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		} else {
 			String psName=method.buildPreparedStatementName();
 			// generate SQL for insert
-			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());					
-			SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);
-			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
+			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());
 			
+			methodBuilder.beginControlFlow("if ($L==null)",psName);
+			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);			
+			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);						
+			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, psName);
 		}
 		
@@ -87,8 +89,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {
 			// does not memorize compiled statement, it can vary every time
 			// generate SQL for insert
-			SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);	
-			
+			SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);				
 			methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
 		} else {			
 			String psName=method.buildPreparedStatementName();			

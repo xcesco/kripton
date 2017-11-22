@@ -512,6 +512,11 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
+    if (insertOnePreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT OR IGNORE INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
+      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement0);
 
     if (name!=null) {
@@ -564,11 +569,6 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     }
     // log section END
     // insert operation
-    if (insertOnePreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT OR IGNORE INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement0, _contentValues);
   }
 

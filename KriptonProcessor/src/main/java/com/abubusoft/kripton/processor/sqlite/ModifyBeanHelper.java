@@ -81,7 +81,15 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		if (method.jql.hasDynamicParts()  || method.jql.containsSelectOperation) {
 			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);			
 		} else {
-			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, method.buildPreparedStatementName());
+			String psName=method.buildPreparedStatementName();
+			// generate SQL for insert
+			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());								
+			
+			methodBuilder.beginControlFlow("if ($L==null)",psName);
+			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);
+			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);						
+			methodBuilder.endControlFlow();
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, psName);		
 		}
 
 
@@ -121,16 +129,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		boolean updateMode = (method.jql.operationType == JQLType.UPDATE);
 
 		SqlModifyBuilder.generateInitForDynamicWhereVariables(method, methodBuilder, method.dynamicWhereParameterName, method.dynamicWhereArgsParameterName);
-
-		String psName = null;
-
-		if (!method.jql.hasDynamicParts()) {
-			psName = method.buildPreparedStatementName();
-			// generate SQL for insert
-			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
-
-			methodBuilder.beginControlFlow("if ($L==null)", psName);
-
+		
+		if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {
 			// query builder
 			if (method.jql.isWhereConditions()) {
 				methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);
@@ -141,21 +141,27 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 			// generate SQL
 			SqlModifyBuilder.generateSQL(method, methodBuilder);
-
-			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
-			methodBuilder.endControlFlow();
 
 		} else {
-			// query builder
-			if (method.jql.isWhereConditions()) {
-				methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);
-			}
-
-			// generate where condition
-			SqlBuilderHelper.generateWhereCondition(methodBuilder, method, true);
-
-			// generate SQL
-			SqlModifyBuilder.generateSQL(method, methodBuilder);
+			//psName = method.buildPreparedStatementName();
+			// generate SQL for insert
+			//classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
+//
+//			methodBuilder.beginControlFlow("if ($L==null)", psName);
+//
+//			// query builder
+//			if (method.jql.isWhereConditions()) {
+//				methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);
+//			}
+//
+//			// generate where condition
+//			SqlBuilderHelper.generateWhereCondition(methodBuilder, method, true);
+//
+//			// generate SQL
+//			SqlModifyBuilder.generateSQL(method, methodBuilder);
+//
+//			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
+//			methodBuilder.endControlFlow();
 
 		}
 
@@ -176,11 +182,12 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addComment("log section END");
 		}
 
-		if (method.jql.hasDynamicParts()) {
+		if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {
 			// does not memorize compiled statement, it can vary every time
 			// generate SQL for insert
 			methodBuilder.addStatement("int result = $T.updateDelete(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
 		} else {
+			String psName = method.buildPreparedStatementName();
 			methodBuilder.addStatement("int result = $T.updateDelete(_context, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);
 		}
 

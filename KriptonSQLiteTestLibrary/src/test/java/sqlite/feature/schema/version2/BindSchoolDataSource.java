@@ -8,7 +8,6 @@ import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
 /**
@@ -58,6 +57,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    */
   protected DaoStudentImpl daoStudent = new DaoStudentImpl(this);
 
+  /**
+   * Used only in transactions (that can be executed one for time */
+  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindSchoolDataSource(DataSourceOptions options) {
     super("school", 2, options);
   }
@@ -83,24 +86,36 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   /**
-   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
    *
    * @param transaction
    * 	transaction to execute
    */
   public void execute(Transaction transaction) {
+    execute(transaction, onErrorListener);
+  }
+
+  /**
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
+   *
+   * @param transaction
+   * 	transaction to execute
+   * @param onErrorListener
+   * 	error listener
+   */
+  public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
     boolean needToOpened=!this.isOpenInWriteMode();
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(new DataSourceSingleThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
       e.printStackTrace();
-      if (transaction!=null) transaction.onError(e);
+      if (onErrorListener!=null) onErrorListener.onError(e);
     } finally {
       try {
         connection.endTransaction();
@@ -350,16 +365,6 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   /**
-   * Simple class implements interface to define transactions.In this class a simple <code>onError</code> method is implemented.
-   */
-  public abstract static class SimpleTransaction implements Transaction {
-    @Override
-    public void onError(Throwable e) {
-      throw(new KriptonRuntimeException(e));
-    }
-  }
-
-  /**
    * Rapresents batch operation.
    */
   public interface Batch<T> {
@@ -429,6 +434,11 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
         _daoStudent=new DaoStudentImpl(_context);
       }
       return _daoStudent;
+    }
+
+    public DataSourceSingleThread bindToThread() {
+      _context.bindToThread();
+      return this;
     }
   }
 }

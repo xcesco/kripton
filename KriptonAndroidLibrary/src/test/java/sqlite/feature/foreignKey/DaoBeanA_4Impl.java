@@ -263,6 +263,11 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
    */
   @Override
   public int insert(BeanA_4 bean) {
+    if (insertPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO bean_a_4 (bean_a2_id, value_string) VALUES (?, ?)";
+      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("bean_a2_id", bean.beanA2Id);
     if (bean.valueString!=null) {
@@ -300,11 +305,6 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     }
     // log section END
     // insert operation
-    if (insertPreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO bean_a_4 (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
     bean.id=result;
 
@@ -333,6 +333,11 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
    */
   @Override
   public int update(BeanA_4 bean) {
+    if (updatePreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="UPDATE bean_a_4 SET beanA2Id=?, valueString=? WHERE value_string=?";
+      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
     _contentValues.put("bean_a2_id", bean.beanA2Id);
     if (bean.valueString!=null) {
@@ -345,21 +350,6 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (updatePreparedStatement1==null) {
-      StringBuilder _sqlBuilder=sqlBuilder();
-
-      // manage WHERE arguments -- BEGIN
-
-      // manage WHERE statement
-      String _sqlWhereStatement=" value_string=?";
-      _sqlBuilder.append(_sqlWhereStatement);
-
-      // manage WHERE arguments -- END
-
-      // generate sql
-      String _sql="UPDATE bean_a_4 SET bean_a2_id=?, value_string=? WHERE value_string=?";
-      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 

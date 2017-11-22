@@ -101,17 +101,15 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
    */
   @Override
   public void deleteAll() {
+    if (deleteAllPreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM simple_address_item";
+      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement0);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteAllPreparedStatement0==null) {
-      String _sqlWhereStatement="";
-
-      // generate sql
-      String _sql="DELETE FROM simple_address_item";
-      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllPreparedStatement0, _contentValues);
   }
 
@@ -193,6 +191,11 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
    */
   @Override
   public void insert(SimpleAddressItem bean) {
+    if (insertPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO simple_address_item (name, address, city, state, phone) VALUES (?, ?, ?, ?, ?)";
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     if (bean.getName()!=null) {
       _contentValues.put(bean.getName());
@@ -217,11 +220,6 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
     _contentValues.put(bean.getPhone());
 
     // insert operation
-    if (insertPreparedStatement1==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO simple_address_item (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
     bean.setId(result);
   }

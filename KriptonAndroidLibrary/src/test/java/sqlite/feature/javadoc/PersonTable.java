@@ -18,9 +18,9 @@ public class PersonTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, student INTEGER);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, person_name TEXT, person_surname TEXT, student INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, student INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, person_name TEXT, person_surname TEXT, student INTEGER);";
 
   /**
    * <p>
@@ -39,18 +39,18 @@ public class PersonTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   * Entity's property <code>personName</code> is associated to table column <code>person_name</code>. This costant represents column name.
    *
-   *  @see Person#name
+   *  @see Person#personName
    */
-  public static final String COLUMN_NAME = "name";
+  public static final String COLUMN_PERSON_NAME = "person_name";
 
   /**
-   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column name.
+   * Entity's property <code>personSurname</code> is associated to table column <code>person_surname</code>. This costant represents column name.
    *
-   *  @see Person#surname
+   *  @see Person#personSurname
    */
-  public static final String COLUMN_SURNAME = "surname";
+  public static final String COLUMN_PERSON_SURNAME = "person_surname";
 
   /**
    * Entity's property <code>student</code> is associated to table column <code>student</code>. This costant represents column name.

@@ -287,6 +287,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
+    if (insertOnePreparedStatement0==null) {
+      // generate static SQL for insert
+      String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
+      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement0);
 
     if (name!=null) {
@@ -339,11 +344,6 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    if (insertOnePreparedStatement0==null) {
-      // generate SQL for insert
-      String _sql=String.format("INSERT INTO person (%s) VALUES (%s)", _contentValues.keyList(), _contentValues.keyValueList());
-      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement0, _contentValues);
   }
 
@@ -433,17 +433,15 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public int deleteAll() {
+    if (deleteAllPreparedStatement1==null) {
+      // generate static SQL for insert
+      String _sql="DELETE FROM person";
+      deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement1);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    if (deleteAllPreparedStatement1==null) {
-      String _sqlWhereStatement="";
-
-      // generate sql
-      String _sql="DELETE FROM person";
-      deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
