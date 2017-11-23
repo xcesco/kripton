@@ -61,6 +61,7 @@ import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertType;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDeclarationType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
@@ -122,6 +123,10 @@ public abstract class JQLBuilder {
 				}
 			}
 		});
+		
+		if (StringUtils.hasText(preparedJql)) { 
+			result.declarationType=JQLDeclarationType.JQL_DECLARED;
+		}
 
 		if (method.hasAnnotation(BindSqlSelect.class)) {
 			checkFieldsDefinitions(method, BindSqlSelect.class);
@@ -396,7 +401,7 @@ public abstract class JQLBuilder {
 		final SQLDaoDefinition dao = method.getParent();
 
 		if (StringUtils.hasText(preparedJql)) {
-			result.value = preparedJql;
+			result.value = preparedJql;		
 
 			// in SELECT SQL only where statement can contains bind parameter
 			JQLChecker.getInstance().analyze(method, result, new JqlBaseListener() {
@@ -405,17 +410,6 @@ public abstract class JQLBuilder {
 				public void enterBind_parameter(Bind_parameterContext ctx) {
 					result.bindParameterOnWhereStatementCounter++;
 				}
-
-				// @Override
-				// public void enterBind_dynamic_sql(Bind_dynamic_sqlContext
-				// ctx) {
-				// String
-				// value=result.value.substring(ctx.start.getStartIndex()-1,ctx.stop.getStopIndex()+1);
-				// value=ctx.getParent().getParent().getText();
-				//
-				// System.out.println(value);
-				// }
-
 			});
 
 			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql, new JQLReplaceVariableStatementListenerImpl() {

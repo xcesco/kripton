@@ -28,6 +28,13 @@ public class JQL {
 	public enum JQLDynamicStatementType {
 		DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE, DYNAMIC_PAGE_OFFSET
 	}
+	
+	public enum JQLDeclarationType {
+		JQL_DECLARED,
+		JQL_IMPLICIT;
+	}
+	
+	public JQLDeclarationType declarationType=JQLDeclarationType.JQL_IMPLICIT;
 
 	/**
 	 * jql type
