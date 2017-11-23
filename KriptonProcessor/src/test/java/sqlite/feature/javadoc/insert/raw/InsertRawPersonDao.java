@@ -19,9 +19,9 @@ public interface InsertRawPersonDao {
 	 * @param bean
 	 * @return
 	 */
-//	@BindContentProviderEntry
-//	@BindSqlInsert()
-//	int insertOneRaw(@BindSqlParam("personName") String name, String personSurname);
+	@BindContentProviderEntry
+	@BindSqlInsert()
+	int insertOneRaw(@BindSqlParam("personName") String name, String personSurname);
 
 	/**
 	 * insert BEAN with parameter.
@@ -29,9 +29,9 @@ public interface InsertRawPersonDao {
 	 * @param bean
 	 * @return
 	 */
-//	@BindContentProviderEntry(path = "name")
-//	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
-//	int insertOneRawFieldName(@BindSqlParam("personName") String name);
+	@BindContentProviderEntry(path = "name")
+	@BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
+	int insertOneRawFieldName(@BindSqlParam("personName") String name);
 
 	/**
 	 * insert RAW
@@ -40,8 +40,8 @@ public interface InsertRawPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path = "surname")
-	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (personName) VALUES (${name})")
-	int insertOne2RawFieldName(String name);
+	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (personName, personSurname) VALUES (${personName}, ${personSurname})")
+	int insertOne2RawFieldName(@BindSqlParam("personSurname") String surnname, @BindSqlParam("personName") String name);
 
 	/**
 	 * insert RAW with parameter. INSERT-FROM-SELECT is not allowed
@@ -49,7 +49,7 @@ public interface InsertRawPersonDao {
 	 * @param bean
 	 * @return
 	 */
-//	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (personName) SELECT personName FROM Person WHERE personName=${name}")
-//	void insertRawFromSelect(String name);
+	@BindSqlInsert(jql = "INSERT OR REPLACE INTO Person (personName) SELECT personName FROM Person WHERE personName=${name}")
+	void insertRawFromSelect(String name);
 
 }

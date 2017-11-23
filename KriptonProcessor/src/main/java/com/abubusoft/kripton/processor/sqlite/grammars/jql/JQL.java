@@ -29,12 +29,22 @@ public class JQL {
 		DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE, DYNAMIC_PAGE_OFFSET
 	}
 	
+	/**
+	 * Specificies how jql is defined. 
+	 */
 	public enum JQLDeclarationType {
-		JQL_DECLARED,
-		JQL_IMPLICIT;
+		/**
+		 * jql is defined with jql attribute
+		 */
+		JQL_EXPLICIT,
+		
+		/**
+		 * jql is not defined explicity, it's gained from attributes
+		 */
+		JQL_COMPACT;
 	}
 	
-	public JQLDeclarationType declarationType=JQLDeclarationType.JQL_IMPLICIT;
+	public JQLDeclarationType declarationType=JQLDeclarationType.JQL_COMPACT;
 
 	/**
 	 * jql type

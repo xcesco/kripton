@@ -83,7 +83,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		// generate javadoc and query
 		generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);		
 
-		SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
+		SqlBuilderHelper.generateLog(method, methodBuilder);
 
 		methodBuilder.addComment("insert operation");
 		if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {

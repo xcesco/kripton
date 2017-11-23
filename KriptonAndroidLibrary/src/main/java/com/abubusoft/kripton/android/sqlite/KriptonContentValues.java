@@ -474,6 +474,8 @@ public final class KriptonContentValues {
 		valueType.clear();
 		args.clear();
 		whereArgs.clear();
+		compiledStatement=null;
+		compiledStatementBindIndex=1;
 
 	}
 
@@ -534,12 +536,12 @@ public final class KriptonContentValues {
 	}
 
 	public void clear(SQLiteStatement compiledStatement) {
-		this.compiledStatement = compiledStatement;
-		this.compiledStatementBindIndex = 1;
+		clear();
+		this.compiledStatement = compiledStatement;		
 		if (compiledStatement != null) {
 			this.compiledStatement.clearBindings();
-		}
-		clear();
+		} 
+		
 	}
 
 }

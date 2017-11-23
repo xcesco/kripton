@@ -145,6 +145,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -203,7 +210,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>tempName</strong></dd>
+   * 	<dt>tempName</dt><dd>is binded to query's parameter <strong>${tempName}</strong> and method's parameter <strong>tempName</strong></dd>
    * </dl>
    *
    * @param tempName
@@ -251,6 +258,13 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation

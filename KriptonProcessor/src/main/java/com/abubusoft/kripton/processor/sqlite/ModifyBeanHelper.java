@@ -98,7 +98,6 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlUpdate.class);
 
 			AssertKripton.assertTrueOrInvalidMethodSignException(listUsedProperty.size() > 0, method, "no column was selected for update");
-
 			CodeBuilderUtility.generateContentValuesFromEntity(BaseProcessor.elementUtils, method, BindSqlUpdate.class, methodBuilder, analyzer.getUsedBeanPropertyNames());
 		} else {
 			listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlDelete.class);
@@ -142,7 +141,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			// generate SQL
 			SqlModifyBuilder.generateSQL(method, methodBuilder);
 
-		} else {
+		} //else {
 			//psName = method.buildPreparedStatementName();
 			// generate SQL for insert
 			//classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
@@ -163,7 +162,10 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 //			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
 //			methodBuilder.endControlFlow();
 
-		}
+	//	}
+		
+		// log for where parames
+		//SqlBuilderHelper.generateLog(method, methodBuilder);
 
 		if (method.isLogEnabled()) {
 			// generate log section

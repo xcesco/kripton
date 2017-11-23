@@ -100,6 +100,13 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -116,7 +123,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
-   * 	<dt>content_type</dt><dd>is binded to query's parameter <strong>${contentType}</strong> and method's parameter <strong>contentType</strong></dd>
+   * 	<dt>contentType</dt><dd>is binded to query's parameter <strong>${contentType}</strong> and method's parameter <strong>contentType</strong></dd>
    * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
    * </dl>
    *
@@ -180,6 +187,13 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation

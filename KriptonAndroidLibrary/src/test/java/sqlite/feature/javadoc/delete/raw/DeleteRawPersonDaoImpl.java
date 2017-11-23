@@ -51,7 +51,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
   @Override
   public int deleteOneBean(long id) {
     if (deleteOneBeanPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id=?";
       deleteOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -156,7 +156,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
   @Override
   public int deleteOneBean(String surname) {
     if (deleteOneBeanPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE person_surname=?";
       deleteOneBeanPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -262,7 +262,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
   @Override
   public boolean deleteAllBeansJQL(String name, String surname) {
     if (deleteAllBeansJQLPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE person_name=? and person_surname=? AND student = 0";
       deleteAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -309,7 +309,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
   @Override
   public void deleteFromSelectAllBeansJQL(String name, String surname) {
     if (deleteFromSelectAllBeansJQLPreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE person_surname=? and student = (select student from person where person_name=?)";
       deleteFromSelectAllBeansJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -413,7 +413,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
   @Override
   public long deleteRaw(long id) {
     if (deleteRawPreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id=?";
       deleteRawPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

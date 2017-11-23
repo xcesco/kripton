@@ -166,6 +166,13 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -406,15 +413,34 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     _contentValues.addWhereArgs(String.valueOf(parentId));
     _contentValues.addWhereArgs(String.valueOf(parent));
     _contentValues.addWhereArgs(String.valueOf(aliasParentId));
+    // log section BEGIN
+    if (_context.isLogEnabled()) {
+      // log for insert -- BEGIN 
 
-    Logger.info("insert into child (name, parent_id) select name, parent_id from child where _id=${param0} or _id=${param1} or _id=${param2}");
+      Logger.info("insert into child (name, parentId) select name, parentId from child where id=? or id=? or id=?");
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
+      }
+      // log for content values -- END
+      // log for insert -- END 
+
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
 
     database().execSQL("insert into child (name, parent_id) select name, parent_id from child where _id=? or _id=? or _id=?", _contentValues.whereArgsAsArray());
   }
@@ -476,6 +502,13 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -489,7 +522,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>parent_id</dt><dd>is binded to query's parameter <strong>${parentId}</strong> and method's parameter <strong>parentId</strong></dd>
+   * 	<dt>parentId</dt><dd>is binded to query's parameter <strong>${parentId}</strong> and method's parameter <strong>parentId</strong></dd>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * </dl>
    *
@@ -542,6 +575,13 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -638,19 +678,38 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   @Override
   public void updateJQL2(long parentId) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
+    _contentValues.put("parent_id", parentId);
     // build where condition
     _contentValues.addWhereArgs(String.valueOf(parentId));
     _contentValues.addWhereArgs(String.valueOf(parentId));
-    _contentValues.addWhereArgs(String.valueOf(parentId));
+    // log section BEGIN
+    if (_context.isLogEnabled()) {
+      // log for insert -- BEGIN 
 
-    Logger.info("update or replace child set parentId=${param0}, name=(select _id from person where _id=${param1} )  where parent_id=${param2}");
+      Logger.info("update or replace child set parentId=${parentId}, name=(select id from child where id=? )  where parentId=?");
 
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
+      }
+      // log for content values -- END
+      // log for insert -- END 
+
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
-    // log for where parameters -- END
+    // log section END
 
     database().execSQL("update or replace child set parentId=?, name=(select _id from person where _id=? )  where parent_id=?", _contentValues.whereArgsAsArray());
   }

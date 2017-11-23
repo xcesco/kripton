@@ -91,7 +91,6 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			} else {
 				updateableParams.add(param);
 			}
-
 		}
 
 		// clear contentValues
@@ -113,13 +112,16 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		if (method.jql.containsSelectOperation) {
 			generateJavaDoc(method, methodBuilder, updateMode);
 
-			GenericSQLHelper.generateGenericExecSQL(methodBuilder, method);
+			GenericSQLHelper.generateGenericExecSQL(methodBuilder, method);						
 		} else {
 			// generate javadoc
 			generateJavaDoc(method, methodBuilder, updateMode, whereCondition, where, methodParams);
 			
 			if (updateMode) {
 				AssertKripton.assertTrueOrInvalidMethodSignException(updateableParams.size() > 0, method, "no column was selected for update");
+				
+				// order item for content values
+				updateableParams=SqlBuilderHelper.orderContentValues(method, updateableParams);
 				
 				for (Pair<String, TypeName> item : updateableParams) {
 					String resolvedParamName = method.findParameterAliasByName(item.value0);
@@ -177,7 +179,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 					}
 				}
 			}
-
+			
 			// build where condition
 			generateWhereCondition(methodBuilder, method, where);
 			methodBuilder.addCode("\n");

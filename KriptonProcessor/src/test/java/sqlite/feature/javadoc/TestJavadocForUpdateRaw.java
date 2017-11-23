@@ -28,7 +28,7 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 public class TestJavadocForUpdateRaw extends AbstractBindSQLiteProcessorTest {
 
 	@Test
-	public void testCompileUpdateBean() throws Throwable {
+	public void testCompileUpdateRaw() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, UpdateRawPersonDao.class, UpdateRawPersonDataSource.class);
 	}
 

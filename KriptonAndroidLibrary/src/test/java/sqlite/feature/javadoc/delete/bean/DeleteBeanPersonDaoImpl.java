@@ -49,7 +49,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
   @Override
   public int deleteOneBean(Person bean) {
     if (deleteOneBeanPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id=?";
       deleteOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -152,7 +152,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
   @Override
   public void deleteAllBeansJQL(Person bean) {
     if (deleteAllBeansJQLPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE person_name=? AND person_surname=? AND student = 0";
       deleteAllBeansJQLPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -197,7 +197,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
   @Override
   public int deleteFromSelectAllBeansJQL(Person bean) {
     if (deleteFromSelectAllBeansJQLPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE person_surname=? and student = (select student from person where person_name=?)";
       deleteFromSelectAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -305,7 +305,7 @@ public class DeleteBeanPersonDaoImpl extends AbstractDao implements DeleteBeanPe
   @Override
   public int deleteBean(Person bean) {
     if (deleteBeanPreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id=?";
       deleteBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

@@ -28,19 +28,19 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   private static SQLiteStatement updateAllBeansJQLPreparedStatement1;
 
-  private static final Set<String> updateAllBeansJQL0ColumnSet = CollectionUtils.asSet(String.class, "student", "name");
+  private static final Set<String> updateAllBeansJQL0ColumnSet = CollectionUtils.asSet(String.class, "student", "person_name");
 
   private static SQLiteStatement updateFromSelectJQLPreparedStatement2;
 
-  private static final Set<String> updateFromSelectJQL1ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateFromSelectJQL1ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
   private static SQLiteStatement updateBeanPreparedStatement3;
 
-  private static final Set<String> updateBean2ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateBean2ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  private static final Set<String> updateBeanDynamic3ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateBeanDynamic3ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  private static final Set<String> updateBeanDynamicWithArgs4ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateBeanDynamicWithArgs4ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
   public UpdateRawPersonDaoImpl(SQLContext context) {
     super(context);
@@ -48,34 +48,34 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name</pre>
+   * <pre>UPDATE person SET person_name=:personName</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
-   * 	<li>name</li>
+   * 	<li>person_name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
    * </dl>
    *
-   * @param name
-   * 	is used as updated field <strong>name</strong>
+   * @param personName
+   * 	is used as updated field <strong>personName</strong>
    *
    * @return number of updated records
    */
   @Override
-  public int updateAllBeans(String name) {
+  public int updateAllBeans(String personName) {
     if (updateAllBeansPreparedStatement0==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE person SET name=?";
+      // generate static SQL for statement
+      String _sql="UPDATE person SET person_name=?";
       updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansPreparedStatement0);
-    if (name!=null) {
-      _contentValues.put("name", name);
+    if (personName!=null) {
+      _contentValues.put("person_name", personName);
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
 
 
@@ -85,7 +85,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name");
+      Logger.info("UPDATE person SET person_name=:person_name");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -113,40 +113,40 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET student = :student, name=:name  where surname=${surname}</pre>
+   * <pre>UPDATE person SET student = :student, person_name=:personName  where person_surname=${personSurname}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>student</li>
-   * 	<li>name</li>
+   * 	<li>person_name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
+   * 	<dt>${personSurname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
    * </dl>
    *
    * @param name
-   * 	is used as updated field <strong>name</strong>
+   * 	is used as updated field <strong>personName</strong>
    * @param surname
-   * 	is used as where parameter <strong>${surname}</strong>
+   * 	is used as where parameter <strong>${personSurname}</strong>
    * @param student
    * 	is used as updated field <strong>student</strong>
    */
   @Override
   public void updateAllBeansJQL(String name, String surname, boolean student) {
     if (updateAllBeansJQLPreparedStatement1==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE person SET student = ?, nAme=?  where surname=?";
+      // generate static SQL for statement
+      String _sql="UPDATE person SET student = ?, person_name=?  where person_surname=?";
       updateAllBeansJQLPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansJQLPreparedStatement1);
-    if (name!=null) {
-      _contentValues.put("name", name);
-    } else {
-      _contentValues.putNull("name");
-    }
     _contentValues.put("student", student);
+    if (name!=null) {
+      _contentValues.put("person_name", name);
+    } else {
+      _contentValues.putNull("person_name");
+    }
 
     _contentValues.addWhereArgs((surname==null?"":surname));
 
@@ -156,7 +156,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET student = :student, name=:name  where surname=?");
+      Logger.info("UPDATE person SET student = :student, person_name=:person_name  where person_surname=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -186,14 +186,14 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql/[*]</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE perSon SET student = ${student}, nAme=${name}  where surname=${surname}</pre>
+   * <pre>UPDATE perSon SET student = ${student}, PersonnAme=${personName}  where personSurname=${personSurname}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET student = ${student}, nAme=${name}  where surname=${surname}</pre>
+   * <pre>UPDATE person SET student = ${student}, PersonnAme=${personName}  where person_surname=${personSurname}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${surname}</strong> at path segment 2</li>
+   * <li><strong>${personSurname}</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -217,11 +217,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" where surname=?";
+    String _sqlWhereStatement=" where person_surname=?";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    // Add parameter surname at path segment 2
+    // Add parameter personSurname at path segment 2
     _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     for (String columnName:_contentValues.values().keySet()) {
       if (!updateAllBeansJQL0ColumnSet.contains(columnName)) {
@@ -232,7 +232,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET student = :student, name=:name  where surname=?");
+      Logger.info("UPDATE person SET student = :student, person_name=:person_name  where person_surname=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -262,11 +262,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=${name}, student = (select student from person where surname=${surname})</pre>
+   * <pre>UPDATE person SET person_name=${personName}, student = (select student from person where person_surname=${surname})</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
-   * 	<li>name</li>
+   * 	<li>person_name</li>
    * 	<li>student</li>
    * </ul>
    *
@@ -276,37 +276,60 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
    * </dl>
    *
-   * @param name
-   * 	is used as for parameter <strong>name</strong>
    * @param surname
    * 	is used as for parameter <strong>surname</strong>
+   * @param name
+   * 	is used as for parameter <strong>personName</strong>
    */
   @Override
-  public void updateFromSelectAllBeansJQL(String name, String surname) {
+  public void updateFromSelectAllBeansJQL(String surname, String name) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    // build where condition
-    _contentValues.addWhereArgs((name==null?"":name));
-    _contentValues.addWhereArgs((surname==null?"":surname));
-
-    Logger.info("UPDATE person SET name=${param0}, student = (select student from person where surname=${param1})");
-
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+    if (name!=null) {
+      _contentValues.put("person_name", name);
+    } else {
+      _contentValues.putNull("person_name");
     }
-    // log for where parameters -- END
+    // build where condition
+    _contentValues.addWhereArgs((surname==null?"":surname));
+    // log section BEGIN
+    if (_context.isLogEnabled()) {
+      // log for insert -- BEGIN 
 
-    database().execSQL("UPDATE person SET name=?, student = (select student from person where surname=?)", _contentValues.whereArgsAsArray());
+      Logger.info("UPDATE person SET Personname=${personName}, student = (select student from person where personSurname=?)");
+
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
+      }
+      // log for content values -- END
+      // log for insert -- END 
+
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section END
+
+    database().execSQL("UPDATE person SET Personname=?, student = (select student from person where person_surname=?)", _contentValues.whereArgsAsArray());
   }
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name where student= (select student from person where surname=${surname})</pre>
+   * <pre>UPDATE person SET person_name=:personName where student= (select student from person where person_surname=${surname})</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
-   * 	<li>name</li>
+   * 	<li>person_name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -314,23 +337,23 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
    * </dl>
    *
-   * @param name
-   * 	is used as updated field <strong>name</strong>
+   * @param personName
+   * 	is used as updated field <strong>personName</strong>
    * @param surname
    * 	is used as where parameter <strong>${surname}</strong>
    */
   @Override
-  public void updateFromSelectJQL(String name, String surname) {
+  public void updateFromSelectJQL(String personName, String surname) {
     if (updateFromSelectJQLPreparedStatement2==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE person SET name=? where student= (select student from person where surname=?)";
+      // generate static SQL for statement
+      String _sql="UPDATE person SET person_name=? where student= (select student from person where person_surname=?)";
       updateFromSelectJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateFromSelectJQLPreparedStatement2);
-    if (name!=null) {
-      _contentValues.put("name", name);
+    if (personName!=null) {
+      _contentValues.put("person_name", personName);
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
 
     _contentValues.addWhereArgs((surname==null?"":surname));
@@ -341,7 +364,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name where student= (select student from person where surname=?)");
+      Logger.info("UPDATE person SET person_name=:person_name where student= (select student from person where person_surname=?)");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -371,10 +394,10 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql/all/[*]</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} where student= (select student from Person where surname=${surname})</pre>
+   * <pre>UPDATE Person SET personname=${personName} where student= (select student from Person where personsurname=${surname})</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} where student= (select student from person where surname=${surname})</pre>
+   * <pre>UPDATE person SET personname=${personName} where student= (select student from person where person_surname=${surname})</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -402,12 +425,10 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" where student= (select student from person where surname=?)";
+    String _sqlWhereStatement=" where student= (select student from person where person_surname=?)";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    // Add parameter surname at path segment 3
-    _contentValues.addWhereArgs(uri.getPathSegments().get(3));
     for (String columnName:_contentValues.values().keySet()) {
       if (!updateFromSelectJQL1ColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/jql/all/*', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
@@ -417,7 +438,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name where student= (select student from person where surname=?)");
+      Logger.info("UPDATE person SET person_name=:person_name where student= (select student from person where person_surname=?)");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -447,11 +468,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id=${id}</pre>
+   * <pre>UPDATE person SET person_name=:personName WHERE id=${id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
-   * 	<li>name</li>
+   * 	<li>person_name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -459,25 +480,25 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
-   * @param name
-   * 	is used as updated field <strong>name</strong>
    * @param id
    * 	is used as where parameter <strong>${id}</strong>
+   * @param personName
+   * 	is used as updated field <strong>personName</strong>
    *
    * @return number of updated records
    */
   @Override
-  public int updateBean(String name, long id) {
+  public int updateBean(long id, String personName) {
     if (updateBeanPreparedStatement3==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE person SET name=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE person SET person_name=? WHERE id=?";
       updateBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateBeanPreparedStatement3);
-    if (name!=null) {
-      _contentValues.put("name", name);
+    if (personName!=null) {
+      _contentValues.put("person_name", personName);
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
 
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -488,7 +509,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name WHERE id=?");
+      Logger.info("UPDATE person SET person_name=:person_name WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -519,10 +540,10 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} WHERE id=${id}</pre>
+   * <pre>UPDATE Person SET personName=${personName} WHERE id=${id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id}</pre>
+   * <pre>UPDATE person SET personName=${personName} WHERE id=${id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -564,7 +585,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name WHERE id=?");
+      Logger.info("UPDATE person SET person_name=:person_name WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -594,11 +615,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
-   * 	<li>name</li>
+   * 	<li>person_name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -614,22 +635,22 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <dl>
    * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
-   * @param name
-   * 	is used as updated field <strong>name</strong>
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
    * @param where
    * 	is used as dynamic where conditions
+   * @param personName
+   * 	is used as updated field <strong>personName</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
    *
    * @return number of updated records
    */
   @Override
-  public int updateBeanDynamic(String name, long id, String where) {
+  public int updateBeanDynamic(String where, String personName, long id) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (name!=null) {
-      _contentValues.put("name", name);
+    if (personName!=null) {
+      _contentValues.put("person_name", personName);
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
 
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -649,12 +670,12 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET person_name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -685,10 +706,10 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/more</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=${personName} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET personName=${personName} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -731,7 +752,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -761,11 +782,11 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
-   * 	<li>name</li>
+   * 	<li>person_name</li>
    * </ul>
    *
    * <h2>Where parameters:</h2>
@@ -781,8 +802,8 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <dl>
    * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
-   * @param name
-   * 	is used as updated field <strong>name</strong>
+   * @param personName
+   * 	is used as updated field <strong>personName</strong>
    * @param id
    * 	is used as where parameter <strong>${id}</strong>
    * @param where
@@ -793,12 +814,12 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * @return number of updated records
    */
   @Override
-  public int updateBeanDynamicWithArgs(String name, long id, String where, String[] args) {
+  public int updateBeanDynamicWithArgs(String personName, long id, String where, String[] args) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (name!=null) {
-      _contentValues.put("name", name);
+    if (personName!=null) {
+      _contentValues.put("person_name", personName);
     } else {
-      _contentValues.putNull("name");
+      _contentValues.putNull("person_name");
     }
 
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -825,12 +846,12 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     }
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET person_name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -861,10 +882,10 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=${personName} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET personName=${personName} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -919,7 +940,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

@@ -291,8 +291,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>owner_uid</dt><dd>is binded to query's parameter <strong>${ownerUid}</strong> and method's parameter <strong>b</strong></dd>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>azz</strong></dd>
+   * 	<dt>b</dt><dd>is binded to query's parameter <strong>${b}</strong> and method's parameter <strong>b</strong></dd>
+   * 	<dt>azz</dt><dd>is binded to query's parameter <strong>${azz}</strong> and method's parameter <strong>azz</strong></dd>
    * </dl>
    *
    * @param b
@@ -344,6 +344,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -357,7 +364,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>owner_uid</dt><dd>is binded to query's parameter <strong>${ownerUid}</strong> and method's parameter <strong>b</strong></dd>
+   * 	<dt>b</dt><dd>is binded to query's parameter <strong>${b}</strong> and method's parameter <strong>b</strong></dd>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
@@ -410,6 +417,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -423,7 +437,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>owner_uid</dt><dd>is binded to query's parameter <strong>${ownerUid}</strong> and method's parameter <strong>ownerUid</strong></dd>
+   * 	<dt>ownerUid</dt><dd>is binded to query's parameter <strong>${ownerUid}</strong> and method's parameter <strong>ownerUid</strong></dd>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
@@ -476,6 +490,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -553,6 +574,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -632,6 +660,13 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation

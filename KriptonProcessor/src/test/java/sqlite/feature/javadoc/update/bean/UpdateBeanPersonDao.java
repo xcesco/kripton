@@ -72,7 +72,7 @@ public interface UpdateBeanPersonDao {
 	 * @param bean
 	 */
 	@BindContentProviderEntry(path = "jql/one/b/${bean.id}")
-	@BindSqlUpdate(jql = "UPDATE Person SET personName=${bean.name} where student = (select student from Person where id=${bean.id})")
+	@BindSqlUpdate(jql = "UPDATE Person SET personName=${bean.personname} where student = (select student from Person where id=${bean.id})")
 	int updateFromSelectJQL(Person bean);
 
 	@BindContentProviderEntry(path = "${bean.id}/more")

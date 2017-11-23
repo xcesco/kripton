@@ -950,16 +950,16 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>field_boolean</dt><dd>is binded to query's parameter <strong>${fieldBoolean}</strong> and method's parameter <strong>fieldBoolean</strong></dd>
-   * 	<dt>field_byte</dt><dd>is binded to query's parameter <strong>${fieldByte}</strong> and method's parameter <strong>fieldByte</strong></dd>
-   * 	<dt>field_character</dt><dd>is binded to query's parameter <strong>${fieldCharacter}</strong> and method's parameter <strong>fieldCharacter</strong></dd>
-   * 	<dt>field_short</dt><dd>is binded to query's parameter <strong>${fieldShort}</strong> and method's parameter <strong>fieldShort</strong></dd>
-   * 	<dt>field_integer</dt><dd>is binded to query's parameter <strong>${fieldInteger}</strong> and method's parameter <strong>fieldInteger</strong></dd>
-   * 	<dt>field_long</dt><dd>is binded to query's parameter <strong>${fieldLong}</strong> and method's parameter <strong>fieldLong</strong></dd>
-   * 	<dt>field_float</dt><dd>is binded to query's parameter <strong>${fieldFloat}</strong> and method's parameter <strong>fieldFloat</strong></dd>
-   * 	<dt>field_double</dt><dd>is binded to query's parameter <strong>${fieldDouble}</strong> and method's parameter <strong>fieldDouble</strong></dd>
-   * 	<dt>field_string</dt><dd>is binded to query's parameter <strong>${fieldString}</strong> and method's parameter <strong>fieldString</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is binded to query's parameter <strong>${fieldByteArray}</strong> and method's parameter <strong>fieldByteArray</strong></dd>
+   * 	<dt>fieldBoolean</dt><dd>is binded to query's parameter <strong>${fieldBoolean}</strong> and method's parameter <strong>fieldBoolean</strong></dd>
+   * 	<dt>fieldByte</dt><dd>is binded to query's parameter <strong>${fieldByte}</strong> and method's parameter <strong>fieldByte</strong></dd>
+   * 	<dt>fieldCharacter</dt><dd>is binded to query's parameter <strong>${fieldCharacter}</strong> and method's parameter <strong>fieldCharacter</strong></dd>
+   * 	<dt>fieldShort</dt><dd>is binded to query's parameter <strong>${fieldShort}</strong> and method's parameter <strong>fieldShort</strong></dd>
+   * 	<dt>fieldInteger</dt><dd>is binded to query's parameter <strong>${fieldInteger}</strong> and method's parameter <strong>fieldInteger</strong></dd>
+   * 	<dt>fieldLong</dt><dd>is binded to query's parameter <strong>${fieldLong}</strong> and method's parameter <strong>fieldLong</strong></dd>
+   * 	<dt>fieldFloat</dt><dd>is binded to query's parameter <strong>${fieldFloat}</strong> and method's parameter <strong>fieldFloat</strong></dd>
+   * 	<dt>fieldDouble</dt><dd>is binded to query's parameter <strong>${fieldDouble}</strong> and method's parameter <strong>fieldDouble</strong></dd>
+   * 	<dt>fieldString</dt><dd>is binded to query's parameter <strong>${fieldString}</strong> and method's parameter <strong>fieldString</strong></dd>
+   * 	<dt>fieldByteArray</dt><dd>is binded to query's parameter <strong>${fieldByteArray}</strong> and method's parameter <strong>fieldByteArray</strong></dd>
    * </dl>
    *
    * @param fieldBoolean
@@ -1073,6 +1073,13 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -1086,16 +1093,16 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>field_boolean</dt><dd>is binded to query's parameter <strong>${fieldBoolean}</strong> and method's parameter <strong>fieldBoolean</strong></dd>
-   * 	<dt>field_byte</dt><dd>is binded to query's parameter <strong>${fieldByte}</strong> and method's parameter <strong>fieldByte</strong></dd>
-   * 	<dt>field_character</dt><dd>is binded to query's parameter <strong>${fieldCharacter}</strong> and method's parameter <strong>fieldCharacter</strong></dd>
-   * 	<dt>field_short</dt><dd>is binded to query's parameter <strong>${fieldShort}</strong> and method's parameter <strong>fieldShort</strong></dd>
-   * 	<dt>field_integer</dt><dd>is binded to query's parameter <strong>${fieldInteger}</strong> and method's parameter <strong>fieldInteger</strong></dd>
-   * 	<dt>field_long</dt><dd>is binded to query's parameter <strong>${fieldLong}</strong> and method's parameter <strong>fieldLong</strong></dd>
-   * 	<dt>field_float</dt><dd>is binded to query's parameter <strong>${fieldFloat}</strong> and method's parameter <strong>fieldFloat</strong></dd>
-   * 	<dt>field_double</dt><dd>is binded to query's parameter <strong>${fieldDouble}</strong> and method's parameter <strong>fieldDouble</strong></dd>
-   * 	<dt>field_string</dt><dd>is binded to query's parameter <strong>${fieldString}</strong> and method's parameter <strong>fieldString</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is binded to query's parameter <strong>${fieldByteArray}</strong> and method's parameter <strong>fieldByteArray</strong></dd>
+   * 	<dt>fieldBoolean</dt><dd>is binded to query's parameter <strong>${fieldBoolean}</strong> and method's parameter <strong>fieldBoolean</strong></dd>
+   * 	<dt>fieldByte</dt><dd>is binded to query's parameter <strong>${fieldByte}</strong> and method's parameter <strong>fieldByte</strong></dd>
+   * 	<dt>fieldCharacter</dt><dd>is binded to query's parameter <strong>${fieldCharacter}</strong> and method's parameter <strong>fieldCharacter</strong></dd>
+   * 	<dt>fieldShort</dt><dd>is binded to query's parameter <strong>${fieldShort}</strong> and method's parameter <strong>fieldShort</strong></dd>
+   * 	<dt>fieldInteger</dt><dd>is binded to query's parameter <strong>${fieldInteger}</strong> and method's parameter <strong>fieldInteger</strong></dd>
+   * 	<dt>fieldLong</dt><dd>is binded to query's parameter <strong>${fieldLong}</strong> and method's parameter <strong>fieldLong</strong></dd>
+   * 	<dt>fieldFloat</dt><dd>is binded to query's parameter <strong>${fieldFloat}</strong> and method's parameter <strong>fieldFloat</strong></dd>
+   * 	<dt>fieldDouble</dt><dd>is binded to query's parameter <strong>${fieldDouble}</strong> and method's parameter <strong>fieldDouble</strong></dd>
+   * 	<dt>fieldString</dt><dd>is binded to query's parameter <strong>${fieldString}</strong> and method's parameter <strong>fieldString</strong></dd>
+   * 	<dt>fieldByteArray</dt><dd>is binded to query's parameter <strong>${fieldByteArray}</strong> and method's parameter <strong>fieldByteArray</strong></dd>
    * </dl>
    *
    * @param fieldBoolean
@@ -1209,6 +1216,13 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation

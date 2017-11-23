@@ -62,7 +62,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
   @Override
   public int insertOneBean(Person bean) {
     if (insertOneBeanPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person (person_name, person_surname, student) VALUES (?, ?, ?)";
       insertOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -105,6 +105,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -177,7 +184,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
   @Override
   public int insertOneBeanFieldName(Person bean) {
     if (insertOneBeanFieldNamePreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (person_name) VALUES (?)";
       insertOneBeanFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -214,6 +221,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -288,7 +302,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
   @Override
   public int insertOneBeanFieldSurname(Person bean) {
     if (insertOneBeanFieldSurnamePreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (person_surname, student) VALUES (?, ?)";
       insertOneBeanFieldSurnamePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -326,6 +340,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -407,15 +428,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log section BEGIN
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
-      StringBuffer _columnNameBuffer=new StringBuffer();
-      StringBuffer _columnValueBuffer=new StringBuffer();
-      String _columnSeparator="";
-      for (String columnName:_contentValues.keys()) {
-        _columnNameBuffer.append(_columnSeparator+columnName);
-        _columnValueBuffer.append(_columnSeparator+":"+columnName);
-        _columnSeparator=", ";
-      }
-      Logger.info("INSERT OR REPLACE INTO person (%s) SELECT personName FROM person WHERE personName=${bean.personName}", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+      Logger.info("INSERT OR REPLACE INTO person (personName) SELECT personName FROM person WHERE personName=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -430,6 +444,13 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation

@@ -491,20 +491,25 @@ public abstract class SqlModifyBuilder {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
-				if (!usedInWhere.value0) {
-					if (bindParameterName.contains(".")) {
-						String[] a = bindParameterName.split("\\.");
+			public String onBindParameter(String bindParameterName) {				
+				
+				if (usedInWhere.value0) {
+					return "?";
+				} else {
+					String paramName=bindParameterName;
+					if (paramName.contains(".")) {
+						String[] a = paramName.split("\\.");
 
 						if (a.length == 2) {
-							bindParameterName = a[1];
+							paramName = a[1];
 						}
 					}
 
-					return ":" + bindParameterName;
-				} else {
-					return "?";
-				}
+					SQLProperty property = entity.findPropertyByName(paramName);
+					AssertKripton.assertTrueOrUnknownPropertyInJQLException(property!=null, method, bindParameterName);
+					
+					return ":" +  property.columnName;
+				} 
 			}
 
 			@Override
@@ -549,7 +554,6 @@ public abstract class SqlModifyBuilder {
 
 			@Override
 			public String onColumnName(String columnName) {
-				// return entity.findByName(columnName).columnName;
 				return schema.findColumnNameByPropertyName(method, columnName);
 			}
 

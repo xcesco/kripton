@@ -56,7 +56,7 @@ public interface SelectBeanPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path = "dynamic/${bean.id}")
-	@BindSqlSelect(fields = "name", where = "id=${bean.id}")
+	@BindSqlSelect(fields = "personname", where = "id=${bean.id}")
 	Person selectOneBeanWithDynamic(Person bean, @BindSqlDynamicWhere String where);
 
 	/**

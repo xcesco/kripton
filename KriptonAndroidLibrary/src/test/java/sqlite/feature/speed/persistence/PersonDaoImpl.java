@@ -20,9 +20,9 @@ import sqlite.feature.speed.model.Person;
  *  @see sqlite.feature.speed.model.PersonTable
  */
 public class PersonDaoImpl extends AbstractDao implements PersonDao {
-  private static final String SELECT_ALL_SQL1 = "SELECT id, name, surname, data1, data2, data3, data4 FROM person";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, name, surname FROM person";
 
-  private static final String SELECT_BY_ID_SQL2 = "SELECT id, name, surname, data1, data2, data3, data4 FROM person WHERE id=?";
+  private static final String SELECT_BY_ID_SQL2 = "SELECT id, name, surname FROM person WHERE id=?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -37,17 +37,13 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, data1, data2, data3, data4 FROM person</pre>
+   * <pre>SELECT id, name, surname FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
-   * 	<dt>data1</dt><dd>is associated to bean's property <strong>data1</strong></dd>
-   * 	<dt>data2</dt><dd>is associated to bean's property <strong>data2</strong></dd>
-   * 	<dt>data3</dt><dd>is associated to bean's property <strong>data3</strong></dd>
-   * 	<dt>data4</dt><dd>is associated to bean's property <strong>data4</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -69,10 +65,6 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
         int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("name");
         int index2=cursor.getColumnIndex("surname");
-        int index3=cursor.getColumnIndex("data1");
-        int index4=cursor.getColumnIndex("data2");
-        int index5=cursor.getColumnIndex("data3");
-        int index6=cursor.getColumnIndex("data4");
 
         do
          {
@@ -81,10 +73,6 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
           resultBean.id=cursor.getLong(index0);
           if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
           if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.data1=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.data2=cursor.getString(index4); }
-          if (!cursor.isNull(index5)) { resultBean.data3=cursor.getString(index5); }
-          if (!cursor.isNull(index6)) { resultBean.data4=cursor.getString(index6); }
 
           resultList.add(resultBean);
         } while (cursor.moveToNext());
@@ -97,17 +85,13 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, data1, data2, data3, data4 FROM person WHERE id=${id}</pre>
+   * <pre>SELECT id, name, surname FROM person WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
-   * 	<dt>data1</dt><dd>is associated to bean's property <strong>data1</strong></dd>
-   * 	<dt>data2</dt><dd>is associated to bean's property <strong>data2</strong></dd>
-   * 	<dt>data3</dt><dd>is associated to bean's property <strong>data3</strong></dd>
-   * 	<dt>data4</dt><dd>is associated to bean's property <strong>data4</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -136,20 +120,12 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
         int index0=cursor.getColumnIndex("id");
         int index1=cursor.getColumnIndex("name");
         int index2=cursor.getColumnIndex("surname");
-        int index3=cursor.getColumnIndex("data1");
-        int index4=cursor.getColumnIndex("data2");
-        int index5=cursor.getColumnIndex("data3");
-        int index6=cursor.getColumnIndex("data4");
 
         resultBean=new Person();
 
         resultBean.id=cursor.getLong(index0);
         if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
         if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.data1=cursor.getString(index3); }
-        if (!cursor.isNull(index4)) { resultBean.data2=cursor.getString(index4); }
-        if (!cursor.isNull(index5)) { resultBean.data3=cursor.getString(index5); }
-        if (!cursor.isNull(index6)) { resultBean.data4=cursor.getString(index6); }
 
       }
       return resultBean;
@@ -158,7 +134,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, surname, data1, data2, data3, data4) VALUES (${bean.name}, ${bean.surname}, ${bean.data1}, ${bean.data2}, ${bean.data3}, ${bean.data4})</pre>
+   * <pre>INSERT INTO person (name, surname) VALUES (${bean.name}, ${bean.surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -166,10 +142,6 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>data1</dt><dd>is mapped to <strong>${bean.data1}</strong></dd>
-   * 	<dt>data2</dt><dd>is mapped to <strong>${bean.data2}</strong></dd>
-   * 	<dt>data3</dt><dd>is mapped to <strong>${bean.data3}</strong></dd>
-   * 	<dt>data4</dt><dd>is mapped to <strong>${bean.data4}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -180,7 +152,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
   public Person insert(Person bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for insert
-      String _sql="INSERT INTO person (name, surname, data1, data2, data3, data4) VALUES (?, ?, ?, ?, ?, ?)";
+      String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
@@ -194,26 +166,6 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     } else {
       _contentValues.putNull();
     }
-    if (bean.data1!=null) {
-      _contentValues.put(bean.data1);
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.data2!=null) {
-      _contentValues.put(bean.data2);
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.data3!=null) {
-      _contentValues.put(bean.data3);
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.data4!=null) {
-      _contentValues.put(bean.data4);
-    } else {
-      _contentValues.putNull();
-    }
 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
@@ -224,16 +176,12 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, surname=:surname, data1=:data1, data2=:data2, data3=:data3, data4=:data4 WHERE id=${bean.id}</pre>
+   * <pre>UPDATE person SET name=:name, surname=:surname WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>data1</dt><dd>is mapped to <strong>${bean.data1}</strong></dd>
-   * 	<dt>data2</dt><dd>is mapped to <strong>${bean.data2}</strong></dd>
-   * 	<dt>data3</dt><dd>is mapped to <strong>${bean.data3}</strong></dd>
-   * 	<dt>data4</dt><dd>is mapped to <strong>${bean.data4}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -250,7 +198,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
   public long update(Person bean) {
     if (updatePreparedStatement1==null) {
       // generate static SQL for insert
-      String _sql="UPDATE person SET name=?, surname=?, data1=?, data2=?, data3=?, data4=? WHERE id=?";
+      String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
       updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
@@ -261,26 +209,6 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     }
     if (bean.surname!=null) {
       _contentValues.put(bean.surname);
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.data1!=null) {
-      _contentValues.put(bean.data1);
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.data2!=null) {
-      _contentValues.put(bean.data2);
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.data3!=null) {
-      _contentValues.put(bean.data3);
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.data4!=null) {
-      _contentValues.put(bean.data4);
     } else {
       _contentValues.putNull();
     }

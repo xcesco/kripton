@@ -115,15 +115,8 @@ public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements Empl
     // log section BEGIN
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
-      StringBuffer _columnNameBuffer=new StringBuffer();
-      StringBuffer _columnValueBuffer=new StringBuffer();
-      String _columnSeparator="";
-      for (String columnName:_contentValues.keys()) {
-        _columnNameBuffer.append(_columnSeparator+columnName);
-        _columnValueBuffer.append(_columnSeparator+":"+columnName);
-        _columnSeparator=", ";
-      }
-      Logger.info("INSERT INTO employees (%s) select fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray  from employees where fieldBoolean=${bean.fieldBoolean} and fieldByte=${bean.fieldByte} and fieldCharacter=${bean.fieldCharacter} and fieldShort=${bean.fieldShort} and fieldInteger=${bean.fieldInteger} and fieldLong=${bean.fieldLong} and fieldFloat=${bean.fieldFloat} and fieldDouble=${bean.fieldDouble} and fieldString=${bean.fieldString} and fieldByteArray=${bean.fieldByteArray}", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+      Logger.info("INSERT INTO employees (fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray) select fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray  from employees where fieldBoolean=? and fieldByte=? and fieldCharacter=? and fieldShort=? and fieldInteger=? and fieldLong=? and fieldFloat=? and fieldDouble=? and fieldString=? and fieldByteArray=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -138,6 +131,13 @@ public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements Empl
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation

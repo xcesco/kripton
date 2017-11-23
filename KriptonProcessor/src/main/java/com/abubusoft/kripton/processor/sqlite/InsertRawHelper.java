@@ -31,6 +31,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDeclarationType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
@@ -79,13 +80,18 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			GenericSQLHelper.generateGenericExecSQL(methodBuilder, method);
 		} else {			
 			methodBuilder.addCode("\n");
-			for (Pair<String, TypeName> item : method.getParameters()) {
+			
+			List<Pair<String, TypeName>> fieldsToUpdate = method.getParameters();
+			fieldsToUpdate=SqlBuilderHelper.orderContentValues(method, fieldsToUpdate);
+			
+			for (Pair<String, TypeName> item : fieldsToUpdate) {
 				String propertyName = method.findParameterAliasByName(item.value0);
+				
 				SQLProperty property = entity.get(propertyName);
-											
+									
 				if (property == null)
 					throw (new PropertyNotFoundException(method, propertyName, item.value1));
-
+								
 				// check same type
 				TypeUtility.checkTypeCompatibility(method, item, property);
 				// check nullabliity
@@ -120,7 +126,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			}
 			methodBuilder.addCode("\n");
 
-			SqlBuilderHelper.generateLogForInsert(method, methodBuilder);
+			SqlBuilderHelper.generateLog(method, methodBuilder);
 						
 			methodBuilder.addComment("insert operation");
 			if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {

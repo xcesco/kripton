@@ -56,7 +56,7 @@ public interface SelectRawPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path="dynamic/${id}")
-	@BindSqlSelect(fields="name",where="id=${id}")
+	@BindSqlSelect(fields="personName",where="id=${id}")
 	Person selectOneBeanWithDynamic(long id, @BindSqlDynamicWhere String where);
 	
 	/**
@@ -66,7 +66,7 @@ public interface SelectRawPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path="dynamicandArgs/${id}/${name}")
-	@BindSqlSelect(where="id=${id} and name=${name}")
+	@BindSqlSelect(where="id=${id} and personName=${name}")
 	Person selectOneBeanWithDynamicAndArgs(long id, String name, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] args);
 	
 	/**
@@ -87,7 +87,7 @@ public interface SelectRawPersonDao {
 	 * @return
 	 */
 	@BindContentProviderEntry(path="dynamicOrderAndLis/${surname}")
-	@BindSqlSelect(where="surname=${surname}")
+	@BindSqlSelect(where="personSurname=${surname}")
 	void selectOneBeanWithDynamicOrderAndListener(String surname, @BindSqlDynamicOrderBy String order, OnReadBeanListener<Person> listener);
 	
 	/**

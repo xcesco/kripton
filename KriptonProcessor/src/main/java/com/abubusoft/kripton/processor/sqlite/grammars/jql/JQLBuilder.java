@@ -124,8 +124,10 @@ public abstract class JQLBuilder {
 			}
 		});
 		
+		// defined how jql is defined
+		result.declarationType=JQLDeclarationType.JQL_COMPACT;
 		if (StringUtils.hasText(preparedJql)) { 
-			result.declarationType=JQLDeclarationType.JQL_DECLARED;
+			result.declarationType=JQLDeclarationType.JQL_EXPLICIT;
 		}
 
 		if (method.hasAnnotation(BindSqlSelect.class)) {

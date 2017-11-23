@@ -80,6 +80,13 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation
@@ -114,15 +121,8 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     // log section BEGIN
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
-      StringBuffer _columnNameBuffer=new StringBuffer();
-      StringBuffer _columnValueBuffer=new StringBuffer();
-      String _columnSeparator="";
-      for (String columnName:_contentValues.keys()) {
-        _columnNameBuffer.append(_columnSeparator+columnName);
-        _columnValueBuffer.append(_columnSeparator+":"+columnName);
-        _columnSeparator=", ";
-      }
-      Logger.info("INSERT OR REPLACE INTO students (%s) SELECT surname FROM students WHERE surname=${bean.surname}", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+      Logger.info("INSERT OR REPLACE INTO students (surname) SELECT surname FROM students WHERE surname=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -137,6 +137,13 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
       // log for content values -- END
       // log for insert -- END 
 
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
     }
     // log section END
     // insert operation

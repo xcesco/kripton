@@ -174,7 +174,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>tempName</strong></dd>
+   * 	<dt>tempName</dt><dd>is binded to query's parameter <strong>${tempName}</strong> and method's parameter <strong>tempName</strong></dd>
    * </dl>
    *
    * @param tempName

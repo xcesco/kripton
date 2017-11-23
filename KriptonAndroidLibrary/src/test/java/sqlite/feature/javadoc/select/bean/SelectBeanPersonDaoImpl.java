@@ -25,33 +25,33 @@ import sqlite.feature.javadoc.Person;
  *  @see sqlite.feature.javadoc.PersonTable
  */
 public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPersonDao {
-  private static final String SELECT_ALL_BEANS_SQL1 = "SELECT id, name, surname, student FROM person";
+  private static final String SELECT_ALL_BEANS_SQL1 = "SELECT id, person_name, person_surname, student FROM person";
 
-  private static final Set<String> selectAllBeans0ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
+  private static final Set<String> selectAllBeans0ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
   private static final String SELECT_ALL_BEANS_COUNT_SQL2 = "SELECT count(*) FROM person WHERE id=?";
 
   private static final Set<String> selectAllBeansCount1ColumnSet = CollectionUtils.asSet(String.class, "count(*)");
 
-  private static final String SELECT_ONE_BEAN_SQL3 = "SELECT id, name, surname, student FROM person WHERE id=?";
+  private static final String SELECT_ONE_BEAN_SQL3 = "SELECT id, person_name, person_surname, student FROM person WHERE id=?";
 
-  private static final Set<String> selectOneBean2ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
+  private static final Set<String> selectOneBean2ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  private static final Set<String> selectOneBeanWithDynamic3ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> selectOneBeanWithDynamic3ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  private static final Set<String> selectOneBeanWithDynamicAndArgs4ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
+  private static final Set<String> selectOneBeanWithDynamicAndArgs4ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  private static final Set<String> selectOneBeanWithDynamicOrder5ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
+  private static final Set<String> selectOneBeanWithDynamicOrder5ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  private static final Set<String> selectOneBeanWithDynamicOrderAndListener6ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
+  private static final Set<String> selectOneBeanWithDynamicOrderAndListener6ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
   private static final String SELECT_WITH_J_Q_L_SQL4 = "select * from person where id=?";
 
-  private static final Set<String> selectWithJQL7ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
+  private static final Set<String> selectWithJQL7ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
   private static final String SELECT_WITH_J_Q_L_AND_INNER_S_Q_L_SQL5 = "select * from person where id=? and id in (select id from person)";
 
-  private static final Set<String> selectWithJQLAndInnerSQL8ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname", "student");
+  private static final Set<String> selectWithJQLAndInnerSQL8ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
   public SelectBeanPersonDaoImpl(SQLContext context) {
     super(context);
@@ -60,13 +60,13 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, student FROM person</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is associated to bean's property <strong>personSurname</strong></dd>
    * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
    * </dl>
    *
@@ -105,8 +105,8 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
+        int index1=cursor.getColumnIndex("person_name");
+        int index2=cursor.getColumnIndex("person_surname");
         int index3=cursor.getColumnIndex("student");
 
         do
@@ -114,8 +114,8 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
           resultBean=new Person();
 
           resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.setName(cursor.getString(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.setSurname(cursor.getString(index2)); }
+          if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
           if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
 
           resultList.add(resultBean);
@@ -131,10 +131,10 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name, surname, student FROM Person</pre>
+   * <pre>SELECT id, personName, personSurname, student FROM Person</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name, surname, student FROM person</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -326,13 +326,13 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, student FROM person WHERE id=${bean.id}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is associated to bean's property <strong>personSurname</strong></dd>
    * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
    * </dl>
    *
@@ -378,15 +378,15 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
+        int index1=cursor.getColumnIndex("person_name");
+        int index2=cursor.getColumnIndex("person_surname");
         int index3=cursor.getColumnIndex("student");
 
         resultBean=new Person();
 
         resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.setName(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setSurname(cursor.getString(index2)); }
+        if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
         if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
 
       }
@@ -399,10 +399,10 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name, surname, student FROM Person WHERE id=${bean.id}</pre>
+   * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${bean.id}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name, surname, student FROM person WHERE id=${bean.id}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -474,11 +474,11 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT name FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT person_name FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personname</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -501,7 +501,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   public Person selectOneBeanWithDynamic(Person bean, String where) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
-    _sqlBuilder.append("SELECT name FROM person");
+    _sqlBuilder.append("SELECT person_name FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -542,11 +542,11 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
 
       if (cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("name");
+        int index0=cursor.getColumnIndex("person_name");
 
         resultBean=new Person();
 
-        if (!cursor.isNull(index0)) { resultBean.setName(cursor.getString(index0)); }
+        if (!cursor.isNull(index0)) { resultBean.setPersonName(cursor.getString(index0)); }
 
       }
       return resultBean;
@@ -558,10 +558,10 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT name FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT personname FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT name FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT person_name FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -633,13 +633,13 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, student FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is associated to bean's property <strong>personSurname</strong></dd>
    * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
    * </dl>
    *
@@ -665,7 +665,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   public Person selectOneBeanWithDynamicAndArgs(Person bean, String where, String[] args) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
-    _sqlBuilder.append("SELECT id, name, surname, student FROM person");
+    _sqlBuilder.append("SELECT id, person_name, person_surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -714,15 +714,15 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
+        int index1=cursor.getColumnIndex("person_name");
+        int index2=cursor.getColumnIndex("person_surname");
         int index3=cursor.getColumnIndex("student");
 
         resultBean=new Person();
 
         resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.setName(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setSurname(cursor.getString(index2)); }
+        if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
         if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
 
       }
@@ -735,10 +735,10 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name, surname, student FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name, surname, student FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -817,13 +817,13 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is associated to bean's property <strong>personSurname</strong></dd>
    * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
    * </dl>
    *
@@ -847,7 +847,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   public Person selectOneBeanWithDynamicOrder(Person bean, String order) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
-    _sqlBuilder.append("SELECT id, name, surname, student FROM person");
+    _sqlBuilder.append("SELECT id, person_name, person_surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=order;
@@ -893,15 +893,15 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
+        int index1=cursor.getColumnIndex("person_name");
+        int index2=cursor.getColumnIndex("person_surname");
         int index3=cursor.getColumnIndex("student");
 
         resultBean=new Person();
 
         resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.setName(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setSurname(cursor.getString(index2)); }
+        if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
         if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
 
       }
@@ -914,10 +914,10 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name, surname, student FROM Person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name, surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -995,13 +995,13 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is associated to bean's property <strong>personSurname</strong></dd>
    * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
    * </dl>
    *
@@ -1027,7 +1027,7 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
       OnReadBeanListener<Person> listener) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
-    _sqlBuilder.append("SELECT id, name, surname, student FROM person");
+    _sqlBuilder.append("SELECT id, person_name, person_surname, student FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=order;
@@ -1071,8 +1071,8 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
+        int index1=cursor.getColumnIndex("person_name");
+        int index2=cursor.getColumnIndex("person_surname");
         int index3=cursor.getColumnIndex("student");
 
         int rowCount=cursor.getCount();
@@ -1080,14 +1080,14 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
          {
           // reset mapping
           // id does not need reset
-          resultBean.setName(null);
-          resultBean.setSurname(null);
+          resultBean.setPersonName(null);
+          resultBean.setPersonSurname(null);
           resultBean.setStudent(false);
 
           // generate mapping
           resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.setName(cursor.getString(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.setSurname(cursor.getString(index2)); }
+          if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
+          if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
           if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
 
           listener.onRead(resultBean, cursor.getPosition(), rowCount);
@@ -1101,10 +1101,10 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name, surname, student FROM Person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name, surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1187,8 +1187,8 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is associated to bean's property <strong>personSurname</strong></dd>
    * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
    * </dl>
    *
@@ -1234,15 +1234,15 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
+        int index1=cursor.getColumnIndex("person_name");
+        int index2=cursor.getColumnIndex("person_surname");
         int index3=cursor.getColumnIndex("student");
 
         resultBean=new Person();
 
         resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.setName(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setSurname(cursor.getString(index2)); }
+        if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
         if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
 
       }
@@ -1335,8 +1335,8 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is associated to bean's property <strong>personSurname</strong></dd>
    * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
    * </dl>
    *
@@ -1382,15 +1382,15 @@ public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPe
       if (cursor.moveToFirst()) {
 
         int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
+        int index1=cursor.getColumnIndex("person_name");
+        int index2=cursor.getColumnIndex("person_surname");
         int index3=cursor.getColumnIndex("student");
 
         resultBean=new Person();
 
         resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.setName(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setSurname(cursor.getString(index2)); }
+        if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
+        if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
         if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
 
       }
