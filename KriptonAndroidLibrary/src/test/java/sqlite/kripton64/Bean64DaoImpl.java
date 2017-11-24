@@ -377,7 +377,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long delete(BigDecimal valueBigDecimal) {
     if (deletePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_big_decimal=?";
       deletePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -422,7 +422,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long delete(BigInteger valueBigDecimal) {
     if (deletePreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_big_decimal=?";
       deletePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -467,7 +467,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long delete(boolean valueBoolType) {
     if (deletePreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_bool_type=?";
       deletePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -512,7 +512,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long delete(Boolean valueBool) {
     if (deletePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_bool=?";
       deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -557,7 +557,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteArrayBeanType(Bean64[] valueBeanArray) {
     if (deleteArrayBeanTypePreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_bean_array=?";
       deleteArrayBeanTypePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -602,7 +602,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteArrayLong(Long[] valueLongArray) {
     if (deleteArrayLongPreparedStatement5==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_long_array=?";
       deleteArrayLongPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -647,7 +647,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteArrayLongType(long[] valueLongTypeArray) {
     if (deleteArrayLongTypePreparedStatement6==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_long_type_array=?";
       deleteArrayLongTypePreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -692,7 +692,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteByte(Byte valueByte) {
     if (deleteBytePreparedStatement7==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_byte=?";
       deleteBytePreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -737,7 +737,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteByteType(boolean valueByteType) {
     if (deleteByteTypePreparedStatement8==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_byte_type=?";
       deleteByteTypePreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -782,7 +782,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteCalendar(Date valueCalendar) {
     if (deleteCalendarPreparedStatement9==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_calendar=?";
       deleteCalendarPreparedStatement9 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -827,7 +827,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteChar(Character valueChar) {
     if (deleteCharPreparedStatement10==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_char_type=?";
       deleteCharPreparedStatement10 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -872,7 +872,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteCharType(char valueCharType) {
     if (deleteCharTypePreparedStatement11==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_char_type=?";
       deleteCharTypePreparedStatement11 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -917,7 +917,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteCurrency(Currency valueCurrency) {
     if (deleteCurrencyPreparedStatement12==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_currency=?";
       deleteCurrencyPreparedStatement12 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -962,7 +962,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteDate(Date valueDate) {
     if (deleteDatePreparedStatement13==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_date=?";
       deleteDatePreparedStatement13 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1007,7 +1007,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteDouble(Double valueDouble) {
     if (deleteDoublePreparedStatement14==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_double=?";
       deleteDoublePreparedStatement14 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1052,7 +1052,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteDoubleType(double valueDoubleType) {
     if (deleteDoubleTypePreparedStatement15==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_double_type=?";
       deleteDoubleTypePreparedStatement15 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1097,7 +1097,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteEnumType(EnumType valueEnumType) {
     if (deleteEnumTypePreparedStatement16==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_enum_type=?";
       deleteEnumTypePreparedStatement16 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1142,7 +1142,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteFloat(Float valueFloat) {
     if (deleteFloatPreparedStatement17==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_float=?";
       deleteFloatPreparedStatement17 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1187,7 +1187,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteFloatType(float valueFloatType) {
     if (deleteFloatTypePreparedStatement18==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_float_type=?";
       deleteFloatTypePreparedStatement18 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1232,7 +1232,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteInt(Integer valueInt) {
     if (deleteIntPreparedStatement19==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_int=?";
       deleteIntPreparedStatement19 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1277,7 +1277,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteIntType(int valueIntType) {
     if (deleteIntTypePreparedStatement20==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_int_type=?";
       deleteIntTypePreparedStatement20 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1322,7 +1322,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteListLong(LinkedList<Long> valueLongList) {
     if (deleteListLongPreparedStatement21==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_long_list=?";
       deleteListLongPreparedStatement21 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1367,7 +1367,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteLocale(Date valueLocale) {
     if (deleteLocalePreparedStatement22==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_locale=?";
       deleteLocalePreparedStatement22 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1412,7 +1412,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteLong(Long valueLong) {
     if (deleteLongPreparedStatement23==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_long=?";
       deleteLongPreparedStatement23 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1457,7 +1457,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteLongType(long valueLongType) {
     if (deleteLongTypePreparedStatement24==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_long_type=?";
       deleteLongTypePreparedStatement24 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1502,7 +1502,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteShort(Short valueShort) {
     if (deleteShortPreparedStatement25==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_short=?";
       deleteShortPreparedStatement25 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1547,7 +1547,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteShortType(short valueShortType) {
     if (deleteShortTypePreparedStatement26==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_short_type=?";
       deleteShortTypePreparedStatement26 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1592,7 +1592,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteString(String valueString) {
     if (deleteStringPreparedStatement27==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_string=?";
       deleteStringPreparedStatement27 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1637,7 +1637,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteTime(Time valueTime) {
     if (deleteTimePreparedStatement28==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_time=?";
       deleteTimePreparedStatement28 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1682,7 +1682,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteTimeZone(TimeZone valueTimeZone) {
     if (deleteTimeZonePreparedStatement29==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_time_zone=?";
       deleteTimeZonePreparedStatement29 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1727,7 +1727,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long deleteURL(URL valueUrl) {
     if (deleteURLPreparedStatement30==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean64 WHERE value_url=?";
       deleteURLPreparedStatement30 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1813,7 +1813,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insert(Bean64 bean) {
     if (insertPreparedStatement31==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement31 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2051,7 +2051,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insert(BigDecimal valueBigDecimal) {
     if (insertPreparedStatement32==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_big_decimal) VALUES (?)";
       insertPreparedStatement32 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2120,7 +2120,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insert(BigInteger valueBigInteger) {
     if (insertPreparedStatement33==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_big_integer) VALUES (?)";
       insertPreparedStatement33 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2189,7 +2189,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insert(boolean valueBoolType) {
     if (insertPreparedStatement34==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_bool_type) VALUES (?)";
       insertPreparedStatement34 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2254,7 +2254,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insert(Boolean valueBool) {
     if (insertPreparedStatement35==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_bool) VALUES (?)";
       insertPreparedStatement35 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2323,7 +2323,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertArrayBeanType(Bean64[] valueBeanArray) {
     if (insertArrayBeanTypePreparedStatement36==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_bean_array) VALUES (?)";
       insertArrayBeanTypePreparedStatement36 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2392,7 +2392,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertArrayLong(Long[] valueLongArray) {
     if (insertArrayLongPreparedStatement37==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_long_array) VALUES (?)";
       insertArrayLongPreparedStatement37 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2461,7 +2461,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertArrayLongType(long[] valueLongTypeArray) {
     if (insertArrayLongTypePreparedStatement38==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_long_type_array) VALUES (?)";
       insertArrayLongTypePreparedStatement38 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2530,7 +2530,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertByte(Byte valueByte) {
     if (insertBytePreparedStatement39==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_byte) VALUES (?)";
       insertBytePreparedStatement39 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2599,7 +2599,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertByteType(byte valueByteType) {
     if (insertByteTypePreparedStatement40==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_byte_type) VALUES (?)";
       insertByteTypePreparedStatement40 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2664,7 +2664,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertCalendar(Calendar valueCalendar) {
     if (insertCalendarPreparedStatement41==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_calendar) VALUES (?)";
       insertCalendarPreparedStatement41 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2733,7 +2733,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertChar(Character valueChar) {
     if (insertCharPreparedStatement42==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_char) VALUES (?)";
       insertCharPreparedStatement42 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2802,7 +2802,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertCharType(char valueCharType) {
     if (insertCharTypePreparedStatement43==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_char_type) VALUES (?)";
       insertCharTypePreparedStatement43 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2867,7 +2867,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertCurrency(Currency valueCurrency) {
     if (insertCurrencyPreparedStatement44==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_currency) VALUES (?)";
       insertCurrencyPreparedStatement44 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -2936,7 +2936,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertDate(Date valueDate) {
     if (insertDatePreparedStatement45==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_date) VALUES (?)";
       insertDatePreparedStatement45 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3005,7 +3005,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertDouble(Double valueDouble) {
     if (insertDoublePreparedStatement46==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_double) VALUES (?)";
       insertDoublePreparedStatement46 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3074,7 +3074,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertDoubleType(double valueDoubleType) {
     if (insertDoubleTypePreparedStatement47==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_double_type) VALUES (?)";
       insertDoubleTypePreparedStatement47 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3139,7 +3139,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertEnumType(EnumType valueEnumType) {
     if (insertEnumTypePreparedStatement48==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_enum_type) VALUES (?)";
       insertEnumTypePreparedStatement48 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3208,7 +3208,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertFloat(Float valueFloat) {
     if (insertFloatPreparedStatement49==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_float) VALUES (?)";
       insertFloatPreparedStatement49 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3277,7 +3277,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertFloatType(float valueFloatType) {
     if (insertFloatTypePreparedStatement50==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_float_type) VALUES (?)";
       insertFloatTypePreparedStatement50 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3342,7 +3342,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertInt(Integer valueInt) {
     if (insertIntPreparedStatement51==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_int) VALUES (?)";
       insertIntPreparedStatement51 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3411,7 +3411,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertIntType(int valueIntType) {
     if (insertIntTypePreparedStatement52==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_int_type) VALUES (?)";
       insertIntTypePreparedStatement52 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3476,7 +3476,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertListLong(LinkedList<Long> valueLongList) {
     if (insertListLongPreparedStatement53==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_long_list) VALUES (?)";
       insertListLongPreparedStatement53 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3545,7 +3545,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertLocale(Locale valueLocale) {
     if (insertLocalePreparedStatement54==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_locale) VALUES (?)";
       insertLocalePreparedStatement54 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3614,7 +3614,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertLong(Long valueLong) {
     if (insertLongPreparedStatement55==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_long) VALUES (?)";
       insertLongPreparedStatement55 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3683,7 +3683,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertLongType(long valueLongType) {
     if (insertLongTypePreparedStatement56==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_long_type) VALUES (?)";
       insertLongTypePreparedStatement56 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3748,7 +3748,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertShort(Short valueShort) {
     if (insertShortPreparedStatement57==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_short) VALUES (?)";
       insertShortPreparedStatement57 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3817,7 +3817,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertShortType(short valueShortType) {
     if (insertShortTypePreparedStatement58==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_short_type) VALUES (?)";
       insertShortTypePreparedStatement58 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3882,7 +3882,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertString(String valueString) {
     if (insertStringPreparedStatement59==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_string) VALUES (?)";
       insertStringPreparedStatement59 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -3951,7 +3951,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertTime(Time valueTime) {
     if (insertTimePreparedStatement60==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_time) VALUES (?)";
       insertTimePreparedStatement60 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -4020,7 +4020,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertTimeZone(TimeZone valueTimeZone) {
     if (insertTimeZonePreparedStatement61==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_time_zone) VALUES (?)";
       insertTimeZonePreparedStatement61 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -4089,7 +4089,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long insertURL(URL valueUrl) {
     if (insertURLPreparedStatement62==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64 (value_url) VALUES (?)";
       insertURLPreparedStatement62 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -11469,8 +11469,8 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOne(Bean64 value) {
     if (updateOnePreparedStatement63==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE bean64 SET valueBoolType=?, valueBool=?, valueByteType=?, valueByte=?, valueShortType=?, valueShort=?, valueIntType=?, valueInt=?, valueString=?, valueCharType=?, valueChar=?, valueFloatType=?, valueFloat=?, valueBigInteger=?, valueBigDecimal=?, valueEnumType=?, valueLongType=?, valueLong=?, valueDoubleType=?, valueDouble=?, valueLocale=?, valueCalendar=?, valueDate=?, valueUrl=?, valueTime=?, valueCurrency=?, valueTimeZone=?, valueTimeList=?, valueStrinList=?, valueLongList=?, valueByteArray=?, valueLongTypeArray=?, valueLongArray=?, valueBeanArray=?, valueStringArray=?, valueCharList=?, valueCharTypeArray=?, valueCharArray=?, valueMapStringBean=?, valueLinkedMapStringBean=?, valueSetString=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE bean64 SET value_bool_type=?, value_bool=?, value_byte_type=?, value_byte=?, value_short_type=?, value_short=?, value_int_type=?, value_int=?, value_string=?, value_char_type=?, value_char=?, value_float_type=?, value_float=?, value_big_integer=?, value_big_decimal=?, value_enum_type=?, value_long_type=?, value_long=?, value_double_type=?, value_double=?, value_locale=?, value_calendar=?, value_date=?, value_url=?, value_time=?, value_currency=?, value_time_zone=?, value_time_list=?, value_strin_list=?, value_long_list=?, value_byte_array=?, value_long_type_array=?, value_long_array=?, value_bean_array=?, value_string_array=?, value_char_list=?, value_char_type_array=?, value_char_array=?, value_map_string_bean=?, value_linked_map_string_bean=?, value_set_string=? WHERE id=?";
       updateOnePreparedStatement63 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement63);
@@ -11656,7 +11656,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE bean64 SET value_bool_type=:valueBoolType, value_bool=:valueBool, value_byte_type=:valueByteType, value_byte=:valueByte, value_short_type=:valueShortType, value_short=:valueShort, value_int_type=:valueIntType, value_int=:valueInt, value_string=:valueString, value_char_type=:valueCharType, value_char=:valueChar, value_float_type=:valueFloatType, value_float=:valueFloat, value_big_integer=:valueBigInteger, value_big_decimal=:valueBigDecimal, value_enum_type=:valueEnumType, value_long_type=:valueLongType, value_long=:valueLong, value_double_type=:valueDoubleType, value_double=:valueDouble, value_locale=:valueLocale, value_calendar=:valueCalendar, value_date=:valueDate, value_url=:valueUrl, value_time=:valueTime, value_currency=:valueCurrency, value_time_zone=:valueTimeZone, value_time_list=:valueTimeList, value_strin_list=:valueStrinList, value_long_list=:valueLongList, value_byte_array=:valueByteArray, value_long_type_array=:valueLongTypeArray, value_long_array=:valueLongArray, value_bean_array=:valueBeanArray, value_string_array=:valueStringArray, value_char_list=:valueCharList, value_char_type_array=:valueCharTypeArray, value_char_array=:valueCharArray, value_map_string_bean=:valueMapStringBean, value_linked_map_string_bean=:valueLinkedMapStringBean, value_set_string=:valueSetString WHERE id=?");
+      Logger.info("UPDATE bean64 SET value_bool_type=:value_bool_type, value_bool=:value_bool, value_byte_type=:value_byte_type, value_byte=:value_byte, value_short_type=:value_short_type, value_short=:value_short, value_int_type=:value_int_type, value_int=:value_int, value_string=:value_string, value_char_type=:value_char_type, value_char=:value_char, value_float_type=:value_float_type, value_float=:value_float, value_big_integer=:value_big_integer, value_big_decimal=:value_big_decimal, value_enum_type=:value_enum_type, value_long_type=:value_long_type, value_long=:value_long, value_double_type=:value_double_type, value_double=:value_double, value_locale=:value_locale, value_calendar=:value_calendar, value_date=:value_date, value_url=:value_url, value_time=:value_time, value_currency=:value_currency, value_time_zone=:value_time_zone, value_time_list=:value_time_list, value_strin_list=:value_strin_list, value_long_list=:value_long_list, value_byte_array=:value_byte_array, value_long_type_array=:value_long_type_array, value_long_array=:value_long_array, value_bean_array=:value_bean_array, value_string_array=:value_string_array, value_char_list=:value_char_list, value_char_type_array=:value_char_type_array, value_char_array=:value_char_array, value_map_string_bean=:value_map_string_bean, value_linked_map_string_bean=:value_linked_map_string_bean, value_set_string=:value_set_string WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -11706,7 +11706,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOne(long id, BigDecimal valueBigDecimal) {
     if (updateOnePreparedStatement64==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_big_decimal=?";
       updateOnePreparedStatement64 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -11771,7 +11771,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOne(long id, BigInteger valueBigDecimal) {
     if (updateOnePreparedStatement65==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_big_decimal=?";
       updateOnePreparedStatement65 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -11836,7 +11836,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOne(long id, boolean valueBoolType) {
     if (updateOnePreparedStatement66==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_bool_type=?";
       updateOnePreparedStatement66 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -11901,7 +11901,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOne(long id, Boolean valueBool) {
     if (updateOnePreparedStatement67==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_bool=?";
       updateOnePreparedStatement67 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -11966,8 +11966,8 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOne(long id, Set<String> valueSetString) {
     if (updateOnePreparedStatement68==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE bean64 SET valueSetString=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE bean64 SET value_set_string=? WHERE id=?";
       updateOnePreparedStatement68 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement68);
@@ -11985,7 +11985,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE bean64 SET value_set_string=:valueSetString WHERE id=?");
+      Logger.info("UPDATE bean64 SET value_set_string=:value_set_string WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -12035,7 +12035,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneArrayBean(long id, Bean64[] valueBeanArray) {
     if (updateOneArrayBeanPreparedStatement69==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_bean_array=?";
       updateOneArrayBeanPreparedStatement69 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12100,7 +12100,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneArrayLong(long id, Long[] valueLongArray) {
     if (updateOneArrayLongPreparedStatement70==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_long_array=?";
       updateOneArrayLongPreparedStatement70 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12165,7 +12165,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneArrayLongType(long id, long[] valueLongTypeArray) {
     if (updateOneArrayLongTypePreparedStatement71==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_long_type_array=?";
       updateOneArrayLongTypePreparedStatement71 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12230,7 +12230,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneByte(long id, Byte valueByte) {
     if (updateOneBytePreparedStatement72==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_byte=?";
       updateOneBytePreparedStatement72 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12295,7 +12295,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneByteType(long id, boolean valueByteType) {
     if (updateOneByteTypePreparedStatement73==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_byte_type=?";
       updateOneByteTypePreparedStatement73 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12360,7 +12360,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneCalendar(long id, Calendar valueCalendar) {
     if (updateOneCalendarPreparedStatement74==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_calendar=?";
       updateOneCalendarPreparedStatement74 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12425,7 +12425,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneChar(long id, Character valueChar) {
     if (updateOneCharPreparedStatement75==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_char_type=?";
       updateOneCharPreparedStatement75 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12490,7 +12490,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneCharType(long id, char valueCharType) {
     if (updateOneCharTypePreparedStatement76==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_char_type=?";
       updateOneCharTypePreparedStatement76 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12555,7 +12555,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneCurrency(long id, Currency valueCurrency) {
     if (updateOneCurrencyPreparedStatement77==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_currency=?";
       updateOneCurrencyPreparedStatement77 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12620,7 +12620,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneDate(long id, Date valueDate) {
     if (updateOneDatePreparedStatement78==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_date=?";
       updateOneDatePreparedStatement78 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12685,7 +12685,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneDouble(long id, Double valueDouble) {
     if (updateOneDoublePreparedStatement79==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_double=?";
       updateOneDoublePreparedStatement79 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12750,7 +12750,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneDoubleType(long id, double valueDoubleType) {
     if (updateOneDoubleTypePreparedStatement80==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_double_type=?";
       updateOneDoubleTypePreparedStatement80 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12815,7 +12815,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneEnumType(long id, EnumType valueEnumType) {
     if (updateOneEnumTypePreparedStatement81==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_enum_type=?";
       updateOneEnumTypePreparedStatement81 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12880,7 +12880,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneFloat(long id, Float valueFloat) {
     if (updateOneFloatPreparedStatement82==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_float=?";
       updateOneFloatPreparedStatement82 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -12945,7 +12945,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneFloatType(long id, float valueFloatType) {
     if (updateOneFloatTypePreparedStatement83==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_float_type=?";
       updateOneFloatTypePreparedStatement83 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13010,7 +13010,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneInt(long id, Integer valueInt) {
     if (updateOneIntPreparedStatement84==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_int=?";
       updateOneIntPreparedStatement84 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13075,7 +13075,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneIntType(long id, int valueIntType) {
     if (updateOneIntTypePreparedStatement85==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_int_type=?";
       updateOneIntTypePreparedStatement85 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13140,7 +13140,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneListLong(long id, LinkedList<Long> valueLongList) {
     if (updateOneListLongPreparedStatement86==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_long_list=?";
       updateOneListLongPreparedStatement86 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13205,7 +13205,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneLocale(long id, Locale valueLocale) {
     if (updateOneLocalePreparedStatement87==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_locale=?";
       updateOneLocalePreparedStatement87 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13270,7 +13270,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneLong(long id, Long valueLong) {
     if (updateOneLongPreparedStatement88==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_long=?";
       updateOneLongPreparedStatement88 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13335,7 +13335,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneLongType(long id, long valueLongType) {
     if (updateOneLongTypePreparedStatement89==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_long_type=?";
       updateOneLongTypePreparedStatement89 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13400,7 +13400,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneShort(long id, Short valueShort) {
     if (updateOneShortPreparedStatement90==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_short=?";
       updateOneShortPreparedStatement90 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13465,7 +13465,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneShortType(long id, short valueShortType) {
     if (updateOneShortTypePreparedStatement91==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_short_type=?";
       updateOneShortTypePreparedStatement91 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13530,7 +13530,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneString(long id, Double valueString) {
     if (updateOneStringPreparedStatement92==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_string=?";
       updateOneStringPreparedStatement92 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13595,7 +13595,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneTime(long id, Time valueTime) {
     if (updateOneTimePreparedStatement93==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_time=?";
       updateOneTimePreparedStatement93 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13660,7 +13660,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneTimeZone(long id, TimeZone valueTimeZone) {
     if (updateOneTimeZonePreparedStatement94==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_time_zone=?";
       updateOneTimeZonePreparedStatement94 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13725,7 +13725,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   @Override
   public long updateOneURL(long id, URL valueUrl) {
     if (updateOneURLPreparedStatement95==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean64 SET id=? WHERE value_url=?";
       updateOneURLPreparedStatement95 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -13764,6 +13764,76 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneURLPreparedStatement95, _contentValues);
     return result;
+  }
+
+  /**
+   * for param serializer1 serialization
+   */
+  private byte[] serializer1(Bean64[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.length;
+        Bean64 item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser1 parsing
+   */
+  private Bean64[] parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Bean64[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Bean64> collection=new ArrayList<>();
+        Bean64 item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=bean64BindMap.parseOnJackson(jacksonParser);
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
   }
 
   /**
@@ -13837,9 +13907,9 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * for param serializer1 serialization
+   * for param serializer5 serialization
    */
-  private byte[] serializer1(Bean64[] value) {
+  private byte[] serializer5(Set<String> value) {
     if (value==null) {
       return null;
     }
@@ -13849,17 +13919,14 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
-        int n=value.length;
-        Bean64 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("element");
         jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
+        for (String item: value) {
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
+            jacksonSerializer.writeString(item);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -13873,9 +13940,9 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
   }
 
   /**
-   * for param parser1 parsing
+   * for param parser5 parsing
    */
-  private Bean64[] parser1(byte[] input) {
+  private Set<String> parser5(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -13886,19 +13953,19 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      Bean64[] result=null;
+      Set<String> result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Bean64> collection=new ArrayList<>();
-        Bean64 item=null;
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
         while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=bean64BindMap.parseOnJackson(jacksonParser);
+            item=jacksonParser.getText();
           }
           collection.add(item);
         }
-        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
+        result=collection;
       }
       return result;
     } catch(Exception e) {
@@ -14035,73 +14102,6 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
           collection.add(item);
         }
         result=CollectionUtils.asLongTypeArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param serializer5 serialization
-   */
-  private byte[] serializer5(Set<String> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (String item: value) {
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeString(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser5 parsing
-   */
-  private Set<String> parser5(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Set<String> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getText();
-          }
-          collection.add(item);
-        }
-        result=collection;
       }
       return result;
     } catch(Exception e) {

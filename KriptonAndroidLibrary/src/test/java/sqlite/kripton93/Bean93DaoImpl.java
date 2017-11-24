@@ -203,7 +203,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   @Override
   public boolean insertDefault(Bean93 bean) {
     if (insertDefaultPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean93 (name, surname, type_name) VALUES (?, ?, ?)";
       insertDefaultPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -288,7 +288,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   @Override
   public boolean insertAbort(Bean93 bean) {
     if (insertAbortPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR ABORT INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
       insertAbortPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -374,7 +374,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   @Override
   public boolean insertFail(Bean93 bean) {
     if (insertFailPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR FAIL INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
       insertFailPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -460,7 +460,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   @Override
   public boolean insertIgnore(Bean93 bean) {
     if (insertIgnorePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
       insertIgnorePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -546,7 +546,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   @Override
   public boolean insertReplace(Bean93 bean) {
     if (insertReplacePreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
       insertReplacePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -632,7 +632,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
   @Override
   public boolean insertRollback(Bean93 bean) {
     if (insertRollbackPreparedStatement5==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR ROLLBACK INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
       insertRollbackPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

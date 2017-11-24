@@ -128,7 +128,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   @Override
   public Child insertBean(Child bean) {
     if (insertBeanPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO child (name, parent_id) VALUES (?, ?)";
       insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -464,7 +464,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   @Override
   public void insertByCopy3(Child bean) {
     if (insertByCopy3PreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="insert into child (name, parent_id) values (?, ?)";
       insertByCopy3PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -536,7 +536,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   @Override
   public int insertByCopy(long parentId, String name) {
     if (insertByCopyPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO child (parent_id, name) VALUES (?, ?)";
       insertByCopyPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -611,7 +611,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
   @Override
   public void updateJQL(long parentId, String name) {
     if (updateJQLPreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="update or replace child set name=? where parent_id=?";
       updateJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

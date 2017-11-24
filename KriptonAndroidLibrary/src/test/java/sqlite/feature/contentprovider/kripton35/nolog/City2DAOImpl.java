@@ -55,7 +55,7 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
   @Override
   public void insertBean(City bean) {
     if (insertBeanPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO city (name) VALUES (?)";
       insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

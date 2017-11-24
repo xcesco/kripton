@@ -102,7 +102,7 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
   @Override
   public void deleteAll() {
     if (deleteAllPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM simple_address_item";
       deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -192,7 +192,7 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
   @Override
   public void insert(SimpleAddressItem bean) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO simple_address_item (name, address, city, state, phone) VALUES (?, ?, ?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

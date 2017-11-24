@@ -140,7 +140,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void insertThread1(Person bean) {
     if (insertThread1PreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
       insertThread1PreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -231,8 +231,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public boolean update(Person bean) {
     if (updatePreparedStatement1==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE person SET name=?, surname=?, birthCity=?, birthDay=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE person SET name=?, surname=?, birth_city=?, birth_day=? WHERE id=?";
       updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
@@ -265,7 +265,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id=?");
+      Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birth_city, birth_day=:birth_day WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -308,7 +308,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public boolean delete(Person bean) {
     if (deletePreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id=?";
       deletePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

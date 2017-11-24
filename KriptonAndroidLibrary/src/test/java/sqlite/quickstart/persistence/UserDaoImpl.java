@@ -59,7 +59,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
   @Override
   public void insert(User bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO user (id, name, username, email, address, phone, website, company) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

@@ -44,7 +44,7 @@ public class PKDaoImpl extends AbstractDao implements PKDao {
   @Override
   public void insert(PKBean bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO p_k_bean (id, description) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

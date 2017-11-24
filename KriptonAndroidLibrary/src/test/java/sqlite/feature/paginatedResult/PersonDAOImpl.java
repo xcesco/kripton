@@ -288,7 +288,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
     if (insertOnePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
       insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -441,7 +441,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public int deleteAll() {
     if (deleteAllPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person";
       deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

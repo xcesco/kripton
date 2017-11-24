@@ -67,7 +67,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
   @Override
   public int insert(PhoneNumber bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO phone_number (action, number, country_code, contact_name, contact_id) VALUES (?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -236,7 +236,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
   @Override
   public boolean deleteById(long id) {
     if (deleteByIdPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM phone_number WHERE id = ?";
       deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -281,7 +281,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
   @Override
   public boolean updateById(PhoneNumber bean) {
     if (updateByIdPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM phone_number WHERE id = ?";
       updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

@@ -437,7 +437,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public long updateOne(long id, double[] value, Double[] value2) {
     if (updateOnePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE double_bean SET id=? WHERE value=? and value2=?";
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -502,7 +502,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public long insert(long id, double[] value, Double[] value2) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO double_bean (id, value, value2) VALUES (?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -580,7 +580,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public long insert(DoubleBean bean) {
     if (insertPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO double_bean (value, value2) VALUES (?, ?)";
       insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -659,7 +659,7 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
   @Override
   public long delete(double[] value, Double[] value2) {
     if (deletePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM double_bean WHERE value=? and value2=?";
       deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -685,6 +685,72 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement3, _contentValues);
     return result;
+  }
+
+  /**
+   * for param serializer1 serialization
+   */
+  private byte[] serializer1(double[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.length;
+        double item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser1 parsing
+   */
+  private double[] parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      double[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Double> collection=new ArrayList<>();
+        Double item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getDoubleValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asDoubleTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
   }
 
   /**
@@ -750,72 +816,6 @@ public class DoubleDaoImpl extends AbstractDao implements DoubleDao {
           collection.add(item);
         }
         result=CollectionUtils.asDoubleArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(double[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        double item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          jacksonSerializer.writeNumber(item);
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private double[] parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      double[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Double> collection=new ArrayList<>();
-        Double item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getDoubleValue();
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asDoubleTypeArray(collection);
       }
       return result;
     } catch(Exception e) {

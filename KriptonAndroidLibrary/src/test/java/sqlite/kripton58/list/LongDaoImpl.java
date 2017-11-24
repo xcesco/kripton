@@ -420,7 +420,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public long updateOne(List<Long> value, long id, List<Long> paramValue) {
     if (updateOnePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE long_bean SET value=? WHERE id=? and CAST(value AS TEXT)=?";
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -486,7 +486,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public long insert(long id, List<Long> value) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO long_bean (id, value) VALUES (?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -559,7 +559,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public long insert(LongBean bean) {
     if (insertPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO long_bean (value, value2) VALUES (?, ?)";
       insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -635,7 +635,7 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
   @Override
   public long delete(List<Long> paramValue) {
     if (deletePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM long_bean WHERE CAST(value AS TEXT)=?";
       deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

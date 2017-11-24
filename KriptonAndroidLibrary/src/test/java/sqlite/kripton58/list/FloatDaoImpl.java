@@ -420,7 +420,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public long updateOne(List<Float> value, long id, List<Float> paramValue) {
     if (updateOnePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE float_bean SET value=? WHERE id=? and value=?";
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -486,7 +486,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public long insert(long id, List<Float> value) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO float_bean (id, value) VALUES (?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -559,7 +559,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public long insert(FloatBean bean) {
     if (insertPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO float_bean (value, value2) VALUES (?, ?)";
       insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -635,7 +635,7 @@ public class FloatDaoImpl extends AbstractDao implements FloatDao {
   @Override
   public long delete(List<Float> paramValue) {
     if (deletePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM float_bean WHERE value=?";
       deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

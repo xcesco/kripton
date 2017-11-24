@@ -110,7 +110,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   @Override
   public long deleteOne(long id) {
     if (deleteOnePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean02 WHERE id=?";
       deleteOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

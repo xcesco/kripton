@@ -186,7 +186,7 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
   @Override
   public long update(Artist bean) {
     if (updatePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE artist SET name=? WHERE id=?";
       updatePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -250,7 +250,7 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
   @Override
   public long insert(Artist bean) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO artist (name) VALUES (?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -321,7 +321,7 @@ public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
   @Override
   public long deleteById(long id) {
     if (deleteByIdPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM artist WHERE id=?";
       deleteByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

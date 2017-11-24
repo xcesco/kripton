@@ -52,7 +52,7 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
   @Override
   public boolean updateDistance(long id, Double value, long test) {
     if (updateDistancePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean01 SET id=?, value=? WHERE id=?";
       updateDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

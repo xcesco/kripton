@@ -278,7 +278,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
   @Override
   public int deleteById(long id) {
     if (deleteByIdPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person_phone_number WHERE id=?";
       deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -324,7 +324,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
   @Override
   public int deleteByPersonId(long personId) {
     if (deleteByPersonIdPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person_phone_number WHERE person_id=?";
       deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -370,7 +370,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
   @Override
   public int deleteByPhoneNumberId(long phoneNumberId) {
     if (deleteByPhoneNumberIdPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person_phone_number WHERE phone_number_id=?";
       deleteByPhoneNumberIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -418,7 +418,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
   @Override
   public int insert(PersonPhoneNumber bean) {
     if (insertPreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person_phone_number (person_id, phone_number_id) VALUES (?, ?)";
       insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

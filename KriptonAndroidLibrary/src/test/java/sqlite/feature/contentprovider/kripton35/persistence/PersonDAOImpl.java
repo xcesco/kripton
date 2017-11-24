@@ -91,7 +91,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void insertBean(Person bean) {
     if (insertBeanPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR FAIL INTO person (city, birth_city, birth_day, value, name, surname) VALUES (?, ?, ?, ?, ?, ?)";
       insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -220,7 +220,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void insertName(String tempName) {
     if (insertNamePreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person (name) VALUES (?)";
       insertNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -340,7 +340,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public int deleteRaw(long id) {
     if (deleteRawPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id = ?";
       deleteRawPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -589,7 +589,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public long deleteBean(Person bean) {
     if (deleteBeanPreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id = ?";
       deleteBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -700,7 +700,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public int updateRaw(String name, long id) {
     if (updateRawPreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE person SET name=? WHERE id=?";
       updateRawPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1204,8 +1204,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public int updateBean(Person person) {
     if (updateBeanPreparedStatement5==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE person SET parentId=?, city=?, birthCity=?, birthDay=?, value=?, name=?, surname=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE person SET alias_parent_id=?, city=?, birth_city=?, birth_day=?, value=?, name=?, surname=? WHERE id=?";
       updateBeanPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateBeanPreparedStatement5);
@@ -1241,7 +1241,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
+      Logger.info("UPDATE person SET alias_parent_id=:alias_parent_id, city=:city, birth_city=:birth_city, birth_day=:birth_day, value=:value, name=:name, surname=:surname WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1317,7 +1317,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET alias_parent_id=:parentId, city=:city, birth_city=:birthCity, birth_day=:birthDay, value=:value, name=:name, surname=:surname WHERE id=?");
+      Logger.info("UPDATE person SET alias_parent_id=:alias_parent_id, city=:city, birth_city=:birth_city, birth_day=:birth_day, value=:value, name=:name, surname=:surname WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

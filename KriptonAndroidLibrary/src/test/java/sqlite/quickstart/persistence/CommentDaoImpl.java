@@ -55,7 +55,7 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
   @Override
   public void insert(Comment bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO comment (post_id, id, name, email, body) VALUES (?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

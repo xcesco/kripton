@@ -759,7 +759,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public long insertRaw(String text, byte[] content, Date creationTime) {
     if (insertRawPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO ws_bean (text, content, creation_time) VALUES (?, ?, ?)";
       insertRawPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -843,7 +843,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public void insert(Bean05 bean) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO ws_bean (number, bean_type, text, content, creation_time) VALUES (?, ?, ?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -938,8 +938,8 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public long updateOne(Bean05 bean) {
     if (updateOnePreparedStatement2==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE ws_bean SET number=?, beanType=?, text=?, content=?, creationTime=? WHERE pk=? and text=? and creation_time=?";
+      // generate static SQL for statement
+      String _sql="UPDATE ws_bean SET number=?, bean_type=?, text=?, content=?, creation_time=? WHERE pk=? and text=? and creation_time=?";
       updateOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement2);
@@ -975,7 +975,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE ws_bean SET number=:number, bean_type=:beanType, text=:text, content=:content, creation_time=:creationTime WHERE pk=? and text=? and creation_time=?");
+      Logger.info("UPDATE ws_bean SET number=:number, bean_type=:bean_type, text=:text, content=:content, creation_time=:creation_time WHERE pk=? and text=? and creation_time=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1034,7 +1034,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public long updateOne(byte[] content, String text, long uid, Date validoIn, Date valido) {
     if (updateOnePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE ws_bean SET content=?, text=? WHERE pk=? and creation_time=? and creation_time=?";
       updateOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1105,7 +1105,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public long deleteOne(Bean05 bean) {
     if (deleteOnePreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM ws_bean WHERE pk=? and text=? and creation_time=?";
       deleteOnePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1158,7 +1158,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public long deleteOne(long uid, Date validoIn, Date valido) {
     if (deleteOnePreparedStatement5==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM ws_bean WHERE pk=? and creation_time=? and creation_time=?";
       deleteOnePreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1205,7 +1205,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public long deleteOne(long id) {
     if (deleteOnePreparedStatement6==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM ws_bean WHERE pk=?";
       deleteOnePreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1249,7 +1249,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
   @Override
   public long deleteBean(Bean05 va) {
     if (deleteBeanPreparedStatement7==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM ws_bean WHERE pk=?";
       deleteBeanPreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

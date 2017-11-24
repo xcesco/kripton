@@ -66,7 +66,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public int insert(Country bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO country (area, code, calling_code, region, name, translated_name) VALUES (?, ?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -238,7 +238,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public boolean deleteById(long id) {
     if (deleteByIdPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM country WHERE id = ?";
       deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -282,7 +282,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
   @Override
   public boolean updateById(Country bean) {
     if (updateByIdPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM country WHERE id = ?";
       updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

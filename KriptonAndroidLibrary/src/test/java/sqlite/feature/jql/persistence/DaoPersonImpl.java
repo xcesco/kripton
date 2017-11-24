@@ -116,7 +116,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
   @Override
   public Person insertBean(Person bean) {
     if (insertBeanPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person (name, image) VALUES (?, ?)";
       insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

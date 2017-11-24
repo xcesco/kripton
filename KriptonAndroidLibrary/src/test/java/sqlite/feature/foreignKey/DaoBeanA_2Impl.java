@@ -257,7 +257,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   @Override
   public int insert(BeanA_2 bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean_a_2 (value_string2) VALUES (?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -332,8 +332,8 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
   @Override
   public int update(BeanA_2 bean) {
     if (updatePreparedStatement1==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE bean_a_2 SET valueString2=? WHERE value_string2=?";
+      // generate static SQL for statement
+      String _sql="UPDATE bean_a_2 SET value_string2=? WHERE value_string2=?";
       updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
@@ -351,7 +351,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE bean_a_2 SET value_string2=:valueString2 WHERE value_string2=?");
+      Logger.info("UPDATE bean_a_2 SET value_string2=:value_string2 WHERE value_string2=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

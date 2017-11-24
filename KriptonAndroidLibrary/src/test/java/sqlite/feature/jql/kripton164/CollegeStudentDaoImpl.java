@@ -43,7 +43,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
   @Override
   public void insert(CollegeStudent student) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO students (surname) VALUES (?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

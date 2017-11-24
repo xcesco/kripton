@@ -50,8 +50,8 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   @Override
   public boolean updateById(long id, OwnerType ownerType) {
     if (updateByIdPreparedStatement0==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE message SET ownerType=? WHERE id = ?";
+      // generate static SQL for statement
+      String _sql="UPDATE message SET owner_type=? WHERE id = ?";
       updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement0);
@@ -69,7 +69,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE message SET owner_type=:ownerType WHERE id = ?");
+      Logger.info("UPDATE message SET owner_type=:owner_type WHERE id = ?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

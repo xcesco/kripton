@@ -198,7 +198,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   @Override
   public boolean insert(Bean84B bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean84_b (column_bean) VALUES (?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -268,8 +268,8 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   @Override
   public boolean updateAll(Bean84B bean) {
     if (updateAllPreparedStatement1==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE bean84_b SET columnBean=?";
+      // generate static SQL for statement
+      String _sql="UPDATE bean84_b SET column_bean=?";
       updateAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllPreparedStatement1);
@@ -286,7 +286,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE bean84_b SET column_bean=:columnBean");
+      Logger.info("UPDATE bean84_b SET column_bean=:column_bean");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -324,7 +324,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
   @Override
   public boolean deleteAll(Bean84B bean) {
     if (deleteAllPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean84_b";
       deleteAllPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

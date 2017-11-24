@@ -54,7 +54,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void insertThread1(Person bean) {
     if (insertThread1PreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
       insertThread1PreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -141,7 +141,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void insertThread2(Person bean) {
     if (insertThread2PreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
       insertThread2PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

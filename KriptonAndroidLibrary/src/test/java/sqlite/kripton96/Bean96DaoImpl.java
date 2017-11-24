@@ -116,7 +116,7 @@ public class Bean96DaoImpl extends AbstractDao implements Bean96Dao {
   @Override
   public boolean insert(Bean96 bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean96 (name, surname) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

@@ -117,7 +117,7 @@ public class PersonErr3DaoImpl extends AbstractDao implements PersonErr3Dao {
   @Override
   public long insert(Person bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO persons (name) VALUES (?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -253,7 +253,7 @@ public class PersonErr3DaoImpl extends AbstractDao implements PersonErr3Dao {
   @Override
   public int deleteById(long id) {
     if (deleteByIdPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM persons WHERE id=?";
       deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

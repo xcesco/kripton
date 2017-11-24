@@ -186,8 +186,8 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
   @Override
   public long update(Track bean) {
     if (updatePreparedStatement0==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE track SET albumId=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE track SET album_id=? WHERE id=?";
       updatePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement0);
@@ -201,7 +201,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE track SET album_id=:albumId WHERE id=?");
+      Logger.info("UPDATE track SET album_id=:album_id WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -246,7 +246,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
   @Override
   public long insert(Track bean) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO track (album_id) VALUES (?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -313,7 +313,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
   @Override
   public long deleteById(long id) {
     if (deleteByIdPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM track WHERE id=?";
       deleteByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

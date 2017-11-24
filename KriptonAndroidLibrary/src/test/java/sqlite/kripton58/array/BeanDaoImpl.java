@@ -445,7 +445,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long updateOne(long id, BeanInner[] value, BeanInner[] value2) {
     if (updateOnePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean_bean SET id=? WHERE value=? and value2=?";
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -510,7 +510,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long insert(long id, BeanInner[] value, BeanInner[] value2) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean_bean (id, value, value2) VALUES (?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -588,7 +588,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long insert(BeanBean bean) {
     if (insertPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean_bean (value, value2) VALUES (?, ?)";
       insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -667,7 +667,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long delete(BeanInner[] value, BeanInner[] value2) {
     if (deletePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean_bean WHERE value=? and value2=?";
       deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

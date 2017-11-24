@@ -193,8 +193,8 @@ public class AlbumDaoImpl extends AbstractDao implements AlbumDao {
   @Override
   public long update(Album bean) {
     if (updatePreparedStatement0==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE album SET artistId=?, name=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE album SET artist_id=?, name=? WHERE id=?";
       updatePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement0);
@@ -213,7 +213,7 @@ public class AlbumDaoImpl extends AbstractDao implements AlbumDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE album SET artist_id=:artistId, name=:name WHERE id=?");
+      Logger.info("UPDATE album SET artist_id=:artist_id, name=:name WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -259,7 +259,7 @@ public class AlbumDaoImpl extends AbstractDao implements AlbumDao {
   @Override
   public long insert(Album bean) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO album (artist_id, name) VALUES (?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -331,7 +331,7 @@ public class AlbumDaoImpl extends AbstractDao implements AlbumDao {
   @Override
   public long deleteById(long id) {
     if (deleteByIdPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM album WHERE id=?";
       deleteByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

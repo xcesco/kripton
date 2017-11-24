@@ -170,7 +170,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
   @Override
   public int deleteAll() {
     if (deleteAllPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM first_aid WHERE 1=1";
       deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -235,7 +235,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
   @Override
   public int insert(FirstAid bean) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO first_aid (uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

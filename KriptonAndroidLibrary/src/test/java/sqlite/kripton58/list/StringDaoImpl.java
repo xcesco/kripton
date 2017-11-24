@@ -420,7 +420,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public boolean updateOne(List<String> value, long id, List<String> paramValue) {
     if (updateOnePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE string_bean SET value=? WHERE id=? and value=?";
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -486,7 +486,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public long insert(long id, List<String> value) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO string_bean (id, value) VALUES (?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -559,7 +559,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public long insert(StringBean bean) {
     if (insertPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO string_bean (value, value2) VALUES (?, ?)";
       insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -635,7 +635,7 @@ public class StringDaoImpl extends AbstractDao implements StringDao {
   @Override
   public long delete(List<String> paramValue) {
     if (deletePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM string_bean WHERE value=?";
       deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

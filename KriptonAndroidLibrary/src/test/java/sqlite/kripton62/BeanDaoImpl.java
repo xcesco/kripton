@@ -461,8 +461,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long updateOne(Bean value) {
     if (updateOnePreparedStatement0==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE bean SET value=?, valueByteSet=?, valueShortSet=?, valueIntegerSet=?, valueStringSet=?, valueCharacterSet=?, valueFloatSet=?, valueDoubleSet=?, valueBigDecimalSet=?, valueBeanSet=?, valueEnumTypeSet=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE bean SET value=?, value_byte_set=?, value_short_set=?, value_integer_set=?, value_string_set=?, value_character_set=?, value_float_set=?, value_double_set=?, value_big_decimal_set=?, value_bean_set=?, value_enum_type_set=? WHERE id=?";
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
@@ -530,7 +530,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE bean SET value=:value, value_byte_set=:valueByteSet, value_short_set=:valueShortSet, value_integer_set=:valueIntegerSet, value_string_set=:valueStringSet, value_character_set=:valueCharacterSet, value_float_set=:valueFloatSet, value_double_set=:valueDoubleSet, value_big_decimal_set=:valueBigDecimalSet, value_bean_set=:valueBeanSet, value_enum_type_set=:valueEnumTypeSet WHERE id=?");
+      Logger.info("UPDATE bean SET value=:value, value_byte_set=:value_byte_set, value_short_set=:value_short_set, value_integer_set=:value_integer_set, value_string_set=:value_string_set, value_character_set=:value_character_set, value_float_set=:value_float_set, value_double_set=:value_double_set, value_big_decimal_set=:value_big_decimal_set, value_bean_set=:value_bean_set, value_enum_type_set=:value_enum_type_set WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -585,7 +585,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long insert(Bean bean) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean (value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -705,7 +705,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long insert(HashSet<BigDecimal> valueBigDecimalSet) {
     if (insertPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean (value_big_decimal_set) VALUES (?)";
       insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -870,7 +870,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long delete(HashSet<BigDecimal> valueBigDecimalSet) {
     if (deletePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean WHERE value=?";
       deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -921,7 +921,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long updateOne(long id, HashSet<BigDecimal> valueBigDecimalSet) {
     if (updateOnePreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean SET id=? WHERE value=?";
       updateOnePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

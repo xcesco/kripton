@@ -192,7 +192,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
   @Override
   public void insertAll(SchoolLunch schoolLunches) {
     if (insertAllPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO SchoolLunches (fresh, contains_meat, fruits) VALUES (?, ?, ?)";
       insertAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -258,7 +258,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
   @Override
   public void deleteAll() {
     if (deleteAllPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM SchoolLunches";
       deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

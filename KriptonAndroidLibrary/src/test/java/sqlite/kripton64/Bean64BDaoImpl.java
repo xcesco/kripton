@@ -199,7 +199,7 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
   @Override
   public long insert(Bean64B bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean64_b (value_map_string_bean, value_set_string, value_string) VALUES (?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

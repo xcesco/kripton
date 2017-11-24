@@ -151,7 +151,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
   @Override
   public Person insert(Person bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -197,7 +197,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
   @Override
   public long update(Person bean) {
     if (updatePreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
       updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -238,7 +238,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
   @Override
   public long delete(Person bean) {
     if (deletePreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id=?";
       deletePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

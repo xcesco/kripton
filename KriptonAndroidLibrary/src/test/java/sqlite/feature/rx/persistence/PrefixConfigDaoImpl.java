@@ -63,7 +63,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
   @Override
   public int insert(PrefixConfig bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO prefix_config (default_country, dual_billing_prefix, enabled, dialog_timeout) VALUES (?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -216,7 +216,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
   @Override
   public boolean deleteById(long id) {
     if (deleteByIdPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM prefix_config WHERE id = ?";
       deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -261,7 +261,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
   @Override
   public boolean updateById(PrefixConfig bean) {
     if (updateByIdPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM prefix_config WHERE id = ?";
       updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -380,8 +380,8 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
   @Override
   public int update(PrefixConfig bean) {
     if (updatePreparedStatement3==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE prefix_config SET defaultCountry=?, dualBillingPrefix=?, enabled=?, dialogTimeout=? WHERE id = ? ";
+      // generate static SQL for statement
+      String _sql="UPDATE prefix_config SET default_country=?, dual_billing_prefix=?, enabled=?, dialog_timeout=? WHERE id = ? ";
       updatePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement3);
@@ -406,7 +406,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE prefix_config SET default_country=:defaultCountry, dual_billing_prefix=:dualBillingPrefix, enabled=:enabled, dialog_timeout=:dialogTimeout WHERE id = ? ");
+      Logger.info("UPDATE prefix_config SET default_country=:default_country, dual_billing_prefix=:dual_billing_prefix, enabled=:enabled, dialog_timeout=:dialog_timeout WHERE id = ? ");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

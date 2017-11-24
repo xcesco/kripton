@@ -382,8 +382,8 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long updateOne(Bean63 value) {
     if (updateOnePreparedStatement0==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE bean63 SET value=?, valueMapStringByte=?, valueMapEnumByte=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE bean63 SET value=?, value_map_string_byte=?, value_map_enum_byte=? WHERE id=?";
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
@@ -411,7 +411,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE bean63 SET value=:value, value_map_string_byte=:valueMapStringByte, value_map_enum_byte=:valueMapEnumByte WHERE id=?");
+      Logger.info("UPDATE bean63 SET value=:value, value_map_string_byte=:value_map_string_byte, value_map_enum_byte=:value_map_enum_byte WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -458,7 +458,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long insert(Bean63 bean) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean63 (value, value_map_string_byte, value_map_enum_byte) VALUES (?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -538,7 +538,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long insert(Map<String, Byte> valueMapStringByte) {
     if (insertPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean63 (value_map_string_byte) VALUES (?)";
       insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -679,7 +679,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long delete(Map<String, Byte> valueMapStringByte) {
     if (deletePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean63 WHERE value=?";
       deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -730,7 +730,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long updateOne(long id, Map<String, Byte> valueMapStringByte) {
     if (updateOnePreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean63 SET id=? WHERE value=?";
       updateOnePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -788,7 +788,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long insert(HashMap<EnumType, Byte> valueMapEnumByte) {
     if (insertPreparedStatement5==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean63 (value_map_enum_byte) VALUES (?)";
       insertPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1123,7 +1123,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long delete(HashMap<EnumType, Byte> valueMapEnumByte) {
     if (deletePreparedStatement6==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean63 WHERE value=?";
       deletePreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1174,7 +1174,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   @Override
   public long updateOne(long id, HashMap<EnumType, Byte> valueMapEnumByte) {
     if (updateOnePreparedStatement7==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean63 SET id=? WHERE value=?";
       updateOnePreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1333,9 +1333,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * for param serializer1 serialization
+   * for param serializer3 serialization
    */
-  private byte[] serializer1(Map<String, Byte> value) {
+  private byte[] serializer3(String value) {
     if (value==null) {
       return null;
     }
@@ -1345,24 +1345,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
-        // write wrapper tag
-        if (value.size()>0) {
-          jacksonSerializer.writeFieldName("element");
-          jacksonSerializer.writeStartArray();
-          for (Map.Entry<String, Byte> item: value.entrySet()) {
-            jacksonSerializer.writeStartObject();
-            jacksonSerializer.writeStringField(null, item.getKey());
-            if (item.getValue()==null) {
-              jacksonSerializer.writeNullField(null);
-            } else {
-              jacksonSerializer.writeNumberField(null, item.getValue());
-            }
-            jacksonSerializer.writeEndObject();
-          }
-          jacksonSerializer.writeEndArray();
-        } else {
-          jacksonSerializer.writeNullField("element");
-        }
+        jacksonSerializer.writeStringField("element", value);
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
@@ -1373,9 +1356,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * for param parser1 parsing
+   * for param parser3 parsing
    */
-  private Map<String, Byte> parser1(byte[] input) {
+  private String parser3(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -1386,24 +1369,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      Map<String, Byte> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashMap<String, Byte> collection=new HashMap<>();
-        String key=null;
-        Byte value=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          jacksonParser.nextValue();
-          key=jacksonParser.getText();
-          jacksonParser.nextValue();
-          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-            value=jacksonParser.getByteValue();
-          }
-          collection.put(key, value);
-          key=null;
-          value=null;
-          jacksonParser.nextToken();
-        }
-        result=collection;
+      String result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getText();
       }
       return result;
     } catch(Exception e) {
@@ -1494,9 +1462,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * for param serializer3 serialization
+   * for param serializer1 serialization
    */
-  private byte[] serializer3(String value) {
+  private byte[] serializer1(Map<String, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -1506,7 +1474,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
-        jacksonSerializer.writeStringField("element", value);
+        // write wrapper tag
+        if (value.size()>0) {
+          jacksonSerializer.writeFieldName("element");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Byte> item: value.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField(null, item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField(null);
+            } else {
+              jacksonSerializer.writeNumberField(null, item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeNullField("element");
+        }
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
@@ -1517,9 +1502,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
   }
 
   /**
-   * for param parser3 parsing
+   * for param parser1 parsing
    */
-  private String parser3(byte[] input) {
+  private Map<String, Byte> parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -1530,9 +1515,24 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      String result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getText();
+      Map<String, Byte> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashMap<String, Byte> collection=new HashMap<>();
+        String key=null;
+        Byte value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+          key=jacksonParser.getText();
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+            value=jacksonParser.getByteValue();
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
       }
       return result;
     } catch(Exception e) {

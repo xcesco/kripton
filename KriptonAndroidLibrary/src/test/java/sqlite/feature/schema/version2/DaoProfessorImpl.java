@@ -47,7 +47,7 @@ public class DaoProfessorImpl extends AbstractDao implements DaoProfessor {
   @Override
   public long insert(Professor bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO professor (name, birth_date, surname) VALUES (?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

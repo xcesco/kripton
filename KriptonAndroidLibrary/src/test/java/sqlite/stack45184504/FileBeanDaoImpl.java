@@ -53,7 +53,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
   @Override
   public long insert(FileBean bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO files (name, content, content_type) VALUES (?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -139,7 +139,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
   @Override
   public long insert(String name, String contentType, byte[] content) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO files (name, content_type, content) VALUES (?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

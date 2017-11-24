@@ -54,7 +54,7 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
   @Override
   public void insert(Post bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO post (user_id, id, title, body) VALUES (?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

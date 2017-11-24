@@ -609,7 +609,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
   @Override
   public long insert(Employee bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO employees (last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -760,7 +760,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
   @Override
   public long insertJQL(Employee bean) {
     if (insertJQLPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       insertJQLPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -903,8 +903,8 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
   @Override
   public long update(Employee bean) {
     if (updatePreparedStatement2==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE employees SET lastName=?, firstName=?, birthDate=?, hireDate=?, address=?, fieldBoolean=?, fieldByte=?, fieldCharacter=?, fieldShort=?, fieldInteger=?, fieldLong=?, fieldFloat=?, fieldDouble=?, fieldString=?, fieldByteArray=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      // generate static SQL for statement
+      String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
       updatePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
@@ -1001,7 +1001,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+      Logger.info("UPDATE employees SET last_name=:last_name, first_name=:first_name, birth_date=:birth_date, hire_date=:hire_date, address=:address, field_boolean=:field_boolean, field_byte=:field_byte, field_character=:field_character, field_short=:field_short, field_integer=:field_integer, field_long=:field_long, field_float=:field_float, field_double=:field_double, field_string=:field_string, field_byte_array=:field_byte_array WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1063,8 +1063,8 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
   @Override
   public long updateById(Employee bean) {
     if (updateByIdPreparedStatement3==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE employees SET lastName=?, firstName=?, birthDate=?, hireDate=?, address=?, fieldBoolean=?, fieldByte=?, fieldCharacter=?, fieldShort=?, fieldInteger=?, fieldLong=?, fieldFloat=?, fieldDouble=?, fieldString=?, fieldByteArray=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=?";
       updateByIdPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement3);
@@ -1152,7 +1152,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=?");
+      Logger.info("UPDATE employees SET last_name=:last_name, first_name=:first_name, birth_date=:birth_date, hire_date=:hire_date, address=:address, field_boolean=:field_boolean, field_byte=:field_byte, field_character=:field_character, field_short=:field_short, field_integer=:field_integer, field_long=:field_long, field_float=:field_float, field_double=:field_double, field_string=:field_string, field_byte_array=:field_byte_array WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1213,8 +1213,8 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
   @Override
   public long updateJQL(Employee bean) {
     if (updateJQLPreparedStatement4==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE employees SET lastName=?, firstName=?, birthDate=?, hireDate=?, address=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      // generate static SQL for statement
+      String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
       updateJQLPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLPreparedStatement4);
@@ -1261,7 +1261,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+      Logger.info("UPDATE employees SET last_name=:last_name, first_name=:first_name, birth_date=:birth_date, hire_date=:hire_date, address=:address WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1313,8 +1313,8 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
   @Override
   public long updateByIdJQL(Employee bean) {
     if (updateByIdJQLPreparedStatement5==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE employees SET lastName=?, firstName=?, birthDate=?, hireDate=?, address=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=?";
       updateByIdJQLPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdJQLPreparedStatement5);
@@ -1352,7 +1352,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address WHERE id=?");
+      Logger.info("UPDATE employees SET last_name=:last_name, first_name=:first_name, birth_date=:birth_date, hire_date=:hire_date, address=:address WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1404,7 +1404,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
   @Override
   public long delete(Employee bean) {
     if (deletePreparedStatement6==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
       deletePreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1466,7 +1466,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
   @Override
   public long deleteJQL(Employee bean) {
     if (deleteJQLPreparedStatement7==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
       deleteJQLPreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1519,7 +1519,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
   @Override
   public long deleteById(Employee bean) {
     if (deleteByIdPreparedStatement8==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM employees WHERE id=?";
       deleteByIdPreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

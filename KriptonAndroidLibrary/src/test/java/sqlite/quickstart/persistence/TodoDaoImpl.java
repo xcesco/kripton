@@ -54,7 +54,7 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
   @Override
   public void insert(Todo bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO todo (id, user_id, title, completed) VALUES (?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

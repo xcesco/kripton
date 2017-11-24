@@ -58,7 +58,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   @Override
   public long insert(Bean01 bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean01 (lista, message_date, message_text, bean_list, value) VALUES (?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -143,7 +143,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   @Override
   public long insert(long value, long messageDate) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO bean01 (value, message_date) VALUES (?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -210,7 +210,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   @Override
   public long delete(long id) {
     if (deletePreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean01 WHERE id=?";
       deletePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -254,7 +254,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   @Override
   public long delete(Bean01 bean) {
     if (deletePreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM bean01 WHERE id=?";
       deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -305,7 +305,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   @Override
   public long update(long value, long id) {
     if (updatePreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE bean01 SET value=? WHERE id>?";
       updatePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -372,8 +372,8 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
   @Override
   public long update(Bean01 bean) {
     if (updatePreparedStatement5==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE bean01 SET lista=?, messageDate=?, messageText=?, beanList=?, value=? WHERE value=?";
+      // generate static SQL for statement
+      String _sql="UPDATE bean01 SET lista=?, message_date=?, message_text=?, bean_list=?, value=? WHERE value=?";
       updatePreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement5);
@@ -403,7 +403,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE bean01 SET lista=:lista, message_date=:messageDate, message_text=:messageText, bean_list=:beanList, value=:value WHERE value=?");
+      Logger.info("UPDATE bean01 SET lista=:lista, message_date=:message_date, message_text=:message_text, bean_list=:bean_list, value=:value WHERE value=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

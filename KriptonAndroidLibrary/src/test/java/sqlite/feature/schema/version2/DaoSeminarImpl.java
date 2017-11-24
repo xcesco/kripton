@@ -45,7 +45,7 @@ public class DaoSeminarImpl extends AbstractDao implements DaoSeminar {
   @Override
   public long insert(Seminar bean) {
     if (insertPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO seminar (name, location) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

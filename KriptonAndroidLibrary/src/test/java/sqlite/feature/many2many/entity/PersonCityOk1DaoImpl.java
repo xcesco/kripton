@@ -342,7 +342,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
   @Override
   public int deleteById(long id) {
     if (deleteByIdPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person_city_ok1 WHERE id=?";
       deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -387,7 +387,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
   @Override
   public int deleteByPersonId(long personId) {
     if (deleteByPersonIdPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person_city_ok1 WHERE person_id=?";
       deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -432,7 +432,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
   @Override
   public int deleteByCityId(long cityId) {
     if (deleteByCityIdPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person_city_ok1 WHERE city_id=?";
       deleteByCityIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -479,7 +479,7 @@ public class PersonCityOk1DaoImpl extends AbstractDao implements GeneratedPerson
   @Override
   public int insert(PersonCityOk1 bean) {
     if (insertPreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person_city_ok1 (person_id, city_id) VALUES (?, ?)";
       insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

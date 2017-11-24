@@ -391,7 +391,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birth_city, birth_day=:birth_day WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -513,7 +513,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
     if (insertOnePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
       insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

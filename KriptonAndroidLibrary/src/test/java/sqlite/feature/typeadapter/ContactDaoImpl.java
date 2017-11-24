@@ -265,7 +265,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public void deleteCompactBean(Contact bean) {
     if (deleteCompactBeanPreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM contact WHERE id=? and type=?";
       deleteCompactBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -311,7 +311,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public void deleteCompactRaw(String password, ContactType type) {
     if (deleteCompactRawPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM contact WHERE password=? and type=?";
       deleteCompactRawPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -354,7 +354,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public void deleteJQLBean(Contact bean) {
     if (deleteJQLBeanPreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM contact WHERE id=? and type=?";
       deleteJQLBeanPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -402,7 +402,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public long deleteJQLRaw(long id, ContactType type) {
     if (deleteJQLRawPreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM contact WHERE id=? and type=?";
       deleteJQLRawPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -911,7 +911,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public long updateCompactBean(Contact bean) {
     if (updateCompactBeanPreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE contact SET id=?, type=? WHERE id=?  and password=? and type=?";
       updateCompactBeanPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -986,7 +986,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public long updateCompactRaw1(String password, ContactType type, long id) {
     if (updateCompactRaw1PreparedStatement5==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE contact SET password=?, type=? WHERE id=?";
       updateCompactRaw1PreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1066,8 +1066,8 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public long updateCompactRaw2(Date birthDay, String password, ContactType type, long id) {
     if (updateCompactRaw2PreparedStatement6==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE contact SET birthDay=?, id=? WHERE password=? and type=?";
+      // generate static SQL for statement
+      String _sql="UPDATE contact SET birth_day=?, id=? WHERE password=? and type=?";
       updateCompactRaw2PreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateCompactRaw2PreparedStatement6);
@@ -1087,7 +1087,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=? and type=?");
+      Logger.info("UPDATE contact SET birth_day=:birth_day, id=:id WHERE password=? and type=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1138,8 +1138,8 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public long updateJQLBean(Contact bean) {
     if (updateJQLBeanPreparedStatement7==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE contact SET birthDay=?, password=?, type=? WHERE type=?  and type=?";
+      // generate static SQL for statement
+      String _sql="UPDATE contact SET birth_day=?, password=?, type=? WHERE type=?  and type=?";
       updateJQLBeanPreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLBeanPreparedStatement7);
@@ -1168,7 +1168,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE contact SET birth_day=:birthDay, password=:password, type=:type WHERE type=?  and type=?");
+      Logger.info("UPDATE contact SET birth_day=:birth_day, password=:password, type=:type WHERE type=?  and type=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1224,8 +1224,8 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public long updateJQLRaw(String password, Date birthDay, ContactType type, long id) {
     if (updateJQLRawPreparedStatement8==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE contact SET birthDay=?, id=? WHERE password=? and type=?";
+      // generate static SQL for statement
+      String _sql="UPDATE contact SET birth_day=?, id=? WHERE password=? and type=?";
       updateJQLRawPreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLRawPreparedStatement8);
@@ -1245,7 +1245,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=? and type=?");
+      Logger.info("UPDATE contact SET birth_day=:birth_day, id=:id WHERE password=? and type=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1294,7 +1294,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public long insertCompactRaw(String password, ContactType type, long id) {
     if (insertCompactRawPreparedStatement9==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO contact (password, type, id) VALUES (?, ?, ?)";
       insertCompactRawPreparedStatement9 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1372,7 +1372,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public long insertCompactBean(Contact bean) {
     if (insertCompactBeanPreparedStatement10==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO contact (id, type) VALUES (?, ?)";
       insertCompactBeanPreparedStatement10 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1447,7 +1447,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public long insertJQLBean(Contact bean) {
     if (insertJQLBeanPreparedStatement11==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO contact (password, type, id) VALUES (?, ?, ?)";
       insertJQLBeanPreparedStatement11 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1529,7 +1529,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
   @Override
   public long insertJQLRaw(String password, Date birthDay, ContactType type, long id) {
     if (insertJQLRawPreparedStatement12==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO contact (password, type, id) VALUES (?, ?, ?)";
       insertJQLRawPreparedStatement12 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -1539,11 +1539,6 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
     } else {
       _contentValues.putNull("password");
-    }
-    if (birthDay!=null) {
-      _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
     }
     if (type!=null) {
       _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));

@@ -116,7 +116,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public boolean deleteContactBean1(Channel channel) {
     if (deleteContactBean1PreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM channel WHERE owner_uid=?";
       deleteContactBean1PreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -160,7 +160,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public boolean deleteContactBean2(Channel value) {
     if (deleteContactBean2PreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM channel WHERE owner_uid=?";
       deleteContactBean2PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -208,7 +208,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public long deleteContactRaw1(String b, long dummy) {
     if (deleteContactRaw1PreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM channel WHERE owner_uid=? and id=?";
       deleteContactRaw1PreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -257,7 +257,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public boolean deleteContactRaw2(String ownerUid, long id) {
     if (deleteContactRaw2PreparedStatement3==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM channel WHERE owner_uid=? and id=?";
       deleteContactRaw2PreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -305,7 +305,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public long insertRaw1(String b, long azz) {
     if (insertRaw1PreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO channel (owner_uid, id) VALUES (?, ?)";
       insertRaw1PreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -378,7 +378,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public boolean insertRaw2(String b, long id) {
     if (insertRaw2PreparedStatement5==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO channel (owner_uid, id) VALUES (?, ?)";
       insertRaw2PreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -451,7 +451,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public int insertRaw3(String ownerUid, long id) {
     if (insertRaw3PreparedStatement6==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO channel (owner_uid, id) VALUES (?, ?)";
       insertRaw3PreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -526,7 +526,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public int insertBean1(Channel bean) {
     if (insertBean1PreparedStatement7==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (?, ?, ?, ?)";
       insertBean1PreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -612,7 +612,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public boolean insertBean2(Channel bean) {
     if (insertBean2PreparedStatement8==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (?, ?, ?, ?)";
       insertBean2PreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -700,7 +700,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public long updateContactRaw1(long glu, long aid) {
     if (updateContactRaw1PreparedStatement9==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE channel SET id=? WHERE id=?";
       updateContactRaw1PreparedStatement9 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -765,7 +765,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public long updateContactRaw2(long id, long dummy) {
     if (updateContactRaw2PreparedStatement10==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE channel SET id=? WHERE id=?";
       updateContactRaw2PreparedStatement10 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -830,8 +830,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public boolean updateContactRaw3(String app, long id) {
     if (updateContactRaw3PreparedStatement11==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE channel SET ownerUid=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE channel SET owner_uid=? WHERE id=?";
       updateContactRaw3PreparedStatement11 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw3PreparedStatement11);
@@ -849,7 +849,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE channel SET owner_uid=:ownerUid WHERE id=?");
+      Logger.info("UPDATE channel SET owner_uid=:owner_uid WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -899,8 +899,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public int updateContactRaw4(String ownerUid, long id) {
     if (updateContactRaw4PreparedStatement12==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE channel SET ownerUid=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE channel SET owner_uid=? WHERE id=?";
       updateContactRaw4PreparedStatement12 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw4PreparedStatement12);
@@ -918,7 +918,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE channel SET owner_uid=:ownerUid WHERE id=?");
+      Logger.info("UPDATE channel SET owner_uid=:owner_uid WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -969,8 +969,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public int updateContactBean1(Channel value) {
     if (updateContactBean1PreparedStatement13==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE channel SET uid=?, ownerUid=?, updateTime=?, name=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
       updateContactBean1PreparedStatement13 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean1PreparedStatement13);
@@ -999,7 +999,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
+      Logger.info("UPDATE channel SET uid=:uid, owner_uid=:owner_uid, update_time=:update_time, name=:name WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1050,8 +1050,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public long updateContactBean2(Channel bean) {
     if (updateContactBean2PreparedStatement14==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE channel SET uid=?, ownerUid=?, updateTime=?, name=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
       updateContactBean2PreparedStatement14 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean2PreparedStatement14);
@@ -1080,7 +1080,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
+      Logger.info("UPDATE channel SET uid=:uid, owner_uid=:owner_uid, update_time=:update_time, name=:name WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1131,8 +1131,8 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
   @Override
   public boolean updateContactBean3(Channel bean) {
     if (updateContactBean3PreparedStatement15==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE channel SET uid=?, ownerUid=?, updateTime=?, name=? WHERE id=?";
+      // generate static SQL for statement
+      String _sql="UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
       updateContactBean3PreparedStatement15 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean3PreparedStatement15);
@@ -1161,7 +1161,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=?");
+      Logger.info("UPDATE channel SET uid=:uid, owner_uid=:owner_uid, update_time=:update_time, name=:name WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

@@ -162,8 +162,8 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   @Override
   public boolean updateById(MessageEntity bean) {
     if (updateByIdPreparedStatement0==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE message SET channelId=?, ownerType=?, uid=?, faceUid=?, text=?, ownerUid=?, channelUid=?, updateTime=?, type=? WHERE id = ?";
+      // generate static SQL for statement
+      String _sql="UPDATE message SET channel_id=?, owner_type=?, uid=?, face_uid=?, text=?, owner_uid=?, channel_uid=?, update_time=?, type=? WHERE id = ?";
       updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement0);
@@ -213,7 +213,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE message SET channel_id=:channelId, owner_type=:ownerType, uid=:uid, face_uid=:faceUid, text=:text, owner_uid=:ownerUid, channel_uid=:channelUid, update_time=:updateTime, type=:type WHERE id = ?");
+      Logger.info("UPDATE message SET channel_id=:channel_id, owner_type=:owner_type, uid=:uid, face_uid=:face_uid, text=:text, owner_uid=:owner_uid, channel_uid=:channel_uid, update_time=:update_time, type=:type WHERE id = ?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -265,7 +265,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
   @Override
   public void insert(MessageEntity bean) {
     if (insertPreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO message (channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }

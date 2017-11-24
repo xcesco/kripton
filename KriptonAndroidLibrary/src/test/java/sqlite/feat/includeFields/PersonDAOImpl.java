@@ -202,7 +202,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void insertIncludeOne(Person bean) {
     if (insertIncludeOnePreparedStatement0==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person (name, id) VALUES (?, ?)";
       insertIncludeOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -275,7 +275,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void insertExcludeOne(Person bean) {
     if (insertExcludeOnePreparedStatement1==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="INSERT INTO person (surname, birth_city, birth_day, type_name) VALUES (?, ?, ?, ?)";
       insertExcludeOnePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -357,7 +357,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void updateIncludeOne(Person bean) {
     if (updateIncludeOnePreparedStatement2==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="UPDATE person SET name=?, id=?";
       updateIncludeOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -419,8 +419,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void updateExcludeOne(Person bean) {
     if (updateExcludeOnePreparedStatement3==null) {
-      // generate static SQL for insert
-      String _sql="UPDATE person SET surname=?, birthCity=?, birthDay=?, typeName=?";
+      // generate static SQL for statement
+      String _sql="UPDATE person SET surname=?, birth_city=?, birth_day=?, type_name=?";
       updateExcludeOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateExcludeOnePreparedStatement3);
@@ -452,7 +452,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET surname=:surname, birth_city=:birthCity, birth_day=:birthDay, type_name=:typeName");
+      Logger.info("UPDATE person SET surname=:surname, birth_city=:birth_city, birth_day=:birth_day, type_name=:type_name");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -487,7 +487,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void deleteIncludeOne(Person bean) {
     if (deleteIncludeOnePreparedStatement4==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person";
       deleteIncludeOnePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
@@ -522,7 +522,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public void deleteExcludeOne(Person bean) {
     if (deleteExcludeOnePreparedStatement5==null) {
-      // generate static SQL for insert
+      // generate static SQL for statement
       String _sql="DELETE FROM person";
       deleteExcludeOnePreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
