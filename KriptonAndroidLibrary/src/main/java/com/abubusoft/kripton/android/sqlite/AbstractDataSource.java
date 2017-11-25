@@ -192,10 +192,13 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	}
 
 	protected AbstractDataSource(String name, int version, DataSourceOptions options) {
+		DataSourceOptions optionsValue = (options== null) ?DataSourceOptions.builder().build() : options;
+		
 		this.name = name;
 		this.version = version;
 		this.context = new SQLContextImpl(this);
-		this.options = options == null ? DataSourceOptions.builder().build() : options;
+		this.options = optionsValue;
+		this.logEnabled=optionsValue.logEnabled;
 	}
 
 	/*
@@ -402,10 +405,10 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 				database = sqliteHelper.getReadableDatabase();
 
 				if (logEnabled)
-					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
+					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()-1));
 			} else {
 				if (logEnabled)
-					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
+					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()-1));
 			}
 		} finally {
 			lockDb.unlock();
@@ -433,13 +436,13 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 			if (openCounter.incrementAndGet() == 1) {
 				// open new write database
 				sqliteHelper.setWriteAheadLoggingEnabled(true);
-
 				database = sqliteHelper.getWritableDatabase();
+				
 				if (logEnabled)
-					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()));
+					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()-1));
 			} else {
 				if (logEnabled)
-					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()));
+					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()-1));
 			}
 		} finally {
 			lockDb.unlock();

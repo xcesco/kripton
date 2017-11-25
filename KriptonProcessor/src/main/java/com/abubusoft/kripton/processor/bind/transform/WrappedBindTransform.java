@@ -103,9 +103,7 @@ public class WrappedBindTransform extends AbstractBindTransform {
 			case VALUE_CDATA:
 				methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($T.unescapeXml($L.getText()))" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
 						TypeUtility.typeName(property.typeAdapter.adapterClazz), utilClazz, StringEscapeUtils.class, parserName);
-				break;
-			default:
-				break;
+				break;			
 			}
 		} else {
 			switch (xmlType) {

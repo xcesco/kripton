@@ -37,9 +37,13 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 public class DataSourceOptions {
 
 	public final boolean logEnabled;
+	
 	public final CursorFactory factory;
+	
 	public final DatabaseErrorHandler errorHandler;
+	
 	public final DatabaseLifecycleHandler databaseLifecycleHandler;
+	
 	public final List<SQLiteUpdateTask> updateTasks;
 
 	public static Builder builder() {

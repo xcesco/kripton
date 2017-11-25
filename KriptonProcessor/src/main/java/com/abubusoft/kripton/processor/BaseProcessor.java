@@ -44,7 +44,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	/**
 	 * if we want to display debug info
 	 */
-	public static boolean DEBUG_MODE = true;
+	public static boolean DEBUG_MODE = false;
 
 	public static Elements elementUtils;
 	
