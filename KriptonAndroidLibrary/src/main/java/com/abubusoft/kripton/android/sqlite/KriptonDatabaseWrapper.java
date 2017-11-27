@@ -20,13 +20,13 @@ public abstract class KriptonDatabaseWrapper {
 		}
 	}
 
-	public static long insert(SQLContext context, SQLiteStatement ps, KriptonContentValues contentValues) {
+	public static long insert(SQLiteStatement ps, KriptonContentValues contentValues) {
 		contentValues.bind(ps);
 
 		return ps.executeInsert();
 	}
 
-	public static int updateDelete(SQLContext context, SQLiteStatement ps, KriptonContentValues contentValues) {
+	public static int updateDelete(SQLiteStatement ps, KriptonContentValues contentValues) {
 		contentValues.bind(ps);
 
 		return ps.executeUpdateDelete();

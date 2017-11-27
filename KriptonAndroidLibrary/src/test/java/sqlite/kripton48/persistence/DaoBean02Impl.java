@@ -134,7 +134,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteOnePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteOnePreparedStatement0, _contentValues);
     return result;
   }
 

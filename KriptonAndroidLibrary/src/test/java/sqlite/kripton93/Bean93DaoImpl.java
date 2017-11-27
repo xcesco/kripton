@@ -260,7 +260,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertDefaultPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertDefaultPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -346,7 +346,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertAbortPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertAbortPreparedStatement1, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -432,7 +432,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertFailPreparedStatement2, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertFailPreparedStatement2, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -518,7 +518,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertIgnorePreparedStatement3, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertIgnorePreparedStatement3, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -604,7 +604,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertReplacePreparedStatement4, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertReplacePreparedStatement4, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -690,7 +690,7 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertRollbackPreparedStatement5, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertRollbackPreparedStatement5, _contentValues);
     bean.id=result;
 
     return result!=-1;

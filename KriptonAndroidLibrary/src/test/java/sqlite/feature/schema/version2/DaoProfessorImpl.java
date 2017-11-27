@@ -104,7 +104,7 @@ public class DaoProfessorImpl extends AbstractDao implements DaoProfessor {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result;

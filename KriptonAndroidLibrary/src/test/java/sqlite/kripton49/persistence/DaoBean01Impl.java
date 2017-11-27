@@ -240,7 +240,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -285,7 +285,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteOnePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteOnePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -354,7 +354,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement2, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -424,7 +424,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement3, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement3, _contentValues);
     bean.setId(result);
 
     return result;

@@ -87,7 +87,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String value) {
-		compiledStatement.bindString(compiledStatementBindIndex++, (String) value);
+		compiledStatement.bindString(compiledStatementBindIndex++, value);
 
 	}
 
@@ -101,7 +101,7 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Byte value) {
 		if (this.compiledStatement != null) {
-			this.compiledStatement.bindLong(compiledStatementBindIndex++, (byte) value);
+			this.compiledStatement.bindLong(compiledStatementBindIndex++, value);
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -122,7 +122,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Byte value) {
-		this.compiledStatement.bindLong(compiledStatementBindIndex++, (byte) value);
+		this.compiledStatement.bindLong(compiledStatementBindIndex++, value);
 	}
 
 	/**
@@ -190,7 +190,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Integer value) {
-		compiledStatement.bindLong(compiledStatementBindIndex++, (int) value);
+		compiledStatement.bindLong(compiledStatementBindIndex++, value);
 	}
 
 	/**
@@ -271,7 +271,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Double value) {
-		this.compiledStatement.bindDouble(compiledStatementBindIndex++, (double) value);
+		this.compiledStatement.bindDouble(compiledStatementBindIndex++, value);
 	}
 
 	/**
@@ -284,7 +284,7 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Double value) {
 		if (this.compiledStatement != null) {
-			this.compiledStatement.bindDouble(compiledStatementBindIndex++, (double) value);
+			this.compiledStatement.bindDouble(compiledStatementBindIndex++, value);
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -306,7 +306,7 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Boolean value) {
 		if (this.compiledStatement != null) {
-			this.compiledStatement.bindLong(compiledStatementBindIndex++, (long) (((Boolean) value) == true ? 1 : 0));
+			this.compiledStatement.bindLong(compiledStatementBindIndex++, (((Boolean) value) == true ? 1 : 0));
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -327,7 +327,7 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, byte[] value) {
 		if (this.compiledStatement != null) {
-			compiledStatement.bindBlob(compiledStatementBindIndex++, (byte[]) value);
+			compiledStatement.bindBlob(compiledStatementBindIndex++, value);
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -368,7 +368,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Boolean value) {
-		this.compiledStatement.bindLong(compiledStatementBindIndex++, (long) (((Boolean) value) == true ? 1 : 0));
+		this.compiledStatement.bindLong(compiledStatementBindIndex++, (value == true ? 1 : 0));
 	}
 
 	/**
@@ -380,7 +380,7 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(byte[] value) {
-		compiledStatement.bindBlob(compiledStatementBindIndex++, (byte[]) value);
+		compiledStatement.bindBlob(compiledStatementBindIndex++, value);
 	}
 
 	/**
@@ -396,7 +396,7 @@ public final class KriptonContentValues {
 
 	public void addWhereArgs(String value) {
 		if (this.compiledStatement != null) {
-			compiledStatement.bindString(compiledStatementBindIndex++, (String) value);
+			compiledStatement.bindString(compiledStatementBindIndex++,value);
 		}
 
 		whereArgs.add(value);
@@ -477,6 +477,10 @@ public final class KriptonContentValues {
 		compiledStatement=null;
 		compiledStatementBindIndex=1;
 
+	}
+	
+	public void clearBindIndex() {
+		compiledStatementBindIndex=1;
 	}
 
 	protected Triple<String, Object, ParamType> triple = new Triple<>();

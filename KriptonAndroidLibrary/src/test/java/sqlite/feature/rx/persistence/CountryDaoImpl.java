@@ -141,7 +141,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     subject.onNext(SQLiteModification.createInsert(result));
     bean.id=result;
 
@@ -269,7 +269,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }
@@ -314,7 +314,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateByIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement2, _contentValues);
     subject.onNext(SQLiteModification.createDelete(result));
     return result!=0;
   }

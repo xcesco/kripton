@@ -103,7 +103,7 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
   }
 

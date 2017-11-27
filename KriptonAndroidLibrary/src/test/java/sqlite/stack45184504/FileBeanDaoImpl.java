@@ -110,7 +110,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result;
@@ -197,7 +197,7 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
   }
 

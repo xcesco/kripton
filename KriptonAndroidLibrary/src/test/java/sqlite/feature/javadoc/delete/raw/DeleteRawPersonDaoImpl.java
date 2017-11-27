@@ -74,7 +74,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteOneBeanPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteOneBeanPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -179,7 +179,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteOneBeanPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteOneBeanPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -286,7 +286,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllBeansJQLPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteAllBeansJQLPreparedStatement2, _contentValues);
     return result!=0;
   }
 
@@ -333,7 +333,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteFromSelectAllBeansJQLPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteFromSelectAllBeansJQLPreparedStatement3, _contentValues);
   }
 
   /**
@@ -436,7 +436,7 @@ public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteRawPreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteRawPreparedStatement4, _contentValues);
     return result;
   }
 

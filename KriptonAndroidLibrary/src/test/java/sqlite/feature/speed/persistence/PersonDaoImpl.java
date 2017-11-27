@@ -168,7 +168,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     }
 
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return bean;
@@ -217,7 +217,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updatePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -247,7 +247,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement2, _contentValues);
     return result;
   }
 

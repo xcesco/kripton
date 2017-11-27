@@ -817,7 +817,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertRawPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertRawPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -906,7 +906,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     bean.setPk(result);
   }
 
@@ -997,7 +997,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -1082,7 +1082,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -1130,7 +1130,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteOnePreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteOnePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1183,7 +1183,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteOnePreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteOnePreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1228,7 +1228,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteOnePreparedStatement6, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteOnePreparedStatement6, _contentValues);
     return result;
   }
 
@@ -1272,7 +1272,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteBeanPreparedStatement7, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteBeanPreparedStatement7, _contentValues);
     return result;
   }
 

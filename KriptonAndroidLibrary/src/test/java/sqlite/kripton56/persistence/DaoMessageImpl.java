@@ -91,7 +91,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateByIdPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement0, _contentValues);
     return result!=0;
   }
 

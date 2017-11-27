@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.abubusoft</groupId>
-	<version>3.0.1</version>
+	<version>3.0.2</version>
 	<artifactId>kripton-dataformat-cbor</artifactId>
 	<name>Kripton CBOR data format</name>
     <description>This is jar need to support CBOR format.</description>

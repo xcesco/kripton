@@ -303,7 +303,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -348,7 +348,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByPersonIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteByPersonIdPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -393,7 +393,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByCityIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteByCityIdPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -461,7 +461,7 @@ public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPerso
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement3, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
     bean.id=result;
 
     return (int)result;

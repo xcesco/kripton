@@ -128,7 +128,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return (int)result;
@@ -252,7 +252,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     return result!=0;
   }
 

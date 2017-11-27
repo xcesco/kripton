@@ -115,7 +115,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOneBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOneBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
     return (int)result;
@@ -231,7 +231,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOneBeanFieldNamePreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOneBeanFieldNamePreparedStatement1, _contentValues);
     bean.id=result;
 
     return (int)result;
@@ -350,7 +350,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOneBeanFieldSurnamePreparedStatement2, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOneBeanFieldSurnamePreparedStatement2, _contentValues);
     bean.id=result;
 
     return (int)result;

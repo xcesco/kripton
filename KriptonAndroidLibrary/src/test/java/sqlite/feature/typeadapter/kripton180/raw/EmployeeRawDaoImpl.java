@@ -1083,7 +1083,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -1226,7 +1226,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertWithAdapterPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertWithAdapterPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -1369,7 +1369,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateByIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -1480,7 +1480,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updatePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -1567,7 +1567,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1654,7 +1654,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteJQLPreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteJQLPreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1741,7 +1741,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteJQLWithAdapterPreparedStatement6, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteJQLWithAdapterPreparedStatement6, _contentValues);
     return result;
   }
 

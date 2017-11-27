@@ -116,7 +116,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertThread1PreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertThread1PreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -203,7 +203,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertThread2PreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertThread2PreparedStatement1, _contentValues);
     bean.id=result;
   }
 

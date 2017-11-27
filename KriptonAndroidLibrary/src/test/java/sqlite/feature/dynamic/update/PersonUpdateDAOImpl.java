@@ -576,7 +576,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement0, _contentValues);
   }
 
   public static void clearCompiledStatements() {

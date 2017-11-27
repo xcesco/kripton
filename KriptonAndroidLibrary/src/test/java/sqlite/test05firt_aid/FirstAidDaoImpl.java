@@ -192,7 +192,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -350,7 +350,7 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     bean.id=result;
 
     return (int)result;

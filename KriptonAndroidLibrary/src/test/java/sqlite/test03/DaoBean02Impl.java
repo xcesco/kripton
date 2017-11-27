@@ -117,7 +117,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     bean.setId(result);
 
     return result;
@@ -188,7 +188,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -233,7 +233,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -277,7 +277,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -342,7 +342,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updatePreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -425,7 +425,7 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updatePreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement5, _contentValues);
     return result;
   }
 

@@ -400,7 +400,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -445,7 +445,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -490,7 +490,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -535,7 +535,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -580,7 +580,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteArrayBeanTypePreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteArrayBeanTypePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -625,7 +625,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteArrayLongPreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteArrayLongPreparedStatement5, _contentValues);
     return result;
   }
 
@@ -670,7 +670,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteArrayLongTypePreparedStatement6, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteArrayLongTypePreparedStatement6, _contentValues);
     return result;
   }
 
@@ -715,7 +715,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteBytePreparedStatement7, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteBytePreparedStatement7, _contentValues);
     return result;
   }
 
@@ -760,7 +760,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByteTypePreparedStatement8, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteByteTypePreparedStatement8, _contentValues);
     return result;
   }
 
@@ -805,7 +805,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCalendarPreparedStatement9, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteCalendarPreparedStatement9, _contentValues);
     return result;
   }
 
@@ -850,7 +850,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCharPreparedStatement10, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteCharPreparedStatement10, _contentValues);
     return result;
   }
 
@@ -895,7 +895,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCharTypePreparedStatement11, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteCharTypePreparedStatement11, _contentValues);
     return result;
   }
 
@@ -940,7 +940,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCurrencyPreparedStatement12, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteCurrencyPreparedStatement12, _contentValues);
     return result;
   }
 
@@ -985,7 +985,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteDatePreparedStatement13, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteDatePreparedStatement13, _contentValues);
     return result;
   }
 
@@ -1030,7 +1030,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteDoublePreparedStatement14, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteDoublePreparedStatement14, _contentValues);
     return result;
   }
 
@@ -1075,7 +1075,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteDoubleTypePreparedStatement15, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteDoubleTypePreparedStatement15, _contentValues);
     return result;
   }
 
@@ -1120,7 +1120,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteEnumTypePreparedStatement16, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteEnumTypePreparedStatement16, _contentValues);
     return result;
   }
 
@@ -1165,7 +1165,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteFloatPreparedStatement17, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteFloatPreparedStatement17, _contentValues);
     return result;
   }
 
@@ -1210,7 +1210,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteFloatTypePreparedStatement18, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteFloatTypePreparedStatement18, _contentValues);
     return result;
   }
 
@@ -1255,7 +1255,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteIntPreparedStatement19, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteIntPreparedStatement19, _contentValues);
     return result;
   }
 
@@ -1300,7 +1300,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteIntTypePreparedStatement20, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteIntTypePreparedStatement20, _contentValues);
     return result;
   }
 
@@ -1345,7 +1345,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteListLongPreparedStatement21, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteListLongPreparedStatement21, _contentValues);
     return result;
   }
 
@@ -1390,7 +1390,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteLocalePreparedStatement22, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteLocalePreparedStatement22, _contentValues);
     return result;
   }
 
@@ -1435,7 +1435,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteLongPreparedStatement23, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteLongPreparedStatement23, _contentValues);
     return result;
   }
 
@@ -1480,7 +1480,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteLongTypePreparedStatement24, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteLongTypePreparedStatement24, _contentValues);
     return result;
   }
 
@@ -1525,7 +1525,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteShortPreparedStatement25, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteShortPreparedStatement25, _contentValues);
     return result;
   }
 
@@ -1570,7 +1570,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteShortTypePreparedStatement26, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteShortTypePreparedStatement26, _contentValues);
     return result;
   }
 
@@ -1615,7 +1615,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteStringPreparedStatement27, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteStringPreparedStatement27, _contentValues);
     return result;
   }
 
@@ -1660,7 +1660,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteTimePreparedStatement28, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteTimePreparedStatement28, _contentValues);
     return result;
   }
 
@@ -1705,7 +1705,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteTimeZonePreparedStatement29, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteTimeZonePreparedStatement29, _contentValues);
     return result;
   }
 
@@ -1750,7 +1750,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteURLPreparedStatement30, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteURLPreparedStatement30, _contentValues);
     return result;
   }
 
@@ -2028,7 +2028,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement31, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement31, _contentValues);
     bean.id=result;
 
     return result;
@@ -2099,7 +2099,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement32, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement32, _contentValues);
     return result;
   }
 
@@ -2168,7 +2168,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement33, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement33, _contentValues);
     return result;
   }
 
@@ -2233,7 +2233,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement34, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement34, _contentValues);
     return result;
   }
 
@@ -2302,7 +2302,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement35, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement35, _contentValues);
     return result;
   }
 
@@ -2371,7 +2371,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertArrayBeanTypePreparedStatement36, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertArrayBeanTypePreparedStatement36, _contentValues);
     return result;
   }
 
@@ -2440,7 +2440,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertArrayLongPreparedStatement37, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertArrayLongPreparedStatement37, _contentValues);
     return result;
   }
 
@@ -2509,7 +2509,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertArrayLongTypePreparedStatement38, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertArrayLongTypePreparedStatement38, _contentValues);
     return result;
   }
 
@@ -2578,7 +2578,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertBytePreparedStatement39, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertBytePreparedStatement39, _contentValues);
     return result;
   }
 
@@ -2643,7 +2643,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertByteTypePreparedStatement40, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertByteTypePreparedStatement40, _contentValues);
     return result;
   }
 
@@ -2712,7 +2712,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertCalendarPreparedStatement41, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertCalendarPreparedStatement41, _contentValues);
     return result;
   }
 
@@ -2781,7 +2781,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertCharPreparedStatement42, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertCharPreparedStatement42, _contentValues);
     return result;
   }
 
@@ -2846,7 +2846,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertCharTypePreparedStatement43, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertCharTypePreparedStatement43, _contentValues);
     return result;
   }
 
@@ -2915,7 +2915,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertCurrencyPreparedStatement44, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertCurrencyPreparedStatement44, _contentValues);
     return result;
   }
 
@@ -2984,7 +2984,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertDatePreparedStatement45, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertDatePreparedStatement45, _contentValues);
     return result;
   }
 
@@ -3053,7 +3053,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertDoublePreparedStatement46, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertDoublePreparedStatement46, _contentValues);
     return result;
   }
 
@@ -3118,7 +3118,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertDoubleTypePreparedStatement47, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertDoubleTypePreparedStatement47, _contentValues);
     return result;
   }
 
@@ -3187,7 +3187,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertEnumTypePreparedStatement48, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertEnumTypePreparedStatement48, _contentValues);
     return result;
   }
 
@@ -3256,7 +3256,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertFloatPreparedStatement49, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertFloatPreparedStatement49, _contentValues);
     return result;
   }
 
@@ -3321,7 +3321,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertFloatTypePreparedStatement50, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertFloatTypePreparedStatement50, _contentValues);
     return result;
   }
 
@@ -3390,7 +3390,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertIntPreparedStatement51, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertIntPreparedStatement51, _contentValues);
     return result;
   }
 
@@ -3455,7 +3455,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertIntTypePreparedStatement52, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertIntTypePreparedStatement52, _contentValues);
     return result;
   }
 
@@ -3524,7 +3524,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertListLongPreparedStatement53, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertListLongPreparedStatement53, _contentValues);
     return result;
   }
 
@@ -3593,7 +3593,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertLocalePreparedStatement54, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertLocalePreparedStatement54, _contentValues);
     return result;
   }
 
@@ -3662,7 +3662,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertLongPreparedStatement55, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertLongPreparedStatement55, _contentValues);
     return result;
   }
 
@@ -3727,7 +3727,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertLongTypePreparedStatement56, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertLongTypePreparedStatement56, _contentValues);
     return result;
   }
 
@@ -3796,7 +3796,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertShortPreparedStatement57, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertShortPreparedStatement57, _contentValues);
     return result;
   }
 
@@ -3861,7 +3861,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertShortTypePreparedStatement58, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertShortTypePreparedStatement58, _contentValues);
     return result;
   }
 
@@ -3930,7 +3930,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertStringPreparedStatement59, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertStringPreparedStatement59, _contentValues);
     return result;
   }
 
@@ -3999,7 +3999,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertTimePreparedStatement60, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertTimePreparedStatement60, _contentValues);
     return result;
   }
 
@@ -4068,7 +4068,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertTimeZonePreparedStatement61, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertTimeZonePreparedStatement61, _contentValues);
     return result;
   }
 
@@ -4137,7 +4137,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertURLPreparedStatement62, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertURLPreparedStatement62, _contentValues);
     return result;
   }
 
@@ -11678,7 +11678,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement63, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement63, _contentValues);
     return result;
   }
 
@@ -11743,7 +11743,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement64, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement64, _contentValues);
     return result;
   }
 
@@ -11808,7 +11808,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement65, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement65, _contentValues);
     return result;
   }
 
@@ -11873,7 +11873,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement66, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement66, _contentValues);
     return result;
   }
 
@@ -11938,7 +11938,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement67, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement67, _contentValues);
     return result;
   }
 
@@ -12007,7 +12007,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement68, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement68, _contentValues);
     return result;
   }
 
@@ -12072,7 +12072,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneArrayBeanPreparedStatement69, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneArrayBeanPreparedStatement69, _contentValues);
     return result;
   }
 
@@ -12137,7 +12137,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneArrayLongPreparedStatement70, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneArrayLongPreparedStatement70, _contentValues);
     return result;
   }
 
@@ -12202,7 +12202,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneArrayLongTypePreparedStatement71, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneArrayLongTypePreparedStatement71, _contentValues);
     return result;
   }
 
@@ -12267,7 +12267,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneBytePreparedStatement72, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneBytePreparedStatement72, _contentValues);
     return result;
   }
 
@@ -12332,7 +12332,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneByteTypePreparedStatement73, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneByteTypePreparedStatement73, _contentValues);
     return result;
   }
 
@@ -12397,7 +12397,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneCalendarPreparedStatement74, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneCalendarPreparedStatement74, _contentValues);
     return result;
   }
 
@@ -12462,7 +12462,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneCharPreparedStatement75, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneCharPreparedStatement75, _contentValues);
     return result;
   }
 
@@ -12527,7 +12527,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneCharTypePreparedStatement76, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneCharTypePreparedStatement76, _contentValues);
     return result;
   }
 
@@ -12592,7 +12592,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneCurrencyPreparedStatement77, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneCurrencyPreparedStatement77, _contentValues);
     return result;
   }
 
@@ -12657,7 +12657,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneDatePreparedStatement78, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneDatePreparedStatement78, _contentValues);
     return result;
   }
 
@@ -12722,7 +12722,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneDoublePreparedStatement79, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneDoublePreparedStatement79, _contentValues);
     return result;
   }
 
@@ -12787,7 +12787,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneDoubleTypePreparedStatement80, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneDoubleTypePreparedStatement80, _contentValues);
     return result;
   }
 
@@ -12852,7 +12852,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneEnumTypePreparedStatement81, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneEnumTypePreparedStatement81, _contentValues);
     return result;
   }
 
@@ -12917,7 +12917,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneFloatPreparedStatement82, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneFloatPreparedStatement82, _contentValues);
     return result;
   }
 
@@ -12982,7 +12982,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneFloatTypePreparedStatement83, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneFloatTypePreparedStatement83, _contentValues);
     return result;
   }
 
@@ -13047,7 +13047,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneIntPreparedStatement84, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneIntPreparedStatement84, _contentValues);
     return result;
   }
 
@@ -13112,7 +13112,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneIntTypePreparedStatement85, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneIntTypePreparedStatement85, _contentValues);
     return result;
   }
 
@@ -13177,7 +13177,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneListLongPreparedStatement86, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneListLongPreparedStatement86, _contentValues);
     return result;
   }
 
@@ -13242,7 +13242,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneLocalePreparedStatement87, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneLocalePreparedStatement87, _contentValues);
     return result;
   }
 
@@ -13307,7 +13307,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneLongPreparedStatement88, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneLongPreparedStatement88, _contentValues);
     return result;
   }
 
@@ -13372,7 +13372,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneLongTypePreparedStatement89, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneLongTypePreparedStatement89, _contentValues);
     return result;
   }
 
@@ -13437,7 +13437,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneShortPreparedStatement90, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneShortPreparedStatement90, _contentValues);
     return result;
   }
 
@@ -13502,7 +13502,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneShortTypePreparedStatement91, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneShortTypePreparedStatement91, _contentValues);
     return result;
   }
 
@@ -13567,7 +13567,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneStringPreparedStatement92, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneStringPreparedStatement92, _contentValues);
     return result;
   }
 
@@ -13632,7 +13632,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneTimePreparedStatement93, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneTimePreparedStatement93, _contentValues);
     return result;
   }
 
@@ -13697,7 +13697,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneTimeZonePreparedStatement94, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneTimeZonePreparedStatement94, _contentValues);
     return result;
   }
 
@@ -13762,7 +13762,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOneURLPreparedStatement95, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOneURLPreparedStatement95, _contentValues);
     return result;
   }
 

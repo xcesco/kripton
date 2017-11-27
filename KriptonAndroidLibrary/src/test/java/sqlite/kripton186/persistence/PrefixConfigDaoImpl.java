@@ -111,7 +111,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return (int)result;
@@ -232,7 +232,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -375,7 +375,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updatePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement2, _contentValues);
     return result;
   }
 

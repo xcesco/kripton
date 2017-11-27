@@ -241,7 +241,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertAllPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertAllPreparedStatement0, _contentValues);
     schoolLunches.setLunchId(result);
   }
 
@@ -280,7 +280,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement1, _contentValues);
   }
 
   public static void clearCompiledStatements() {

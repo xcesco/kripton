@@ -176,7 +176,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
     return bean;
@@ -512,7 +512,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertByCopy3PreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertByCopy3PreparedStatement1, _contentValues);
     bean.id=result;
   }
 
@@ -585,7 +585,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertByCopyPreparedStatement2, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertByCopyPreparedStatement2, _contentValues);
     return (int)result;
   }
 
@@ -652,7 +652,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateJQLPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateJQLPreparedStatement3, _contentValues);
   }
 
   /**

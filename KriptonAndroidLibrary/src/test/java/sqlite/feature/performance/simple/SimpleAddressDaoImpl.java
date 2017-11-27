@@ -110,7 +110,7 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement0, _contentValues);
   }
 
   /**
@@ -220,7 +220,7 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
     _contentValues.put(bean.getPhone());
 
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     bean.setId(result);
   }
 

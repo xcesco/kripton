@@ -223,7 +223,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updatePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -289,7 +289,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     bean.id=result;
 
     return result;
@@ -336,7 +336,7 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement2, _contentValues);
     return result;
   }
 

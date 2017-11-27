@@ -168,7 +168,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
     bean.id=result;
 
     return bean;

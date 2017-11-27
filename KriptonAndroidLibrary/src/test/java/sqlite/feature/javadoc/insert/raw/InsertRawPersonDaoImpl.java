@@ -113,7 +113,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOneRawPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOneRawPreparedStatement0, _contentValues);
     return (int)result;
   }
 
@@ -226,7 +226,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOneRawFieldNamePreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOneRawFieldNamePreparedStatement1, _contentValues);
     return (int)result;
   }
 
@@ -348,7 +348,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOne2RawFieldNamePreparedStatement2, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOne2RawFieldNamePreparedStatement2, _contentValues);
     return (int)result;
   }
 

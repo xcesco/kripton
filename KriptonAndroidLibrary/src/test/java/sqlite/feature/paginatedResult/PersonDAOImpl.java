@@ -351,7 +351,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement0, _contentValues);
   }
 
   /**
@@ -463,7 +463,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement1, _contentValues);
     return result;
   }
 

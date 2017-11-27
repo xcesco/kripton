@@ -289,7 +289,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCompactBeanPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteCompactBeanPreparedStatement0, _contentValues);
   }
 
   /**
@@ -335,7 +335,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteCompactRawPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteCompactRawPreparedStatement1, _contentValues);
   }
 
   /**
@@ -378,7 +378,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteJQLBeanPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteJQLBeanPreparedStatement2, _contentValues);
   }
 
   /**
@@ -426,7 +426,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteJQLRawPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteJQLRawPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -955,7 +955,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateCompactBeanPreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateCompactBeanPreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1032,7 +1032,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateCompactRaw1PreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateCompactRaw1PreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1109,7 +1109,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateCompactRaw2PreparedStatement6, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateCompactRaw2PreparedStatement6, _contentValues);
     return result;
   }
 
@@ -1190,7 +1190,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateJQLBeanPreparedStatement7, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateJQLBeanPreparedStatement7, _contentValues);
     return result;
   }
 
@@ -1267,7 +1267,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateJQLRawPreparedStatement8, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateJQLRawPreparedStatement8, _contentValues);
     return result;
   }
 
@@ -1348,7 +1348,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertCompactRawPreparedStatement9, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertCompactRawPreparedStatement9, _contentValues);
     return result;
   }
 
@@ -1420,7 +1420,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertCompactBeanPreparedStatement10, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertCompactBeanPreparedStatement10, _contentValues);
     bean.setId(result);
 
     return result;
@@ -1500,7 +1500,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertJQLBeanPreparedStatement11, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertJQLBeanPreparedStatement11, _contentValues);
     bean.setId(result);
 
     return result;
@@ -1583,7 +1583,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertJQLRawPreparedStatement12, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertJQLRawPreparedStatement12, _contentValues);
     return result;
   }
 

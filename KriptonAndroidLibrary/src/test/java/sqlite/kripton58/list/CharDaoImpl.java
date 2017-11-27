@@ -462,7 +462,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateOnePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -535,7 +535,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -611,7 +611,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement2, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement2, _contentValues);
     bean.id=result;
 
     return result;
@@ -658,7 +658,7 @@ public class CharDaoImpl extends AbstractDao implements CharDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement3, _contentValues);
     return result;
   }
 

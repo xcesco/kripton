@@ -93,7 +93,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
 		} else {			
 			String psName=method.buildPreparedStatementName();			
-			methodBuilder.addStatement("long result = $T.insert(_context, $L, _contentValues)", KriptonDatabaseWrapper.class, psName);
+			methodBuilder.addStatement("long result = $T.insert($L, _contentValues)", KriptonDatabaseWrapper.class, psName);
 		}
 		
 		if (method.getParent().getParent().generateRx) {

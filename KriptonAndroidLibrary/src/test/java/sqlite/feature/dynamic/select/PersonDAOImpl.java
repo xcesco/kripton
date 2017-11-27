@@ -122,7 +122,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement0, _contentValues);
   }
 
   /**

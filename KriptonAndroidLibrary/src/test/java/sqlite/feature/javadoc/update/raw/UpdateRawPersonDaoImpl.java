@@ -107,7 +107,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateAllBeansPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateAllBeansPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -178,7 +178,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateAllBeansJQLPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateAllBeansJQLPreparedStatement1, _contentValues);
   }
 
   /**
@@ -386,7 +386,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateFromSelectJQLPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateFromSelectJQLPreparedStatement2, _contentValues);
   }
 
   /**
@@ -531,7 +531,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateBeanPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateBeanPreparedStatement3, _contentValues);
     return result;
   }
 

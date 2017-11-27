@@ -18,6 +18,6 @@ package com.abubusoft.kripton.processor;
 public abstract class Version {
 
 	public static String getVersion() {
-		return "3.0.1";
+		return "3.0.2";
 	}
 }

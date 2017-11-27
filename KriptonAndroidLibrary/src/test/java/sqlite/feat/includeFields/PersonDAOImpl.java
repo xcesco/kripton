@@ -250,7 +250,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertIncludeOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertIncludeOnePreparedStatement0, _contentValues);
     bean.id=result;
   }
 
@@ -337,7 +337,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertExcludeOnePreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertExcludeOnePreparedStatement1, _contentValues);
     bean.id=result;
   }
 
@@ -398,7 +398,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateIncludeOnePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateIncludeOnePreparedStatement2, _contentValues);
   }
 
   /**
@@ -474,7 +474,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateExcludeOnePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateExcludeOnePreparedStatement3, _contentValues);
   }
 
   /**
@@ -509,7 +509,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteIncludeOnePreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteIncludeOnePreparedStatement4, _contentValues);
   }
 
   /**
@@ -544,7 +544,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteExcludeOnePreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteExcludeOnePreparedStatement5, _contentValues);
   }
 
   public static void clearCompiledStatements() {

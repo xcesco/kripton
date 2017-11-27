@@ -245,7 +245,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result!=-1;
@@ -308,7 +308,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateAllPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateAllPreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -346,7 +346,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteAllPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement2, _contentValues);
     return result!=0;
   }
 

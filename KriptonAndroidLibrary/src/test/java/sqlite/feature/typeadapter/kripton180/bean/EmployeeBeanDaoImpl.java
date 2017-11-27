@@ -726,7 +726,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     bean.id=result;
 
     return result;
@@ -852,7 +852,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertJQLPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertJQLPreparedStatement1, _contentValues);
     bean.id=result;
 
     return result;
@@ -1023,7 +1023,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updatePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -1174,7 +1174,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateByIdPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -1283,7 +1283,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateJQLPreparedStatement4, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateJQLPreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1374,7 +1374,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateByIdJQLPreparedStatement5, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateByIdJQLPreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1436,7 +1436,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deletePreparedStatement6, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement6, _contentValues);
     return result;
   }
 
@@ -1498,7 +1498,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteJQLPreparedStatement7, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteJQLPreparedStatement7, _contentValues);
     return result;
   }
 
@@ -1542,7 +1542,7 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteByIdPreparedStatement8, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement8, _contentValues);
     return result;
   }
 

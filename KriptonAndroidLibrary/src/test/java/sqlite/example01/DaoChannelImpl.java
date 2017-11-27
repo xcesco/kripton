@@ -139,7 +139,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteContactBean1PreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteContactBean1PreparedStatement0, _contentValues);
     return result!=0;
   }
 
@@ -183,7 +183,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteContactBean2PreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteContactBean2PreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -232,7 +232,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteContactRaw1PreparedStatement2, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteContactRaw1PreparedStatement2, _contentValues);
     return result;
   }
 
@@ -281,7 +281,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, deleteContactRaw2PreparedStatement3, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(deleteContactRaw2PreparedStatement3, _contentValues);
     return result!=0;
   }
 
@@ -354,7 +354,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertRaw1PreparedStatement4, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertRaw1PreparedStatement4, _contentValues);
     return result;
   }
 
@@ -427,7 +427,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertRaw2PreparedStatement5, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertRaw2PreparedStatement5, _contentValues);
     return result!=-1;
   }
 
@@ -500,7 +500,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertRaw3PreparedStatement6, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertRaw3PreparedStatement6, _contentValues);
     return (int)result;
   }
 
@@ -584,7 +584,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertBean1PreparedStatement7, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertBean1PreparedStatement7, _contentValues);
     bean.setId(result);
 
     return (int)result;
@@ -670,7 +670,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertBean2PreparedStatement8, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertBean2PreparedStatement8, _contentValues);
     bean.setId(result);
 
     return result!=-1;
@@ -737,7 +737,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactRaw1PreparedStatement9, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateContactRaw1PreparedStatement9, _contentValues);
     return result;
   }
 
@@ -802,7 +802,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactRaw2PreparedStatement10, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateContactRaw2PreparedStatement10, _contentValues);
     return result;
   }
 
@@ -871,7 +871,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactRaw3PreparedStatement11, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateContactRaw3PreparedStatement11, _contentValues);
     return result!=0;
   }
 
@@ -940,7 +940,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactRaw4PreparedStatement12, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateContactRaw4PreparedStatement12, _contentValues);
     return result;
   }
 
@@ -1021,7 +1021,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactBean1PreparedStatement13, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateContactBean1PreparedStatement13, _contentValues);
     return result;
   }
 
@@ -1102,7 +1102,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactBean2PreparedStatement14, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateContactBean2PreparedStatement14, _contentValues);
     return result;
   }
 
@@ -1183,7 +1183,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, updateContactBean3PreparedStatement15, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updateContactBean3PreparedStatement15, _contentValues);
     return result!=0;
   }
 

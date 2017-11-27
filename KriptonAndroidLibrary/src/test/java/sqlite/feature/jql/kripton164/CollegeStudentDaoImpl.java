@@ -90,7 +90,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     student.id=result;
   }
 

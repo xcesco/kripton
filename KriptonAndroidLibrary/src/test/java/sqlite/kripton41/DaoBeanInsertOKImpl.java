@@ -94,7 +94,7 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(_context, insertDistancePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseWrapper.insert(insertDistancePreparedStatement0, _contentValues);
     return result!=-1;
   }
 
