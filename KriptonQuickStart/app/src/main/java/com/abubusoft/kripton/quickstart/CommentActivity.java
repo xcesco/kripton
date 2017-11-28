@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.quickstart.model.Comment;
 import com.abubusoft.quickstart.R;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartAsyncTask;
@@ -35,17 +36,13 @@ public class CommentActivity extends AppCompatActivity {
 
             if (list.size() == 0) {
                 list = QuickStartApplication.service.listComments(postId).execute().body();
-                dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
+                dataSource.execute(daoFactory -> {
+                    CommentDaoImpl dao = daoFactory.getCommentDao();
 
-                    @Override
-                    public boolean onExecute(BindQuickStartDaoFactory daoFactory) {
-                        CommentDaoImpl dao = daoFactory.getCommentDao();
-
-                        for (Comment item : list) {
-                            dao.insert(item);
-                        }
-                        return true;
+                    for (Comment item : list) {
+                        dao.insert(item);
                     }
+                    return TransactionResult.COMMIT;
                 });
 
                 return dataSource.getCommentDao().selectByPostId(postId);
@@ -69,15 +66,13 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle=getIntent().getExtras();
-        if (bundle!=null) {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
             postId = (long) bundle.get("postId");
             BindApplicationPreferences state = BindApplicationPreferences.instance();
             state.edit().putPostId(postId).commit();
-        }
-        else
-        {
-            postId=BindApplicationPreferences.instance().postId();
+        } else {
+            postId = BindApplicationPreferences.instance().postId();
         }
 
         setContentView(R.layout.activity_comment);

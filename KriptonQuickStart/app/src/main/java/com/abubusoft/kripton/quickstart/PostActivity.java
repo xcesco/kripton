@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.quickstart.R;
 import com.abubusoft.kripton.quickstart.model.Post;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartAsyncTask;
@@ -35,16 +36,12 @@ public class PostActivity extends AppCompatActivity {
 
             if (postList.size() == 0) {
                 postList = QuickStartApplication.service.listPosts(userId).execute().body();
-                dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
-
-                    @Override
-                    public boolean onExecute(BindQuickStartDaoFactory daoFactory) {
-                        PostDaoImpl dao = daoFactory.getPostDao();
-                        for (Post item : postList) {
-                            dao.insert(item);
-                        }
-                        return true;
+                dataSource.execute(daoFactory -> {
+                    PostDaoImpl dao = daoFactory.getPostDao();
+                    for (Post item : postList) {
+                        dao.insert(item);
                     }
+                    return TransactionResult.COMMIT;
                 });
 
                 return dataSource.getPostDao().selectByUserId(userId);
@@ -67,13 +64,11 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle!=null) {
+        if (bundle != null) {
             userId = (long) bundle.get("userId");
             BindApplicationPreferences.instance().edit().putUserId(userId).commit();
-        }
-        else
-        {
-            userId=BindApplicationPreferences.instance().userId();
+        } else {
+            userId = BindApplicationPreferences.instance().userId();
         }
 
         setContentView(R.layout.activity_post);

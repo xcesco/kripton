@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.abubusoft.kripton.android.BindAsyncTaskType;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.quickstart.R;
 import com.abubusoft.kripton.quickstart.model.User;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartAsyncTask;
@@ -45,17 +46,13 @@ public class UserActivity extends AppCompatActivity {
 
             if (isNetworkAvailable(UserActivity.this) && userList.size() == 0) {
                 userList = QuickStartApplication.service.listUsers().execute().body();
-                dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
+                dataSource.execute(daoFactory -> {
+                    UserDaoImpl dao = daoFactory.getUserDao();
 
-                    @Override
-                    public boolean onExecute(BindQuickStartDaoFactory daoFactory) {
-                        UserDaoImpl dao = daoFactory.getUserDao();
-
-                        for (User item : userList) {
-                            dao.insert(item);
-                        }
-                        return true;
+                    for (User item : userList) {
+                        dao.insert(item);
                     }
+                    return TransactionResult.COMMIT;
                 });
 
                 return dataSource.getUserDao().selectAll();

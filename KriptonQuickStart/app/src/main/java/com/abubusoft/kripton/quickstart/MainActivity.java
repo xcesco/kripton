@@ -11,6 +11,7 @@ import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartDaoFactory;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartDataSource;
 import com.abubusoft.kripton.quickstart.persistence.QuickStartDataSource;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnStart=(Button)findViewById(R.id.btnStart);
+        Button btnStart = (Button) findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,14 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
         BindQuickStartDataSource ds = BindQuickStartDataSource.instance();
 
-        ds.execute(new BindQuickStartDataSource.SimpleTransaction() {
-            @Override
-            public boolean onExecute(BindQuickStartDaoFactory daoFactory) throws Throwable {
-                UserDaoImpl dao = daoFactory.getUserDao();
-                String[] p={"hello"};
-                dao.sortedFind("name asc");
-                return true;
-            }
+        ds.execute(daoFactory -> {
+            UserDaoImpl dao = daoFactory.getUserDao();
+            String[] p = {"hello"};
+            dao.sortedFind("name asc");
+            return TransactionResult.COMMIT;
         });
     }
 }

@@ -3,7 +3,7 @@ package com.abubusoft.kripton.benchmark;
 import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * This is a test app we wrote in 10 minutes. Please do not write code like this, kiddos.
  */
-public class BenchmarkActivity extends ActionBarActivity {
+public class BenchmarkActivity extends AppCompatActivity {
 
     private static final int ITERATIONS = 20;
 

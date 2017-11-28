@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.quickstart.model.Album;
 import com.abubusoft.kripton.quickstart.persistence.AlbumDaoImpl;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartAsyncTask;
@@ -35,17 +36,13 @@ public class AlbumActivity extends AppCompatActivity {
 
             if (list.size() == 0) {
                 list = QuickStartApplication.service.listAlbums(userId).execute().body();
-                dataSource.execute(new BindQuickStartDataSource.SimpleTransaction() {
-
-                    @Override
-                    public boolean onExecute(BindQuickStartDaoFactory daoFactory) {
+                dataSource.execute(daoFactory -> {
                         AlbumDaoImpl dao = daoFactory.getAlbumDao();
 
                         for (Album item : list) {
                             dao.insert(item);
                         }
-                        return true;
-                    }
+                        return TransactionResult.COMMIT;
                 });
 
                 return dataSource.getAlbumDao().selectByUserId(userId);
