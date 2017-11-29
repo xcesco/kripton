@@ -7,7 +7,7 @@
 # Kripton Persistence Library
 Kripton is a java library, for Android and Java platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface. Supported persistence format are:
 
-<img src="https://github.com/xcesco/wikis/blob/master/kripton/overview2.0.png">
+<img src="https://github.com/xcesco/wikis/blob/master/kripton/overview3.0.png">
 
 To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object without using reflection and with just few lines of code.
 
@@ -26,7 +26,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
   <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>2.0.2</version>
+    <version>3.0.2</version>
   </dependency>
   ...
 </dependencies>
@@ -45,7 +45,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 		  <path>
 		    <groupId>com.abubusoft</groupId>
 		    <artifactId>kripton-processor</artifactId>
-		    <version>2.0.2</version>
+		    <version>3.0.2</version>
 		</path>
 	    </annotationProcessorPaths>
 	  </configuration>
@@ -59,15 +59,15 @@ or via gradle
 
 ```
 // annotation processor
-annotationProcessor "com.abubusoft:kripton-processor:2.0.2"
+annotationProcessor "com.abubusoft:kripton-processor:3.0.2"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-compile "com.abubusoft:kripton-android-library:2.0.2"
+implements "com.abubusoft:kripton-android-library:3.0.2"
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
 
-Kritpon requires at minimum Java 7 or Android 2.3.
+Kritpon requires at minimum Java 7 or Android 3.0.
 
 ![logo](https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png)
 
