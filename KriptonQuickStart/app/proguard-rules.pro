@@ -1,31 +1,14 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in /Users/xcesco/Library/Android/sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
-
-# Add any project specific keep options here:
-
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
-
-# Kripton
+##############################
+# Kripton Persistence Library
+##############################
 -keep class com.abubusoft.kripton.annotation.** { *; }
 -keep @com.abubusoft.kripton.annotation.BindType class ** { *; }
 -keep @com.abubusoft.kripton.annotation.BindMap class ** { *; }
 -dontwarn okio.**
 
-# Glide
--keep class com.abubusoft.kripton.quickstart.network.okhttp3.OkHttpGlideModule { *; }
-
+##############################
 # Retrofit
+##############################
 -dontwarn retrofit2.**
 -dontwarn org.codehaus.mojo.**
 -keep class retrofit2.** { *; }
@@ -33,11 +16,27 @@
 -keepattributes Exceptions
 -keepattributes *Annotation*
 
+#
+# https://stackoverflow.com/questions/33047806/proguard-duplicate-definition-of-library-class
+#
+-dontnote android.net.http.*
+-dontnote org.apache.commons.codec.**
+-dontnote org.apache.http.**
+
+#
+# https://github.com/square/okhttp/issues/3355
+#
+-dontwarn okio.**
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okhttp3.** { *; }
+-keep interface com.squareup.okhttp3.* { *; }
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+
 -keepattributes RuntimeVisibleAnnotations
 -keepattributes RuntimeInvisibleAnnotations
 -keepattributes RuntimeVisibleParameterAnnotations
 -keepattributes RuntimeInvisibleParameterAnnotations
-
 -keepattributes EnclosingMethod
 
 -keepclasseswithmembers class * {
@@ -51,3 +50,10 @@
 -keepclasseswithmembers class * {
     @retrofit2.http.* <methods>;
 }
+
+##############################
+# Glide
+##############################
+
+-keep class com.abubusoft.kripton.quickstart.network.okhttp3.OkHttpGlideModule { *; }
+
