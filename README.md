@@ -13,7 +13,7 @@ To get max performance and avoid boilerplate-code, Kripton use annotation proces
 
 See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
-See [benchmarks](https://github.com/xcesco/kripton/wiki/Performance) for more informations about JSON persistence perfomance.
+See [benchmarks](https://github.com/xcesco/kripton/wiki/Performance) for more informations about SQLite and JSON persistence perfomance.
 
 If you are interested in Kripton Persistence Library, visit [abubusoft.com](http://www.abubusoft.com/wp/)
 
