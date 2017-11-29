@@ -66,6 +66,18 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        BindQuickStartDataSource.instance().executeBatch(daoFactory -> {
+            daoFactory.getAlbumDao();
+            return null;
+        });
+
+        try (BindQuickStartDataSource dataSource=BindQuickStartDataSource.open()) {
+            dataSource.getAlbumDao();
+            dataSource.execute(daoFactory -> {daoFactory.getAlbumDao()});
+
+        }
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             postId = (long) bundle.get("postId");
