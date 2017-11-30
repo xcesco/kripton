@@ -1,4 +1,4 @@
-package com.abubusoft.examples.sqlite.constraints;
+package com.abubusoft.kripton.samples.sqlite.sample01constraints;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
 

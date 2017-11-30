@@ -1,6 +1,5 @@
-package com.abubusoft.examples.sqlite.constraints;
+package com.abubusoft.kripton.samples.sqlite.sample02sql;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 
 /**
@@ -9,9 +8,6 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 @BindTable
 public class Person {
     public long id;
-
-    @BindColumn(foreignKey = City.class, nullable = false)
-    public long cityId;
 
     public String name;
 

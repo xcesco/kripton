@@ -1,8 +1,8 @@
-package com.abubusoft.examples.sqlite.constraints;
+package com.abubusoft.kripton.samples.sqlite.sample01constraints;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.abubusoft.examples.sqlite.BaseTest;
+import com.abubusoft.kripton.samples.sqlite.BaseTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 public class ConstraintTest extends BaseTest {
     @Test
     public void test() throws Exception {
-        try (BindFeature01DataSource dataSource=BindFeature01DataSource.open()) {
+        try (BindSampleDataSource dataSource=BindSampleDataSource.open()) {
             CityDaoImpl cityDao = dataSource.getCityDao();
             PersonDaoImpl personDao = dataSource.getPersonDao();
 
