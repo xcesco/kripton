@@ -147,6 +147,9 @@ public abstract class SqlInsertBuilder {
 				count++;
 			}
 		}
+		
+		AssertKripton.failWithInvalidMethodSignException(method.getParameters().size()==0,
+				method, " INSERT operations require at least one parameter");
 
 		if (count == 0) {
 			// method to insert raw data: no bean is used
