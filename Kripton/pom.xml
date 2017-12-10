@@ -21,7 +21,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton</artifactId>
-	<version>3.0.2</version>
+	<version>3.1.0</version>
 	<packaging>jar</packaging>
 
 	<description>Kripton Persistence Library</description>
@@ -37,8 +37,8 @@
 		<java.version>1.7</java.version>
 
 		<!-- dependencies version -->
-		<jackson.version>2.9.0</jackson.version>
-		<retrofit.version>2.1.0</retrofit.version>
+		<jackson.version>2.9.3</jackson.version>
+		<retrofit.version>2.3.0</retrofit.version>
 		
 		<kripton.debug>false</kripton.debug>
 
