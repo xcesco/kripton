@@ -15,10 +15,10 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
+import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
-import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -42,7 +42,7 @@ abstract class AbstractPrimitivePrefsTransform extends AbstractPrefsTransform {
 	protected String PREFS_DEFAULT_VALUE;
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefProperty property, boolean readAll) {
 		if (readAll) {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
 		} else {
@@ -50,10 +50,10 @@ abstract class AbstractPrimitivePrefsTransform extends AbstractPrefsTransform {
 		}
 
 		if (nullable) {
-			methodBuilder.addCode(SIMPLE_TYPE + "$L.get" + PREFS_TYPE + "($S, " + SIMPLE_TYPE + "($L==null?" + PREFS_DEFAULT_VALUE + ":$L))", preferenceName, property.getName(), getter(beanName, beanClass, property),
+			methodBuilder.addCode(SIMPLE_TYPE + "$L.get" + PREFS_TYPE + "($S, " + SIMPLE_TYPE + "($L==null?" + PREFS_DEFAULT_VALUE + ":$L))", preferenceName, property.getPreferenceKey(), getter(beanName, beanClass, property),
 					getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addCode(SIMPLE_TYPE + "$L.get" + PREFS_TYPE + "($S, " + SIMPLE_TYPE + "$L)", preferenceName, property.getName(), getter(beanName, beanClass, property));
+			methodBuilder.addCode(SIMPLE_TYPE + "$L.get" + PREFS_TYPE + "($S, " + SIMPLE_TYPE + "$L)", preferenceName, property.getPreferenceKey(), getter(beanName, beanClass, property));
 		}
 
 		if (readAll) {
@@ -64,11 +64,11 @@ abstract class AbstractPrimitivePrefsTransform extends AbstractPrefsTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefProperty property) {
 		if (nullable) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
-		methodBuilder.addStatement("$L.put" + PREFS_TYPE + "($S," + PREFS_CONVERT + "$L)", editorName, property.getName(), getter(beanName, beanClass, property));
+		methodBuilder.addStatement("$L.put" + PREFS_TYPE + "($S," + PREFS_CONVERT + "$L)", editorName, property.getPreferenceKey(), getter(beanName, beanClass, property));
 		
 		if (nullable) {
 			methodBuilder.endControlFlow();

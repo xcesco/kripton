@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
-import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -28,8 +28,8 @@ import com.squareup.javapoet.TypeName;
  */
 public interface PrefsTransform {
 
-	void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean singleRead);
+	void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefProperty property, boolean singleRead);
 	
-	void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property);
+	void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefProperty property);
 
 }

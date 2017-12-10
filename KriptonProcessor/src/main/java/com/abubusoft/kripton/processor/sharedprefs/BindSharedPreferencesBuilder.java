@@ -127,6 +127,8 @@ public abstract class BindSharedPreferencesBuilder {
 		generateEditor(entity);
 
 		generateConstructor(sharedPreferenceName, beanClassName);
+		
+		generateRefresh(sharedPreferenceName, beanClassName);
 
 		generateResetMethod(entity);
 
@@ -209,6 +211,22 @@ public abstract class BindSharedPreferencesBuilder {
 
 		// method.addStatement("converterMap=new $T<$T, $T>()", HashMap.class, String.class, Converter.class);
 		method.addStatement("defaultBean=new $T()", className(beanClassName));
+		builder.addMethod(method.build());
+	}
+	
+	/**
+	 * @param sharedPreferenceName
+	 * @param beanClassName
+	 */
+	private static void generateRefresh(String sharedPreferenceName, String beanClassName) {
+		MethodSpec.Builder method = MethodSpec.methodBuilder("refresh").addModifiers(Modifier.PUBLIC).addJavadoc("force to refresh values\n");
+		if (StringUtils.hasText(sharedPreferenceName)) {
+			method.addCode("// using typeName attribute of annotation @BindSharedPreferences as typeName\n");
+			method.addStatement("prefs=$T.context().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
+		} else {
+			method.addCode("// no typeName specified, using default shared preferences\n");
+			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.context())", PreferenceManager.class, KriptonLibrary.class);
+		}
 		builder.addMethod(method.build());
 	}
 

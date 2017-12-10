@@ -37,6 +37,6 @@ public @interface BindPreference {
 	 * @return
 	 * 		Preference name. Default name is attribute name.
 	 */
-	String name() default "";
+	String value() default "";
 
 }

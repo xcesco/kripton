@@ -21,7 +21,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.math.BigInteger;
 
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -46,12 +46,12 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 	protected String defaultValue;
 	
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, ModelProperty property, boolean readAll) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefProperty property, boolean readAll) {
 		if (readAll) {
 			methodBuilder.beginControlFlow("");
 		}
 		
-		methodBuilder.addStatement("String temp=$L.getString($S, $S)", preferenceName, property.getName(), defaultValue);
+		methodBuilder.addStatement("String temp=$L.getString($S, $S)", preferenceName, property.getPreferenceKey(), defaultValue);
 		if (readAll) {					
 			methodBuilder.addCode("$L.$L" + (!property.isPublicField()?"(":"=")+"", beanName, setter(beanClass, property));
 		} else {
@@ -75,19 +75,19 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, ModelProperty property) {
+	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefProperty property) {
 		if (beanClass!=null)
 		{
 			methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));
-				methodBuilder.addCode("$L.putString($S,$L.$L() );", editorName, property.getName(), getter(beanName, beanClass, property), METHOD_CONVERSION);			
+				methodBuilder.addCode("$L.putString($S,$L.$L() );", editorName, property.getPreferenceKey(), getter(beanName, beanClass, property), METHOD_CONVERSION);			
 			methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.putString($S, null);", editorName, property.getName());
+				methodBuilder.addCode("$L.putString($S, null);", editorName, property.getPreferenceKey());
 
 		} else {
 			methodBuilder.addCode("if ($L!=null) ", beanName);
-				methodBuilder.addCode("$L.putString($S,$L.$L());", editorName, property.getName(), beanName, METHOD_CONVERSION);			
+				methodBuilder.addCode("$L.putString($S,$L.$L());", editorName, property.getPreferenceKey(), beanName, METHOD_CONVERSION);			
 			methodBuilder.addCode(" else ");
-				methodBuilder.addCode("$L.remove($S);", editorName, property.getName());
+				methodBuilder.addCode("$L.remove($S);", editorName, property.getPreferenceKey());
 		}
 			
 	}
