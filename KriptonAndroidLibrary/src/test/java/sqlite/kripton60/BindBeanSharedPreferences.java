@@ -80,9 +80,10 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   /**
    * force to refresh values
    */
-  public void refresh() {
+  public BindBeanSharedPreferences refresh() {
     // no typeName specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+    return this;
   }
 
   /**

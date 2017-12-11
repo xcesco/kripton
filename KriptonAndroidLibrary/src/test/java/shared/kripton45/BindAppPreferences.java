@@ -53,9 +53,10 @@ public class BindAppPreferences extends AbstractSharedPreference {
   /**
    * force to refresh values
    */
-  public void refresh() {
+  public BindAppPreferences refresh() {
     // no typeName specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+    return this;
   }
 
   /**

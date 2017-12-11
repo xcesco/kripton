@@ -60,9 +60,10 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   /**
    * force to refresh values
    */
-  public void refresh() {
+  public BindApp47SharedPreferences refresh() {
     // using typeName attribute of annotation @BindSharedPreferences as typeName
     prefs=KriptonLibrary.context().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+    return this;
   }
 
   /**
