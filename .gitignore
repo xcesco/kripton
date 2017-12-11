@@ -50,3 +50,5 @@ target
 .gradle
 /.project
 /kripton-parent.iml
+build
+.idea
