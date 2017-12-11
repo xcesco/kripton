@@ -50,6 +50,14 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * force to refresh values
+   */
+  public void refresh() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+  }
+
+  /**
    * reset shared preferences
    */
   public void reset() {
@@ -64,15 +72,15 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public Bean63 read() {
     Bean63 bean=new Bean63();
-    bean.id=prefs.getLong("id", bean.id);
-    bean.value=prefs.getString("value", bean.value);
+    bean.id=prefs.getLong("bean63", bean.id);
+    bean.value=prefs.getString("bean63", bean.value);
      {
-      String temp=prefs.getString("valueMapStringByte", null);
+      String temp=prefs.getString("bean63", null);
       bean.valueMapStringByte=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): null;
     }
 
      {
-      String temp=prefs.getString("valueMapEnumByte", null);
+      String temp=prefs.getString("bean63", null);
       bean.valueMapEnumByte=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): null;
     }
 
@@ -87,9 +95,9 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public void write(Bean63 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putLong("id",bean.id);
+    editor.putLong("bean63",bean.id);
 
-    editor.putString("value",bean.value);
+    editor.putString("bean63",bean.value);
 
     if (bean.valueMapStringByte!=null)  {
       String temp=serializeValueMapStringByte(bean.valueMapStringByte);
@@ -115,7 +123,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * @return property id value
    */
   public long id() {
-    return prefs.getLong("id", defaultBean.id);
+    return prefs.getLong("bean63", defaultBean.id);
   }
 
   /**
@@ -124,7 +132,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * @return property value value
    */
   public String value() {
-    return prefs.getString("value", defaultBean.value);
+    return prefs.getString("bean63", defaultBean.value);
   }
 
   /**
@@ -133,7 +141,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * @return property valueMapStringByte value
    */
   public Map<String, Byte> valueMapStringByte() {
-    String temp=prefs.getString("valueMapStringByte", null);
+    String temp=prefs.getString("bean63", null);
     return StringUtils.hasText(temp) ? parseValueMapStringByte(temp): null;
 
   }
@@ -144,7 +152,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * @return property valueMapEnumByte value
    */
   public HashMap<EnumType, Byte> valueMapEnumByte() {
-    String temp=prefs.getString("valueMapEnumByte", null);
+    String temp=prefs.getString("bean63", null);
     return StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): null;
 
   }
@@ -333,7 +341,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
      * modifier for property id
      */
     public BindEditor putId(long value) {
-      editor.putLong("id",value);
+      editor.putLong("bean63",value);
 
       return this;
     }
@@ -342,7 +350,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
      * modifier for property value
      */
     public BindEditor putValue(String value) {
-      editor.putString("value",value);
+      editor.putString("bean63",value);
 
       return this;
     }

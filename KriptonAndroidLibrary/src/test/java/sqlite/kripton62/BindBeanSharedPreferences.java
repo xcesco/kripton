@@ -58,6 +58,14 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * force to refresh values
+   */
+  public void refresh() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+  }
+
+  /**
    * reset shared preferences
    */
   public void reset() {
@@ -72,55 +80,55 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public Bean read() {
     Bean bean=new Bean();
-    bean.id=prefs.getLong("id", bean.id);
-    bean.value=prefs.getString("value", bean.value);
+    bean.id=prefs.getLong("bean", bean.id);
+    bean.value=prefs.getString("bean", bean.value);
      {
-      String temp=prefs.getString("valueByteSet", null);
+      String temp=prefs.getString("bean", null);
       bean.valueByteSet=StringUtils.hasText(temp) ? parseValueByteSet(temp): null;
     }
 
      {
-      String temp=prefs.getString("valueShortSet", null);
+      String temp=prefs.getString("bean", null);
       bean.valueShortSet=StringUtils.hasText(temp) ? parseValueShortSet(temp): null;
     }
 
      {
-      String temp=prefs.getString("valueIntegerSet", null);
+      String temp=prefs.getString("bean", null);
       bean.valueIntegerSet=StringUtils.hasText(temp) ? parseValueIntegerSet(temp): null;
     }
 
      {
-      String temp=prefs.getString("valueStringSet", null);
+      String temp=prefs.getString("bean", null);
       bean.valueStringSet=StringUtils.hasText(temp) ? parseValueStringSet(temp): null;
     }
 
      {
-      String temp=prefs.getString("valueCharacterSet", null);
+      String temp=prefs.getString("bean", null);
       bean.valueCharacterSet=StringUtils.hasText(temp) ? parseValueCharacterSet(temp): null;
     }
 
      {
-      String temp=prefs.getString("valueFloatSet", null);
+      String temp=prefs.getString("bean", null);
       bean.valueFloatSet=StringUtils.hasText(temp) ? parseValueFloatSet(temp): null;
     }
 
      {
-      String temp=prefs.getString("valueDoubleSet", null);
+      String temp=prefs.getString("bean", null);
       bean.valueDoubleSet=StringUtils.hasText(temp) ? parseValueDoubleSet(temp): null;
     }
 
      {
-      String temp=prefs.getString("valueBigDecimalSet", null);
+      String temp=prefs.getString("bean", null);
       bean.valueBigDecimalSet=StringUtils.hasText(temp) ? parseValueBigDecimalSet(temp): null;
     }
 
      {
-      String temp=prefs.getString("valueBeanSet", null);
+      String temp=prefs.getString("bean", null);
       bean.valueBeanSet=StringUtils.hasText(temp) ? parseValueBeanSet(temp): null;
     }
 
      {
-      String temp=prefs.getString("valueEnumTypeSet", null);
+      String temp=prefs.getString("bean", null);
       bean.valueEnumTypeSet=StringUtils.hasText(temp) ? parseValueEnumTypeSet(temp): null;
     }
 
@@ -135,9 +143,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    */
   public void write(Bean bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putLong("id",bean.id);
+    editor.putLong("bean",bean.id);
 
-    editor.putString("value",bean.value);
+    editor.putString("bean",bean.value);
 
     if (bean.valueByteSet!=null)  {
       String temp=serializeValueByteSet(bean.valueByteSet);
@@ -219,7 +227,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property id value
    */
   public long id() {
-    return prefs.getLong("id", defaultBean.id);
+    return prefs.getLong("bean", defaultBean.id);
   }
 
   /**
@@ -228,7 +236,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property value value
    */
   public String value() {
-    return prefs.getString("value", defaultBean.value);
+    return prefs.getString("bean", defaultBean.value);
   }
 
   /**
@@ -237,7 +245,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueByteSet value
    */
   public Set<Byte> valueByteSet() {
-    String temp=prefs.getString("valueByteSet", null);
+    String temp=prefs.getString("bean", null);
     return StringUtils.hasText(temp) ? parseValueByteSet(temp): null;
 
   }
@@ -248,7 +256,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueShortSet value
    */
   public HashSet<Short> valueShortSet() {
-    String temp=prefs.getString("valueShortSet", null);
+    String temp=prefs.getString("bean", null);
     return StringUtils.hasText(temp) ? parseValueShortSet(temp): null;
 
   }
@@ -259,7 +267,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueIntegerSet value
    */
   public LinkedHashSet<Integer> valueIntegerSet() {
-    String temp=prefs.getString("valueIntegerSet", null);
+    String temp=prefs.getString("bean", null);
     return StringUtils.hasText(temp) ? parseValueIntegerSet(temp): null;
 
   }
@@ -270,7 +278,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueStringSet value
    */
   public HashSet<String> valueStringSet() {
-    String temp=prefs.getString("valueStringSet", null);
+    String temp=prefs.getString("bean", null);
     return StringUtils.hasText(temp) ? parseValueStringSet(temp): null;
 
   }
@@ -281,7 +289,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueCharacterSet value
    */
   public Set<Character> valueCharacterSet() {
-    String temp=prefs.getString("valueCharacterSet", null);
+    String temp=prefs.getString("bean", null);
     return StringUtils.hasText(temp) ? parseValueCharacterSet(temp): null;
 
   }
@@ -292,7 +300,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueFloatSet value
    */
   public HashSet<Float> valueFloatSet() {
-    String temp=prefs.getString("valueFloatSet", null);
+    String temp=prefs.getString("bean", null);
     return StringUtils.hasText(temp) ? parseValueFloatSet(temp): null;
 
   }
@@ -303,7 +311,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueDoubleSet value
    */
   public HashSet<Double> valueDoubleSet() {
-    String temp=prefs.getString("valueDoubleSet", null);
+    String temp=prefs.getString("bean", null);
     return StringUtils.hasText(temp) ? parseValueDoubleSet(temp): null;
 
   }
@@ -314,7 +322,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueBigDecimalSet value
    */
   public HashSet<BigDecimal> valueBigDecimalSet() {
-    String temp=prefs.getString("valueBigDecimalSet", null);
+    String temp=prefs.getString("bean", null);
     return StringUtils.hasText(temp) ? parseValueBigDecimalSet(temp): null;
 
   }
@@ -325,7 +333,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueBeanSet value
    */
   public LinkedHashSet<Bean> valueBeanSet() {
-    String temp=prefs.getString("valueBeanSet", null);
+    String temp=prefs.getString("bean", null);
     return StringUtils.hasText(temp) ? parseValueBeanSet(temp): null;
 
   }
@@ -336,7 +344,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueEnumTypeSet value
    */
   public HashSet<EnumType> valueEnumTypeSet() {
-    String temp=prefs.getString("valueEnumTypeSet", null);
+    String temp=prefs.getString("bean", null);
     return StringUtils.hasText(temp) ? parseValueEnumTypeSet(temp): null;
 
   }
@@ -1045,7 +1053,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property id
      */
     public BindEditor putId(long value) {
-      editor.putLong("id",value);
+      editor.putLong("bean",value);
 
       return this;
     }
@@ -1054,7 +1062,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property value
      */
     public BindEditor putValue(String value) {
-      editor.putString("value",value);
+      editor.putString("bean",value);
 
       return this;
     }

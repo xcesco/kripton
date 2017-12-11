@@ -51,6 +51,14 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * force to refresh values
+   */
+  public void refresh() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+  }
+
+  /**
    * reset shared preferences
    */
   public void reset() {
@@ -65,22 +73,22 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public AppPreferences read() {
     AppPreferences bean=new AppPreferences();
-    bean.name=prefs.getString("name", bean.name);
-    bean.setDescription(prefs.getString("description", bean.getDescription()));
-    bean.valueFloat=prefs.getFloat("valueFloat", bean.valueFloat);
-    bean.valueBoolean=(boolean)prefs.getBoolean("valueBoolean", (boolean)bean.valueBoolean);
+    bean.name=prefs.getString("app_preferences", bean.name);
+    bean.setDescription(prefs.getString("app_preferences", bean.getDescription()));
+    bean.valueFloat=prefs.getFloat("app_preferences", bean.valueFloat);
+    bean.valueBoolean=(boolean)prefs.getBoolean("app_preferences", (boolean)bean.valueBoolean);
      {
-      String temp=prefs.getString("stringArray", null);
+      String temp=prefs.getString("app_preferences", null);
       bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): null);
     }
 
      {
-      String temp=prefs.getString("stringList", null);
+      String temp=prefs.getString("app_preferences", null);
       bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): null;
     }
 
-    bean.valueInt=(int)prefs.getInt("valueInt", (int)bean.valueInt);
-    bean.valueLong=prefs.getLong("valueLong", (bean.valueLong==null?0L:bean.valueLong));
+    bean.valueInt=(int)prefs.getInt("app_preferences", (int)bean.valueInt);
+    bean.valueLong=prefs.getLong("app_preferences", (bean.valueLong==null?0L:bean.valueLong));
 
     return bean;
   }
@@ -92,13 +100,13 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public void write(AppPreferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("name",bean.name);
+    editor.putString("app_preferences",bean.name);
 
-    editor.putString("description",bean.getDescription());
+    editor.putString("app_preferences",bean.getDescription());
 
-    editor.putFloat("valueFloat",bean.valueFloat);
+    editor.putFloat("app_preferences",bean.valueFloat);
 
-    editor.putBoolean("valueBoolean",(boolean)bean.valueBoolean);
+    editor.putBoolean("app_preferences",(boolean)bean.valueBoolean);
 
     if (bean.getStringArray()!=null)  {
       String temp=serializeStringArray(bean.getStringArray());
@@ -114,10 +122,10 @@ public class BindAppPreferences extends AbstractSharedPreference {
       editor.remove("stringList");
     }
 
-    editor.putInt("valueInt",(int)bean.valueInt);
+    editor.putInt("app_preferences",(int)bean.valueInt);
 
     if (bean.valueLong!=null)  {
-      editor.putLong("valueLong",bean.valueLong);
+      editor.putLong("app_preferences",bean.valueLong);
     }
 
 
@@ -130,7 +138,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property name value
    */
   public String name() {
-    return prefs.getString("name", defaultBean.name);
+    return prefs.getString("app_preferences", defaultBean.name);
   }
 
   /**
@@ -139,7 +147,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property description value
    */
   public String description() {
-    return prefs.getString("description", defaultBean.getDescription());
+    return prefs.getString("app_preferences", defaultBean.getDescription());
   }
 
   /**
@@ -148,7 +156,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property valueFloat value
    */
   public float valueFloat() {
-    return prefs.getFloat("valueFloat", defaultBean.valueFloat);
+    return prefs.getFloat("app_preferences", defaultBean.valueFloat);
   }
 
   /**
@@ -157,7 +165,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property valueBoolean value
    */
   public boolean valueBoolean() {
-    return (boolean)prefs.getBoolean("valueBoolean", (boolean)defaultBean.valueBoolean);
+    return (boolean)prefs.getBoolean("app_preferences", (boolean)defaultBean.valueBoolean);
   }
 
   /**
@@ -166,7 +174,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property stringArray value
    */
   public String[] stringArray() {
-    String temp=prefs.getString("stringArray", null);
+    String temp=prefs.getString("app_preferences", null);
     return StringUtils.hasText(temp) ? parseStringArray(temp): null;
 
   }
@@ -177,7 +185,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property stringList value
    */
   public List<String> stringList() {
-    String temp=prefs.getString("stringList", null);
+    String temp=prefs.getString("app_preferences", null);
     return StringUtils.hasText(temp) ? parseStringList(temp): null;
 
   }
@@ -188,7 +196,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property valueInt value
    */
   public int valueInt() {
-    return (int)prefs.getInt("valueInt", (int)defaultBean.valueInt);
+    return (int)prefs.getInt("app_preferences", (int)defaultBean.valueInt);
   }
 
   /**
@@ -197,7 +205,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property valueLong value
    */
   public Long valueLong() {
-    return prefs.getLong("valueLong", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
+    return prefs.getLong("app_preferences", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
   }
 
   /**
@@ -363,7 +371,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
      * modifier for property name
      */
     public BindEditor putName(String value) {
-      editor.putString("name",value);
+      editor.putString("app_preferences",value);
 
       return this;
     }
@@ -372,7 +380,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
      * modifier for property description
      */
     public BindEditor putDescription(String value) {
-      editor.putString("description",value);
+      editor.putString("app_preferences",value);
 
       return this;
     }
@@ -381,7 +389,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
      * modifier for property valueFloat
      */
     public BindEditor putValueFloat(float value) {
-      editor.putFloat("valueFloat",value);
+      editor.putFloat("app_preferences",value);
 
       return this;
     }
@@ -390,7 +398,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
      * modifier for property valueBoolean
      */
     public BindEditor putValueBoolean(boolean value) {
-      editor.putBoolean("valueBoolean",(boolean)value);
+      editor.putBoolean("app_preferences",(boolean)value);
 
       return this;
     }
@@ -427,7 +435,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
      * modifier for property valueInt
      */
     public BindEditor putValueInt(int value) {
-      editor.putInt("valueInt",(int)value);
+      editor.putInt("app_preferences",(int)value);
 
       return this;
     }
@@ -437,7 +445,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueLong(Long value) {
       if (value!=null)  {
-        editor.putLong("valueLong",value);
+        editor.putLong("app_preferences",value);
       }
 
       return this;

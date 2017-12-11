@@ -62,7 +62,7 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 		Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 		
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		methodBuilder.addStatement("String temp=serialize$L($L)", formatter.convert(property.getPreferenceKey()), getter(beanName, beanClass, property));
+		methodBuilder.addStatement("String temp=serialize$L($L)", formatter.convert(property.getName()), getter(beanName, beanClass, property));
 		methodBuilder.addStatement("$L.putString($S,temp)", editorName, property.getName());
 		methodBuilder.nextControlFlow(" else ");
 		methodBuilder.addStatement("$L.remove($S)", editorName, property.getName());

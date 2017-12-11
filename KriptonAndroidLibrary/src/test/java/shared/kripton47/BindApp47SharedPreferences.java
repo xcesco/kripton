@@ -58,6 +58,14 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * force to refresh values
+   */
+  public void refresh() {
+    // using typeName attribute of annotation @BindSharedPreferences as typeName
+    prefs=KriptonLibrary.context().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+  }
+
+  /**
    * reset shared preferences
    */
   public void reset() {
@@ -72,9 +80,9 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    */
   public App47 read() {
     App47 bean=new App47();
-    bean.name=prefs.getString("name", bean.name);
+    bean.name=prefs.getString("app47", bean.name);
      {
-      String temp=prefs.getString("userAccessToken", null);
+      String temp=prefs.getString("app47", null);
       bean.userAccessToken=StringUtils.hasText(temp) ? parseUserAccessToken(temp): null;
     }
 
@@ -89,7 +97,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    */
   public void write(App47 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("name",bean.name);
+    editor.putString("app47",bean.name);
 
     if (bean.userAccessToken!=null)  {
       String temp=serializeUserAccessToken(bean.userAccessToken);
@@ -108,7 +116,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    * @return property name value
    */
   public String name() {
-    return prefs.getString("name", defaultBean.name);
+    return prefs.getString("app47", defaultBean.name);
   }
 
   /**
@@ -117,7 +125,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    * @return property userAccessToken value
    */
   public UserAccessToken userAccessToken() {
-    String temp=prefs.getString("userAccessToken", null);
+    String temp=prefs.getString("app47", null);
     return StringUtils.hasText(temp) ? parseUserAccessToken(temp): null;
 
   }
@@ -187,7 +195,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
      * modifier for property name
      */
     public BindEditor putName(String value) {
-      editor.putString("name",value);
+      editor.putString("app47",value);
 
       return this;
     }
