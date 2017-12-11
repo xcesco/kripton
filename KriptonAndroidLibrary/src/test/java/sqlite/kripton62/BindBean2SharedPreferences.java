@@ -150,72 +150,72 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
 
     if (bean.getValueByteSet()!=null)  {
       String temp=serializeValueByteSet(bean.getValueByteSet());
-      editor.putString("valueByteSet",temp);
+      editor.putString("value_byte_set",temp);
     }  else  {
-      editor.remove("valueByteSet");
+      editor.remove("value_byte_set");
     }
 
     if (bean.getValueShortSet()!=null)  {
       String temp=serializeValueShortSet(bean.getValueShortSet());
-      editor.putString("valueShortSet",temp);
+      editor.putString("value_short_set",temp);
     }  else  {
-      editor.remove("valueShortSet");
+      editor.remove("value_short_set");
     }
 
     if (bean.getValueIntegerSet()!=null)  {
       String temp=serializeValueIntegerSet(bean.getValueIntegerSet());
-      editor.putString("valueIntegerSet",temp);
+      editor.putString("value_integer_set",temp);
     }  else  {
-      editor.remove("valueIntegerSet");
+      editor.remove("value_integer_set");
     }
 
     if (bean.getValueStringSet()!=null)  {
       String temp=serializeValueStringSet(bean.getValueStringSet());
-      editor.putString("valueStringSet",temp);
+      editor.putString("value_string_set",temp);
     }  else  {
-      editor.remove("valueStringSet");
+      editor.remove("value_string_set");
     }
 
     if (bean.getValueCharacterSet()!=null)  {
       String temp=serializeValueCharacterSet(bean.getValueCharacterSet());
-      editor.putString("valueCharacterSet",temp);
+      editor.putString("value_character_set",temp);
     }  else  {
-      editor.remove("valueCharacterSet");
+      editor.remove("value_character_set");
     }
 
     if (bean.getValueFloatSet()!=null)  {
       String temp=serializeValueFloatSet(bean.getValueFloatSet());
-      editor.putString("valueFloatSet",temp);
+      editor.putString("value_float_set",temp);
     }  else  {
-      editor.remove("valueFloatSet");
+      editor.remove("value_float_set");
     }
 
     if (bean.getValueDoubleSet()!=null)  {
       String temp=serializeValueDoubleSet(bean.getValueDoubleSet());
-      editor.putString("valueDoubleSet",temp);
+      editor.putString("value_double_set",temp);
     }  else  {
-      editor.remove("valueDoubleSet");
+      editor.remove("value_double_set");
     }
 
     if (bean.getValueBigDecimalSet()!=null)  {
       String temp=serializeValueBigDecimalSet(bean.getValueBigDecimalSet());
-      editor.putString("valueBigDecimalSet",temp);
+      editor.putString("value_big_decimal_set",temp);
     }  else  {
-      editor.remove("valueBigDecimalSet");
+      editor.remove("value_big_decimal_set");
     }
 
     if (bean.getValueBeanSet()!=null)  {
       String temp=serializeValueBeanSet(bean.getValueBeanSet());
-      editor.putString("valueBeanSet",temp);
+      editor.putString("value_bean_set",temp);
     }  else  {
-      editor.remove("valueBeanSet");
+      editor.remove("value_bean_set");
     }
 
     if (bean.getValueEnumTypeSet()!=null)  {
       String temp=serializeValueEnumTypeSet(bean.getValueEnumTypeSet());
-      editor.putString("valueEnumTypeSet",temp);
+      editor.putString("value_enum_type_set",temp);
     }  else  {
-      editor.remove("valueEnumTypeSet");
+      editor.remove("value_enum_type_set");
     }
 
 
@@ -1074,9 +1074,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueByteSet(Set<Byte> value) {
       if (value!=null)  {
         String temp=serializeValueByteSet(value);
-        editor.putString("valueByteSet",temp);
+        editor.putString("value_byte_set",temp);
       }  else  {
-        editor.remove("valueByteSet");
+        editor.remove("value_byte_set");
       }
 
       return this;
@@ -1088,9 +1088,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueShortSet(HashSet<Short> value) {
       if (value!=null)  {
         String temp=serializeValueShortSet(value);
-        editor.putString("valueShortSet",temp);
+        editor.putString("value_short_set",temp);
       }  else  {
-        editor.remove("valueShortSet");
+        editor.remove("value_short_set");
       }
 
       return this;
@@ -1102,9 +1102,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueIntegerSet(LinkedHashSet<Integer> value) {
       if (value!=null)  {
         String temp=serializeValueIntegerSet(value);
-        editor.putString("valueIntegerSet",temp);
+        editor.putString("value_integer_set",temp);
       }  else  {
-        editor.remove("valueIntegerSet");
+        editor.remove("value_integer_set");
       }
 
       return this;
@@ -1116,9 +1116,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueStringSet(HashSet<String> value) {
       if (value!=null)  {
         String temp=serializeValueStringSet(value);
-        editor.putString("valueStringSet",temp);
+        editor.putString("value_string_set",temp);
       }  else  {
-        editor.remove("valueStringSet");
+        editor.remove("value_string_set");
       }
 
       return this;
@@ -1130,9 +1130,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueCharacterSet(Set<Character> value) {
       if (value!=null)  {
         String temp=serializeValueCharacterSet(value);
-        editor.putString("valueCharacterSet",temp);
+        editor.putString("value_character_set",temp);
       }  else  {
-        editor.remove("valueCharacterSet");
+        editor.remove("value_character_set");
       }
 
       return this;
@@ -1144,9 +1144,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueFloatSet(HashSet<Float> value) {
       if (value!=null)  {
         String temp=serializeValueFloatSet(value);
-        editor.putString("valueFloatSet",temp);
+        editor.putString("value_float_set",temp);
       }  else  {
-        editor.remove("valueFloatSet");
+        editor.remove("value_float_set");
       }
 
       return this;
@@ -1158,9 +1158,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueDoubleSet(HashSet<Double> value) {
       if (value!=null)  {
         String temp=serializeValueDoubleSet(value);
-        editor.putString("valueDoubleSet",temp);
+        editor.putString("value_double_set",temp);
       }  else  {
-        editor.remove("valueDoubleSet");
+        editor.remove("value_double_set");
       }
 
       return this;
@@ -1172,9 +1172,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueBigDecimalSet(HashSet<BigDecimal> value) {
       if (value!=null)  {
         String temp=serializeValueBigDecimalSet(value);
-        editor.putString("valueBigDecimalSet",temp);
+        editor.putString("value_big_decimal_set",temp);
       }  else  {
-        editor.remove("valueBigDecimalSet");
+        editor.remove("value_big_decimal_set");
       }
 
       return this;
@@ -1186,9 +1186,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueBeanSet(LinkedHashSet<Bean> value) {
       if (value!=null)  {
         String temp=serializeValueBeanSet(value);
-        editor.putString("valueBeanSet",temp);
+        editor.putString("value_bean_set",temp);
       }  else  {
-        editor.remove("valueBeanSet");
+        editor.remove("value_bean_set");
       }
 
       return this;
@@ -1200,9 +1200,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueEnumTypeSet(HashSet<EnumType> value) {
       if (value!=null)  {
         String temp=serializeValueEnumTypeSet(value);
-        editor.putString("valueEnumTypeSet",temp);
+        editor.putString("value_enum_type_set",temp);
       }  else  {
-        editor.remove("valueEnumTypeSet");
+        editor.remove("value_enum_type_set");
       }
 
       return this;

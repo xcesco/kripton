@@ -16,8 +16,6 @@
 package shared.kripton45;
 
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.unitils.reflectionassert.ReflectionAssert;
 import org.unitils.reflectionassert.ReflectionComparatorMode;

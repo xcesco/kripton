@@ -102,16 +102,16 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
 
     if (bean.valueMapStringByte!=null)  {
       String temp=serializeValueMapStringByte(bean.valueMapStringByte);
-      editor.putString("valueMapStringByte",temp);
+      editor.putString("value_map_string_byte",temp);
     }  else  {
-      editor.remove("valueMapStringByte");
+      editor.remove("value_map_string_byte");
     }
 
     if (bean.valueMapEnumByte!=null)  {
       String temp=serializeValueMapEnumByte(bean.valueMapEnumByte);
-      editor.putString("valueMapEnumByte",temp);
+      editor.putString("value_map_enum_byte",temp);
     }  else  {
-      editor.remove("valueMapEnumByte");
+      editor.remove("value_map_enum_byte");
     }
 
 
@@ -362,9 +362,9 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueMapStringByte(Map<String, Byte> value) {
       if (value!=null)  {
         String temp=serializeValueMapStringByte(value);
-        editor.putString("valueMapStringByte",temp);
+        editor.putString("value_map_string_byte",temp);
       }  else  {
-        editor.remove("valueMapStringByte");
+        editor.remove("value_map_string_byte");
       }
 
       return this;
@@ -376,9 +376,9 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueMapEnumByte(HashMap<EnumType, Byte> value) {
       if (value!=null)  {
         String temp=serializeValueMapEnumByte(value);
-        editor.putString("valueMapEnumByte",temp);
+        editor.putString("value_map_enum_byte",temp);
       }  else  {
-        editor.remove("valueMapEnumByte");
+        editor.remove("value_map_enum_byte");
       }
 
       return this;

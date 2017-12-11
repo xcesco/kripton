@@ -102,9 +102,9 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
 
     if (bean.userAccessToken!=null)  {
       String temp=serializeUserAccessToken(bean.userAccessToken);
-      editor.putString("userAccessToken",temp);
+      editor.putString("user_access_token",temp);
     }  else  {
-      editor.remove("userAccessToken");
+      editor.remove("user_access_token");
     }
 
 
@@ -207,9 +207,9 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
     public BindEditor putUserAccessToken(UserAccessToken value) {
       if (value!=null)  {
         String temp=serializeUserAccessToken(value);
-        editor.putString("userAccessToken",temp);
+        editor.putString("user_access_token",temp);
       }  else  {
-        editor.remove("userAccessToken");
+        editor.remove("user_access_token");
       }
 
       return this;

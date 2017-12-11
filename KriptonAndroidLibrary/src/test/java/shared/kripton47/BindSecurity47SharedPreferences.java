@@ -107,18 +107,18 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
 
     if (bean.authorizationToken!=null)  {
       String temp=serializeAuthorizationToken(bean.authorizationToken);
-      editor.putString("authorizationToken",temp);
+      editor.putString("authorization_token",temp);
     }  else  {
-      editor.remove("authorizationToken");
+      editor.remove("authorization_token");
     }
 
     editor.putString("device_uid",bean.deviceUid);
 
     if (bean.userIdentity!=null)  {
       String temp=serializeUserIdentity(bean.userIdentity);
-      editor.putString("userIdentity",temp);
+      editor.putString("user_identity",temp);
     }  else  {
-      editor.remove("userIdentity");
+      editor.remove("user_identity");
     }
 
 
@@ -285,9 +285,9 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     public BindEditor putAuthorizationToken(DeviceAccessToken value) {
       if (value!=null)  {
         String temp=serializeAuthorizationToken(value);
-        editor.putString("authorizationToken",temp);
+        editor.putString("authorization_token",temp);
       }  else  {
-        editor.remove("authorizationToken");
+        editor.remove("authorization_token");
       }
 
       return this;
@@ -308,9 +308,9 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     public BindEditor putUserIdentity(UserIdentity value) {
       if (value!=null)  {
         String temp=serializeUserIdentity(value);
-        editor.putString("userIdentity",temp);
+        editor.putString("user_identity",temp);
       }  else  {
-        editor.remove("userIdentity");
+        editor.remove("user_identity");
       }
 
       return this;

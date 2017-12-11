@@ -359,107 +359,107 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
 
     if (bean.valueTimeList!=null)  {
       String temp=serializeValueTimeList(bean.valueTimeList);
-      editor.putString("valueTimeList",temp);
+      editor.putString("value_time_list",temp);
     }  else  {
-      editor.remove("valueTimeList");
+      editor.remove("value_time_list");
     }
 
     if (bean.valueStrinList!=null)  {
       String temp=serializeValueStrinList(bean.valueStrinList);
-      editor.putString("valueStrinList",temp);
+      editor.putString("value_strin_list",temp);
     }  else  {
-      editor.remove("valueStrinList");
+      editor.remove("value_strin_list");
     }
 
     if (bean.valueLongList!=null)  {
       String temp=serializeValueLongList(bean.valueLongList);
-      editor.putString("valueLongList",temp);
+      editor.putString("value_long_list",temp);
     }  else  {
-      editor.remove("valueLongList");
+      editor.remove("value_long_list");
     }
 
     if (bean.valueByteArray!=null)  {
       String temp=serializeValueByteArray(bean.valueByteArray);
-      editor.putString("valueByteArray",temp);
+      editor.putString("value_byte_array",temp);
     }  else  {
-      editor.remove("valueByteArray");
+      editor.remove("value_byte_array");
     }
 
     if (bean.valueBean!=null)  {
       String temp=serializeValueBean(bean.valueBean);
-      editor.putString("valueBean",temp);
+      editor.putString("value_bean",temp);
     }  else  {
-      editor.remove("valueBean");
+      editor.remove("value_bean");
     }
 
     if (bean.valueLongTypeArray!=null)  {
       String temp=serializeValueLongTypeArray(bean.valueLongTypeArray);
-      editor.putString("valueLongTypeArray",temp);
+      editor.putString("value_long_type_array",temp);
     }  else  {
-      editor.remove("valueLongTypeArray");
+      editor.remove("value_long_type_array");
     }
 
     if (bean.valueLongArray!=null)  {
       String temp=serializeValueLongArray(bean.valueLongArray);
-      editor.putString("valueLongArray",temp);
+      editor.putString("value_long_array",temp);
     }  else  {
-      editor.remove("valueLongArray");
+      editor.remove("value_long_array");
     }
 
     if (bean.valueBeanArray!=null)  {
       String temp=serializeValueBeanArray(bean.valueBeanArray);
-      editor.putString("valueBeanArray",temp);
+      editor.putString("value_bean_array",temp);
     }  else  {
-      editor.remove("valueBeanArray");
+      editor.remove("value_bean_array");
     }
 
     if (bean.valueStringArray!=null)  {
       String temp=serializeValueStringArray(bean.valueStringArray);
-      editor.putString("valueStringArray",temp);
+      editor.putString("value_string_array",temp);
     }  else  {
-      editor.remove("valueStringArray");
+      editor.remove("value_string_array");
     }
 
     if (bean.valueCharList!=null)  {
       String temp=serializeValueCharList(bean.valueCharList);
-      editor.putString("valueCharList",temp);
+      editor.putString("value_char_list",temp);
     }  else  {
-      editor.remove("valueCharList");
+      editor.remove("value_char_list");
     }
 
     if (bean.valueCharTypeArray!=null)  {
       String temp=serializeValueCharTypeArray(bean.valueCharTypeArray);
-      editor.putString("valueCharTypeArray",temp);
+      editor.putString("value_char_type_array",temp);
     }  else  {
-      editor.remove("valueCharTypeArray");
+      editor.remove("value_char_type_array");
     }
 
     if (bean.valueCharArray!=null)  {
       String temp=serializeValueCharArray(bean.valueCharArray);
-      editor.putString("valueCharArray",temp);
+      editor.putString("value_char_array",temp);
     }  else  {
-      editor.remove("valueCharArray");
+      editor.remove("value_char_array");
     }
 
     if (bean.valueMapStringBean!=null)  {
       String temp=serializeValueMapStringBean(bean.valueMapStringBean);
-      editor.putString("valueMapStringBean",temp);
+      editor.putString("value_map_string_bean",temp);
     }  else  {
-      editor.remove("valueMapStringBean");
+      editor.remove("value_map_string_bean");
     }
 
     if (bean.valueLinkedMapStringBean!=null)  {
       String temp=serializeValueLinkedMapStringBean(bean.valueLinkedMapStringBean);
-      editor.putString("valueLinkedMapStringBean",temp);
+      editor.putString("value_linked_map_string_bean",temp);
     }  else  {
-      editor.remove("valueLinkedMapStringBean");
+      editor.remove("value_linked_map_string_bean");
     }
 
     if (bean.valueSetString!=null)  {
       String temp=serializeValueSetString(bean.valueSetString);
-      editor.putString("valueSetString",temp);
+      editor.putString("value_set_string",temp);
     }  else  {
-      editor.remove("valueSetString");
+      editor.remove("value_set_string");
     }
 
 
@@ -2229,9 +2229,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueTimeList(List<Time> value) {
       if (value!=null)  {
         String temp=serializeValueTimeList(value);
-        editor.putString("valueTimeList",temp);
+        editor.putString("value_time_list",temp);
       }  else  {
-        editor.remove("valueTimeList");
+        editor.remove("value_time_list");
       }
 
       return this;
@@ -2243,9 +2243,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueStrinList(LinkedList<String> value) {
       if (value!=null)  {
         String temp=serializeValueStrinList(value);
-        editor.putString("valueStrinList",temp);
+        editor.putString("value_strin_list",temp);
       }  else  {
-        editor.remove("valueStrinList");
+        editor.remove("value_strin_list");
       }
 
       return this;
@@ -2257,9 +2257,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueLongList(LinkedList<Long> value) {
       if (value!=null)  {
         String temp=serializeValueLongList(value);
-        editor.putString("valueLongList",temp);
+        editor.putString("value_long_list",temp);
       }  else  {
-        editor.remove("valueLongList");
+        editor.remove("value_long_list");
       }
 
       return this;
@@ -2271,9 +2271,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueByteArray(byte[] value) {
       if (value!=null)  {
         String temp=serializeValueByteArray(value);
-        editor.putString("valueByteArray",temp);
+        editor.putString("value_byte_array",temp);
       }  else  {
-        editor.remove("valueByteArray");
+        editor.remove("value_byte_array");
       }
 
       return this;
@@ -2285,9 +2285,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueBean(Bean value) {
       if (value!=null)  {
         String temp=serializeValueBean(value);
-        editor.putString("valueBean",temp);
+        editor.putString("value_bean",temp);
       }  else  {
-        editor.remove("valueBean");
+        editor.remove("value_bean");
       }
 
       return this;
@@ -2299,9 +2299,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueLongTypeArray(long[] value) {
       if (value!=null)  {
         String temp=serializeValueLongTypeArray(value);
-        editor.putString("valueLongTypeArray",temp);
+        editor.putString("value_long_type_array",temp);
       }  else  {
-        editor.remove("valueLongTypeArray");
+        editor.remove("value_long_type_array");
       }
 
       return this;
@@ -2313,9 +2313,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueLongArray(Long[] value) {
       if (value!=null)  {
         String temp=serializeValueLongArray(value);
-        editor.putString("valueLongArray",temp);
+        editor.putString("value_long_array",temp);
       }  else  {
-        editor.remove("valueLongArray");
+        editor.remove("value_long_array");
       }
 
       return this;
@@ -2327,9 +2327,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueBeanArray(Bean[] value) {
       if (value!=null)  {
         String temp=serializeValueBeanArray(value);
-        editor.putString("valueBeanArray",temp);
+        editor.putString("value_bean_array",temp);
       }  else  {
-        editor.remove("valueBeanArray");
+        editor.remove("value_bean_array");
       }
 
       return this;
@@ -2341,9 +2341,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueStringArray(String[] value) {
       if (value!=null)  {
         String temp=serializeValueStringArray(value);
-        editor.putString("valueStringArray",temp);
+        editor.putString("value_string_array",temp);
       }  else  {
-        editor.remove("valueStringArray");
+        editor.remove("value_string_array");
       }
 
       return this;
@@ -2355,9 +2355,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueCharList(LinkedList<Character> value) {
       if (value!=null)  {
         String temp=serializeValueCharList(value);
-        editor.putString("valueCharList",temp);
+        editor.putString("value_char_list",temp);
       }  else  {
-        editor.remove("valueCharList");
+        editor.remove("value_char_list");
       }
 
       return this;
@@ -2369,9 +2369,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueCharTypeArray(char[] value) {
       if (value!=null)  {
         String temp=serializeValueCharTypeArray(value);
-        editor.putString("valueCharTypeArray",temp);
+        editor.putString("value_char_type_array",temp);
       }  else  {
-        editor.remove("valueCharTypeArray");
+        editor.remove("value_char_type_array");
       }
 
       return this;
@@ -2383,9 +2383,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueCharArray(Character[] value) {
       if (value!=null)  {
         String temp=serializeValueCharArray(value);
-        editor.putString("valueCharArray",temp);
+        editor.putString("value_char_array",temp);
       }  else  {
-        editor.remove("valueCharArray");
+        editor.remove("value_char_array");
       }
 
       return this;
@@ -2397,9 +2397,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueMapStringBean(Map<String, Bean> value) {
       if (value!=null)  {
         String temp=serializeValueMapStringBean(value);
-        editor.putString("valueMapStringBean",temp);
+        editor.putString("value_map_string_bean",temp);
       }  else  {
-        editor.remove("valueMapStringBean");
+        editor.remove("value_map_string_bean");
       }
 
       return this;
@@ -2411,9 +2411,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueLinkedMapStringBean(LinkedHashMap<String, Bean> value) {
       if (value!=null)  {
         String temp=serializeValueLinkedMapStringBean(value);
-        editor.putString("valueLinkedMapStringBean",temp);
+        editor.putString("value_linked_map_string_bean",temp);
       }  else  {
-        editor.remove("valueLinkedMapStringBean");
+        editor.remove("value_linked_map_string_bean");
       }
 
       return this;
@@ -2425,9 +2425,9 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     public BindEditor putValueSetString(Set<String> value) {
       if (value!=null)  {
         String temp=serializeValueSetString(value);
-        editor.putString("valueSetString",temp);
+        editor.putString("value_set_string",temp);
       }  else  {
-        editor.remove("valueSetString");
+        editor.remove("value_set_string");
       }
 
       return this;

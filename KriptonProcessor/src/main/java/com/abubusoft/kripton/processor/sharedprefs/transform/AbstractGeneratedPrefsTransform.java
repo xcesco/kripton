@@ -63,9 +63,9 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 		
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		methodBuilder.addStatement("String temp=serialize$L($L)", formatter.convert(property.getName()), getter(beanName, beanClass, property));
-		methodBuilder.addStatement("$L.putString($S,temp)", editorName, property.getName());
+		methodBuilder.addStatement("$L.putString($S,temp)", editorName, property.getPreferenceKey());
 		methodBuilder.nextControlFlow(" else ");
-		methodBuilder.addStatement("$L.remove($S)", editorName, property.getName());
+		methodBuilder.addStatement("$L.remove($S)", editorName, property.getPreferenceKey());
 		methodBuilder.endControlFlow();
 
 	}

@@ -111,16 +111,16 @@ public class BindRightPreferences extends AbstractSharedPreference {
 
     if (bean.getStringArray()!=null)  {
       String temp=serializeStringArray(bean.getStringArray());
-      editor.putString("stringArray",temp);
+      editor.putString("string_array",temp);
     }  else  {
-      editor.remove("stringArray");
+      editor.remove("string_array");
     }
 
     if (bean.stringList!=null)  {
       String temp=serializeStringList(bean.stringList);
-      editor.putString("stringList",temp);
+      editor.putString("string_list",temp);
     }  else  {
-      editor.remove("stringList");
+      editor.remove("string_list");
     }
 
     editor.putInt("value_int",(int)bean.valueInt);
@@ -410,9 +410,9 @@ public class BindRightPreferences extends AbstractSharedPreference {
     public BindEditor putStringArray(String[] value) {
       if (value!=null)  {
         String temp=serializeStringArray(value);
-        editor.putString("stringArray",temp);
+        editor.putString("string_array",temp);
       }  else  {
-        editor.remove("stringArray");
+        editor.remove("string_array");
       }
 
       return this;
@@ -424,9 +424,9 @@ public class BindRightPreferences extends AbstractSharedPreference {
     public BindEditor putStringList(List<String> value) {
       if (value!=null)  {
         String temp=serializeStringList(value);
-        editor.putString("stringList",temp);
+        editor.putString("string_list",temp);
       }  else  {
-        editor.remove("stringList");
+        editor.remove("string_list");
       }
 
       return this;
