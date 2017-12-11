@@ -73,22 +73,22 @@ public class BindRightPreferences extends AbstractSharedPreference {
    */
   public RightPreferences read() {
     RightPreferences bean=new RightPreferences();
-    bean.name=prefs.getString("right_preferences", bean.name);
-    bean.setDescription(prefs.getString("right_preferences", bean.getDescription()));
-    bean.valueFloat=prefs.getFloat("right_preferences", bean.valueFloat);
-    bean.valueBoolean=(boolean)prefs.getBoolean("right_preferences", (boolean)bean.valueBoolean);
+    bean.name=prefs.getString("name", bean.name);
+    bean.setDescription(prefs.getString("description", bean.getDescription()));
+    bean.valueFloat=prefs.getFloat("value_float", bean.valueFloat);
+    bean.valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)bean.valueBoolean);
      {
-      String temp=prefs.getString("right_preferences", null);
+      String temp=prefs.getString("string_array", null);
       bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): null);
     }
 
      {
-      String temp=prefs.getString("right_preferences", null);
+      String temp=prefs.getString("string_list", null);
       bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): null;
     }
 
-    bean.valueInt=(int)prefs.getInt("right_preferences", (int)bean.valueInt);
-    bean.valueLong=prefs.getLong("right_preferences", (bean.valueLong==null?0L:bean.valueLong));
+    bean.valueInt=(int)prefs.getInt("value_int", (int)bean.valueInt);
+    bean.valueLong=prefs.getLong("value_long", (bean.valueLong==null?0L:bean.valueLong));
 
     return bean;
   }
@@ -100,13 +100,13 @@ public class BindRightPreferences extends AbstractSharedPreference {
    */
   public void write(RightPreferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("right_preferences",bean.name);
+    editor.putString("name",bean.name);
 
-    editor.putString("right_preferences",bean.getDescription());
+    editor.putString("description",bean.getDescription());
 
-    editor.putFloat("right_preferences",bean.valueFloat);
+    editor.putFloat("value_float",bean.valueFloat);
 
-    editor.putBoolean("right_preferences",(boolean)bean.valueBoolean);
+    editor.putBoolean("value_boolean",(boolean)bean.valueBoolean);
 
     if (bean.getStringArray()!=null)  {
       String temp=serializeStringArray(bean.getStringArray());
@@ -122,10 +122,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
       editor.remove("stringList");
     }
 
-    editor.putInt("right_preferences",(int)bean.valueInt);
+    editor.putInt("value_int",(int)bean.valueInt);
 
     if (bean.valueLong!=null)  {
-      editor.putLong("right_preferences",bean.valueLong);
+      editor.putLong("value_long",bean.valueLong);
     }
 
 
@@ -138,7 +138,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property name value
    */
   public String name() {
-    return prefs.getString("right_preferences", defaultBean.name);
+    return prefs.getString("name", defaultBean.name);
   }
 
   /**
@@ -147,7 +147,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property description value
    */
   public String description() {
-    return prefs.getString("right_preferences", defaultBean.getDescription());
+    return prefs.getString("description", defaultBean.getDescription());
   }
 
   /**
@@ -156,7 +156,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property valueFloat value
    */
   public float valueFloat() {
-    return prefs.getFloat("right_preferences", defaultBean.valueFloat);
+    return prefs.getFloat("value_float", defaultBean.valueFloat);
   }
 
   /**
@@ -165,7 +165,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property valueBoolean value
    */
   public boolean valueBoolean() {
-    return (boolean)prefs.getBoolean("right_preferences", (boolean)defaultBean.valueBoolean);
+    return (boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);
   }
 
   /**
@@ -174,7 +174,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property stringArray value
    */
   public String[] stringArray() {
-    String temp=prefs.getString("right_preferences", null);
+    String temp=prefs.getString("string_array", null);
     return StringUtils.hasText(temp) ? parseStringArray(temp): null;
 
   }
@@ -185,7 +185,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property stringList value
    */
   public List<String> stringList() {
-    String temp=prefs.getString("right_preferences", null);
+    String temp=prefs.getString("string_list", null);
     return StringUtils.hasText(temp) ? parseStringList(temp): null;
 
   }
@@ -196,7 +196,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property valueInt value
    */
   public int valueInt() {
-    return (int)prefs.getInt("right_preferences", (int)defaultBean.valueInt);
+    return (int)prefs.getInt("value_int", (int)defaultBean.valueInt);
   }
 
   /**
@@ -205,7 +205,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property valueLong value
    */
   public Long valueLong() {
-    return prefs.getLong("right_preferences", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
+    return prefs.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
   }
 
   /**
@@ -371,7 +371,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
      * modifier for property name
      */
     public BindEditor putName(String value) {
-      editor.putString("right_preferences",value);
+      editor.putString("name",value);
 
       return this;
     }
@@ -380,7 +380,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
      * modifier for property description
      */
     public BindEditor putDescription(String value) {
-      editor.putString("right_preferences",value);
+      editor.putString("description",value);
 
       return this;
     }
@@ -389,7 +389,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
      * modifier for property valueFloat
      */
     public BindEditor putValueFloat(float value) {
-      editor.putFloat("right_preferences",value);
+      editor.putFloat("value_float",value);
 
       return this;
     }
@@ -398,7 +398,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
      * modifier for property valueBoolean
      */
     public BindEditor putValueBoolean(boolean value) {
-      editor.putBoolean("right_preferences",(boolean)value);
+      editor.putBoolean("value_boolean",(boolean)value);
 
       return this;
     }
@@ -435,7 +435,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
      * modifier for property valueInt
      */
     public BindEditor putValueInt(int value) {
-      editor.putInt("right_preferences",(int)value);
+      editor.putInt("value_int",(int)value);
 
       return this;
     }
@@ -445,7 +445,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueLong(Long value) {
       if (value!=null)  {
-        editor.putLong("right_preferences",value);
+        editor.putLong("value_long",value);
       }
 
       return this;

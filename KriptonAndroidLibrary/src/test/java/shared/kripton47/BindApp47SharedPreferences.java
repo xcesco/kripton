@@ -80,9 +80,9 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    */
   public App47 read() {
     App47 bean=new App47();
-    bean.name=prefs.getString("app47", bean.name);
+    bean.name=prefs.getString("name", bean.name);
      {
-      String temp=prefs.getString("app47", null);
+      String temp=prefs.getString("user_access_token", null);
       bean.userAccessToken=StringUtils.hasText(temp) ? parseUserAccessToken(temp): null;
     }
 
@@ -97,7 +97,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    */
   public void write(App47 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("app47",bean.name);
+    editor.putString("name",bean.name);
 
     if (bean.userAccessToken!=null)  {
       String temp=serializeUserAccessToken(bean.userAccessToken);
@@ -116,7 +116,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    * @return property name value
    */
   public String name() {
-    return prefs.getString("app47", defaultBean.name);
+    return prefs.getString("name", defaultBean.name);
   }
 
   /**
@@ -125,7 +125,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    * @return property userAccessToken value
    */
   public UserAccessToken userAccessToken() {
-    String temp=prefs.getString("app47", null);
+    String temp=prefs.getString("user_access_token", null);
     return StringUtils.hasText(temp) ? parseUserAccessToken(temp): null;
 
   }
@@ -195,7 +195,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
      * modifier for property name
      */
     public BindEditor putName(String value) {
-      editor.putString("app47",value);
+      editor.putString("name",value);
 
       return this;
     }

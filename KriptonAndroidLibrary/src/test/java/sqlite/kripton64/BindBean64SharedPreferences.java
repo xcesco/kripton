@@ -100,146 +100,146 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    */
   public Bean64 read() {
     Bean64 bean=new Bean64();
-    bean.valueBoolType=(boolean)prefs.getBoolean("bean64", (boolean)bean.valueBoolType);
-    bean.valueBool=(boolean)prefs.getBoolean("bean64", (boolean)(bean.valueBool==null?false:bean.valueBool));
-    bean.valueByteType=(byte)prefs.getInt("bean64", (byte)bean.valueByteType);
-    bean.valueByte=(byte)prefs.getInt("bean64", (byte)(bean.valueByte==null?(byte)0:bean.valueByte));
-    bean.valueShortType=(short)prefs.getInt("bean64", (short)bean.valueShortType);
-    bean.valueShort=(short)prefs.getInt("bean64", (short)(bean.valueShort==null?(short)0:bean.valueShort));
-    bean.valueIntType=(int)prefs.getInt("bean64", (int)bean.valueIntType);
-    bean.valueInt=(int)prefs.getInt("bean64", (int)(bean.valueInt==null?0:bean.valueInt));
-    bean.valueString=prefs.getString("bean64", bean.valueString);
-    bean.valueCharType=(char)prefs.getInt("bean64", (char)bean.valueCharType);
-    bean.valueChar=(char)prefs.getInt("bean64", (char)(bean.valueChar==null?(char)0:bean.valueChar));
-    bean.valueFloatType=prefs.getFloat("bean64", bean.valueFloatType);
-    bean.valueFloat=prefs.getFloat("bean64", (bean.valueFloat==null?0F:bean.valueFloat));
+    bean.valueBoolType=(boolean)prefs.getBoolean("value_bool_type", (boolean)bean.valueBoolType);
+    bean.valueBool=(boolean)prefs.getBoolean("value_bool", (boolean)(bean.valueBool==null?false:bean.valueBool));
+    bean.valueByteType=(byte)prefs.getInt("value_byte_type", (byte)bean.valueByteType);
+    bean.valueByte=(byte)prefs.getInt("value_byte", (byte)(bean.valueByte==null?(byte)0:bean.valueByte));
+    bean.valueShortType=(short)prefs.getInt("value_short_type", (short)bean.valueShortType);
+    bean.valueShort=(short)prefs.getInt("value_short", (short)(bean.valueShort==null?(short)0:bean.valueShort));
+    bean.valueIntType=(int)prefs.getInt("value_int_type", (int)bean.valueIntType);
+    bean.valueInt=(int)prefs.getInt("value_int", (int)(bean.valueInt==null?0:bean.valueInt));
+    bean.valueString=prefs.getString("value_string", bean.valueString);
+    bean.valueCharType=(char)prefs.getInt("value_char_type", (char)bean.valueCharType);
+    bean.valueChar=(char)prefs.getInt("value_char", (char)(bean.valueChar==null?(char)0:bean.valueChar));
+    bean.valueFloatType=prefs.getFloat("value_float_type", bean.valueFloatType);
+    bean.valueFloat=prefs.getFloat("value_float", (bean.valueFloat==null?0F:bean.valueFloat));
      {
-      String temp=prefs.getString("bean64", "0");
+      String temp=prefs.getString("value_big_integer", "0");
       bean.valueBigInteger=(StringUtils.hasText(temp)) ? new BigInteger(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", "0");
+      String temp=prefs.getString("value_big_decimal", "0");
       bean.valueBigDecimal=(StringUtils.hasText(temp)) ? new BigDecimal(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_enum_type", null);
       bean.valueEnumType=(StringUtils.hasText(temp)) ? EnumType.valueOf(temp): null;
     }
 
-    bean.valueLongType=prefs.getLong("bean64", bean.valueLongType);
-    bean.valueLong=prefs.getLong("bean64", (bean.valueLong==null?0L:bean.valueLong));
+    bean.valueLongType=prefs.getLong("value_long_type", bean.valueLongType);
+    bean.valueLong=prefs.getLong("value_long", (bean.valueLong==null?0L:bean.valueLong));
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_double_type", null);
       bean.valueDoubleType=(StringUtils.hasText(temp)) ? Double.valueOf(temp): 0.0;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_double", null);
       bean.valueDouble=(StringUtils.hasText(temp)) ? Double.valueOf(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_locale", null);
       bean.valueLocale=(StringUtils.hasText(temp)) ? LocaleUtils.read(temp): null;}
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_calendar", null);
       bean.valueCalendar=(StringUtils.hasText(temp)) ? CalendarUtils.read(temp): null;}
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_date", null);
       bean.valueDate=(StringUtils.hasText(temp)) ? DateUtils.read(temp): null;}
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_url", null);
       bean.valueUrl=(StringUtils.hasText(temp)) ? UrlUtils.read(temp): null;}
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_time", null);
       bean.valueTime=(StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): null;}
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_currency", null);
       bean.valueCurrency=(StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): null;}
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_time_zone", null);
       bean.valueTimeZone=(StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): null;}
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_time_list", null);
       bean.valueTimeList=StringUtils.hasText(temp) ? parseValueTimeList(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_strin_list", null);
       bean.valueStrinList=StringUtils.hasText(temp) ? parseValueStrinList(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_long_list", null);
       bean.valueLongList=StringUtils.hasText(temp) ? parseValueLongList(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_byte_array", null);
       bean.valueByteArray=StringUtils.hasText(temp) ? parseValueByteArray(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_bean", null);
       bean.valueBean=StringUtils.hasText(temp) ? parseValueBean(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_long_type_array", null);
       bean.valueLongTypeArray=StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_long_array", null);
       bean.valueLongArray=StringUtils.hasText(temp) ? parseValueLongArray(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_bean_array", null);
       bean.valueBeanArray=StringUtils.hasText(temp) ? parseValueBeanArray(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_string_array", null);
       bean.valueStringArray=StringUtils.hasText(temp) ? parseValueStringArray(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_char_list", null);
       bean.valueCharList=StringUtils.hasText(temp) ? parseValueCharList(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_char_type_array", null);
       bean.valueCharTypeArray=StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_char_array", null);
       bean.valueCharArray=StringUtils.hasText(temp) ? parseValueCharArray(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_map_string_bean", null);
       bean.valueMapStringBean=StringUtils.hasText(temp) ? parseValueMapStringBean(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_linked_map_string_bean", null);
       bean.valueLinkedMapStringBean=StringUtils.hasText(temp) ? parseValueLinkedMapStringBean(temp): null;
     }
 
      {
-      String temp=prefs.getString("bean64", null);
+      String temp=prefs.getString("value_set_string", null);
       bean.valueSetString=StringUtils.hasText(temp) ? parseValueSetString(temp): null;
     }
 
@@ -254,104 +254,104 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    */
   public void write(Bean64 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putBoolean("bean64",(boolean)bean.valueBoolType);
+    editor.putBoolean("value_bool_type",(boolean)bean.valueBoolType);
 
     if (bean.valueBool!=null)  {
-      editor.putBoolean("bean64",(boolean)bean.valueBool);
+      editor.putBoolean("value_bool",(boolean)bean.valueBool);
     }
 
-    editor.putInt("bean64",(int)bean.valueByteType);
+    editor.putInt("value_byte_type",(int)bean.valueByteType);
 
     if (bean.valueByte!=null)  {
-      editor.putInt("bean64",(int)bean.valueByte);
+      editor.putInt("value_byte",(int)bean.valueByte);
     }
 
-    editor.putInt("bean64",(int)bean.valueShortType);
+    editor.putInt("value_short_type",(int)bean.valueShortType);
 
     if (bean.valueShort!=null)  {
-      editor.putInt("bean64",(int)bean.valueShort);
+      editor.putInt("value_short",(int)bean.valueShort);
     }
 
-    editor.putInt("bean64",(int)bean.valueIntType);
+    editor.putInt("value_int_type",(int)bean.valueIntType);
 
     if (bean.valueInt!=null)  {
-      editor.putInt("bean64",(int)bean.valueInt);
+      editor.putInt("value_int",(int)bean.valueInt);
     }
 
-    editor.putString("bean64",bean.valueString);
+    editor.putString("value_string",bean.valueString);
 
-    editor.putInt("bean64",(char)bean.valueCharType);
+    editor.putInt("value_char_type",(char)bean.valueCharType);
 
     if (bean.valueChar!=null)  {
-      editor.putInt("bean64",(char)bean.valueChar);
+      editor.putInt("value_char",(char)bean.valueChar);
     }
 
-    editor.putFloat("bean64",bean.valueFloatType);
+    editor.putFloat("value_float_type",bean.valueFloatType);
 
     if (bean.valueFloat!=null)  {
-      editor.putFloat("bean64",bean.valueFloat);
+      editor.putFloat("value_float",bean.valueFloat);
     }
 
-    if (bean.valueBigInteger!=null) editor.putString("bean64",bean.valueBigInteger.toString() ); else editor.putString("bean64", null);
-    if (bean.valueBigDecimal!=null) editor.putString("bean64",bean.valueBigDecimal.toPlainString() ); else editor.putString("bean64", null);
+    if (bean.valueBigInteger!=null) editor.putString("value_big_integer",bean.valueBigInteger.toString() ); else editor.putString("value_big_integer", null);
+    if (bean.valueBigDecimal!=null) editor.putString("value_big_decimal",bean.valueBigDecimal.toPlainString() ); else editor.putString("value_big_decimal", null);
     if (bean.valueEnumType!=null)  {
-      editor.putString("bean64",bean.valueEnumType.toString() );
+      editor.putString("value_enum_type",bean.valueEnumType.toString() );
     } else {
       editor.remove("valueEnumType");
     }
 
-    editor.putLong("bean64",bean.valueLongType);
+    editor.putLong("value_long_type",bean.valueLongType);
 
     if (bean.valueLong!=null)  {
-      editor.putLong("bean64",bean.valueLong);
+      editor.putLong("value_long",bean.valueLong);
     }
 
-    editor.putString("bean64",String.valueOf(bean.valueDoubleType));
+    editor.putString("value_double_type",String.valueOf(bean.valueDoubleType));
 
     if (bean.valueDouble!=null)  {
-      editor.putString("bean64",String.valueOf(bean.valueDouble));
+      editor.putString("value_double",String.valueOf(bean.valueDouble));
     } else {
       editor.remove("valueDouble");
     }
 
     if (bean.valueLocale!=null)  {
-      editor.putString("bean64",LocaleUtils.write(bean.valueLocale));
+      editor.putString("value_locale",LocaleUtils.write(bean.valueLocale));
     } else {
       editor.remove("valueLocale");
     }
 
     if (bean.valueCalendar!=null)  {
-      editor.putString("bean64",CalendarUtils.write(bean.valueCalendar));
+      editor.putString("value_calendar",CalendarUtils.write(bean.valueCalendar));
     } else {
       editor.remove("valueCalendar");
     }
 
     if (bean.valueDate!=null)  {
-      editor.putString("bean64",DateUtils.write(bean.valueDate));
+      editor.putString("value_date",DateUtils.write(bean.valueDate));
     } else {
       editor.remove("valueDate");
     }
 
     if (bean.valueUrl!=null)  {
-      editor.putString("bean64",UrlUtils.write(bean.valueUrl));
+      editor.putString("value_url",UrlUtils.write(bean.valueUrl));
     } else {
       editor.remove("valueUrl");
     }
 
     if (bean.valueTime!=null)  {
-      editor.putString("bean64",SQLTimeUtils.write(bean.valueTime));
+      editor.putString("value_time",SQLTimeUtils.write(bean.valueTime));
     } else {
       editor.remove("valueTime");
     }
 
     if (bean.valueCurrency!=null)  {
-      editor.putString("bean64",CurrencyUtils.write(bean.valueCurrency));
+      editor.putString("value_currency",CurrencyUtils.write(bean.valueCurrency));
     } else {
       editor.remove("valueCurrency");
     }
 
     if (bean.valueTimeZone!=null)  {
-      editor.putString("bean64",TimeZoneUtils.write(bean.valueTimeZone));
+      editor.putString("value_time_zone",TimeZoneUtils.write(bean.valueTimeZone));
     } else {
       editor.remove("valueTimeZone");
     }
@@ -471,7 +471,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueBoolType value
    */
   public boolean valueBoolType() {
-    return (boolean)prefs.getBoolean("bean64", (boolean)defaultBean.valueBoolType);
+    return (boolean)prefs.getBoolean("value_bool_type", (boolean)defaultBean.valueBoolType);
   }
 
   /**
@@ -480,7 +480,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueBool value
    */
   public Boolean valueBool() {
-    return (boolean)prefs.getBoolean("bean64", (boolean)(defaultBean.valueBool==null?false:defaultBean.valueBool));
+    return (boolean)prefs.getBoolean("value_bool", (boolean)(defaultBean.valueBool==null?false:defaultBean.valueBool));
   }
 
   /**
@@ -489,7 +489,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueByteType value
    */
   public byte valueByteType() {
-    return (byte)prefs.getInt("bean64", (byte)defaultBean.valueByteType);
+    return (byte)prefs.getInt("value_byte_type", (byte)defaultBean.valueByteType);
   }
 
   /**
@@ -498,7 +498,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueByte value
    */
   public Byte valueByte() {
-    return (byte)prefs.getInt("bean64", (byte)(defaultBean.valueByte==null?(byte)0:defaultBean.valueByte));
+    return (byte)prefs.getInt("value_byte", (byte)(defaultBean.valueByte==null?(byte)0:defaultBean.valueByte));
   }
 
   /**
@@ -507,7 +507,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueShortType value
    */
   public short valueShortType() {
-    return (short)prefs.getInt("bean64", (short)defaultBean.valueShortType);
+    return (short)prefs.getInt("value_short_type", (short)defaultBean.valueShortType);
   }
 
   /**
@@ -516,7 +516,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueShort value
    */
   public Short valueShort() {
-    return (short)prefs.getInt("bean64", (short)(defaultBean.valueShort==null?(short)0:defaultBean.valueShort));
+    return (short)prefs.getInt("value_short", (short)(defaultBean.valueShort==null?(short)0:defaultBean.valueShort));
   }
 
   /**
@@ -525,7 +525,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueIntType value
    */
   public int valueIntType() {
-    return (int)prefs.getInt("bean64", (int)defaultBean.valueIntType);
+    return (int)prefs.getInt("value_int_type", (int)defaultBean.valueIntType);
   }
 
   /**
@@ -534,7 +534,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueInt value
    */
   public Integer valueInt() {
-    return (int)prefs.getInt("bean64", (int)(defaultBean.valueInt==null?0:defaultBean.valueInt));
+    return (int)prefs.getInt("value_int", (int)(defaultBean.valueInt==null?0:defaultBean.valueInt));
   }
 
   /**
@@ -543,7 +543,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueString value
    */
   public String valueString() {
-    return prefs.getString("bean64", defaultBean.valueString);
+    return prefs.getString("value_string", defaultBean.valueString);
   }
 
   /**
@@ -552,7 +552,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueCharType value
    */
   public char valueCharType() {
-    return (char)prefs.getInt("bean64", (char)defaultBean.valueCharType);
+    return (char)prefs.getInt("value_char_type", (char)defaultBean.valueCharType);
   }
 
   /**
@@ -561,7 +561,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueChar value
    */
   public Character valueChar() {
-    return (char)prefs.getInt("bean64", (char)(defaultBean.valueChar==null?(char)0:defaultBean.valueChar));
+    return (char)prefs.getInt("value_char", (char)(defaultBean.valueChar==null?(char)0:defaultBean.valueChar));
   }
 
   /**
@@ -570,7 +570,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueFloatType value
    */
   public float valueFloatType() {
-    return prefs.getFloat("bean64", defaultBean.valueFloatType);
+    return prefs.getFloat("value_float_type", defaultBean.valueFloatType);
   }
 
   /**
@@ -579,7 +579,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueFloat value
    */
   public Float valueFloat() {
-    return prefs.getFloat("bean64", (defaultBean.valueFloat==null?0F:defaultBean.valueFloat));
+    return prefs.getFloat("value_float", (defaultBean.valueFloat==null?0F:defaultBean.valueFloat));
   }
 
   /**
@@ -588,7 +588,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueBigInteger value
    */
   public BigInteger valueBigInteger() {
-    String temp=prefs.getString("bean64", "0");
+    String temp=prefs.getString("value_big_integer", "0");
     return (StringUtils.hasText(temp)) ? new BigInteger(temp): null;
 
   }
@@ -599,7 +599,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueBigDecimal value
    */
   public BigDecimal valueBigDecimal() {
-    String temp=prefs.getString("bean64", "0");
+    String temp=prefs.getString("value_big_decimal", "0");
     return (StringUtils.hasText(temp)) ? new BigDecimal(temp): null;
 
   }
@@ -610,7 +610,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueEnumType value
    */
   public EnumType valueEnumType() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_enum_type", null);
     return (StringUtils.hasText(temp)) ? EnumType.valueOf(temp): null;
 
   }
@@ -621,7 +621,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueLongType value
    */
   public long valueLongType() {
-    return prefs.getLong("bean64", defaultBean.valueLongType);
+    return prefs.getLong("value_long_type", defaultBean.valueLongType);
   }
 
   /**
@@ -630,7 +630,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueLong value
    */
   public Long valueLong() {
-    return prefs.getLong("bean64", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
+    return prefs.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
   }
 
   /**
@@ -639,7 +639,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueDoubleType value
    */
   public double valueDoubleType() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_double_type", null);
     return (StringUtils.hasText(temp)) ? Double.valueOf(temp): 0.0;
 
   }
@@ -650,7 +650,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueDouble value
    */
   public Double valueDouble() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_double", null);
     return (StringUtils.hasText(temp)) ? Double.valueOf(temp): null;
 
   }
@@ -661,7 +661,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueLocale value
    */
   public Locale valueLocale() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_locale", null);
     return (StringUtils.hasText(temp)) ? LocaleUtils.read(temp): null;
   }
 
@@ -671,7 +671,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueCalendar value
    */
   public Calendar valueCalendar() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_calendar", null);
     return (StringUtils.hasText(temp)) ? CalendarUtils.read(temp): null;
   }
 
@@ -681,7 +681,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueDate value
    */
   public Date valueDate() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_date", null);
     return (StringUtils.hasText(temp)) ? DateUtils.read(temp): null;
   }
 
@@ -691,7 +691,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueUrl value
    */
   public URL valueUrl() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_url", null);
     return (StringUtils.hasText(temp)) ? UrlUtils.read(temp): null;
   }
 
@@ -701,7 +701,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueTime value
    */
   public Time valueTime() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_time", null);
     return (StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): null;
   }
 
@@ -711,7 +711,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueCurrency value
    */
   public Currency valueCurrency() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_currency", null);
     return (StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): null;
   }
 
@@ -721,7 +721,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueTimeZone value
    */
   public TimeZone valueTimeZone() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_time_zone", null);
     return (StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): null;
   }
 
@@ -731,7 +731,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueTimeList value
    */
   public List<Time> valueTimeList() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_time_list", null);
     return StringUtils.hasText(temp) ? parseValueTimeList(temp): null;
 
   }
@@ -742,7 +742,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueStrinList value
    */
   public LinkedList<String> valueStrinList() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_strin_list", null);
     return StringUtils.hasText(temp) ? parseValueStrinList(temp): null;
 
   }
@@ -753,7 +753,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueLongList value
    */
   public LinkedList<Long> valueLongList() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_long_list", null);
     return StringUtils.hasText(temp) ? parseValueLongList(temp): null;
 
   }
@@ -764,7 +764,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueByteArray value
    */
   public byte[] valueByteArray() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_byte_array", null);
     return StringUtils.hasText(temp) ? parseValueByteArray(temp): null;
 
   }
@@ -775,7 +775,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueBean value
    */
   public Bean64 valueBean() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_bean", null);
     return StringUtils.hasText(temp) ? parseValueBean(temp): null;
 
   }
@@ -786,7 +786,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueLongTypeArray value
    */
   public long[] valueLongTypeArray() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_long_type_array", null);
     return StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): null;
 
   }
@@ -797,7 +797,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueLongArray value
    */
   public Long[] valueLongArray() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_long_array", null);
     return StringUtils.hasText(temp) ? parseValueLongArray(temp): null;
 
   }
@@ -808,7 +808,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueBeanArray value
    */
   public Bean64[] valueBeanArray() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_bean_array", null);
     return StringUtils.hasText(temp) ? parseValueBeanArray(temp): null;
 
   }
@@ -819,7 +819,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueStringArray value
    */
   public String[] valueStringArray() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_string_array", null);
     return StringUtils.hasText(temp) ? parseValueStringArray(temp): null;
 
   }
@@ -830,7 +830,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueCharList value
    */
   public LinkedList<Character> valueCharList() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_char_list", null);
     return StringUtils.hasText(temp) ? parseValueCharList(temp): null;
 
   }
@@ -841,7 +841,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueCharTypeArray value
    */
   public char[] valueCharTypeArray() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_char_type_array", null);
     return StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): null;
 
   }
@@ -852,7 +852,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueCharArray value
    */
   public Character[] valueCharArray() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_char_array", null);
     return StringUtils.hasText(temp) ? parseValueCharArray(temp): null;
 
   }
@@ -863,7 +863,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueMapStringBean value
    */
   public Map<String, Bean64> valueMapStringBean() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_map_string_bean", null);
     return StringUtils.hasText(temp) ? parseValueMapStringBean(temp): null;
 
   }
@@ -874,7 +874,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueLinkedMapStringBean value
    */
   public LinkedHashMap<String, Bean64> valueLinkedMapStringBean() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_linked_map_string_bean", null);
     return StringUtils.hasText(temp) ? parseValueLinkedMapStringBean(temp): null;
 
   }
@@ -885,7 +885,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * @return property valueSetString value
    */
   public Set<String> valueSetString() {
-    String temp=prefs.getString("bean64", null);
+    String temp=prefs.getString("value_set_string", null);
     return StringUtils.hasText(temp) ? parseValueSetString(temp): null;
 
   }
@@ -1935,7 +1935,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBoolType
      */
     public BindEditor putValueBoolType(boolean value) {
-      editor.putBoolean("bean64",(boolean)value);
+      editor.putBoolean("value_bool_type",(boolean)value);
 
       return this;
     }
@@ -1945,7 +1945,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueBool(Boolean value) {
       if (value!=null)  {
-        editor.putBoolean("bean64",(boolean)value);
+        editor.putBoolean("value_bool",(boolean)value);
       }
 
       return this;
@@ -1955,7 +1955,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueByteType
      */
     public BindEditor putValueByteType(byte value) {
-      editor.putInt("bean64",(int)value);
+      editor.putInt("value_byte_type",(int)value);
 
       return this;
     }
@@ -1965,7 +1965,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueByte(Byte value) {
       if (value!=null)  {
-        editor.putInt("bean64",(int)value);
+        editor.putInt("value_byte",(int)value);
       }
 
       return this;
@@ -1975,7 +1975,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueShortType
      */
     public BindEditor putValueShortType(short value) {
-      editor.putInt("bean64",(int)value);
+      editor.putInt("value_short_type",(int)value);
 
       return this;
     }
@@ -1985,7 +1985,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueShort(Short value) {
       if (value!=null)  {
-        editor.putInt("bean64",(int)value);
+        editor.putInt("value_short",(int)value);
       }
 
       return this;
@@ -1995,7 +1995,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueIntType
      */
     public BindEditor putValueIntType(int value) {
-      editor.putInt("bean64",(int)value);
+      editor.putInt("value_int_type",(int)value);
 
       return this;
     }
@@ -2005,7 +2005,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueInt(Integer value) {
       if (value!=null)  {
-        editor.putInt("bean64",(int)value);
+        editor.putInt("value_int",(int)value);
       }
 
       return this;
@@ -2015,7 +2015,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueString
      */
     public BindEditor putValueString(String value) {
-      editor.putString("bean64",value);
+      editor.putString("value_string",value);
 
       return this;
     }
@@ -2024,7 +2024,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueCharType
      */
     public BindEditor putValueCharType(char value) {
-      editor.putInt("bean64",(char)value);
+      editor.putInt("value_char_type",(char)value);
 
       return this;
     }
@@ -2034,7 +2034,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueChar(Character value) {
       if (value!=null)  {
-        editor.putInt("bean64",(char)value);
+        editor.putInt("value_char",(char)value);
       }
 
       return this;
@@ -2044,7 +2044,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueFloatType
      */
     public BindEditor putValueFloatType(float value) {
-      editor.putFloat("bean64",value);
+      editor.putFloat("value_float_type",value);
 
       return this;
     }
@@ -2054,7 +2054,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueFloat(Float value) {
       if (value!=null)  {
-        editor.putFloat("bean64",value);
+        editor.putFloat("value_float",value);
       }
 
       return this;
@@ -2064,7 +2064,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBigInteger
      */
     public BindEditor putValueBigInteger(BigInteger value) {
-      if (value!=null) editor.putString("bean64",value.toString()); else editor.remove("bean64");
+      if (value!=null) editor.putString("value_big_integer",value.toString()); else editor.remove("value_big_integer");
       return this;
     }
 
@@ -2072,7 +2072,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueBigDecimal
      */
     public BindEditor putValueBigDecimal(BigDecimal value) {
-      if (value!=null) editor.putString("bean64",value.toPlainString()); else editor.remove("bean64");
+      if (value!=null) editor.putString("value_big_decimal",value.toPlainString()); else editor.remove("value_big_decimal");
       return this;
     }
 
@@ -2081,7 +2081,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueEnumType(EnumType value) {
       if (value!=null)  {
-        editor.putString("bean64",value.toString() );
+        editor.putString("value_enum_type",value.toString() );
       } else {
         editor.remove("valueEnumType");
       }
@@ -2093,7 +2093,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueLongType
      */
     public BindEditor putValueLongType(long value) {
-      editor.putLong("bean64",value);
+      editor.putLong("value_long_type",value);
 
       return this;
     }
@@ -2103,7 +2103,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueLong(Long value) {
       if (value!=null)  {
-        editor.putLong("bean64",value);
+        editor.putLong("value_long",value);
       }
 
       return this;
@@ -2113,7 +2113,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      * modifier for property valueDoubleType
      */
     public BindEditor putValueDoubleType(double value) {
-      editor.putString("bean64",String.valueOf(value));
+      editor.putString("value_double_type",String.valueOf(value));
 
       return this;
     }
@@ -2123,7 +2123,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueDouble(Double value) {
       if (value!=null)  {
-        editor.putString("bean64",String.valueOf(value));
+        editor.putString("value_double",String.valueOf(value));
       } else {
         editor.remove("valueDouble");
       }
@@ -2136,7 +2136,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueLocale(Locale value) {
       if (value!=null)  {
-        editor.putString("bean64",LocaleUtils.write(value));
+        editor.putString("value_locale",LocaleUtils.write(value));
       } else {
         editor.remove("valueLocale");
       }
@@ -2149,7 +2149,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueCalendar(Calendar value) {
       if (value!=null)  {
-        editor.putString("bean64",CalendarUtils.write(value));
+        editor.putString("value_calendar",CalendarUtils.write(value));
       } else {
         editor.remove("valueCalendar");
       }
@@ -2162,7 +2162,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueDate(Date value) {
       if (value!=null)  {
-        editor.putString("bean64",DateUtils.write(value));
+        editor.putString("value_date",DateUtils.write(value));
       } else {
         editor.remove("valueDate");
       }
@@ -2175,7 +2175,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueUrl(URL value) {
       if (value!=null)  {
-        editor.putString("bean64",UrlUtils.write(value));
+        editor.putString("value_url",UrlUtils.write(value));
       } else {
         editor.remove("valueUrl");
       }
@@ -2188,7 +2188,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueTime(Time value) {
       if (value!=null)  {
-        editor.putString("bean64",SQLTimeUtils.write(value));
+        editor.putString("value_time",SQLTimeUtils.write(value));
       } else {
         editor.remove("valueTime");
       }
@@ -2201,7 +2201,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueCurrency(Currency value) {
       if (value!=null)  {
-        editor.putString("bean64",CurrencyUtils.write(value));
+        editor.putString("value_currency",CurrencyUtils.write(value));
       } else {
         editor.remove("valueCurrency");
       }
@@ -2214,7 +2214,7 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor putValueTimeZone(TimeZone value) {
       if (value!=null)  {
-        editor.putString("bean64",TimeZoneUtils.write(value));
+        editor.putString("value_time_zone",TimeZoneUtils.write(value));
       } else {
         editor.remove("valueTimeZone");
       }

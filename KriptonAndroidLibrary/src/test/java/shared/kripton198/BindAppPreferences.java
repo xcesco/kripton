@@ -60,7 +60,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public AppPreferences read() {
     AppPreferences bean=new AppPreferences();
-    bean.valueFloat=prefs.getFloat("app_preferences", bean.valueFloat);
+    bean.valueFloat=prefs.getFloat("value_float", bean.valueFloat);
     bean.valueBoolean=(boolean)prefs.getBoolean("value", (boolean)bean.valueBoolean);
 
     return bean;
@@ -73,7 +73,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public void write(AppPreferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putFloat("app_preferences",bean.valueFloat);
+    editor.putFloat("value_float",bean.valueFloat);
 
     editor.putBoolean("value",(boolean)bean.valueBoolean);
 
@@ -87,7 +87,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property valueFloat value
    */
   public float valueFloat() {
-    return prefs.getFloat("app_preferences", defaultBean.valueFloat);
+    return prefs.getFloat("value_float", defaultBean.valueFloat);
   }
 
   /**
@@ -120,7 +120,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
      * modifier for property valueFloat
      */
     public BindEditor putValueFloat(float value) {
-      editor.putFloat("app_preferences",value);
+      editor.putFloat("value_float",value);
 
       return this;
     }

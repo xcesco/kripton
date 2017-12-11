@@ -39,7 +39,7 @@ public class PrefProperty extends ManagedModelProperty {
 
 		String name = AnnotationUtility.extractAsString(element, BindPreference.class, AnnotationAttributeType.VALUE);
 		if (!StringUtils.hasText(name)) {
-			name = converter.convert(entity.getName());
+			name = converter.convert(element.getSimpleName().toString());
 		}
 
 		preferenceKey = name;

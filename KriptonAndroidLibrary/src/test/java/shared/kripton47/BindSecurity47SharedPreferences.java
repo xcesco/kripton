@@ -79,15 +79,15 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    */
   public Security47 read() {
     Security47 bean=new Security47();
-    bean.fcmId=prefs.getString("security47", bean.fcmId);
+    bean.fcmId=prefs.getString("fcm_id", bean.fcmId);
      {
-      String temp=prefs.getString("security47", null);
+      String temp=prefs.getString("authorization_token", null);
       bean.authorizationToken=StringUtils.hasText(temp) ? parseAuthorizationToken(temp): null;
     }
 
-    bean.deviceUid=prefs.getString("security47", bean.deviceUid);
+    bean.deviceUid=prefs.getString("device_uid", bean.deviceUid);
      {
-      String temp=prefs.getString("security47", null);
+      String temp=prefs.getString("user_identity", null);
       bean.userIdentity=StringUtils.hasText(temp) ? parseUserIdentity(temp): null;
     }
 
@@ -102,7 +102,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    */
   public void write(Security47 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("security47",bean.fcmId);
+    editor.putString("fcm_id",bean.fcmId);
 
     if (bean.authorizationToken!=null)  {
       String temp=serializeAuthorizationToken(bean.authorizationToken);
@@ -111,7 +111,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
       editor.remove("authorizationToken");
     }
 
-    editor.putString("security47",bean.deviceUid);
+    editor.putString("device_uid",bean.deviceUid);
 
     if (bean.userIdentity!=null)  {
       String temp=serializeUserIdentity(bean.userIdentity);
@@ -130,7 +130,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    * @return property fcmId value
    */
   public String fcmId() {
-    return prefs.getString("security47", defaultBean.fcmId);
+    return prefs.getString("fcm_id", defaultBean.fcmId);
   }
 
   /**
@@ -139,7 +139,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    * @return property authorizationToken value
    */
   public DeviceAccessToken authorizationToken() {
-    String temp=prefs.getString("security47", null);
+    String temp=prefs.getString("authorization_token", null);
     return StringUtils.hasText(temp) ? parseAuthorizationToken(temp): null;
 
   }
@@ -150,7 +150,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    * @return property deviceUid value
    */
   public String deviceUid() {
-    return prefs.getString("security47", defaultBean.deviceUid);
+    return prefs.getString("device_uid", defaultBean.deviceUid);
   }
 
   /**
@@ -159,7 +159,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    * @return property userIdentity value
    */
   public UserIdentity userIdentity() {
-    String temp=prefs.getString("security47", null);
+    String temp=prefs.getString("user_identity", null);
     return StringUtils.hasText(temp) ? parseUserIdentity(temp): null;
 
   }
@@ -273,7 +273,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
      * modifier for property fcmId
      */
     public BindEditor putFcmId(String value) {
-      editor.putString("security47",value);
+      editor.putString("fcm_id",value);
 
       return this;
     }
@@ -296,7 +296,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
      * modifier for property deviceUid
      */
     public BindEditor putDeviceUid(String value) {
-      editor.putString("security47",value);
+      editor.putString("device_uid",value);
 
       return this;
     }
