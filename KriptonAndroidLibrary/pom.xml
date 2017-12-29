@@ -21,7 +21,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-android-library</artifactId>
-	<version>3.1.0</version>
+	<version>3.2.0</version>
 	<packaging>jar</packaging>
 
 	<description>Kripton Persistence Library for Android platform</description>

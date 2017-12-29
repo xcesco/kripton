@@ -260,6 +260,10 @@ public abstract class SQLiteUpdateTaskHelper {
 	public static <H extends AbstractDataSource> void verifySchema(H dataSource, InputStream fileSchemaInputStream) {
 		verifySchema(dataSource.openWritableDatabase(), fileSchemaInputStream);
 	}
+	
+	public static <H extends AbstractDataSource> void verifySchema(H dataSource, int fileSchemaResourceId) {
+		verifySchema(dataSource.openWritableDatabase(), KriptonLibrary.context().getResources().openRawResource(fileSchemaResourceId));
+	}
 
 	static void verifySchema(SQLiteDatabase database, InputStream inputStream) {
 		Set<String> actualSql = new HashSet<String>();
