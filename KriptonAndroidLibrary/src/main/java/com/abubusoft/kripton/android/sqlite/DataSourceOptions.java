@@ -17,13 +17,11 @@ package com.abubusoft.kripton.android.sqlite;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.commons.IOUtils;
 
+import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -37,13 +35,13 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 public class DataSourceOptions {
 
 	public final boolean logEnabled;
-	
+
 	public final CursorFactory factory;
-	
+
 	public final DatabaseErrorHandler errorHandler;
-	
+
 	public final DatabaseLifecycleHandler databaseLifecycleHandler;
-	
+
 	public final List<SQLiteUpdateTask> updateTasks;
 
 	public static Builder builder() {
@@ -51,7 +49,7 @@ public class DataSourceOptions {
 	}
 
 	public static class Builder {
-		private boolean logEnabled=true;
+		private boolean logEnabled = true;
 		private CursorFactory factory;
 		private DatabaseErrorHandler errorHandler;
 		private DatabaseLifecycleHandler databaseLifecycleHandler;
@@ -61,7 +59,7 @@ public class DataSourceOptions {
 			this.factory = value;
 			return this;
 		}
-		
+
 		public Builder log(boolean value) {
 			this.logEnabled = value;
 			return this;
@@ -85,10 +83,11 @@ public class DataSourceOptions {
 		 * @param resId
 		 * @return
 		 */
-		public Builder addUpdateTask(int currentVersion, int resId) {
-			String[] commands = IOUtils.readTextFile(KriptonLibrary.context(), resId).split(";");
+		public Builder addUpdateTask(int currentVersion, Context context, int resId) {
+			// String[] commands = IOUtils.readTextFile(context,
+			// resId).split(";");
 
-			return addUpdateTask(currentVersion, Arrays.asList(commands));
+			return addUpdateTask(currentVersion, context.getResources().openRawResource(resId));
 		}
 
 		/**
@@ -107,7 +106,7 @@ public class DataSourceOptions {
 					for (String item : sqlList) {
 						Logger.info(item);
 						database.execSQL(item);
-					}					
+					}
 				}
 			};
 
@@ -161,7 +160,7 @@ public class DataSourceOptions {
 	}
 
 	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<SQLiteUpdateTask> updateTasks, boolean log) {
-		this.logEnabled=log;
+		this.logEnabled = log;
 		this.factory = factory;
 		this.errorHandler = errorHandler;
 		this.databaseLifecycleHandler = databaseLifecycleHandler;

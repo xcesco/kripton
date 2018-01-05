@@ -24,12 +24,12 @@ public class SQLiteUpdateTestDatabase {
 	public static Builder builder(int version, String initialSchemaFileName) {
 		return new Builder(version, initialSchemaFileName);
 	}
-	
+
 	public static Builder builder(int version, InputStream initialSchemaInputStream) {
 		return new Builder(version, initialSchemaInputStream);
 	}
-	
-	public static Builder builder(int version, Context context,  int initialSchemaResourceId) {
+
+	public static Builder builder(int version, Context context, int initialSchemaResourceId) {
 		return new Builder(version, context, initialSchemaResourceId);
 	}
 
@@ -52,16 +52,16 @@ public class SQLiteUpdateTestDatabase {
 			this.initialSchemaFileName = initialSchemaFileName;
 			this.updateTasks = new ArrayList<>();
 		}
-		
+
 		Builder(int version, InputStream initialSchemaInputStream) {
 			this.version = version;
 			this.initialSchemaInputStream = initialSchemaInputStream;
 			this.updateTasks = new ArrayList<>();
 		}
-		
+
 		Builder(int version, Context context, int initialSchemaResourceId) {
 			this.version = version;
-			this.initialContext=context;
+			this.initialContext = context;
 			this.initialSchemaResourceId = initialSchemaResourceId;
 			this.updateTasks = new ArrayList<>();
 		}
@@ -78,14 +78,14 @@ public class SQLiteUpdateTestDatabase {
 
 			return this;
 		}
-		
+
 		public Builder addVersionUpdateTask(int currentVersion, InputStream updateSqlInputStream) {
 			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(currentVersion, updateSqlInputStream);
 			updateTasks.add(task);
 
 			return this;
 		}
-		
+
 		public Builder addVersionUpdateTask(int currentVersion, Context context, int updateSqlResourceId) {
 			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(currentVersion, context.getResources().openRawResource(updateSqlResourceId));
 			updateTasks.add(task);
@@ -102,12 +102,8 @@ public class SQLiteUpdateTestDatabase {
 				}
 			});
 
-			// updateTasks.sort((entry0, entry1) -> (entry0.previousVersion ==
-			// entry1.previousVersion) ? (entry0.currentVersion -
-			// entry1.currentVersion)
-			// : (entry0.previousVersion - entry1.previousVersion));
-
-			SQLiteUpdateTestDatabase helper = new SQLiteUpdateTestDatabase(KriptonLibrary.context(), null, version, null, initialSchemaFileName, initialSchemaInputStream, this.initialContext, initialSchemaResourceId, updateTasks);
+			SQLiteUpdateTestDatabase helper = new SQLiteUpdateTestDatabase(KriptonLibrary.context(), null, version, null, initialSchemaFileName, initialSchemaInputStream, this.initialContext,
+					initialSchemaResourceId, updateTasks);
 
 			return helper;
 		}
@@ -136,14 +132,15 @@ public class SQLiteUpdateTestDatabase {
 
 	private Context firstSchemaContext;
 
-	SQLiteUpdateTestDatabase(Context context, CursorFactory factory, int version, DatabaseErrorHandler errorHandler, String schemaDefinitionFile, InputStream initialSchemaInputStream, Context initialSchemaContext, int initialSchemaResourceId, List<SQLiteUpdateTask> updateTasks) {
+	SQLiteUpdateTestDatabase(Context context, CursorFactory factory, int version, DatabaseErrorHandler errorHandler, String schemaDefinitionFile, InputStream initialSchemaInputStream,
+			Context initialSchemaContext, int initialSchemaResourceId, List<SQLiteUpdateTask> updateTasks) {
 		this.version = version;
 		this.context = context;
 		this.factory = factory;
 		this.errorHandler = errorHandler;
 		this.firstSchemaDefinitionFile = schemaDefinitionFile;
 		this.firstSchemaDefinitionInputStream = initialSchemaInputStream;
-		this.firstSchemaContext=initialSchemaContext;
+		this.firstSchemaContext = initialSchemaContext;
 		this.firstSchemaDefinitionResourceId = initialSchemaResourceId;
 		this.updateTasks = updateTasks;
 	}

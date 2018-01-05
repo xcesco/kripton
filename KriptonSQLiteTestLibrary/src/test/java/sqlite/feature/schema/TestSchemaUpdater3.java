@@ -17,7 +17,6 @@ import sqlite.feature.schema.version2.BindSchoolDataSource;
 @RunWith(RobolectricTestRunner.class)
 public class TestSchemaUpdater3 extends BaseAndroidTest {
 
-	
 	/**
 	 * 
 	 * Destroy and recreate everything
@@ -27,14 +26,12 @@ public class TestSchemaUpdater3 extends BaseAndroidTest {
 	public void testCustomUpdateSingleStep() {
 		SQLiteUpdateTestHelper.resetInstance(BindSchoolDataSource.class);
 		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, "schemas/school_update_2_3.sql").build());
-							
+
 		SQLiteUpdateTaskHelper.forceSchemaUpdate(BindSchoolDataSource.instance(), 3);
-				
+
 		SQLiteUpdateTaskHelper.verifySchema(BindSchoolDataSource.instance(), "schemas/school_schema_2.sql");
-		
+
 		Logger.info("finish");
 	}
-	
-
 
 }
