@@ -21,12 +21,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLiteUpdateTestDatabase {
 
-	public static Builder builder(int version, String initialSchemaFileName) {
-		return new Builder(version, initialSchemaFileName);
-	}
-
-	public static Builder builder(int version, InputStream initialSchemaInputStream) {
-		return new Builder(version, initialSchemaInputStream);
+	public static Builder builder(int version, Context context, InputStream initialSchemaInputStream) {
+		return new Builder(version, context, initialSchemaInputStream);
 	}
 
 	public static Builder builder(int version, Context context, int initialSchemaResourceId) {
@@ -37,31 +33,24 @@ public class SQLiteUpdateTestDatabase {
 
 		private int version;
 
-		private String initialSchemaFileName;
-
 		private List<SQLiteUpdateTask> updateTasks;
 
 		private InputStream initialSchemaInputStream;
 
 		private int initialSchemaResourceId;
 
-		private Context initialContext;
+		private Context context;
 
-		Builder(int version, String initialSchemaFileName) {
+		Builder(int version, Context context, InputStream initialSchemaInputStream) {
 			this.version = version;
-			this.initialSchemaFileName = initialSchemaFileName;
-			this.updateTasks = new ArrayList<>();
-		}
-
-		Builder(int version, InputStream initialSchemaInputStream) {
-			this.version = version;
+			this.context = context;
 			this.initialSchemaInputStream = initialSchemaInputStream;
 			this.updateTasks = new ArrayList<>();
 		}
 
 		Builder(int version, Context context, int initialSchemaResourceId) {
 			this.version = version;
-			this.initialContext = context;
+			this.context = context;
 			this.initialSchemaResourceId = initialSchemaResourceId;
 			this.updateTasks = new ArrayList<>();
 		}
@@ -102,7 +91,7 @@ public class SQLiteUpdateTestDatabase {
 				}
 			});
 
-			SQLiteUpdateTestDatabase helper = new SQLiteUpdateTestDatabase(KriptonLibrary.context(), null, version, null, initialSchemaFileName, initialSchemaInputStream, this.initialContext,
+			SQLiteUpdateTestDatabase helper = new SQLiteUpdateTestDatabase(version, context, initialSchemaInputStream, 
 					initialSchemaResourceId, updateTasks);
 
 			return helper;
@@ -120,27 +109,21 @@ public class SQLiteUpdateTestDatabase {
 
 	private DatabaseErrorHandler errorHandler;
 
-	private Context context;
-
 	private int version;
-
-	private String firstSchemaDefinitionFile;
 
 	private InputStream firstSchemaDefinitionInputStream;
 
 	private int firstSchemaDefinitionResourceId;
 
-	private Context firstSchemaContext;
+	private Context context;
 
-	SQLiteUpdateTestDatabase(Context context, CursorFactory factory, int version, DatabaseErrorHandler errorHandler, String schemaDefinitionFile, InputStream initialSchemaInputStream,
-			Context initialSchemaContext, int initialSchemaResourceId, List<SQLiteUpdateTask> updateTasks) {
+	SQLiteUpdateTestDatabase(Context context, CursorFactory factory, int version, DatabaseErrorHandler errorHandler, InputStream initialSchemaInputStream,
+			int initialSchemaResourceId, List<SQLiteUpdateTask> updateTasks) {
 		this.version = version;
-		this.context = context;
 		this.factory = factory;
+		this.context=context;
 		this.errorHandler = errorHandler;
-		this.firstSchemaDefinitionFile = schemaDefinitionFile;
 		this.firstSchemaDefinitionInputStream = initialSchemaInputStream;
-		this.firstSchemaContext = initialSchemaContext;
 		this.firstSchemaDefinitionResourceId = initialSchemaResourceId;
 		this.updateTasks = updateTasks;
 	}
@@ -160,10 +143,7 @@ public class SQLiteUpdateTestDatabase {
 
 			@Override
 			public void onCreate(SQLiteDatabase database) {
-				if (firstSchemaDefinitionFile != null) {
-					Logger.info("Load DDL from " + firstSchemaDefinitionFile);
-					SQLiteUpdateTaskHelper.executeSQLFromFile(database, firstSchemaDefinitionFile);
-				} else if (firstSchemaDefinitionInputStream != null) {
+				if (firstSchemaDefinitionInputStream != null) {
 					Logger.info("Load DDL from input stream");
 					SQLiteUpdateTaskHelper.executeSQLFromFile(database, firstSchemaDefinitionInputStream);
 				} else {

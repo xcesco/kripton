@@ -33,6 +33,7 @@ import com.abubusoft.kripton.android.commons.IOUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -51,8 +52,9 @@ public abstract class SQLiteUpdateTaskHelper {
 	}
 
 	private static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
-		String query = String.format("SELECT name, sql FROM sqlite_master WHERE type='%s'and name!='sqlite_sequence' and name!='android_metadata'%s", type.toString().toLowerCase(),
-				StringUtils.hasText(conditions) ? " AND " + conditions : "");
+		String query = String.format(
+				"SELECT name, sql FROM sqlite_master WHERE type='%s'and name!='sqlite_sequence' and name!='android_metadata'%s",
+				type.toString().toLowerCase(), StringUtils.hasText(conditions) ? " AND " + conditions : "");
 		try (Cursor cursor = db.rawQuery(query, null)) {
 			if (cursor.moveToFirst()) {
 				int index0 = cursor.getColumnIndex("name");
@@ -237,43 +239,31 @@ public abstract class SQLiteUpdateTaskHelper {
 
 	}
 
-	public static <H extends AbstractDataSource> void verifySchema(H dataSource, String fileNameSchema) {
-		try {
-			verifySchema(dataSource.openWritableDatabase(), new FileInputStream(fileNameSchema));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-
-			throw (new KriptonRuntimeException(e));
-		}
+	public static void verifySchema(SQLiteDatabase database, InputStream inputStream) {
+		verifySchema(database, IOUtils.readTextLines(inputStream));
 	}
 
-	public static <H extends AbstractDataSource> void verifySchema(H dataSource, File fileSchema) {
-		try {
-			verifySchema(dataSource.openWritableDatabase(), new FileInputStream(fileSchema));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-
-			throw (new KriptonRuntimeException(e));
-		}
+	public static <H extends AbstractDataSource> void verifySchema(H dataSource, InputStream inputStream) {
+		verifySchema(dataSource.openWritableDatabase(), IOUtils.readTextLines(inputStream));
 	}
 
-	public static <H extends AbstractDataSource> void verifySchema(H dataSource, InputStream fileSchemaInputStream) {
-		verifySchema(dataSource.openWritableDatabase(), fileSchemaInputStream);
-	}
-	
-	public static <H extends AbstractDataSource> void verifySchema(H dataSource, int fileSchemaResourceId) {
-		verifySchema(dataSource.openWritableDatabase(), KriptonLibrary.context().getResources().openRawResource(fileSchemaResourceId));
+	public static void verifySchema(SQLiteDatabase database, Context context, int rawId) {
+		verifySchema(database, IOUtils.readTextLines(context.getResources().openRawResource(rawId)));
 	}
 
-	static void verifySchema(SQLiteDatabase database, InputStream inputStream) {
+	public static <H extends AbstractDataSource> void verifySchema(H dataSource, Context context, int rawId) {
+		verifySchema(dataSource.openWritableDatabase(),
+				IOUtils.readTextLines(context.getResources().openRawResource(rawId)));
+	}
+
+	static void verifySchema(SQLiteDatabase database, List<String> expectedSQL) {
 		Set<String> actualSql = new HashSet<String>();
 		actualSql.addAll(SQLiteUpdateTaskHelper.getAllTables(database).values());
 		actualSql.addAll(SQLiteUpdateTaskHelper.getAllIndexes(database).values());
 
-		List<String> expectedSQL = SQLiteUpdateTaskHelper.readSQLFromFile(inputStream);
-
 		if (actualSql.size() != expectedSQL.size()) {
-			Logger.error("SCHEMA COMPARATOR RESULT: ERROR - Number of tables and indexes between aspected and actual schemas are different");
+			Logger.error(
+					"SCHEMA COMPARATOR RESULT: ERROR - Number of tables and indexes between aspected and actual schemas are different");
 			for (String item1 : actualSql) {
 				Logger.info("actual: " + item1);
 			}
@@ -282,7 +272,8 @@ public abstract class SQLiteUpdateTaskHelper {
 				Logger.info("expected: " + item1);
 			}
 
-			throw new KriptonRuntimeException("Number of tables and indexes between aspected and actual schemas are different");
+			throw new KriptonRuntimeException(
+					"Number of tables and indexes between aspected and actual schemas are different");
 		}
 
 		for (String item : expectedSQL) {

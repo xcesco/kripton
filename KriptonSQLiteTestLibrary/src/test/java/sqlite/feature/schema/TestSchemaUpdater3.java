@@ -1,5 +1,7 @@
 package sqlite.feature.schema;
 
+import java.io.FileInputStream;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -23,13 +25,12 @@ public class TestSchemaUpdater3 extends BaseAndroidTest {
 	 * 
 	 */
 	@Test
-	public void testCustomUpdateSingleStep() {
+	public void testCustomUpdateSingleStep() throws Exception {
 		SQLiteUpdateTestHelper.resetInstance(BindSchoolDataSource.class);
-		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, "schemas/school_update_2_3.sql").build());
+		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, new FileInputStream("schemas/school_update_2_3.sql")).build());
 
 		SQLiteUpdateTaskHelper.forceSchemaUpdate(BindSchoolDataSource.instance(), 3);
-
-		SQLiteUpdateTaskHelper.verifySchema(BindSchoolDataSource.instance(), "schemas/school_schema_2.sql");
+		SQLiteUpdateTaskHelper.verifySchema(BindSchoolDataSource.instance(), new FileInputStream("schemas/school_schema_2.sql"));
 
 		Logger.info("finish");
 	}

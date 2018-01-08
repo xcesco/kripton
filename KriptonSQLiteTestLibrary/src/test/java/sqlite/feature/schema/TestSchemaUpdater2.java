@@ -1,5 +1,7 @@
 package sqlite.feature.schema;
 
+import java.io.FileInputStream;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -25,10 +27,10 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	 * 
 	 */
 	@Test
-	public void testStandardUpdate() {
+	public void testStandardUpdate()  throws Exception {
 		SQLiteUpdateTestHelper.resetInstance(BindSchoolDataSource.class);
 		
-		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, "schemas/school_update_2_3.sql").build());
+		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, new FileInputStream("schemas/school_update_2_3.sql")).build());
 		BindSchoolDataSource dataSource=BindSchoolDataSource.open();
 		
 		SQLiteUpdateTaskHelper.forceSchemaUpdate(dataSource, 3);		
@@ -44,15 +46,14 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	 * 
 	 */
 	@Test
-	public void testCustomUpdateTwiceStep() {	
+	public void testCustomUpdateTwiceStep() throws Exception {	
 		SQLiteUpdateTestHelper.resetInstance(BindSchoolDataSource.class);
-		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, "schemas/school_update_2_3.sql")
+		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, new FileInputStream("schemas/school_update_2_3.sql"))
 				.addUpdateTask(new SQLiteUpdateTask(4) {
 					
 					@Override
 					public void execute(SQLiteDatabase database) {
-						Logger.info("just in case, 3 and 4 are the same!");
-						
+						Logger.info("just in case, 3 and 4 are the same!");						
 					}
 				})
 				.build());

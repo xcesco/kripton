@@ -22,12 +22,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.abubusoft.kripton.android.Logger;
 
 import android.content.Context;
 
 public class IOUtils {
+
+	public interface OnReadLineListener {
+
+		void onTextLine(String line);
+
+	}
 
 	public static String readTextFile(Context context, int resId) {
 		InputStream inputStream = context.getResources().openRawResource(resId);
@@ -71,5 +79,43 @@ public class IOUtils {
 			
 		}
 		return stringBuilder.toString();
+	}
+
+	public static List<String> readTextLines(InputStream openRawResource) {
+		final List<String> result=new LinkedList<>();
+		
+		readTextLines(openRawResource, new OnReadLineListener() {
+			
+			@Override
+			public void onTextLine(String line) {
+				result.add(line);
+			}
+		});
+		
+		return result;		
+	}
+	
+	public static void readTextLines(InputStream openRawResource, OnReadLineListener listener) {
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openRawResource));
+		String line;		
+		try {
+			while ((line = bufferedReader.readLine()) != null) {
+				listener.onTextLine(line);				
+			}
+		} catch (IOException e) {
+			Logger.error(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			
+			if (bufferedReader != null) {
+				try {
+					bufferedReader.close();
+				} catch (IOException e) {
+					Logger.error(e.getMessage());
+					e.printStackTrace();
+				}
+			}
+			
+		}
 	}
 }

@@ -80,14 +80,11 @@ public class DataSourceOptions {
 		 * to execute. File can contains -- or multiline comments.
 		 * 
 		 * @param currentVersion
-		 * @param resId
+		 * @param resRawId
 		 * @return
 		 */
-		public Builder addUpdateTask(int currentVersion, Context context, int resId) {
-			// String[] commands = IOUtils.readTextFile(context,
-			// resId).split(";");
-
-			return addUpdateTask(currentVersion, context.getResources().openRawResource(resId));
+		public Builder addUpdateTask(int currentVersion, Context context, int resRawId) {			
+			return addUpdateTask(currentVersion, context.getResources().openRawResource(resRawId));
 		}
 
 		/**
@@ -95,15 +92,16 @@ public class DataSourceOptions {
 		 * to execute. No comment are allowed. Only sql.
 		 * 
 		 * @param currentVersion
-		 * @param resId
+		 * @param sqlCommandList
+		 * 		sql command to execute
 		 * @return
 		 */
-		public Builder addUpdateTask(int currentVersion, final List<String> sqlList) {
+		public Builder addUpdateTask(int currentVersion, final List<String> sqlCommandList) {
 			SQLiteUpdateTask task = new SQLiteUpdateTask(currentVersion) {
 
 				@Override
 				public void execute(SQLiteDatabase database) {
-					for (String item : sqlList) {
+					for (String item : sqlCommandList) {
 						Logger.info(item);
 						database.execSQL(item);
 					}
@@ -117,23 +115,6 @@ public class DataSourceOptions {
 
 		public Builder addUpdateTask(SQLiteUpdateTask task) {
 			this.updateTasks.add(task);
-			return this;
-		}
-
-		/**
-		 * task to execute upgrade from currentVersion-1 to currentVersion.
-		 * 
-		 * @param currentVersion
-		 *            database current version
-		 * @param updateSqlFileName
-		 *            filename to read and execute
-		 * @return
-		 */
-		public Builder addUpdateTask(int currentVersion, String updateSqlFileName) {
-			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(currentVersion, updateSqlFileName);
-
-			this.updateTasks.add(task);
-
 			return this;
 		}
 
