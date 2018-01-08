@@ -1,12 +1,15 @@
 package sqlite.feature.schema;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.SQLiteSchemaVerifierHelper;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTestDatabase;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -17,33 +20,33 @@ import base.BaseAndroidTest;
 public class TestSchemaUpdater extends BaseAndroidTest {
 
 	@Test
-	public void testUpdateWithHelper() {
-		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, "schemas/school_schema_1.sql")
+	public void testUpdateWithHelper() throws FileNotFoundException {
+		final FileInputStream stream = new FileInputStream("schemas/school_schema_2.sql");
+
+		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, getApplicationContext(), new FileInputStream("schemas/school_schema_1.sql"))
 
 				.addVersionUpdateTask(new SQLiteUpdateTask(2) {
 
 					@Override
 					public void execute(SQLiteDatabase database) {
-						SQLiteUpdateTaskHelper.renameTablesWithPrefix(database, "tmp_");
-						SQLiteUpdateTaskHelper.executeSQLFromFile(database, "schemas/school_schema_2.sql");
-						SQLiteUpdateTaskHelper.dropTablesWithPrefix(database, "tmp_");
+						SQLiteSchemaVerifierHelper.renameTablesWithPrefix(database, "tmp_");
+						SQLiteSchemaVerifierHelper.executeSQL(database, stream);
+						SQLiteSchemaVerifierHelper.dropTablesWithPrefix(database, "tmp_");
 
 					}
 				}).build();
-		database.create();
-		database.updateAndVerify(2, "schemas/school_schema_2.sql");
+
+		database.updateAndVerify(2, new FileInputStream("schemas/school_schema_2.sql"));
 
 		log("finish");
-
 	}
 
 	@Test
-	public void testUpdateWithFile() {
-		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, "schemas/school_schema_1.sql")
-				.addVersionUpdateTask(2, "schemas/school_update_1_2.sql").build();
+	public void testUpdateWithFile() throws FileNotFoundException {
+		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, getApplicationContext(), new FileInputStream("schemas/school_schema_1.sql"))
+				.addVersionUpdateTask(2, new FileInputStream("schemas/school_update_1_2.sql")).build();
 
-		database.create();
-		database.updateAndVerify(2, "schemas/school_schema_2.sql");
+		database.updateAndVerify(2, new FileInputStream("schemas/school_schema_2.sql"));
 
 		log("finish");
 

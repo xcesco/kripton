@@ -15,18 +15,31 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.commons.IOUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlLexer;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Sql_stmtContext;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -36,7 +49,7 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public abstract class SQLiteUpdateTaskHelper {
+public abstract class SQLiteSchemaVerifierHelper {
 
 	public enum QueryType {
 		TABLE, INDEX
@@ -47,9 +60,8 @@ public abstract class SQLiteUpdateTaskHelper {
 	}
 
 	private static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
-		String query = String.format(
-				"SELECT name, sql FROM sqlite_master WHERE type='%s'and name!='sqlite_sequence' and name!='android_metadata'%s",
-				type.toString().toLowerCase(), StringUtils.hasText(conditions) ? " AND " + conditions : "");
+		String query = String.format("SELECT name, sql FROM sqlite_master WHERE type='%s'and name!='sqlite_sequence' and name!='android_metadata'%s", type.toString().toLowerCase(),
+				StringUtils.hasText(conditions) ? " AND " + conditions : "");
 		try (Cursor cursor = db.rawQuery(query, null)) {
 			if (cursor.moveToFirst()) {
 				int index0 = cursor.getColumnIndex("name");
@@ -165,12 +177,12 @@ public abstract class SQLiteUpdateTaskHelper {
 		return result;
 	}
 
-	public static void executeSQL(final SQLiteDatabase database, Context context,  int rawResourceId) {
+	public static void executeSQL(final SQLiteDatabase database, Context context, int rawResourceId) {
 		String[] c = IOUtils.readTextFile(context, rawResourceId).split(";");
 		List<String> commands = Arrays.asList(c);
 		executeSQL(database, commands);
 	}
-	
+
 	public static List<String> readSQLFromFile(String fileName) {
 		try {
 			return readSQLFromFile(new FileInputStream(fileName));
@@ -224,6 +236,122 @@ public abstract class SQLiteUpdateTaskHelper {
 			database.execSQL(command);
 		}
 
+	}
+
+	public static void verifySchema(SQLiteDatabase database, InputStream inputStream) {
+		List<String> ddl = extractCommands(database, inputStream);
+		verifySchemaInternal(database, ddl);
+	}
+
+	public static <H extends AbstractDataSource> void verifySchema(H dataSource, InputStream inputStream) {
+		verifySchema(dataSource.openWritableDatabase(), inputStream);
+	}
+
+	public static void verifySchema(SQLiteDatabase database, Context context, int rawId) {
+		verifySchema(database, context.getResources().openRawResource(rawId));		
+	}
+
+	static List<String> extractCommands(SQLiteDatabase database, InputStream inputStream) {
+		final List<String> result = new ArrayList<>();
+		final String input = IOUtils.readText(inputStream);
+		JqlLexer lexer = new JqlLexer(CharStreams.fromString(input));
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		JqlParser parser = new JqlParser(tokens);
+		ParserRuleContext parseContext = parser.parse();
+
+		ParseTreeWalker walk = new ParseTreeWalker();
+		walk.walk(new JqlBaseListener() {
+
+			@Override
+			public void enterSql_stmt(Sql_stmtContext ctx) {
+				int start = ctx.getStart().getStartIndex();
+				int stop = ctx.getStop().getStopIndex() + 1;
+
+				if (start == stop)
+					return;
+
+				result.add(input.substring(start, stop));
+			}
+
+		}, parseContext);
+
+		return result;
+	}
+
+	public static <H extends AbstractDataSource> void verifySchema(H dataSource, Context context, int rawId) {
+		verifySchema(dataSource.openWritableDatabase(), context, rawId);
+	}
+
+	static void verifySchemaInternal(SQLiteDatabase database, List<String> expectedSQL) {
+		Set<String> actualSql = new HashSet<String>();
+		actualSql.addAll(SQLiteSchemaVerifierHelper.getAllTables(database).values());
+		actualSql.addAll(SQLiteSchemaVerifierHelper.getAllIndexes(database).values());
+
+		if (actualSql.size() != expectedSQL.size()) {
+			Logger.error("SCHEMA COMPARATOR RESULT: ERROR - Number of tables and indexes between aspected and actual schemas are different");
+			for (String item1 : actualSql) {
+				Logger.info("actual: " + item1);
+			}
+
+			for (String item1 : expectedSQL) {
+				Logger.info("expected: " + item1);
+			}
+
+			throw new KriptonRuntimeException("Number of tables and indexes between aspected and actual schemas are different");
+		}
+
+		for (String item : expectedSQL) {
+			if (!actualSql.contains(item)) {
+				Logger.error("SCHEMA COMPARATOR RESULT: ERROR - Actual and expected schemas are NOT the same");
+				for (String item1 : actualSql) {
+					Logger.info("actual: " + item1);
+				}
+
+				for (String item1 : expectedSQL) {
+					Logger.info("expected: " + item1);
+				}
+
+				throw new KriptonRuntimeException("not found element: " + item);
+			}
+		}
+
+		Logger.info("SCHEMA COMPARATOR RESULT: OK - Actual and expected schemas are the same!");
+
+		database.close();
+
+	}
+
+	/**
+	 * Force a schema update for a datasource. Note that no DDL was execute
+	 * untill the database was opened.
+	 * 
+	 * @param dataSource
+	 * @param version
+	 *            to upgrade.
+	 */
+	public static <E extends AbstractDataSource> void forceSchemaUpdate(E dataSource, int version) {
+		dataSource.forceClose();
+
+		dataSource.version = version;
+		dataSource.database = null;
+		dataSource.sqliteHelper = null;
+
+		dataSource.openWritableDatabase();
+	}
+
+	public static <E extends AbstractDataSource> void clearDatabase(E dataSource) {
+		dataSource.openWritableDatabase();
+		File file = new File(dataSource.database.getPath(), dataSource.name);
+
+		if (dataSource.isOpen()) {
+			dataSource.forceClose();
+			dataSource.close();
+		}
+
+		Logger.info("Clear database file %s", file.getAbsolutePath());
+		if (!file.delete()) {
+			Logger.warn("Can not delete database " + file.getAbsolutePath());
+		}
 	}
 
 }

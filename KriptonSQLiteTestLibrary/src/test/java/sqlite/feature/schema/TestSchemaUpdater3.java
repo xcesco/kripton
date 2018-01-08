@@ -9,7 +9,7 @@ import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.SQLiteSchemaVerifierHelper;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTestHelper;
 
 import base.BaseAndroidTest;
@@ -29,8 +29,8 @@ public class TestSchemaUpdater3 extends BaseAndroidTest {
 		SQLiteUpdateTestHelper.resetInstance(BindSchoolDataSource.class);
 		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, new FileInputStream("schemas/school_update_2_3.sql")).build());
 
-		SQLiteUpdateTaskHelper.forceSchemaUpdate(BindSchoolDataSource.instance(), 3);
-		SQLiteUpdateTaskHelper.verifySchema(BindSchoolDataSource.instance(), new FileInputStream("schemas/school_schema_2.sql"));
+		SQLiteSchemaVerifierHelper.forceSchemaUpdate(BindSchoolDataSource.instance(), 3);
+		SQLiteSchemaVerifierHelper.verifySchema(BindSchoolDataSource.instance(), new FileInputStream("schemas/school_schema_2.sql"));
 
 		Logger.info("finish");
 	}

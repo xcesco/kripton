@@ -6,7 +6,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.SQLiteSchemaVerifierHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
 
@@ -276,7 +276,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       }
     } else {
       // drop all tables
-      SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
+      SQLiteSchemaVerifierHelper.dropTablesAndIndices(database);
 
       // generate tables
       // log section BEGIN
