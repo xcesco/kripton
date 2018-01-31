@@ -10,14 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.abubusoft.kripton.android.BindAsyncTaskType;
-import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.quickstart.model.Comment;
-import com.abubusoft.quickstart.R;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartAsyncTask;
-import com.abubusoft.kripton.quickstart.persistence.BindQuickStartDaoFactory;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartDataSource;
 import com.abubusoft.kripton.quickstart.persistence.CommentDaoImpl;
+import com.abubusoft.quickstart.R;
 
 import java.util.List;
 
@@ -65,18 +63,6 @@ public class CommentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        BindQuickStartDataSource.instance().executeBatch(daoFactory -> {
-            daoFactory.getAlbumDao();
-            return null;
-        });
-
-        try (BindQuickStartDataSource dataSource=BindQuickStartDataSource.open()) {
-            dataSource.getAlbumDao();
-            dataSource.execute(daoFactory -> {daoFactory.getAlbumDao()});
-
-        }
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +13,11 @@ import android.support.v7.widget.RecyclerView;
 
 import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
-import com.abubusoft.quickstart.R;
 import com.abubusoft.kripton.quickstart.model.User;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartAsyncTask;
-import com.abubusoft.kripton.quickstart.persistence.BindQuickStartDaoFactory;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartDataSource;
 import com.abubusoft.kripton.quickstart.persistence.UserDaoImpl;
+import com.abubusoft.quickstart.R;
 
 import java.util.List;
 

@@ -47,9 +47,7 @@ dependencies {
     // annotation processors
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
@@ -57,5 +55,9 @@ dependencies {
     implementation "com.abubusoft:kripton-retrofit-converter:${kriptonVersion}"
     implementation "com.squareup.okhttp3:logging-interceptor:${retrofitLoggingInterceptor}"
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
+
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
