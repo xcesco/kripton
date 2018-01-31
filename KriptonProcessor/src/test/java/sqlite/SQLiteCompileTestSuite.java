@@ -42,6 +42,7 @@ import sqlite.feature.typeadapter.TestTypeAdapterSuite;
 import sqlite.feature.typeadapter.kripton180.Test180Suite;
 import sqlite.kripton111.TestCompile111;
 import sqlite.kripton186.Test186Suite;
+import sqlite.kripton205.Test205Suite;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
 import sqlite.kripton40.Test40Suite;
@@ -129,7 +130,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			Test186Suite.class,
 			Test180Suite.class,
 			TestStack44633883Suite.class,
-			TestStack45184504Suite.class,			
+			TestStack45184504Suite.class,	
+			Test205Suite.class,
 						
 			TestPerformanceSuite.class,
 			TestSelectSuite.class,
