@@ -23,13 +23,13 @@ public class TestSchemaUpdater extends BaseAndroidTest {
 	public void testUpdateWithHelper() throws FileNotFoundException {
 		final FileInputStream stream = new FileInputStream("schemas/school_schema_2.sql");
 
-		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, getApplicationContext(), new FileInputStream("schemas/school_schema_1.sql"))
+		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, new FileInputStream("schemas/school_schema_1.sql"))
 
 				.addVersionUpdateTask(new SQLiteUpdateTask(2) {
 
 					@Override
 					public void execute(SQLiteDatabase database) {
-						SQLiteSchemaVerifierHelper.renameTablesWithPrefix(database, "tmp_");
+						SQLiteSchemaVerifierHelper.renameAllTablesWithPrefix(database, "tmp_");
 						SQLiteSchemaVerifierHelper.executeSQL(database, stream);
 						SQLiteSchemaVerifierHelper.dropTablesWithPrefix(database, "tmp_");
 
@@ -43,7 +43,7 @@ public class TestSchemaUpdater extends BaseAndroidTest {
 
 	@Test
 	public void testUpdateWithFile() throws FileNotFoundException {
-		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, getApplicationContext(), new FileInputStream("schemas/school_schema_1.sql"))
+		SQLiteUpdateTestDatabase database = SQLiteUpdateTestDatabase.builder(1, new FileInputStream("schemas/school_schema_1.sql"))
 				.addVersionUpdateTask(2, new FileInputStream("schemas/school_update_1_2.sql")).build();
 
 		database.updateAndVerify(2, new FileInputStream("schemas/school_schema_2.sql"));

@@ -22,7 +22,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,6 +33,8 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.commons.IOUtils;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper.OnResultListener;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper.QueryType;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
@@ -42,7 +43,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Sql_stmtContext;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -51,26 +51,21 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public abstract class SQLiteSchemaVerifierHelper {
 
-	public enum QueryType {
-		TABLE, INDEX
-	};
-
-	interface OnResultListener {
-		void onRow(SQLiteDatabase db, String name, String sql);
+	/**
+	 * Delete database file
+	 * @param context
+	 */
+	public static void clearDatabase(Context context) {		
+		File dbFile=context.getDatabasePath(SQLiteUpdateTestDatabase.MIGRATION_TEST);
+		Logger.info("Clear database file %s", dbFile.getAbsolutePath());
+		if (!dbFile.delete()) {
+			Logger.warn("Can not delete database " + dbFile.getAbsolutePath());
+		}		
+		
 	}
 
 	private static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
-		String query = String.format("SELECT name, sql FROM sqlite_master WHERE type='%s'and name!='sqlite_sequence' and name!='android_metadata'%s", type.toString().toLowerCase(),
-				StringUtils.hasText(conditions) ? " AND " + conditions : "");
-		try (Cursor cursor = db.rawQuery(query, null)) {
-			if (cursor.moveToFirst()) {
-				int index0 = cursor.getColumnIndex("name");
-				int index1 = cursor.getColumnIndex("sql");
-				do {
-					listener.onRow(db, cursor.getString(index0), cursor.getString(index1));
-				} while (cursor.moveToNext());
-			}
-		}
+		SQLiteUpdateTaskHelper.query(db, conditions, type, listener);
 	}
 
 	/**
@@ -103,28 +98,16 @@ public abstract class SQLiteSchemaVerifierHelper {
 	 * @return
 	 */
 	public static Map<String, String> getAllTables(SQLiteDatabase db) {
-		final Map<String, String> result = new LinkedHashMap<>();
-
-		query(db, null, QueryType.TABLE, new OnResultListener() {
-
-			@Override
-			public void onRow(SQLiteDatabase db, String name, String sql) {
-				result.put(name, sql.trim());
-				// Logger.info("found TABLE %s = %s", name, sql);
-
-			}
-		});
-
-		return result;
+		return SQLiteUpdateTaskHelper.getAllTables(db);
 	}
 
 	/**
-	 * Add to all table a specifix prefix
+	 * Add to all schema's table a specifix prefix
 	 * 
 	 * @param db
 	 * @param prefix
 	 */
-	public static void renameTablesWithPrefix(SQLiteDatabase db, final String prefix) {
+	public static void renameAllTablesWithPrefix(SQLiteDatabase db, final String prefix) {
 		Logger.info("MASSIVE TABLE RENAME OPERATION: ADD PREFIX " + prefix);
 		query(db, null, QueryType.TABLE, new OnResultListener() {
 
@@ -162,19 +145,7 @@ public abstract class SQLiteSchemaVerifierHelper {
 	 * @return
 	 */
 	public static Map<String, String> getAllIndexes(SQLiteDatabase db) {
-		final Map<String, String> result = new LinkedHashMap<>();
-
-		query(db, null, QueryType.INDEX, new OnResultListener() {
-
-			@Override
-			public void onRow(SQLiteDatabase db, String name, String sql) {
-				result.put(name, sql.trim());
-				// Logger.info("found INDEX %s = %s", name, sql);
-
-			}
-		});
-
-		return result;
+		return SQLiteUpdateTaskHelper.getAllIndexes(db);
 	}
 
 	public static void executeSQL(final SQLiteDatabase database, Context context, int rawResourceId) {
@@ -248,7 +219,7 @@ public abstract class SQLiteSchemaVerifierHelper {
 	}
 
 	public static void verifySchema(SQLiteDatabase database, Context context, int rawId) {
-		verifySchema(database, context.getResources().openRawResource(rawId));		
+		verifySchema(database, context.getResources().openRawResource(rawId));
 	}
 
 	static List<String> extractCommands(SQLiteDatabase database, InputStream inputStream) {
@@ -288,7 +259,8 @@ public abstract class SQLiteSchemaVerifierHelper {
 		actualSql.addAll(SQLiteSchemaVerifierHelper.getAllIndexes(database).values());
 
 		if (actualSql.size() != expectedSQL.size()) {
-			Logger.error("SCHEMA COMPARATOR RESULT: ERROR - Number of tables and indexes between aspected and actual schemas are different");
+			Logger.error(
+					"SCHEMA COMPARATOR RESULT: ERROR - Number of tables and indexes between aspected and actual schemas are different");
 			for (String item1 : actualSql) {
 				Logger.info("actual: " + item1);
 			}
@@ -297,7 +269,8 @@ public abstract class SQLiteSchemaVerifierHelper {
 				Logger.info("expected: " + item1);
 			}
 
-			throw new KriptonRuntimeException("Number of tables and indexes between aspected and actual schemas are different");
+			throw new KriptonRuntimeException(
+					"Number of tables and indexes between aspected and actual schemas are different");
 		}
 
 		for (String item : expectedSQL) {

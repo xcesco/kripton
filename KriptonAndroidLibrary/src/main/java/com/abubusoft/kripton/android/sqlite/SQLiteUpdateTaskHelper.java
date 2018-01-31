@@ -42,11 +42,11 @@ public abstract class SQLiteUpdateTaskHelper {
 		TABLE, INDEX
 	};
 
-	interface OnResultListener {
+	public interface OnResultListener {
 		void onRow(SQLiteDatabase db, String name, String sql);
 	}
 
-	private static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
+	static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
 		String query = String.format(
 				"SELECT name, sql FROM sqlite_master WHERE type='%s'and name!='sqlite_sequence' and name!='android_metadata'%s",
 				type.toString().toLowerCase(), StringUtils.hasText(conditions) ? " AND " + conditions : "");
@@ -97,9 +97,9 @@ public abstract class SQLiteUpdateTaskHelper {
 
 			@Override
 			public void onRow(SQLiteDatabase db, String name, String sql) {
-				result.put(name, sql.trim());
-				// Logger.info("found TABLE %s = %s", name, sql);
-
+				if (StringUtils.hasText(sql)) {
+					result.put(name, StringUtils.nvl(sql).trim());
+				}				
 			}
 		});
 
@@ -156,9 +156,9 @@ public abstract class SQLiteUpdateTaskHelper {
 
 			@Override
 			public void onRow(SQLiteDatabase db, String name, String sql) {
-				result.put(name, sql.trim());
-				// Logger.info("found INDEX %s = %s", name, sql);
-
+				if (StringUtils.hasText(sql)) {
+					result.put(name, StringUtils.nvl(sql).trim());
+				}
 			}
 		});
 

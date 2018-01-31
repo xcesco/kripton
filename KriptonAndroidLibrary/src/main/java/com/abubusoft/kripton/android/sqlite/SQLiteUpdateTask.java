@@ -29,9 +29,9 @@ import android.database.sqlite.SQLiteDatabase;
 public abstract class SQLiteUpdateTask {
 
 	
-	public SQLiteUpdateTask(int currentVersion) {
-		this.previousVersion = currentVersion-1;
-		this.currentVersion = currentVersion;
+	public SQLiteUpdateTask(int latestVersion) {
+		this.previousVersion = latestVersion-1;
+		this.currentVersion = latestVersion;
 	}
 
 	public final int previousVersion;

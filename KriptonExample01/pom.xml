@@ -77,7 +77,7 @@
 						<path>
 							<groupId>com.abubusoft</groupId>
 							<artifactId>kripton-processor</artifactId>
-							<version>${kripton.version}</version>
+							<version>${project.version}</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
