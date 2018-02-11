@@ -5,7 +5,7 @@
 	<name>Kripton Retrofit Converter</name>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-retrofit-converter</artifactId>
-	<version>3.2.0</version>
+	<version>3.3.0</version>
 	<packaging>jar</packaging>
 
 	<description>Kripton adapter for Retrofit library</description>

@@ -19,6 +19,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
+import sqlite.feature.jql.err1.TestCompileErr1;
+import sqlite.feature.jql.err2.TestCompileErr2;
 import sqlite.feature.jql.kripton163.TestCompileKripton163;
 import sqlite.feature.jql.kripton164.TestCompileKripton164;
 
@@ -28,7 +30,9 @@ import sqlite.feature.jql.kripton164.TestCompileKripton164;
 		{ 
 		TestJQL.class,
 		TestCompileKripton163.class,
-		TestCompileKripton164.class
+		TestCompileKripton164.class,
+		TestCompileErr1.class,
+		TestCompileErr2.class
 		 })
 //@formatter:on
 public class TestJQLFeatureSuite extends BaseProcessorTest {

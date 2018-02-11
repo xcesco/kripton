@@ -47,6 +47,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
@@ -450,7 +451,7 @@ public abstract class SqlSelectBuilder {
 		final SQLEntity entity=method.getParent().getEntity();
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 		// convert jql to sql
-		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListener() {
+		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 			@Override
 			public String onTableName(String tableName) {
@@ -471,41 +472,6 @@ public abstract class SqlSelectBuilder {
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
 
 				return tempProperty.columnName;
-			}
-
-			@Override
-			public void onWhereStatementBegin(Where_stmtContext ctx) {
-			}
-
-			@Override
-			public void onWhereStatementEnd(Where_stmtContext ctx) {
-			}
-
-			@Override
-			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
-				return null;
-			}
-
-			@Override
-			public void onColumnNameSetBegin(Column_name_setContext ctx) {
-
-			}
-
-			@Override
-			public void onColumnNameSetEnd(Column_name_setContext ctx) {
-			}
-
-			@Override
-			public void onColumnValueSetBegin(Column_value_setContext ctx) {
-			}
-
-			@Override
-			public void onColumnValueSetEnd(Column_value_setContext ctx) {
-			}
-
-			@Override
-			public String onColumnNameToUpdate(String columnName) {
-				return null;
 			}
 
 		});
