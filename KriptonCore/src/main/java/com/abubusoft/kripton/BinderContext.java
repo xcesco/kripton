@@ -26,6 +26,14 @@ import java.util.Map;
 public interface BinderContext {
 
 	/**
+	 * return true if class can be persisted.
+	 * 
+	 * @param cls
+	 * @return
+	 */
+	boolean canPersist(Class<?> cls);
+
+	/**
 	 * <p>
 	 * Specifies which data format is supported by this binding context.
 	 * </p>

@@ -30,6 +30,33 @@ public abstract class AbstractContext implements BinderContext {
 	@SuppressWarnings("rawtypes")
 	static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
 
+	public boolean canPersist(Class<?> cls) {
+		Object mapper = OBJECT_MAPPERS.get(cls);
+		if (mapper == null) {
+			// The only way the mapper wouldn't already be loaded into
+			// OBJECT_MAPPERS is if it was compiled separately, but let's handle
+			// it anyway
+			String beanClassName = cls.getName();
+			String mapperClassName = cls.getName() + KriptonBinder.MAPPER_CLASS_SUFFIX;
+			try {
+				Class<?> mapperClass = (Class<?>) Class.forName(mapperClassName);
+				mapper = mapperClass.newInstance();
+				// mapper.				
+
+				return true;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				throw new KriptonRuntimeException(String.format("Class '%s' does not exist. Does '%s' have @BindType annotation?", mapperClassName, beanClassName));
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+
+	}
+
 	@SuppressWarnings("unchecked")
 	static <E, M extends BinderMapper<E>> M getMapper(Class<E> cls) {
 		M mapper = (M) OBJECT_MAPPERS.get(cls);

@@ -18,7 +18,9 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.isNullable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 
@@ -34,6 +36,7 @@ import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
@@ -62,6 +65,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		// whereCondition
 		// analyze whereCondition
 		String whereCondition = extractWhereConditions(updateMode, method);
+		
+		// this method is invoked to check if every parameter is binded to an method param
+		SqlUtility.extractParametersFromString(method.jql.value, method, entity);
 
 		Pair<String, List<Pair<String, TypeName>>> where = SqlUtility.extractParametersFromString(whereCondition, method, entity);
 
@@ -360,6 +366,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		final One<String> whereCondition = new One<String>("");
 		final One<Boolean> found = new One<Boolean>(null);
 		JQLChecker.getInstance().replaceVariableStatements(method, method.jql.value, new JQLReplaceVariableStatementListenerImpl() {
+						
 			@Override
 			public String onWhere(String statement) {
 				if (found.value0 == null) {
@@ -368,10 +375,12 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				}
 				return null;
 			}
+						
 		});
 
 		return StringUtils.ifNotEmptyAppend(whereCondition.value0, " ");
 	}
+	
 
 	/**
 	 * @param daoDefinition

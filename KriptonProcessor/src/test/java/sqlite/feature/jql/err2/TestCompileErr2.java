@@ -13,11 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor;
+package sqlite.feature.jql.err2;
 
-public abstract class Version {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-	public static String getVersion() {
-		return "3.3.0";
+import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
+
+import sqlite.AbstractBindSQLiteProcessorTest;
+
+@RunWith(JUnit4.class)
+public class TestCompileErr2 extends AbstractBindSQLiteProcessorTest {
+	
+	
+	@Test 
+	public void test_must_work() throws Throwable {
+		this.expectedException(MethodParameterNotFoundException.class);
+		buildDataSourceProcessorTest(BeanErr2.class, DaoErr2.class, Err2DataSource.class);
 	}
+
 }
