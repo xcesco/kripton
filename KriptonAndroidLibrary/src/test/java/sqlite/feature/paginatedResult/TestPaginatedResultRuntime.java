@@ -15,6 +15,7 @@
  *******************************************************************************/
 package sqlite.feature.paginatedResult;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
@@ -26,7 +27,6 @@ import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 
 import base.BaseAndroidTest;
 
@@ -39,15 +39,15 @@ import base.BaseAndroidTest;
 public class TestPaginatedResultRuntime extends BaseAndroidTest {
 
 	@Test
-	public void testCycle() {				
+	public void testCycle() {
 		try (BindPersonDataSource dataSource = BindPersonDataSource.open(); PersonDAOImpl dao = dataSource.getPersonDAO()) {
 			dao.deleteAll();
-			
+
 			for (int i = 0; i < 100; i++) {
 				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
 
-			PaginatedResult<Person> result = dao.selectPagedStatic2(10);
+			PaginatedResult<Person> result = dao.selectPagedStatic1();
 
 			int i = 0;
 
@@ -59,7 +59,7 @@ public class TestPaginatedResultRuntime extends BaseAndroidTest {
 					Logger.info(item.toString());
 				}
 
-				assertTrue(result.list().get(0).name.equals(String.format("name%03d", i * 10)));
+				assertEquals(result.list().get(0).name, String.format("name%03d", i * 10));
 
 				i++;
 			}
@@ -71,12 +71,12 @@ public class TestPaginatedResultRuntime extends BaseAndroidTest {
 	public void testGotoPage() {
 		try (BindPersonDataSource dataSource = BindPersonDataSource.open(); PersonDAOImpl dao = dataSource.getPersonDAO()) {
 			dao.deleteAll();
-			
+
 			for (int i = 0; i < 100; i++) {
 				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
 
-			PaginatedResult<Person> result = dao.selectPagedStatic2(10);
+			PaginatedResult<Person> result = null;// dao.selectPagedStatic1();
 
 			{
 				int i = 5;
@@ -99,11 +99,12 @@ public class TestPaginatedResultRuntime extends BaseAndroidTest {
 				for (Person item : result.list()) {
 					Logger.info(item.toString());
 				}
-				assertTrue(result.list().size()==0);
+				assertTrue(result.list().size() == 0);
 				assertTrue(!result.hasNext());
-				//assertTrue(result.list().get(0).name.equals(String.format("name%03d", i * 10)));
+				// assertTrue(result.list().get(0).name.equals(String.format("name%03d",
+				// i * 10)));
 			}
-			
+
 			{
 				int i = -111;
 				result.gotoPage(i);
@@ -113,9 +114,10 @@ public class TestPaginatedResultRuntime extends BaseAndroidTest {
 				for (Person item : result.list()) {
 					Logger.info(item.toString());
 				}
-				assertTrue(result.list().size()==0);
+				assertTrue(result.list().size() == 0);
 				assertTrue(!result.hasNext());
-				//assertTrue(result.list().get(0).name.equals(String.format("name%03d", i * 10)));
+				// assertTrue(result.list().get(0).name.equals(String.format("name%03d",
+				// i * 10)));
 			}
 
 		}

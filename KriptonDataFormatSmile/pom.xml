@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.abubusoft</groupId>
   <artifactId>kripton-dataformat-smile</artifactId>
-  <version>3.3.0</version>
+  <version>3.3.1</version>
   
 	<!-- common part - BEGIN -->
 	<!-- Property version 1.6.2-SNAPSHOT -->

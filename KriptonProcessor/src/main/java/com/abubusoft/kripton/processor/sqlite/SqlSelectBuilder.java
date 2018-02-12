@@ -46,11 +46,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.ProjectionType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
@@ -274,9 +270,9 @@ public abstract class SqlSelectBuilder {
 				TypeName methodParameterType = method.findParameterTypeByAliasOrName(variable.value);
 
 				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
-				//methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				// methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))",
+				// variable.pathSegmentIndex);
 				methodBuilder.addStatement("_contentValues.addWhereArgs(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
-				
 
 				if (entityProperty != null) {
 
@@ -299,7 +295,9 @@ public abstract class SqlSelectBuilder {
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 
 		methodBuilder.addCode("\n// execute query\n");
-		//methodBuilder.addStatement("Cursor _result = database().rawQuery(_sql, _sqlWhereParams.toArray(new String[_sqlWhereParams.size()]))");
+		// methodBuilder.addStatement("Cursor _result =
+		// database().rawQuery(_sql, _sqlWhereParams.toArray(new
+		// String[_sqlWhereParams.size()]))");
 		methodBuilder.addStatement("Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray())");
 
 		methodBuilder.addStatement("return _result");
@@ -360,7 +358,7 @@ public abstract class SqlSelectBuilder {
 			if (jql.annotatedPageSize) {
 				methodBuilder.addStatement("String _sqlLimitStatement=$S", splittedSql.sqlLimitStatement);
 			} else if (jql.hasParamPageSize()) {
-				methodBuilder.addStatement("String _sqlLimitStatement=$T.printIf($L>0, \" LIMIT \"+pageSize)", SqlUtils.class, jql.paramPageSize);
+				methodBuilder.addStatement("String _sqlLimitStatement=$T.printIf($L>0, \" LIMIT \"+$L)", SqlUtils.class, jql.paramPageSize, jql.paramPageSize);
 			}
 			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlLimitStatement");
 			methodBuilder.addComment("generation limit - END");
@@ -447,8 +445,8 @@ public abstract class SqlSelectBuilder {
 	 * @return
 	 */
 	public static String convertJQL2SQL(final SQLiteModelMethod method, final boolean replaceWithQuestion) {
-		final SQLiteDatabaseSchema schema=method.getParent().getParent();
-		final SQLEntity entity=method.getParent().getEntity();
+		final SQLiteDatabaseSchema schema = method.getParent().getParent();
+		final SQLEntity entity = method.getParent().getEntity();
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 		// convert jql to sql
 		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {

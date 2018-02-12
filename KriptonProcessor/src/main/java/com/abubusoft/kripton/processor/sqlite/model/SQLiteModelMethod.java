@@ -105,13 +105,13 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	protected Map<String, String> parameterAlias2NameField;
 
 	protected Map<String, String> parameterName2Alias;
-	
+
 	protected Map<String, String> parameterName2Adapter;
 
 	private WeakReference<SQLDaoDefinition> parent;
-	
+
 	public long nextCounter() {
-		return getParent().nextCounter();		
+		return getParent().nextCounter();
 	}
 
 	public final JQL jql;
@@ -164,7 +164,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 		this.parameterAlias2NameField = new HashMap<>();
 		this.parameterName2Alias = new HashMap<>();
-		this.parameterName2Adapter=new HashMap<>();
+		this.parameterName2Adapter = new HashMap<>();
 
 		// analyze method looking for BindSqlParam
 		for (VariableElement p : element.getParameters()) {
@@ -176,9 +176,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 					parameterAlias2NameField.put(alias, p.getSimpleName().toString());
 					parameterName2Alias.put(p.getSimpleName().toString(), alias);
 				}
-				
-				// check for adapter				
-				String paramAdapter=AnnotationUtility.extractAsClassName(p, BindSqlParam.class, AnnotationAttributeType.ADAPTER);
+
+				// check for adapter
+				String paramAdapter = AnnotationUtility.extractAsClassName(p, BindSqlParam.class, AnnotationAttributeType.ADAPTER);
 				if (!NoAdapter.class.getCanonicalName().equals(paramAdapter)) {
 					this.parameterName2Adapter.put(p.getSimpleName().toString(), paramAdapter);
 				}
@@ -191,8 +191,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			BindSqlDynamicWhere paramDynamicWhereName = p.getAnnotation(BindSqlDynamicWhere.class);
 			if (paramDynamicWhereName != null) {
 				this.dynamicWhereParameterName = p.getSimpleName().toString();
-				PrependType prepend = PrependType
-						.valueOf(AnnotationUtility.extractAsEnumerationValue(p, BindSqlDynamicWhere.class, AnnotationAttributeType.PREPEND));
+				PrependType prepend = PrependType.valueOf(AnnotationUtility.extractAsEnumerationValue(p, BindSqlDynamicWhere.class, AnnotationAttributeType.PREPEND));
 				this.dynamicWherePrepend = prepend;
 
 				// CONSTRAINT: @BindSqlWhere can be used only on String
@@ -251,8 +250,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		//
 
 		BindContentProviderEntry annotation = element.getAnnotation(BindContentProviderEntry.class);
-		BindContentProviderPath annotationPath=parent.getElement().getAnnotation(BindContentProviderPath.class);
-		if (annotationPath!=null && annotation != null) {
+		BindContentProviderPath annotationPath = parent.getElement().getAnnotation(BindContentProviderPath.class);
+		if (annotationPath != null && annotation != null) {
 			// manage content provider generation
 			String methodPath = "";
 			if (StringUtils.hasText(annotation.path())) {
@@ -334,7 +333,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		}
 
 	}
-	
+
 	public boolean hasAdapterForParam(String paramName) {
 		return this.parameterName2Adapter.containsKey(paramName);
 	}
@@ -556,7 +555,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
 		return StringUtils.hasText(dynamicWhereParameterName) && parameterName.equals(dynamicWhereParameterName);
 	}
-	
+
 	public boolean isLogEnabled() {
 		return getParent().isLogEnabled();
 	}
@@ -603,32 +602,32 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	public String findEntityProperty() {
-		SQLEntity entity=getParent().getEntity();
-		
-		for(Pair<String, TypeName> item: this.parameters) {
+		SQLEntity entity = getParent().getEntity();
+
+		for (Pair<String, TypeName> item : this.parameters) {
 			if (item.value1.equals(TypeUtility.typeName(entity.getElement()))) {
 				return item.value0;
 			}
 		}
 		return null;
 	}
-		
+
 	private String preparedStatementName;
 
 	public String buildPreparedStatementName() {
 		if (!StringUtils.hasText(preparedStatementName)) {
-			preparedStatementName=getParent().buildPreparedStatementName(getName());
+			preparedStatementName = getParent().buildPreparedStatementName(getName());
 		}
 		return preparedStatementName;
 	}
 
 	public boolean hasDynamicParts() {
-		return hasDynamicOrderByConditions() || hasDynamicPageSizeConditions() || hasDynamicWhereConditions();
-		
+		return hasDynamicOrderByConditions() || hasDynamicPageSizeConditions() || hasDynamicWhereConditions() || this.jql.hasDynamicParts();
+
 	}
 
 	public String buildSQLName() {
-		return getName()+"Sql"+nextCounter();
+		return getName() + "Sql" + nextCounter();
 	}
 
 }
