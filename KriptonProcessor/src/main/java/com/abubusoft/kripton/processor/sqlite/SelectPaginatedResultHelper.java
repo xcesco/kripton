@@ -202,7 +202,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			setupBuilder.addParameter(parameterSpec);
 
 			// execute
-			if (method.dynamicPageSizeName.equals(item.value0)) {
+			if (method.dynamicPageSizeName!=null && method.dynamicPageSizeName.equals(item.value0)) {
 				executeBuilder.addCode(separator + "this.pageSize");
 			} else {
 				executeBuilder.addCode(separator + item.value0);

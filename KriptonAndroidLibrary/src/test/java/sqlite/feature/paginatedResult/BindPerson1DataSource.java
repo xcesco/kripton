@@ -1,4 +1,4 @@
-package sqlite.feature.many2many.err3;
+package sqlite.feature.paginatedResult;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -9,69 +9,42 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
-import sqlite.feature.many2many.CityTable;
-import sqlite.feature.many2many.PersonTable;
+import sqlite.feature.paginatedResult.model.PersonTable;
 
 /**
  * <p>
- * Represents implementation of datasource PersonCirtyErr3DataSource.
+ * Represents implementation of datasource Person1DataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see PersonCirtyErr3DataSource
- * @see BindPersonCirtyErr3DaoFactory
- * @see PersonErr3Dao
- * @see PersonErr3DaoImpl
+ * @see Person1DataSource
+ * @see BindPerson1DaoFactory
+ * @see Dao1Person
+ * @see Dao1PersonImpl
  * @see Person
- * @see CityErr3Dao
- * @see CityErr3DaoImpl
- * @see City
- * @see PersonCityErr1Dao
- * @see PersonCityErr1DaoImpl
- * @see PersonCityErr3
  */
-public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements BindPersonCirtyErr3DaoFactory, PersonCirtyErr3DataSource {
+public class BindPerson1DataSource extends AbstractDataSource implements BindPerson1DaoFactory, Person1DataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindPersonCirtyErr3DataSource instance;
+  static BindPerson1DataSource instance;
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonErr3DaoImpl personErr3Dao = new PersonErr3DaoImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected CityErr3DaoImpl cityErr3Dao = new CityErr3DaoImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected PersonCityErr1DaoImpl personCityErr1Dao = new PersonCityErr1DaoImpl(this);
+  protected Dao1PersonImpl dao1Person = new Dao1PersonImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time */
   private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  protected BindPersonCirtyErr3DataSource(DataSourceOptions options) {
-    super("person.db", 1, options);
+  protected BindPerson1DataSource(DataSourceOptions options) {
+    super("person1.db", 1, options);
   }
 
   @Override
-  public PersonErr3DaoImpl getPersonErr3Dao() {
-    return personErr3Dao;
-  }
-
-  @Override
-  public CityErr3DaoImpl getCityErr3Dao() {
-    return cityErr3Dao;
-  }
-
-  @Override
-  public PersonCityErr1DaoImpl getPersonCityErr1Dao() {
-    return personCityErr1Dao;
+  public Dao1PersonImpl getDao1Person() {
+    return dao1Person;
   }
 
   /**
@@ -153,9 +126,9 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   /**
    * instance
    */
-  public static synchronized BindPersonCirtyErr3DataSource instance() {
+  public static synchronized BindPerson1DataSource instance() {
     if (instance==null) {
-      instance=new BindPersonCirtyErr3DataSource(null);
+      instance=new BindPerson1DataSource(null);
     }
     return instance;
   }
@@ -164,8 +137,8 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindPersonCirtyErr3DataSource open() {
-    BindPersonCirtyErr3DataSource instance=instance();
+  public static BindPerson1DataSource open() {
+    BindPerson1DataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -174,8 +147,8 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindPersonCirtyErr3DataSource openReadOnly() {
-    BindPersonCirtyErr3DataSource instance=instance();
+  public static BindPerson1DataSource openReadOnly() {
+    BindPerson1DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -197,18 +170,6 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     }
     // log section END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(CityTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonCityErr3Table.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PersonCityErr3Table.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -268,18 +229,6 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
       }
       // log section END
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(CityTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonCityErr3Table.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonCityErr3Table.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -292,25 +241,22 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 
   public void clearCompiledStatements() {
-    PersonErr3DaoImpl.clearCompiledStatements();
-    CityErr3DaoImpl.clearCompiledStatements();
-    PersonCityErr1DaoImpl.clearCompiledStatements();
+    Dao1PersonImpl.clearCompiledStatements();
   }
 
   /**
    * Build instance.
    * @return dataSource instance.
    */
-  public static synchronized BindPersonCirtyErr3DataSource build(DataSourceOptions options) {
+  public static synchronized BindPerson1DataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindPersonCirtyErr3DataSource(options);
+      instance=new BindPerson1DataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
@@ -320,14 +266,14 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   /**
    * Build instance with default config.
    */
-  public static synchronized BindPersonCirtyErr3DataSource build() {
+  public static synchronized BindPerson1DataSource build() {
     return build(DataSourceOptions.builder().build());
   }
 
   /**
    * Rapresents transational operation.
    */
-  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindPersonCirtyErr3DaoFactory> {
+  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindPerson1DaoFactory> {
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
@@ -337,7 +283,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindPersonCirtyErr3DaoFactory daoFactory);
+    TransactionResult onExecute(BindPerson1DaoFactory daoFactory);
   }
 
   /**
@@ -350,53 +296,27 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindPersonCirtyErr3DaoFactory daoFactory);
+    T onExecute(BindPerson1DaoFactory daoFactory);
   }
 
-  class DataSourceSingleThread implements BindPersonCirtyErr3DaoFactory {
+  class DataSourceSingleThread implements BindPerson1DaoFactory {
     private SQLContextSingleThreadImpl _context;
 
-    private PersonErr3DaoImpl _personErr3Dao;
-
-    private CityErr3DaoImpl _cityErr3Dao;
-
-    private PersonCityErr1DaoImpl _personCityErr1Dao;
+    private Dao1PersonImpl _dao1Person;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindPersonCirtyErr3DataSource.this);
+      _context=new SQLContextSingleThreadImpl(BindPerson1DataSource.this);
     }
 
     /**
      *
-     * retrieve dao PersonErr3Dao
+     * retrieve dao Dao1Person
      */
-    public PersonErr3DaoImpl getPersonErr3Dao() {
-      if (_personErr3Dao==null) {
-        _personErr3Dao=new PersonErr3DaoImpl(_context);
+    public Dao1PersonImpl getDao1Person() {
+      if (_dao1Person==null) {
+        _dao1Person=new Dao1PersonImpl(_context);
       }
-      return _personErr3Dao;
-    }
-
-    /**
-     *
-     * retrieve dao CityErr3Dao
-     */
-    public CityErr3DaoImpl getCityErr3Dao() {
-      if (_cityErr3Dao==null) {
-        _cityErr3Dao=new CityErr3DaoImpl(_context);
-      }
-      return _cityErr3Dao;
-    }
-
-    /**
-     *
-     * retrieve dao PersonCityErr1Dao
-     */
-    public PersonCityErr1DaoImpl getPersonCityErr1Dao() {
-      if (_personCityErr1Dao==null) {
-        _personCityErr1Dao=new PersonCityErr1DaoImpl(_context);
-      }
-      return _personCityErr1Dao;
+      return _dao1Person;
     }
 
     public DataSourceSingleThread bindToThread() {

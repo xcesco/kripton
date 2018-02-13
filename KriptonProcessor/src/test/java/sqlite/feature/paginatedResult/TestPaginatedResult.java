@@ -22,19 +22,47 @@ import org.junit.runners.JUnit4;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.paginatedResult.error1.Err1Person;
+import sqlite.feature.paginatedResult.error1.Err1PersonDAO;
+import sqlite.feature.paginatedResult.error1.Err1PersonDataSource;
+import sqlite.feature.paginatedResult.error2.Err2Person;
+import sqlite.feature.paginatedResult.error2.Err2PersonDAO;
+import sqlite.feature.paginatedResult.error2.Err2PersonDataSource;
+import sqlite.feature.paginatedResult.error3.Err3Person;
+import sqlite.feature.paginatedResult.error3.Err3PersonDAO;
+import sqlite.feature.paginatedResult.error3.Err3PersonDataSource;
+import sqlite.feature.paginatedResult.error4.Err4Person;
+import sqlite.feature.paginatedResult.error4.Err4PersonDAO;
+import sqlite.feature.paginatedResult.error4.Err4PersonDataSource;
+import sqlite.feature.paginatedResult.error5.Err5PersonDAO;
+import sqlite.feature.paginatedResult.error5.Err5PersonDataSource;
+import sqlite.feature.paginatedResult.model.Person;
 
 @RunWith(JUnit4.class)
 public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 
-	/**
-	 * OK
-	 * 
-	 * @throws Throwable
-	 */
 	@Test
-	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
+	public void test1() throws Throwable {
+		buildDataSourceProcessorTest(Person1DataSource.class, Dao1Person.class, Person.class);
 	}
+	
+	@Test
+	public void test2() throws Throwable {
+		buildDataSourceProcessorTest(Person2DataSource.class, Dao2Person.class, Person.class);
+	}
+
+	
+	@Test
+	public void test3() throws Throwable {
+		buildDataSourceProcessorTest(Person3DataSource.class, Dao3Person.class, Person.class);
+	}
+
+	
+	@Test
+	public void test4() throws Throwable {
+		buildDataSourceProcessorTest(Person4DataSource.class, Dao4Person.class, Person.class);
+	}
+
 
 	/**
 	 * pageSize is a String

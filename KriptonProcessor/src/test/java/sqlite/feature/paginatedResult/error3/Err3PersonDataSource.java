@@ -13,21 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.paginatedResult;
+package sqlite.feature.paginatedResult.error3;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestPaginatedResult1Runtime.class,
-		TestPaginatedResult2Runtime.class,
-		TestPaginatedResult3Runtime.class,
-		TestPaginatedResult4Runtime.class
-		 })
-//@formatter:on
-public class TestPaginatedResultRuntimeSuite {
+@BindDataSource(daoSet= { Err3PersonDAO.class }, fileName = "person.db", log=true)
+public interface Err3PersonDataSource {
 
 }

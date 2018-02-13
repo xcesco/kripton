@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.paginatedResult.Person;
+import sqlite.feature.paginatedResult.model.Person;
 import sqlite.feature.schema.version2.DaoBase;
 import sqlite.feature.schema.version2.DaoProfessor;
 import sqlite.feature.schema.version2.DaoSeminar;

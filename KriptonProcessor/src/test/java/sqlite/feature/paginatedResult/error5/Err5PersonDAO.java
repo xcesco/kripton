@@ -13,21 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.paginatedResult;
+package sqlite.feature.paginatedResult.error5;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestPaginatedResult1Runtime.class,
-		TestPaginatedResult2Runtime.class,
-		TestPaginatedResult3Runtime.class,
-		TestPaginatedResult4Runtime.class
-		 })
-//@formatter:on
-public class TestPaginatedResultRuntimeSuite {
+import sqlite.feature.paginatedResult.error4.Err4Person;
+import sqlite.feature.paginatedResult.model.Person;
+
+@BindDao(Person.class)
+public interface Err5PersonDAO {
+
+	@BindSqlSelect
+	PaginatedResult<Err4Person> selectPagedStatic1();
 
 }

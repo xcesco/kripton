@@ -15,19 +15,30 @@
  *******************************************************************************/
 package sqlite.feature.paginatedResult;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.util.Date;
+import java.util.List;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestPaginatedResult1Runtime.class,
-		TestPaginatedResult2Runtime.class,
-		TestPaginatedResult3Runtime.class,
-		TestPaginatedResult4Runtime.class
-		 })
-//@formatter:on
-public class TestPaginatedResultRuntimeSuite {
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
+import sqlite.feature.paginatedResult.model.Person;
+
+@BindDao(Person.class)
+public interface Dao1Person {
+	
+	@BindSqlSelect(orderBy="name", pageSize=10)
+	PaginatedResult<Person> select();
+		
+	@BindSqlInsert
+	void insertOne(String name, String surname, String birthCity, Date birthDay);
+
+	@BindSqlSelect(orderBy="name")
+	List<Person> selectAll();
+	
+	@BindSqlDelete
+	int deleteAll();
+		
 }

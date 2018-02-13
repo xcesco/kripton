@@ -15,19 +15,11 @@
  *******************************************************************************/
 package sqlite.feature.paginatedResult;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestPaginatedResult1Runtime.class,
-		TestPaginatedResult2Runtime.class,
-		TestPaginatedResult3Runtime.class,
-		TestPaginatedResult4Runtime.class
-		 })
-//@formatter:on
-public class TestPaginatedResultRuntimeSuite {
+import sqlite.feature.paginatedResult.Dao1Person;
+
+@BindDataSource(daoSet= { Dao1Person.class }, fileName = "person1.db", log=true)
+public interface Person1DataSource {
 
 }
