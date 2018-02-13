@@ -15,7 +15,7 @@
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-processor</artifactId>
 	<packaging>jar</packaging>
-	<version>3.3.0</version>
+	<version>3.3.1</version>
 
 	<!-- Property version 2.0.0 -->
 	<properties>

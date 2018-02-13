@@ -26,13 +26,11 @@ import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
-import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -44,7 +42,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -59,7 +56,6 @@ import com.squareup.javapoet.TypeSpec;
 public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCodeGenerator {
 
 	@Override
-	//public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		String pagedResultName = buildSpecializedPagedResultClass(classBuilder, method);
@@ -124,10 +120,11 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			int i = 0;
 			for (JQLProjection a : fieldList) {
 				SQLProperty item = a.property;
-				
-				methodBuilder.addStatement("int index$L=cursor.getColumnIndex($S)", (i++), item.columnName);				
+
+				methodBuilder.addStatement("int index$L=cursor.getColumnIndex($S)", (i++), item.columnName);
 				if (item.hasTypeAdapter()) {
-					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class, item.typeAdapter.getAdapterTypeName());
+					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
+							item.typeAdapter.getAdapterTypeName());
 				}
 			}
 		}
@@ -166,6 +163,13 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		methodBuilder.endControlFlow();
 	}
 
+	/**
+	 * Build paginated result class handler.
+	 * 
+	 * @param classBuilder
+	 * @param method
+	 * @return name of generated class
+	 */
 	private static String buildSpecializedPagedResultClass(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 		TypeName entityTypeName = TypeUtility.typeName(method.getParent().getEntityClassName());
 
@@ -181,7 +185,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 				.returns(TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), entityTypeName));
 		executeBuilder.addCode("list=$T.this.$L(", TypeUtility.typeName(method.getParent().getElement(), BindDaoBuilder.SUFFIX), method.getName());
 
-		// we have alway a first parameter
+		// we have always a first parameter
 		String separator = "";
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeName> item : method.getParameters()) {
@@ -198,7 +202,11 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			setupBuilder.addParameter(parameterSpec);
 
 			// execute
-			executeBuilder.addCode(separator + item.value0);
+			if (method.dynamicPageSizeName.equals(item.value0)) {
+				executeBuilder.addCode(separator + "this.pageSize");
+			} else {
+				executeBuilder.addCode(separator + item.value0);
+			}
 			separator = ", ";
 		}
 

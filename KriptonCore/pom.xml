@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-core</artifactId>
-	<version>3.3.0</version>
+	<version>3.3.1</version>
 	<name>Kripton Core</name>
 
 	<packaging>jar</packaging>
