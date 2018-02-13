@@ -52,7 +52,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public PaginatedResult<Person> selectPagedStatic1() {
-    PaginatedResult0 paginatedResult=new PaginatedResult0();
+    PaginatedResult2 paginatedResult=new PaginatedResult2();
     return paginatedResult;
   }
 
@@ -74,7 +74,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	handler of paginated result
    * @return result list
    */
-  private List<Person> selectPagedStatic1(PaginatedResult0 paginatedResult) {
+  private List<Person> selectPagedStatic1(PaginatedResult2 paginatedResult) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
@@ -174,7 +174,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    */
   @Override
   public PaginatedResult<Person> selectPagedStatic2(int value) {
-    PaginatedResult1 paginatedResult=new PaginatedResult1(value);
+    PaginatedResult3 paginatedResult=new PaginatedResult3(value);
     return paginatedResult;
   }
 
@@ -203,7 +203,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
    * 	handler of paginated result
    * @return result list
    */
-  private List<Person> selectPagedStatic2(int value, PaginatedResult1 paginatedResult) {
+  private List<Person> selectPagedStatic2(int value, PaginatedResult3 paginatedResult) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
@@ -228,6 +228,152 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     String _sql=_sqlBuilder.toString();
     // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
+
+      List<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      Person resultBean=null;
+
+      if (cursor.moveToFirst()) {
+
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("surname");
+        int index3=cursor.getColumnIndex("birth_city");
+        int index4=cursor.getColumnIndex("birth_day");
+
+        do
+         {
+          resultBean=new Person();
+
+          resultBean.id=cursor.getLong(index0);
+          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name=${nameValue} LIMIT #{DYNAMIC_PAGE_SIZE} OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * </dl>
+   *
+   * <h2>Method's parameters and associated dynamic parts:</h2>
+   * <dl>
+   * <dt>value</dt>is part of limit statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_PAGE_SIZE}</dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${nameValue}</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
+   * </dl>
+   *
+   * @param nameValue
+   * 	is binded to <code>${nameValue}</code>
+   * @param value
+   * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @return paginated result.
+   */
+  @Override
+  public PaginatedResult<Person> selectPagedStatic3(String nameValue, int value) {
+    PaginatedResult4 paginatedResult=new PaginatedResult4(nameValue, value);
+    return paginatedResult;
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name=${nameValue} LIMIT #{DYNAMIC_PAGE_SIZE} OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * </dl>
+   *
+   * <h2>Method's parameters and associated dynamic parts:</h2>
+   * <dl>
+   * <dt>value</dt>is part of limit statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_PAGE_SIZE}</dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${nameValue}</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
+   * </dl>
+   *
+   * @param nameValue
+   * 	is binded to <code>${nameValue}</code>
+   * @param value
+   * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @param paginatedResult
+   * 	handler of paginated result
+   * @return result list
+   */
+  private List<Person> selectPagedStatic3(String nameValue, int value,
+      PaginatedResult4 paginatedResult) {
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE name=?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    // generation limit - BEGIN
+    String _sqlLimitStatement=SqlUtils.printIf(value>0, " LIMIT "+value);
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=SqlUtils.printIf(value>0 && paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow());
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    _contentValues.addWhereArgs((nameValue==null?"":nameValue));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -421,8 +567,8 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
   }
 
-  public class PaginatedResult0 extends PaginatedResult<Person> {
-    PaginatedResult0() {
+  public class PaginatedResult2 extends PaginatedResult<Person> {
+    PaginatedResult2() {
       this.pageSize=10;
     }
 
@@ -432,13 +578,27 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
   }
 
-  public class PaginatedResult1 extends PaginatedResult<Person> {
-    PaginatedResult1(int value) {
+  public class PaginatedResult3 extends PaginatedResult<Person> {
+    PaginatedResult3(int value) {
       this.pageSize=value;
     }
 
     public List<Person> execute() {
       list=PersonDAOImpl.this.selectPagedStatic2(this.pageSize, this);
+      return list;
+    }
+  }
+
+  public class PaginatedResult4 extends PaginatedResult<Person> {
+    String nameValue;
+
+    PaginatedResult4(String nameValue, int value) {
+      this.nameValue=nameValue;
+      this.pageSize=value;
+    }
+
+    public List<Person> execute() {
+      list=PersonDAOImpl.this.selectPagedStatic3(nameValue, this.pageSize, this);
       return list;
     }
   }

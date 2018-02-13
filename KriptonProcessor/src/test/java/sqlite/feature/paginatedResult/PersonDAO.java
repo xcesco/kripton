@@ -33,6 +33,9 @@ public interface PersonDAO {
 	@BindSqlSelect(orderBy = "name")
 	PaginatedResult<Person> selectPagedStatic2(@BindSqlPageSize int value);
 
+	@BindSqlSelect(where = " name=${nameValue}")
+	PaginatedResult<Person> selectPagedStatic3(String nameValue, @BindSqlPageSize int value);
+
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 
