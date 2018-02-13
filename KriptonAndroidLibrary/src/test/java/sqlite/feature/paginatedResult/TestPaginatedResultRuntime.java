@@ -39,7 +39,7 @@ import base.BaseAndroidTest;
 public class TestPaginatedResultRuntime extends BaseAndroidTest {
 
 	@Test
-	public void testCycle() {
+	public void testAnnotatePageSize() {
 		try (BindPersonDataSource dataSource = BindPersonDataSource.open(); PersonDAOImpl dao = dataSource.getPersonDAO()) {
 			dao.deleteAll();
 
@@ -48,6 +48,35 @@ public class TestPaginatedResultRuntime extends BaseAndroidTest {
 			}
 
 			PaginatedResult<Person> result = dao.selectPagedStatic1();
+
+			int i = 0;
+
+			while (result.nextPage()) {
+				Logger.info("---------------");
+				Logger.info("\tPage " + i);
+				Logger.info("---------------");
+				for (Person item : result.list()) {
+					Logger.info(item.toString());
+				}
+
+				assertEquals(result.list().get(0).name, String.format("name%03d", i * 10));
+
+				i++;
+			}
+		}
+
+	}
+
+	@Test
+	public void testAnnotatePageDynamic() {
+		try (BindPersonDataSource dataSource = BindPersonDataSource.open(); PersonDAOImpl dao = dataSource.getPersonDAO()) {
+			dao.deleteAll();
+
+			for (int i = 0; i < 100; i++) {
+				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
+			}
+
+			PaginatedResult<Person> result = dao.selectPagedStatic2(10);
 
 			int i = 0;
 

@@ -353,7 +353,7 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.addCode("\n");
 		}
 
-		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_SIZE)) {
+		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_SIZE) || jql.annotatedPageSize) {
 			methodBuilder.addComment("generation limit - BEGIN");
 			if (jql.annotatedPageSize) {
 				methodBuilder.addStatement("String _sqlLimitStatement=$S", splittedSql.sqlLimitStatement);

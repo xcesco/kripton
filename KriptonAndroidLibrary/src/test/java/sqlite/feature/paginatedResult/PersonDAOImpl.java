@@ -8,6 +8,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -86,8 +87,142 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     _sqlBuilder.append(_sqlOrderByStatement);
     // generation order - END
 
+    // generation limit - BEGIN
+    String _sqlLimitStatement=" LIMIT 10";
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
     // generation offset - BEGIN
     String _sqlOffsetStatement=" OFFSET "+paginatedResult.firstRow();
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section END
+    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",cursor.getCount());
+      }
+      // log section END
+
+      List<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      Person resultBean=null;
+
+      if (cursor.moveToFirst()) {
+
+        int index0=cursor.getColumnIndex("id");
+        int index1=cursor.getColumnIndex("name");
+        int index2=cursor.getColumnIndex("surname");
+        int index3=cursor.getColumnIndex("birth_city");
+        int index4=cursor.getColumnIndex("birth_day");
+
+        do
+         {
+          resultBean=new Person();
+
+          resultBean.id=cursor.getLong(index0);
+          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
+          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
+
+          resultList.add(resultBean);
+        } while (cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name LIMIT #{DYNAMIC_PAGE_SIZE} OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * </dl>
+   *
+   * <h2>Method's parameters and associated dynamic parts:</h2>
+   * <dl>
+   * <dt>value</dt>is part of limit statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_PAGE_SIZE}</dd>
+   * </dl>
+   *
+   * @param value
+   * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @return paginated result.
+   */
+  @Override
+  public PaginatedResult<Person> selectPagedStatic2(int value) {
+    PaginatedResult1 paginatedResult=new PaginatedResult1(value);
+    return paginatedResult;
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name LIMIT #{DYNAMIC_PAGE_SIZE} OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * </dl>
+   *
+   * <h2>Method's parameters and associated dynamic parts:</h2>
+   * <dl>
+   * <dt>value</dt>is part of limit statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_PAGE_SIZE}</dd>
+   * </dl>
+   *
+   * @param value
+   * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @param paginatedResult
+   * 	handler of paginated result
+   * @return result list
+   */
+  private List<Person> selectPagedStatic2(int value, PaginatedResult1 paginatedResult) {
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+    String _sqlWhereStatement="";
+    // generation order - BEGIN
+    String _sqlOrderByStatement=" ORDER BY name";
+    _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
+    // generation limit - BEGIN
+    String _sqlLimitStatement=SqlUtils.printIf(value>0, " LIMIT "+value);
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=SqlUtils.printIf(value>0 && paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow());
     _sqlBuilder.append(_sqlOffsetStatement);
     // generation offset - END
 
@@ -293,6 +428,17 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
 
     public List<Person> execute() {
       list=PersonDAOImpl.this.selectPagedStatic1(this);
+      return list;
+    }
+  }
+
+  public class PaginatedResult1 extends PaginatedResult<Person> {
+    PaginatedResult1(int value) {
+      this.pageSize=value;
+    }
+
+    public List<Person> execute() {
+      list=PersonDAOImpl.this.selectPagedStatic2(this.pageSize, this);
       return list;
     }
   }

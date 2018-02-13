@@ -20,6 +20,7 @@ import java.util.Date;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
@@ -29,8 +30,8 @@ public interface PersonDAO {
 	@BindSqlSelect(orderBy = "name", pageSize = 10)
 	PaginatedResult<Person> selectPagedStatic1();
 
-	// @BindSqlSelect(orderBy = "name")
-	// PaginatedResult<Person> selectPagedStatic2(@BindSqlPageSize int page);
+	@BindSqlSelect(orderBy = "name")
+	PaginatedResult<Person> selectPagedStatic2(@BindSqlPageSize int value);
 
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
