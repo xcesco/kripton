@@ -9,7 +9,7 @@
 
   <groupId>com.abubusoft</groupId>
   <artifactId>kripton-parent</artifactId>
-  <version>3.4.0</version>
+  <version>3.4.1</version>
   <packaging>pom</packaging>
   <name>Kripton (Parent)</name>
   <description>Kripton persistence library - parent pom</description>

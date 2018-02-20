@@ -40,7 +40,7 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 		}
 
 		if (isStringSet) {
-			methodBuilder.addStatement("Set<String> temp=$L.getStringSet($S, null)", preferenceName, property.getPreferenceKey());
+			methodBuilder.addStatement("$T<String> temp=$L.getStringSet($S, null)", Set.class, preferenceName, property.getPreferenceKey());
 			if (readAll) {
 				methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
 			} else {

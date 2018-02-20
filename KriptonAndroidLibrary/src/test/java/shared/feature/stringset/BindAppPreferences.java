@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -64,7 +65,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
     AppPreferences bean=new AppPreferences();
      {
       Set<String> temp=prefs.getStringSet("value_set", null);
-      bean.valueSet=temp;
+      bean.valueSet=new HashSet<String>(temp);
     }
 
 
@@ -89,9 +90,9 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return property valueSet value
    */
-  public Set<String> valueSet() {
+  public HashSet<String> valueSet() {
     Set<String> temp=prefs.getStringSet("value_set", null);
-    return temp;
+    return new HashSet<String>(temp);
 
   }
 
@@ -115,7 +116,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
     /**
      * modifier for property valueSet
      */
-    public BindEditor putValueSet(Set<String> value) {
+    public BindEditor putValueSet(HashSet<String> value) {
       editor.putStringSet("value_set",value);
 
       return this;

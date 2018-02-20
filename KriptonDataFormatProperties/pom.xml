@@ -4,7 +4,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-dataformat-properties</artifactId>
-	<version>3.4.0</version>
+	<version>3.4.1</version>
 	<name>Kripton Properties data format</name>
     <description>This is jar need to support Properties format.</description>
 	<packaging>jar</packaging>
