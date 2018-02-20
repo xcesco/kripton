@@ -118,7 +118,7 @@ public class Bean2 {
 	
 	LinkedHashSet<Integer> valueIntegerSet;
 	
-	HashSet<String> valueStringSet;
+	HashSet<String> valueStringSet=new HashSet<>(new HashSet<String>());
 	
 	Set<Character> valueCharacterSet;
 	

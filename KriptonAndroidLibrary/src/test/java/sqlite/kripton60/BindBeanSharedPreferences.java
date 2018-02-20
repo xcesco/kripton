@@ -32,7 +32,6 @@ import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -240,8 +239,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
      {
-      String temp=prefs.getString("value_set_string", null);
-      bean.valueSetString=StringUtils.hasText(temp) ? parseValueSetString(temp): null;
+      Set<String> temp=prefs.getStringSet("value_set_string", null);
+      bean.valueSetString=temp;
     }
 
 
@@ -455,12 +454,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
       editor.remove("value_linked_map_string_bean");
     }
 
-    if (bean.valueSetString!=null)  {
-      String temp=serializeValueSetString(bean.valueSetString);
-      editor.putString("value_set_string",temp);
-    }  else  {
-      editor.remove("value_set_string");
-    }
+    editor.putStringSet("value_set_string",bean.valueSetString);
 
 
     editor.commit();
@@ -886,8 +880,8 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueSetString value
    */
   public Set<String> valueSetString() {
-    String temp=prefs.getString("value_set_string", null);
-    return StringUtils.hasText(temp) ? parseValueSetString(temp): null;
+    Set<String> temp=prefs.getStringSet("value_set_string", null);
+    return temp;
 
   }
 
@@ -1848,74 +1842,6 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueSetString serialization
-   */
-  protected String serializeValueSetString(Set<String> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("valueSetString");
-        jacksonSerializer.writeStartArray();
-        for (String item: value) {
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeString(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toString();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueSetString parsing
-   */
-  protected Set<String> parseValueSetString(String input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Set<String> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getText();
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
    * get instance of shared preferences
    */
   public static synchronized BindBeanSharedPreferences instance() {
@@ -2423,12 +2349,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
      * modifier for property valueSetString
      */
     public BindEditor putValueSetString(Set<String> value) {
-      if (value!=null)  {
-        String temp=serializeValueSetString(value);
-        editor.putString("value_set_string",temp);
-      }  else  {
-        editor.remove("value_set_string");
-      }
+      editor.putStringSet("value_set_string",value);
 
       return this;
     }

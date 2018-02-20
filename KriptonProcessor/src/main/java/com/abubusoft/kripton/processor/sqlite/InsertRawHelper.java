@@ -37,7 +37,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_val
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.FieldSpec;
@@ -164,14 +163,13 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final One<Boolean> inColumnValues = new One<Boolean>(false);
 		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
 
 		// transform JQL to SQL
-		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
+		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
 			public void onColumnValueSetBegin(Column_value_setContext ctx) {
@@ -185,7 +183,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 			@Override
 			public String onColumnName(String columnName) {
-				Set<SQLProperty> property = schema.getPropertyBySimpleName(columnName);
+				Set<SQLProperty> property = currentSchema.getPropertyBySimpleName(columnName);
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(property != null, method, columnName);
 
 				SQLProperty tempProperty = property.iterator().next();
@@ -196,7 +194,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 			@Override
 			public String onTableName(String tableName) {
-				return schema.getEntityBySimpleName(tableName).getTableName();
+				return currentSchema.getEntityBySimpleName(tableName).getTableName();
 			}
 
 			@Override
@@ -210,12 +208,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				}
 
 				return "${" + resolvedParamName + "}";
-			}
-			
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
-			}
+			}					
 
 		});
 

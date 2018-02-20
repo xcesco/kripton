@@ -51,7 +51,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.ArrayTypeName;
@@ -445,15 +444,13 @@ public abstract class SqlSelectBuilder {
 	 * @return
 	 */
 	public static String convertJQL2SQL(final SQLiteModelMethod method, final boolean replaceWithQuestion) {
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
-		final SQLEntity entity = method.getParent().getEntity();
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 		// convert jql to sql
-		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
 			public String onTableName(String tableName) {
-				return schema.getEntityBySimpleName(tableName).getTableName();
+				return currentSchema.getEntityBySimpleName(tableName).getTableName();
 			}
 
 			@Override
@@ -466,17 +463,11 @@ public abstract class SqlSelectBuilder {
 
 			@Override
 			public String onColumnName(String columnName) {
-				SQLProperty tempProperty = entity.get(columnName);
+				SQLProperty tempProperty = currentEntity.get(columnName);
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
 
 				return tempProperty.columnName;
 			}
-			
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
-			}
-
 		});
 		return sql;
 	}

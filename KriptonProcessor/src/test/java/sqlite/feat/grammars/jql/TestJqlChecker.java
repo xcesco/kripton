@@ -101,7 +101,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 				return "test context";
 			}
 		}, jql.value);
-		log("replaced " + jsqChecker.replace(dummyContext, jql, new JQLReplacerListenerImpl() {
+		log("replaced " + jsqChecker.replace(dummyContext, jql, new JQLReplacerListenerImpl(null) {
 
 			@Override
 			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
@@ -249,7 +249,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		}
 
 		// prepare for log
-		String sqlLogResult = checker.replace(dummyContext, jql, new JQLReplacerListenerImpl() {
+		String sqlLogResult = checker.replace(dummyContext, jql, new JQLReplacerListenerImpl(null) {
 
 			@Override
 			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
@@ -263,7 +263,6 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 			@Override
 			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		});
@@ -329,7 +328,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		}
 
 		// prepare for log
-		String sqlLogResult = checker.replace(dummyContext, jql, new JQLReplacerListenerImpl() {
+		String sqlLogResult = checker.replace(dummyContext, jql, new JQLReplacerListenerImpl(null) {
 
 			@Override
 			public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
@@ -445,7 +444,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 				public String getContextDescription() {
 					return "Test context";
 				}
-			}, where.value0, new JQLReplacerListenerImpl() {
+			}, where.value0, new JQLReplacerListenerImpl(null) {
 
 				@Override
 				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {

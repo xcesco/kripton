@@ -21,7 +21,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-android-library</artifactId>
-	<version>3.3.1</version>
+	<version>3.4.0</version>
 	<packaging>jar</packaging>
 
 	<description>Kripton Persistence Library for Android platform</description>
@@ -39,7 +39,7 @@
 		<java.version>1.7</java.version>
 
 		<!-- dependencies version -->
-		<jackson.version>2.9.3</jackson.version>
+		<jackson.version>2.9.4</jackson.version>
 		<retrofit.version>2.3.0</retrofit.version>
 		<rx.version>2.1.5</rx.version>
 		

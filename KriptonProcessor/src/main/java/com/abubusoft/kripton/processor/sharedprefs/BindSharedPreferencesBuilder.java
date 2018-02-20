@@ -22,6 +22,8 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -44,6 +46,7 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
+import com.abubusoft.kripton.processor.sharedprefs.transform.SetPrefsTransformation;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.FieldSpec;
@@ -138,7 +141,21 @@ public abstract class BindSharedPreferencesBuilder {
 
 		generateSingleReadMethod(entity);
 		
-		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.STRING, false, Modifier.PROTECTED);
+		// generate all needed writer and reader
+		List<PrefProperty> fields = entity.getCollection();
+		List<PrefProperty> filteredFields=new ArrayList<>();
+		
+		// we need to avoid generation of persists values
+		for (PrefProperty item: fields) {
+			if (SetPrefsTransformation.isStringSet(item)) {
+				continue;
+			} else {
+				filteredFields.add(item);
+			}
+		}
+		
+		// avoid to consider StringSet
+		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, filteredFields, PersistType.STRING, false, Modifier.PROTECTED);
 
 		generateInstance(className);
 

@@ -54,7 +54,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
@@ -236,7 +235,6 @@ public abstract class SqlModifyBuilder {
 	private static void generateModifierForContentProvider(Elements elementUtils, Builder builder, final SQLiteModelMethod method, ModifyType updateResultType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
-		final SQLiteDatabaseSchema schema=daoDefinition.getParent();
 		
 		final Set<String> columns = new LinkedHashSet<>();
 
@@ -274,7 +272,7 @@ public abstract class SqlModifyBuilder {
 		checkContentProviderVarsAndArguments(method, placeHolders);
 
 		// detect column used for content value
-		jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+		jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
@@ -284,12 +282,7 @@ public abstract class SqlModifyBuilder {
 				columns.add(tempProperty.columnName);
 				return null;
 			}
-
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
-			}
-
+			
 		});
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
@@ -476,25 +469,22 @@ public abstract class SqlModifyBuilder {
 	 * @param jqlChecker
 	 */
 	public static void generateLogForModifiers(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
-
-		final SQLEntity entity = method.getParent().getEntity();
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 
 		final One<Boolean> usedInWhere = new One<Boolean>(false);
 
 		methodBuilder.addCode("\n// display log\n");
-		String sqlForLog = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+		String sqlForLog = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
 				// only entity's columns
-				return entity.findPropertyByName(columnName).columnName;
+				return currentEntity.findPropertyByName(columnName).columnName;
 			}
 
 			@Override
 			public String onColumnName(String columnName) {
 				// return entity.findByName(columnName).columnName;
-				return schema.findColumnNameByPropertyName(method, columnName);
+				return currentSchema.findColumnNameByPropertyName(method, columnName);
 			}
 
 			@Override
@@ -512,7 +502,7 @@ public abstract class SqlModifyBuilder {
 						}
 					}
 
-					SQLProperty property = entity.findPropertyByName(paramName);
+					SQLProperty property = currentEntity.findPropertyByName(paramName);
 					AssertKripton.assertTrueOrUnknownPropertyInJQLException(property!=null, method, bindParameterName);
 					
 					return ":" +  property.columnName;
@@ -521,7 +511,7 @@ public abstract class SqlModifyBuilder {
 
 			@Override
 			public String onTableName(String tableName) {
-				SQLEntity entity = schema.getEntityBySimpleName(tableName);
+				SQLEntity entity = currentSchema.getEntityBySimpleName(tableName);
 				AssertKripton.assertTrueOrUnknownClassInJQLException(entity != null, method, tableName);
 				return entity.getTableName();
 			}
@@ -536,11 +526,6 @@ public abstract class SqlModifyBuilder {
 				usedInWhere.value0 = false;
 			}
 
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
-			};
-
 		});
 
 		if (method.jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_WHERE)) {
@@ -552,21 +537,19 @@ public abstract class SqlModifyBuilder {
 	}
 
 	public static void generateSQL(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		final SQLEntity entity = method.getParent().getEntity();
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 
 		methodBuilder.addCode("\n// generate sql\n");
-		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
 				// only entity's columns
-				return entity.findPropertyByName(columnName).columnName;
+				return currentEntity.findPropertyByName(columnName).columnName;
 			}
 
 			@Override
 			public String onColumnName(String columnName) {
-				return schema.findColumnNameByPropertyName(method, columnName);
+				return currentSchema.findColumnNameByPropertyName(method, columnName);
 			}
 
 			@Override
@@ -576,14 +559,9 @@ public abstract class SqlModifyBuilder {
 
 			@Override
 			public String onTableName(String tableName) {
-				SQLEntity entity = schema.getEntityBySimpleName(tableName);
+				SQLEntity entity = currentSchema.getEntityBySimpleName(tableName);
 				AssertKripton.assertTrueOrUnknownClassInJQLException(entity != null, method, tableName);
 				return entity.getTableName();
-			}
-
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
 			}
 
 		});

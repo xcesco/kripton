@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor;
+package shared.feature.stringset;
 
-public abstract class Version {
+import java.io.IOException;
 
-	public static String getVersion() {
-		return "3.4.0";
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+import shared.AbstractBindSharedPreferenceProcessorTest;
+
+@RunWith(JUnit4.class)
+public class TestStringSetCompile extends AbstractBindSharedPreferenceProcessorTest {
+
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(AppPreferences.class);
 	}
+
 }

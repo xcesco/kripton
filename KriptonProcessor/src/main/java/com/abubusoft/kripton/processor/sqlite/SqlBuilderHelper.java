@@ -40,9 +40,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nam
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
@@ -151,9 +149,6 @@ public abstract class SqlBuilderHelper {
 	public static void generateJavaDocForContentProvider(final SQLiteModelMethod method,
 			MethodSpec.Builder methodBuilder) {
 
-		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
-
 		// javadoc
 		String operation = method.jql.operationType.toString();
 		methodBuilder.addJavadoc("<h1>Content provider URI ($L operation):</h1>\n", operation);
@@ -163,28 +158,22 @@ public abstract class SqlBuilderHelper {
 		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.jql.value);
 		methodBuilder.addJavadoc("<h2>SQL $L for Content Provider</h2>\n", operation);
 		String sql = JQLChecker.getInstance().replace(method, method.jql,
-				new com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl() {
+				new com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl(method) {
 
 					@Override
 					public String onTableName(String tableName) {
-						return schema.getEntityBySimpleName(tableName).getTableName();
+						return currentSchema.getEntityBySimpleName(tableName).getTableName();
 					}
 
 					@Override
 					public String onColumnName(String columnName) {
-						SQLProperty tempProperty = daoDefinition.getEntity().get(columnName);
+						SQLProperty tempProperty = currentEntity.get(columnName);
 						AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method,
 								columnName);
 
 						return tempProperty.columnName;
 					}
-
-					@Override
-					public String onColumnFullyQualifiedName(String tableName, String columnName) {
-						return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName,
-								columnName);
-					}
-
+				
 				});
 		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sql);
 
@@ -396,8 +385,6 @@ public abstract class SqlBuilderHelper {
 		final JQL jql = method.jql;
 		final JQLChecker jqlChecker = JQLChecker.getInstance();
 		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();
-		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
 
 		// we need always this
 		if (!sqlWhereParamsAlreadyDefined) {
@@ -430,11 +417,11 @@ public abstract class SqlBuilderHelper {
 
 			methodBuilder.addCode("\n// manage WHERE arguments -- BEGIN\n");
 			String sqlWhere = jqlChecker.replaceFromVariableStatement(method, whereStatement.value0,
-					new JQLReplacerListenerImpl() {
+					new JQLReplacerListenerImpl(method) {
 
 						@Override
 						public String onColumnName(String columnName) {
-							SQLProperty tempProperty = entity.get(columnName);
+							SQLProperty tempProperty = currentEntity.get(columnName);
 							AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method,
 									columnName);
 
@@ -443,13 +430,7 @@ public abstract class SqlBuilderHelper {
 
 						@Override
 						public String onTableName(String tableName) {
-							return schema.getEntityBySimpleName(tableName).getTableName();
-						}
-
-						@Override
-						public String onColumnFullyQualifiedName(String tableName, String columnName) {
-							return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName,
-									columnName);
+							return currentSchema.getEntityBySimpleName(tableName).getTableName();
 						}
 
 						@Override
@@ -533,7 +514,6 @@ public abstract class SqlBuilderHelper {
 	 */
 	public static void generateLog(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLiteDatabaseSchema schema=daoDefinition.getParent();
 
 		// log is enabled
 		if (daoDefinition.isLogEnabled()) {
@@ -546,7 +526,7 @@ public abstract class SqlBuilderHelper {
 			JQLChecker checker = JQLChecker.getInstance();
 			final One<Boolean> inWhere = new One<Boolean>(false);
 
-			String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+			String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 				@Override
 				public String onTableName(String tableName) {
@@ -574,11 +554,6 @@ public abstract class SqlBuilderHelper {
 					super.onWhereStatementEnd(ctx);
 
 					inWhere.value0 = false;
-				}
-
-				@Override
-				public String onColumnFullyQualifiedName(String tableName, String columnName) {
-					return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
 				}
 			});
 
@@ -642,22 +617,17 @@ public abstract class SqlBuilderHelper {
 	 * @param methodBuilder
 	 */
 	public static void generateSQLForInsertDynamic(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		methodBuilder.addComment("generate SQL for insert");
 		JQLChecker checker = JQLChecker.getInstance();
 
 		// replace the table name, other pieces will be removed
-		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
 			public String onTableName(String tableName) {
 				return method.getParent().getEntity().getTableName();
 			}
-
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
-			}
+			
 
 		});
 
@@ -687,12 +657,11 @@ public abstract class SqlBuilderHelper {
 	 * @param methodBuilder
 	 */
 	public static void generateSQLForStaticQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		methodBuilder.addComment("generate static SQL for statement");
 		JQLChecker checker = JQLChecker.getInstance();
 
 		// replace the table name, other pieces will be removed
-		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
 			public String onTableName(String tableName) {
@@ -717,12 +686,6 @@ public abstract class SqlBuilderHelper {
 			public String onBindParameter(String bindParameterName) {
 				return "?";
 			}
-
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
-			}
-
 		});
 
 		methodBuilder.addStatement("String _sql=$S", sql);
@@ -748,19 +711,17 @@ public abstract class SqlBuilderHelper {
 
 	public static List<Pair<String, TypeName>> orderContentValues(final SQLiteModelMethod method,
 			final List<Pair<String, TypeName>> updateableParams) {
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		final List<Pair<String, TypeName>> result = new ArrayList<Pair<String, TypeName>>();
 
 		JQLChecker checker = JQLChecker.getInstance();
-		final SQLEntity entity = method.getParent().getEntity();
 		final One<Boolean> inserMode = new One<Boolean>(false);
 
-		checker.replace(method, method.jql, new JQLReplacerListenerImpl() {
+		checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			// used in update
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
-				String column = entity.findPropertyByName(columnName).columnName;
+				String column = currentEntity.findPropertyByName(columnName).columnName;
 
 				for (Pair<String, TypeName> item : updateableParams) {
 					String paramNameInQuery = method.findParameterAliasByName(item.value0);
@@ -788,7 +749,7 @@ public abstract class SqlBuilderHelper {
 			public String onColumnName(String columnName) {
 				if (!inserMode.value0)
 					return columnName;
-				String column = entity.findPropertyByName(columnName).columnName;
+				String column = currentEntity.findPropertyByName(columnName).columnName;
 
 				for (Pair<String, TypeName> item : updateableParams) {
 					String paramNameInQuery = method.findParameterAliasByName(item.value0);
@@ -800,12 +761,7 @@ public abstract class SqlBuilderHelper {
 
 				return column;
 			}
-
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
-			}
-
+			
 		});
 
 		return result;

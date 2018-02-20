@@ -44,7 +44,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.FieldSpec;
@@ -401,18 +400,16 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 	private String extractSQLForJavaDoc(final SQLiteModelMethod method) {
 		final One<Boolean> usedInWhere = new One<>(false);
-		final SQLiteDatabaseSchema schema = method.getParent().getParent();
-		final SQLEntity entity = method.getParent().getEntity();
-		String sqlForJavaDoc = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
+		String sqlForJavaDoc = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
-				return entity.findPropertyByName(columnName).columnName;
+				return currentEntity.findPropertyByName(columnName).columnName;
 			}
 
 			@Override
 			public String onColumnName(String columnName) {
-				return entity.findPropertyByName(columnName).columnName;
+				return currentEntity.findPropertyByName(columnName).columnName;
 			}
 
 			@Override
@@ -434,16 +431,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 			@Override
 			public String onTableName(String tableName) {
-				SQLEntity currentEntity = schema.getEntityBySimpleName(tableName);
+				SQLEntity currentEntity = currentSchema.getEntityBySimpleName(tableName);
 				AssertKripton.assertTrueOrUnknownClassInJQLException(currentEntity != null, method, tableName);
 				return currentEntity.getTableName();
 			}
-			
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
-			}
-
+				
 			@Override
 			public void onWhereStatementBegin(Where_stmtContext ctx) {
 				usedInWhere.value0 = true;

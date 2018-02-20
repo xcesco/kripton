@@ -42,7 +42,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerIm
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
@@ -134,15 +133,12 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	}
 
 	public void generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
-		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
-
 		// transform JQL to SQL
-		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
+		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
 			public String onColumnName(String columnName) {
-				Set<SQLProperty> property = schema.getPropertyBySimpleName(columnName);
+				Set<SQLProperty> property = currentSchema.getPropertyBySimpleName(columnName);
 
 				SQLProperty tempProperty = property.iterator().next();
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
@@ -152,7 +148,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 			@Override
 			public String onTableName(String tableName) {
-				SQLEntity entity=schema.getEntityBySimpleName(tableName);
+				SQLEntity entity=currentSchema.getEntityBySimpleName(tableName);
 				
 				AssertKripton.assertTrueOrUnknownClassInJQLException(entity != null, method, tableName);
 				
@@ -164,12 +160,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
 				
 				return "${" + resolvedParamName + "}";
-			}
-			
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);			
-			}
+			}						
 
 		});
 

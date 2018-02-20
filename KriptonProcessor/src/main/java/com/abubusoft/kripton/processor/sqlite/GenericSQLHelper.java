@@ -14,7 +14,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
@@ -28,15 +27,14 @@ public abstract class GenericSQLHelper {
 	 * @param schema
 	 */
 	public static void generateGenericExecSQL(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method) {
-		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
+		final SQLDaoDefinition daoDefinition = method.getParent();		
 
 		boolean nullable;
 		final List<String> paramsList = new ArrayList<String>();
 		final List<String> contentValueList = new ArrayList<String>();		
 		final One<Boolean> columnsToUpdate=new One<Boolean>(true);
 		
-		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {					
+		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {					
 			
 			@Override
 			public void onWhereStatementBegin(Where_stmtContext ctx) {
@@ -51,16 +49,11 @@ public abstract class GenericSQLHelper {
 				
 				columnsToUpdate.value0=true;
 			}
-			
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
-			}
-			
-			
+					
+						
 			@Override
 			public String onColumnName(String columnName) {
-				String resolvedName = schema.findColumnNameByPropertyName(method, columnName);
+				String resolvedName = currentSchema.findColumnNameByPropertyName(method, columnName);
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(resolvedName != null, method, columnName);
 
 				return resolvedName;
@@ -69,7 +62,7 @@ public abstract class GenericSQLHelper {
 
 			@Override
 			public String onTableName(String tableName) {
-				return schema.getEntityBySimpleName(tableName).getTableName();
+				return currentSchema.getEntityBySimpleName(tableName).getTableName();
 			}
 
 			@Override

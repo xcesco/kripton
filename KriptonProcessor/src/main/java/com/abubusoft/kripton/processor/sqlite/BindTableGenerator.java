@@ -545,9 +545,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				public String getContextDescription() {
 					return "While table definition generation for entity " + entity.getName();
 				}
-			}, createIndex, new JQLReplacerListenerImpl() {
-								
-				
+			}, createIndex, new JQLReplacerListenerImpl(null) {
+											
 				@Override
 				public String onColumnName(String columnName) {
 					fieldCounter.value0++;

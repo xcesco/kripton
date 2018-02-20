@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor;
+package shared.feature.stringset;
 
-public abstract class Version {
+import java.util.Set;
 
-	public static String getVersion() {
-		return "3.4.0";
-	}
+import com.abubusoft.kripton.android.annotation.BindPreference;
+import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
+
+@BindSharedPreferences
+public class AppPreferences {
+
+	@BindPreference
+	public Set<String> valueSet;
+		
 }

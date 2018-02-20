@@ -38,7 +38,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerIm
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -63,21 +62,15 @@ public abstract class JavadocUtility {
 			SelectType selectResultType, JavadocPart... javadocParts) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
-		final SQLiteDatabaseSchema schema = daoDefinition.getParent();
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
 				
-		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl() {
+		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
 			public String onTableName(String tableName) {
-				SQLEntity currentEntity = schema.getEntityBySimpleName(tableName);
+				SQLEntity currentEntity = currentSchema.getEntityBySimpleName(tableName);
 				AssertKripton.assertTrueOrUnknownClassInJQLException(currentEntity != null, method, tableName);
 				return currentEntity.getTableName();
-			}
-			
-			@Override
-			public String onColumnFullyQualifiedName(String tableName, String columnName) {
-				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);						
 			}
 
 			@Override
