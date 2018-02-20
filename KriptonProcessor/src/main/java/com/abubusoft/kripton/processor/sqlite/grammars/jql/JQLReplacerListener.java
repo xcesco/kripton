@@ -42,7 +42,7 @@ public interface JQLReplacerListener {
 	 * @return
 	 * 		<code>null</code> to avoid replacement.
 	 */
-	String onColumnName(String columnName);
+	String onColumnName(String tableName, String columnName);
 	
 	/**
 	 * If event return null, replacement will no executed.

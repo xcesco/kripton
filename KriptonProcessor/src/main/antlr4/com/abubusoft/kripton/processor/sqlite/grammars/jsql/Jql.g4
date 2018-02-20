@@ -326,7 +326,7 @@ expr
  : literal_value
  | bind_parameter
  | bind_dynamic_sql
- | ( ( database_name '.' )? table_name '.' )? column_name
+ | qualified_column_name
  | unary_operator expr
  | expr '||' expr
  | expr ( '*' | '/' | '%' ) expr
@@ -352,6 +352,10 @@ expr
  | ( ( K_NOT )? K_EXISTS )? '(' select_stmt ')'
  | K_CASE expr? ( K_WHEN expr K_THEN expr )+ ( K_ELSE expr )? K_END
  | raise_function
+ ;
+ 
+qualified_column_name
+ : ( ( database_name '.' )? table_name '.' )? column_name
  ;
  
 bind_parameter

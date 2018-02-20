@@ -76,7 +76,7 @@ public abstract class JavadocUtility {
 			}
 
 			@Override
-			public String onColumnName(String columnName) {
+			public String onColumnName(String columnName) {				
 				SQLProperty tempProperty = daoDefinition.getEntity().get(columnName);
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
 

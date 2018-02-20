@@ -23,7 +23,7 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	}
 
 	@Override
-	public String onColumnName(String columnName) {
+	public String onColumnName(String tableName, String columnName) {
 		return null;
 	}
 	

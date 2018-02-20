@@ -59,6 +59,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Limit_stmt
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Offset_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Order_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Qualified_column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Result_columnContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_coreContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_or_valuesContext;
@@ -180,12 +181,12 @@ public class JQLChecker {
 
 				if (ctx.getText().endsWith("*")) {
 					builder.type(ProjectionType.STAR);
-				} else if (ctx.expr().column_name() != null) {
+				} else if (ctx.expr().qualified_column_name().column_name() != null) {
 					if (ctx.expr().table_name() != null) {
 						builder.table(ctx.expr().table_name().getText());
 					}
 
-					String jqlColumnName = ctx.expr().column_name().getText();
+					String jqlColumnName = ctx.expr().qualified_column_name().column_name().getText();
 					builder.column(jqlColumnName);
 					builder.property(entity.findPropertyByName(jqlColumnName));
 
@@ -341,16 +342,21 @@ public class JQLChecker {
 
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
-
+		
 		@Override
-		public void enterColumn_name(Column_nameContext ctx) {
-			String value = listener.onColumnName(ctx.getText());
+		public void enterQualified_column_name(Qualified_column_nameContext ctx) {
+			String value = listener.onColumnName(ctx.table_name()!=null ? ctx.table_name().getText() :"", ctx.column_name().getText());
 
 			// skip without replace
 			if (value == null)
 				return;
 
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
+		}
+
+		@Override
+		public void enterColumn_name(Column_nameContext ctx) {
+			
 		}
 
 		@Override
