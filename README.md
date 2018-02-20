@@ -26,7 +26,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
   <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>3.1.0</version>
+    <version>3.4.0</version>
   </dependency>
   ...
 </dependencies>
@@ -45,7 +45,7 @@ You can use Kritpon Annotation Processor and Kripton Library via maven
 		  <path>
 		    <groupId>com.abubusoft</groupId>
 		    <artifactId>kripton-processor</artifactId>
-		    <version>3.1.0</version>
+		    <version>3.4.0</version>
 		</path>
 	    </annotationProcessorPaths>
 	  </configuration>
@@ -59,10 +59,10 @@ or via gradle
 
 ```
 // annotation processor
-annotationProcessor "com.abubusoft:kripton-processor:3.1.0"
+annotationProcessor "com.abubusoft:kripton-processor:3.4.0"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-implements "com.abubusoft:kripton-android-library:3.1.0"
+implements "com.abubusoft:kripton-android-library:3.4.0"
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
@@ -90,7 +90,7 @@ If you like Kripton and you want to support its development, please donate!
 # License
 
 ```
-Copyright 2015 Francesco Benincasa.
+Copyright 2015-2018 Francesco Benincasa.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
